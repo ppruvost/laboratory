@@ -1,4 +1,10 @@
 // ===============================
+// /== IMPORT UI MODULE ==/
+// ===============================
+
+import { renderTable, showSection, toggleForm, resetForm } from "./modules/ui.js";
+
+// ===============================
 // /== BASE DE DONNÉES LOCALSTORAGE ==/
 // ===============================
 
@@ -13,53 +19,11 @@ function sauvegarder() {
 }
 
 // ===============================
-// /== FORMULAIRE ==/
-// ===============================
-
-function toggleForm() {
-  const f = document.getElementById("formulaire");
-
-  if (!f) return;
-
-  if (f.style.display === "none" || f.style.display === "") {
-    f.style.display = "block";
-  } else {
-    f.style.display = "none";
-  }
-}
-
-// ===============================
-// /== AFFICHAGE TABLEAU ==/
+// /== AFFICHAGE ==/
 // ===============================
 
 function afficher() {
-  const tbody = document.getElementById("table-body");
-  if (!tbody) return;
-
-  tbody.innerHTML = "";
-
-  produits.forEach((p, i) => {
-
-    const tr = document.createElement("tr");
-
-    tr.innerHTML = `
-      <td>${p.cas || "-"}</td>
-      <td>${p.nom || "-"}</td>
-      <td>${p.formule || "-"}</td>
-      <td>${p.categorie || "-"}</td>
-      <td>${p.localisation || "-"}</td>
-
-      <td>${(p.dangers || []).join(", ")}</td>
-
-      <td>${p.substitution || "-"}</td>
-
-      <td>
-        <button onclick="supprimer(${i})">❌</button>
-      </td>
-    `;
-
-    tbody.appendChild(tr);
-  });
+  renderTable(produits, supprimer);
 }
 
 // ===============================
@@ -100,26 +64,17 @@ function supprimer(index) {
 }
 
 // ===============================
-// /== RESET FORMULAIRE ==/
-// ===============================
-
-function resetForm() {
-  ["cas", "nom", "formule", "substitution"].forEach(id => {
-    const el = document.getElementById(id);
-    if (el) el.value = "";
-  });
-}
-
-// ===============================
 // /== INITIALISATION ==/
 // ===============================
 
 afficher();
 
 // ===============================
-// /== EXPORT GLOBAL (IMPORTANT MODULE) ==/
+// /== EXPORT GLOBAL (IMPORTANT POUR HTML onclick) ==/
 // ===============================
 
 window.ajouterProduit = ajouterProduit;
-window.toggleForm = toggleForm;
 window.supprimer = supprimer;
+window.toggleForm = toggleForm;
+window.showSection = showSection;
+window.resetForm = resetForm;
