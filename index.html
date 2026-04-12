@@ -1,9 +1,103 @@
 <!DOCTYPE html>
-    <h2>Produits chimiques</h2>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Laboratoire - Data System</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <h1>🧪 Gestion du Laboratoire</h1>
+
+  <!-- =============================== -->
+  <!-- /== DASHBOARD MENU ==/ -->
+  <!-- =============================== -->
+
+  <div class="dashboard">
+
+    <div class="card" onclick="showSection('equipements')">
+      <h2>🔧 Data Équipements</h2>
+    </div>
+
+    <div class="card" onclick="showSection('verrerie')">
+      <h2>🧫 Data Verrerie</h2>
+    </div>
+
+    <div class="card" onclick="showSection('produits')">
+      <h2>⚗️ Data Produits chimiques</h2>
+    </div>
+
+  </div>
+
+  <!-- =============================== -->
+  <!-- /== SECTION ÉQUIPEMENTS ==/ -->
+  <!-- =============================== -->
+
+  <section id="equipements" class="section">
+
+    <h2>🔧 Équipements</h2>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Nom</th>
+          <th>Quantité</th>
+          <th>État</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Balance</td>
+          <td>2</td>
+          <td>Bon</td>
+        </tr>
+      </tbody>
+    </table>
+
+  </section>
+
+  <!-- =============================== -->
+  <!-- /== SECTION VERRERIE ==/ -->
+  <!-- =============================== -->
+
+  <section id="verrerie" class="section">
+
+    <h2>🧫 Verrerie</h2>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Nom</th>
+          <th>Quantité</th>
+          <th>État</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Bécher</td>
+          <td>10</td>
+          <td>Bon</td>
+        </tr>
+      </tbody>
+    </table>
+
+  </section>
+
+  <!-- =============================== -->
+  <!-- /== SECTION PRODUITS ==/ -->
+  <!-- =============================== -->
+
+  <section id="produits" class="section">
+
+    <h2>⚗️ Produits chimiques</h2>
 
     <button onclick="toggleForm()">➕ Ajouter un produit</button>
 
+    <!-- FORMULAIRE -->
     <div id="formulaire" style="display:none; margin-top:10px;">
+
       <input type="text" id="cas" placeholder="CAS No">
       <input type="text" id="nom" placeholder="Nom">
       <input type="text" id="formule" placeholder="Formule">
@@ -28,23 +122,25 @@
 
       <label>Dangers :</label>
       <select id="danger" multiple>
-        <option>H200 - Explosif</option>
-        <option>H225 - Liquide inflammable</option>
-        <option>H290 - Corrosif</option>
-        <option>H314 - Brûlures graves</option>
-        <option>H317 - Allergie cutanée</option>
-        <option>H319 - Irritation oculaire</option>
-        <option>H330 - Mortel par inhalation</option>
-        <option>H350 - Cancérogène</option>
-        <option>H360 - Reprotoxique</option>
-        <option>H400 - Très toxique milieu aquatique</option>
+        <option value="H200">H200 - Explosif</option>
+        <option value="H225">H225 - Inflammable</option>
+        <option value="H290">H290 - Corrosif</option>
+        <option value="H314">H314 - Brûlures graves</option>
+        <option value="H317">H317 - Allergie cutanée</option>
+        <option value="H319">H319 - Irritation oculaire</option>
+        <option value="H330">H330 - Mortel inhalation</option>
+        <option value="H350">H350 - Cancérogène</option>
+        <option value="H360">H360 - Reprotoxique</option>
+        <option value="H400">H400 - Toxicité aquatique</option>
       </select>
 
       <input type="text" id="substitution" placeholder="Produit de substitution">
 
-      <button onclick="ajouterProduit()">Valider</button>
+      <button onclick="ajouterProduit()">✔ Valider</button>
+
     </div>
 
+    <!-- TABLE -->
     <table>
       <thead>
         <tr>
@@ -60,8 +156,14 @@
       </thead>
       <tbody id="table-body"></tbody>
     </table>
+
   </section>
 
-  <script src="code.js"></script>
+  <!-- =============================== -->
+  <!-- /== SCRIPT MODULE ==/ -->
+  <!-- =============================== -->
+
+  <script type="module" src="app.js"></script>
+
 </body>
 </html>
