@@ -1,5 +1,6 @@
 import { products } from "./data/products.js";
 import { dangerDB } from "./data/dangerDB.js";
+import { pictogrammes } from "./data/pictogrammes.js";
 import { save, load } from "./modules/storage.js";
 
 let data = load() || products;
