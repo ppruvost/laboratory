@@ -1,29 +1,43 @@
 // ===============================
-// /== IMPORT UI MODULE ==/
+// /== IMPORT MODULES ==/
 // ===============================
 
 import { renderTable, showSection, toggleForm, resetForm } from "./modules/ui.js";
+import { loadProduits, saveProduits } from "./modules/storage.js";
+import { applyFilters } from "./modules/filters.js";
 
 // ===============================
-// /== BASE DE DONNÉES LOCALSTORAGE ==/
+// /== BASE DE DONNÉES ==/
 // ===============================
 
-let produits = JSON.parse(localStorage.getItem("produits")) || [];
+let produits = loadProduits();
+
+// ===============================
+// /== ETAT DES FILTRES (GLOBAL) ==/
+// ===============================
+
+let filters = {
+  query: "",
+  categorie: "all",
+  danger: "all",
+  localisation: "all"
+};
 
 // ===============================
 // /== SAUVEGARDE ==/
 // ===============================
 
 function sauvegarder() {
-  localStorage.setItem("produits", JSON.stringify(produits));
+  saveProduits(produits);
 }
 
 // ===============================
-// /== AFFICHAGE ==/
+// /== RENDU PRINCIPAL ==/
 // ===============================
 
 function afficher() {
-  renderTable(produits, supprimer);
+  const filtered = applyFilters(produits, filters);
+  renderTable(filtered, supprimer);
 }
 
 // ===============================
@@ -54,12 +68,37 @@ function ajouterProduit() {
 }
 
 // ===============================
-// /== SUPPRESSION ==/
+// /== SUPPRESSION PRODUIT ==/
 // ===============================
 
 function supprimer(index) {
   produits.splice(index, 1);
+
   sauvegarder();
+  afficher();
+}
+
+// ===============================
+// /== FILTRES (OPTIONNEL UI FUTUR) ==/
+// ===============================
+
+function setSearch(value) {
+  filters.query = value;
+  afficher();
+}
+
+function setCategorie(value) {
+  filters.categorie = value;
+  afficher();
+}
+
+function setDanger(value) {
+  filters.danger = value;
+  afficher();
+}
+
+function setLocalisation(value) {
+  filters.localisation = value;
   afficher();
 }
 
@@ -70,7 +109,7 @@ function supprimer(index) {
 afficher();
 
 // ===============================
-// /== EXPORT GLOBAL (IMPORTANT POUR HTML onclick) ==/
+// /== EXPORT VERS HTML (onclick) ==/
 // ===============================
 
 window.ajouterProduit = ajouterProduit;
@@ -78,3 +117,9 @@ window.supprimer = supprimer;
 window.toggleForm = toggleForm;
 window.showSection = showSection;
 window.resetForm = resetForm;
+
+// (préparation future UI filtres)
+window.setSearch = setSearch;
+window.setCategorie = setCategorie;
+window.setDanger = setDanger;
+window.setLocalisation = setLocalisation;
