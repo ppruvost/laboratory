@@ -1,1 +1,67 @@
+<!DOCTYPE html>
+    <h2>Produits chimiques</h2>
 
+    <button onclick="toggleForm()">➕ Ajouter un produit</button>
+
+    <div id="formulaire" style="display:none; margin-top:10px;">
+      <input type="text" id="cas" placeholder="CAS No">
+      <input type="text" id="nom" placeholder="Nom">
+      <input type="text" id="formule" placeholder="Formule">
+
+      <label>Catégorie :</label>
+      <select id="categorie">
+        <option>Acide fort</option>
+        <option>Acide faible</option>
+        <option>Base forte</option>
+        <option>Base faible</option>
+        <option>Sel</option>
+        <option>Solvant</option>
+      </select>
+
+      <label>Localisation :</label>
+      <select id="localisation">
+        <option>B27</option>
+        <option>B2-1</option>
+        <option>Armoire acides</option>
+        <option>Armoire bases</option>
+      </select>
+
+      <label>Dangers :</label>
+      <select id="danger" multiple>
+        <option>H200 - Explosif</option>
+        <option>H225 - Liquide inflammable</option>
+        <option>H290 - Corrosif</option>
+        <option>H314 - Brûlures graves</option>
+        <option>H317 - Allergie cutanée</option>
+        <option>H319 - Irritation oculaire</option>
+        <option>H330 - Mortel par inhalation</option>
+        <option>H350 - Cancérogène</option>
+        <option>H360 - Reprotoxique</option>
+        <option>H400 - Très toxique milieu aquatique</option>
+      </select>
+
+      <input type="text" id="substitution" placeholder="Produit de substitution">
+
+      <button onclick="ajouterProduit()">Valider</button>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>CAS</th>
+          <th>Nom</th>
+          <th>Formule</th>
+          <th>Catégorie</th>
+          <th>Localisation</th>
+          <th>Dangers</th>
+          <th>Substitution</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody id="table-body"></tbody>
+    </table>
+  </section>
+
+  <script src="code.js"></script>
+</body>
+</html>
