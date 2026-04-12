@@ -18,7 +18,14 @@ function sauvegarder() {
 
 function toggleForm() {
   const f = document.getElementById("formulaire");
-  f.style.display = f.style.display === "none" ? "block" : "none";
+
+  if (!f) return;
+
+  if (f.style.display === "none" || f.style.display === "") {
+    f.style.display = "block";
+  } else {
+    f.style.display = "none";
+  }
 }
 
 // ===============================
@@ -27,6 +34,8 @@ function toggleForm() {
 
 function afficher() {
   const tbody = document.getElementById("table-body");
+  if (!tbody) return;
+
   tbody.innerHTML = "";
 
   produits.forEach((p, i) => {
@@ -60,7 +69,7 @@ function afficher() {
 function ajouterProduit() {
 
   const dangers = Array.from(
-    document.getElementById("danger").selectedOptions
+    document.getElementById("danger").selectedOptions || []
   ).map(o => o.value);
 
   const produit = {
@@ -95,10 +104,10 @@ function supprimer(index) {
 // ===============================
 
 function resetForm() {
-  document.getElementById("cas").value = "";
-  document.getElementById("nom").value = "";
-  document.getElementById("formule").value = "";
-  document.getElementById("substitution").value = "";
+  ["cas", "nom", "formule", "substitution"].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.value = "";
+  });
 }
 
 // ===============================
@@ -106,3 +115,11 @@ function resetForm() {
 // ===============================
 
 afficher();
+
+// ===============================
+// /== EXPORT GLOBAL (IMPORTANT MODULE) ==/
+// ===============================
+
+window.ajouterProduit = ajouterProduit;
+window.toggleForm = toggleForm;
+window.supprimer = supprimer;
