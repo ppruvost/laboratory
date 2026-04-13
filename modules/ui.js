@@ -2,6 +2,9 @@
 // /== AFFICHAGE TABLEAU PRODUITS ==/
 // ===============================
 
+import { pictogrammes } from "../data/pictogrammes.js";
+import { dangerDB } from "../data/dangerDB.js";
+
 export function renderTable(produits, supprimerCallback) {
   const tbody = document.getElementById("table-body");
   if (!tbody) return;
@@ -9,6 +12,19 @@ export function renderTable(produits, supprimerCallback) {
   tbody.innerHTML = "";
 
   produits.forEach((p, i) => {
+
+    // 🔴 PICTOGRAMMES
+    const pictos = (p.dangers || []).map(code => {
+      const img = pictogrammes[code];
+      if (!img) return "";
+      return `<img src="assets/picto/${img}" class="picto">`;
+    }).join("");
+
+    // 📜 TEXTE DANGERS
+    const dangerText = (p.dangers || []).map(code => {
+      const d = dangerDB.find(d => d.code === code);
+      return d ? `${code} - ${d.text}` : code;
+    }).join("<br>");
 
     const tr = document.createElement("tr");
 
@@ -18,8 +34,17 @@ export function renderTable(produits, supprimerCallback) {
       <td>${p.formule || "-"}</td>
       <td>${p.categorie || "-"}</td>
       <td>${p.localisation || "-"}</td>
-      <td>${(p.dangers || []).join(", ")}</td>
+
+      <td>
+        ${pictos}
+      </td>
+
+      <td>
+        ${dangerText}
+      </td>
+
       <td>${p.substitution || "-"}</td>
+
       <td>
         <button data-index="${i}" class="delete-btn">❌</button>
       </td>
@@ -28,7 +53,7 @@ export function renderTable(produits, supprimerCallback) {
     tbody.appendChild(tr);
   });
 
-  // Gestion des boutons suppression (propre, sans onclick HTML)
+  // suppression
   document.querySelectorAll(".delete-btn").forEach(btn => {
     btn.addEventListener("click", (e) => {
       const index = e.target.getAttribute("data-index");
