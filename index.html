@@ -4,166 +4,119 @@
 <head>
   <meta charset="UTF-8">
   <title>Laboratoire - Data System</title>
+
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
 </head>
 
 <body>
 
-  <h1>🧪 Gestion du Laboratoire</h1>
+<h1>🧪 Gestion du Laboratoire</h1>
 
-  <!-- =============================== -->
-  <!-- /== DASHBOARD MENU ==/ -->
-  <!-- =============================== -->
+<!-- =============================== -->
+<!-- MENU HORIZONTAL -->
+<!-- =============================== -->
 
-  <div class="dashboard">
+<div class="menu-bar">
 
-    <div class="card" onclick="showSection('equipements')">
-      <h2>🔧 Data Équipements</h2>
-    </div>
-
-    <div class="card" onclick="showSection('verrerie')">
-      <h2>🧫 Data Verrerie</h2>
-    </div>
-
-    <div class="card" onclick="showSection('produits')">
-      <h2>⚗️ Data Produits chimiques</h2>
-    </div>
-
+  <div class="menu-item active" onclick="showSection('equipements', this)">
+    <i class="fas fa-tools"></i>
+    <span>Équipements</span>
   </div>
 
-  <!-- =============================== -->
-  <!-- /== SECTION ÉQUIPEMENTS ==/ -->
-  <!-- =============================== -->
+  <div class="menu-item" onclick="showSection('verrerie', this)">
+    <i class="fas fa-flask"></i>
+    <span>Verrerie</span>
+  </div>
 
-  <section id="equipements" class="section">
+  <div class="menu-item" onclick="showSection('produits', this)">
+    <i class="fas fa-vials"></i>
+    <span>Produits chimiques</span>
+  </div>
 
-    <h2>🔧 Équipements</h2>
+</div>
 
-    <table>
-      <thead>
-        <tr>
-          <th>Nom</th>
-          <th>Quantité</th>
-          <th>État</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Balance</td>
-          <td>2</td>
-          <td>Bon</td>
-        </tr>
-      </tbody>
-    </table>
+<!-- =============================== -->
+<!-- SECTION ÉQUIPEMENTS -->
+<!-- =============================== -->
 
-  </section>
+<section id="equipements" class="section active">
 
-  <!-- =============================== -->
-  <!-- /== SECTION VERRERIE ==/ -->
-  <!-- =============================== -->
+  <h2>🔧 Équipements</h2>
 
-  <section id="verrerie" class="section">
+  <table>
+    <thead>
+      <tr>
+        <th>Nom</th>
+        <th>Quantité</th>
+        <th>État</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Balance</td>
+        <td>2</td>
+        <td>Bon</td>
+      </tr>
+    </tbody>
+  </table>
 
-    <h2>🧫 Verrerie</h2>
+</section>
 
-    <table>
-      <thead>
-        <tr>
-          <th>Nom</th>
-          <th>Quantité</th>
-          <th>État</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Bécher</td>
-          <td>10</td>
-          <td>Bon</td>
-        </tr>
-      </tbody>
-    </table>
+<!-- =============================== -->
+<!-- SECTION VERRERIE -->
+<!-- =============================== -->
 
-  </section>
+<section id="verrerie" class="section">
 
-  <!-- =============================== -->
-  <!-- /== SECTION PRODUITS ==/ -->
-  <!-- =============================== -->
+  <h2>🧫 Verrerie</h2>
 
-  <section id="produits" class="section">
+  <table>
+    <thead>
+      <tr>
+        <th>Nom</th>
+        <th>Quantité</th>
+        <th>État</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Bécher</td>
+        <td>10</td>
+        <td>Bon</td>
+      </tr>
+    </tbody>
+  </table>
 
-    <h2>⚗️ Produits chimiques</h2>
+</section>
 
-    <button onclick="toggleForm()">➕ Ajouter un produit</button>
+<!-- =============================== -->
+<!-- SECTION PRODUITS -->
+<!-- =============================== -->
 
-    <!-- FORMULAIRE -->
-    <div id="formulaire" style="display:none; margin-top:10px;">
+<section id="produits" class="section">
 
-      <input type="text" id="cas" placeholder="CAS No">
-      <input type="text" id="nom" placeholder="Nom">
-      <input type="text" id="formule" placeholder="Formule">
+  <h2>⚗️ Produits chimiques</h2>
 
-      <label>Catégorie :</label>
-      <select id="categorie">
-        <option>Acide fort</option>
-        <option>Acide faible</option>
-        <option>Base forte</option>
-        <option>Base faible</option>
-        <option>Sel</option>
-        <option>Solvant</option>
-      </select>
+  <table>
+    <thead>
+      <tr>
+        <th>CAS</th>
+        <th>Nom</th>
+        <th>Formule</th>
+        <th>Catégorie</th>
+        <th>Localisation</th>
+        <th>Dangers</th>
+        <th>Substitution</th>
+      </tr>
+    </thead>
+    <tbody id="table-body"></tbody>
+  </table>
 
-      <label>Localisation :</label>
-      <select id="localisation">
-        <option>B27</option>
-        <option>B2-1</option>
-        <option>Armoire acides</option>
-        <option>Armoire bases</option>
-      </select>
+</section>
 
-      <label>Dangers :</label>
-      <select id="danger" multiple>
-        <option value="H200">H200 - Explosif</option>
-        <option value="H225">H225 - Inflammable</option>
-        <option value="H290">H290 - Corrosif</option>
-        <option value="H314">H314 - Brûlures graves</option>
-        <option value="H317">H317 - Allergie cutanée</option>
-        <option value="H319">H319 - Irritation oculaire</option>
-        <option value="H330">H330 - Mortel inhalation</option>
-        <option value="H350">H350 - Cancérogène</option>
-        <option value="H360">H360 - Reprotoxique</option>
-        <option value="H400">H400 - Toxicité aquatique</option>
-      </select>
-
-      <input type="text" id="substitution" placeholder="Produit de substitution">
-
-      <button onclick="ajouterProduit()">✔ Valider</button>
-
-    </div>
-
-    <!-- TABLE -->
-    <table>
-      <thead>
-        <tr>
-          <th>CAS</th>
-          <th>Nom</th>
-          <th>Formule</th>
-          <th>Catégorie</th>
-          <th>Localisation</th>
-          <th>Dangers</th>
-          <th>Substitution</th>
-          <th>Action</th>
-        </tr>
-      </thead>
-      <tbody id="table-body"></tbody>
-    </table>
-
-  </section>
-
-  <!-- =============================== -->
-  <!-- /== SCRIPT MODULE ==/ -->
-  <!-- =============================== -->
-
-  <script type="module" src="app.js"></script>
+<script type="module" src="app.js"></script>
 
 </body>
 </html>
