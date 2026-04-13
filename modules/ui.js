@@ -50,15 +50,6 @@ export function renderTable(produits, supprimerCallback) {
     tbody.appendChild(tr);
   });
 
-  // suppression
-  document.querySelectorAll(".delete-btn").forEach(btn => {
-    btn.addEventListener("click", (e) => {
-      const index = e.target.getAttribute("data-index");
-      supprimerCallback(index);
-    });
-  });
-}
-
 // ===============================
 // /== AFFICHAGE SECTIONS DASHBOARD ==/
 // ===============================
