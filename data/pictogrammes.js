@@ -1,4 +1,4 @@
-const pictogrammes = {
+export const pictogrammes = {
   H200: "SGH_BombeExplosant.jpg",
   H201: "SGH_BombeExplosant.jpg",
   H202: "SGH_BombeExplosant.jpg",
