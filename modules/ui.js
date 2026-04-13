@@ -45,9 +45,6 @@ export function renderTable(produits, supprimerCallback) {
 
       <td>${p.substitution || "-"}</td>
 
-      <td>
-        <button data-index="${i}" class="delete-btn">❌</button>
-      </td>
     `;
 
     tbody.appendChild(tr);
