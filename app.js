@@ -2,9 +2,10 @@
 // /== IMPORT MODULES ==/
 // ===============================
 
-import { renderTable, showSection, toggleForm, resetForm } from "./modules/ui.js";
+import { renderTable, showSection } from "./modules/ui.js";
 import { loadProduits, saveProduits } from "./modules/storage.js";
 import { applyFilters } from "./modules/filters.js";
+import { products as defaultData } from "./data/products.js";
 
 // ===============================
 // /== BASE DE DONNÉES ==/
@@ -12,8 +13,16 @@ import { applyFilters } from "./modules/filters.js";
 
 let produits = loadProduits();
 
+// 🔴 INITIALISATION SI VIDE
+if (!produits || produits.length === 0) {
+  produits = defaultData;
+  saveProduits(produits);
+}
+
+console.log("Produits chargés :", produits);
+
 // ===============================
-// /== ETAT DES FILTRES (GLOBAL) ==/
+// /== ETAT DES FILTRES ==/
 // ===============================
 
 let filters = {
@@ -36,35 +45,12 @@ function sauvegarder() {
 // ===============================
 
 function afficher() {
+
   const filtered = applyFilters(produits, filters);
+
+  console.log("Produits affichés :", filtered);
+
   renderTable(filtered, supprimer);
-}
-
-// ===============================
-// /== AJOUT PRODUIT ==/
-// ===============================
-
-function ajouterProduit() {
-
-  const dangers = Array.from(
-    document.getElementById("danger").selectedOptions || []
-  ).map(o => o.value);
-
-  const produit = {
-    cas: document.getElementById("cas").value,
-    nom: document.getElementById("nom").value,
-    formule: document.getElementById("formule").value,
-    categorie: document.getElementById("categorie").value,
-    localisation: document.getElementById("localisation").value,
-    dangers: dangers,
-    substitution: document.getElementById("substitution").value
-  };
-
-  produits.push(produit);
-
-  sauvegarder();
-  afficher();
-  resetForm();
 }
 
 // ===============================
@@ -73,13 +59,12 @@ function ajouterProduit() {
 
 function supprimer(index) {
   produits.splice(index, 1);
-
   sauvegarder();
   afficher();
 }
 
 // ===============================
-// /== FILTRES (OPTIONNEL UI FUTUR) ==/
+// /== FILTRES (CONNECTÉS HTML) ==/
 // ===============================
 
 function setSearch(value) {
@@ -103,22 +88,44 @@ function setLocalisation(value) {
 }
 
 // ===============================
+// /== EVENTS HTML (AUTO BIND) ==/
+// ===============================
+
+document.addEventListener("DOMContentLoaded", () => {
+
+  // 🔍 recherche
+  const search = document.getElementById("search");
+  if (search) {
+    search.addEventListener("input", (e) => setSearch(e.target.value));
+  }
+
+  // 🧪 catégorie
+  const cat = document.getElementById("categorie-filter");
+  if (cat) {
+    cat.addEventListener("change", (e) => setCategorie(e.target.value));
+  }
+
+  // ⚠️ danger
+  const danger = document.getElementById("danger-filter");
+  if (danger) {
+    danger.addEventListener("change", (e) => setDanger(e.target.value));
+  }
+
+});
+
+// ===============================
 // /== INITIALISATION ==/
 // ===============================
 
+showSection("equipements");
 afficher();
 
 // ===============================
-// /== EXPORT VERS HTML (onclick) ==/
+// /== EXPORT GLOBAL (HTML onclick) ==/
 // ===============================
 
-window.ajouterProduit = ajouterProduit;
 window.supprimer = supprimer;
-window.toggleForm = toggleForm;
 window.showSection = showSection;
-window.resetForm = resetForm;
-
-// (préparation future UI filtres)
 window.setSearch = setSearch;
 window.setCategorie = setCategorie;
 window.setDanger = setDanger;
