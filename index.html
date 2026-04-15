@@ -40,7 +40,7 @@
     <span>Produits</span>
   </div>
 
-  <div class="menu-item" onclick="window.open('https://ppruvost.github.io/periodic/','_blank')">
+  <div class="menu-item" onclick="showIframe('https://ppruvost.github.io/periodic/', this)">
     <i class="fas fa-atom"></i>
     <span>Table périodique</span>
   </div>
@@ -125,6 +125,14 @@
     <tbody id="table-body"></tbody>
   </table>
 
+</section>
+
+<!-- =============================== -->
+<!-- IFRAME TABLE PERIODIQUE -->
+<!-- =============================== -->
+
+<section id="iframe-section" class="section">
+  <iframe id="main-iframe" src="" style="width:100%; height:80vh; border:none;"></iframe>
 </section>
 
 <script type="module" src="app.js"></script>
