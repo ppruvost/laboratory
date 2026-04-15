@@ -5,7 +5,10 @@
   <meta charset="UTF-8">
   <title>Laboratoire - Data System</title>
 
+  <!-- Feuille de style principale -->
   <link rel="stylesheet" href="style.css">
+
+  <!-- Librairie d'icônes -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 </head>
@@ -15,11 +18,13 @@
 <h1>🧪 Gestion du Laboratoire</h1>
 
 <!-- =============================== -->
-<!-- MENU HORIZONTAL -->
+<!-- MENU HORIZONTAL FIXE EN HAUT -->
 <!-- =============================== -->
 
 <div class="menu-bar">
 
+  <!-- BOUTON MENU -->
+  <!-- active = section visible -->
   <div class="menu-item active" onclick="showSection('equipements', this)">
     <i class="fas fa-tools"></i>
     <span>Équipements</span>
@@ -32,7 +37,7 @@
 
   <div class="menu-item" onclick="showSection('produits', this)">
     <i class="fas fa-vials"></i>
-    <span>Produits chimiques</span>
+    <span>Produits</span>
   </div>
 
 </div>
@@ -101,17 +106,17 @@
 
   <table>
     <thead>
-  <tr>
-    <th>CAS</th>
-    <th>Nom</th>
-    <th>Formule</th>
-    <th>Catégorie</th>
-    <th>Localisation</th>
-    <th>Pictogrammes</th>
-    <th>Dangers</th>
-    <th>Substitution</th>    
-  </tr>
-</thead>
+      <tr>
+        <th>CAS</th>
+        <th>Nom</th>
+        <th>Formule</th>
+        <th>Catégorie</th>
+        <th>Localisation</th>
+        <th>Pictogrammes</th>
+        <th>Dangers</th>
+        <th>Substitution</th>
+      </tr>
+    </thead>
     <tbody id="table-body"></tbody>
   </table>
 
