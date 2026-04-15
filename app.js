@@ -88,6 +88,38 @@ function setLocalisation(value) {
 }
 
 // ===============================
+// /== IFRAME NAVIGATION ==/
+// ===============================
+
+function showIframe(url, element) {
+
+  // cacher toutes les sections
+  document.querySelectorAll('.section').forEach(sec => {
+    sec.classList.remove('active');
+  });
+
+  // afficher iframe
+  const iframeSection = document.getElementById('iframe-section');
+  if (iframeSection) {
+    iframeSection.classList.add('active');
+  }
+
+  const iframe = document.getElementById('main-iframe');
+  if (iframe) {
+    iframe.src = url;
+  }
+
+  // gérer menu actif
+  document.querySelectorAll('.menu-item').forEach(item => {
+    item.classList.remove('active');
+  });
+
+  if (element) {
+    element.classList.add('active');
+  }
+}
+
+// ===============================
 // /== EVENTS HTML (AUTO BIND) ==/
 // ===============================
 
@@ -130,3 +162,4 @@ window.setSearch = setSearch;
 window.setCategorie = setCategorie;
 window.setDanger = setDanger;
 window.setLocalisation = setLocalisation;
+window.showIframe = showIframe;
