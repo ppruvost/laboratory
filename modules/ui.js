@@ -1,26 +1,44 @@
 // ===============================
-// /== AFFICHAGE TABLEAU PRODUITS ==/
+// /== IMPORTS ==/
 // ===============================
 
 import { pictogrammes } from "../data/pictogrammes.js";
 import { dangerDB } from "../data/dangerDB.js";
 
+
+
+// ===============================
+// /== AFFICHAGE TABLEAU PRODUITS ==/
+// ===============================
+
 export function renderTable(produits, supprimerCallback) {
+
   const tbody = document.getElementById("table-body");
   if (!tbody) return;
 
+  // 🔴 RESET TABLE
   tbody.innerHTML = "";
+
+  // 🔴 SI VIDE
+  if (!produits || produits.length === 0) {
+    tbody.innerHTML = `<tr><td colspan="8">Aucun produit</td></tr>`;
+    return;
+  }
 
   produits.forEach((p, i) => {
 
-    // 🔴 PICTOGRAMMES
+    // ===============================
+    // 🧪 PICTOGRAMMES
+    // ===============================
     const pictos = (p.dangers || []).map(code => {
       const img = pictogrammes[code];
       if (!img) return "";
       return `<img src="assets/picto/${img}" class="picto">`;
     }).join("");
 
-    // 📜 TEXTE DANGERS
+    // ===============================
+    // ⚠️ TEXTE DANGERS
+    // ===============================
     const dangerText = (p.dangers || []).map(code => {
       const d = dangerDB.find(d => d.code === code);
       return d ? `${code} - ${d.text}` : code;
@@ -35,59 +53,94 @@ export function renderTable(produits, supprimerCallback) {
       <td>${p.categorie || "-"}</td>
       <td>${p.localisation || "-"}</td>
 
-      <td>
-        ${pictos}
-      </td>
+      <td>${pictos}</td>
 
-      <td>
-        ${dangerText}
-      </td>
+      <td>${dangerText}</td>
 
       <td>${p.substitution || "-"}</td>
-
     `;
+
+    // ===============================
+    // 🗑️ SUPPRESSION (double clic)
+    // ===============================
+    tr.addEventListener("dblclick", () => {
+      if (confirm("Supprimer ce produit ?")) {
+        supprimerCallback(i);
+      }
+    });
 
     tbody.appendChild(tr);
   });
-
-// ===============================
-// /== AFFICHAGE SECTIONS DASHBOARD ==/
-// ===============================
-
-export function showSection(id) {
-  document.querySelectorAll(".section").forEach(sec => {
-    sec.style.display = "none";
-  });
-
-  const target = document.getElementById(id);
-  if (target) target.style.display = "block";
 }
 
+
+
 // ===============================
-// /== FORMULAIRE TOGGLE ==/
+// /== AFFICHAGE SECTIONS (MENU) ==/
+// ===============================
+
+export function showSection(id, element = null) {
+
+  // 🔴 MASQUER TOUTES LES SECTIONS
+  document.querySelectorAll(".section").forEach(sec => {
+    sec.classList.remove("active");
+  });
+
+  // 🔴 AFFICHER LA BONNE
+  const target = document.getElementById(id);
+  if (target) {
+    target.classList.add("active");
+  }
+
+  // 🔴 GESTION MENU ACTIF (BLEU → ORANGE)
+  document.querySelectorAll(".menu-item").forEach(item => {
+    item.classList.remove("active");
+  });
+
+  if (element) {
+    element.classList.add("active");
+  }
+}
+
+
+
+// ===============================
+// /== FORMULAIRE : OUVRIR / FERMER ==/
 // ===============================
 
 export function toggleForm() {
+
   const f = document.getElementById("formulaire");
   if (!f) return;
 
-  if (f.style.display === "none" || f.style.display === "") {
-    f.style.display = "block";
-  } else {
+  // 🔁 toggle propre
+  f.classList.toggle("active");
+
+  // fallback si CSS non utilisé
+  if (!f.classList.contains("active")) {
     f.style.display = "none";
+  } else {
+    f.style.display = "block";
   }
 }
+
+
 
 // ===============================
 // /== RESET FORMULAIRE ==/
 // ===============================
 
 export function resetForm() {
+
+  // 🔴 champs texte
   ["cas", "nom", "formule", "substitution"].forEach(id => {
     const el = document.getElementById(id);
     if (el) el.value = "";
   });
 
+  // 🔴 select danger
   const danger = document.getElementById("danger");
-  if (danger) danger.selectedIndex = -1;
+  if (danger) {
+    danger.selectedIndex = -1;
+  }
 }
