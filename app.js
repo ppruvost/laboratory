@@ -6,6 +6,7 @@ import { renderTable, showSection } from "./modules/ui.js";
 import { loadProduits, saveProduits } from "./modules/storage.js";
 import { applyFilters } from "./modules/filters.js";
 import { products as defaultData } from "./data/products.js";
+import glassware from "./data/glassware.js";
 
 // ===============================
 // /== BASE DE DONNÉES ==/
@@ -20,6 +21,52 @@ if (!produits || produits.length === 0) {
 }
 
 console.log("Produits chargés :", produits);
+
+// ===============================
+// /== VERRERIE ==/
+// ===============================
+
+let verrerieChargee = false;
+
+function afficherVerrerie() {
+
+  const tbody = document.getElementById("verrerie-body");
+
+  if (!tbody) return;
+
+  tbody.innerHTML = "";
+
+  glassware.forEach(item => {
+    const row = document.createElement("tr");
+
+    row.innerHTML = `
+      <td>${item.nom}</td>
+      <td>${item.contenance_ml}</td>
+      <td>${item.lieu || ""}</td>
+      <td>
+        <img src="${item.image}" alt="${item.nom}" width="50">
+      </td>
+    `;
+
+    tbody.appendChild(row);
+  });
+}
+
+// ===============================
+// /== NAVIGATION SECTIONS ==/
+// ===============================
+
+function showSectionWithVerrerie(sectionId) {
+
+  // affiche la section normale
+  showSection(sectionId);
+
+  // charge verrerie uniquement si nécessaire
+  if (sectionId === "verrerie" && !verrerieChargee) {
+    afficherVerrerie();
+    verrerieChargee = true;
+  }
+}
 
 // ===============================
 // /== ETAT DES FILTRES ==/
@@ -64,7 +111,7 @@ function supprimer(index) {
 }
 
 // ===============================
-// /== FILTRES (CONNECTÉS HTML) ==/
+// /== FILTRES ==/
 // ===============================
 
 function setSearch(value) {
@@ -93,12 +140,10 @@ function setLocalisation(value) {
 
 function showIframe(url, element) {
 
-  // cacher toutes les sections
   document.querySelectorAll('.section').forEach(sec => {
     sec.classList.remove('active');
   });
 
-  // afficher iframe
   const iframeSection = document.getElementById('iframe-section');
   if (iframeSection) {
     iframeSection.classList.add('active');
@@ -109,7 +154,6 @@ function showIframe(url, element) {
     iframe.src = url;
   }
 
-  // gérer menu actif
   document.querySelectorAll('.menu-item').forEach(item => {
     item.classList.remove('active');
   });
@@ -120,24 +164,21 @@ function showIframe(url, element) {
 }
 
 // ===============================
-// /== EVENTS HTML (AUTO BIND) ==/
+// /== EVENTS HTML ==/
 // ===============================
 
 document.addEventListener("DOMContentLoaded", () => {
 
-  // 🔍 recherche
   const search = document.getElementById("search");
   if (search) {
     search.addEventListener("input", (e) => setSearch(e.target.value));
   }
 
-  // 🧪 catégorie
   const cat = document.getElementById("categorie-filter");
   if (cat) {
     cat.addEventListener("change", (e) => setCategorie(e.target.value));
   }
 
-  // ⚠️ danger
   const danger = document.getElementById("danger-filter");
   if (danger) {
     danger.addEventListener("change", (e) => setDanger(e.target.value));
@@ -153,11 +194,14 @@ showSection("equipements");
 afficher();
 
 // ===============================
-// /== EXPORT GLOBAL (HTML onclick) ==/
+// /== EXPORT GLOBAL ==/
 // ===============================
 
 window.supprimer = supprimer;
-window.showSection = showSection;
+
+// ⚠️ IMPORTANT : on remplace showSection
+window.showSection = showSectionWithVerrerie;
+
 window.setSearch = setSearch;
 window.setCategorie = setCategorie;
 window.setDanger = setDanger;
