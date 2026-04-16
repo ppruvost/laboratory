@@ -68,6 +68,15 @@ function showSectionWithVerrerie(sectionId) {
   }
 }
 
+function openLaboratory() {
+  showSection("laboratory");
+
+  const iframe = document.getElementById("main-iframe");
+  if (iframe) {
+    iframe.src = "https://ppruvost.github.io/Uncertainty/";
+  }
+}
+
 // ===============================
 // /== ETAT DES FILTRES ==/
 // ===============================
@@ -201,7 +210,7 @@ window.supprimer = supprimer;
 
 // ⚠️ IMPORTANT : on remplace showSection
 window.showSection = showSectionWithVerrerie;
-
+window.openLaboratory = openLaboratory;
 window.setSearch = setSearch;
 window.setCategorie = setCategorie;
 window.setDanger = setDanger;
