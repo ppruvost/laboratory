@@ -14,7 +14,6 @@ import glassware from "./data/glassware.js";
 
 let produits = loadProduits();
 
-// 🔴 INITIALISATION SI VIDE
 if (!produits || produits.length === 0) {
   produits = defaultData;
   saveProduits(produits);
@@ -29,9 +28,7 @@ console.log("Produits chargés :", produits);
 let verrerieChargee = false;
 
 function afficherVerrerie() {
-
   const tbody = document.getElementById("verrerie-body");
-
   if (!tbody) return;
 
   tbody.innerHTML = "";
@@ -57,15 +54,14 @@ function afficherVerrerie() {
 // ===============================
 
 function showSectionWithVerrerie(sectionId) {
-
-  // affiche la section normale
   showSection(sectionId);
 
-  // charge verrerie uniquement si nécessaire
   if (sectionId === "verrerie" && !verrerieChargee) {
     afficherVerrerie();
     verrerieChargee = true;
   }
+
+  resetMenu(); // 🔥 important
 }
 
 // ===============================
@@ -92,11 +88,7 @@ function sauvegarder() {
 // ===============================
 
 function afficher() {
-
   const filtered = applyFilters(produits, filters);
-
-  console.log("Produits affichés :", filtered);
-
   renderTable(filtered, supprimer);
 }
 
@@ -135,6 +127,32 @@ function setLocalisation(value) {
 }
 
 // ===============================
+// /== MENU (AJOUT IMPORTANT) ==/
+// ===============================
+
+function resetMenu() {
+  document.querySelectorAll('.menu-item').forEach(item => {
+    item.classList.remove('active');
+  });
+
+  document.querySelectorAll('.submenu').forEach(menu => {
+    menu.classList.remove('show');
+  });
+}
+
+function toggleMenu(menuId, element) {
+  const menu = document.getElementById(menuId);
+  const isOpen = menu.classList.contains('show');
+
+  resetMenu();
+
+  if (!isOpen) {
+    element.classList.add('active');
+    menu.classList.add('show');
+  }
+}
+
+// ===============================
 // /== IFRAME NAVIGATION ==/
 // ===============================
 
@@ -154,9 +172,7 @@ function showIframe(url, element) {
     iframe.src = url;
   }
 
-  document.querySelectorAll('.menu-item').forEach(item => {
-    item.classList.remove('active');
-  });
+  resetMenu(); // 🔥 important
 
   if (element) {
     element.classList.add('active');
@@ -184,6 +200,16 @@ document.addEventListener("DOMContentLoaded", () => {
     danger.addEventListener("change", (e) => setDanger(e.target.value));
   }
 
+  // 🔥 gestion boutons sans sous-menu
+  document.querySelectorAll('.menu-item').forEach(item => {
+    if (!item.querySelector('.submenu')) {
+      item.addEventListener('click', function () {
+        resetMenu();
+        this.classList.add('active');
+      });
+    }
+  });
+
 });
 
 // ===============================
@@ -198,12 +224,12 @@ afficher();
 // ===============================
 
 window.supprimer = supprimer;
-
-// ⚠️ IMPORTANT : on remplace showSection
 window.showSection = showSectionWithVerrerie;
 
 window.setSearch = setSearch;
 window.setCategorie = setCategorie;
 window.setDanger = setDanger;
 window.setLocalisation = setLocalisation;
+
 window.showIframe = showIframe;
+window.toggleMenu = toggleMenu; // 🔥 indispensable
