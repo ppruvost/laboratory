@@ -32,7 +32,7 @@
 </section>
 
 <section id="produits" class="section">
-  <h2>🧴 Produits</h2>
+  <h2>🧴 Produits chimiques</h2>
   <div id="products-container"></div>
 </section>
 
@@ -142,7 +142,7 @@ function loadJSData(filePath, variableName) {
         script.textContent = `
           window.__tempData__ = {};
           try {
-            ${text.replace(/export\s+default\s+/, `window.__tempData__.${variableName} = `)}
+            ${text.replace(/export\s+const\s+/, 'window.__tempData__.').replace(/export\s+default\s+/, 'window.__tempData__.' + variableName + ' = ')}
           } catch (e) {
             console.error("Erreur d'exécution:", e);
           }
@@ -202,7 +202,7 @@ function renderEquipmentData(data, container) {
             <tr>
               <td>${item.nom}</td>
               <td>${item.description}</td>
-              <td><input type="text" placeholder="Lieu de stockage"></td>
+              <td><input type="text" placeholder="Lieu de stockage" value="${item.lieuStockage || ''}"></td>
               <td><a href="${item.noticeUtilisation}" target="_blank">Notice</a></td>
             </tr>
           `).join('')}
@@ -275,7 +275,7 @@ function renderGlasswareData(data, container) {
               <td>${item.nom}</td>
               <td>${item.contenance_ml || ''}</td>
               <td><img src="${item.image}" alt="${item.nom}" style="width: 80px; height: auto;"></td>
-              <td><input type="text" placeholder="Lieu de stockage"></td>
+              <td><input type="text" placeholder="Lieu de stockage" value="${item.lieu || ''}"></td>
             </tr>
           `).join('')}
         </tbody>
@@ -286,29 +286,50 @@ function renderGlasswareData(data, container) {
   }
 }
 
-// Fonction pour afficher les produits
+// Fonction pour afficher les produits chimiques
 function renderProductsData(data, container) {
+  // Créer un tableau avec toutes les colonnes nécessaires
   container.innerHTML = `
-    <table>
+    <table class="products-table">
       <thead>
         <tr>
           <th>Nom</th>
-          <th>Type</th>
-          <th>Quantité</th>
-          <th>Expiration</th>
-          <th>Danger</th>
-          <th>Lieu de stockage</th>
+          <th>Formule</th>
+          <th>Catégorie</th>
+          <th>Localisation</th>
+          <th>Pictogrammes</th>
+          <th>Image</th>
+          <th>FDS</th>
+          <th>Dangers</th>
+          <th>Substitution</th>
         </tr>
       </thead>
       <tbody>
         ${data.map(item => `
           <tr>
             <td>${item.nom}</td>
-            <td>${item.type || ''}</td>
-            <td>${item.quantite || ''}</td>
-            <td>${item.expiration || ''}</td>
-            <td>${item.danger || ''}</td>
-            <td><input type="text" placeholder="Lieu de stockage"></td>
+            <td>${item.formule}</td>
+            <td>${item.categorie}</td>
+            <td>${item.localisation}</td>
+            <td>
+              ${item.pictogramme.length > 0 ?
+                item.pictogramme.map(pic => `
+                  <img src="assets/pictogrammes/${pic}" alt="Pictogramme" title="${pic.replace('.png', '')}"
+                       style="width: 30px; height: 30px; margin: 2px;">
+                `).join('') : 'Aucun'}
+            </td>
+            <td>
+              ${item.image ?
+                `<img src="assets/images/${item.image}" alt="${item.nom}" style="width: 60px; height: auto;">` :
+                'Aucune'}
+            </td>
+            <td>
+              ${item.fds ?
+                `<a href="assets/fds/${item.fds}" target="_blank">FDS</a>` :
+                'Non disponible'}
+            </td>
+            <td>${item.dangers.join(', ') || 'Aucun'}</td>
+            <td>${item.substitution || 'Aucun'}</td>
           </tr>
         `).join('')}
       </tbody>
@@ -429,12 +450,25 @@ th, td {
 
 th {
   background-color: #f2f2f2;
+  position: sticky;
+  top: 0;
 }
 
 input[type="text"] {
   width: 100%;
   padding: 5px;
   box-sizing: border-box;
+}
+
+/* Style spécifique pour le tableau des produits */
+.products-table {
+  font-size: 14px;
+}
+
+.products-table img {
+  display: inline-block;
+  margin: 2px;
+  max-height: 40px;
 }
 
 /* Style pour les sections de domaine */
@@ -458,18 +492,30 @@ td img {
   background: white;
 }
 
-/* Style responsive pour les tableaux */
+/* Style responsive */
 @media (max-width: 768px) {
+  #lab-menu ul {
+    flex-direction: column;
+  }
+
   table {
-    font-size: 14px;
+    font-size: 12px;
   }
 
   th, td {
     padding: 6px;
   }
 
-  #lab-menu ul {
-    flex-direction: column;
+  .products-table img {
+    width: 25px;
+    height: auto;
   }
+}
+
+/* Style pour les pictogrammes */
+.pictogramme-img {
+  width: 30px;
+  height: 30px;
+  margin: 2px;
 }
 </style>
