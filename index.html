@@ -69,7 +69,7 @@ function switchSection(sectionId, element = null, isIframe = false) {
       section.classList.add('active');
 
       // Charger le contenu si ce n'est pas déjà fait
-      if (!dataCache[sectionId] && !section.querySelector('table')) {
+      if (!dataCache[sectionId]) {
         loadSectionData(sectionId);
       }
     }
@@ -87,109 +87,147 @@ async function loadSectionData(sectionId) {
   container.innerHTML = '<p>Chargement en cours...</p>';
 
   try {
+    let data = [];
+    let filePath = '';
+
+    // Déterminer le fichier à charger selon la section
     switch(sectionId) {
       case 'equipements':
-        await loadEquipmentData();
+        filePath = 'data/equipment.js';
         break;
       case 'verrerie':
-        renderSimpleTable(
-          ['Nom', 'Volume', 'Quantité', 'Lieu de stockage'],
-          [
-            {nom: 'Bécher', volume: '100 mL', quantite: 10},
-            {nom: 'Éprouvette', volume: '50 mL', quantite: 15}
-          ]
-        );
+        filePath = 'data/glassware.js';
         break;
       case 'produits':
-        renderSimpleTable(
-          ['Nom', 'Type', 'Quantité', 'Expiration', 'Lieu de stockage'],
-          [
-            {nom: 'Acide chlorhydrique', type: 'Acide', quantite: '2 L', expiration: '2027-06-30'},
-            {nom: 'Soude', type: 'Base', quantite: '1 L', expiration: '2026-12-31'}
-          ]
-        );
+        filePath = 'data/products.js';
         break;
+      default:
+        throw new Error('Section non reconnue');
     }
-    dataCache[sectionId] = true;
+
+    // Charger le fichier JS
+    const response = await fetch(filePath);
+    const text = await response.text();
+
+    // Extraire le tableau de données
+    const match = text.match(/const\s+(\w+)\s*=\s*\[([\s\S]*?)\];/);
+    if (match) {
+      const arrayText = `[${match[2]}]`;
+      data = JSON.parse(arrayText.replace(/(\w+):/g, '"$1":'));
+      dataCache[sectionId] = true;
+    } else {
+      throw new Error("Format de fichier non reconnu");
+    }
+
+    // Afficher les données selon le type de section
+    renderSectionData(sectionId, data);
+
   } catch (error) {
     console.error(`Erreur chargement ${sectionId}:`, error);
-    container.innerHTML = `<p style="color: red;">Erreur de chargement</p>`;
-  }
-
-  function renderSimpleTable(headers, data) {
-    const table = document.createElement('table');
-    const thead = document.createElement('thead');
-    const tbody = document.createElement('tbody');
-
-    thead.innerHTML = `<tr>${headers.map(h => `<th>${h}</th>`).join('')}</tr>`;
-    table.appendChild(thead);
-
-    data.forEach(item => {
-      const row = document.createElement('tr');
-      row.innerHTML = headers.map(h => {
-        const key = h.toLowerCase().replace(' ', '-');
-        return `<td>${item[key] || ''}</td>`;
-      }).join('');
-      tbody.appendChild(row);
-    });
-
-    table.appendChild(tbody);
-    container.innerHTML = '';
-    container.appendChild(table);
+    container.innerHTML = `
+      <p style="color: red;">
+        Erreur de chargement des données.<br>
+        Vérifiez que le fichier existe et est au bon format.
+      </p>
+    `;
   }
 }
 
-// Chargement spécifique des équipements
-async function loadEquipmentData() {
-  const container = document.getElementById('equipment-container');
+// Fonction pour afficher les données selon la section
+function renderSectionData(sectionId, data) {
+  const container = document.getElementById(`${sectionId}-container`);
 
-  try {
-    const response = await fetch('data/equipment.js');
-    const text = await response.text();
+  if (sectionId === 'equipements') {
+    // Regroupement par domaine pour les équipements
+    const grouped = {};
+    data.forEach(item => {
+      if (!grouped[item.domaine]) grouped[item.domaine] = [];
+      grouped[item.domaine].push(item);
+    });
 
-    const match = text.match(/const\s+laboratoryEquipment\s*=\s*\[([\s\S]*?)\];/);
-    if (match) {
-      const arrayText = `[${match[1]}]`;
-      const equipmentList = JSON.parse(arrayText.replace(/(\w+):/g, '"$1":'));
-
-      const grouped = {};
-      equipmentList.forEach(item => {
-        if (!grouped[item.domaine]) grouped[item.domaine] = [];
-        grouped[item.domaine].push(item);
-      });
-
-      container.innerHTML = '';
-      for (const [domain, items] of Object.entries(grouped)) {
-        const section = document.createElement('div');
-        section.innerHTML = `
-          <h3>${getDomainEmoji(domain)} ${domain}</h3>
-          <table>
-            <thead>
+    container.innerHTML = '';
+    for (const [domain, items] of Object.entries(grouped)) {
+      const section = document.createElement('div');
+      section.className = 'domain-section';
+      section.innerHTML = `
+        <h3>${getDomainEmoji(domain)} ${domain}</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Nom</th>
+              <th>Description</th>
+              <th>Lieu de stockage</th>
+              <th>Notice</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${items.map(item => `
               <tr>
-                <th>Nom</th>
-                <th>Description</th>
-                <th>Lieu de stockage</th>
-                <th>Notice</th>
+                <td>${item.nom}</td>
+                <td>${item.description}</td>
+                <td><input type="text" placeholder="Lieu de stockage"></td>
+                <td><a href="${item.noticeUtilisation}" target="_blank">Notice</a></td>
               </tr>
-            </thead>
-            <tbody>
-              ${items.map(item => `
-                <tr>
-                  <td>${item.nom}</td>
-                  <td>${item.description}</td>
-                  <td><input type="text" placeholder="Lieu de stockage"></td>
-                  <td><a href="${item.noticeUtilisation}" target="_blank">Notice</a></td>
-                </tr>
-              `).join('')}
-            </tbody>
-          </table>
-        `;
-        container.appendChild(section);
-      }
+            `).join('')}
+          </tbody>
+        </table>
+      `;
+      container.appendChild(section);
     }
-  } catch (error) {
-    console.error('Erreur chargement équipements:', error);
-    container.innerHTML = `<p style="color: red;">Erreur de chargement</p>`;
+
+  } else if (sectionId === 'verrerie') {
+    // Tableau simple pour la verrerie
+    container.innerHTML = `
+      <table>
+        <thead>
+          <tr>
+            <th>Nom</th>
+            <th>Volume</th>
+            <th>Quantité</th>
+            <th>Lieu de stockage</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${data.map(item => `
+            <tr>
+              <td>${item.nom}</td>
+              <td>${item.volume || ''}</td>
+              <td>${item.quantite || ''}</td>
+              <td><input type="text" placeholder="Lieu de stockage"></td>
+            </tr>
+          `).join('')}
+        </tbody>
+      </table>
+    `;
+
+  } else if (sectionId === 'produits') {
+    // Tableau pour les produits
+    container.innerHTML = `
+      <table>
+        <thead>
+          <tr>
+            <th>Nom</th>
+            <th>Type</th>
+            <th>Quantité</th>
+            <th>Expiration</th>
+            <th>Danger</th>
+            <th>Lieu de stockage</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${data.map(item => `
+            <tr>
+              <td>${item.nom}</td>
+              <td>${item.type || ''}</td>
+              <td>${item.quantite || ''}</td>
+              <td>${item.expiration || ''}</td>
+              <td>${item.danger || ''}</td>
+              <td><input type="text" placeholder="Lieu de stockage"></td>
+            </tr>
+          `).join('')}
+        </tbody>
+      </table>
+    `;
   }
 }
 
@@ -314,7 +352,7 @@ input[type="text"] {
 }
 
 /* Style pour les sections de domaine */
-.section > div {
+.domain-section {
   margin-bottom: 30px;
 }
 
