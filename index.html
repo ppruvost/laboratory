@@ -89,59 +89,35 @@ async function loadSectionData(sectionId) {
   try {
     let filePath = '';
     let variableName = '';
+    let renderFunction = null;
 
     // Déterminer le fichier et la variable à charger
     switch(sectionId) {
       case 'equipements':
         filePath = 'data/equipment.js';
         variableName = 'laboratoryEquipment';
+        renderFunction = renderEquipmentData;
         break;
       case 'verrerie':
         filePath = 'data/glassware.js';
         variableName = 'glassware';
+        renderFunction = renderGlasswareData;
         break;
       case 'produits':
         filePath = 'data/products.js';
         variableName = 'products';
+        renderFunction = renderProductsData;
         break;
       default:
         throw new Error('Section non reconnue');
     }
 
-    // Charger le fichier JS
-    const response = await fetch(filePath);
-    const text = await response.text();
-
-    // Solution alternative pour gérer les exports
-    // 1. On crée un script dynamique
-    const script = document.createElement('script');
-    script.textContent = `
-      // Redéfinir window.tempData pour capturer les données
-      window.tempData = {};
-      ${text.replace(/export\s+default\s+/, 'window.tempData.' + variableName + ' = ')}
-    `;
-    document.body.appendChild(script);
-
-    // 2. On attend que le script soit exécuté
-    await new Promise(resolve => {
-      const checkData = setInterval(() => {
-        if (window.tempData && window.tempData[variableName]) {
-          clearInterval(checkData);
-          resolve();
-        }
-      }, 100);
-    });
-
-    // 3. On récupère les données
-    const data = window.tempData[variableName];
+    // Charger le fichier JS avec gestion des exports
+    const data = await loadJSData(filePath, variableName);
     dataCache[sectionId] = true;
 
-    // 4. On nettoie
-    delete window.tempData;
-    document.body.removeChild(script);
-
     // Afficher les données
-    renderSectionData(sectionId, data);
+    renderFunction(data, container);
 
   } catch (error) {
     console.error(`Erreur chargement ${sectionId}:`, error);
@@ -155,102 +131,189 @@ async function loadSectionData(sectionId) {
   }
 }
 
-// Fonction pour afficher les données selon la section
-function renderSectionData(sectionId, data) {
-  const container = document.getElementById(`${sectionId}-container`);
+// Fonction pour charger les données JS avec gestion des exports
+function loadJSData(filePath, variableName) {
+  return new Promise((resolve, reject) => {
+    fetch(filePath)
+      .then(response => response.text())
+      .then(text => {
+        // Créer un script dynamique pour capturer les données
+        const script = document.createElement('script');
+        script.textContent = `
+          window.__tempData__ = {};
+          try {
+            ${text.replace(/export\s+default\s+/, `window.__tempData__.${variableName} = `)}
+          } catch (e) {
+            console.error("Erreur d'exécution:", e);
+          }
+        `;
+        document.body.appendChild(script);
 
-  if (sectionId === 'equipements') {
-    // Regroupement par domaine pour les équipements
-    const grouped = {};
-    data.forEach(item => {
-      if (!grouped[item.domaine]) grouped[item.domaine] = [];
-      grouped[item.domaine].push(item);
-    });
+        // Vérifier périodiquement si les données sont disponibles
+        const checkData = setInterval(() => {
+          if (window.__tempData__ && window.__tempData__[variableName]) {
+            clearInterval(checkData);
+            const data = window.__tempData__[variableName];
+            delete window.__tempData__;
+            document.body.removeChild(script);
+            resolve(data);
+          }
+        }, 100);
 
-    container.innerHTML = '';
-    for (const [domain, items] of Object.entries(grouped)) {
-      const section = document.createElement('div');
-      section.className = 'domain-section';
-      section.innerHTML = `
-        <h3>${getDomainEmoji(domain)} ${domain}</h3>
-        <table>
-          <thead>
+        // Timeout de sécurité
+        setTimeout(() => {
+          clearInterval(checkData);
+          document.body.removeChild(script);
+          reject(new Error("Timeout lors du chargement des données"));
+        }, 5000);
+      })
+      .catch(error => {
+        reject(error);
+      });
+  });
+}
+
+// Fonction pour afficher les équipements
+function renderEquipmentData(data, container) {
+  // Regroupement par domaine
+  const grouped = {};
+  data.forEach(item => {
+    if (!grouped[item.domaine]) grouped[item.domaine] = [];
+    grouped[item.domaine].push(item);
+  });
+
+  container.innerHTML = '';
+  for (const [domain, items] of Object.entries(grouped)) {
+    const section = document.createElement('div');
+    section.className = 'domain-section';
+    section.innerHTML = `
+      <h3>${getDomainEmoji(domain)} ${domain}</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Nom</th>
+            <th>Description</th>
+            <th>Lieu de stockage</th>
+            <th>Notice</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${items.map(item => `
             <tr>
-              <th>Nom</th>
-              <th>Description</th>
-              <th>Lieu de stockage</th>
-              <th>Notice</th>
+              <td>${item.nom}</td>
+              <td>${item.description}</td>
+              <td><input type="text" placeholder="Lieu de stockage"></td>
+              <td><a href="${item.noticeUtilisation}" target="_blank">Notice</a></td>
             </tr>
-          </thead>
-          <tbody>
-            ${items.map(item => `
-              <tr>
-                <td>${item.nom}</td>
-                <td>${item.description}</td>
-                <td><input type="text" placeholder="Lieu de stockage"></td>
-                <td><a href="${item.noticeUtilisation}" target="_blank">Notice</a></td>
-              </tr>
-            `).join('')}
-          </tbody>
-        </table>
+          `).join('')}
+        </tbody>
+      </table>
+    `;
+    container.appendChild(section);
+  }
+}
+
+// Fonction pour afficher la verrerie avec images
+function renderGlasswareData(data, container) {
+  // Catégoriser la verrerie
+  const categories = {
+    "Verrerie de base": [],
+    "Ballons": [],
+    "Mesure précise": [],
+    "Transfert / séparation": [],
+    "Chauffage / réaction": [],
+    "Distillation": [],
+    "Divers": [],
+    "Verrerie spécialisée": []
+  };
+
+  // Répartir les items dans les catégories
+  data.forEach(item => {
+    if (item.nom.includes("Bécher") || item.nom.includes("Erlenmeyer") ||
+        item.nom.includes("Fiole jaugée") || item.nom.includes("Éprouvette") ||
+        item.nom.includes("Tube à essai")) {
+      categories["Verrerie de base"].push(item);
+    } else if (item.nom.includes("Ballon")) {
+      categories["Ballons"].push(item);
+    } else if (item.nom.includes("Burette") || item.nom.includes("Pipette")) {
+      categories["Mesure précise"].push(item);
+    } else if (item.nom.includes("Ampoule") || item.nom.includes("Entonnoir") ||
+               item.nom.includes("Fiole à vide")) {
+      categories["Transfert / séparation"].push(item);
+    } else if (item.nom.includes("Réfrigérant") || item.nom.includes("Colonne")) {
+      categories["Distillation"].push(item);
+    } else if (item.nom.includes("Tube à essai gradué") || item.nom.includes("Tube de culture")) {
+      categories["Chauffage / réaction"].push(item);
+    } else if (item.nom.includes("Cristallisoir") || item.nom.includes("Verre de montre") ||
+               item.nom.includes("Flacon") || item.nom.includes("Pissette")) {
+      categories["Divers"].push(item);
+    } else {
+      categories["Verrerie spécialisée"].push(item);
+    }
+  });
+
+  container.innerHTML = '';
+  for (const [category, items] of Object.entries(categories)) {
+    if (items.length > 0) {
+      const section = document.createElement('div');
+      section.className = 'glassware-category';
+      section.innerHTML = `<h3>${category}</h3>`;
+
+      const table = document.createElement('table');
+      table.innerHTML = `
+        <thead>
+          <tr>
+            <th>Nom</th>
+            <th>Contenance</th>
+            <th>Image</th>
+            <th>Lieu de stockage</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${items.map(item => `
+            <tr>
+              <td>${item.nom}</td>
+              <td>${item.contenance_ml || ''}</td>
+              <td><img src="${item.image}" alt="${item.nom}" style="width: 80px; height: auto;"></td>
+              <td><input type="text" placeholder="Lieu de stockage"></td>
+            </tr>
+          `).join('')}
+        </tbody>
       `;
+      section.appendChild(table);
       container.appendChild(section);
     }
-
-  } else if (sectionId === 'verrerie') {
-    // Tableau simple pour la verrerie
-    container.innerHTML = `
-      <table>
-        <thead>
-          <tr>
-            <th>Nom</th>
-            <th>Volume</th>
-            <th>Quantité</th>
-            <th>Lieu de stockage</th>
-          </tr>
-        </thead>
-        <tbody>
-          ${data.map(item => `
-            <tr>
-              <td>${item.nom}</td>
-              <td>${item.volume || ''}</td>
-              <td>${item.quantite || ''}</td>
-              <td><input type="text" placeholder="Lieu de stockage"></td>
-            </tr>
-          `).join('')}
-        </tbody>
-      </table>
-    `;
-
-  } else if (sectionId === 'produits') {
-    // Tableau pour les produits
-    container.innerHTML = `
-      <table>
-        <thead>
-          <tr>
-            <th>Nom</th>
-            <th>Type</th>
-            <th>Quantité</th>
-            <th>Expiration</th>
-            <th>Danger</th>
-            <th>Lieu de stockage</th>
-          </tr>
-        </thead>
-        <tbody>
-          ${data.map(item => `
-            <tr>
-              <td>${item.nom}</td>
-              <td>${item.type || ''}</td>
-              <td>${item.quantite || ''}</td>
-              <td>${item.expiration || ''}</td>
-              <td>${item.danger || ''}</td>
-              <td><input type="text" placeholder="Lieu de stockage"></td>
-            </tr>
-          `).join('')}
-        </tbody>
-      </table>
-    `;
   }
+}
+
+// Fonction pour afficher les produits
+function renderProductsData(data, container) {
+  container.innerHTML = `
+    <table>
+      <thead>
+        <tr>
+          <th>Nom</th>
+          <th>Type</th>
+          <th>Quantité</th>
+          <th>Expiration</th>
+          <th>Danger</th>
+          <th>Lieu de stockage</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${data.map(item => `
+          <tr>
+            <td>${item.nom}</td>
+            <td>${item.type || ''}</td>
+            <td>${item.quantite || ''}</td>
+            <td>${item.expiration || ''}</td>
+            <td>${item.danger || ''}</td>
+            <td><input type="text" placeholder="Lieu de stockage"></td>
+          </tr>
+        `).join('')}
+      </tbody>
+    </table>
+  `;
 }
 
 // Emojis pour les domaines
@@ -361,6 +424,7 @@ th, td {
   border: 1px solid #ddd;
   padding: 8px;
   text-align: left;
+  vertical-align: middle;
 }
 
 th {
@@ -374,8 +438,16 @@ input[type="text"] {
 }
 
 /* Style pour les sections de domaine */
-.domain-section {
+.domain-section, .glassware-category {
   margin-bottom: 30px;
+}
+
+/* Style pour les images de verrerie */
+td img {
+  display: block;
+  max-width: 100px;
+  max-height: 100px;
+  margin: 0 auto;
 }
 
 /* Style pour le conteneur d'iframe */
@@ -384,5 +456,20 @@ input[type="text"] {
   border-radius: 5px;
   margin-bottom: 20px;
   background: white;
+}
+
+/* Style responsive pour les tableaux */
+@media (max-width: 768px) {
+  table {
+    font-size: 14px;
+  }
+
+  th, td {
+    padding: 6px;
+  }
+
+  #lab-menu ul {
+    flex-direction: column;
+  }
 }
 </style>
