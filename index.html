@@ -1,235 +1,328 @@
-<!DOCTYPE html>
-<html lang="fr">
+<!-- =============================== -->
+<!-- MENU DE NAVIGATION -->
+<!-- =============================== -->
+<nav id="lab-menu">
+  <ul>
+    <li><a href="#" class="menu-item" data-section="equipements">🔧 Équipements</a></li>
+    <li><a href="#" class="menu-item" data-section="verrerie">🧃 Verrerie</a></li>
+    <li><a href="#" class="menu-item" data-section="produits">🧴 Produits</a></li>
+    <li><a href="#" class="menu-item" data-iframe="https://ppruvost.github.io/periodic/" data-section="table-periodique">
+      <i class="fas fa-atom"></i> <span>Table périodique</span>
+    </a></li>
+    <li><a href="#" class="menu-item" data-iframe="https://ppruvost.github.io/Uncertainty/" data-section="mesures-incertitudes">
+      <i class="fas fa-ruler"></i> <span>Mesures et Incertitudes</span>
+    </a></li>
+  </ul>
+</nav>
 
-<head>
-  <meta charset="UTF-8">
-  <title>Laboratoire - Data System</title>
-
-  <!-- Feuille de style principale -->
-  <link rel="stylesheet" href="style.css">
-
-  <!-- Librairie d'icônes -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-
-</head>
-
-<body>
-
-<h1>🧪 Laboratoire Pédagogique - LP Jean Mermoz - Vire Normandie</h1>
+<!-- Conteneur pour les iframes -->
+<div id="iframe-container" style="display: none; width: 100%; height: 70vh; border: none; margin-bottom: 20px;"></div>
 
 <!-- =============================== -->
-<!-- MENU HORIZONTAL FIXE EN HAUT -->
+<!-- SECTIONS (toutes masquées par défaut) -->
 <!-- =============================== -->
-
-<div class="menu-bar">
-
-  <!-- BOUTON MENU -->
-  <!-- active = section visible -->
-  <div class="menu-item active" onclick="showSection('equipements', this)">
-    <i class="fas fa-tools"></i>
-    <span>Équipements</span>
-  </div>
-
-  <div class="menu-item" onclick="showSection('verrerie', this)">
-    <i class="fas fa-flask"></i>
-    <span>Verrerie</span>
-  </div>
-
-  <div class="menu-item" onclick="showSection('produits', this)">
-    <i class="fas fa-vials"></i>
-    <span>Produits</span>
-  </div>
-
-  <div class="menu-item" onclick="showIframe('https://ppruvost.github.io/periodic/', this)">
-    <i class="fas fa-atom"></i>
-    <span>Table périodique</span>
-  </div>
-  
-  <div class="menu-item" onclick="showIframe('https://ppruvost.github.io/Uncertainty/', this)">
-    <i class="fas fa-ruler"></i>
-    <span>Mesures et Incertitudes</span>
-</div>
-
-</div>
-
-<!-- =============================== -->
-<!-- SECTION ÉQUIPEMENTS -->
-<!-- =============================== -->
-
-<section id="equipements" class="section active">
+<section id="equipements" class="section">
   <h2>🔧 Équipements</h2>
   <div id="equipment-container"></div>
+</section>
 
-  <script>
-    // Importation dynamique du fichier equipment.js
-    fetch('data/equipment.js')
-      .then(response => response.text())
-      .then(text => {
-        // Extraction du tableau laboratoryEquipment
-        const equipmentModule = {};
-        eval(text); // Exécute le code JS pour définir laboratoryEquipment
-        const equipmentList = equipmentModule.laboratoryEquipment || laboratoryEquipment;
+<section id="verrerie" class="section">
+  <h2>🧃 Verrerie</h2>
+  <div id="glassware-container"></div>
+</section>
 
-        // Fonction pour regrouper les équipements par domaine
-        function groupByDomain(equipments) {
-          return equipments.reduce((acc, equipment) => {
-            if (!acc[equipment.domaine]) {
-              acc[equipment.domaine] = [];
-            }
-            acc[equipment.domaine].push(equipment);
-            return acc;
-          }, {});
-        }
+<section id="produits" class="section">
+  <h2>🧴 Produits</h2>
+  <div id="products-container"></div>
+</section>
 
-        // Regroupement des équipements par domaine
-        const groupedEquipment = groupByDomain(equipmentList);
+<script>
+// Cache pour stocker les données chargées
+const dataCache = {};
+let currentIframe = null;
 
-        // Création des sections et tableaux pour chaque domaine
-        const container = document.getElementById('equipment-container');
+// Fonction pour basculer entre les sections
+function switchSection(sectionId, element = null, isIframe = false) {
+  // Masquer toutes les sections et l'iframe container
+  document.querySelectorAll('.section').forEach(section => {
+    section.classList.remove('active');
+  });
+  document.getElementById('iframe-container').style.display = 'none';
 
-        // Emojis pour chaque domaine
-        const domainEmojis = {
-          "Électricité": "⚡",
-          "Optique": "👁️",
-          "Mécanique": "🔄",
-          "Chimie": "🧪",
-          "Thermique": "🌡️",
-          "Signaux": "📡",
-          "Sécurité": "🛡️"
-        };
+  // Désactiver tous les éléments de menu
+  document.querySelectorAll('.menu-item').forEach(item => {
+    item.classList.remove('active');
+  });
 
-        // Tri des domaines selon l'ordre souhaité
-        const orderedDomains = ["Électricité", "Optique", "Mécanique", "Chimie", "Thermique", "Signaux", "Sécurité"];
+  // Si c'est une iframe
+  if (isIframe) {
+    document.getElementById('iframe-container').style.display = 'block';
+    document.getElementById('iframe-container').innerHTML = `
+      <iframe src="${sectionId}" style="width: 100%; height: 100%; border: none;"></iframe>
+    `;
+    currentIframe = sectionId;
+  }
+  // Sinon c'est une section normale
+  else {
+    const section = document.getElementById(sectionId);
+    if (section) {
+      section.classList.add('active');
 
-        orderedDomains.forEach(domain => {
-          if (groupedEquipment[domain]) {
-            // Création de la section pour le domaine
-            const domainSection = document.createElement('div');
-            domainSection.className = 'domain-section';
+      // Charger le contenu si ce n'est pas déjà fait
+      if (!dataCache[sectionId] && !section.querySelector('table')) {
+        loadSectionData(sectionId);
+      }
+    }
+  }
 
-            // Titre du domaine
-            const domainTitle = document.createElement('h3');
-            domainTitle.textContent = `${domainEmojis[domain] || ''} ${domain}`;
-            domainSection.appendChild(domainTitle);
+  // Activer l'élément de menu correspondant
+  if (element) {
+    element.classList.add('active');
+  }
+}
 
-            // Création du tableau
-            const table = document.createElement('table');
-            const thead = document.createElement('thead');
-            const tbody = document.createElement('tbody');
+// Fonction générique de chargement des données
+async function loadSectionData(sectionId) {
+  const container = document.getElementById(`${sectionId}-container`);
+  container.innerHTML = '<p>Chargement en cours...</p>';
 
-            // En-tête du tableau
-            thead.innerHTML = `
+  try {
+    switch(sectionId) {
+      case 'equipements':
+        await loadEquipmentData();
+        break;
+      case 'verrerie':
+        renderSimpleTable(
+          ['Nom', 'Volume', 'Quantité', 'Lieu de stockage'],
+          [
+            {nom: 'Bécher', volume: '100 mL', quantite: 10},
+            {nom: 'Éprouvette', volume: '50 mL', quantite: 15}
+          ]
+        );
+        break;
+      case 'produits':
+        renderSimpleTable(
+          ['Nom', 'Type', 'Quantité', 'Expiration', 'Lieu de stockage'],
+          [
+            {nom: 'Acide chlorhydrique', type: 'Acide', quantite: '2 L', expiration: '2027-06-30'},
+            {nom: 'Soude', type: 'Base', quantite: '1 L', expiration: '2026-12-31'}
+          ]
+        );
+        break;
+    }
+    dataCache[sectionId] = true;
+  } catch (error) {
+    console.error(`Erreur chargement ${sectionId}:`, error);
+    container.innerHTML = `<p style="color: red;">Erreur de chargement</p>`;
+  }
+
+  function renderSimpleTable(headers, data) {
+    const table = document.createElement('table');
+    const thead = document.createElement('thead');
+    const tbody = document.createElement('tbody');
+
+    thead.innerHTML = `<tr>${headers.map(h => `<th>${h}</th>`).join('')}</tr>`;
+    table.appendChild(thead);
+
+    data.forEach(item => {
+      const row = document.createElement('tr');
+      row.innerHTML = headers.map(h => {
+        const key = h.toLowerCase().replace(' ', '-');
+        return `<td>${item[key] || ''}</td>`;
+      }).join('');
+      tbody.appendChild(row);
+    });
+
+    table.appendChild(tbody);
+    container.innerHTML = '';
+    container.appendChild(table);
+  }
+}
+
+// Chargement spécifique des équipements
+async function loadEquipmentData() {
+  const container = document.getElementById('equipment-container');
+
+  try {
+    const response = await fetch('data/equipment.js');
+    const text = await response.text();
+
+    const match = text.match(/const\s+laboratoryEquipment\s*=\s*\[([\s\S]*?)\];/);
+    if (match) {
+      const arrayText = `[${match[1]}]`;
+      const equipmentList = JSON.parse(arrayText.replace(/(\w+):/g, '"$1":'));
+
+      const grouped = {};
+      equipmentList.forEach(item => {
+        if (!grouped[item.domaine]) grouped[item.domaine] = [];
+        grouped[item.domaine].push(item);
+      });
+
+      container.innerHTML = '';
+      for (const [domain, items] of Object.entries(grouped)) {
+        const section = document.createElement('div');
+        section.innerHTML = `
+          <h3>${getDomainEmoji(domain)} ${domain}</h3>
+          <table>
+            <thead>
               <tr>
                 <th>Nom</th>
                 <th>Description</th>
                 <th>Lieu de stockage</th>
-                <th>Notice d'utilisation</th>
+                <th>Notice</th>
               </tr>
-            `;
-            table.appendChild(thead);
-
-            // Lignes du tableau
-            groupedEquipment[domain].forEach(equipment => {
-              const row = document.createElement('tr');
-              row.innerHTML = `
-                <td>${equipment.nom}</td>
-                <td>${equipment.description}</td>
-                <td><input type="text" placeholder="Lieu de stockage" data-equipment="${equipment.nom}"></td>
-                <td><a href="${equipment.noticeUtilisation}" target="_blank">Notice</a></td>
-              `;
-              tbody.appendChild(row);
-            });
-
-            table.appendChild(tbody);
-            domainSection.appendChild(table);
-            container.appendChild(domainSection);
-          }
-        });
-      })
-      .catch(error => {
-        console.error('Erreur lors du chargement des équipements:', error);
-        document.getElementById('equipment-container').innerHTML = `
-          <p style="color: red;">Erreur lors du chargement des équipements. Veuillez vérifier que le fichier <code>data/equipment.js</code> existe et est accessible.</p>
+            </thead>
+            <tbody>
+              ${items.map(item => `
+                <tr>
+                  <td>${item.nom}</td>
+                  <td>${item.description}</td>
+                  <td><input type="text" placeholder="Lieu de stockage"></td>
+                  <td><a href="${item.noticeUtilisation}" target="_blank">Notice</a></td>
+                </tr>
+              `).join('')}
+            </tbody>
+          </table>
         `;
-      });
-  </script>
-</section>
+        container.appendChild(section);
+      }
+    }
+  } catch (error) {
+    console.error('Erreur chargement équipements:', error);
+    container.innerHTML = `<p style="color: red;">Erreur de chargement</p>`;
+  }
+}
 
-<!-- =============================== -->
-<!-- SECTION VERRERIE -->
-<!-- =============================== -->
+// Emojis pour les domaines
+function getDomainEmoji(domain) {
+  const emojis = {
+    "Électricité": "⚡", "Optique": "👁️", "Mécanique": "🔄",
+    "Chimie": "🧪", "Thermique": "🌡️", "Signaux": "📡", "Sécurité": "🛡️"
+  };
+  return emojis[domain] || '';
+}
 
-<section id="verrerie" class="section">
+// Écouteurs d'événements pour le menu
+document.querySelectorAll('.menu-item').forEach(item => {
+  item.addEventListener('click', (e) => {
+    e.preventDefault();
 
-  <h2>🧫 Verrerie</h2>
+    // Désactiver tous les éléments de menu
+    document.querySelectorAll('.menu-item').forEach(i => {
+      i.classList.remove('active');
+    });
 
-  <table>
-    <thead>
-      <tr>
-        <th>Nom</th>
-        <th>Contenance (mL)</th>
-        <th>Lieu</th>
-        <th>Image</th>
-      </tr>
-    </thead>
-    <tbody id="verrerie-body">
-      <!-- Rempli automatiquement -->
-    </tbody>
-  </table>
+    // Activer l'élément cliqué
+    item.classList.add('active');
 
-</section>
+    // Gérer le clic selon le type
+    const sectionId = item.getAttribute('data-section');
+    const iframeUrl = item.getAttribute('data-iframe');
 
-<!-- =============================== -->
-<!-- SECTION PRODUITS -->
-<!-- =============================== -->
+    if (iframeUrl) {
+      // C'est une iframe
+      switchSection(iframeUrl, item, true);
+    } else {
+      // C'est une section normale
+      switchSection(sectionId, item);
+    }
+  });
+});
 
-<section id="produits" class="section">
+// Aucune section n'est affichée par défaut
+</script>
 
-  <h2>⚗️ Produits chimiques</h2>
+<!-- Font Awesome pour les icônes -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
-  <table>
-    <thead>
-      <tr>
-        <th>CAS</th>
-        <th>Nom</th>
-        <th>Formule</th>
-        <th>Catégorie</th>
-        <th>Localisation</th>
-        <th>Pictogrammes</th>
-        <th>Dangers</th>
-        <th>Substitution</th>
-      </tr>
-    </thead>
-    <tbody id="table-body"></tbody>
-  </table>
+<style>
+/* Style pour le menu */
+#lab-menu ul {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 20px 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  background: #f0f0f0;
+  padding: 10px;
+  border-radius: 5px;
+}
 
-</section>
+#lab-menu li {
+  margin: 0;
+}
 
-<!-- =============================== -->
-<!-- IFRAME TABLE PERIODIQUE -->
-<!-- =============================== -->
+#lab-menu a {
+  display: flex;
+  align-items: center;
+  padding: 8px 15px;
+  text-decoration: none;
+  color: #333;
+  border-radius: 4px;
+  transition: all 0.3s;
+}
 
-<section id="iframe-section" class="section">
-  <iframe id="main-iframe" src="" style="width:100%; height:80vh; border:none;"></iframe>
-</section>
+#lab-menu a i {
+  margin-right: 8px;
+}
 
-<!-- =============================== -->
-<!-- IFRAME UNCERTAINTY -->
-<!-- =============================== -->
+#lab-menu a:hover {
+  background: #e0e0e0;
+}
 
-<section id="laboratory-section" class="section">
+/* Couleur orange pour les éléments actifs */
+#lab-menu a.active {
+  background: #FF9800;
+  color: white;
+}
 
-  <button 
-    onclick="document.getElementById('main-iframe').src='https://ppruvost.github.io/Uncertainty/'"
-    style="background:none; border:none; cursor:pointer; font-size:28px;"
-    title="Mesures et Incertitudes"
-  >
-    📊 Mesures et Incertitudes
-  </button>
+/* Style pour les sections */
+.section {
+  display: none;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  margin-bottom: 20px;
+}
 
-</section>
-  
-<script type="module" src="app.js"></script>
+.section.active {
+  display: block;
+}
 
-</body>
-</html>
+/* Style pour les tableaux */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+th, td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+th {
+  background-color: #f2f2f2;
+}
+
+input[type="text"] {
+  width: 100%;
+  padding: 5px;
+  box-sizing: border-box;
+}
+
+/* Style pour les sections de domaine */
+.section > div {
+  margin-bottom: 30px;
+}
+
+/* Style pour le conteneur d'iframe */
+#iframe-container {
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  background: white;
+}
+</style>
