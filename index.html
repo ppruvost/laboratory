@@ -68,16 +68,16 @@ function switchSection(sectionId, element = null, isIframe = false) {
     if (section) {
       section.classList.add('active');
 
+      // Activer l'élément de menu correspondant
+      if (element) {
+        element.classList.add('active');
+      }
+
       // Charger le contenu si ce n'est pas déjà fait
       if (!dataCache[sectionId]) {
         loadSectionData(sectionId);
       }
     }
-  }
-
-  // Activer l'élément de menu correspondant
-  if (element) {
-    element.classList.add('active');
   }
 }
 
@@ -87,19 +87,22 @@ async function loadSectionData(sectionId) {
   container.innerHTML = '<p>Chargement en cours...</p>';
 
   try {
-    let data = [];
     let filePath = '';
+    let variableName = '';
 
-    // Déterminer le fichier à charger selon la section
+    // Déterminer le fichier et la variable à charger
     switch(sectionId) {
       case 'equipements':
         filePath = 'data/equipment.js';
+        variableName = 'laboratoryEquipment';
         break;
       case 'verrerie':
         filePath = 'data/glassware.js';
+        variableName = 'glassware';
         break;
       case 'produits':
         filePath = 'data/products.js';
+        variableName = 'products';
         break;
       default:
         throw new Error('Section non reconnue');
@@ -109,17 +112,35 @@ async function loadSectionData(sectionId) {
     const response = await fetch(filePath);
     const text = await response.text();
 
-    // Extraire le tableau de données
-    const match = text.match(/const\s+(\w+)\s*=\s*\[([\s\S]*?)\];/);
-    if (match) {
-      const arrayText = `[${match[2]}]`;
-      data = JSON.parse(arrayText.replace(/(\w+):/g, '"$1":'));
-      dataCache[sectionId] = true;
-    } else {
-      throw new Error("Format de fichier non reconnu");
-    }
+    // Solution alternative pour gérer les exports
+    // 1. On crée un script dynamique
+    const script = document.createElement('script');
+    script.textContent = `
+      // Redéfinir window.tempData pour capturer les données
+      window.tempData = {};
+      ${text.replace(/export\s+default\s+/, 'window.tempData.' + variableName + ' = ')}
+    `;
+    document.body.appendChild(script);
 
-    // Afficher les données selon le type de section
+    // 2. On attend que le script soit exécuté
+    await new Promise(resolve => {
+      const checkData = setInterval(() => {
+        if (window.tempData && window.tempData[variableName]) {
+          clearInterval(checkData);
+          resolve();
+        }
+      }, 100);
+    });
+
+    // 3. On récupère les données
+    const data = window.tempData[variableName];
+    dataCache[sectionId] = true;
+
+    // 4. On nettoie
+    delete window.tempData;
+    document.body.removeChild(script);
+
+    // Afficher les données
     renderSectionData(sectionId, data);
 
   } catch (error) {
@@ -127,7 +148,8 @@ async function loadSectionData(sectionId) {
     container.innerHTML = `
       <p style="color: red;">
         Erreur de chargement des données.<br>
-        Vérifiez que le fichier existe et est au bon format.
+        Vérifiez que le fichier existe et est au bon format.<br>
+        ${error.message}
       </p>
     `;
   }
