@@ -58,465 +58,101 @@
 
 <section id="equipements" class="section active">
   <h2>🔧 Équipements</h2>
+  <div id="equipment-container"></div>
 
-  <!-- Domaine : Électricité -->
-  <h3>⚡ Électricité</h3>
-  <table>
-    <thead>
-      <tr>
-        <th>Nom</th>
-        <th>Description</th>
-        <th>Lieu de stockage</th>
-        <th>Notice d'utilisation</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>Générateur de tension continue (0-30V)</td>
-        <td>Alimentation stabilisée pour circuits électriques</td>
-        <td><input type="text" placeholder="Lieu de stockage"></td>
-        <td><a href="assets/notice/alimentation_continue.pdf" target="_blank">Notice</a></td>
-      </tr>
-      <tr>
-        <td>Générateur de tension alternative (0-12V, 50Hz)</td>
-        <td>Alimentation pour circuits alternatifs</td>
-        <td><input type="text" placeholder="Lieu de stockage"></td>
-        <td><a href="assets/notice/alimentation_alternative.pdf" target="_blank">Notice</a></td>
-      </tr>
-      <tr>
-        <td>Multimètre numérique</td>
-        <td>Mesure de tension, courant, résistance</td>
-        <td><input type="text" placeholder="Lieu de stockage"></td>
-        <td><a href="assets/notice/multimetre.pdf" target="_blank">Notice</a></td>
-      </tr>
-      <tr>
-        <td>Oscilloscope numérique</td>
-        <td>Visualisation de signaux électriques</td>
-        <td><input type="text" placeholder="Lieu de stockage"></td>
-        <td><a href="assets/notice/oscilloscope.pdf" target="_blank">Notice</a></td>
-      </tr>
-      <tr>
-        <td>Wattmètre</td>
-        <td>Mesure de puissance électrique</td>
-        <td><input type="text" placeholder="Lieu de stockage"></td>
-        <td><a href="assets/notice/wattmetre.pdf" target="_blank">Notice</a></td>
-      </tr>
-      <tr>
-        <td>Transformateur (abaisseur/élévateur)</td>
-        <td>Transformation de tension</td>
-        <td><input type="text" placeholder="Lieu de stockage"></td>
-        <td><a href="assets/notice/transformateur.pdf" target="_blank">Notice</a></td>
-      </tr>
-      <tr>
-        <td>Diode et pont de diodes</td>
-        <td>Redressement de courant</td>
-        <td><input type="text" placeholder="Lieu de stockage"></td>
-        <td><a href="assets/notice/diode.pdf" target="_blank">Notice</a></td>
-      </tr>
-      <tr>
-        <td>Condensateurs (diverses capacités)</td>
-        <td>Filtrage et stockage d'énergie</td>
-        <td><input type="text" placeholder="Lieu de stockage"></td>
-        <td><a href="assets/notice/condensateur.pdf" target="_blank">Notice</a></td>
-      </tr>
-      <tr>
-        <td>Moteur électrique (CC et CA)</td>
-        <td>Conversion énergie électrique/mécanique</td>
-        <td><input type="text" placeholder="Lieu de stockage"></td>
-        <td><a href="assets/notice/moteur_electrique.pdf" target="_blank">Notice</a></td>
-      </tr>
-      <tr>
-        <td>Capteurs (température, lumière, pression)</td>
-        <td>Acquisition de données expérimentales</td>
-        <td><input type="text" placeholder="Lieu de stockage"></td>
-        <td><a href="assets/notice/capteurs.pdf" target="_blank">Notice</a></td>
-      </tr>
-      <tr>
-        <td>Carte d'acquisition (ExAO)</td>
-        <td>Interface pour expériences assistées par ordinateur</td>
-        <td><input type="text" placeholder="Lieu de stockage"></td>
-        <td><a href="assets/notice/exao.pdf" target="_blank">Notice</a></td>
-      </tr>
-      <tr>
-        <td>Résistances (diverses valeurs)</td>
-        <td>Composants pour circuits électriques</td>
-        <td><input type="text" placeholder="Lieu de stockage"></td>
-        <td><a href="assets/notice/resistances.pdf" target="_blank">Notice</a></td>
-      </tr>
-      <tr>
-        <td>Fils de connexion et câbles</td>
-        <td>Connexion de circuits</td>
-        <td><input type="text" placeholder="Lieu de stockage"></td>
-        <td><a href="assets/notice/fils_connexion.pdf" target="_blank">Notice</a></td>
-      </tr>
-      <tr>
-        <td>Interrupteurs et boutons poussoirs</td>
-        <td>Contrôle de circuits</td>
-        <td><input type="text" placeholder="Lieu de stockage"></td>
-        <td><a href="assets/notice/interrupteurs.pdf" target="_blank">Notice</a></td>
-      </tr>
-      <tr>
-        <td>Disjoncteur différentiel</td>
-        <td>Protection des circuits</td>
-        <td><input type="text" placeholder="Lieu de stockage"></td>
-        <td><a href="assets/notice/disjoncteur.pdf" target="_blank">Notice</a></td>
-      </tr>
-    </tbody>
-  </table>
+  <script>
+    // Importation dynamique du fichier equipment.js
+    fetch('data/equipment.js')
+      .then(response => response.text())
+      .then(text => {
+        // Extraction du tableau laboratoryEquipment
+        const equipmentModule = {};
+        eval(text); // Exécute le code JS pour définir laboratoryEquipment
+        const equipmentList = equipmentModule.laboratoryEquipment || laboratoryEquipment;
 
-  <!-- Domaine : Optique -->
-  <h3>👁️ Optique</h3>
-  <table>
-    <thead>
-      <tr>
-        <th>Nom</th>
-        <th>Description</th>
-        <th>Lieu de stockage</th>
-        <th>Notice d'utilisation</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>Lentilles convergentes et divergentes</td>
-        <td>Étude des systèmes optiques</td>
-        <td><input type="text" placeholder="Lieu de stockage"></td>
-        <td><a href="assets/notice/lentilles.pdf" target="_blank">Notice</a></td>
-      </tr>
-      <tr>
-        <td>Banc d'optique</td>
-        <td>Support pour expériences optiques</td>
-        <td><input type="text" placeholder="Lieu de stockage"></td>
-        <td><a href="assets/notice/banc_optique.pdf" target="_blank">Notice</a></td>
-      </tr>
-      <tr>
-        <td>Source lumineuse blanche</td>
-        <td>Éclairage pour expériences optiques</td>
-        <td><input type="text" placeholder="Lieu de stockage"></td>
-        <td><a href="assets/notice/source_lumineuse.pdf" target="_blank">Notice</a></td>
-      </tr>
-      <tr>
-        <td>Laser (classe II)</td>
-        <td>Source de lumière cohérente</td>
-        <td><input type="text" placeholder="Lieu de stockage"></td>
-        <td><a href="assets/notice/laser.pdf" target="_blank">Notice</a></td>
-      </tr>
-      <tr>
-        <td>Écran blanc</td>
-        <td>Visualisation des images</td>
-        <td><input type="text" placeholder="Lieu de stockage"></td>
-        <td><a href="assets/notice/ecran_blanc.pdf" target="_blank">Notice</a></td>
-      </tr>
-      <tr>
-        <td>Prismes</td>
-        <td>Décomposition de la lumière</td>
-        <td><input type="text" placeholder="Lieu de stockage"></td>
-        <td><a href="assets/notice/prismes.pdf" target="_blank">Notice</a></td>
-      </tr>
-      <tr>
-        <td>Fibre optique</td>
-        <td>Transmission de la lumière</td>
-        <td><input type="text" placeholder="Lieu de stockage"></td>
-        <td><a href="assets/notice/fibre_optique.pdf" target="_blank">Notice</a></td>
-      </tr>
-      <tr>
-        <td>Luxmètre</td>
-        <td>Mesure de l'éclairement lumineux</td>
-        <td><input type="text" placeholder="Lieu de stockage"></td>
-        <td><a href="assets/notice/luxmetre.pdf" target="_blank">Notice</a></td>
-      </tr>
-      <tr>
-        <td>Spectroscope</td>
-        <td>Analyse spectrale de la lumière</td>
-        <td><input type="text" placeholder="Lieu de stockage"></td>
-        <td><a href="assets/notice/spectroscope.pdf" target="_blank">Notice</a></td>
-      </tr>
-      <tr>
-        <td>Filtres colorés</td>
-        <td>Sélection de longueurs d'onde</td>
-        <td><input type="text" placeholder="Lieu de stockage"></td>
-        <td><a href="assets/notice/filtres_colorés.pdf" target="_blank">Notice</a></td>
-      </tr>
-    </tbody>
-  </table>
+        // Fonction pour regrouper les équipements par domaine
+        function groupByDomain(equipments) {
+          return equipments.reduce((acc, equipment) => {
+            if (!acc[equipment.domaine]) {
+              acc[equipment.domaine] = [];
+            }
+            acc[equipment.domaine].push(equipment);
+            return acc;
+          }, {});
+        }
 
-  <!-- Domaine : Mécanique -->
-  <h3>🔄 Mécanique</h3>
-  <table>
-    <thead>
-      <tr>
-        <th>Nom</th>
-        <th>Description</th>
-        <th>Lieu de stockage</th>
-        <th>Notice d'utilisation</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>Chronomètre numérique</td>
-        <td>Mesure de temps et de vitesses</td>
-        <td><input type="text" placeholder="Lieu de stockage"></td>
-        <td><a href="assets/notice/chronometre.pdf" target="_blank">Notice</a></td>
-      </tr>
-      <tr>
-        <td>Dynamomètre</td>
-        <td>Mesure de forces</td>
-        <td><input type="text" placeholder="Lieu de stockage"></td>
-        <td><a href="assets/notice/dynamometre.pdf" target="_blank">Notice</a></td>
-      </tr>
-      <tr>
-        <td>Poulies et masses marquées</td>
-        <td>Étude des forces et mouvements</td>
-        <td><input type="text" placeholder="Lieu de stockage"></td>
-        <td><a href="assets/notice/poulies_masses.pdf" target="_blank">Notice</a></td>
-      </tr>
-      <tr>
-        <td>Plan incliné</td>
-        <td>Étude des forces et de l'équilibre</td>
-        <td><input type="text" placeholder="Lieu de stockage"></td>
-        <td><a href="assets/notice/plan_incline.pdf" target="_blank">Notice</a></td>
-      </tr>
-      <tr>
-        <td>Vérin hydraulique</td>
-        <td>Étude de la pression et de la force pressante</td>
-        <td><input type="text" placeholder="Lieu de stockage"></td>
-        <td><a href="assets/notice/verin_hydraulique.pdf" target="_blank">Notice</a></td>
-      </tr>
-      <tr>
-        <td>Manomètre</td>
-        <td>Mesure de pression</td>
-        <td><input type="text" placeholder="Lieu de stockage"></td>
-        <td><a href="assets/notice/manometre.pdf" target="_blank">Notice</a></td>
-      </tr>
-      <tr>
-        <td>Capteur de pression</td>
-        <td>Mesure de pression dans les fluides</td>
-        <td><input type="text" placeholder="Lieu de stockage"></td>
-        <td><a href="assets/notice/capteur_pression.pdf" target="_blank">Notice</a></td>
-      </tr>
-    </tbody>
-  </table>
+        // Regroupement des équipements par domaine
+        const groupedEquipment = groupByDomain(equipmentList);
 
-  <!-- Domaine : Chimie -->
-  <h3>🧪 Chimie</h3>
-  <table>
-    <thead>
-      <tr>
-        <th>Nom</th>
-        <th>Description</th>
-        <th>Lieu de stockage</th>
-        <th>Notice d'utilisation</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>Bécher (divers volumes)</td>
-        <td>Conteneur pour solutions</td>
-        <td><input type="text" placeholder="Lieu de stockage"></td>
-        <td><a href="assets/notice/becher.pdf" target="_blank">Notice</a></td>
-      </tr>
-      <tr>
-        <td>Éprouvettes graduées</td>
-        <td>Mesure de volumes de liquides</td>
-        <td><input type="text" placeholder="Lieu de stockage"></td>
-        <td><a href="assets/notice/eprouvette.pdf" target="_blank">Notice</a></td>
-      </tr>
-      <tr>
-        <td>Pipettes et propipettes</td>
-        <td>Transfert précis de liquides</td>
-        <td><input type="text" placeholder="Lieu de stockage"></td>
-        <td><a href="assets/notice/pipettes.pdf" target="_blank">Notice</a></td>
-      </tr>
-      <tr>
-        <td>Burette</td>
-        <td>Titrage et dosage</td>
-        <td><input type="text" placeholder="Lieu de stockage"></td>
-        <td><a href="assets/notice/burette.pdf" target="_blank">Notice</a></td>
-      </tr>
-      <tr>
-        <td>pH-mètre</td>
-        <td>Mesure du pH des solutions</td>
-        <td><input type="text" placeholder="Lieu de stockage"></td>
-        <td><a href="assets/notice/phmetre.pdf" target="_blank">Notice</a></td>
-      </tr>
-      <tr>
-        <td>Conductimètre</td>
-        <td>Mesure de la conductivité</td>
-        <td><input type="text" placeholder="Lieu de stockage"></td>
-        <td><a href="assets/notice/conductimetre.pdf" target="_blank">Notice</a></td>
-      </tr>
-      <tr>
-        <td>Agitateurs magnétiques</td>
-        <td>Agitation des solutions</td>
-        <td><input type="text" placeholder="Lieu de stockage"></td>
-        <td><a href="assets/notice/agitateur_magnetique.pdf" target="_blank">Notice</a></td>
-      </tr>
-      <tr>
-        <td>Chauffe-ballon</td>
-        <td>Chauffage de solutions</td>
-        <td><input type="text" placeholder="Lieu de stockage"></td>
-        <td><a href="assets/notice/chauffe_ballon.pdf" target="_blank">Notice</a></td>
-      </tr>
-      <tr>
-        <td>Réactifs chimiques (acides, bases, sels)</td>
-        <td>Pour expériences de chimie</td>
-        <td><input type="text" placeholder="Lieu de stockage"></td>
-        <td><a href="assets/notice/reactifs_chimiques.pdf" target="_blank">Notice</a></td>
-      </tr>
-      <tr>
-        <td>Indicateurs colorés</td>
-        <td>Repérage des équivalences en titrage</td>
-        <td><input type="text" placeholder="Lieu de stockage"></td>
-        <td><a href="assets/notice/indicateurs_colorés.pdf" target="_blank">Notice</a></td>
-      </tr>
-      <tr>
-        <td>Spectrophotomètre</td>
-        <td>Analyse spectrale des solutions</td>
-        <td><input type="text" placeholder="Lieu de stockage"></td>
-        <td><a href="assets/notice/spectrophotometre.pdf" target="_blank">Notice</a></td>
-      </tr>
-    </tbody>
-  </table>
+        // Création des sections et tableaux pour chaque domaine
+        const container = document.getElementById('equipment-container');
 
-  <!-- Domaine : Thermique -->
-  <h3>🌡️ Thermique</h3>
-  <table>
-    <thead>
-      <tr>
-        <th>Nom</th>
-        <th>Description</th>
-        <th>Lieu de stockage</th>
-        <th>Notice d'utilisation</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>Thermomètre numérique</td>
-        <td>Mesure de température</td>
-        <td><input type="text" placeholder="Lieu de stockage"></td>
-        <td><a href="assets/notice/thermometre.pdf" target="_blank">Notice</a></td>
-      </tr>
-      <tr>
-        <td>Thermocouple</td>
-        <td>Mesure de température en temps réel</td>
-        <td><input type="text" placeholder="Lieu de stockage"></td>
-        <td><a href="assets/notice/thermocouple.pdf" target="_blank">Notice</a></td>
-      </tr>
-      <tr>
-        <td>Calorimètre</td>
-        <td>Mesure des échanges thermiques</td>
-        <td><input type="text" placeholder="Lieu de stockage"></td>
-        <td><a href="assets/notice/calorimetre.pdf" target="_blank">Notice</a></td>
-      </tr>
-      <tr>
-        <td>Caméra thermique</td>
-        <td>Visualisation des transferts thermiques</td>
-        <td><input type="text" placeholder="Lieu de stockage"></td>
-        <td><a href="assets/notice/camera_thermique.pdf" target="_blank">Notice</a></td>
-      </tr>
-      <tr>
-        <td>Matériaux isolants (laine de verre, polystyrène)</td>
-        <td>Étude de l'isolation thermique</td>
-        <td><input type="text" placeholder="Lieu de stockage"></td>
-        <td><a href="assets/notice/materiaux_isolants.pdf" target="_blank">Notice</a></td>
-      </tr>
-    </tbody>
-  </table>
+        // Emojis pour chaque domaine
+        const domainEmojis = {
+          "Électricité": "⚡",
+          "Optique": "👁️",
+          "Mécanique": "🔄",
+          "Chimie": "🧪",
+          "Thermique": "🌡️",
+          "Signaux": "📡",
+          "Sécurité": "🛡️"
+        };
 
-  <!-- Domaine : Signaux -->
-  <h3>📡 Signaux</h3>
-  <table>
-    <thead>
-      <tr>
-        <th>Nom</th>
-        <th>Description</th>
-        <th>Lieu de stockage</th>
-        <th>Notice d'utilisation</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>Générateur de fonctions</td>
-        <td>Production de signaux sonores et électriques</td>
-        <td><input type="text" placeholder="Lieu de stockage"></td>
-        <td><a href="assets/notice/generateur_fonctions.pdf" target="_blank">Notice</a></td>
-      </tr>
-      <tr>
-        <td>Microphone et haut-parleur</td>
-        <td>Émission et réception de signaux sonores</td>
-        <td><input type="text" placeholder="Lieu de stockage"></td>
-        <td><a href="assets/notice/micro_hautparleur.pdf" target="_blank">Notice</a></td>
-      </tr>
-      <tr>
-        <td>Sonomètre</td>
-        <td>Mesure du niveau sonore</td>
-        <td><input type="text" placeholder="Lieu de stockage"></td>
-        <td><a href="assets/notice/sonometre.pdf" target="_blank">Notice</a></td>
-      </tr>
-      <tr>
-        <td>Fibre optique et émetteur/récepteur</td>
-        <td>Transmission de signaux lumineux</td>
-        <td><input type="text" placeholder="Lieu de stockage"></td>
-        <td><a href="assets/notice/fibre_optique_signal.pdf" target="_blank">Notice</a></td>
-      </tr>
-    </tbody>
-  </table>
+        // Tri des domaines selon l'ordre souhaité
+        const orderedDomains = ["Électricité", "Optique", "Mécanique", "Chimie", "Thermique", "Signaux", "Sécurité"];
 
-  <!-- Domaine : Sécurité -->
-  <h3>🛡️ Sécurité</h3>
-  <table>
-    <thead>
-      <tr>
-        <th>Nom</th>
-        <th>Description</th>
-        <th>Lieu de stockage</th>
-        <th>Notice d'utilisation</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>Blouse de laboratoire</td>
-        <td>Protection des vêtements</td>
-        <td><input type="text" placeholder="Lieu de stockage"></td>
-        <td><a href="assets/notice/blouse_laboratoire.pdf" target="_blank">Notice</a></td>
-      </tr>
-      <tr>
-        <td>Lunettes de protection</td>
-        <td>Protection des yeux</td>
-        <td><input type="text" placeholder="Lieu de stockage"></td>
-        <td><a href="assets/notice/lunettes_protection.pdf" target="_blank">Notice</a></td>
-      </tr>
-      <tr>
-        <td>Gants de protection</td>
-        <td>Protection des mains</td>
-        <td><input type="text" placeholder="Lieu de stockage"></td>
-        <td><a href="assets/notice/gants_protection.pdf" target="_blank">Notice</a></td>
-      </tr>
-      <tr>
-        <td>Extincteur (CO2)</td>
-        <td>Sécurité incendie</td>
-        <td><input type="text" placeholder="Lieu de stockage"></td>
-        <td><a href="assets/notice/extincteur.pdf" target="_blank">Notice</a></td>
-      </tr>
-      <tr>
-        <td>Tapis anti-fatigue</td>
-        <td>Confort et sécurité au poste de travail</td>
-        <td><input type="text" placeholder="Lieu de stockage"></td>
-        <td><a href="assets/notice/tapis_antifatigue.pdf" target="_blank">Notice</a></td>
-      </tr>
-      <tr>
-        <td>Douche oculaire</td>
-        <td>Urgence en cas de projection</td>
-        <td><input type="text" placeholder="Lieu de stockage"></td>
-        <td><a href="assets/notice/douche_oculaire.pdf" target="_blank">Notice</a></td>
-      </tr>
-      <tr>
-        <td>Armoire de sécurité pour produits chimiques</td>
-        <td>Stockage sécurisé des réactifs</td>
-        <td><input type="text" placeholder="Lieu de stockage"></td>
-        <td><a href="assets/notice/armoire_securite.pdf" target="_blank">Notice</a></td>
-      </tr>
-    </tbody>
-  </table>
+        orderedDomains.forEach(domain => {
+          if (groupedEquipment[domain]) {
+            // Création de la section pour le domaine
+            const domainSection = document.createElement('div');
+            domainSection.className = 'domain-section';
+
+            // Titre du domaine
+            const domainTitle = document.createElement('h3');
+            domainTitle.textContent = `${domainEmojis[domain] || ''} ${domain}`;
+            domainSection.appendChild(domainTitle);
+
+            // Création du tableau
+            const table = document.createElement('table');
+            const thead = document.createElement('thead');
+            const tbody = document.createElement('tbody');
+
+            // En-tête du tableau
+            thead.innerHTML = `
+              <tr>
+                <th>Nom</th>
+                <th>Description</th>
+                <th>Lieu de stockage</th>
+                <th>Notice d'utilisation</th>
+              </tr>
+            `;
+            table.appendChild(thead);
+
+            // Lignes du tableau
+            groupedEquipment[domain].forEach(equipment => {
+              const row = document.createElement('tr');
+              row.innerHTML = `
+                <td>${equipment.nom}</td>
+                <td>${equipment.description}</td>
+                <td><input type="text" placeholder="Lieu de stockage" data-equipment="${equipment.nom}"></td>
+                <td><a href="${equipment.noticeUtilisation}" target="_blank">Notice</a></td>
+              `;
+              tbody.appendChild(row);
+            });
+
+            table.appendChild(tbody);
+            domainSection.appendChild(table);
+            container.appendChild(domainSection);
+          }
+        });
+      })
+      .catch(error => {
+        console.error('Erreur lors du chargement des équipements:', error);
+        document.getElementById('equipment-container').innerHTML = `
+          <p style="color: red;">Erreur lors du chargement des équipements. Veuillez vérifier que le fichier <code>data/equipment.js</code> existe et est accessible.</p>
+        `;
+      });
+  </script>
 </section>
 
 <!-- =============================== -->
