@@ -99,3 +99,9 @@ function hideAllSections() {
         s.classList.remove("active");
     });
 }
+
+// ===============================
+// 🧪 INIT ÉQUIPEMENTS + VERRERIE
+// ===============================
+renderEquipmentTable(laboratoryEquipment);
+renderGlasswareTable(glassware);
