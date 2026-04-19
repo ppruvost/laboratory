@@ -91,3 +91,11 @@ function renderGlasswareTable(data) {
         tbody.appendChild(tr);
     });
 }
+// ===============================
+// All Section
+// ===============================
+function hideAllSections() {
+    document.querySelectorAll(".section").forEach(s => {
+        s.classList.remove("active");
+    });
+}
