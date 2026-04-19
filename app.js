@@ -4,17 +4,32 @@ import glassware from "./data/glassware.js";
 
 import { renderTable, showSection } from "./modules/ui.js";
 
-// rendre accessible globalement (menu onclick)
+
+// ===============================
+// 🔗 RENDRE ACCESSIBLE AU HTML
+// ===============================
+
 window.showSection = showSection;
-// rendre accessible globalement (menu HTML onclick)
-window.openURL = function(url) {
-    window.open(url, "_blank");
-};
 
 window.setActive = function(el) {
     document.querySelectorAll(".menu-item")
         .forEach(i => i.classList.remove("active"));
     el.classList.add("active");
+};
+
+window.loadInFrame = function(url) {
+
+    // masquer sections classiques
+    document.querySelectorAll(".section")
+        .forEach(sec => sec.classList.remove("active"));
+
+    // afficher iframe container
+    const container = document.getElementById("external-content");
+    if (container) container.classList.add("active");
+
+    // charger URL
+    const frame = document.getElementById("external-frame");
+    if (frame) frame.src = url;
 };
 
 // ===============================
