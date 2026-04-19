@@ -25,36 +25,54 @@ renderTable(products, () => {});
 // ===============================
 // ⚡ ÉQUIPEMENTS
 // ===============================
-const equipmentDiv = document.getElementById("equipment-list");
+function renderEquipmentTable(data) {
 
-laboratoryEquipment.forEach(eq => {
-    const div = document.createElement("div");
-    div.className = "card";
+    const tbody = document.getElementById("equipment-body");
+    if (!tbody) return;
 
-    div.innerHTML = `
-        <h3>${eq.nom}</h3>
-        <p><b>Domaine :</b> ${eq.domaine}</p>
-        <p>${eq.description}</p>
-        <a href="${eq.noticeUtilisation}" target="_blank">📄 Notice</a>
-    `;
+    tbody.innerHTML = "";
 
-    equipmentDiv.appendChild(div);
-});
+    data.forEach(eq => {
+
+        const tr = document.createElement("tr");
+
+        tr.innerHTML = `
+            <td>${eq.domaine || "-"}</td>
+            <td>${eq.nom || "-"}</td>
+            <td>${eq.description || "-"}</td>
+            <td>${eq.lieuStockage || "-"}</td>
+            <td>
+                <a href="${eq.noticeUtilisation}" target="_blank">📄</a>
+            </td>
+        `;
+
+        tbody.appendChild(tr);
+    });
+}
 
 // ===============================
 // 🧪 VERRERIE
 // ===============================
-const glassDiv = document.getElementById("glassware-list");
+function renderGlasswareTable(data) {
 
-glassware.forEach(g => {
-    const div = document.createElement("div");
-    div.className = "card";
+    const tbody = document.getElementById("glassware-body");
+    if (!tbody) return;
 
-    div.innerHTML = `
-        <h3>${g.nom}</h3>
-        <p>Contenance : ${g.contenance_ml}</p>
-        <img src="${g.image}" width="120">
-    `;
+    tbody.innerHTML = "";
 
-    glassDiv.appendChild(div);
-});
+    data.forEach(g => {
+
+        const tr = document.createElement("tr");
+
+        tr.innerHTML = `
+            <td>${g.nom || "-"}</td>
+            <td>${g.contenance_ml || "-"}</td>
+            <td>${g.lieu || "-"}</td>
+            <td>
+                <img src="${g.image}" width="60">
+            </td>
+        `;
+
+        tbody.appendChild(tr);
+    });
+}
