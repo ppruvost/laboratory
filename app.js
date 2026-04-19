@@ -1,235 +1,54 @@
-// ===============================
-// /== IMPORT MODULES ==/
-// ===============================
-
-import { renderTable, showSection } from "./modules/ui.js";
-import { loadProduits, saveProduits } from "./modules/storage.js";
-import { applyFilters } from "./modules/filters.js";
-import { products as defaultData } from "./data/products.js";
+import { products } from "./data/products.js";
+import laboratoryEquipment from "./data/equipment.js";
 import glassware from "./data/glassware.js";
 
-// ===============================
-// /== BASE DE DONNÉES ==/
-// ===============================
+import { renderTable, showSection } from "./modules/ui.js";
 
-let produits = loadProduits();
-
-if (!produits || produits.length === 0) {
-  produits = defaultData;
-  saveProduits(produits);
-}
-
-console.log("Produits chargés :", produits);
-
-// ===============================
-// /== VERRERIE ==/
-// ===============================
-
-let verrerieChargee = false;
-
-function afficherVerrerie() {
-  const tbody = document.getElementById("verrerie-body");
-  if (!tbody) return;
-
-  tbody.innerHTML = "";
-
-  glassware.forEach(item => {
-    const row = document.createElement("tr");
-
-    row.innerHTML = `
-      <td>${item.nom}</td>
-      <td>${item.contenance_ml}</td>
-      <td>${item.lieu || ""}</td>
-      <td>
-        <img src="${item.image}" alt="${item.nom}" width="50">
-      </td>
-    `;
-
-    tbody.appendChild(row);
-  });
-}
-
-// ===============================
-// /== NAVIGATION SECTIONS ==/
-// ===============================
-
-function showSectionWithVerrerie(sectionId) {
-  showSection(sectionId);
-
-  if (sectionId === "verrerie" && !verrerieChargee) {
-    afficherVerrerie();
-    verrerieChargee = true;
-  }
-
-  resetMenu(); // 🔥 important
-}
-
-// ===============================
-// /== ETAT DES FILTRES ==/
-// ===============================
-
-let filters = {
-  query: "",
-  categorie: "all",
-  danger: "all",
-  localisation: "all"
+// rendre accessible globalement (menu onclick)
+window.showSection = showSection;
+// rendre accessible globalement (menu HTML onclick)
+window.openURL = function(url) {
+    window.open(url, "_blank");
 };
 
 // ===============================
-// /== SAUVEGARDE ==/
+// 🧪 INIT PRODUITS
 // ===============================
-
-function sauvegarder() {
-  saveProduits(produits);
-}
+renderTable(products, () => {});
 
 // ===============================
-// /== RENDU PRINCIPAL ==/
+// ⚡ ÉQUIPEMENTS
 // ===============================
+const equipmentDiv = document.getElementById("equipment-list");
 
-function afficher() {
-  const filtered = applyFilters(produits, filters);
-  renderTable(filtered, supprimer);
-}
+laboratoryEquipment.forEach(eq => {
+    const div = document.createElement("div");
+    div.className = "card";
 
-// ===============================
-// /== SUPPRESSION PRODUIT ==/
-// ===============================
+    div.innerHTML = `
+        <h3>${eq.nom}</h3>
+        <p><b>Domaine :</b> ${eq.domaine}</p>
+        <p>${eq.description}</p>
+        <a href="${eq.noticeUtilisation}" target="_blank">📄 Notice</a>
+    `;
 
-function supprimer(index) {
-  produits.splice(index, 1);
-  sauvegarder();
-  afficher();
-}
-
-// ===============================
-// /== FILTRES ==/
-// ===============================
-
-function setSearch(value) {
-  filters.query = value;
-  afficher();
-}
-
-function setCategorie(value) {
-  filters.categorie = value;
-  afficher();
-}
-
-function setDanger(value) {
-  filters.danger = value;
-  afficher();
-}
-
-function setLocalisation(value) {
-  filters.localisation = value;
-  afficher();
-}
-
-// ===============================
-// /== MENU (AJOUT IMPORTANT) ==/
-// ===============================
-
-function resetMenu() {
-  document.querySelectorAll('.menu-item').forEach(item => {
-    item.classList.remove('active');
-  });
-
-  document.querySelectorAll('.submenu').forEach(menu => {
-    menu.classList.remove('show');
-  });
-}
-
-function toggleMenu(menuId, element) {
-  const menu = document.getElementById(menuId);
-  const isOpen = menu.classList.contains('show');
-
-  resetMenu();
-
-  if (!isOpen) {
-    element.classList.add('active');
-    menu.classList.add('show');
-  }
-}
-
-// ===============================
-// /== IFRAME NAVIGATION ==/
-// ===============================
-
-function showIframe(url, element) {
-
-  document.querySelectorAll('.section').forEach(sec => {
-    sec.classList.remove('active');
-  });
-
-  const iframeSection = document.getElementById('iframe-section');
-  if (iframeSection) {
-    iframeSection.classList.add('active');
-  }
-
-  const iframe = document.getElementById('main-iframe');
-  if (iframe) {
-    iframe.src = url;
-  }
-
-  resetMenu(); // 🔥 important
-
-  if (element) {
-    element.classList.add('active');
-  }
-}
-
-// ===============================
-// /== EVENTS HTML ==/
-// ===============================
-
-document.addEventListener("DOMContentLoaded", () => {
-
-  const search = document.getElementById("search");
-  if (search) {
-    search.addEventListener("input", (e) => setSearch(e.target.value));
-  }
-
-  const cat = document.getElementById("categorie-filter");
-  if (cat) {
-    cat.addEventListener("change", (e) => setCategorie(e.target.value));
-  }
-
-  const danger = document.getElementById("danger-filter");
-  if (danger) {
-    danger.addEventListener("change", (e) => setDanger(e.target.value));
-  }
-
-  // 🔥 gestion boutons sans sous-menu
-  document.querySelectorAll('.menu-item').forEach(item => {
-    if (!item.querySelector('.submenu')) {
-      item.addEventListener('click', function () {
-        resetMenu();
-        this.classList.add('active');
-      });
-    }
-  });
-
+    equipmentDiv.appendChild(div);
 });
 
 // ===============================
-// /== INITIALISATION ==/
+// 🧪 VERRERIE
 // ===============================
+const glassDiv = document.getElementById("glassware-list");
 
-showSection("equipements");
-afficher();
+glassware.forEach(g => {
+    const div = document.createElement("div");
+    div.className = "card";
 
-// ===============================
-// /== EXPORT GLOBAL ==/
-// ===============================
+    div.innerHTML = `
+        <h3>${g.nom}</h3>
+        <p>Contenance : ${g.contenance_ml}</p>
+        <img src="${g.image}" width="120">
+    `;
 
-window.supprimer = supprimer;
-window.showSection = showSectionWithVerrerie;
-
-window.setSearch = setSearch;
-window.setCategorie = setCategorie;
-window.setDanger = setDanger;
-window.setLocalisation = setLocalisation;
-
-window.showIframe = showIframe;
-window.toggleMenu = toggleMenu; // 🔥 indispensable
+    glassDiv.appendChild(div);
+});
