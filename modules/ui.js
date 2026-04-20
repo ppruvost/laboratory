@@ -33,8 +33,12 @@ export function renderTable(produits, supprimerCallback) {
     const pictos = (p.dangers || []).map(code => {
       const img = pictogrammes[code];
       if (!img) return "";
-      return `<img src="assets/picto/${img}" class="picto">`;
-    }).join("");
+      return `
+        <div class="picto-container">
+          <img src="assets/picto/${img}" class="picto">
+        </div>
+    `;
+  }).join("");
 
     // ===============================
     // ⚠️ TEXTE DANGERS
