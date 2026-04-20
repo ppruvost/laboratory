@@ -48,6 +48,22 @@ th, td {
     padding: 8px;
 }
 
-img.picto {
-    width: 25px;
+/* Conteneur de l'image (optionnel mais recommandé) */
+.picto-container {
+    display: inline-block;
+    overflow: hidden;
+}
+
+/* Image pictogramme */
+.picto-container img {
+    width: 40px; /* taille de base */
+    height: auto;
+    transition: transform 0.3s ease, z-index 0.3s;
+}
+
+/* Effet loupe au survol */
+.picto-container img:hover {
+    transform: scale(2.2); /* grossissement */
+    z-index: 10;
+    position: relative;
 }
