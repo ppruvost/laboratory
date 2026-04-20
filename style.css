@@ -48,22 +48,24 @@ th, td {
     padding: 8px;
 }
 
-/* Conteneur de l'image (optionnel mais recommandé) */
+/* Conteneur pictogramme */
 .picto-container {
     display: inline-block;
-    overflow: hidden;
-}
-
-/* Image pictogramme */
-.picto-container img {
-    width: 40px; /* taille de base */
-    height: auto;
-    transition: transform 0.3s ease, z-index 0.3s;
-}
-
-/* Effet loupe au survol */
-.picto-container img:hover {
-    transform: scale(2.2); /* grossissement */
-    z-index: 10;
     position: relative;
+    margin: 0 3px;
+}
+
+/* Image */
+.picto {
+    width: 40px;
+    height: auto;
+    transition: transform 0.25s ease;
+    cursor: pointer;
+}
+
+/* Effet loupe */
+.picto-container:hover .picto {
+    transform: scale(2.2);
+    position: relative;
+    z-index: 10;
 }
