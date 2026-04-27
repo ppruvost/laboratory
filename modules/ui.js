@@ -62,13 +62,11 @@ export function renderTable(produits, supprimerCallback) {
       <td>${dangerText}</td>
 
       <td>
-        <img 
-            src="assets/img/${product.image}" 
-            alt="${product.nom}" 
-            width="60"
-            style="border-radius:6px;"
-        >
-    </td>
+  ${p.image 
+    ? `<img src="assets/img/${p.image}" alt="${p.nom}" width="60" style="border-radius:6px;">`
+    : "—"
+  }
+</td>
     `;
 
     // ===============================
