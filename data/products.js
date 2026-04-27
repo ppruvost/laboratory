@@ -154,6 +154,17 @@ export const products = [
     dangers: ["H314"],    
   },
   {
+    cas: "80-62-6",
+    nom: "Méthacrylate de méthyle",
+    formule: "C5H8O2",
+    categorie: "Monomère / Solvant réactif",
+    localisation: "B27/ B2-3",
+    pictogramme: ["flammable.png", "irritant.png"],
+    image: "methyl_methacrylate.jpg",
+    fds: "methyl_methacrylate.pdf",
+    dangers: ["H225", "H315", "H317", "H335"]
+},
+  {
     cas: "90-20-3",
     nom: "Naphtalène",
     formule: "C10H8",
