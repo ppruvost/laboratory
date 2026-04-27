@@ -142,7 +142,7 @@ export function toggleForm() {
 export function resetForm() {
 
   // 🔴 champs texte
-  ["cas", "nom", "formule", "substitution"].forEach(id => {
+  ["cas", "nom", "formule", "visuel"].forEach(id => {
     const el = document.getElementById(id);
     if (el) el.value = "";
   });
