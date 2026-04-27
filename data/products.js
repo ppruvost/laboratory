@@ -8,8 +8,7 @@ export const products = [
     pictogramme: ["flammable.png"],
     image: "ethanol.jpg",
     fds: "ethanol.pdf",
-    dangers: ["H225", "H319"],
-    substitution: "Isopropanol"
+    dangers: ["H225", "H319"],   
   },
   {
     cas: "7647-01-0",
@@ -20,8 +19,7 @@ export const products = [
     pictogramme: ["corrosif.png"],
     image: "acide_chlorhydrique.jpg",
     fds: "FicheTox_13.pdf",
-    dangers: ["H350"],
-    substitution: ""
+    dangers: ["H350"],   
   },
   {
     cas: "64-19-7",
@@ -32,8 +30,7 @@ export const products = [
     pictogramme: ["corrosif.png", "flammable.png"],
     image: "acide_acetique.jpg",
     fds: "FicheTox_24.pdf",
-    dangers: ["H314"],
-    substitution: ""
+    dangers: ["H314"],    
   },
   {
     cas: "7697-37-2",
@@ -44,8 +41,7 @@ export const products = [
     pictogramme: ["corrosif.png", "comburant.png"],
     image: "acide_nitrique.jpg",
     fds: "FicheTox_9.pdf",
-    dangers: ["H314"],
-    substitution: ""
+    dangers: ["H314"],    
   },
   {
     cas: "79-09-4",
@@ -56,8 +52,7 @@ export const products = [
     pictogramme: ["corrosif.png"],
     image: "acide_propionique.jpg",
     fds: "FicheTox_329.pdf",
-    dangers: ["H314"],
-    substitution: ""
+    dangers: ["H314"],    
   },
   {
     cas: "7664-93-9",
@@ -68,8 +63,7 @@ export const products = [
     pictogramme: ["corrosif.png"],
     image: "acide_sulfurique.jpg",
     fds: "FicheTox_30.pdf",
-    dangers: ["H314"],
-    substitution: ""
+    dangers: ["H314"],    
   },
   {
     cas: "1336-21-6",
@@ -80,8 +74,7 @@ export const products = [
     pictogramme: ["corrosif.png", "toxique.png"],
     image: "ammoniaque.jpg",
     fds: "FicheTox_16.pdf",
-    dangers: ["H314"],
-    substitution: ""
+    dangers: ["H314"],    
   },
   {
     cas: "471-34-1",
@@ -92,8 +85,7 @@ export const products = [
     pictogramme: [],
     image: "carbonate_calcium.jpg",
     fds: "FDS_SOF_CARB.pdf",
-    dangers: ["H280"],
-    substitution: ""
+    dangers: ["H280"],    
   },
   {
     cas: "10043-52-4",
@@ -104,8 +96,7 @@ export const products = [
     pictogramme: ["irritant.png"],
     image: "chlorure_calcium.jpg",
     fds: "10043-52-A001.pdf",
-    dangers: ["H318"],
-    substitution: ""
+    dangers: ["H318"],    
   },
   {
     cas: "10043-35-3",
@@ -116,8 +107,7 @@ export const products = [
     pictogramme: ["danger_sante.png"],
     image: "borax.jpg",
     fds: "FicheTox_138.pdf",
-    dangers: ["H360FD"],
-    substitution: ""
+    dangers: ["H360FD"],    
   },
   {
     cas: "139-33-3",
@@ -128,8 +118,7 @@ export const products = [
     pictogramme: ["irritant.png"],
     image: "edta.jpg",
     fds: "FicheTox_276.pdf",
-    dangers: ["H318"],
-    substitution: ""
+    dangers: ["H318"],    
   },
   {
     cas: "7791-18-6",
@@ -140,8 +129,7 @@ export const products = [
     pictogramme: [],
     image: "chlorure_magnesium.jpg",
     fds: "FDS_Chlorure.pdf",
-    dangers: [],
-    substitution: ""
+    dangers: [],    
   },
   {
     cas: "90-20-3",
@@ -152,8 +140,7 @@ export const products = [
     pictogramme: ["danger_sante.png"],
     image: "naphtalene.jpg",
     fds: "FicheTox_204.pdf",
-    dangers: ["H351"],
-    substitution: ""
+    dangers: ["H351"],    
   },
   {
     cas: "1336-21-6",
@@ -164,8 +151,7 @@ export const products = [
     pictogramme: ["corrosif.png"],
     image: "ph4.jpg",
     fds: "FDS_019849.pdf",
-    dangers: ["H314"],
-    substitution: ""
+    dangers: ["H314"],    
   },
   {
     cas: "7778-77-0",
@@ -176,8 +162,7 @@ export const products = [
     pictogramme: [],
     image: "ph7.jpg",
     fds: "FDS_solution_tampon.pdf",
-    dangers: [],
-    substitution: ""
+    dangers: [],    
   },
   {
     cas: "497-19-8",
@@ -188,8 +173,7 @@ export const products = [
     pictogramme: [],
     image: "ph10.jpg",
     fds: "",
-    dangers: [],
-    substitution: ""
+    dangers: [],    
   },
   {
     cas: "7783-33-7",
@@ -200,8 +184,7 @@ export const products = [
     pictogramme: ["toxique.png", "environnement.png"],
     image: "nessler.jpg",
     fds: "SDB_8132.pdf",
-    dangers: ["H314"],
-    substitution: ""
+    dangers: ["H314"],    
   },
   {
     cas: "1310-73-2",
@@ -212,8 +195,7 @@ export const products = [
     pictogramme: ["corrosif.png"],
     image: "soude.jpg",
     fds: "FicheTox_20.pdf",
-    dangers: ["H314"],
-    substitution: ""
+    dangers: ["H314"],    
   },
   {
     cas: "100-42-5",
@@ -224,8 +206,7 @@ export const products = [
     pictogramme: ["inflammable.png", "danger_sante.png"],
     image: "styrene.jpg",
     fds: "FicheTox_2.pdf",
-    dangers: ["H226"],
-    substitution: ""
+    dangers: ["H226"],    
   },
   {
     cas: "77-09-8",
@@ -236,7 +217,6 @@ export const products = [
     pictogramme: ["danger_sante.png"],
     image: "phenolphtaleine.jpg",
     fds: "FAS33.pdf",
-    dangers: ["H350"],
-    substitution: ""
+    dangers: ["H350"],    
   }
 ];
