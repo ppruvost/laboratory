@@ -61,7 +61,14 @@ export function renderTable(produits, supprimerCallback) {
 
       <td>${dangerText}</td>
 
-      <td>${p.substitution || "-"}</td>
+      <td>
+        <img 
+            src="assets/img/${product.image}" 
+            alt="${product.nom}" 
+            width="60"
+            style="border-radius:6px;"
+        >
+    </td>
     `;
 
     // ===============================
