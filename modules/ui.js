@@ -40,34 +40,33 @@ export function renderTable(produits, supprimerCallback) {
     `;
   }).join("");
 
-    // ===============================
-    // ⚠️ TEXTE DANGERS
-    // ===============================
-    const dangerText = (p.dangers || []).map(code => {
-      const d = dangerDB.find(d => d.code === code);
-      return d ? `${code} - ${d.text}` : code;
-    }).join("<br>");
+// ===============================
+// ⚠️ TEXTE DANGERS
+// ===============================
+const dangerText = (p.dangers || []).map(code => {
+  const d = dangerDB.find(d => d.code === code);
+  return d ? `${code} - ${d.text}` : code;
+}).join("<br>");
 
-    const tr = document.createElement("tr");
+const image = p.image
+  ? `<img src="assets/img/${p.image}" alt="${p.nom}" width="60" style="border-radius:6px;">`
+  : "—";
 
-    tr.innerHTML = `
-      <td>${p.cas || "-"}</td>
-      <td>${p.nom || "-"}</td>
-      <td>${p.formule || "-"}</td>
-      <td>${p.categorie || "-"}</td>
-      <td>${p.localisation || "-"}</td>
+const tr = document.createElement("tr");
 
-      <td>${pictos}</td>
+tr.innerHTML = `
+  <td>${p.cas || "-"}</td>
+  <td>${p.nom || "-"}</td>
+  <td>${p.formule || "-"}</td>
+  <td>${p.categorie || "-"}</td>
+  <td>${p.localisation || "-"}</td>
 
-      <td>${dangerText}</td>
+  <td>${pictos}</td>
 
-      <td>
-  ${p.image 
-    ? `<img src="assets/img/${p.image}" alt="${p.nom}" width="60" style="border-radius:6px;">`
-    : "—"
-  }
-</td>
-    `;
+  <td>${dangerText}</td>
+
+  <td>${image}</td>
+`;
 
     // ===============================
     // 🗑️ SUPPRESSION (double clic)
