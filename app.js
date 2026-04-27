@@ -33,7 +33,7 @@ window.loadInFrame = function(url) {
 };
 
 // ===============================
-// 🧪 INIT PRODUITS
+// 🧪 INIT REACTIFS
 // ===============================
 renderTable(products, () => {});
 
