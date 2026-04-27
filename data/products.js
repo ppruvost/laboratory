@@ -176,6 +176,17 @@ export const products = [
     dangers: ["H351"],    
   },
   {
+    cas: "77-09-8",
+    nom: "Phénolphtaléine",
+    formule: "C20H14O4",
+    categorie: "Indicateur coloré",
+    localisation: "B27 / B-2-4",
+    pictogramme: ["danger_sante.png"],
+    image: "phenolphtaleine.jpg",
+    fds: "FAS33.pdf",
+    dangers: ["H350"],    
+  },
+  {
     cas: "7783-33-7",
     nom: "Réactif de Nessler",
     formule: "K2HgI4",
@@ -186,6 +197,17 @@ export const products = [
     fds: "SDB_8132.pdf",
     dangers: ["H314"],    
   },
+  {
+    cas: "Mélange (HNO3 + (NH4)6Mo7O24)",
+    nom: "Réactif nitromolybdique (acide nitrique – molybdate d’ammonium)",
+    formule: "Solution aqueuse de réactifs inorganiques",
+    categorie: "Réactif de laboratoire / Analyse colorimétrique",
+    localisation: "B27/ B3-1",
+    pictogramme: ["corrosive.png", "oxidizing.png"],
+    image: "nitromolybdique_reagent.jpg",
+    fds: "nitromolybdique_reagent.pdf",
+    dangers: ["H272", "H314", "H290"]
+},
   {
     cas: "1336-21-6",
     nom: "Solution tampon pH 4.01",
@@ -229,16 +251,5 @@ export const products = [
     image: "styrene.jpg",
     fds: "FicheTox_2.pdf",
     dangers: ["H226"],    
-  },
-  {
-    cas: "77-09-8",
-    nom: "Phénolphtaléine",
-    formule: "C20H14O4",
-    categorie: "Indicateur coloré",
-    localisation: "B27 / B-2-4",
-    pictogramme: ["danger_sante.png"],
-    image: "phenolphtaleine.jpg",
-    fds: "FAS33.pdf",
-    dangers: ["H350"],    
-  }
+  }  
 ];
