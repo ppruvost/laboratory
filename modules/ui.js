@@ -10,7 +10,7 @@ import { dangerDB } from "../data/dangerDB.js";
 // /== AFFICHAGE TABLEAU PRODUITS ==/
 // ===============================
 
-export function renderTable(produits, supprimerCallback) {
+export function renderTable(produits) {
 
   const tbody = document.getElementById("table-body");
   if (!tbody) return;
@@ -24,7 +24,7 @@ export function renderTable(produits, supprimerCallback) {
     return;
   }
 
-  produits.forEach((p, i) => {
+  produits.forEach((p) => {
 
     // ===============================
     // 🧪 PICTOGRAMMES
@@ -75,25 +75,24 @@ export function renderTable(produits, supprimerCallback) {
     // ===============================
     const tr = document.createElement("tr");
 
-tr.innerHTML = `
-  <td>${p.cas || "-"}</td>
-  <td>${p.nom || "-"}</td>
-  <td>${p.formule || "-"}</td>
-  <td>${p.categorie || "-"}</td>
-  <td>${p.localisation || "-"}</td>
+    tr.innerHTML = `
+      <td>${p.cas || "-"}</td>
+      <td>${p.nom || "-"}</td>
+      <td>${p.formule || "-"}</td>
+      <td>${p.categorie || "-"}</td>
+      <td>${p.localisation || "-"}</td>
+      <td>${pictos}</td>
+      <td>${dangerText}</td>
+      <td>${image}</td>
+    `;
 
-  <td>${pictos}</td>
+    tbody.appendChild(tr);
 
-  <td>${dangerText}</td>
-
-  <td>${image}</td>
-`;
-
-tbody.appendChild(tr);
-
-});
+  });
 
 }
+
+
 // ===============================
 // /== AFFICHAGE SECTIONS (MENU) ==/
 // ===============================
