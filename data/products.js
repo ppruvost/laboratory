@@ -1,5 +1,16 @@
 export const products = [
   {
+  cas: "123-51-3",
+  nom: "3-méthylbutan-1-ol (alcool isoamylique)",
+  formule: "C₅H₁₂O",
+  categorie: "Alcool primaire",
+  localisation: "Salle B27 / Étagère B2",
+  pictogramme: ["inflammable.png", "irritant.png"],
+  image: "3_methylbutan_1_ol.jpg",
+  fds: "FicheTox_XXX.pdf",
+  dangers: ["H226", "H315", "H335"]
+},
+  {
     cas: "98-86-2",
     nom: "acétophénone",
     formule: "C8H8O",
@@ -60,7 +71,7 @@ export const products = [
     formule: "C₃H₆O₂",
     categorie: "Acide carboxylique",
     localisation: "Salle B27 / Étagère B1",
-    pictogramme: ["corrosif.png","inflammable.png"],   
+    pictogramme: ["corrosif.png", "inflammable.png"],   
     image: "acide_propanoique.jpg",
     fds: "FicheTox_XXX.pdf",
     dangers: ["H226","H314"]
