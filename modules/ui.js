@@ -6,7 +6,6 @@ import { pictogrammes } from "../data/pictogrammes.js";
 import { dangerDB } from "../data/dangerDB.js";
 
 
-
 // ===============================
 // /== AFFICHAGE TABLEAU PRODUITS ==/
 // ===============================
@@ -33,40 +32,63 @@ export function renderTable(produits, supprimerCallback) {
     const pictos = (p.dangers || []).map(code => {
       const img = pictogrammes[code];
       if (!img) return "";
+
       return `
         <div class="picto-container">
-          <img src="assets/picto/${img}" class="picto">
+          <img 
+            src="assets/picto/${img}" 
+            class="picto"
+            alt="${code}"
+          >
         </div>
+      `;
+    }).join("");
+
+
+    // ===============================
+    // ⚠️ TEXTE DANGERS
+    // ===============================
+    const dangerText = (p.dangers || []).map(code => {
+      const d = dangerDB.find(d => d.code === code);
+      return d ? `${code} - ${d.text}` : code;
+    }).join("<br>");
+
+
+    // ===============================
+    // 🖼️ IMAGE VISUEL + EFFET LOUPE
+    // ===============================
+    const image = p.image
+      ? `
+        <div class="image-container">
+          <img
+            src="assets/img/${p.image}"
+            alt="${p.nom}"
+            class="table-image"
+          >
+        </div>
+      `
+      : "—";
+
+
+    // ===============================
+    // 🧱 LIGNE TABLEAU
+    // ===============================
+    const tr = document.createElement("tr");
+
+    tr.innerHTML = `
+      <td>${p.cas || "-"}</td>
+      <td>${p.nom || "-"}</td>
+      <td>${p.formule || "-"}</td>
+      <td>${p.categorie || "-"}</td>
+      <td>${p.localisation || "-"}</td>
+
+      <td>${pictos}</td>
+
+      <td>${dangerText}</td>
+
+      <td>${image}</td>
     `;
-  }).join("");
 
-// ===============================
-// ⚠️ TEXTE DANGERS
-// ===============================
-const dangerText = (p.dangers || []).map(code => {
-  const d = dangerDB.find(d => d.code === code);
-  return d ? `${code} - ${d.text}` : code;
-}).join("<br>");
-
-const image = p.image
-  ? `<img src="assets/img/${p.image}" alt="${p.nom}" width="60" style="border-radius:6px;">`
-  : "—";
-
-const tr = document.createElement("tr");
-
-tr.innerHTML = `
-  <td>${p.cas || "-"}</td>
-  <td>${p.nom || "-"}</td>
-  <td>${p.formule || "-"}</td>
-  <td>${p.categorie || "-"}</td>
-  <td>${p.localisation || "-"}</td>
-
-  <td>${pictos}</td>
-
-  <td>${dangerText}</td>
-
-  <td>${image}</td>
-`;
 
     // ===============================
     // 🗑️ SUPPRESSION (double clic)
@@ -80,7 +102,6 @@ tr.innerHTML = `
     tbody.appendChild(tr);
   });
 }
-
 
 
 // ===============================
@@ -100,7 +121,7 @@ export function showSection(id, element = null) {
     target.classList.add("active");
   }
 
-  // 🔴 GESTION MENU ACTIF (BLEU → ORANGE)
+  // 🔴 GESTION MENU ACTIF
   document.querySelectorAll(".menu-item").forEach(item => {
     item.classList.remove("active");
   });
@@ -109,7 +130,6 @@ export function showSection(id, element = null) {
     element.classList.add("active");
   }
 }
-
 
 
 // ===============================
@@ -121,17 +141,14 @@ export function toggleForm() {
   const f = document.getElementById("formulaire");
   if (!f) return;
 
-  // 🔁 toggle propre
   f.classList.toggle("active");
 
-  // fallback si CSS non utilisé
   if (!f.classList.contains("active")) {
     f.style.display = "none";
   } else {
     f.style.display = "block";
   }
 }
-
 
 
 // ===============================
