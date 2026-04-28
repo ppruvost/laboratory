@@ -1,7 +1,7 @@
 export const products = [
   {
     cas: "98-86-2",
-    nom: "Acétophénone",
+    nom: "acétophénone",
     formule: "C8H8O",
     categorie: "Solvant / Composé aromatique",
     localisation: "salle B27/ étagère B2",
@@ -12,7 +12,7 @@ export const products = [
 },  
   {
     cas: "7647-01-0",
-    nom: "Acide chlorhydrique",
+    nom: "acide chlorhydrique",
     formule: "HCl",
     categorie: "Acide fort",
     localisation: "salle B27 / étagère B1",
@@ -23,7 +23,7 @@ export const products = [
   },
   {
     cas: "64-19-7",
-    nom: "Acide éthanoïque (acétique)",
+    nom: "acide éthanoïque (acétique)",
     formule: "CH3COOH",
     categorie: "Acide faible",
     localisation: "salle B27 / étagère B1",
@@ -34,7 +34,7 @@ export const products = [
   },
   {
     cas: "7697-37-2",
-    nom: "Acide nitrique",
+    nom: "acide nitrique",
     formule: "HNO3",
     categorie: "Acide fort",
     localisation: "salle B27 / étagère B1",
@@ -45,7 +45,7 @@ export const products = [
   },
   {
     cas: "79-09-4",
-    nom: "Acide propionique",
+    nom: "acide propionique",
     formule: "C3H6O2",
     categorie: "Acide faible",
     localisation: "salle B27 / étagère B1",
@@ -56,7 +56,7 @@ export const products = [
   },
   {
     cas: "7664-93-9",
-    nom: "Acide sulfurique",
+    nom: "acide sulfurique",
     formule: "H2SO4",
     categorie: "Acide fort",
     localisation: "salle B27 / étagère B1",
@@ -67,7 +67,7 @@ export const products = [
   },
   {
     cas: "1336-21-6",
-    nom: "Ammoniaque (NH4OH)",
+    nom: "ammoniaque (NH4OH)",
     formule: "NH4OH",
     categorie: "Traitement des eaux",
     localisation: "salle B27 / étagère B1",
@@ -78,7 +78,7 @@ export const products = [
   },
   {
     cas: "10043-35-3",
-    nom: "Borax",
+    nom: "borax",
     formule: "Na2B4O7",
     categorie: "Acide faible",
     localisation: "salle B27 / étagère B2",
@@ -89,7 +89,7 @@ export const products = [
   },
   {
     cas: "471-34-1",
-    nom: "Carbonate de calcium",
+    nom: "carbonate de calcium",
     formule: "CaCO3",
     categorie: "Sel minéral",
     localisation: "salle B27 / étagère E3",
@@ -100,7 +100,7 @@ export const products = [
   },
   {
     cas: "10043-52-4",
-    nom: "Chlorure de calcium",
+    nom: "chlorure de calcium",
     formule: "CaCl2",
     categorie: "Traitement des eaux",
     localisation: "salle B27 / étagère E3",
@@ -111,7 +111,7 @@ export const products = [
   },
   {
     cas: "7791-18-6",
-    nom: "Chlorure de magnésium hexahydraté",
+    nom: "chlorure de magnésium hexahydraté",
     formule: "MgCl2·6H2O",
     categorie: "Non classé",
     localisation: "salle B27 / étagère E3",
@@ -133,7 +133,7 @@ export const products = [
   },
   {
     cas: "64-17-5",
-    nom: "Éthanol",
+    nom: "éthanol",
     formule: "C2H6O",
     categorie: "Solvant",
     localisation: "salle B27/ étagère B2",
@@ -144,7 +144,7 @@ export const products = [
   },
     {
     cas: "1310-73-2",
-    nom: "Sodium Hydroxyde",
+    nom: "hydroxyde de sodium",
     formule: "NaOH",
     categorie: "Base forte",
     localisation: "salle B27 / étagère B2",
