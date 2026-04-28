@@ -1,19 +1,38 @@
-body {
+/* =========================
+   RESET + BASE
+========================= */
+* {
     margin: 0;
-    font-family: Arial;
-    background: #f4f4f4;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-/* MENU */
+body {
+    font-family: Arial, sans-serif;
+    background: #f4f4f4;
+    color: #222;
+    line-height: 1.5;
+}
+
+/* =========================
+   MENU HORIZONTAL
+========================= */
 .top-menu {
     display: flex;
+    flex-wrap: wrap; /* retour à la ligne si manque de place */
+    width: 100%;
     background: #2c3e50;
     color: white;
 }
 
 .menu-item {
+    flex: 1 1 auto;
+    min-width: 180px;
+    text-align: center;
     padding: 15px 20px;
     cursor: pointer;
+    transition: 0.3s;
+    font-size: 15px;
 }
 
 .menu-item:hover {
@@ -24,8 +43,12 @@ body {
     background: #e67e22;
 }
 
-/* CONTENU */
+/* =========================
+   CONTENU
+========================= */
 .container {
+    width: 100%;
+    max-width: 100%;
     padding: 20px;
 }
 
@@ -37,35 +60,186 @@ body {
     display: block;
 }
 
-/* TABLE */
+h2 {
+    margin-bottom: 20px;
+    font-size: clamp(22px, 3vw, 32px);
+}
+
+/* =========================
+   TABLE RESPONSIVE
+========================= */
+.table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    background: white;
+    border-radius: 10px;
+}
+
+/* scrollbar plus fluide mobile */
+.table-wrapper::-webkit-scrollbar {
+    height: 8px;
+}
+
 table {
     width: 100%;
+    min-width: 900px; /* garde structure desktop */
     border-collapse: collapse;
+    background: white;
 }
 
-th, td {
+th,
+td {
     border: 1px solid #ccc;
-    padding: 8px;
+    padding: 10px;
+    text-align: left;
+    vertical-align: middle;
+    font-size: 14px;
 }
 
-/* Conteneur pictogramme */
+th {
+    background: #ecf0f1;
+    font-weight: bold;
+}
+
+/* =========================
+   PICTOGRAMMES
+========================= */
 .picto-container {
     display: inline-block;
     position: relative;
-    margin: 0 3px;
+    margin: 0 4px;
 }
 
-/* Image */
 .picto {
     width: 40px;
+    max-width: 100%;
     height: auto;
-    transition: transform 0.25s ease;
     cursor: pointer;
+    transition: transform 0.25s ease;
 }
 
-/* Effet loupe */
+/* effet zoom desktop */
 .picto-container:hover .picto {
-    transform: scale(2.2);
+    transform: scale(2);
     position: relative;
     z-index: 10;
+}
+
+/* =========================
+   IMAGES TABLEAU
+========================= */
+table img {
+    max-width: 80px;
+    height: auto;
+    border-radius: 6px;
+}
+
+/* =========================
+   IFRAME EXTERNE
+========================= */
+#external-frame {
+    width: 100%;
+    height: 90vh;
+    border: none;
+    border-radius: 10px;
+    background: white;
+}
+
+/* =========================
+   TABLETTE
+========================= */
+@media (max-width: 1024px) {
+    .menu-item {
+        min-width: 150px;
+        font-size: 14px;
+        padding: 14px 16px;
+    }
+
+    th,
+    td {
+        font-size: 13px;
+        padding: 8px;
+    }
+
+    .picto {
+        width: 34px;
+    }
+
+    table img {
+        max-width: 65px;
+    }
+}
+
+/* =========================
+   MOBILE
+========================= */
+@media (max-width: 768px) {
+    .top-menu {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .menu-item {
+        width: 100%;
+        min-width: unset;
+        padding: 14px;
+        font-size: 14px;
+        border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .container {
+        padding: 12px;
+    }
+
+    h2 {
+        font-size: 22px;
+    }
+
+    table {
+        min-width: 700px;
+    }
+
+    .picto {
+        width: 30px;
+    }
+
+    table img {
+        max-width: 55px;
+    }
+
+    #external-frame {
+        height: 75vh;
+    }
+}
+
+/* =========================
+   PETIT MOBILE
+========================= */
+@media (max-width: 480px) {
+    .container {
+        padding: 10px;
+    }
+
+    h2 {
+        font-size: 20px;
+    }
+
+    th,
+    td {
+        font-size: 12px;
+        padding: 7px;
+    }
+
+    .picto {
+        width: 26px;
+    }
+
+    table img {
+        max-width: 45px;
+    }
+
+    #external-frame {
+        height: 70vh;
+    }
 }
