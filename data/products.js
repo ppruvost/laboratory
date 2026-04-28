@@ -45,16 +45,16 @@ export const products = [
   },
   {
     cas: "79-09-4",
-    nom: "acide propionique",
-    formule: "C3H6O2",
-    categorie: "Acide faible",
-    localisation: "salle B27 / étagère B1",
-    pictogramme: ["corrosif.png"],
-    image: "acide_propionique.jpg",
-    fds: "FicheTox_329.pdf",
-    dangers: ["H314"],    
+    nom: "acide propanoïque",
+    formule: "C₃H₆O₂",
+    categorie: "Acide carboxylique",
+    localisation: "Salle B27 / Étagère B1",
+    pictogramme: ["corrosif.png","inflammable.png"],   
+    image: "acide_propanoique.jpg",
+    fds: "FicheTox_XXX.pdf",
+    dangers: ["H226","H314"]
   },
-  {
+    {
     cas: "7664-93-9",
     nom: "acide sulfurique",
     formule: "H2SO4",
