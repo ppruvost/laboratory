@@ -84,7 +84,13 @@ function renderGlasswareTable(data) {
             <td>${g.contenance_ml || "-"}</td>
             <td>${g.lieu || "-"}</td>
             <td>
-                <img src="${g.image}" width="60">
+                <div class="image-container">
+                    <img 
+                        src="${g.image}" 
+                        alt="${g.nom || 'image'}"
+                        class="table-image"
+                    >
+                </div>
             </td>
         `;
 
