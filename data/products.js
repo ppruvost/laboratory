@@ -155,7 +155,7 @@ export const products = [
   },
   {
     cas: "80-62-6",
-    nom: "Méthacrylate de méthyle",
+    nom: "méthacrylate de méthyle",
     formule: "C5H8O2",
     categorie: "Monomère / Solvant réactif",
     localisation: "salle B27/ étagère B2",
@@ -166,7 +166,7 @@ export const products = [
 },
   {
     cas: "90-20-3",
-    nom: "Naphtalène",
+    nom: "naphtalène",
     formule: "C10H8",
     categorie: "Production plastique",
     localisation: "salle B27 / étagère B2",
@@ -177,7 +177,7 @@ export const products = [
   },
   {
     cas: "77-09-8",
-    nom: "Phénolphtaléine",
+    nom: "phénolphtaléine",
     formule: "C20H14O4",
     categorie: "Indicateur coloré",
     localisation: "salle B27 / étagère B2",
@@ -186,6 +186,17 @@ export const products = [
     fds: "FAS33.pdf",
     dangers: ["H350"],    
   },
+  {
+    cas: "67-64-1",
+    nom: "propanone",
+    formule: "C3H6O",
+    categorie: "Cétone (solvant organique)",
+    localisation: "salle B27 / étagère B1",
+    pictogramme: ["inflammable.png", "irritant.png"],
+    image: "propanone.jpg",
+    fds: "FicheTox_3.pdf",
+    dangers: ["H225", "H319", "H336"],
+},
   {
     cas: "7783-33-7",
     nom: "Réactif de Nessler",
