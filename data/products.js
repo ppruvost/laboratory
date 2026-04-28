@@ -198,8 +198,26 @@ export const products = [
     dangers: ["H225", "H319", "H336"],
 },
   {
+  cas: "7758-99-8",
+  nom: "Réactif de Fehling A",
+  formule: "CuSO₄·5H₂O",
+  categorie: "Solution de sulfate de cuivre(II)",
+  localisation: "Salle B27 / Étagère B2",
+  pictogramme: [
+    "irritant.png",
+    "environnement.png"
+  ],
+  image: "fehling_A.jpg",
+  fds: "FicheTox_XXX.pdf",
+  dangers: [
+    "H302",
+    "H319",
+    "H410"
+  ]
+},
+  {
     cas: "7783-33-7",
-    nom: "Réactif de Nessler",
+    nom: "réactif de Nessler",
     formule: "K2HgI4",
     categorie: "Dosage NH4+",
     localisation: "salle B27 / étagère B2",
