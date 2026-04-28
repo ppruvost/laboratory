@@ -103,56 +103,42 @@ th {
 }
 
 /* =========================
-   PICTOGRAMMES
+   PICTOGRAMMES + VISUELS (LOUPE UNIFIÉE)
 ========================= */
-.picto-container {
+
+.picto-container,
+.image-container {
     display: inline-block;
     position: relative;
     margin: 0 4px;
 }
 
+/* style commun images */
+.picto,
+.table-image {
+    max-width: 100%;
+    height: auto;
+    cursor: pointer;
+    transition: transform 0.25s ease;
+}
+
+/* tailles différentes */
 .picto {
     width: 40px;
-    max-width: 100%;
-    height: auto;
-    cursor: pointer;
-    transition: transform 0.25s ease;
 }
 
-/* effet zoom desktop */
-.picto-container:hover .picto {
-    transform: scale(2);
-    position: relative;
-    z-index: 10;
-}
-
-/* =========================
-   IMAGES TABLEAU + EFFET LOUPE
-========================= */
-
-/* conteneur image visuel */
-.image-container {
-    display: inline-block;
-    position: relative;
-}
-
-/* image colonne visuel */
 .table-image {
     width: 60px;
-    max-width: 100%;
-    height: auto;
     border-radius: 6px;
-    cursor: pointer;
-    transition: transform 0.25s ease;
 }
 
-/* effet loupe au survol */
+/* effet loupe commun */
+.picto-container:hover .picto,
 .image-container:hover .table-image {
     transform: scale(2.5);
     position: relative;
     z-index: 20;
 }
-
 /* =========================
    IFRAME EXTERNE
 ========================= */
