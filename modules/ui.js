@@ -75,20 +75,25 @@ export function renderTable(produits, supprimerCallback) {
     // ===============================
     const tr = document.createElement("tr");
 
-    tr.innerHTML = `
-      <td>${p.cas || "-"}</td>
-      <td>${p.nom || "-"}</td>
-      <td>${p.formule || "-"}</td>
-      <td>${p.categorie || "-"}</td>
-      <td>${p.localisation || "-"}</td>
+tr.innerHTML = `
+  <td>${p.cas || "-"}</td>
+  <td>${p.nom || "-"}</td>
+  <td>${p.formule || "-"}</td>
+  <td>${p.categorie || "-"}</td>
+  <td>${p.localisation || "-"}</td>
 
-      <td>${pictos}</td>
+  <td>${pictos}</td>
 
-      <td>${dangerText}</td>
+  <td>${dangerText}</td>
 
-      <td>${image}</td>
-    `;
+  <td>${image}</td>
+`;
 
+tbody.appendChild(tr);
+
+});
+
+}
 // ===============================
 // /== AFFICHAGE SECTIONS (MENU) ==/
 // ===============================
