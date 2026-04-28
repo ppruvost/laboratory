@@ -33,6 +33,17 @@ export const products = [
     dangers: ["H314"],    
   },
   {
+  cas: "60-00-4",
+  nom: "acide éthylènediaminetétraacétique (EDTA)",
+  formule: "C₁₀H₁₆N₂O₈",
+  categorie: "Agent chélatant",
+  localisation: "Salle B27 / Étagère B2",
+  pictogramme: ["irritant.png"],
+  image: "edta.jpg",
+  fds: "FicheTox_XXX.pdf",
+  dangers: ["H319"]
+},
+  {
     cas: "7697-37-2",
     nom: "acide nitrique",
     formule: "HNO3",
@@ -119,18 +130,7 @@ export const products = [
     image: "chlorure_magnesium.jpg",
     fds: "FDS_Chlorure.pdf",
     dangers: [],    
-  },
-  {
-    cas: "139-33-3",
-    nom: "EDTA disodique",
-    formule: "C10H14N2Na2O8",
-    categorie: "Chélateur",
-    localisation: "salle B27 / étagère B1",
-    pictogramme: ["irritant.png"],
-    image: "edta.jpg",
-    fds: "FicheTox_276.pdf",
-    dangers: ["H318"],    
-  },
+  },  
   {
     cas: "64-17-5",
     nom: "éthanol",
