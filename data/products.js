@@ -144,7 +144,7 @@ export const products = [
   },
     {
     cas: "1310-73-2",
-    nom: "Hydroxyde de sodium",
+    nom: "Sodium Hydroxyde",
     formule: "NaOH",
     categorie: "Base forte",
     localisation: "salle B27 / étagère B2",
