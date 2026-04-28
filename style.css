@@ -127,12 +127,30 @@ th {
 }
 
 /* =========================
-   IMAGES TABLEAU
+   IMAGES TABLEAU + EFFET LOUPE
 ========================= */
-table img {
-    max-width: 80px;
+
+/* conteneur image visuel */
+.image-container {
+    display: inline-block;
+    position: relative;
+}
+
+/* image colonne visuel */
+.table-image {
+    width: 60px;
+    max-width: 100%;
     height: auto;
     border-radius: 6px;
+    cursor: pointer;
+    transition: transform 0.25s ease;
+}
+
+/* effet loupe au survol */
+.image-container:hover .table-image {
+    transform: scale(2.5);
+    position: relative;
+    z-index: 20;
 }
 
 /* =========================
