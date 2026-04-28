@@ -89,21 +89,6 @@ export function renderTable(produits, supprimerCallback) {
       <td>${image}</td>
     `;
 
-
-    // ===============================
-    // 🗑️ SUPPRESSION (double clic)
-    // ===============================
-    tr.addEventListener("dblclick", () => {
-      if (confirm("Supprimer ce produit ?")) {
-        supprimerCallback(i);
-      }
-    });
-
-    tbody.appendChild(tr);
-  });
-}
-
-
 // ===============================
 // /== AFFICHAGE SECTIONS (MENU) ==/
 // ===============================
