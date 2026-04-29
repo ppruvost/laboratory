@@ -107,11 +107,8 @@ export const products = [
   pictogramme: [],
   image: "alcool_polyvinylique.jpg",
   fds: "",
-  dangers: [
-    "Produit généralement non classé dangereux selon le règlement CLP",
-    "Peut provoquer une légère irritation mécanique des yeux ou des voies respiratoires sous forme de poussières"
-  ]
-}
+  dangers: ["Produit généralement non classé dangereux selon le règlement CLP", "Peut provoquer une légère irritation mécanique des yeux ou des voies respiratoires sous forme de poussières"]
+},
   {
     cas: "471-34-1",
     nom: "carbonate de calcium",
@@ -177,7 +174,7 @@ export const products = [
   image: "eriochrome_black_t.jpg",
   fds: "",
   dangers: ["Irritant", "Peut provoquer une irritation des yeux et de la peau", "Nocif en cas d'ingestion"]
-}
+},
   {
     cas: "1336-21-6",
     nom: "hydroxyde d'ammonium (ammoniaque)",
@@ -231,12 +228,8 @@ export const products = [
   pictogramme: ["GHS07"],
   image: "ferricyanure_III.jpg",
   fds: "",
-  dangers: [
-    "Irritant",
-    "Peut être nocif en cas d'ingestion",
-    "Décomposition possible en milieu fortement acide avec libération de composés cyanurés"
-  ]
-}
+  dangers: ["Irritant", "Peut être nocif en cas d'ingestion", "Décomposition possible en milieu fortement acide avec libération de composés cyanurés"]
+},
   {
     cas: "67-64-1",
     nom: "propan-2-one (propanone)",
@@ -254,17 +247,10 @@ export const products = [
   formule: "CuSO₄·5H₂O",
   categorie: "Solution de sulfate de cuivre(II)",
   localisation: "Salle B27 / Étagère B2",
-  pictogramme: [
-    "irritant.png",
-    "environnement.png"
-  ],
+  pictogramme: ["irritant.png", "environnement.png"],
   image: "fehling_A.jpg",
   fds: "FicheTox_XXX.pdf",
-  dangers: [
-    "H302",
-    "H319",
-    "H410"
-  ]
+  dangers: ["H302", "H319", "H410"]
 },  
   {
     cas: "10043-35-3",
