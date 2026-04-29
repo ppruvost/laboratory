@@ -1,5 +1,16 @@
 export const products = [
   {
+    cas: "98-86-2",
+    nom: "1-phényléthanone (acétophénone)",
+    formule: "C8H8O",
+    categorie: "Solvant / Composé aromatique",
+    localisation: "salle B27/ étagère B2",
+    pictogramme: ["flammable.png", "irritant.png"],
+    image: "acetophenone.jpg",
+    fds: "acetophenone.pdf",
+    dangers: ["H226", "H302", "H315", "H319"]
+  },  
+  {
   cas: "123-51-3",
   nom: "3-méthylbutan-1-ol (alcool isoamylique)",
   formule: "C₅H₁₂O",
@@ -11,16 +22,16 @@ export const products = [
   dangers: ["H226", "H315", "H335"]
 },
   {
-    cas: "98-86-2",
-    nom: "1-phényléthanone (acétophénone)",
-    formule: "C8H8O",
-    categorie: "Solvant / Composé aromatique",
-    localisation: "salle B27/ étagère B2",
-    pictogramme: ["flammable.png", "irritant.png"],
-    image: "acetophenone.jpg",
-    fds: "acetophenone.pdf",
-    dangers: ["H226", "H302", "H315", "H319"]
-},  
+    cas: "77-09-8",
+    nom: "3,3-bis(4-hydroxyphényl)-1(3H)-isobenzofuranone (phénolphtaléine)",
+    formule: "C₂₀H₁₄O₄",
+    categorie: "Indicateur coloré (pH 8,2-10)",
+    localisation: "salle B27 / étagère B2",
+    pictogramme: ["danger_sante.png"],
+    image: "phenolphtaleine.jpg",
+    fds: "FAS33.pdf",
+    dangers: ["H350"],    
+  },  
   {
     cas: "7647-01-0",
     nom: "acide chlorhydrique",
@@ -97,18 +108,7 @@ export const products = [
     image: "ammoniaque.jpg",
     fds: "FicheTox_16.pdf",
     dangers: ["H314"],    
-  },
-  {
-    cas: "10043-35-3",
-    nom: "tétraborate de sodium décahydraté (borax)",
-    formule: "B4H20Na2O17",
-    categorie: "Acide faible",
-    localisation: "salle B27 / étagère B2",
-    pictogramme: ["danger_sante.png"],
-    image: "borax.jpg",
-    fds: "FicheTox_138.pdf",
-    dangers: ["H360FD"],    
-  },
+  },  
   {
     cas: "471-34-1",
     nom: "carbonate de calcium",
@@ -176,27 +176,16 @@ export const products = [
     dangers: ["H225", "H315", "H317", "H335"]
 },
   {
-    cas: "90-20-3",
+    cas: "91-20-3",
     nom: "naphtalène",
     formule: "C₁₀H₈",
-    categorie: "Production plastique",
+    categorie: "Hydrocarbure aromatique polycyclique (HAP), Production plastique",
     localisation: "salle B27 / étagère B2",
     pictogramme: ["danger_sante.png"],
     image: "naphtalene.jpg",
     fds: "FicheTox_204.pdf",
     dangers: ["H351"],    
-  },
-  {
-    cas: "77-09-8",
-    nom: "3,3-bis(4-hydroxyphényl)-1(3H)-isobenzofuranone (phénolphtaléine)",
-    formule: "C₂₀H₁₄O₄",
-    categorie: "Indicateur coloré (pH 8,2-10)",
-    localisation: "salle B27 / étagère B2",
-    pictogramme: ["danger_sante.png"],
-    image: "phenolphtaleine.jpg",
-    fds: "FAS33.pdf",
-    dangers: ["H350"],    
-  },
+  },  
   {
     cas: "67-64-1",
     nom: "propan-2-one (propanone)",
@@ -225,7 +214,18 @@ export const products = [
     "H319",
     "H410"
   ]
-},
+},  
+  {
+    cas: "10043-35-3",
+    nom: "tétraborate de sodium décahydraté (borax)",
+    formule: "B4H20Na2O17",
+    categorie: "Acide faible",
+    localisation: "salle B27 / étagère B2",
+    pictogramme: ["danger_sante.png"],
+    image: "borax.jpg",
+    fds: "FicheTox_138.pdf",
+    dangers: ["H360FD"],    
+  },
   {
     cas: "7783-33-7",
     nom: "tétraiodomercurate(II) de dipotassium (réactif de Nessler)",
