@@ -99,16 +99,19 @@ export const products = [
     dangers: ["H314"],    
   },
   {
-    cas: "1336-21-6",
-    nom: "hydroxyde d'ammonium (ammoniaque)",
-    formule: "NH4OH",
-    categorie: "Traitement des eaux",
-    localisation: "salle B27 / étagère B1",
-    pictogramme: ["corrosif.png", "toxique.png"],
-    image: "ammoniaque.jpg",
-    fds: "FicheTox_16.pdf",
-    dangers: ["H314"],    
-  },  
+  cas: "9002-89-5",
+  nom: "alcool polyvinylique",
+  formule: "(C2H4O)n",
+  categorie: "Polymère hydrosoluble",
+  localisation: "salle B27 / étagère E1",
+  pictogramme: [],
+  image: "alcool_polyvinylique.jpg",
+  fds: "",
+  dangers: [
+    "Produit généralement non classé dangereux selon le règlement CLP",
+    "Peut provoquer une légère irritation mécanique des yeux ou des voies respiratoires sous forme de poussières"
+  ]
+}
   {
     cas: "471-34-1",
     nom: "carbonate de calcium",
@@ -141,7 +144,18 @@ export const products = [
     image: "chlorure_magnesium.jpg",
     fds: "FDS_Chlorure.pdf",
     dangers: [],    
-  },  
+  },
+  {
+  cas: "1330-43-4",
+  nom: "disodium tétraborate anhydre",
+  formule: "Na₂B₄O₇",
+  categorie: "Sel minéral / borate",
+  localisation: "salle B27 / étagère E1",
+  pictogramme: ["GHS07"],
+  image: "borate_anhydre.jpg",
+  fds: "",
+  dangers: ["Irritant", "Peut provoquer une irritation des yeux et de la peau"]
+},
   {
     cas: "64-17-5",
     nom: "éthanol (éthylique)",
@@ -152,6 +166,28 @@ export const products = [
     image: "ethanol.jpg",
     fds: "ethanol.pdf",
     dangers: ["H225", "H319"],   
+  },
+  {
+  cas: "1787-61-7",
+  nom: "ériochrome Black T",
+  formule: "C20H12N3NaO7S",
+  categorie: "Indicateur complexométrique (EDTA)",
+  localisation: "salle B27 / étagère E1",
+  pictogramme: ["GHS07"],
+  image: "eriochrome_black_t.jpg",
+  fds: "",
+  dangers: ["Irritant", "Peut provoquer une irritation des yeux et de la peau", "Nocif en cas d'ingestion"]
+}
+  {
+    cas: "1336-21-6",
+    nom: "hydroxyde d'ammonium (ammoniaque)",
+    formule: "NH4OH",
+    categorie: "Traitement des eaux",
+    localisation: "salle B27 / étagère B1",
+    pictogramme: ["corrosif.png", "toxique.png"],
+    image: "ammoniaque.jpg",
+    fds: "FicheTox_16.pdf",
+    dangers: ["H314"],    
   },
     {
     cas: "1310-73-2",
@@ -185,7 +221,22 @@ export const products = [
     image: "naphtalene.jpg",
     fds: "FicheTox_204.pdf",
     dangers: ["H351"],    
-  },  
+  },
+      {
+  cas: "13746-66-2",
+  nom: "potassium hexacyanoferrate (III)",
+  formule: "K₃[Fe(CN)₆]",
+  categorie: "Agent oxydant / réactif redox (ferricyanure)",
+  localisation: "salle B27 / étagère E1",
+  pictogramme: ["GHS07"],
+  image: "ferricyanure_III.jpg",
+  fds: "",
+  dangers: [
+    "Irritant",
+    "Peut être nocif en cas d'ingestion",
+    "Décomposition possible en milieu fortement acide avec libération de composés cyanurés"
+  ]
+}
   {
     cas: "67-64-1",
     nom: "propan-2-one (propanone)",
