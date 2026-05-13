@@ -20,7 +20,7 @@ export const products = [
   image: "3_methylbutan_1_ol.jpg",
   fds: "FicheTox_XXX.pdf",
   dangers: ["H226", "H315", "H335"]
-},
+  },
   {
     cas: "77-09-8",
     nom: "3,3-bis(4-hydroxyphényl)-1(3H)-isobenzofuranone (phénolphtaléine)",
@@ -64,7 +64,7 @@ export const products = [
   image: "edta.jpg",
   fds: "FicheTox_XXX.pdf",
   dangers: ["H319"]
-},
+  },
   {
     cas: "7697-37-2",
     nom: "acide nitrique",
@@ -86,7 +86,7 @@ export const products = [
     image: "acide_propanoique.jpg",
     fds: "FicheTox_XXX.pdf",
     dangers: ["H226","H314"]
-  },
+    },
     {
     cas: "7664-93-9",
     nom: "acide sulfurique",
@@ -108,7 +108,7 @@ export const products = [
   image: "alcool_polyvinylique.jpg",
   fds: "",
   dangers: ["Produit généralement non classé dangereux selon le règlement CLP", "Peut provoquer une légère irritation mécanique des yeux ou des voies respiratoires sous forme de poussières"]
-},
+  },
   {
     cas: "471-34-1",
     nom: "carbonate de calcium",
@@ -152,7 +152,7 @@ export const products = [
   image: "borate_anhydre.jpg",
   fds: "",
   dangers: ["Irritant", "Peut provoquer une irritation des yeux et de la peau"]
-},
+  },
   {
     cas: "64-17-5",
     nom: "éthanol (éthylique)",
@@ -174,7 +174,7 @@ export const products = [
   image: "diethyl_ether.jpg",
   fds: "diethyl_ether.pdf",
   dangers: ["H224", "H302", "H336"]
-}
+  },
   {
   cas: "1787-61-7",
   nom: "ériochrome Black T",
@@ -185,7 +185,7 @@ export const products = [
   image: "eriochrome_black_t.jpg",
   fds: "",
   dangers: ["Irritant", "Peut provoquer une irritation des yeux et de la peau", "Nocif en cas d'ingestion"]
-},
+  },
   {
     cas: "1336-21-6",
     nom: "hydroxyde d'ammonium (ammoniaque)",
@@ -197,7 +197,7 @@ export const products = [
     fds: "FicheTox_16.pdf",
     dangers: ["H314"],    
   },
-    {
+  {
     cas: "1310-73-2",
     nom: "hydroxyde de sodium",
     formule: "NaOH",
@@ -218,7 +218,7 @@ export const products = [
     image: "methyl_methacrylate.jpg",
     fds: "methyl_methacrylate.pdf",
     dangers: ["H225", "H315", "H317", "H335"]
-},
+  },
   {
     cas: "91-20-3",
     nom: "naphtalène",
@@ -230,7 +230,7 @@ export const products = [
     fds: "FicheTox_204.pdf",
     dangers: ["H351"],    
   },
-      {
+  {
   cas: "13746-66-2",
   nom: "potassium hexacyanoferrate (III)",
   formule: "K₃[Fe(CN)₆]",
@@ -240,7 +240,7 @@ export const products = [
   image: "ferricyanure_III.jpg",
   fds: "",
   dangers: ["Irritant", "Peut être nocif en cas d'ingestion", "Décomposition possible en milieu fortement acide avec libération de composés cyanurés"]
-},
+  },
   {
     cas: "67-64-1",
     nom: "propan-2-one (propanone)",
@@ -251,7 +251,7 @@ export const products = [
     image: "propanone.jpg",
     fds: "FicheTox_3.pdf",
     dangers: ["H225", "H319", "H336"],
-},
+  },
   {
   cas: "7758-99-8",
   nom: "Réactif de Fehling A",
@@ -262,7 +262,7 @@ export const products = [
   image: "fehling_A.jpg",
   fds: "FicheTox_XXX.pdf",
   dangers: ["H302", "H319", "H410"]
-},  
+  },  
   {
     cas: "10043-35-3",
     nom: "tétraborate de sodium décahydraté (borax)",
@@ -295,7 +295,7 @@ export const products = [
     image: "nitromolybdique_reagent.jpg",
     fds: "nitromolybdique_reagent.pdf",
     dangers: ["H272", "H314", "H290"]
-},
+  },
   {
     cas: "1336-21-6",
     nom: "Solution tampon pH 4.01",
