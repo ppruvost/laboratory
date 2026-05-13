@@ -165,6 +165,17 @@ export const products = [
     dangers: ["H225", "H319"],   
   },
   {
+  cas: "60-29-7",
+  nom: "Éther diéthylique",
+  formule: "C4H10O",
+  categorie: "Solvant / Éther",
+  localisation: "salle B27 / étagère B2",
+  pictogramme: ["flammable.png", "irritant.png"],
+  image: "diethyl_ether.jpg",
+  fds: "diethyl_ether.pdf",
+  dangers: ["H224", "H302", "H336"]
+}
+  {
   cas: "1787-61-7",
   nom: "ériochrome Black T",
   formule: "C20H12N3NaO7S",
