@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,32 +15,48 @@
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
   >
 </head>
+
 <body>
 
   <!-- ================= MENU HORIZONTAL ================= -->
   <div class="top-menu">
 
+    <!-- Réactifs -->
     <div class="menu-item active" onclick="showSection('products', this)">
       <i class="fas fa-flask"></i> Réactifs
     </div>
 
+    <!-- Équipements -->
     <div class="menu-item" onclick="showSection('equipment', this)">
       <i class="fas fa-plug"></i> Équipements
     </div>
 
+    <!-- Verrerie -->
     <div class="menu-item" onclick="showSection('glassware', this)">
       <i class="fas fa-vial"></i> Verrerie
     </div>
 
-    <div class="menu-item" onclick="setActive(this); loadInFrame('https://ppruvost.github.io/periodic/')">
+    <!-- Table périodique -->
+    <div
+      class="menu-item"
+      onclick="loadInFrame('https://ppruvost.github.io/periodic/', this)"
+    >
       <i class="fas fa-atom"></i> Table périodique
     </div>
 
-    <div class="menu-item" onclick="setActive(this); loadInFrame('https://ppruvost.github.io/molecule/')">
+    <!-- Molécules -->
+    <div
+      class="menu-item"
+      onclick="loadInFrame('https://ppruvost.github.io/molecule/', this)"
+    >
       <i class="fas fa-cubes"></i> Molécules
     </div>
 
-    <div class="menu-item" onclick="setActive(this); loadInFrame('https://ppruvost.github.io/Uncertainty/')">
+    <!-- Mesures -->
+    <div
+      class="menu-item"
+      onclick="loadInFrame('https://ppruvost.github.io/Uncertainty/', this)"
+    >
       <i class="fas fa-ruler"></i> Mesures et Incertitudes
     </div>
 
@@ -62,11 +79,11 @@
               <th>Catégorie</th>
               <th>Localisation</th>
               <th>Pictogrammes</th>
-              <th>Obligations</th>
               <th>Dangers</th>
               <th>Visuel</th>
             </tr>
           </thead>
+
           <tbody id="table-body"></tbody>
         </table>
       </div>
@@ -87,6 +104,7 @@
               <th>Notice</th>
             </tr>
           </thead>
+
           <tbody id="equipment-body"></tbody>
         </table>
       </div>
@@ -106,6 +124,7 @@
               <th>Image</th>
             </tr>
           </thead>
+
           <tbody id="glassware-body"></tbody>
         </table>
       </div>
@@ -113,48 +132,57 @@
 
     <!-- ================= CONTENU EXTERNE ================= -->
     <div id="external-content" class="section">
-      <iframe id="external-frame"></iframe>
+      <iframe
+        id="external-frame"
+        title="Contenu externe"
+      ></iframe>
     </div>
 
   </div>
 
-  <!-- IMPORTANT : fonctions globales pour onclick -->
+  <!-- ================= JS GLOBAL POUR onclick ================= -->
   <script>
     function setActive(element) {
-      document.querySelectorAll('.menu-item').forEach(item => {
-        item.classList.remove('active');
+      document.querySelectorAll(".menu-item").forEach(item => {
+        item.classList.remove("active");
       });
-      element.classList.add('active');
+
+      if (element) {
+        element.classList.add("active");
+      }
     }
 
-    function showSection(sectionId, element) {
-      document.querySelectorAll('.section').forEach(section => {
-        section.classList.remove('active');
+    function showSection(sectionId, element = null) {
+      document.querySelectorAll(".section").forEach(section => {
+        section.classList.remove("active");
       });
 
       const target = document.getElementById(sectionId);
+
       if (target) {
-        target.classList.add('active');
+        target.classList.add("active");
       }
 
       setActive(element);
     }
 
-    function loadInFrame(url) {
-      document.querySelectorAll('.section').forEach(section => {
-        section.classList.remove('active');
+    function loadInFrame(url, element = null) {
+      document.querySelectorAll(".section").forEach(section => {
+        section.classList.remove("active");
       });
 
-      const externalSection = document.getElementById('external-content');
-      const iframe = document.getElementById('external-frame');
+      const externalSection = document.getElementById("external-content");
+      const iframe = document.getElementById("external-frame");
 
       if (externalSection && iframe) {
         iframe.src = url;
-        externalSection.classList.add('active');
+        externalSection.classList.add("active");
       }
+
+      setActive(element);
     }
 
-    // rendre les fonctions accessibles au HTML inline onclick
+    // rendre accessibles aux onclick HTML
     window.setActive = setActive;
     window.showSection = showSection;
     window.loadInFrame = loadInFrame;
@@ -164,4 +192,5 @@
   <script type="module" src="app.js"></script>
 
 </body>
+
 </html>
