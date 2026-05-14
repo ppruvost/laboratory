@@ -239,6 +239,18 @@ export const products = [
   dangers: ["Irritant", "Peut provoquer une irritation des yeux et de la peau", "Nocif en cas d'ingestion"]
   },
   {
+    cas: "547-58-0",
+    nom: "hélianthine (orange de méthyle)",
+    formule: "C14H14N3NaO3S",
+    categorie: "Indicateur coloré acido-basique",
+    localisation: "D4",
+    pictogramme: ["SGH06_TeteDeMort.jpg"],
+    obligation: ["LUNETTES", "GANTS", "BLOUSE", "HOTTE"],
+    image: "helianthine.jpg",
+    fds: "FDS_Helianthine.pdf",
+    dangers: ["H301"]
+},
+  {
   cas: "7722-84-1",
   nom: "hydrogène peroxyde",
   formule: "H2O2",
