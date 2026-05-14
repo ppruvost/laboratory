@@ -4,22 +4,25 @@ export const products = [
     nom: "1-phényléthanone (acétophénone)",
     formule: "C8H8O",
     categorie: "Solvant / Composé aromatique",
-    localisation: "salle B27/ étagère B2",
-    pictogramme: ["flammable.png", "irritant.png"],
+    localisation: "Salle B27 / Étagère B2",
+    pictogramme: ["SGH02_Flamme.jpg", "SGH07_PointExclamation.jpg"],
+    obligation: ["LUNETTES", "GANTS", "COMBINAISON"],
     image: "acetophenone.jpg",
     fds: "acetophenone.pdf",
     dangers: ["H226", "H302", "H315", "H319"]
-  },  
+  },
+
   {
-  cas: "123-51-3",
-  nom: "3-méthylbutan-1-ol (alcool isoamylique)",
-  formule: "C₅H₁₂O",
-  categorie: "Alcool primaire",
-  localisation: "Salle B27 / Étagère B2",
-  pictogramme: ["inflammable.png", "irritant.png"],
-  image: "3_methylbutan_1_ol.jpg",
-  fds: "FicheTox_XXX.pdf",
-  dangers: ["H226", "H315", "H335"]
+    cas: "123-51-3",
+    nom: "3-méthylbutan-1-ol (alcool isoamylique)",
+    formule: "C5H12O",
+    categorie: "Alcool primaire",
+    localisation: "Salle B27 / Étagère B2",
+    pictogramme: ["SGH02_Flamme.jpg", "SGH07_PointExclamation.jpg"],
+    obligation: ["LUNETTES", "GANTS"],
+    image: "3_methylbutan_1_ol.jpg",
+    fds: "FicheTox_XXX.pdf",
+    dangers: ["H226", "H315", "H335"]
   },
   {
     cas: "77-09-8",
@@ -37,22 +40,25 @@ export const products = [
     nom: "acide chlorhydrique",
     formule: "HCl",
     categorie: "Acide fort",
-    localisation: "salle B27 / étagère B1",
-    pictogramme: ["corrosif.png"],
+    localisation: "Salle B27 / Étagère B1",
+    pictogramme: ["SGH05_Corrosion.jpg"],
+    obligation: ["LUNETTES", "GANTS", "VISIERE", "COMBINAISON"],
     image: "acide_chlorhydrique.jpg",
     fds: "FicheTox_13.pdf",
-    dangers: ["H350"],   
+    dangers: ["H314", "H335"]
   },
+
   {
     cas: "64-19-7",
     nom: "acide éthanoïque (acétique)",
     formule: "CH3COOH",
     categorie: "Acide faible",
-    localisation: "salle B27 / étagère B1",
-    pictogramme: ["corrosif.png", "flammable.png"],
+    localisation: "Salle B27 / Étagère B1",
+    pictogramme: ["SGH05_Corrosion.jpg", "SGH02_Flamme.jpg"],
+    obligation: ["LUNETTES", "GANTS", "VISIERE", "PROTECTION_RESPIRATOIRE"],
     image: "acide_acetique.jpg",
     fds: "FicheTox_24.pdf",
-    dangers: ["H314"],    
+    dangers: ["H226", "H314"]
   },
   {
   cas: "60-00-4",
@@ -70,11 +76,12 @@ export const products = [
     nom: "acide nitrique",
     formule: "HNO3",
     categorie: "Acide fort",
-    localisation: "salle B27 / étagère B1",
-    pictogramme: ["corrosif.png", "comburant.png"],
+    localisation: "Salle B27 / Étagère B1",
+    pictogramme: ["SGH05_Corrosion.jpg", "SGH03_FlammeSurCercle.jpg"],
+    obligation: ["LUNETTES", "GANTS", "VISIERE", "COMBINAISON"],
     image: "acide_nitrique.jpg",
     fds: "FicheTox_9.pdf",
-    dangers: ["H314"],    
+    dangers: ["H314", "H272"]
   },
   {
     cas: "79-09-4",
@@ -130,7 +137,7 @@ export const products = [
   image: "bleu_methylene.jpg",
   fds: "bleu_methylene.pdf",
   dangers: ["H302", "H319"]
-}
+},
   {
     cas: "471-34-1",
     nom: "carbonate de calcium",
@@ -191,11 +198,12 @@ export const products = [
     nom: "éthanol (éthylique)",
     formule: "C₂H₅OH",
     categorie: "Solvant - alcool à brûler",
-    localisation: "salle B27/ étagère B2",
-    pictogramme: ["flammable.png"],
+    localisation: "Salle B27 / Étagère B2",
+    pictogramme: ["SGH02_Flamme.jpg", "SGH07_PointExclamation.jpg"],
+    obligation: ["LUNETTES", "GANTS"],
     image: "ethanol.jpg",
     fds: "ethanol.pdf",
-    dangers: ["H225", "H319"],   
+    dangers: ["H225", "H319"]
   },
   {
   cas: "60-29-7",
@@ -223,12 +231,13 @@ export const products = [
   cas: "7722-84-1",
   nom: "hydrogène peroxyde",
   formule: "H2O2",
-  categorie: "Oxydant / Désinfectant",
-  localisation: "salle B27 / étagère B2",
-  pictogramme: ["oxidizer.png", "corrosive.png"],
-  image: "hydrogene_peroxyde.jpg",
-  fds: "hydrogene_peroxyde.pdf",
-  dangers: ["H272", "H302", "H314"]
+    categorie: "Oxydant / Désinfectant",
+    localisation: "Salle B27 / Étagère B2",
+    pictogramme: ["SGH03_FlammeSurCercle.jpg", "SGH05_Corrosion.jpg"],
+    obligation: ["LUNETTES", "GANTS", "VISIERE", "COMBINAISON"],
+    image: "hydrogene_peroxyde.jpg",
+    fds: "hydrogene_peroxyde.pdf",
+    dangers: ["H272", "H302", "H314"]
   },
   {
     cas: "1336-21-6",
@@ -246,11 +255,12 @@ export const products = [
     nom: "hydroxyde de sodium",
     formule: "NaOH",
     categorie: "Base forte",
-    localisation: "salle B27 / étagère B2+D2",
-    pictogramme: ["corrosif.png"],
+    localisation: "Salle B27 / Étagère B2 + D2",
+    pictogramme: ["SGH05_Corrosion.jpg"],
+    obligation: ["LUNETTES", "GANTS", "VISIERE", "COMBINAISON"],
     image: "soude.jpg",
     fds: "FicheTox_20.pdf",
-    dangers: ["H314"],    
+    dangers: ["H314"]
   },
   {
     cas: "80-62-6",
@@ -276,7 +286,7 @@ export const products = [
   },
   {
   cas: "7722-64-7",
-  nom: "Permanganate de potassium",
+  nom: "permanganate de potassium",
   formule: "KMnO4",
   categorie: "Oxydant / Réactif",
   localisation: "salle B27 / étagère D4",
@@ -301,11 +311,12 @@ export const products = [
     nom: "propan-2-one (propanone)",
     formule: "C₃H₆O",
     categorie: "Cétone (solvant organique)",
-    localisation: "salle B27 / étagère B1",
-    pictogramme: ["inflammable.png", "irritant.png"],
+    localisation: "Salle B27 / Étagère B1",
+    pictogramme: ["SGH02_Flamme.jpg", "SGH07_PointExclamation.jpg"],
+    obligation: ["LUNETTES", "GANTS", "PROTECTION_RESPIRATOIRE"],
     image: "propanone.jpg",
     fds: "FicheTox_3.pdf",
-    dangers: ["H225", "H319", "H336"],
+    dangers: ["H225", "H319", "H336"]
   },
   {
   cas: "7758-99-8",
@@ -317,6 +328,17 @@ export const products = [
   image: "fehling_A.jpg",
   fds: "FicheTox_XXX.pdf",
   dangers: ["H302", "H319", "H410"]
+  },
+  {
+    cas: "Mélange (HNO3 + (NH4)6Mo7O24)",
+    nom: "réactif nitromolybdique (acide nitrique – molybdate d’ammonium)",
+    formule: "(NH₄)₆Mo₇O₂₄·4H₂O",
+    categorie: "Détection des phosphates (PO₄³⁻)",
+    localisation: "salle B27/ étagère B2",
+    pictogramme: ["corrosive.png", "oxidizing.png"],
+    image: "nitromolybdique_reagent.jpg",
+    fds: "nitromolybdique_reagent.pdf",
+    dangers: ["H272", "H314", "H290"]
   },
   {
   cas: "493-52-7",
@@ -368,25 +390,15 @@ export const products = [
     formule: "K₂[HgI₄]",
     categorie: "Détection de l'ammonium (NH₄⁺)",
     localisation: "salle B27 / étagère B2",
-    pictogramme: ["toxique.png", "environnement.png"],
+    pictogramme: ["SGH06_TeteDeMort.jpg", "SGH09_Environnement.jpg"],
+    obligation: ["LUNETTES", "GANTS", "VISIERE", "PROTECTION_RESPIRATOIRE", "COMBINAISON"],
     image: "nessler.jpg",
     fds: "SDB_8132.pdf",
-    dangers: ["H314"],    
-  },
-  {
-    cas: "Mélange (HNO3 + (NH4)6Mo7O24)",
-    nom: "Réactif nitromolybdique (acide nitrique – molybdate d’ammonium)",
-    formule: "(NH₄)₆Mo₇O₂₄·4H₂O",
-    categorie: "Détection des phosphates (PO₄³⁻)",
-    localisation: "salle B27/ étagère B2",
-    pictogramme: ["corrosive.png", "oxidizing.png"],
-    image: "nitromolybdique_reagent.jpg",
-    fds: "nitromolybdique_reagent.pdf",
-    dangers: ["H272", "H314", "H290"]
-  },
+    dangers: ["H314"]
+  }
   {
     cas: "1336-21-6",
-    nom: "Solution tampon pH 4.01",
+    nom: "solution tampon pH 4.01",
     formule: "CH₃COOH / CH₃COONa",
     categorie: "Solution tampon acétate",
     localisation: "salle B27 / étagère D4",
@@ -397,7 +409,7 @@ export const products = [
   },
   {
     cas: "7778-77-0",
-    nom: "Solution tampon pH 7.01",
+    nom: "solution tampon pH 7.01",
     formule: "KH₂PO₄ / Na₂HPO₄",
     categorie: "Solution tampon phosphate",
     localisation: "salle B27 / étagère D4",
@@ -408,7 +420,7 @@ export const products = [
   },
   {
   cas: "Mélange",
-  nom: "Solution tampon pH 9",
+  nom: "solution tampon pH 9",
   formule: "Solution aqueuse",
   categorie: "Solution tampon / pH",
   localisation: "salle B27 / étagère D4",
@@ -419,7 +431,7 @@ export const products = [
 },
   {
     cas: "497-19-8",
-    nom: "Solution tampon pH 10",
+    nom: "solution tampon pH 10",
     formule: "Na₂CO₃ / NaHCO₃",
     categorie: "Solution tampon carbonate",
     localisation: "salle B27 / étagère D4",
