@@ -40,7 +40,7 @@ export const products = [
   nom: "acide butyrique",
   formule: "CH₃CH₂CH₂COOH",
   categorie: "Acide carboxylique",
-  localisation: "Salle B27 / Étagère D4",
+  localisation: "Salle B27 / Étagère B1",
   pictogramme: ["SGH05_Corrosion.jpg", "SGH07_Exclamation.jpg"],
   obligation: ["LUNETTES", "GANTS", "BLOUSE"],
   image: "acide_butyrique.jpg",
