@@ -435,7 +435,7 @@ export const products = [
     nom: "Solution de chlorure de potassium (KCl)",
     formule: "KCl + H2O",
     categorie: "Solution de conservation / électrolyte de stockage pour électrodes",
-    localisation: "D4",
+    localisation: "Salle B27 / Étagère D4",
     pictogramme: [],
     obligation: ["LUNETTES", "GANTS"],
     image: "storage_solution_ph_orp.jpg",
