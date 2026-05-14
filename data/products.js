@@ -417,19 +417,7 @@ export const products = [
   image: "rouge_methyle.jpg",
   fds: "rouge_methyle.pdf",
   dangers: ["H315", "H319"]
-  },
-  {
-  cas: "77-09-8",
-  nom: "teinture de phénolphtaléine",
-  formule: "C20H14O4",
-  categorie: "Indicateur coloré / pH",
-  localisation: "salle B27 / étagère D4",
-  pictogramme: ["health_hazard.png", "irritant.png"],
-  obligation: ["LUNETTES", "GANTS", "BLOUSE", "HOTTE"],
-  image: "phenolphtaleine.jpg",
-  fds: "phenolphtaleine.pdf",
-  dangers: ["H351", "H319"]
-},
+  },  
   {
     cas: "7447-40-7",
     nom: "solution de chlorure de potassium (KCl)",
