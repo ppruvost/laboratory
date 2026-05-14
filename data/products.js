@@ -34,7 +34,7 @@ export const products = [
     fds: "FAS33.pdf",
     dangers: ["H350"],    
   },
-    {
+  {
   cas: "60-00-4",
   nom: "acide 2,2',2'',2'''-(éthane-1,2-diyldinitrilo)tétraacétique (EDTA)",
   formule: "C₁₀H₁₆N₂O₈",
@@ -136,7 +136,7 @@ export const products = [
   image: "bleu_methylene.jpg",
   fds: "bleu_methylene.pdf",
   dangers: ["H302", "H319"]
-},
+  },
   {
     cas: "471-34-1",
     nom: "carbonate de calcium",
@@ -421,7 +421,7 @@ export const products = [
     image: "ph7.jpg",
     fds: "FDS_solution_tampon.pdf",
     dangers: []
-  }
+  },
   {
   cas: "Mélange",
   nom: "solution tampon pH 9",
