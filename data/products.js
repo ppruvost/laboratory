@@ -456,19 +456,19 @@ export const products = [
   },
   {
   cas: "Mélange",
-  nom: "solution tampon pH 9",
+  nom: "solution tampon pH 9.00",
   formule: "Solution aqueuse",
   categorie: "Solution tampon / pH",
   localisation: "salle B27 / étagère D4",
   pictogramme: [],
   obligation: ["LUNETTES", "GANTS", "BLOUSE"],
-  image: "tampon_ph9.jpg",
+  image: "ph9.jpg",
   fds: "tampon_ph9.pdf",
   dangers: []
 },
   {
     cas: "497-19-8",
-    nom: "solution tampon pH 10",
+    nom: "solution tampon pH 10.00",
     formule: "Na₂CO₃ / NaHCO₃",
     categorie: "Solution tampon carbonate",
     localisation: "salle B27 / étagère D4",
