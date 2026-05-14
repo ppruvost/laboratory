@@ -6,7 +6,7 @@ export const products = [
     categorie: "Solvant organique",
     localisation: "Salle B27 / Étagère B1",
     pictogramme: ["SGH02_Flamme.jpg", "SGH07_PointExclamation.jpg"],
-    obligation: ["LUNETTES", "GANTS", "PROTECTION_RESPIRATOIRE"],
+    obligation: ["LUNETTES", "GANTS", "BLOUSE","HOTTE"],
     image: "propanone.jpg",
     fds: "FicheTox_3.pdf",
     dangers: ["H225", "H319", "H336"]
@@ -18,7 +18,7 @@ export const products = [
     categorie: "Alcool primaire",
     localisation: "Salle B27 / Étagère B2",
     pictogramme: ["SGH02_Flamme.jpg", "SGH07_PointExclamation.jpg"],
-    obligation: ["LUNETTES", "GANTS"],
+    obligation: ["LUNETTES", "GANTS", "BLOUSE","HOTTE"],
     image: "3_methylbutan_1_ol.jpg",
     fds: "FicheTox_XXX.pdf",
     dangers: ["H226", "H315", "H335"]
@@ -30,6 +30,7 @@ export const products = [
     categorie: "Indicateur coloré (pH 8,2-10)",
     localisation: "salle B27 / étagère B2",
     pictogramme: ["danger_sante.png"],
+    obligation: ["GANTS", "BLOUSE","HOTTE"],
     image: "phenolphtaleine.jpg",
     fds: "FAS33.pdf",
     dangers: ["H350"],    
@@ -41,6 +42,7 @@ export const products = [
   categorie: "Agent chélatant",
   localisation: "Salle B27 / Étagère B2",
   pictogramme: ["irritant.png"],
+  obligation: ["GANTS", "BLOUSE"],
   image: "edta.jpg",
   fds: "FicheTox_XXX.pdf",
   dangers: ["H319"]
@@ -52,7 +54,7 @@ export const products = [
     categorie: "Acide fort",
     localisation: "Salle B27 / Étagère B1",
     pictogramme: ["SGH05_Corrosion.jpg"],
-    obligation: ["LUNETTES", "GANTS", "VISIERE", "COMBINAISON"],
+    obligation: ["LUNETTES", "GANTS", "BLOUSE"],
     image: "acide_chlorhydrique.jpg",
     fds: "FicheTox_13.pdf",
     dangers: ["H290", "H314", "H335"]
@@ -64,7 +66,7 @@ export const products = [
     categorie: "Acide faible",
     localisation: "Salle B27 / Étagère B1",
     pictogramme: ["SGH05_Corrosion.jpg", "SGH02_Flamme.jpg"],
-    obligation: ["LUNETTES", "GANTS", "VISIERE", "PROTECTION_RESPIRATOIRE"],
+    obligation: ["LUNETTES", "GANTS", "BLOUSE", "HOTTE"],
     image: "acide_acetique.jpg",
     fds: "FicheTox_24.pdf",
     dangers: ["H226", "H314"]
@@ -76,7 +78,7 @@ export const products = [
     categorie: "Acide fort",
     localisation: "Salle B27 / Étagère B1",
     pictogramme: ["SGH05_Corrosion.jpg", "SGH03_FlammeSurCercle.jpg"],
-    obligation: ["LUNETTES", "GANTS", "VISIERE", "COMBINAISON"],
+    obligation: ["LUNETTES", "GANTS", "BLOUSE", "HOTTE"],
     image: "acide_nitrique.jpg",
     fds: "FicheTox_9.pdf",
     dangers: ["H272", "H314"]
@@ -87,7 +89,8 @@ export const products = [
     formule: "C₃H₆O₂",
     categorie: "Acide carboxylique",
     localisation: "Salle B27 / Étagère B1",
-    pictogramme: ["corrosif.png", "inflammable.png"],   
+    pictogramme: ["corrosif.png", "inflammable.png"],
+    obligation: ["LUNETTES", "GANTS", "BLOUSE", "HOTTE"],
     image: "acide_propanoique.jpg",
     fds: "FicheTox_XXX.pdf",
     dangers: ["H226","H314"]
@@ -99,7 +102,7 @@ export const products = [
     categorie: "Acide fort",
     localisation: "Salle B27 / Étagère B1",
     pictogramme: ["SGH05_Corrosion.jpg"],
-    obligation: ["LUNETTES", "GANTS", "VISIERE", "COMBINAISON"],
+    obligation: ["LUNETTES", "GANTS", "BLOUSE", "HOTTE"],
     image: "acide_sulfurique.jpg",
     fds: "FicheTox_30.pdf",
     dangers: ["H314"]
@@ -111,6 +114,7 @@ export const products = [
   categorie: "Polymère hydrosoluble",
   localisation: "salle B27 / étagère B1",
   pictogramme: [],
+  obligation:["GANTS", "BLOUSE", "HOTTE"],
   image: "alcool_polyvinylique.jpg",
   fds: "",
   dangers: ["Produit généralement non classé dangereux selon le règlement CLP", "Peut provoquer une légère irritation mécanique des yeux ou des voies respiratoires sous forme de poussières"]
@@ -122,6 +126,7 @@ export const products = [
   categorie: "Indicateur coloré / pH",
   localisation: "salle B27 / étagère D4",
   pictogramme: ["irritant.png"],
+  obligation: ["GANTS", "BLOUSE"],
   image: "bleu_bromothymol.jpg",
   fds: "bleu_bromothymol.pdf",
   dangers: ["H315", "H319"]
@@ -133,6 +138,7 @@ export const products = [
   categorie: "Colorant / Réactif",
   localisation: "salle B27 / étagère D4",
   pictogramme: ["irritant.png"],
+  obligation: ["GANTS", "BLOUSE"],
   image: "bleu_methylene.jpg",
   fds: "bleu_methylene.pdf",
   dangers: ["H302", "H319"]
@@ -144,7 +150,7 @@ export const products = [
     categorie: "Sel minéral",
     localisation: "Salle B27 / Étagère D2",
     pictogramme: [],
-    obligation: [],
+    obligation: ["GANTS", "BLOUSE"],
     image: "carbonate_calcium.jpg",
     fds: "FDS_SOF_CARB.pdf",
     dangers: []
@@ -156,6 +162,7 @@ export const products = [
     categorie: "Traitement des eaux",
     localisation: "salle B27 / étagère D2",
     pictogramme: ["irritant.png"],
+    obligation: ["GANTS", "BLOUSE"],
     image: "chlorure_calcium.jpg",
     fds: "10043-52-A001.pdf",
     dangers: ["H318"],    
@@ -167,6 +174,7 @@ export const products = [
     categorie: "additif alimentaire (E511)",
     localisation: "salle B27 / étagère D2",
     pictogramme: [],
+    obligation: [],
     image: "chlorure_magnesium.jpg",
     fds: "FDS_Chlorure.pdf",
     dangers: [],    
@@ -178,6 +186,7 @@ export const products = [
   categorie: "Sel minéral / borate",
   localisation: "salle B27 / étagère D2",
   pictogramme: ["GHS07"],
+  obligation: ["GANTS", "BLOUSE"],  
   image: "borate_anhydre.jpg",
   fds: "",
   dangers: ["Irritant", "Peut provoquer une irritation des yeux et de la peau"]
@@ -200,7 +209,7 @@ export const products = [
     categorie: "Solvant",
     localisation: "Salle B27 / Étagère B2",
     pictogramme: ["SGH02_Flamme.jpg", "SGH07_PointExclamation.jpg"],
-    obligation: ["LUNETTES", "GANTS"],
+    obligation: ["LUNETTES", "GANTS", "BLOUSE"],
     image: "ethanol.jpg",
     fds: "ethanol.pdf",
     dangers: ["H225", "H319"]
@@ -212,6 +221,7 @@ export const products = [
   categorie: "Solvant / Éther",
   localisation: "salle B27 / étagère B2",
   pictogramme: ["flammable.png", "irritant.png"],
+  obligation: ["LUNETTES", "GANTS", "BLOUSE"],
   image: "diethyl_ether.jpg",
   fds: "diethyl_ether.pdf",
   dangers: ["H224", "H302", "H336"]
@@ -223,6 +233,7 @@ export const products = [
   categorie: "Indicateur complexométrique (EDTA)",
   localisation: "salle B27 / étagère B2",
   pictogramme: ["GHS07"],
+  obligation: ["LUNETTES", "GANTS", "BLOUSE"],
   image: "eriochrome_black_t.jpg",
   fds: "",
   dangers: ["Irritant", "Peut provoquer une irritation des yeux et de la peau", "Nocif en cas d'ingestion"]
@@ -234,7 +245,7 @@ export const products = [
   categorie: "Oxydant / Désinfectant",
   localisation: "Salle B27 / Étagère B2",
   pictogramme: ["SGH03_FlammeSurCercle.jpg", "SGH05_Corrosion.jpg"],
-  obligation: ["LUNETTES", "GANTS", "VISIERE", "COMBINAISON"],
+  obligation: ["LUNETTES", "GANTS", "BLOUSE"],
   image: "hydrogene_peroxyde.jpg",
   fds: "hydrogene_peroxyde.pdf",
   dangers: ["H272", "H302", "H314"]
@@ -246,6 +257,7 @@ export const products = [
     categorie: "Traitement des eaux",
     localisation: "salle B27 / étagère B1",
     pictogramme: ["corrosif.png", "toxique.png"],
+    obligation: ["LUNETTES", "GANTS", "BLOUSE", "HOTTE"],
     image: "ammoniaque.jpg",
     fds: "FicheTox_16.pdf",
     dangers: ["H314"],    
@@ -257,7 +269,7 @@ export const products = [
     categorie: "Base forte",
     localisation: "Salle B27 / Étagère B2 + D2",
     pictogramme: ["SGH05_Corrosion.jpg"],
-    obligation: ["LUNETTES", "GANTS", "VISIERE", "COMBINAISON"],
+    obligation: ["LUNETTES", "GANTS", "BLOUSE"],
     image: "soude.jpg",
     fds: "FicheTox_20.pdf",
     dangers: ["H314"]
@@ -269,6 +281,7 @@ export const products = [
     categorie: "monomère du PMMA (Plexiglas)",
     localisation: "salle B27/ étagère B2",
     pictogramme: ["flammable.png", "irritant.png"],
+    obligation: ["LUNETTES", "GANTS", "BLOUSE", "HOTTE"],
     image: "methyl_methacrylate.jpg",
     fds: "methyl_methacrylate.pdf",
     dangers: ["H225", "H315", "H317", "H335"]
@@ -280,6 +293,7 @@ export const products = [
     categorie: "Hydrocarbure aromatique polycyclique (HAP), Production plastique",
     localisation: "salle B27 / étagère B2",
     pictogramme: ["danger_sante.png"],
+    obligation: ["LUNETTES", "GANTS", "BLOUSE", "HOTTE"],
     image: "naphtalene.jpg",
     fds: "FicheTox_204.pdf",
     dangers: ["H351"],    
@@ -291,7 +305,7 @@ export const products = [
   categorie: "Oxydant / Réactif",
   localisation: "Salle B27 / Étagère D4",
   pictogramme: ["SGH03_FlammeSurCercle.jpg", "SGH09_Environnement.jpg", "SGH07_PointExclamation.jpg"],
-  obligation: ["LUNETTES", "GANTS"],
+  obligation: ["LUNETTES", "GANTS", "BLOUSE"],
   image: "permanganate_potassium.jpg",
   fds: "permanganate_potassium.pdf",
   dangers: ["H272", "H302", "H410"]
@@ -303,7 +317,7 @@ export const products = [
     categorie: "Indicateur coloré",
     localisation: "Salle B27 / Étagère B2",
     pictogramme: ["SGH08_DangerSante.jpg"],
-    obligation: ["LUNETTES", "GANTS"],
+    obligation: ["LUNETTES", "GANTS", "BLOUSE", "HOTTE"],
     image: "phenolphtaleine.jpg",
     fds: "FAS33.pdf",
     dangers: ["H350"]
@@ -315,6 +329,7 @@ export const products = [
   categorie: "Agent oxydant / réactif redox (ferricyanure)",
   localisation: "salle B27 / étagère D2",
   pictogramme: ["GHS07"],
+  obligation: ["GANTS", "BLOUSE"], 
   image: "ferricyanure_III.jpg",
   fds: "",
   dangers: ["Irritant", "Peut être nocif en cas d'ingestion", "Décomposition possible en milieu fortement acide avec libération de composés cyanurés"]
@@ -326,7 +341,7 @@ export const products = [
     categorie: "Cétone (solvant organique)",
     localisation: "Salle B27 / Étagère B1",
     pictogramme: ["SGH02_Flamme.jpg", "SGH07_PointExclamation.jpg"],
-    obligation: ["LUNETTES", "GANTS", "PROTECTION_RESPIRATOIRE"],
+    obligation: ["GANTS", "BLOUSE", "HOTTE"],
     image: "propanone.jpg",
     fds: "FicheTox_3.pdf",
     dangers: ["H225", "H319", "H336"]
@@ -338,6 +353,7 @@ export const products = [
   categorie: "Solution de sulfate de cuivre(II)",
   localisation: "Salle B27 / Étagère B2",
   pictogramme: ["irritant.png", "environnement.png"],
+  obligation: ["LUNETTES", "GANTS", "BLOUSE"],  
   image: "fehling_A.jpg",
   fds: "FicheTox_XXX.pdf",
   dangers: ["H302", "H319", "H410"]
@@ -349,7 +365,7 @@ export const products = [
     categorie: "Détection ammonium",
     localisation: "Salle B27 / Étagère B2",
     pictogramme: ["SGH06_TeteDeMort.jpg", "SGH09_Environnement.jpg"],
-    obligation: ["LUNETTES", "GANTS", "VISIERE", "PROTECTION_RESPIRATOIRE", "COMBINAISON"],
+    obligation: ["LUNETTES", "GANTS", "BLOUSE", "HOTTE"],
     image: "nessler.jpg",
     fds: "SDB_8132.pdf",
     dangers: ["H314"]
@@ -361,6 +377,7 @@ export const products = [
     categorie: "Détection des phosphates (PO₄³⁻)",
     localisation: "salle B27/ étagère B2",
     pictogramme: ["corrosive.png", "oxidizing.png"],
+    obligation: ["LUNETTES", "GANTS", "BLOUSE"],
     image: "nitromolybdique_reagent.jpg",
     fds: "nitromolybdique_reagent.pdf",
     dangers: ["H272", "H314", "H290"]
@@ -372,6 +389,7 @@ export const products = [
   categorie: "Indicateur coloré / pH",
   localisation: "salle B27 / étagère D4",
   pictogramme: ["irritant.png"],
+  obligation: ["LUNETTES", "GANTS", "BLOUSE"],
   image: "rouge_methyle.jpg",
   fds: "rouge_methyle.pdf",
   dangers: ["H315", "H319"]
@@ -383,6 +401,7 @@ export const products = [
   categorie: "Indicateur coloré / pH",
   localisation: "salle B27 / étagère D4",
   pictogramme: ["health_hazard.png", "irritant.png"],
+  obligation: ["LUNETTES", "GANTS", "BLOUSE", "HOTTE"],
   image: "phenolphtaleine.jpg",
   fds: "phenolphtaleine.pdf",
   dangers: ["H351", "H319"]
@@ -394,6 +413,7 @@ export const products = [
     categorie: "Acide faible",
     localisation: "salle B27 / étagère B2",
     pictogramme: ["danger_sante.png"],
+    obligation: ["LUNETTES", "GANTS", "BLOUSE"],
     image: "borax.jpg",
     fds: "FicheTox_138.pdf",
     dangers: ["H360FD"],    
@@ -405,7 +425,7 @@ export const products = [
     categorie: "Solution tampon acétate",
     localisation: "Salle B27 / Étagère D4",
     pictogramme: ["SGH05_Corrosion.jpg"],
-    obligation: ["LUNETTES", "GANTS"],
+    obligation: ["LUNETTES", "GANTS", "BLOUSE"],
     image: "ph4.jpg",
     fds: "FDS_019849.pdf",
     dangers: ["H314"]
@@ -417,7 +437,7 @@ export const products = [
     categorie: "Solution tampon phosphate",
     localisation: "Salle B27 / Étagère D4",
     pictogramme: [],
-    obligation: [],
+    obligation: ["GANTS", "BLOUSE"],
     image: "ph7.jpg",
     fds: "FDS_solution_tampon.pdf",
     dangers: []
@@ -429,6 +449,7 @@ export const products = [
   categorie: "Solution tampon / pH",
   localisation: "salle B27 / étagère D4",
   pictogramme: [],
+  obligation: ["LUNETTES", "GANTS", "BLOUSE"],
   image: "tampon_ph9.jpg",
   fds: "tampon_ph9.pdf",
   dangers: []
@@ -440,6 +461,7 @@ export const products = [
     categorie: "Solution tampon carbonate",
     localisation: "salle B27 / étagère D4",
     pictogramme: [],
+    obligation: ["LUNETTES", "GANTS", "BLOUSE"],
     image: "ph10.jpg",
     fds: "",
     dangers: [],    
