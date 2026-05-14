@@ -197,8 +197,8 @@ export const products = [
   formule: "C20H8Br4O5",
   categorie: "Colorant / Réactif",
   localisation: "salle B27 / étagère D4",
-  pictogramme: ["eosine.png"],
-  image: "irritant.jpg",
+  pictogramme: ["irritant.png"],
+  image: "eosine.jpg",
   fds: "eosine.pdf",
   dangers: ["H319"]
   },
@@ -324,7 +324,7 @@ export const products = [
   },
     {
     cas: "77-09-8",
-    nom: "Phénolphtaléine",
+    nom: "phénolphtaléine",
     formule: "C20H14O4",
     categorie: "Indicateur coloré",
     localisation: "Salle B27 / Étagère B2",
