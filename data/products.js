@@ -1,17 +1,16 @@
 export const products = [
   {
-    cas: "98-86-2",
+    cas: "67-64-1",
     nom: "1-phényléthanone (acétophénone)",
     formule: "C8H8O",
-    categorie: "Solvant / Composé aromatique",
-    localisation: "Salle B27 / Étagère B2",
+    categorie: "Solvant organique",
+    localisation: "Salle B27 / Étagère B1",
     pictogramme: ["SGH02_Flamme.jpg", "SGH07_PointExclamation.jpg"],
-    obligation: ["LUNETTES", "GANTS", "COMBINAISON"],
-    image: "acetophenone.jpg",
-    fds: "acetophenone.pdf",
-    dangers: ["H226", "H302", "H315", "H319"]
+    obligation: ["LUNETTES", "GANTS", "PROTECTION_RESPIRATOIRE"],
+    image: "propanone.jpg",
+    fds: "FicheTox_3.pdf",
+    dangers: ["H225", "H319", "H336"]
   },
-
   {
     cas: "123-51-3",
     nom: "3-méthylbutan-1-ol (alcool isoamylique)",
@@ -34,7 +33,18 @@ export const products = [
     image: "phenolphtaleine.jpg",
     fds: "FAS33.pdf",
     dangers: ["H350"],    
-  },  
+  },
+    {
+  cas: "60-00-4",
+  nom: "acide 2,2',2'',2'''-(éthane-1,2-diyldinitrilo)tétraacétique (EDTA)",
+  formule: "C₁₀H₁₆N₂O₈",
+  categorie: "Agent chélatant",
+  localisation: "Salle B27 / Étagère B2",
+  pictogramme: ["irritant.png"],
+  image: "edta.jpg",
+  fds: "FicheTox_XXX.pdf",
+  dangers: ["H319"]
+  },
   {
     cas: "7647-01-0",
     nom: "acide chlorhydrique",
@@ -45,9 +55,8 @@ export const products = [
     obligation: ["LUNETTES", "GANTS", "VISIERE", "COMBINAISON"],
     image: "acide_chlorhydrique.jpg",
     fds: "FicheTox_13.pdf",
-    dangers: ["H314", "H335"]
+    dangers: ["H290", "H314", "H335"]
   },
-
   {
     cas: "64-19-7",
     nom: "acide éthanoïque (acétique)",
@@ -61,17 +70,6 @@ export const products = [
     dangers: ["H226", "H314"]
   },
   {
-  cas: "60-00-4",
-  nom: "acide 2,2',2'',2'''-(éthane-1,2-diyldinitrilo)tétraacétique (EDTA)",
-  formule: "C₁₀H₁₆N₂O₈",
-  categorie: "Agent chélatant",
-  localisation: "Salle B27 / Étagère B2",
-  pictogramme: ["irritant.png"],
-  image: "edta.jpg",
-  fds: "FicheTox_XXX.pdf",
-  dangers: ["H319"]
-  },
-  {
     cas: "7697-37-2",
     nom: "acide nitrique",
     formule: "HNO3",
@@ -81,7 +79,7 @@ export const products = [
     obligation: ["LUNETTES", "GANTS", "VISIERE", "COMBINAISON"],
     image: "acide_nitrique.jpg",
     fds: "FicheTox_9.pdf",
-    dangers: ["H314", "H272"]
+    dangers: ["H272", "H314"]
   },
   {
     cas: "79-09-4",
@@ -99,11 +97,12 @@ export const products = [
     nom: "acide sulfurique",
     formule: "H2SO4",
     categorie: "Acide fort",
-    localisation: "salle B27 / étagère B1",
-    pictogramme: ["corrosif.png"],
+    localisation: "Salle B27 / Étagère B1",
+    pictogramme: ["SGH05_Corrosion.jpg"],
+    obligation: ["LUNETTES", "GANTS", "VISIERE", "COMBINAISON"],
     image: "acide_sulfurique.jpg",
     fds: "FicheTox_30.pdf",
-    dangers: ["H314"],    
+    dangers: ["H314"]
   },
   {
   cas: "9002-89-5",
@@ -143,11 +142,12 @@ export const products = [
     nom: "carbonate de calcium",
     formule: "CaCO₃",
     categorie: "Sel minéral",
-    localisation: "salle B27 / étagère D2",
+    localisation: "Salle B27 / Étagère D2",
     pictogramme: [],
+    obligation: [],
     image: "carbonate_calcium.jpg",
     fds: "FDS_SOF_CARB.pdf",
-    dangers: ["H280"],    
+    dangers: []
   },
   {
     cas: "10043-52-4",
@@ -197,7 +197,7 @@ export const products = [
     cas: "64-17-5",
     nom: "éthanol (éthylique)",
     formule: "C₂H₅OH",
-    categorie: "Solvant - alcool à brûler",
+    categorie: "Solvant",
     localisation: "Salle B27 / Étagère B2",
     pictogramme: ["SGH02_Flamme.jpg", "SGH07_PointExclamation.jpg"],
     obligation: ["LUNETTES", "GANTS"],
@@ -231,13 +231,13 @@ export const products = [
   cas: "7722-84-1",
   nom: "hydrogène peroxyde",
   formule: "H2O2",
-    categorie: "Oxydant / Désinfectant",
-    localisation: "Salle B27 / Étagère B2",
-    pictogramme: ["SGH03_FlammeSurCercle.jpg", "SGH05_Corrosion.jpg"],
-    obligation: ["LUNETTES", "GANTS", "VISIERE", "COMBINAISON"],
-    image: "hydrogene_peroxyde.jpg",
-    fds: "hydrogene_peroxyde.pdf",
-    dangers: ["H272", "H302", "H314"]
+  categorie: "Oxydant / Désinfectant",
+  localisation: "Salle B27 / Étagère B2",
+  pictogramme: ["SGH03_FlammeSurCercle.jpg", "SGH05_Corrosion.jpg"],
+  obligation: ["LUNETTES", "GANTS", "VISIERE", "COMBINAISON"],
+  image: "hydrogene_peroxyde.jpg",
+  fds: "hydrogene_peroxyde.pdf",
+  dangers: ["H272", "H302", "H314"]
   },
   {
     cas: "1336-21-6",
@@ -289,11 +289,24 @@ export const products = [
   nom: "permanganate de potassium",
   formule: "KMnO4",
   categorie: "Oxydant / Réactif",
-  localisation: "salle B27 / étagère D4",
-  pictogramme: ["oxidizer.png", "environment.png"],
+  localisation: "Salle B27 / Étagère D4",
+  pictogramme: ["SGH03_FlammeSurCercle.jpg", "SGH09_Environnement.jpg", "SGH07_PointExclamation.jpg"],
+  obligation: ["LUNETTES", "GANTS"],
   image: "permanganate_potassium.jpg",
   fds: "permanganate_potassium.pdf",
   dangers: ["H272", "H302", "H410"]
+  },
+    {
+    cas: "77-09-8",
+    nom: "Phénolphtaléine",
+    formule: "C20H14O4",
+    categorie: "Indicateur coloré",
+    localisation: "Salle B27 / Étagère B2",
+    pictogramme: ["SGH08_DangerSante.jpg"],
+    obligation: ["LUNETTES", "GANTS"],
+    image: "phenolphtaleine.jpg",
+    fds: "FAS33.pdf",
+    dangers: ["H350"]
   },
   {
   cas: "13746-66-2",
@@ -330,6 +343,18 @@ export const products = [
   dangers: ["H302", "H319", "H410"]
   },
   {
+    cas: "7783-33-7",
+    nom: "réactif de Nessler (tétraiodomercurate(II) de dipotassium)",
+    formule: "K₂[HgI₄]",
+    categorie: "Détection ammonium",
+    localisation: "Salle B27 / Étagère B2",
+    pictogramme: ["SGH06_TeteDeMort.jpg", "SGH09_Environnement.jpg"],
+    obligation: ["LUNETTES", "GANTS", "VISIERE", "PROTECTION_RESPIRATOIRE", "COMBINAISON"],
+    image: "nessler.jpg",
+    fds: "SDB_8132.pdf",
+    dangers: ["H314"]
+  },
+  {
     cas: "Mélange (HNO3 + (NH4)6Mo7O24)",
     nom: "réactif nitromolybdique (acide nitrique – molybdate d’ammonium)",
     formule: "(NH₄)₆Mo₇O₂₄·4H₂O",
@@ -352,17 +377,6 @@ export const products = [
   dangers: ["H315", "H319"]
   },
   {
-  cas: "547-58-0",
-  nom: "teinture d’hélianthine (Orange de méthyle)",
-  formule: "C14H14N3NaO3S",
-  categorie: "Indicateur coloré / pH",
-  localisation: "salle B27 / étagère D4",
-  pictogramme: ["irritant.png"],
-  image: "helianthine.jpg",
-  fds: "helianthine.pdf",
-  dangers: ["H302", "H319"]
-  },
-  {
   cas: "77-09-8",
   nom: "teinture de phénolphtaléine",
   formule: "C20H14O4",
@@ -383,41 +397,31 @@ export const products = [
     image: "borax.jpg",
     fds: "FicheTox_138.pdf",
     dangers: ["H360FD"],    
-  },
-  {
-    cas: "7783-33-7",
-    nom: "tétraiodomercurate(II) de dipotassium (réactif de Nessler)",
-    formule: "K₂[HgI₄]",
-    categorie: "Détection de l'ammonium (NH₄⁺)",
-    localisation: "salle B27 / étagère B2",
-    pictogramme: ["SGH06_TeteDeMort.jpg", "SGH09_Environnement.jpg"],
-    obligation: ["LUNETTES", "GANTS", "VISIERE", "PROTECTION_RESPIRATOIRE", "COMBINAISON"],
-    image: "nessler.jpg",
-    fds: "SDB_8132.pdf",
-    dangers: ["H314"]
-  }
+  },  
   {
     cas: "1336-21-6",
     nom: "solution tampon pH 4.01",
     formule: "CH₃COOH / CH₃COONa",
     categorie: "Solution tampon acétate",
-    localisation: "salle B27 / étagère D4",
-    pictogramme: ["corrosif.png"],
+    localisation: "Salle B27 / Étagère D4",
+    pictogramme: ["SGH05_Corrosion.jpg"],
+    obligation: ["LUNETTES", "GANTS"],
     image: "ph4.jpg",
     fds: "FDS_019849.pdf",
-    dangers: ["H314"],    
+    dangers: ["H314"]
   },
   {
     cas: "7778-77-0",
     nom: "solution tampon pH 7.01",
     formule: "KH₂PO₄ / Na₂HPO₄",
     categorie: "Solution tampon phosphate",
-    localisation: "salle B27 / étagère D4",
+    localisation: "Salle B27 / Étagère D4",
     pictogramme: [],
+    obligation: [],
     image: "ph7.jpg",
     fds: "FDS_solution_tampon.pdf",
-    dangers: [],    
-  },
+    dangers: []
+  }
   {
   cas: "Mélange",
   nom: "solution tampon pH 9",
