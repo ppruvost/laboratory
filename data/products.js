@@ -143,6 +143,18 @@ export const products = [
   fds: "bleu_methylene.pdf",
   dangers: ["H302", "H319"]
   },
+    {
+    cas: "10043-35-3",
+    nom: "borax (tétraborate de sodium décahydraté)",
+    formule: "B4H20Na2O17",
+    categorie: "Acide faible",
+    localisation: "salle B27 / étagère B2",
+    pictogramme: ["danger_sante.png"],
+    obligation: ["LUNETTES", "GANTS", "BLOUSE"],
+    image: "borax.jpg",
+    fds: "FicheTox_138.pdf",
+    dangers: ["H360FD"],    
+  },
   {
     cas: "471-34-1",
     nom: "carbonate de calcium",
@@ -419,17 +431,17 @@ export const products = [
   dangers: ["H351", "H319"]
 },
   {
-    cas: "10043-35-3",
-    nom: "tétraborate de sodium décahydraté (borax)",
-    formule: "B4H20Na2O17",
-    categorie: "Acide faible",
-    localisation: "salle B27 / étagère B2",
-    pictogramme: ["danger_sante.png"],
-    obligation: ["LUNETTES", "GANTS", "BLOUSE"],
-    image: "borax.jpg",
-    fds: "FicheTox_138.pdf",
-    dangers: ["H360FD"],    
-  },  
+    cas: "7447-40-7",
+    nom: "Solution de chlorure de potassium (KCl)",
+    formule: "KCl + H2O",
+    categorie: "Solution de conservation / électrolyte de stockage pour électrodes",
+    localisation: "D4",
+    pictogramme: [],
+    obligation: ["LUNETTES", "GANTS"],
+    image: "storage_solution_ph_orp.jpg",
+    fds: "FDS_KCl_storage_solution.pdf",
+    dangers: []
+},
   {
     cas: "1336-21-6",
     nom: "solution tampon pH 4.01",
