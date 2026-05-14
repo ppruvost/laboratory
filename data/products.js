@@ -13,14 +13,14 @@ export const products = [
   },
   {
     cas: "123-51-3",
-    nom: "3-méthylbutan-1-ol (alcool isoamylique)",
-    formule: "C5H12O",
+    nom: "3-methyl-1-butanol (alcool isoamylique, isopentanol)",
+    formule: "(CH3)2CHCH2CH2OH",
     categorie: "Alcool primaire",
     localisation: "Salle B27 / Étagère B2",
     pictogramme: ["SGH02_Flamme.jpg", "SGH07_PointExclamation.jpg"],
     obligation: ["LUNETTES", "GANTS", "BLOUSE","HOTTE"],
     image: "3_methylbutan_1_ol.jpg",
-    fds: "FicheTox_XXX.pdf",
+    fds: "FicheTox_123-51-3.pdf",
     dangers: ["H226", "H315", "H335"]
   },
   {
