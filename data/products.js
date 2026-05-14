@@ -121,7 +121,7 @@ export const products = [
   },
   {
   cas: "76-59-5",
-  nom: "bleu de bromothymol",
+  nom: "bleu de bromothymol (BBT)",
   formule: "C27H28Br2O5S",
   categorie: "Indicateur coloré / pH",
   localisation: "salle B27 / étagère D4",
