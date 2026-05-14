@@ -432,7 +432,7 @@ export const products = [
 },
   {
     cas: "7447-40-7",
-    nom: "Solution de chlorure de potassium (KCl)",
+    nom: "solution de chlorure de potassium (KCl)",
     formule: "KCl + H2O",
     categorie: "Solution de conservation / électrolyte de stockage pour électrodes",
     localisation: "Salle B27 / Étagère D4",
