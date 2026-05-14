@@ -150,6 +150,31 @@ export const pictogrammes = {
   // =========================================
   // SECOURS (VERT)
   // =========================================
+    // Premiers secours
+  SECOURS_TELEPHONE_URGENCE: "SECOURS-telephone-urgence.jpg",
+  SECOURS_CROIX: "SECOURS-croix.jpg",
+  SECOURS_CIVIERE: "SECOURS-civiere.jpg",
+  SECOURS_DEFIBRILLATEUR: "SECOURS-defibrillateur.jpg",
+  SECOURS_DOUCHE_OEIL: "SECOURS-douche-oeil.jpg",
+  SECOURS_DOUCHE_SECURITE: "SECOURS-douche-securite.jpg",
 
-  SECOURS_TELEPHONE_URGENCE: "SECOURS-telephone-urgence.jpg"
+  // Point de rassemblement / évacuation
+  SECOURS_POINT_RASSEMBLEMENT: "SECOURS-point-rassemblement.jpg",
+  SECOURS_REFUGE_TEMPORAIRE_EVACUATION: "SECOURS-refuge-temporaire-evacuation.jpg",
+
+  // Sorties
+  SECOURS_SORTIE_VERS_DROITE: "SECOURS-sortie-vers-droite.jpg",
+  SECOURS_SORTIE_VERS_GAUCHE: "SECOURS-sortie-vers-gauche.jpg",
+
+  // Flèches directionnelles
+  SECOURS_FLECHE_HAUT: "SECOURS-fleche-haut.jpg",
+  SECOURS_FLECHE_BAS: "SECOURS-fleche-bas.jpg",
+  SECOURS_FLECHE_GAUCHE: "SECOURS-fleche-gauche.jpg",
+  SECOURS_FLECHE_DROITE: "SECOURS-fleche-droite.jpg",
+
+  SECOURS_FLECHE_HAUT_GAUCHE: "SECOURS-fleche-haut-gauche.jpg",
+  SECOURS_FLECHE_HAUT_DROIT: "SECOURS-fleche-haut-droit.jpg",
+  SECOURS_FLECHE_BAS_GAUCHE: "SECOURS-fleche-bas-gauche.jpg",
+  SECOURS_FLECHE_BAS_DROIT: "SECOURS-fleche-bas-droit.jpg"
+  
 };
