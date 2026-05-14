@@ -245,7 +245,7 @@ export const products = [
     categorie: "Indicateur coloré acido-basique",
     localisation: "D4",
     pictogramme: ["SGH06_TeteDeMort.jpg"],
-    obligation: ["LUNETTES", "GANTS", "BLOUSE", "HOTTE"],
+    obligation: ["LUNETTES", "GANTS", "BLOUSE"],
     image: "helianthine.jpg",
     fds: "FDS_Helianthine.pdf",
     dangers: ["H301"]
