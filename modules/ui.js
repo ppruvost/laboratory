@@ -11,14 +11,13 @@ import { dangerDB } from "../data/dangerDB.js";
 // ===============================
 
 export function renderTable(produits) {
-
   const tbody = document.getElementById("table-body");
   if (!tbody) return;
 
-  // 🔴 RESET TABLE
+  // RESET TABLE
   tbody.innerHTML = "";
 
-  // 🔴 SI VIDE
+  // SI VIDE
   if (!produits || produits.length === 0) {
     tbody.innerHTML = `<tr><td colspan="8">Aucun produit</td></tr>`;
     return;
@@ -27,31 +26,71 @@ export function renderTable(produits) {
   produits.forEach((p) => {
 
     // ===============================
-    // 🧪 PICTOGRAMMES
+    // 🧪 PICTOGRAMMES DE DANGER (codes H)
     // ===============================
-    const pictos = (p.dangers || []).map(code => {
-      const img = pictogrammes[code];
-      if (!img) return "";
+    const pictosDanger = (p.dangers || [])
+      .map(code => {
+        const img = pictogrammes[code];
+        if (!img) return "";
 
-      return `
-        <div class="picto-container">
-          <img 
-            src="assets/picto/${img}" 
-            class="picto"
-            alt="${code}"
-          >
-        </div>
-      `;
-    }).join("");
+        return `
+          <div class="picto-container">
+            <img
+              src="assets/picto/${img}"
+              class="picto"
+              alt="${code}"
+              title="${code}"
+            >
+          </div>
+        `;
+      })
+      .join("");
+
+
+    // ===============================
+    // 🦺 PICTOGRAMMES D’OBLIGATION (EPI)
+    // ===============================
+    const pictosObligation = (p.obligation || [])
+      .map(code => {
+        const img = pictogrammes[code];
+        if (!img) return "";
+
+        return `
+          <div class="picto-container">
+            <img
+              src="assets/picto/${img}"
+              class="picto obligation"
+              alt="${code}"
+              title="${code}"
+            >
+          </div>
+        `;
+      })
+      .join("");
+
+
+    // ===============================
+    // 🔗 FUSION DES PICTOGRAMMES
+    // ===============================
+    const pictos = `
+      <div class="pictos-wrapper">
+        ${pictosDanger}
+        ${pictosObligation}
+      </div>
+    `;
 
 
     // ===============================
     // ⚠️ TEXTE DANGERS
     // ===============================
-    const dangerText = (p.dangers || []).map(code => {
-      const d = dangerDB.find(d => d.code === code);
-      return d ? `${code} - ${d.text}` : code;
-    }).join("<br>");
+    const dangerText = (p.dangers || []).length
+      ? (p.dangers || [])
+          .map(code => {
+            const d = dangerDB.find(d => d.code === code);
+            return d ? `${code} - ${d.text}` : code;
+          })
+          .join("<br>")
+      : "—";
 
 
     // ===============================
@@ -87,9 +126,7 @@ export function renderTable(produits) {
     `;
 
     tbody.appendChild(tr);
-
   });
-
 }
 
 
@@ -98,19 +135,18 @@ export function renderTable(produits) {
 // ===============================
 
 export function showSection(id, element = null) {
-
-  // 🔴 MASQUER TOUTES LES SECTIONS
+  // MASQUER TOUTES LES SECTIONS
   document.querySelectorAll(".section").forEach(sec => {
     sec.classList.remove("active");
   });
 
-  // 🔴 AFFICHER LA BONNE
+  // AFFICHER LA BONNE
   const target = document.getElementById(id);
   if (target) {
     target.classList.add("active");
   }
 
-  // 🔴 GESTION MENU ACTIF
+  // GESTION MENU ACTIF
   document.querySelectorAll(".menu-item").forEach(item => {
     item.classList.remove("active");
   });
@@ -126,7 +162,6 @@ export function showSection(id, element = null) {
 // ===============================
 
 export function toggleForm() {
-
   const f = document.getElementById("formulaire");
   if (!f) return;
 
@@ -145,14 +180,13 @@ export function toggleForm() {
 // ===============================
 
 export function resetForm() {
-
-  // 🔴 champs texte
+  // champs texte
   ["cas", "nom", "formule", "visuel"].forEach(id => {
     const el = document.getElementById(id);
     if (el) el.value = "";
   });
 
-  // 🔴 select danger
+  // select danger
   const danger = document.getElementById("danger");
   if (danger) {
     danger.selectedIndex = -1;
