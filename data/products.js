@@ -36,17 +36,17 @@ export const products = [
     dangers: ["H350"],    
   },
   {
-  cas: "60-00-4",
-  nom: "acide 2,2',2'',2'''-(éthane-1,2-diyldinitrilo)tétraacétique (EDTA)",
-  formule: "C₁₀H₁₆N₂O₈",
-  categorie: "Agent chélatant",
-  localisation: "Salle B27 / Étagère B2",
-  pictogramme: ["irritant.png"],
-  obligation: ["GANTS", "BLOUSE"],
-  image: "edta.jpg",
-  fds: "FicheTox_XXX.pdf",
-  dangers: ["H319"]
-  },
+  cas: "107-92-6",
+  nom: "acide butyrique",
+  formule: "CH₃CH₂CH₂COOH",
+  categorie: "Acide carboxylique",
+  localisation: "Salle B27 / Étagère D4",
+  pictogramme: ["SGH05_Corrosion.jpg", "SGH07_Exclamation.jpg"],
+  obligation: ["LUNETTES", "GANTS", "BLOUSE"],
+  image: "acide_butyrique.jpg",
+  fds: "FDS_10792.pdf",
+  dangers: ["H314"]
+},
   {
     cas: "7647-01-0",
     nom: "acide chlorhydrique",
@@ -202,6 +202,18 @@ export const products = [
   image: "borate_anhydre.jpg",
   fds: "",
   dangers: ["Irritant", "Peut provoquer une irritation des yeux et de la peau"]
+  },
+    {
+  cas: "60-00-4",
+  nom: "EDTA (acide 2,2',2'',2'''-(éthane-1,2-diyldinitrilo)tétraacétique)",
+  formule: "C₁₀H₁₆N₂O₈",
+  categorie: "Agent chélatant",
+  localisation: "Salle B27 / Étagère B2",
+  pictogramme: ["irritant.png"],
+  obligation: ["GANTS", "BLOUSE"],
+  image: "edta.jpg",
+  fds: "FicheTox_XXX.pdf",
+  dangers: ["H319"]
   },
   {
   cas: "17372-87-1",
