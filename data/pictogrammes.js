@@ -1,7 +1,7 @@
 export const pictogrammes = {
-  // =========================
-  // PICTOGRAMMES SGH (danger chimique)
-  // =========================
+  // =========================================
+  // PICTOGRAMMES SGH (DANGERS CHIMIQUES)
+  // =========================================
 
   // Explosif
   H200: "SGH01_BombeExplosant.jpg",
@@ -59,24 +59,26 @@ export const pictogrammes = {
   H350: "SGH08_DangerSante.jpg",
   H351: "SGH08_DangerSante.jpg",
   H360: "SGH08_DangerSante.jpg",
+  H360FD: "SGH08_DangerSante.jpg",
   H361: "SGH08_DangerSante.jpg",
   H370: "SGH08_DangerSante.jpg",
   H372: "SGH08_DangerSante.jpg",
 
-  // Dangereux pour l'environnement
+  // Environnement
   H400: "SGH09_Environnement.jpg",
   H410: "SGH09_Environnement.jpg",
   H411: "SGH09_Environnement.jpg",
   H412: "SGH09_Environnement.jpg",
 
-
-  // =========================
-  // PICTOGRAMMES OBLIGATION (EPI)
-  // =========================
+  // =========================================
+  // OBLIGATIONS (EPI)
+  // =========================================
 
   OBLIGATION_GENERAL: "OBLIGATION-general.jpg",
   CASQUE: "OBLIGATION-casque.jpg",
   CASQUE_ANTIBRUIT: "OBLIGATION-casque-antibruit.jpg",
+  HOTTE: "OBLIGATION-hotte.jpeg",
+  BLOUSE: "OBLIGATION-blouse.jpg",
   LUNETTES: "OBLIGATION-lunettes.jpg",
   VISIERE: "OBLIGATION-visiere.jpg",
   GANTS: "OBLIGATION-gants.jpg",
@@ -85,5 +87,69 @@ export const pictogrammes = {
   HARNAIS: "OBLIGATION-harnais.jpg",
   PROTECTION_RESPIRATOIRE: "OBLIGATION-protection-voies-espiratoires.jpg",
   PIETON: "OBLIGATION-pieton.jpg",
-  CONSULTER_NOTICE: "OBLIGATION-consulter-notice.jpg"
+  CONSULTER_NOTICE: "OBLIGATION-consulter-notice.jpg",
+
+  // =========================================
+  // DANGERS GÉNÉRAUX (TRIANGLE JAUNE)
+  // =========================================
+
+  DANGER_GENERAL: "DANGER-general.jpg",
+  DANGER_ELECTRICITE: "DANGER-electricite.jpg",
+  DANGER_CHUTE: "DANGER-chute.jpg",
+  DANGER_TREBUCHEMENT: "DANGER-trebuchement.jpg",
+  DANGER_CHARIOT: "DANGER-chariot.jpg",
+  DANGER_CHARGE_SUSPENDUE: "DANGER-charge-suspendue.jpg",
+  DANGER_CHAMP_MAGNETIQUE: "DANGER-champ-magnetique.jpg",
+  DANGER_LASER: "DANGER-laser.jpg",
+  DANGER_FROID_GEL: "DANGER-froid-gel.jpg",
+  DANGER_COMBURANT: "DANGER-comburant.jpg",
+  DANGER_PRODUIT_CORROSIF: "DANGER-produit-corrosif.jpg",
+  DANGER_PRODUIT_INFLAMMABLE: "DANGER-produit-inflammable.jpg",
+  DANGER_PRODUIT_EXPLOSIF: "DANGER-produit-explosif.jpg",
+  DANGER_PRODUIT_TOXIQUE: "DANGER-produit-toxique.jpg",
+  DANGER_PRODUIT_NOCIF: "DANGER-produit-nocif.jpg",
+  DANGER_ATMOSPHERE_EXPLOSIVE: "DANGER-atmosphere-explosive.jpg",
+  DANGER_RISQUE_BIOLOGIQUE: "DANGER-risque-biologique.jpg",
+  DANGER_RADIOACTIVITE: "DANGER-radioactivite.jpg",
+  DANGER_RADIATIONS_NON_IONISANTES: "DANGER-radiations-non-ionisantes.jpg",
+  DANGER_BANDE_SIGNALISATION: "DANGER-bande-signalisation.jpg",
+
+  // =========================================
+  // INTERDICTIONS (ROND ROUGE)
+  // =========================================
+
+  INTERDIT_BOIRE: "INTERDIT-boire.jpg",
+  INTERDIT_CHARIOT: "INTERDIT-chariot.jpg",
+  INTERDIT_ENTRER: "INTERDIT-entrer.jpg",
+  INTERDIT_FLAMME: "INTERDIT-flamme.jpg",
+  INTERDIT_FUMER: "INTERDIT-fumer.jpg",
+  INTERDIT_PIETONS: "INTERDIT-pietons.jpg",
+  INTERDIT_SEAU_EAU: "INTERDIT-seau-eau.jpg",
+  INTERDIT_TOUCHER: "INTERDIT-toucher.jpg",
+
+  // =========================================
+  // INCENDIE (ROUGE)
+  // =========================================
+
+  INCENDIE_ALARME: "INCENDIE-alarme.jpg",
+  INCENDIE_ECHELLE: "INCENDIE-echelle.jpg",
+  INCENDIE_EQUIPEMENT: "INCENDIE-equipement.jpg",
+  INCENDIE_EXTINCTEUR: "INCENDIE-extincteur.jpg",
+  INCENDIE_LANCE: "INCENDIE-lance.jpg",
+  INCENDIE_TELEPHONE: "INCENDIE-telephone.jpg",
+
+  INCENDIE_FLECHE_HAUT: "INCENDIE-fleche-haut.jpg",
+  INCENDIE_FLECHE_BAS: "INCENDIE-fleche-bas.jpg",
+  INCENDIE_FLECHE_GAUCHE: "INCENDIE-fleche-gauche.jpg",
+  INCENDIE_FLECHE_DROITE: "INCENDIE-fleche-droite.jpg",
+  INCENDIE_FLECHE_HAUT_GAUCHE: "INCENDIE-fleche-haut-gauche.jpg",
+  INCENDIE_FLECHE_HAUT_DROIT: "INCENDIE-fleche-haut-droit.jpg",
+  INCENDIE_FLECHE_BAS_GAUCHE: "INCENDIE-fleche-bas-gauche.jpg",
+  INCENDIE_FLECHE_BAS_DROIT: "INCENDIE-fleche-bas-droit.jpg",
+
+  // =========================================
+  // SECOURS (VERT)
+  // =========================================
+
+  SECOURS_TELEPHONE_URGENCE: "SECOURS-telephone-urgence.jpg"
 };
