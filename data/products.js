@@ -421,7 +421,7 @@ export const products = [
   {
   cas: "493-52-7",
   nom: "rouge de méthyle",
-  formule: "C15H15N3O2",
+  formule: "C₁₅H₁₅N₃O₂",
   categorie: "Indicateur coloré / pH",
   localisation: "salle B27 / étagère D4",
   pictogramme: ["irritant.png"],
@@ -433,7 +433,7 @@ export const products = [
   {
     cas: "7447-40-7",
     nom: "solution de chlorure de potassium (KCl)",
-    formule: "KCl + H2O",
+    formule: "KCl + H₂O",
     categorie: "Solution de conservation / électrolyte de stockage pour électrodes",
     localisation: "Salle B27 / Étagère D4",
     pictogramme: [],
@@ -469,8 +469,8 @@ export const products = [
   {
   cas: "Mélange",
   nom: "solution tampon pH 9.00",
-  formule: "Solution aqueuse",
-  categorie: "Solution tampon / pH",
+  formule: "NH₄⁺/NH₃",
+  categorie: "Solution tampon ammoniacale",
   localisation: "salle B27 / étagère D4",
   pictogramme: [],
   obligation: ["LUNETTES", "GANTS", "BLOUSE"],
