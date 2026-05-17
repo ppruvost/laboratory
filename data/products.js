@@ -227,6 +227,18 @@ export const products = [
   dangers: ["H319"]
   },
   {
+  cas: "1787-61-7",
+  nom: "ériochrome Black T",
+  formule: "C₂₀H₁₂N₃NaO₇S",
+  categorie: "Indicateur complexométrique (EDTA)",
+  localisation: "salle B27 / étagère B2",
+  pictogramme: ["GHS07"],
+  obligation: ["LUNETTES", "GANTS", "BLOUSE"],
+  image: "eriochrome_black_t.jpg",
+  fds: "",
+  dangers: ["Irritant", "Peut provoquer une irritation des yeux et de la peau", "Nocif en cas d'ingestion"]
+  },
+  {
     cas: "64-17-5",
     nom: "éthanol (éthylique)",
     formule: "C₂H₅OH",
@@ -249,19 +261,7 @@ export const products = [
   image: "diethyl_ether.jpg",
   fds: "diethyl_ether.pdf",
   dangers: ["H224", "H302", "H336"]
-  },
-  {
-  cas: "1787-61-7",
-  nom: "ériochrome Black T",
-  formule: "C₂₀H₁₂N₃NaO₇S",
-  categorie: "Indicateur complexométrique (EDTA)",
-  localisation: "salle B27 / étagère B2",
-  pictogramme: ["GHS07"],
-  obligation: ["LUNETTES", "GANTS", "BLOUSE"],
-  image: "eriochrome_black_t.jpg",
-  fds: "",
-  dangers: ["Irritant", "Peut provoquer une irritation des yeux et de la peau", "Nocif en cas d'ingestion"]
-  },
+  },  
   {
     cas: "547-58-0",
     nom: "hélianthine (orange de méthyle)",
