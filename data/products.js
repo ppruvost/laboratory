@@ -218,7 +218,7 @@ export const products = [
   {
   cas: "17372-87-1",
   nom: "éosine",
-  formule: "C₂₀H₈Br₄O₅",
+  formule: "C₂₀H₆Br₄NaO₅",
   categorie: "Colorant / Réactif",
   localisation: "salle B27 / étagère D4",
   pictogramme: ["irritant.png"],
