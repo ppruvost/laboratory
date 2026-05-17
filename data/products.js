@@ -110,7 +110,7 @@ export const products = [
   {
   cas: "9002-89-5",
   nom: "alcool polyvinylique",
-  formule: "C₂H₄O)ₙ",
+  formule: "(C₂H₄O)ₙ",
   categorie: "Polymère hydrosoluble",
   localisation: "salle B27 / étagère B1",
   pictogramme: [],
@@ -267,7 +267,7 @@ export const products = [
     nom: "hélianthine (orange de méthyle)",
     formule: "C₁₄H₁₄N₃NaO₃S",
     categorie: "Indicateur coloré acido-basique",
-    localisation: "D4",
+    localisation: "salle B27 / étagère D4",
     pictogramme: ["SGH06_TeteDeMort.jpg"],
     obligation: ["LUNETTES", "GANTS", "BLOUSE"],
     image: "helianthine.jpg",
