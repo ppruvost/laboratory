@@ -2,7 +2,7 @@ export const products = [
   {
     cas: "67-64-1",
     nom: "1-phényléthanone (acétophénone)",
-    formule: "C8H8O",
+    formule: "C₈H₈O",
     categorie: "Solvant organique",
     localisation: "Salle B27 / Étagère B1",
     pictogramme: ["SGH02_Flamme.jpg", "SGH07_PointExclamation.jpg"],
@@ -14,7 +14,7 @@ export const products = [
   {
     cas: "123-51-3",
     nom: "3-methyl-1-butanol (alcool isoamylique, isopentanol)",
-    formule: "(CH3)2CHCH2CH2OH",
+    formule: "(CH₃)₂CHCH₂CH₂OH",
     categorie: "Alcool primaire",
     localisation: "Salle B27 / Étagère B2",
     pictogramme: ["SGH02_Flamme.jpg", "SGH07_PointExclamation.jpg"],
@@ -62,7 +62,7 @@ export const products = [
   {
     cas: "64-19-7",
     nom: "acide éthanoïque (acétique)",
-    formule: "CH3COOH",
+    formule: "CH₃COOH",
     categorie: "Acide faible",
     localisation: "Salle B27 / Étagère B1",
     pictogramme: ["SGH05_Corrosion.jpg", "SGH02_Flamme.jpg"],
@@ -74,7 +74,7 @@ export const products = [
   {
     cas: "7697-37-2",
     nom: "acide nitrique",
-    formule: "HNO3",
+    formule: "HNO₃",
     categorie: "Acide fort",
     localisation: "Salle B27 / Étagère B1",
     pictogramme: ["SGH05_Corrosion.jpg", "SGH03_FlammeSurCercle.jpg"],
@@ -98,7 +98,7 @@ export const products = [
     {
     cas: "7664-93-9",
     nom: "acide sulfurique",
-    formule: "H2SO4",
+    formule: "H₂SO₄",
     categorie: "Acide fort",
     localisation: "Salle B27 / Étagère B1",
     pictogramme: ["SGH05_Corrosion.jpg"],
@@ -110,7 +110,7 @@ export const products = [
   {
   cas: "9002-89-5",
   nom: "alcool polyvinylique",
-  formule: "(C2H4O)n",
+  formule: "C₂H₄O)ₙ",
   categorie: "Polymère hydrosoluble",
   localisation: "salle B27 / étagère B1",
   pictogramme: [],
@@ -122,7 +122,7 @@ export const products = [
   {
   cas: "76-59-5",
   nom: "bleu de bromothymol (BBT)",
-  formule: "C27H28Br2O5S",
+  formule: "C₂₇H₂₈Br₂O₅S",
   categorie: "Indicateur coloré / pH",
   localisation: "salle B27 / étagère D4",
   pictogramme: ["irritant.png"],
@@ -134,7 +134,7 @@ export const products = [
   {
   cas: "61-73-4",
   nom: "bleu de méthylène",
-  formule: "C16H18ClN3S",
+  formule: "C₁₆H₁₈ClN₃S",
   categorie: "Colorant / Réactif",
   localisation: "salle B27 / étagère D4",
   pictogramme: ["irritant.png"],
@@ -146,7 +146,7 @@ export const products = [
     {
     cas: "10043-35-3",
     nom: "borax (tétraborate de sodium décahydraté)",
-    formule: "B4H20Na2O17",
+    formule: "B₄H₂₀Na₂O₁₇",
     categorie: "Acide faible",
     localisation: "salle B27 / étagère B2",
     pictogramme: ["danger_sante.png"],
@@ -218,7 +218,7 @@ export const products = [
   {
   cas: "17372-87-1",
   nom: "éosine",
-  formule: "C20H8Br4O5",
+  formule: "C₂₀H₈Br₄O₅",
   categorie: "Colorant / Réactif",
   localisation: "salle B27 / étagère D4",
   pictogramme: ["irritant.png"],
@@ -241,7 +241,7 @@ export const products = [
   {
   cas: "60-29-7",
   nom: "éther diéthylique",
-  formule: "C4H10O",
+  formule: "C₄H₁₀O",
   categorie: "Solvant / Éther",
   localisation: "salle B27 / étagère B2",
   pictogramme: ["flammable.png", "irritant.png"],
@@ -253,7 +253,7 @@ export const products = [
   {
   cas: "1787-61-7",
   nom: "ériochrome Black T",
-  formule: "C20H12N3NaO7S",
+  formule: "C₂₀H₁₂N₃NaO₇S",
   categorie: "Indicateur complexométrique (EDTA)",
   localisation: "salle B27 / étagère B2",
   pictogramme: ["GHS07"],
@@ -265,7 +265,7 @@ export const products = [
   {
     cas: "547-58-0",
     nom: "hélianthine (orange de méthyle)",
-    formule: "C14H14N3NaO3S",
+    formule: "C₁₄H₁₄N₃NaO₃S",
     categorie: "Indicateur coloré acido-basique",
     localisation: "D4",
     pictogramme: ["SGH06_TeteDeMort.jpg"],
@@ -277,7 +277,7 @@ export const products = [
   {
   cas: "7722-84-1",
   nom: "hydrogène peroxyde",
-  formule: "H2O2",
+  formule: "H₂O₂",
   categorie: "Oxydant / Désinfectant",
   localisation: "Salle B27 / Étagère B2",
   pictogramme: ["SGH03_FlammeSurCercle.jpg", "SGH05_Corrosion.jpg"],
@@ -289,7 +289,7 @@ export const products = [
   {
     cas: "1336-21-6",
     nom: "hydroxyde d'ammonium (ammoniaque)",
-    formule: "NH4OH",
+    formule: "NH₄OH",
     categorie: "Traitement des eaux",
     localisation: "salle B27 / étagère B1",
     pictogramme: ["corrosif.png", "toxique.png"],
@@ -337,7 +337,7 @@ export const products = [
   {
   cas: "7722-64-7",
   nom: "permanganate de potassium",
-  formule: "KMnO4",
+  formule: "KMnO₄",
   categorie: "Oxydant / Réactif",
   localisation: "Salle B27 / Étagère D4",
   pictogramme: ["SGH03_FlammeSurCercle.jpg", "SGH09_Environnement.jpg", "SGH07_PointExclamation.jpg"],
@@ -349,7 +349,7 @@ export const products = [
     {
     cas: "77-09-8",
     nom: "phénolphtaléine",
-    formule: "C20H14O4",
+    formule: "C₂₀H₁₄O₄",
     categorie: "Indicateur coloré",
     localisation: "Salle B27 / Étagère B2",
     pictogramme: ["SGH08_DangerSante.jpg"],
@@ -407,7 +407,7 @@ export const products = [
     dangers: ["H314"]
   },
   {
-    cas: "Mélange (HNO3 + (NH4)6Mo7O24)",
+    cas: "Mélange (HNO₃ + (NH₄)₆Mo₇O₂₄)",
     nom: "réactif nitromolybdique (acide nitrique – molybdate d’ammonium)",
     formule: "(NH₄)₆Mo₇O₂₄·4H₂O",
     categorie: "Détection des phosphates (PO₄³⁻)",
