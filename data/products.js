@@ -156,6 +156,18 @@ export const products = [
     dangers: ["H360FD"],    
   },
   {
+    "cas": "7758-01-2",
+    "nom": "Bromate de potassium",
+    "formule": "KBrO₃",
+    "categorie": "Oxydant",
+    "localisation": "Salle B27 / Étagère B4",
+    "pictogramme": ["SGH03_Comburant.jpg", "SGH06_TeteDeMort.jpg"],
+    "obligation": ["LUNETTES", "GANTS", "BLOUSE", "HOTTE"],
+    "image": "potassium_bromate.jpg",
+    "fds": "FicheTox_KBrO3.pdf",
+    "dangers": ["H271", "H301", "H350"]
+  },
+  {
     cas: "471-34-1",
     nom: "carbonate de calcium",
     formule: "CaCO₃",
@@ -166,6 +178,42 @@ export const products = [
     image: "carbonate_calcium.jpg",
     fds: "FDS_SOF_CARB.pdf",
     dangers: []
+  },
+  {
+    "cas": "8006-28-8",
+    "nom": "Chaux sodée",
+    "formule": "NaOH + Ca(OH)₂",
+    "categorie": "Absorbant chimique",
+    "localisation": "Salle B27 / Étagère B2",
+    "pictogramme": ["SGH05_Corrosion.jpg"],
+    "obligation": ["LUNETTES", "GANTS", "BLOUSE"],
+    "image": "chaux_sodee.jpg",
+    "fds": "FicheTox_ChauxSodee.pdf",
+    "dangers": ["H314"]
+  },
+  {
+    "cas": "7647-14-5",
+    "nom": "chlorure de sodium",
+    "formule": "NaCl",
+    "categorie": "Sel minéral",
+    "localisation": "Salle B27 / Étagère B3",
+    "pictogramme": [],
+    "obligation": ["BLOUSE"],
+    "image": "sodium_chlorure.jpg",
+    "fds": "FicheTox_NaCl.pdf",
+    "dangers": []
+  },
+  {
+    "cas": "75-09-2",
+    "nom": "dichlorométhane",
+    "formule": "CH₂Cl₂",
+    "categorie": "Solvant chloré",
+    "localisation": "Salle B27 / Armoire ventilée",
+    "pictogramme": ["SGH07_PointExclamation.jpg", "SGH08_DangerSante.jpg"],
+    "obligation": ["LUNETTES", "GANTS", "BLOUSE", "HOTTE"],
+    "image": "dichloromethane.jpg",
+    "fds": "FicheTox_Dichloromethane.pdf",
+    "dangers": ["H315", "H319", "H351", "H336"]
   },
   {
     cas: "10043-52-4",
@@ -275,6 +323,18 @@ export const products = [
     dangers: ["H301"]
 },
   {
+    "cas": "124-09-4",
+    "nom": "hexane diamine (1,6-diaminohexane)",
+    "formule": "C₆H₁₆N₂",
+    "categorie": "Amine organique",
+    "localisation": "Salle B27 / Étagère B2",
+    "pictogramme": ["SGH05_Corrosion.jpg", "SGH07_PointExclamation.jpg"],
+    "obligation": ["LUNETTES", "GANTS", "BLOUSE", "HOTTE"],
+    "image": "hexane_diamine.jpg",
+    "fds": "FicheTox_HexaneDiamine.pdf",
+    "dangers": ["H302", "H314", "H335"]
+  },
+  {
   cas: "7722-84-1",
   nom: "hydrogène peroxyde",
   formule: "H₂O₂",
@@ -321,6 +381,30 @@ export const products = [
     image: "methyl_methacrylate.jpg",
     fds: "methyl_methacrylate.pdf",
     dangers: ["H225", "H315", "H317", "H335"]
+  },
+  {
+    "cas": "513-35-9",
+    "nom": "méthyl-2 butène-2",
+    "formule": "C₅H₁₀",
+    "categorie": "Hydrocarbure insaturé",
+    "localisation": "Salle B27 / Armoire solvants",
+    "pictogramme": ["SGH02_Flamme.jpg", "SGH07_PointExclamation.jpg"],
+    "obligation": ["LUNETTES", "GANTS", "BLOUSE", "HOTTE"],
+    "image": "methyl2_butene2.jpg",
+    "fds": "FicheTox_Methyl2Butene2.pdf",
+    "dangers": ["H224", "H336"]
+  },
+  {
+    "cas": "96-33-3",
+    "nom": "méthyl acrylate",
+    "formule": "C₄H₆O₂",
+    "categorie": "Ester organique",
+    "localisation": "Salle B27 / Armoire solvants",
+    "pictogramme": ["SGH02_Flamme.jpg", "SGH05_Corrosion.jpg", "SGH07_PointExclamation.jpg"],
+    "obligation": ["LUNETTES", "GANTS", "BLOUSE", "HOTTE"],
+    "image": "methyl_acrylate.jpg",
+    "fds": "FicheTox_MethylAcrylate.pdf",
+    "dangers": ["H225", "H315", "H318", "H335"]
   },
   {
     cas: "91-20-3",
@@ -372,12 +456,12 @@ export const products = [
   },
   {
     cas: "67-64-1",
-    nom: "propan-2-one (propanone)",
+    nom: "propan-2-one (propanone, acétone)",
     formule: "C₃H₆O",
     categorie: "Cétone (solvant organique)",
     localisation: "Salle B27 / Étagère B1",
     pictogramme: ["SGH02_Flamme.jpg", "SGH07_PointExclamation.jpg"],
-    obligation: ["GANTS", "BLOUSE", "HOTTE"],
+    obligation: ["LUNETTES","GANTS", "BLOUSE", "HOTTE"],
     image: "propanone.jpg",
     fds: "FicheTox_3.pdf",
     dangers: ["H225", "H319", "H336"]
@@ -429,7 +513,19 @@ export const products = [
   image: "rouge_methyle.jpg",
   fds: "rouge_methyle.pdf",
   dangers: ["H315", "H319"]
-  },  
+  },
+  {
+    "cas": "7631-90-5",
+    "nom": "Sodium hydrogénosulfite",
+    "formule": "NaHSO₃",
+    "categorie": "Réducteur",
+    "localisation": "Salle B27 / Étagère B3",
+    "pictogramme": ["SGH07_PointExclamation.jpg"],
+    "obligation": ["LUNETTES", "GANTS", "BLOUSE"],
+    "image": "sodium_hydrogenosulfite.jpg",
+    "fds": "FicheTox_NaHSO3.pdf",
+    "dangers": ["H302", "H319"]
+  },
   {
     cas: "7447-40-7",
     nom: "solution de chlorure de potassium (KCl)",
@@ -489,5 +585,17 @@ export const products = [
     image: "ph10.jpg",
     fds: "",
     dangers: [],    
+  },
+  {
+    "cas": "7778-18-9",
+    "nom": "Sulfate de calcium",
+    "formule": "CaSO₄",
+    "categorie": "Sel minéral",
+    "localisation": "Salle B27 / Étagère B3",
+    "pictogramme": [],
+    "obligation": ["BLOUSE"],
+    "image": "sulfate_calcium.jpg",
+    "fds": "FicheTox_CaSO4.pdf",
+    "dangers": []
   }
 ];
