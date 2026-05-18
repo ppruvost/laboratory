@@ -516,7 +516,7 @@ export const products = [
   },
   {
     "cas": "7631-90-5",
-    "nom": "Sodium hydrogénosulfite",
+    "nom": "sodium hydrogénosulfite",
     "formule": "NaHSO₃",
     "categorie": "Réducteur",
     "localisation": "Salle B27 / Étagère B3",
