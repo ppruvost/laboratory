@@ -181,7 +181,7 @@ export const products = [
   },
   {
     "cas": "8006-28-8",
-    "nom": "Chaux sodée",
+    "nom": "chaux sodée",
     "formule": "NaOH + Ca(OH)₂",
     "categorie": "Absorbant chimique",
     "localisation": "Salle B27 / Étagère B2",
@@ -588,7 +588,7 @@ export const products = [
   },
   {
     "cas": "7778-18-9",
-    "nom": "Sulfate de calcium",
+    "nom": "sulfate de calcium",
     "formule": "CaSO₄",
     "categorie": "Sel minéral",
     "localisation": "Salle B27 / Étagère B3",
