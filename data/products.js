@@ -157,7 +157,7 @@ export const products = [
   },
   {
     "cas": "7758-01-2",
-    "nom": "Bromate de potassium",
+    "nom": "bromate de potassium",
     "formule": "KBrO₃",
     "categorie": "Oxydant",
     "localisation": "Salle B27 / Étagère B4",
