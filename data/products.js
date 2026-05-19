@@ -119,6 +119,30 @@ export const products = [
   fds: "",
   dangers: ["Produit généralement non classé dangereux selon le règlement CLP", "Peut provoquer une légère irritation mécanique des yeux ou des voies respiratoires sous forme de poussières"]
   },
+    {
+    "cas": "7429-90-5",
+    "nom": "aluminium poudre",
+    "formule": "Al",
+    "categorie": "Métal pulvérulent",
+    "localisation": "Salle B27 / Étagère métaux",
+    "pictogramme": ["SGH02_Flamme.jpg"],
+    "obligation": ["LUNETTES", "GANTS", "BLOUSE"],
+    "image": "aluminium_poudre.jpg",
+    "fds": "FicheTox_AluminiumPoudre.pdf",
+    "dangers": ["H228"]
+  },
+  {
+    "cas": "16828-11-8",
+    "nom": "aluminium sulfate hexadécahydraté",
+    "formule": "Al₂(SO₄)₃·16H₂O",
+    "categorie": "Sel minéral",
+    "localisation": "Salle B27 / Étagère sels",
+    "pictogramme": ["SGH07_PointExclamation.jpg"],
+    "obligation": ["LUNETTES", "GANTS", "BLOUSE"],
+    "image": "aluminium_sulfate_hexadecahydrate.jpg",
+    "fds": "FicheTox_AluminiumSulfate16H2O.pdf",
+    "dangers": ["H319"]
+  },
   {
     "cas": "12125-02-9",
     "nom": "ammonium chlorure",
@@ -155,33 +179,9 @@ export const products = [
     "fds": "FicheTox_AmmoniumOxalate.pdf",
     "dangers": ["H302", "H312"]
   },
-  {
-    "cas": "7429-90-5",
-    "nom": "aluminium poudre",
-    "formule": "Al",
-    "categorie": "Métal pulvérulent",
-    "localisation": "Salle B27 / Étagère métaux",
-    "pictogramme": ["SGH02_Flamme.jpg"],
-    "obligation": ["LUNETTES", "GANTS", "BLOUSE"],
-    "image": "aluminium_poudre.jpg",
-    "fds": "FicheTox_AluminiumPoudre.pdf",
-    "dangers": ["H228"]
-  },
-  {
-    "cas": "16828-11-8",
-    "nom": "aluminium sulfate hexadécahydraté",
-    "formule": "Al₂(SO₄)₃·16H₂O",
-    "categorie": "Sel minéral",
-    "localisation": "Salle B27 / Étagère sels",
-    "pictogramme": ["SGH07_PointExclamation.jpg"],
-    "obligation": ["LUNETTES", "GANTS", "BLOUSE"],
-    "image": "aluminium_sulfate_hexadecahydrate.jpg",
-    "fds": "FicheTox_AluminiumSulfate16H2O.pdf",
-    "dangers": ["H319"]
-  },
     {
     "cas": "9005-25-8",
-    "nom": "Amidon pulvérisé",
+    "nom": "amidon pulvérisé",
     "formule": "(C₆H₁₀O₅)n",
     "categorie": "Polysaccharide",
     "localisation": "Salle B27 / Réserve organiques",
@@ -193,7 +193,7 @@ export const products = [
   },
     {
     "cas": "7761-88-8",
-    "nom": "Argent nitrate",
+    "nom": "argent nitrate",
     "formule": "AgNO₃",
     "categorie": "Oxydant",
     "localisation": "Salle B27 / Armoire produits dangereux",
@@ -337,7 +337,7 @@ export const products = [
   },
     {
     "cas": "7447-39-4",
-    "nom": "Cuivre (II) chlorure",
+    "nom": "cuivre (II) chlorure",
     "formule": "CuCl₂",
     "categorie": "Sel métallique",
     "localisation": "Salle B27 / Étagère sels",
@@ -349,7 +349,7 @@ export const products = [
   },
   {
     "cas": "7440-50-8",
-    "nom": "Cuivre poudre",
+    "nom": "cuivre poudre",
     "formule": "Cu",
     "categorie": "Métal pulvérulent",
     "localisation": "Salle B27 / Étagère métaux",
@@ -373,7 +373,7 @@ export const products = [
   },
     {
     "cas": "1317-38-0",
-    "nom": "Cuivre (II) oxyde",
+    "nom": "cuivre (II) oxyde",
     "formule": "CuO",
     "categorie": "Oxyde métallique",
     "localisation": "Salle B27 / Étagère oxydes",
@@ -719,7 +719,7 @@ export const products = [
     dangers: ["H314"]
   },
   {
-    cas: "Mélange (HNO₃ + (NH₄)₆Mo₇O₂₄)",
+    cas: "mélange (HNO₃ + (NH₄)₆Mo₇O₂₄)",
     nom: "réactif nitromolybdique (acide nitrique – molybdate d’ammonium)",
     formule: "(NH₄)₆Mo₇O₂₄·4H₂O",
     categorie: "Détection des phosphates (PO₄³⁻)",
