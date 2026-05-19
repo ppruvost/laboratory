@@ -479,30 +479,6 @@ export const products = [
   dangers: ["Irritant", "Peut provoquer une irritation des yeux et de la peau", "Nocif en cas d'ingestion"]
   },
   {
-    cas: "64-17-5",
-    nom: "éthanol (éthylique)",
-    formule: "C₂H₅OH",
-    categorie: "Solvant",
-    localisation: "Salle B27 / Étagère B2",
-    pictogramme: ["SGH02_Flamme.jpg", "SGH07_PointExclamation.jpg"],
-    obligation: ["LUNETTES", "GANTS", "BLOUSE"],
-    image: "ethanol.jpg",
-    fds: "ethanol.pdf",
-    dangers: ["H225", "H319"]
-  },
-  {
-  cas: "60-29-7",
-  nom: "éther diéthylique",
-  formule: "C₄H₁₀O",
-  categorie: "Solvant / Éther",
-  localisation: "salle B27 / étagère B2",
-  pictogramme: ["flammable.png", "irritant.png"],
-  obligation: ["LUNETTES", "GANTS", "BLOUSE"],
-  image: "diethyl_ether.jpg",
-  fds: "diethyl_ether.pdf",
-  dangers: ["H224", "H302", "H336"]
-  },
-    {
     "cas": "7772-99-8",
     "nom": "étain (II) chlorure",
     "formule": "SnCl₂",
@@ -525,6 +501,30 @@ export const products = [
     "image": "etain_limaille.jpg",
     "fds": "FicheTox_Etain.pdf",
     "dangers": []
+  },
+  {
+    cas: "64-17-5",
+    nom: "éthanol (éthylique)",
+    formule: "C₂H₅OH",
+    categorie: "Solvant",
+    localisation: "Salle B27 / Étagère B2",
+    pictogramme: ["SGH02_Flamme.jpg", "SGH07_PointExclamation.jpg"],
+    obligation: ["LUNETTES", "GANTS", "BLOUSE"],
+    image: "ethanol.jpg",
+    fds: "ethanol.pdf",
+    dangers: ["H225", "H319"]
+  },
+  {
+  cas: "60-29-7",
+  nom: "éther diéthylique",
+  formule: "C₄H₁₀O",
+  categorie: "Solvant / Éther",
+  localisation: "salle B27 / étagère B2",
+  pictogramme: ["flammable.png", "irritant.png"],
+  obligation: ["LUNETTES", "GANTS", "BLOUSE"],
+  image: "diethyl_ether.jpg",
+  fds: "diethyl_ether.pdf",
+  dangers: ["H224", "H302", "H336"]
   },
     {
     "cas": "7782-63-0",
