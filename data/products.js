@@ -120,6 +120,90 @@ export const products = [
   dangers: ["Produit généralement non classé dangereux selon le règlement CLP", "Peut provoquer une légère irritation mécanique des yeux ou des voies respiratoires sous forme de poussières"]
   },
   {
+    "cas": "12125-02-9",
+    "nom": "ammonium chlorure",
+    "formule": "NH₄Cl",
+    "categorie": "Sel minéral",
+    "localisation": "Salle B27 / Étagère sels",
+    "pictogramme": ["SGH07_PointExclamation.jpg"],
+    "obligation": ["LUNETTES", "GANTS", "BLOUSE"],
+    "image": "ammonium_chlorure.jpg",
+    "fds": "FicheTox_AmmoniumChlorure.pdf",
+    "dangers": ["H302", "H319"]
+  },
+  {
+    "cas": "7783-85-9",
+    "nom": "ammonium fer (II) sel de Mohr",
+    "formule": "(NH₄)₂Fe(SO₄)₂·6H₂O",
+    "categorie": "Sel double",
+    "localisation": "Salle B27 / Étagère sels",
+    "pictogramme": ["SGH07_PointExclamation.jpg"],
+    "obligation": ["LUNETTES", "GANTS", "BLOUSE"],
+    "image": "sel_mohr.jpg",
+    "fds": "FicheTox_SelMohr.pdf",
+    "dangers": ["H302", "H315", "H319"]
+  },
+    {
+    "cas": "1113-38-8",
+    "nom": "ammonium oxalate",
+    "formule": "(NH₄)₂C₂O₄",
+    "categorie": "Sel organique",
+    "localisation": "Salle B27 / Étagère sels",
+    "pictogramme": ["SGH07_PointExclamation.jpg"],
+    "obligation": ["LUNETTES", "GANTS", "BLOUSE"],
+    "image": "ammonium_oxalate.jpg",
+    "fds": "FicheTox_AmmoniumOxalate.pdf",
+    "dangers": ["H302", "H312"]
+  },
+  {
+    "cas": "7429-90-5",
+    "nom": "aluminium poudre",
+    "formule": "Al",
+    "categorie": "Métal pulvérulent",
+    "localisation": "Salle B27 / Étagère métaux",
+    "pictogramme": ["SGH02_Flamme.jpg"],
+    "obligation": ["LUNETTES", "GANTS", "BLOUSE"],
+    "image": "aluminium_poudre.jpg",
+    "fds": "FicheTox_AluminiumPoudre.pdf",
+    "dangers": ["H228"]
+  },
+  {
+    "cas": "16828-11-8",
+    "nom": "aluminium sulfate hexadécahydraté",
+    "formule": "Al₂(SO₄)₃·16H₂O",
+    "categorie": "Sel minéral",
+    "localisation": "Salle B27 / Étagère sels",
+    "pictogramme": ["SGH07_PointExclamation.jpg"],
+    "obligation": ["LUNETTES", "GANTS", "BLOUSE"],
+    "image": "aluminium_sulfate_hexadecahydrate.jpg",
+    "fds": "FicheTox_AluminiumSulfate16H2O.pdf",
+    "dangers": ["H319"]
+  },    
+    {
+    "cas": "7761-88-8",
+    "nom": "Argent nitrate",
+    "formule": "AgNO₃",
+    "categorie": "Oxydant",
+    "localisation": "Salle B27 / Armoire produits dangereux",
+    "pictogramme": ["SGH03_Comburant.jpg", "SGH05_Corrosion.jpg", "SGH09_Environnement.jpg"],
+    "obligation": ["LUNETTES", "GANTS", "BLOUSE", "HOTTE"],
+    "image": "argent_nitrate.jpg",
+    "fds": "FicheTox_ArgentNitrate.pdf",
+    "dangers": ["H272", "H314", "H410"]
+  },
+    {
+    "cas": "10326-27-9",
+    "nom": "Baryum chlorure dihydraté",
+    "formule": "BaCl₂·2H₂O",
+    "categorie": "Sel toxique",
+    "localisation": "Salle B27 / Armoire toxiques",
+    "pictogramme": ["SGH06_TeteDeMort.jpg", "SGH07_PointExclamation.jpg"],
+    "obligation": ["LUNETTES", "GANTS", "BLOUSE", "HOTTE"],
+    "image": "baryum_chlorure_dihydrate.jpg",
+    "fds": "FicheTox_BaCl2_2H2O.pdf",
+    "dangers": ["H301", "H332"]
+  },
+  {
   cas: "76-59-5",
   nom: "bleu de bromothymol (BBT)",
   formule: "C₂₇H₂₈Br₂O₅S",
@@ -178,6 +262,18 @@ export const products = [
     image: "carbonate_calcium.jpg",
     fds: "FDS_SOF_CARB.pdf",
     dangers: []
+  },
+    {
+    "cas": "7440-44-0",
+    "nom": "charbon",
+    "formule": "C",
+    "categorie": "Matériau carboné",
+    "localisation": "Salle B27 / Réserve solides",
+    "pictogramme": [],
+    "obligation": ["BLOUSE"],
+    "image": "charbon.jpg",
+    "fds": "FicheTox_Charbon.pdf",
+    "dangers": []
   },
   {
     "cas": "8006-28-8",
@@ -309,7 +405,19 @@ export const products = [
   image: "diethyl_ether.jpg",
   fds: "diethyl_ether.pdf",
   dangers: ["H224", "H302", "H336"]
-  },  
+  },
+    {
+    "cas": "7782-63-0",
+    "nom": "fer sulfate (II) heptahydraté",
+    "formule": "FeSO₄·7H₂O",
+    "categorie": "Sel métallique",
+    "localisation": "Salle B27 / Étagère sels",
+    "pictogramme": ["SGH07_PointExclamation.jpg"],
+    "obligation": ["LUNETTES", "GANTS", "BLOUSE"],
+    "image": "fer_sulfate_heptahydrate.jpg",
+    "fds": "FicheTox_FeSO4_7H2O.pdf",
+    "dangers": ["H302", "H315", "H319"]
+  },
   {
     cas: "547-58-0",
     nom: "hélianthine (orange de méthyle)",
