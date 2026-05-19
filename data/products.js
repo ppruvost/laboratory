@@ -132,6 +132,18 @@ export const products = [
     "dangers": ["H228"]
   },
   {
+  "cas": "7446-70-0",
+  "nom": "Aluminium chlorure",
+  "formule": "AlCl₃",
+  "categorie": "Sel métallique",
+  "localisation": "Salle B27 / Étagère sels",
+  "pictogramme": ["SGH05_Corrosion.jpg"],
+  "obligation": ["LUNETTES", "GANTS", "BLOUSE", "HOTTE"],
+  "image": "aluminium_chlorure.jpg",
+  "fds": "FicheTox_AlCl3.pdf",
+  "dangers": ["H314", "H335"]
+},
+  {
     "cas": "16828-11-8",
     "nom": "aluminium sulfate hexadécahydraté",
     "formule": "Al₂(SO₄)₃·16H₂O",
