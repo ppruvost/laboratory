@@ -178,7 +178,19 @@ export const products = [
     "image": "aluminium_sulfate_hexadecahydrate.jpg",
     "fds": "FicheTox_AluminiumSulfate16H2O.pdf",
     "dangers": ["H319"]
-  },    
+  },
+    {
+    "cas": "9005-25-8",
+    "nom": "Amidon pulvérisé",
+    "formule": "(C₆H₁₀O₅)n",
+    "categorie": "Polysaccharide",
+    "localisation": "Salle B27 / Réserve organiques",
+    "pictogramme": [],
+    "obligation": ["BLOUSE"],
+    "image": "amidon.jpg",
+    "fds": "FicheTox_Amidon.pdf",
+    "dangers": []
+  },
     {
     "cas": "7761-88-8",
     "nom": "Argent nitrate",
@@ -193,7 +205,7 @@ export const products = [
   },
     {
     "cas": "10326-27-9",
-    "nom": "Baryum chlorure dihydraté",
+    "nom": "baryum chlorure dihydraté",
     "formule": "BaCl₂·2H₂O",
     "categorie": "Sel toxique",
     "localisation": "Salle B27 / Armoire toxiques",
@@ -251,6 +263,30 @@ export const products = [
     "fds": "FicheTox_KBrO3.pdf",
     "dangers": ["H271", "H301", "H350"]
   },
+    {
+    "cas": "10043-52-4",
+    "nom": "calcium chlorure pur",
+    "formule": "CaCl₂",
+    "categorie": "Sel hygroscopique",
+    "localisation": "Salle B27 / Étagère sels",
+    "pictogramme": ["SGH07_PointExclamation.jpg"],
+    "obligation": ["LUNETTES", "GANTS", "BLOUSE"],
+    "image": "calcium_chlorure.jpg",
+    "fds": "FicheTox_CaCl2.pdf",
+    "dangers": ["H319"]
+  },
+  {
+    "cas": "7440-70-2",
+    "nom": "calcium métal",
+    "formule": "Ca",
+    "categorie": "Métal réactif",
+    "localisation": "Salle B27 / Armoire métaux réactifs",
+    "pictogramme": ["SGH02_Flamme.jpg", "SGH05_Corrosion.jpg"],
+    "obligation": ["LUNETTES", "GANTS", "BLOUSE", "HOTTE"],
+    "image": "calcium_metal.jpg",
+    "fds": "FicheTox_CalciumMetal.pdf",
+    "dangers": ["H260", "H314"]
+  },
   {
     cas: "471-34-1",
     nom: "carbonate de calcium",
@@ -298,6 +334,54 @@ export const products = [
     "image": "sodium_chlorure.jpg",
     "fds": "FicheTox_NaCl.pdf",
     "dangers": []
+  },
+    {
+    "cas": "7447-39-4",
+    "nom": "Cuivre (II) chlorure",
+    "formule": "CuCl₂",
+    "categorie": "Sel métallique",
+    "localisation": "Salle B27 / Étagère sels",
+    "pictogramme": ["SGH07_PointExclamation.jpg", "SGH09_Environnement.jpg"],
+    "obligation": ["LUNETTES", "GANTS", "BLOUSE"],
+    "image": "cuivre_chlorure_II.jpg",
+    "fds": "FicheTox_CuCl2.pdf",
+    "dangers": ["H302", "H315", "H410"]
+  },
+  {
+    "cas": "7440-50-8",
+    "nom": "Cuivre poudre",
+    "formule": "Cu",
+    "categorie": "Métal pulvérulent",
+    "localisation": "Salle B27 / Étagère métaux",
+    "pictogramme": [],
+    "obligation": ["LUNETTES", "BLOUSE"],
+    "image": "cuivre_poudre.jpg",
+    "fds": "FicheTox_CuivrePoudre.pdf",
+    "dangers": []
+  },
+    {
+    "cas": "7758-98-7",
+    "nom": "cuivre (II) sulfate anhydre",
+    "formule": "CuSO₄",
+    "categorie": "Sel métallique",
+    "localisation": "Salle B27 / Étagère sels",
+    "pictogramme": ["SGH07_PointExclamation.jpg", "SGH09_Environnement.jpg"],
+    "obligation": ["LUNETTES", "GANTS", "BLOUSE"],
+    "image": "cuivre_sulfate_anhydre.jpg",
+    "fds": "FicheTox_CuSO4.pdf",
+    "dangers": ["H302", "H319", "H410"]
+  },
+    {
+    "cas": "1317-38-0",
+    "nom": "Cuivre (II) oxyde",
+    "formule": "CuO",
+    "categorie": "Oxyde métallique",
+    "localisation": "Salle B27 / Étagère oxydes",
+    "pictogramme": ["SGH07_PointExclamation.jpg", "SGH09_Environnement.jpg"],
+    "obligation": ["LUNETTES", "GANTS", "BLOUSE"],
+    "image": "cuivre_oxyde.jpg",
+    "fds": "FicheTox_CuO.pdf",
+    "dangers": ["H302", "H410"]
   },
   {
     "cas": "75-09-2",
@@ -407,6 +491,30 @@ export const products = [
   dangers: ["H224", "H302", "H336"]
   },
     {
+    "cas": "7772-99-8",
+    "nom": "étain (II) chlorure",
+    "formule": "SnCl₂",
+    "categorie": "Sel métallique",
+    "localisation": "Salle B27 / Étagère sels",
+    "pictogramme": ["SGH05_Corrosion.jpg", "SGH07_PointExclamation.jpg"],
+    "obligation": ["LUNETTES", "GANTS", "BLOUSE"],
+    "image": "etain_chlorure.jpg",
+    "fds": "FicheTox_SnCl2.pdf",
+    "dangers": ["H302", "H314"]
+  },
+  {
+    "cas": "7440-31-5",
+    "nom": "étain en limaille",
+    "formule": "Sn",
+    "categorie": "Métal",
+    "localisation": "Salle B27 / Étagère métaux",
+    "pictogramme": [],
+    "obligation": ["BLOUSE"],
+    "image": "etain_limaille.jpg",
+    "fds": "FicheTox_Etain.pdf",
+    "dangers": []
+  },
+    {
     "cas": "7782-63-0",
     "nom": "fer sulfate (II) heptahydraté",
     "formule": "FeSO₄·7H₂O",
@@ -477,6 +585,18 @@ export const products = [
     image: "soude.jpg",
     fds: "FicheTox_20.pdf",
     dangers: ["H314"]
+  },
+    {
+    "cas": "1317-65-3",
+    "nom": "marbre concassé",
+    "formule": "CaCO₃",
+    "categorie": "Minéral",
+    "localisation": "Salle B27 / Réserve minéraux",
+    "pictogramme": [],
+    "obligation": ["BLOUSE"],
+    "image": "marbre_concasse.jpg",
+    "fds": "FicheTox_Marbre.pdf",
+    "dangers": []
   },
   {
     cas: "80-62-6",
