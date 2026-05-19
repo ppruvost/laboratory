@@ -133,7 +133,7 @@ export const products = [
   },
   {
   "cas": "7446-70-0",
-  "nom": "Aluminium chlorure",
+  "nom": "aluminium chlorure",
   "formule": "AlCl₃",
   "categorie": "Sel métallique",
   "localisation": "Salle B27 / Étagère sels",
