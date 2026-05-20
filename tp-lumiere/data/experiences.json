@@ -1,0 +1,168 @@
+[
+  {
+    "id": 1,
+    "title": "Mélange additif RVB",
+    "objective": "Observer les couleurs obtenues par mélange de lumières.",
+    "steps": [
+      "Régler Rouge à 255 et Vert/Bleu à 0.",
+      "Observer la couleur obtenue.",
+      "Ajouter progressivement le Vert.",
+      "Noter la nouvelle couleur.",
+      "Ajouter ensuite le Bleu."
+    ],
+    "table": {
+      "headers": [
+        "Rouge",
+        "Vert",
+        "Bleu",
+        "Couleur observée"
+      ],
+      "rows": [
+        [255, 0, 0, ""],
+        [255, 255, 0, ""],
+        [255, 255, 255, ""]
+      ]
+    }
+  },
+
+  {
+    "id": 2,
+    "title": "Mélange soustractif CMJ",
+    "objective": "Comprendre l’action des pigments et filtres.",
+    "steps": [
+      "Régler Cyan à 100%.",
+      "Observer la couleur obtenue.",
+      "Ajouter le Magenta.",
+      "Ajouter ensuite le Jaune."
+    ],
+    "table": {
+      "headers": [
+        "Cyan",
+        "Magenta",
+        "Jaune",
+        "Couleur obtenue"
+      ],
+      "rows": [
+        [100, 0, 0, ""],
+        [100, 100, 0, ""],
+        [100, 100, 100, ""]
+      ]
+    }
+  },
+
+  {
+    "id": 3,
+    "title": "Action des filtres colorés",
+    "objective": "Montrer que certaines couleurs sont absorbées.",
+    "steps": [
+      "Choisir une lumière rouge.",
+      "Appliquer un filtre cyan.",
+      "Observer le résultat.",
+      "Répéter avec d’autres filtres."
+    ],
+    "table": {
+      "headers": [
+        "Lumière",
+        "Filtre",
+        "La lumière passe ?",
+        "Observation"
+      ],
+      "rows": [
+        ["Rouge", "Rouge", "", ""],
+        ["Rouge", "Cyan", "", ""],
+        ["Bleu", "Jaune", "", ""]
+      ]
+    }
+  },
+
+  {
+    "id": 4,
+    "title": "Étude des longueurs d’onde",
+    "objective": "Relier couleur et longueur d’onde.",
+    "steps": [
+      "Faire varier la longueur d’onde.",
+      "Observer la couleur affichée.",
+      "Noter les correspondances."
+    ],
+    "table": {
+      "headers": [
+        "Longueur d’onde (nm)",
+        "Couleur observée"
+      ],
+      "rows": [
+        [400, ""],
+        [450, ""],
+        [530, ""],
+        [650, ""]
+      ]
+    }
+  },
+
+  {
+    "id": 5,
+    "title": "Énergie des photons",
+    "objective": "Comprendre la relation entre énergie et longueur d’onde.",
+    "steps": [
+      "Choisir plusieurs longueurs d’onde.",
+      "Observer l’énergie calculée.",
+      "Comparer les résultats."
+    ],
+    "table": {
+      "headers": [
+        "Longueur d’onde (nm)",
+        "Énergie (J)"
+      ],
+      "rows": [
+        [400, ""],
+        [500, ""],
+        [700, ""]
+      ]
+    }
+  },
+
+  {
+    "id": 6,
+    "title": "Télécommande infrarouge",
+    "objective": "Découvrir les applications des infrarouges.",
+    "steps": [
+      "Activer la LED infrarouge.",
+      "Observer le rayonnement simulé.",
+      "Comparer avec une lumière visible."
+    ],
+    "table": {
+      "headers": [
+        "Rayonnement",
+        "Visible à l’œil ?",
+        "Application"
+      ],
+      "rows": [
+        ["Visible", "", ""],
+        ["Infrarouge", "", ""]
+      ]
+    }
+  },
+
+  {
+    "id": 7,
+    "title": "Capteur lumineux",
+    "objective": "Étudier la réponse d’un photocomposant.",
+    "steps": [
+      "Faire varier l’intensité lumineuse.",
+      "Observer le signal électrique.",
+      "Compléter le tableau."
+    ],
+    "table": {
+      "headers": [
+        "Intensité lumineuse (%)",
+        "Signal électrique (V)"
+      ],
+      "rows": [
+        [0, ""],
+        [25, ""],
+        [50, ""],
+        [75, ""],
+        [100, ""]
+      ]
+    }
+  }
+]
