@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Synthèse Additive RVB & Soustractive CMJ</title>
+
+<style>
+    *{
+        box-sizing:border-box;
+        margin:0;
+        padding:0;
+        font-family:Arial, Helvetica, sans-serif;
+    }
+
+    body{
+        background:#101820;
+        color:white;
+        min-height:100vh;
+        padding:20px;
+    }
+
+    h1{
+        text-align:center;
+        margin-bottom:10px;
+        font-size:2rem;
+    }
+
+    p{
+        text-align:center;
+        opacity:0.85;
+        margin-bottom:25px;
+    }
+
+    .container{
+        display:grid;
+        grid-template-columns:repeat(auto-fit,minmax(380px,1fr));
+        gap:25px;
+        max-width:1400px;
+        margin:auto;
+    }
+
+    .panel{
+        background:#182532;
+        border-radius:20px;
+        padding:20px;
+        box-shadow:0 0 20px rgba(0,0,0,0.35);
+    }
+
+    .panel h2{
+        margin-bottom:20px;
+        text-align:center;
+        color:#ffffff;
+    }
+
+    .slider-group{
+        margin-bottom:18px;
+    }
+
+    .slider-group label{
+        display:flex;
+        justify-content:space-between;
+        margin-bottom:8px;
+        font-weight:bold;
+    }
+
+    input[type=range]{
+        width:100%;
+        height:10px;
+        border-radius:10px;
+        appearance:none;
+        outline:none;
+    }
+
+    .r-slider{ background:linear-gradient(to right,#000,#ff0000);}
+    .g-slider{ background:linear-gradient(to right,#000,#00ff00);}
+    .b-slider{ background:linear-gradient(to right,#000,#0000ff);}
+    .c-slider{ background:linear-gradient(to right,#fff,#00ffff);}
+    .m-slider{ background:linear-gradient(to right,#fff,#ff00ff);}
+    .y-slider{ background:linear-gradient(to right,#fff,#ffff00);}
+
+    input[type=range]::-webkit-slider-thumb{
+        appearance:none;
+        width:20px;
+        height:20px;
+        border-radius:50%;
+        background:white;
+        cursor:pointer;
+        border:2px solid #000;
+    }
+
+    .canvas-box{
+        display:flex;
+        flex-direction:column;
+        align-items:center;
+        gap:15px;
+        margin-top:20px;
+    }
+
+    canvas{
+        border-radius:14px;
+        background:white;
+        box-shadow:0 0 15px rgba(0,0,0,0.4);
+    }
+
+    .result{
+        text-align:center;
+        padding:12px;
+        border-radius:12px;
+        width:100%;
+        font-weight:bold;
+        background:#24384c;
+    }
+
+    .color-preview{
+        width:100%;
+        height:70px;
+        border-radius:14px;
+        border:2px solid rgba(255,255,255,0.15);
+    }
+
+    .legend{
+        margin-top:12px;
+        font-size:0.95rem;
+        line-height:1.5;
+        opacity:0.9;
+    }
+
+    .footer{
+        margin-top:30px;
+        text-align:center;
+        opacity:0.7;
+        font-size:0.9rem;
+    }
+</style>
+</head>
+
+<body>
+
+<h1>🎨 Synthèse des Couleurs RVB & CMJ</h1>
+<p>Visualisation interactive en temps réel des mélanges additifs et soustractifs</p>
+
+<div class="container">
+
+    <!-- ================= ADDITIVE ================= -->
+    <div class="panel">
+
+        <h2>💡 Synthèse Additive — RVB</h2>
+
+        <div class="slider-group">
+            <label>
+                Rouge
+                <span id="rVal">255</span>
+            </label>
+            <input class="r-slider" type="range" id="red" min="0" max="255" value="255">
+        </div>
+
+        <div class="slider-group">
+            <label>
+                Vert
+                <span id="gVal">255</span>
+            </label>
+            <input class="g-slider" type="range" id="green" min="0" max="255" value="255">
+        </div>
+
+        <div class="slider-group">
+            <label>
+                Bleu
+                <span id="bVal">255</span>
+            </label>
+            <input class="b-slider" type="range" id="blue" min="0" max="255" value="255">
+        </div>
+
+        <div class="canvas-box">
+            <canvas id="rgbCanvas" width="320" height="220"></canvas>
+
+            <div class="color-preview" id="rgbPreview"></div>
+
+            <div class="result" id="rgbResult"></div>
+
+            <div class="legend">
+                ➜ La synthèse additive mélange des lumières.<br>
+                Rouge + Vert = Jaune<br>
+                Rouge + Bleu = Magenta<br>
+                Vert + Bleu = Cyan<br>
+                RVB maximum = Blanc
+            </div>
+        </div>
+
+    </div>
+
+    <!-- ================= SOUSTRACTIVE ================= -->
+    <div class="panel">
+
+        <h2>🖨️ Synthèse Soustractive — CMJ</h2>
+
+        <div class="slider-group">
+            <label>
+                Cyan
+                <span id="cVal">0</span>
+            </label>
+            <input class="c-slider" type="range" id="cyan" min="0" max="100" value="0">
+        </div>
+
+        <div class="slider-group">
+            <label>
+                Magenta
+                <span id="mVal">0</span>
+            </label>
+            <input class="m-slider" type="range" id="magenta" min="0" max="100" value="0">
+        </div>
+
+        <div class="slider-group">
+            <label>
+                Jaune
+                <span id="yVal">0</span>
+            </label>
+            <input class="y-slider" type="range" id="yellow" min="0" max="100" value="0">
+        </div>
+
+        <div class="canvas-box">
+            <canvas id="cmyCanvas" width="320" height="220"></canvas>
+
+            <div class="color-preview" id="cmyPreview"></div>
+
+            <div class="result" id="cmyResult"></div>
+
+            <div class="legend">
+                ➜ La synthèse soustractive absorbe la lumière.<br>
+                Cyan absorbe le Rouge<br>
+                Magenta absorbe le Vert<br>
+                Jaune absorbe le Bleu<br>
+                CMJ maximum ≈ Noir
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+<div class="footer">
+    Outil pédagogique HTML / CSS / JavaScript — compatible GitHub Pages
+</div>
+
+<script>
+
+    // =========================
+    // ELEMENTS RVB
+    // =========================
+
+    const red = document.getElementById("red");
+    const green = document.getElementById("green");
+    const blue = document.getElementById("blue");
+
+    const rgbCanvas = document.getElementById("rgbCanvas");
+    const rgbCtx = rgbCanvas.getContext("2d");
+
+    const rgbPreview = document.getElementById("rgbPreview");
+    const rgbResult = document.getElementById("rgbResult");
+
+    // =========================
+    // ELEMENTS CMJ
+    // =========================
+
+    const cyan = document.getElementById("cyan");
+    const magenta = document.getElementById("magenta");
+    const yellow = document.getElementById("yellow");
+
+    const cmyCanvas = document.getElementById("cmyCanvas");
+    const cmyCtx = cmyCanvas.getContext("2d");
+
+    const cmyPreview = document.getElementById("cmyPreview");
+    const cmyResult = document.getElementById("cmyResult");
+
+    // =========================
+    // MISE À JOUR RVB
+    // =========================
+
+    function updateRGB(){
+
+        const r = parseInt(red.value);
+        const g = parseInt(green.value);
+        const b = parseInt(blue.value);
+
+        document.getElementById("rVal").textContent = r;
+        document.getElementById("gVal").textContent = g;
+        document.getElementById("bVal").textContent = b;
+
+        const color = `rgb(${r}, ${g}, ${b})`;
+
+        rgbPreview.style.background = color;
+
+        rgbResult.innerHTML = `
+            Couleur obtenue : <br>
+            <strong>${color}</strong><br>
+            HEX : ${rgbToHex(r,g,b)}
+        `;
+
+        drawRGBCanvas(r,g,b);
+    }
+
+    // =========================
+    // DESSIN RVB
+    // =========================
+
+    function drawRGBCanvas(r,g,b){
+
+        rgbCtx.clearRect(0,0,320,220);
+
+        rgbCtx.fillStyle = "black";
+        rgbCtx.fillRect(0,0,320,220);
+
+        rgbCtx.globalCompositeOperation = "lighter";
+
+        // Rouge
+        rgbCtx.beginPath();
+        rgbCtx.fillStyle = `rgba(${r},0,0,0.8)`;
+        rgbCtx.arc(120,110,70,0,Math.PI*2);
+        rgbCtx.fill();
+
+        // Vert
+        rgbCtx.beginPath();
+        rgbCtx.fillStyle = `rgba(0,${g},0,0.8)`;
+        rgbCtx.arc(200,110,70,0,Math.PI*2);
+        rgbCtx.fill();
+
+        // Bleu
+        rgbCtx.beginPath();
+        rgbCtx.fillStyle = `rgba(0,0,${b},0.8)`;
+        rgbCtx.arc(160,55,70,0,Math.PI*2);
+        rgbCtx.fill();
+
+        rgbCtx.globalCompositeOperation = "source-over";
+    }
+
+    // =========================
+    // MISE À JOUR CMJ
+    // =========================
+
+    function updateCMY(){
+
+        const c = parseInt(cyan.value);
+        const m = parseInt(magenta.value);
+        const y = parseInt(yellow.value);
+
+        document.getElementById("cVal").textContent = c + "%";
+        document.getElementById("mVal").textContent = m + "%";
+        document.getElementById("yVal").textContent = y + "%";
+
+        // Conversion CMJ -> RVB
+        const r = Math.round(255 * (1 - c / 100));
+        const g = Math.round(255 * (1 - m / 100));
+        const b = Math.round(255 * (1 - y / 100));
+
+        const color = `rgb(${r}, ${g}, ${b})`;
+
+        cmyPreview.style.background = color;
+
+        cmyResult.innerHTML = `
+            Couleur filtrée : <br>
+            <strong>${color}</strong><br>
+            HEX : ${rgbToHex(r,g,b)}
+        `;
+
+        drawCMYCanvas(c,m,y,r,g,b);
+    }
+
+    // =========================
+    // DESSIN CMJ
+    // =========================
+
+    function drawCMYCanvas(c,m,y,r,g,b){
+
+        cmyCtx.clearRect(0,0,320,220);
+
+        // Fond lumineux blanc
+        cmyCtx.fillStyle = "white";
+        cmyCtx.fillRect(0,0,320,220);
+
+        // Cyan
+        cmyCtx.fillStyle = `rgba(0,255,255,${c/100})`;
+        cmyCtx.fillRect(30,30,120,160);
+
+        // Magenta
+        cmyCtx.fillStyle = `rgba(255,0,255,${m/100})`;
+        cmyCtx.fillRect(100,30,120,160);
+
+        // Jaune
+        cmyCtx.fillStyle = `rgba(255,255,0,${y/100})`;
+        cmyCtx.fillRect(170,30,120,160);
+
+        // Couleur résultante
+        cmyCtx.strokeStyle = "black";
+        cmyCtx.lineWidth = 4;
+        cmyCtx.strokeRect(115,75,90,70);
+
+        cmyCtx.fillStyle = `rgb(${r},${g},${b})`;
+        cmyCtx.fillRect(115,75,90,70);
+    }
+
+    // =========================
+    // HEX
+    // =========================
+
+    function rgbToHex(r,g,b){
+
+        return "#" + [r,g,b]
+            .map(x => x.toString(16).padStart(2,"0"))
+            .join("")
+            .toUpperCase();
+    }
+
+    // =========================
+    // EVENTS
+    // =========================
+
+    [red,green,blue].forEach(el => {
+        el.addEventListener("input", updateRGB);
+    });
+
+    [cyan,magenta,yellow].forEach(el => {
+        el.addEventListener("input", updateCMY);
+    });
+
+    // =========================
+    // INIT
+    // =========================
+
+    updateRGB();
+    updateCMY();
+
+</script>
+
+</body>
+</html>
