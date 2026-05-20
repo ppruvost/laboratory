@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="500" height="300">
+
+<rect width="100%" height="100%" fill="#101820"></rect>
+
+<rect x="120" y="80" width="260" height="140" rx="15" fill="#444"></rect>
+
+<circle cx="250" cy="150" r="45" fill="#1e90ff"></circle>
+
+<text x="250" y="40" fill="white" font-size="24" text-anchor="middle">
+
+Capteur photo numérique
+
+</text>
+
+</svg>
