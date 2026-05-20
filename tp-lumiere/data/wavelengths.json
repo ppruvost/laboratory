@@ -1,0 +1,77 @@
+[
+  {
+    "name": "Ultraviolet",
+    "min_nm": 10,
+    "max_nm": 399,
+    "color": "#7f00ff",
+    "visible": false,
+    "effects": [
+      "Bronzage",
+      "Coups de soleil",
+      "Cancer cutané",
+      "Désinfection"
+    ]
+  },
+
+  {
+    "name": "Violet",
+    "min_nm": 400,
+    "max_nm": 450,
+    "color": "#8b00ff",
+    "visible": true
+  },
+
+  {
+    "name": "Bleu",
+    "min_nm": 450,
+    "max_nm": 495,
+    "color": "#0066ff",
+    "visible": true
+  },
+
+  {
+    "name": "Vert",
+    "min_nm": 495,
+    "max_nm": 570,
+    "color": "#00cc44",
+    "visible": true
+  },
+
+  {
+    "name": "Jaune",
+    "min_nm": 570,
+    "max_nm": 590,
+    "color": "#ffdd00",
+    "visible": true
+  },
+
+  {
+    "name": "Orange",
+    "min_nm": 590,
+    "max_nm": 620,
+    "color": "#ff8800",
+    "visible": true
+  },
+
+  {
+    "name": "Rouge",
+    "min_nm": 620,
+    "max_nm": 800,
+    "color": "#ff0000",
+    "visible": true
+  },
+
+  {
+    "name": "Infrarouge",
+    "min_nm": 801,
+    "max_nm": 1000000,
+    "color": "#660000",
+    "visible": false,
+    "effects": [
+      "Chaleur",
+      "Vision nocturne",
+      "Télécommandes",
+      "Caméras thermiques"
+    ]
+  }
+]
