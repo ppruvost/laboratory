@@ -119,17 +119,17 @@ export const products = [
   fds: "",
   dangers: ["Produit généralement non classé dangereux selon le règlement CLP", "Peut provoquer une légère irritation mécanique des yeux ou des voies respiratoires sous forme de poussières"]
   },
-    {
-    "cas": "7429-90-5",
-    "nom": "aluminium poudre",
-    "formule": "Al",
-    "categorie": "Métal pulvérulent",
-    "localisation": "Salle B27 / étagère D2",
-    "pictogramme": ["SGH02_Flamme.jpg"],
-    "obligation": ["LUNETTES", "GANTS", "BLOUSE"],
-    "image": "aluminium_poudre.jpg",
-    "fds": "FicheTox_AluminiumPoudre.pdf",
-    "dangers": ["H228"]
+  {
+  "cas": "7429-90-5",
+  "nom": "aluminium poudre",
+  "formule": "Al",
+  "categorie": "Métal pulvérulent",
+  "localisation": "Salle B27 / étagère D2",
+  "pictogramme": ["SGH02_Flamme.jpg"],
+  "obligation": ["LUNETTES", "GANTS", "BLOUSE"],
+  "image": "aluminium_poudre.jpg",
+  "fds": "FicheTox_AluminiumPoudre.pdf",
+  "dangers": ["H228"]
   },
   {
   "cas": "7446-70-0",
@@ -142,18 +142,18 @@ export const products = [
   "image": "aluminium_chlorure.jpg",
   "fds": "FicheTox_AlCl3.pdf",
   "dangers": ["H314", "H335"]
-},
+  },
   {
-    "cas": "16828-11-8",
-    "nom": "aluminium sulfate hexadécahydraté",
-    "formule": "Al₂(SO₄)₃·16H₂O",
-    "categorie": "Sel minéral",
-    "localisation": "Salle B27 / étagère D2",
-    "pictogramme": ["SGH07_PointExclamation.jpg"],
-    "obligation": ["LUNETTES", "GANTS", "BLOUSE"],
-    "image": "aluminium_sulfate_hexadecahydrate.jpg",
-    "fds": "FicheTox_AluminiumSulfate16H2O.pdf",
-    "dangers": ["H319"]
+  "cas": "16828-11-8",
+  "nom": "aluminium sulfate hexadécahydraté",
+  "formule": "Al₂(SO₄)₃·16H₂O",
+  "categorie": "Sel minéral",
+  "localisation": "Salle B27 / étagère D2",
+  "pictogramme": ["SGH07_PointExclamation.jpg"],
+  "obligation": ["LUNETTES", "GANTS", "BLOUSE"],
+  "image": "aluminium_sulfate_hexadecahydrate.jpg",
+  "fds": "FicheTox_AluminiumSulfate16H2O.pdf",
+  "dangers": ["H319"]
   },
   {
     "cas": "12125-02-9",
@@ -322,7 +322,7 @@ export const products = [
     "image": "sulfate_calcium.jpg",
     "fds": "FicheTox_CaSO4.pdf",
     "dangers": []
-  }
+  },
     {
     "cas": "7440-44-0",
     "nom": "charbon",
