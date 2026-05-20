@@ -540,7 +540,7 @@ export const products = [
   },
     {
     "cas": "7758-94-3",
-    "nom": "fer chlorure (II)",
+    "nom": "fer chlorure (II) pur",
     "formule": "FeCl₂",
     "categorie": "Sel métallique",
     "localisation": "Salle B27 / étagère B2",
@@ -994,5 +994,4 @@ export const products = [
     fds: "",
     dangers: [],    
   }
-
 ];
