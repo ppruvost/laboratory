@@ -927,7 +927,7 @@ export const products = [
     "nom": "sodium hydrogénosulfite",
     "formule": "NaHSO₃",
     "categorie": "Réducteur",
-    "localisation": "Salle B27 / étagère B3",
+    "localisation": "Salle B27 / étagère B1",
     "pictogramme": ["SGH07_PointExclamation.jpg"],
     "obligation": ["LUNETTES", "GANTS", "BLOUSE"],
     "image": "sodium_hydrogenosulfite.jpg",
