@@ -276,6 +276,18 @@ export const products = [
     "dangers": ["H271", "H301", "H350"]
   },
     {
+    cas: "471-34-1",
+    nom: "calcium carbonate",
+    formule: "CaCO₃",
+    categorie: "Sel minéral",
+    localisation: "Salle B27 / étagère D2",
+    pictogramme: [],
+    obligation: ["GANTS", "BLOUSE"],
+    image: "carbonate_calcium.jpg",
+    fds: "FDS_SOF_CARB.pdf",
+    dangers: []
+  },
+    {
     "cas": "10043-52-4",
     "nom": "calcium chlorure pur",
     "formule": "CaCl₂",
@@ -299,18 +311,18 @@ export const products = [
     "fds": "FicheTox_CalciumMetal.pdf",
     "dangers": ["H260", "H314"]
   },
-  {
-    cas: "471-34-1",
-    nom: "carbonate de calcium",
-    formule: "CaCO₃",
-    categorie: "Sel minéral",
-    localisation: "Salle B27 / étagère D2",
-    pictogramme: [],
-    obligation: ["GANTS", "BLOUSE"],
-    image: "carbonate_calcium.jpg",
-    fds: "FDS_SOF_CARB.pdf",
-    dangers: []
-  },
+    {
+    "cas": "7778-18-9",
+    "nom": "calcium sulfate",
+    "formule": "CaSO₄",
+    "categorie": "Sel minéral",
+    "localisation": "Salle B27 / étagère B3",
+    "pictogramme": [],
+    "obligation": ["BLOUSE"],
+    "image": "sulfate_calcium.jpg",
+    "fds": "FicheTox_CaSO4.pdf",
+    "dangers": []
+  }
     {
     "cas": "7440-44-0",
     "nom": "charbon",
@@ -627,12 +639,24 @@ export const products = [
     "nom": "fer sulfate (III) hydraté",
     "formule": "Fe₂(SO₄)₃·xH₂O",
     "categorie": "Sel métallique",
-    "localisation": "Salle B27 / Étagère sels",
+    "localisation": "Salle B27 / étagère D2",
     "pictogramme": ["SGH05_Corrosion.jpg"],
     "obligation": ["LUNETTES", "GANTS", "BLOUSE"],
     "image": "fer_III_sulfate_hydrate.jpg",
     "fds": "FicheTox_Fe2SO43_H2O.pdf",
     "dangers": ["H315", "H318"]
+  },
+      {
+    "cas": "1317-37-9",
+    "nom": "fer sulfure",
+    "formule": "FeS",
+    "categorie": "Sulfure métallique",
+    "localisation": "Salle B27 / étagère B2",
+    "pictogramme": [],
+    "obligation": ["LUNETTES", "BLOUSE"],
+    "image": "sulfure_fer.jpg",
+    "fds": "FicheTox_FeS.pdf",
+    "dangers": []
   },
   {
     cas: "547-58-0",
@@ -969,29 +993,6 @@ export const products = [
     image: "ph10.jpg",
     fds: "",
     dangers: [],    
-  },
-  {
-    "cas": "7778-18-9",
-    "nom": "sulfate de calcium",
-    "formule": "CaSO₄",
-    "categorie": "Sel minéral",
-    "localisation": "Salle B27 / étagère B3",
-    "pictogramme": [],
-    "obligation": ["BLOUSE"],
-    "image": "sulfate_calcium.jpg",
-    "fds": "FicheTox_CaSO4.pdf",
-    "dangers": []
-  },
-    {
-    "cas": "1317-37-9",
-    "nom": "sulfure de fer",
-    "formule": "FeS",
-    "categorie": "Sulfure métallique",
-    "localisation": "Salle B27 / étagère B2",
-    "pictogramme": [],
-    "obligation": ["LUNETTES", "BLOUSE"],
-    "image": "sulfure_fer.jpg",
-    "fds": "FicheTox_FeS.pdf",
-    "dangers": []
-  },
+  }
+
 ];
