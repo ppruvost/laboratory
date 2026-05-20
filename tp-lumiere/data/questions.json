@@ -1,0 +1,211 @@
+[
+  {
+    "id": 1,
+    "theme": "Synthèse additive",
+    "question": "Les couleurs primaires additives sont :",
+    "choices": [
+      "Rouge, Vert, Bleu",
+      "Cyan, Magenta, Jaune",
+      "Rouge, Jaune, Bleu",
+      "Noir, Blanc, Gris"
+    ],
+    "answer": 0,
+    "explanation": "Les couleurs primaires additives utilisées par les écrans sont Rouge, Vert et Bleu."
+  },
+
+  {
+    "id": 2,
+    "theme": "Synthèse additive",
+    "question": "Le mélange Rouge + Vert donne :",
+    "choices": [
+      "Bleu",
+      "Jaune",
+      "Magenta",
+      "Cyan"
+    ],
+    "answer": 1,
+    "explanation": "En synthèse additive, Rouge + Vert produit du jaune."
+  },
+
+  {
+    "id": 3,
+    "theme": "Synthèse additive",
+    "question": "Lorsque les trois couleurs RVB sont maximales, on obtient :",
+    "choices": [
+      "Noir",
+      "Gris",
+      "Blanc",
+      "Jaune"
+    ],
+    "answer": 2,
+    "explanation": "Le mélange maximal des trois couleurs additives produit du blanc."
+  },
+
+  {
+    "id": 4,
+    "theme": "Synthèse soustractive",
+    "question": "Les couleurs primaires soustractives sont :",
+    "choices": [
+      "Rouge, Vert, Bleu",
+      "Cyan, Magenta, Jaune",
+      "Rouge, Jaune, Bleu",
+      "Noir, Blanc, Gris"
+    ],
+    "answer": 1,
+    "explanation": "Les imprimantes utilisent Cyan, Magenta et Jaune."
+  },
+
+  {
+    "id": 5,
+    "theme": "Filtres",
+    "question": "Un filtre cyan absorbe principalement :",
+    "choices": [
+      "Le rouge",
+      "Le vert",
+      "Le bleu",
+      "Le jaune"
+    ],
+    "answer": 0,
+    "explanation": "Le cyan absorbe le rouge et laisse passer le vert et le bleu."
+  },
+
+  {
+    "id": 6,
+    "theme": "Spectre visible",
+    "question": "Le domaine visible est compris approximativement entre :",
+    "choices": [
+      "100 nm et 300 nm",
+      "400 nm et 800 nm",
+      "800 nm et 1500 nm",
+      "1 mm et 1 cm"
+    ],
+    "answer": 1,
+    "explanation": "Le spectre visible est compris entre environ 400 et 800 nm."
+  },
+
+  {
+    "id": 7,
+    "theme": "Ultraviolets",
+    "question": "Les ultraviolets ont une longueur d’onde :",
+    "choices": [
+      "Plus grande que le rouge",
+      "Plus petite que le violet",
+      "Égale au vert",
+      "Égale au rouge"
+    ],
+    "answer": 1,
+    "explanation": "Les UV possèdent des longueurs d’onde inférieures à 400 nm."
+  },
+
+  {
+    "id": 8,
+    "theme": "Infrarouges",
+    "question": "Les télécommandes utilisent principalement :",
+    "choices": [
+      "Des ultraviolets",
+      "Des infrarouges",
+      "Des rayons X",
+      "Des micro-ondes"
+    ],
+    "answer": 1,
+    "explanation": "Les télécommandes utilisent des LED infrarouges."
+  },
+
+  {
+    "id": 9,
+    "theme": "Santé",
+    "question": "Une exposition excessive aux UV peut provoquer :",
+    "choices": [
+      "Des coups de soleil",
+      "Une amélioration de la vision nocturne",
+      "Une baisse de température",
+      "Aucun effet"
+    ],
+    "answer": 0,
+    "explanation": "Les UV peuvent provoquer des brûlures et des cancers cutanés."
+  },
+
+  {
+    "id": 10,
+    "theme": "Œil humain",
+    "question": "L’œil humain réalise une :",
+    "choices": [
+      "Synthèse soustractive",
+      "Synthèse additive",
+      "Diffraction",
+      "Réflexion totale"
+    ],
+    "answer": 1,
+    "explanation": "Les cônes de l’œil réalisent une synthèse additive."
+  },
+
+  {
+    "id": 11,
+    "theme": "Photon",
+    "question": "L’énergie d’un photon dépend :",
+    "choices": [
+      "De la masse du photon",
+      "De sa longueur d’onde",
+      "De la température",
+      "Du volume"
+    ],
+    "answer": 1,
+    "explanation": "L’énergie d’un photon dépend de la longueur d’onde."
+  },
+
+  {
+    "id": 12,
+    "theme": "Photon",
+    "question": "Quand la longueur d’onde diminue, l’énergie :",
+    "choices": [
+      "Diminue",
+      "Augmente",
+      "Reste constante",
+      "Devient nulle"
+    ],
+    "answer": 1,
+    "explanation": "Les petites longueurs d’onde correspondent à des photons plus énergétiques."
+  },
+
+  {
+    "id": 13,
+    "theme": "Propagation",
+    "question": "La vitesse de la lumière dans le vide vaut environ :",
+    "choices": [
+      "300 m/s",
+      "3000 km/s",
+      "300 000 km/s",
+      "3 km/s"
+    ],
+    "answer": 2,
+    "explanation": "La lumière se propage à environ 300 000 km/s dans le vide."
+  },
+
+  {
+    "id": 14,
+    "theme": "Capteurs",
+    "question": "Un photocomposant transforme la lumière en :",
+    "choices": [
+      "Signal électrique",
+      "Chaleur uniquement",
+      "Mouvement",
+      "Onde sonore"
+    ],
+    "answer": 0,
+    "explanation": "Les photocomposants produisent un signal électrique."
+  },
+
+  {
+    "id": 15,
+    "theme": "Vie quotidienne",
+    "question": "Quel appareil utilise la synthèse additive ?",
+    "choices": [
+      "Une télévision",
+      "Une imprimante",
+      "Un livre",
+      "Un journal"
+    ],
+    "answer": 0,
+    "explanation": "Les écrans utilisent la synthèse additive RVB."
+  }
+]
