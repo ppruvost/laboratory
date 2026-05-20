@@ -574,6 +574,30 @@ export const products = [
     "fds": "FicheTox_FerLimaille.pdf",
     "dangers": []
   },
+      {
+    "cas": "1309-37-1",
+    "nom": "fer oxyde (III)",
+    "formule": "Fe₂O₃",
+    "categorie": "Oxyde métallique",
+    "localisation": "Salle B27 / étagère B2",
+    "pictogramme": [],
+    "obligation": ["BLOUSE"],
+    "image": "fer_oxyde_III.jpg",
+    "fds": "FicheTox_Fe2O3.pdf",
+    "dangers": []
+  },
+    {
+    "cas": "7439-89-6",
+    "nom": "fer poudre",
+    "formule": "Fe",
+    "categorie": "Métal pulvérulent",
+    "localisation": "Salle B27 / étagère B2",
+    "pictogramme": ["SGH02_Flamme.jpg"],
+    "obligation": ["LUNETTES", "BLOUSE"],
+    "image": "fer_poudre.jpg",
+    "fds": "FicheTox_FerPoudre.pdf",
+    "dangers": ["H228"]
+  },
     {
     "cas": "7720-78-7",
     "nom": "fer sulfate (II)",
@@ -609,30 +633,6 @@ export const products = [
     "image": "fer_III_sulfate_hydrate.jpg",
     "fds": "FicheTox_Fe2SO43_H2O.pdf",
     "dangers": ["H315", "H318"]
-  },
-    {
-    "cas": "1309-37-1",
-    "nom": "fer oxyde (III)",
-    "formule": "Fe₂O₃",
-    "categorie": "Oxyde métallique",
-    "localisation": "Salle B27 / étagère B2",
-    "pictogramme": [],
-    "obligation": ["BLOUSE"],
-    "image": "fer_oxyde_III.jpg",
-    "fds": "FicheTox_Fe2O3.pdf",
-    "dangers": []
-  },
-    {
-    "cas": "7439-89-6",
-    "nom": "fer poudre",
-    "formule": "Fe",
-    "categorie": "Métal pulvérulent",
-    "localisation": "Salle B27 / étagère B2",
-    "pictogramme": ["SGH02_Flamme.jpg"],
-    "obligation": ["LUNETTES", "BLOUSE"],
-    "image": "fer_poudre.jpg",
-    "fds": "FicheTox_FerPoudre.pdf",
-    "dangers": ["H228"]
   },
   {
     cas: "547-58-0",
