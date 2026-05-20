@@ -599,6 +599,18 @@ export const products = [
     "dangers": ["H302", "H315", "H319"]
   },
     {
+    "cas": "15244-10-7",
+    "nom": "fer sulfate (III) hydraté",
+    "formule": "Fe₂(SO₄)₃·xH₂O",
+    "categorie": "Sel métallique",
+    "localisation": "Salle B27 / Étagère sels",
+    "pictogramme": ["SGH05_Corrosion.jpg"],
+    "obligation": ["LUNETTES", "GANTS", "BLOUSE"],
+    "image": "fer_III_sulfate_hydrate.jpg",
+    "fds": "FicheTox_Fe2SO43_H2O.pdf",
+    "dangers": ["H315", "H318"]
+  },
+    {
     "cas": "1309-37-1",
     "nom": "fer oxyde (III)",
     "formule": "Fe₂O₃",
@@ -681,6 +693,42 @@ export const products = [
     image: "soude.jpg",
     fds: "FicheTox_20.pdf",
     dangers: ["H314"]
+  },
+    {
+    "cas": "7553-56-2",
+    "nom": "iode",
+    "formule": "I₂",
+    "categorie": "Halogène",
+    "localisation": "Salle B27 / étagère D2",
+    "pictogramme": ["SGH07_PointExclamation.jpg", "SGH09_Environnement.jpg"],
+    "obligation": ["LUNETTES", "GANTS", "BLOUSE", "HOTTE"],
+    "image": "iode.jpg",
+    "fds": "FicheTox_Iode.pdf",
+    "dangers": ["H312", "H332", "H400"]
+  },
+    {
+    "cas": "7553-56-2",
+    "nom": "iode bisublimé",
+    "formule": "I₂",
+    "categorie": "Halogène",
+    "localisation": "Salle B27 / étagère D2",
+    "pictogramme": ["SGH07_PointExclamation.jpg", "SGH09_Environnement.jpg"],
+    "obligation": ["LUNETTES", "GANTS", "BLOUSE", "HOTTE"],
+    "image": "iode_bisublime.jpg",
+    "fds": "FicheTox_IodeBisublime.pdf",
+    "dangers": ["H312", "H332", "H400"]
+  },
+    {
+    "cas": "7791-18-6",
+    "nom": "magnésium chlorure hexahydraté",
+    "formule": "MgCl₂·6H₂O",
+    "categorie": "Sel minéral",
+    "localisation": "Salle B27 / étagère D2",
+    "pictogramme": [],
+    "obligation": ["BLOUSE"],
+    "image": "magnesium_chlorure_hexahydrate.jpg",
+    "fds": "FicheTox_MgCl2_6H2O.pdf",
+    "dangers": []
   },
     {
     "cas": "1317-65-3",
