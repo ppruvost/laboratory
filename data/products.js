@@ -1018,6 +1018,18 @@ export const products = [
   fds: "",
   dangers: ["Irritant", "Peut être nocif en cas d'ingestion", "Décomposition possible en milieu fortement acide avec libération de composés cyanurés"]
   },
+  {
+  "cas": "1310-58-3",
+  "nom": "potassium hydroxyde",
+  "formule": "KOH",
+  "categorie": "base forte",
+  "localisation": "Salle B27 / étagère D2",
+  "pictogramme": ["SGH05_Corrosion.jpg"],
+  "obligation": ["LUNETTES", "GANTS", "BLOUSE", "HOTTE"],
+  "image": "potassium_hydroxyde.jpg",
+  "fds": "FicheTox_KOH.pdf",
+  "dangers": ["H290", "H302", "H314"]
+},
     {
     "cas": "7681-11-0",
     "nom": "potassium iodure",
