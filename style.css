@@ -247,3 +247,98 @@ th {
         height: 70vh;
     }
 }
+
+/* =========================
+   PAGE DOMAINES TP
+========================= */
+
+.tp-title {
+    text-align: center;
+    margin: 30px 0;
+    font-size: 2.2rem;
+    color: #1f2937;
+}
+
+.tp-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 25px;
+    padding: 20px;
+}
+
+.tp-card {
+    height: 180px;
+    border-radius: 20px;
+    color: white;
+    font-size: 1.3rem;
+    font-weight: bold;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    gap: 15px;
+
+    cursor: pointer;
+
+    transition: 0.25s;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+}
+
+.tp-card i {
+    font-size: 3rem;
+}
+
+.tp-card:hover {
+    transform: translateY(-6px) scale(1.03);
+    box-shadow: 0 12px 22px rgba(0,0,0,0.25);
+}
+
+/* Couleurs */
+
+.electricite {
+    background: linear-gradient(135deg, #f59e0b, #fbbf24);
+}
+
+.mecanique {
+    background: linear-gradient(135deg, #4b5563, #6b7280);
+}
+
+.chimie {
+    background: linear-gradient(135deg, #10b981, #34d399);
+}
+
+.acoustique {
+    background: linear-gradient(135deg, #2563eb, #60a5fa);
+}
+
+.thermique {
+    background: linear-gradient(135deg, #ef4444, #f87171);
+}
+
+.optique {
+    background: linear-gradient(135deg, #8b5cf6, #a78bfa);
+}
+
+/* =========================
+   RESPONSIVE DOMAINES TP
+========================= */
+
+@media (max-width: 768px) {
+
+    .tp-grid {
+        grid-template-columns: 1fr;
+        gap: 18px;
+        padding: 10px;
+    }
+
+    .tp-card {
+        height: 140px;
+        font-size: 1.1rem;
+    }
+
+    .tp-card i {
+        font-size: 2.2rem;
+    }
+}
