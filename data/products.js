@@ -658,6 +658,30 @@ export const products = [
     "fds": "FicheTox_FeS.pdf",
     "dangers": []
   },
+    {
+    "cas": "2321-07-5",
+    "nom": "fluorescéine",
+    "formule": "C₂₀H₁₂O₅",
+    "categorie": "colorant organique",
+    "localisation": "Salle B27 / étagère D2",
+    "pictogramme": [],
+    "obligation": ["BLOUSE"],
+    "image": "fluoresceine.jpg",
+    "fds": "FicheTox_Fluoresceine.pdf",
+    "dangers": []
+  },
+    {
+    "cas": "56-81-5",
+    "nom": "glycérol (glycérine)",
+    "formule": "C₃H₈O₃",
+    "categorie": "alcool organique",
+    "localisation": "Salle B27 / étagère D2",
+    "pictogramme": [],
+    "obligation": ["BLOUSE"],
+    "image": "glycerol.jpg",
+    "fds": "FicheTox_Glycerol.pdf",
+    "dangers": []
+  },
   {
     cas: "547-58-0",
     nom: "hélianthine (orange de méthyle)",
@@ -849,6 +873,66 @@ export const products = [
     image: "phenolphtaleine.jpg",
     fds: "FAS33.pdf",
     dangers: ["H350"]
+  },
+    {
+    "cas": "7723-14-0",
+    "nom": "phosphore blanc",
+    "formule": "P₄",
+    "categorie": "non-métal inflammable",
+    "localisation": "Salle B27 / étagère D2",
+    "pictogramme": ["SGH02_Flamme.jpg", "SGH06_TeteDeMort.jpg", "SGH09_Environnement.jpg"],
+    "obligation": ["LUNETTES", "GANTS", "BLOUSE", "HOTTE"],
+    "image": "phosphore_blanc.jpg",
+    "fds": "FicheTox_PhosphoreBlanc.pdf",
+    "dangers": ["H228", "H300", "H410"]
+  },
+    {
+    "cas": "7758-87-4",
+    "nom": "phosphate de chaux",
+    "formule": "Ca₃(PO₄)₂",
+    "categorie": "sel minéral",
+    "localisation": "Salle B27 / étagère D2",
+    "pictogramme": [],
+    "obligation": ["BLOUSE"],
+    "image": "phosphate_chaux.jpg",
+    "fds": "FicheTox_Ca3PO42.pdf",
+    "dangers": []
+  },
+    {
+    "cas": "7439-92-1",
+    "nom": "plomb en grain",
+    "formule": "Pb",
+    "categorie": "métal lourd",
+    "localisation": "Salle B27 / étagère D2",
+    "pictogramme": ["SGH08_DangerSante.jpg", "SGH09_Environnement.jpg"],
+    "obligation": ["LUNETTES", "GANTS", "BLOUSE"],
+    "image": "plomb_grain.jpg",
+    "fds": "FicheTox_Plomb.pdf",
+    "dangers": ["H360", "H373", "H410"]
+  },
+  {
+    "cas": "1314-41-6",
+    "nom": "plomb oxyde minimum",
+    "formule": "Pb₃O₄",
+    "categorie": "oxyde métallique",
+    "localisation": "Salle B27 / étagère D2",
+    "pictogramme": ["SGH08_DangerSante.jpg", "SGH09_Environnement.jpg"],
+    "obligation": ["LUNETTES", "GANTS", "BLOUSE", "HOTTE"],
+    "image": "plomb_oxyde_minimum.jpg",
+    "fds": "FicheTox_Pb3O4.pdf",
+    "dangers": ["H360", "H373", "H410"]
+  },
+  {
+    "cas": "1332-09-8",
+    "nom": "ponce en grain",
+    "formule": "silicates naturels",
+    "categorie": "minéral abrasif",
+    "localisation": "Salle B27 / étagère D2",
+    "pictogramme": [],
+    "obligation": ["BLOUSE"],
+    "image": "ponce_grain.jpg",
+    "fds": "FicheTox_Ponce.pdf",
+    "dangers": []
   },
     {
     "cas": "7784-24-9",
@@ -1137,5 +1221,17 @@ export const products = [
     image: "ph10.jpg",
     fds: "",
     dangers: [],    
+  },
+    {
+    "cas": "7786-81-4",
+    "nom": "sulfate de nickel",
+    "formule": "NiSO₄",
+    "categorie": "sel métallique",
+    "localisation": "Salle B27 / étagère D2",
+    "pictogramme": ["SGH07_PointExclamation.jpg", "SGH08_DangerSante.jpg", "SGH09_Environnement.jpg"],
+    "obligation": ["LUNETTES", "GANTS", "BLOUSE", "HOTTE"],
+    "image": "sulfate_nickel.jpg",
+    "fds": "FicheTox_NiSO4.pdf",
+    "dangers": ["H317", "H350", "H410"]
   }
 ];
