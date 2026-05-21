@@ -268,7 +268,7 @@ export const products = [
     "nom": "bromate de potassium",
     "formule": "KBrO₃",
     "categorie": "Oxydant",
-    "localisation": "Salle B27 / étagère B4",
+    "localisation": "Salle B27 / étagère B2",
     "pictogramme": ["SGH03_Comburant.jpg", "SGH06_TeteDeMort.jpg"],
     "obligation": ["LUNETTES", "GANTS", "BLOUSE", "HOTTE"],
     "image": "potassium_bromate.jpg",
