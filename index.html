@@ -21,8 +21,13 @@
   <!-- ================= MENU HORIZONTAL ================= -->
   <div class="top-menu">
 
+    <!-- Accueil TP -->
+    <div class="menu-item active" onclick="showSection('tp-home', this)">
+      <i class="fas fa-graduation-cap"></i> Domaines TP
+    </div>
+
     <!-- Réactifs -->
-    <div class="menu-item active" onclick="showSection('products', this)">
+    <div class="menu-item" onclick="showSection('products', this)">
       <i class="fas fa-flask"></i> Réactifs
     </div>
 
@@ -65,8 +70,49 @@
   <!-- ================= CONTENU ================= -->
   <div class="container">
 
+    <!-- ================= PAGE ACCUEIL DOMAINES TP ================= -->
+    <div id="tp-home" class="section active">
+
+      <h1 class="tp-title">Choisir un domaine de TP</h1>
+
+      <div class="tp-grid">
+
+        <div class="tp-card electricite">
+          <i class="fas fa-bolt"></i>
+          <span>TP Électricité</span>
+        </div>
+
+        <div class="tp-card mecanique">
+          <i class="fas fa-cogs"></i>
+          <span>TP Mécanique</span>
+        </div>
+
+        <div class="tp-card chimie">
+          <i class="fas fa-flask"></i>
+          <span>TP Chimie</span>
+        </div>
+
+        <div class="tp-card acoustique">
+          <i class="fas fa-volume-up"></i>
+          <span>TP Acoustique</span>
+        </div>
+
+        <div class="tp-card thermique">
+          <i class="fas fa-temperature-high"></i>
+          <span>TP Thermique</span>
+        </div>
+
+        <div class="tp-card optique">
+          <i class="fas fa-lightbulb"></i>
+          <span>TP Optique</span>
+        </div>
+
+      </div>
+
+    </div>
+
     <!-- ================= RÉACTIFS ================= -->
-    <div id="products" class="section active">
+    <div id="products" class="section">
       <h2>Produits chimiques</h2>
 
       <div class="table-wrapper">
@@ -142,7 +188,9 @@
 
   <!-- ================= JS GLOBAL POUR onclick ================= -->
   <script>
+
     function setActive(element) {
+
       document.querySelectorAll(".menu-item").forEach(item => {
         item.classList.remove("active");
       });
@@ -153,6 +201,7 @@
     }
 
     function showSection(sectionId, element = null) {
+
       document.querySelectorAll(".section").forEach(section => {
         section.classList.remove("active");
       });
@@ -167,6 +216,7 @@
     }
 
     function loadInFrame(url, element = null) {
+
       document.querySelectorAll(".section").forEach(section => {
         section.classList.remove("active");
       });
@@ -186,6 +236,7 @@
     window.setActive = setActive;
     window.showSection = showSection;
     window.loadInFrame = loadInFrame;
+
   </script>
 
   <!-- JS principal -->
