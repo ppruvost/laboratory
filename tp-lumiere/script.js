@@ -324,7 +324,7 @@ let y = Math.random()*500;
 let dx = x-250;
 let dy = y-250;
 
-if(dx*dx+dy*dy > 230*230){
+if(dx*dx+dy*dy > 150*150){
 continue;
 }
 
