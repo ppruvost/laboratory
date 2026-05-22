@@ -232,6 +232,283 @@ document.getElementById("lCone")
 
 });
 
+// =========================================
+// TEST ISHIHARA COMPLET
+// =========================================
+
+const ishCanvas =
+document.getElementById("ishiharaCanvas");
+
+const ishCtx =
+ishCanvas.getContext("2d");
+
+const visionMode =
+document.getElementById("visionMode");
+
+const answerInput =
+document.getElementById("answerInput");
+
+const resultBox =
+document.getElementById("resultBox");
+
+const plates = [
+
+{
+number:"12",
+fg:"#ff7f50",
+bg:"#6bbf59"
+},
+
+{
+number:"8",
+fg:"#ff8c42",
+bg:"#4caf50"
+},
+
+{
+number:"29",
+fg:"#f78154",
+bg:"#5cae5c"
+},
+
+{
+number:"74",
+fg:"#f79f79",
+bg:"#60b060"
+},
+
+{
+number:"5",
+fg:"#f76f6f",
+bg:"#58a858"
+}
+
+];
+
+let currentPlate = null;
+
+// =========================================
+// GENERATE PLATE
+// =========================================
+
+function generatePlate(){
+
+ishCtx.clearRect(0,0,500,500);
+
+ishCtx.fillStyle="#222";
+
+ishCtx.beginPath();
+ishCtx.arc(250,250,240,0,Math.PI*2);
+ishCtx.fill();
+
+currentPlate =
+plates[Math.floor(Math.random()*plates.length)];
+
+drawDots(currentPlate);
+
+}
+
+// =========================================
+// DRAW DOTS
+// =========================================
+
+function drawDots(plate){
+
+const mode = visionMode.value;
+
+for(let i=0;i<1400;i++){
+
+let x = Math.random()*500;
+let y = Math.random()*500;
+
+let dx = x-250;
+let dy = y-250;
+
+if(dx*dx+dy*dy > 230*230){
+continue;
+}
+
+let radius = 6 + Math.random()*10;
+
+let inside =
+isInsideNumber(x,y,plate.number);
+
+let color =
+inside ? plate.fg : plate.bg;
+
+color =
+applyColorBlindness(color,mode);
+
+ishCtx.fillStyle=color;
+
+ishCtx.beginPath();
+ishCtx.arc(x,y,radius,0,Math.PI*2);
+ishCtx.fill();
+
+}
+
+}
+
+// =========================================
+// DETECT NUMBER SHAPE
+// =========================================
+
+function isInsideNumber(x,y,number){
+
+ishCtx.font="bold 170px Arial";
+
+const textWidth =
+ishCtx.measureText(number).width;
+
+const tx = 250 - textWidth/2;
+const ty = 290;
+
+const temp =
+document.createElement("canvas");
+
+temp.width=500;
+temp.height=500;
+
+const tctx =
+temp.getContext("2d");
+
+tctx.font="bold 170px Arial";
+
+tctx.fillStyle="white";
+
+tctx.fillText(number,tx,ty);
+
+const pixel =
+tctx.getImageData(x,y,1,1).data;
+
+return pixel[3] > 0;
+
+}
+
+// =========================================
+// COLOR BLINDNESS SIMULATION
+// =========================================
+
+function applyColorBlindness(hex,mode){
+
+let rgb = hexToRgb(hex);
+
+let r=rgb.r;
+let g=rgb.g;
+let b=rgb.b;
+
+switch(mode){
+
+case "protanopia":
+
+r = 0.567*r + 0.433*g;
+g = 0.558*r + 0.442*g;
+b = b;
+
+break;
+
+case "deuteranopia":
+
+r = 0.625*r + 0.375*g;
+g = 0.7*r + 0.3*g;
+b = b;
+
+break;
+
+case "tritanopia":
+
+r = r;
+g = 0.95*g + 0.05*b;
+b = 0.433*g + 0.567*b;
+
+break;
+
+}
+
+return `rgb(${r},${g},${b})`;
+
+}
+
+// =========================================
+// HEX TO RGB
+// =========================================
+
+function hexToRgb(hex){
+
+hex = hex.replace("#","");
+
+let bigint =
+parseInt(hex,16);
+
+return {
+
+r:(bigint>>16)&255,
+g:(bigint>>8)&255,
+b:bigint&255
+
+};
+
+}
+
+// =========================================
+// VALIDATION
+// =========================================
+
+document
+.getElementById("checkAnswer")
+.addEventListener("click",()=>{
+
+const userAnswer =
+answerInput.value.trim();
+
+if(userAnswer === currentPlate.number){
+
+resultBox.innerHTML =
+"<span class='good'>Bonne réponse ✔</span>";
+
+}else{
+
+resultBox.innerHTML =
+`<span class='bad'>
+Incorrect ❌ — réponse :
+${currentPlate.number}
+</span>`;
+
+}
+
+});
+
+// =========================================
+// NEW PLATE
+// =========================================
+
+document
+.getElementById("newPlateBtn")
+.addEventListener("click",()=>{
+
+answerInput.value="";
+resultBox.innerHTML="";
+
+generatePlate();
+
+});
+
+// =========================================
+// CHANGE MODE
+// =========================================
+
+visionMode.addEventListener("change",()=>{
+
+generatePlate();
+
+});
+
+// =========================================
+// INIT
+// =========================================
+
+generatePlate();
+
 // ======================================
 // QUIZ
 // ======================================
