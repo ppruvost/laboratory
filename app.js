@@ -111,3 +111,40 @@ function hideAllSections() {
 // ===============================
 renderEquipmentTable(laboratoryEquipment);
 renderGlasswareTable(glassware);
+
+// =====================================
+// OPEN TP OPTIQUE
+// =====================================
+
+const openOptique =
+document.getElementById("openOptique");
+
+const tpViewer =
+document.getElementById("tpViewer");
+
+const tpFrame =
+document.getElementById("tpFrame");
+
+const closeViewer =
+document.getElementById("closeViewer");
+
+// =====================================
+
+openOptique.addEventListener("click",()=>{
+
+tpViewer.classList.remove("hidden");
+
+tpFrame.src =
+"tp-lumiere/index.html";
+
+});
+
+// =====================================
+
+closeViewer.addEventListener("click",()=>{
+
+tpViewer.classList.add("hidden");
+
+tpFrame.src="";
+
+});
