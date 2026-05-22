@@ -321,8 +321,8 @@ for(let i=0;i<1400;i++){
 let x = Math.random()*500;
 let y = Math.random()*500;
 
-let dx = x-250;
-let dy = y-250;
+let dx = x-175;
+let dy = y-175;
 
 if(dx*dx+dy*dy > 150*150){
 continue;
@@ -355,13 +355,13 @@ ishCtx.fill();
 
 function isInsideNumber(x,y,number){
 
-ishCtx.font="bold 170px Arial";
+ishCtx.font="bold 110px Arial";
 
 const textWidth =
 ishCtx.measureText(number).width;
 
-const tx = 250 - textWidth/2;
-const ty = 290;
+const tx = 175 - textWidth/2;
+const ty = 210;
 
 const temp =
 document.createElement("canvas");
@@ -372,7 +372,7 @@ temp.height=500;
 const tctx =
 temp.getContext("2d");
 
-tctx.font="bold 170px Arial";
+tctx.font="bold 110px Arial";
 
 tctx.fillStyle="white";
 
