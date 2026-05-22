@@ -5,21 +5,52 @@
 const navButtons = document.querySelectorAll("nav button");
 const sections = document.querySelectorAll(".section");
 
-navButtons.forEach(button=>{
+navButtons.forEach(button => {
 
-button.addEventListener("click",()=>{
+    button.addEventListener("click", () => {
 
-sections.forEach(section=>{
-section.classList.remove("active");
+        sections.forEach(section => {
+            section.classList.remove("active");
+        });
+
+        document
+            .getElementById(button.dataset.target)
+            .classList.add("active");
+
+    });
+
 });
 
-document
-.getElementById(button.dataset.target)
-.classList.add("active");
+// ======================================
+// RGB TO HEX
+// ======================================
 
-});
+function rgbToHex(r, g, b) {
 
-});
+    return "#" + [r, g, b]
+        .map(x => x.toString(16).padStart(2, "0"))
+        .join("")
+        .toUpperCase();
+
+}
+
+// ======================================
+// RESPONSIVE CANVAS
+// ======================================
+
+function resizeCanvas(canvas, ratio = 0.7) {
+
+    const container = canvas.parentElement;
+
+    const width = Math.min(
+        container.clientWidth * ratio,
+        500
+    );
+
+    canvas.width = width;
+    canvas.height = width * 0.7;
+
+}
 
 // ======================================
 // RVB
@@ -32,500 +63,612 @@ const blue = document.getElementById("blue");
 const rgbCanvas = document.getElementById("rgbCanvas");
 const rgbCtx = rgbCanvas.getContext("2d");
 
-function updateRGB(){
+function updateRGB() {
 
-const r = parseInt(red.value);
-const g = parseInt(green.value);
-const b = parseInt(blue.value);
+    resizeCanvas(rgbCanvas);
 
-document.getElementById("rVal").textContent=r;
-document.getElementById("gVal").textContent=g;
-document.getElementById("bVal").textContent=b;
+    const w = rgbCanvas.width;
+    const h = rgbCanvas.height;
 
-const color=`rgb(${r},${g},${b})`;
+    const r = parseInt(red.value);
+    const g = parseInt(green.value);
+    const b = parseInt(blue.value);
 
-document.getElementById("rgbPreview")
-.style.background=color;
+    document.getElementById("rVal").textContent = r;
+    document.getElementById("gVal").textContent = g;
+    document.getElementById("bVal").textContent = b;
 
-document.getElementById("rgbResult")
-.innerHTML=`HEX : ${rgbToHex(r,g,b)}`;
+    const color = `rgb(${r},${g},${b})`;
 
-drawRGB(r,g,b);
+    document.getElementById("rgbPreview")
+        .style.background = color;
 
-}
+    document.getElementById("rgbResult")
+        .innerHTML = `
+        Couleur : ${color}<br>
+        HEX : ${rgbToHex(r, g, b)}
+    `;
 
-function drawRGB(r,g,b){
+    rgbCtx.clearRect(0, 0, w, h);
 
-rgbCtx.clearRect(0,0,350,250);
+    rgbCtx.fillStyle = "black";
+    rgbCtx.fillRect(0, 0, w, h);
 
-rgbCtx.fillStyle="black";
-rgbCtx.fillRect(0,0,350,250);
+    rgbCtx.globalCompositeOperation = "lighter";
 
-rgbCtx.globalCompositeOperation="lighter";
+    const radius = w * 0.18;
 
-rgbCtx.fillStyle=`rgba(${r},0,0,0.8)`;
-rgbCtx.beginPath();
-rgbCtx.arc(130,140,70,0,Math.PI*2);
-rgbCtx.fill();
+    rgbCtx.fillStyle = `rgba(${r},0,0,0.8)`;
+    rgbCtx.beginPath();
+    rgbCtx.arc(w * 0.38, h * 0.62, radius, 0, Math.PI * 2);
+    rgbCtx.fill();
 
-rgbCtx.fillStyle=`rgba(0,${g},0,0.8)`;
-rgbCtx.beginPath();
-rgbCtx.arc(220,140,70,0,Math.PI*2);
-rgbCtx.fill();
+    rgbCtx.fillStyle = `rgba(0,${g},0,0.8)`;
+    rgbCtx.beginPath();
+    rgbCtx.arc(w * 0.62, h * 0.62, radius, 0, Math.PI * 2);
+    rgbCtx.fill();
 
-rgbCtx.fillStyle=`rgba(0,0,${b},0.8)`;
-rgbCtx.beginPath();
-rgbCtx.arc(175,80,70,0,Math.PI*2);
-rgbCtx.fill();
+    rgbCtx.fillStyle = `rgba(0,0,${b},0.8)`;
+    rgbCtx.beginPath();
+    rgbCtx.arc(w * 0.50, h * 0.35, radius, 0, Math.PI * 2);
+    rgbCtx.fill();
 
-rgbCtx.globalCompositeOperation="source-over";
-
-}
-
-function rgbToHex(r,g,b){
-
-return "#" + [r,g,b]
-.map(x=>x.toString(16).padStart(2,"0"))
-.join("")
-.toUpperCase();
+    rgbCtx.globalCompositeOperation = "source-over";
 
 }
 
-[red,green,blue].forEach(el=>{
-el.addEventListener("input",updateRGB);
+[red, green, blue].forEach(el => {
+    el.addEventListener("input", updateRGB);
 });
-
-updateRGB();
 
 // ======================================
 // CMJ
 // ======================================
 
-const cyan=document.getElementById("cyan");
-const magenta=document.getElementById("magenta");
-const yellow=document.getElementById("yellow");
+const cyan = document.getElementById("cyan");
+const magenta = document.getElementById("magenta");
+const yellow = document.getElementById("yellow");
 
-const cmyCanvas=document.getElementById("cmyCanvas");
-const cmyCtx=cmyCanvas.getContext("2d");
+const cmyCanvas = document.getElementById("cmyCanvas");
+const cmyCtx = cmyCanvas.getContext("2d");
 
-function updateCMY(){
+function updateCMY() {
 
-const c=parseInt(cyan.value);
-const m=parseInt(magenta.value);
-const y=parseInt(yellow.value);
+    resizeCanvas(cmyCanvas);
 
-document.getElementById("cVal").textContent=c+"%";
-document.getElementById("mVal").textContent=m+"%";
-document.getElementById("yVal").textContent=y+"%";
+    const w = cmyCanvas.width;
+    const h = cmyCanvas.height;
 
-const r=Math.round(255*(1-c/100));
-const g=Math.round(255*(1-m/100));
-const b=Math.round(255*(1-y/100));
+    const c = parseInt(cyan.value);
+    const m = parseInt(magenta.value);
+    const y = parseInt(yellow.value);
 
-const color=`rgb(${r},${g},${b})`;
+    document.getElementById("cVal").textContent = c + "%";
+    document.getElementById("mVal").textContent = m + "%";
+    document.getElementById("yVal").textContent = y + "%";
 
-document.getElementById("cmyPreview")
-.style.background=color;
+    const r = Math.round(255 * (1 - c / 100));
+    const g = Math.round(255 * (1 - m / 100));
+    const b = Math.round(255 * (1 - y / 100));
 
-document.getElementById("cmyResult")
-.innerHTML=`HEX : ${rgbToHex(r,g,b)}`;
+    const color = `rgb(${r},${g},${b})`;
 
-drawCMY(c,m,y,r,g,b);
+    document.getElementById("cmyPreview")
+        .style.background = color;
+
+    document.getElementById("cmyResult")
+        .innerHTML = `
+        Couleur : ${color}<br>
+        HEX : ${rgbToHex(r, g, b)}
+    `;
+
+    cmyCtx.clearRect(0, 0, w, h);
+
+    cmyCtx.fillStyle = "white";
+    cmyCtx.fillRect(0, 0, w, h);
+
+    cmyCtx.fillStyle = `rgba(0,255,255,${c / 100})`;
+    cmyCtx.fillRect(w * 0.10, h * 0.15, w * 0.35, h * 0.6);
+
+    cmyCtx.fillStyle = `rgba(255,0,255,${m / 100})`;
+    cmyCtx.fillRect(w * 0.32, h * 0.15, w * 0.35, h * 0.6);
+
+    cmyCtx.fillStyle = `rgba(255,255,0,${y / 100})`;
+    cmyCtx.fillRect(w * 0.54, h * 0.15, w * 0.35, h * 0.6);
+
+    cmyCtx.fillStyle = color;
+    cmyCtx.fillRect(w * 0.40, h * 0.35, w * 0.20, h * 0.18);
 
 }
 
-function drawCMY(c,m,y,r,g,b){
-
-cmyCtx.clearRect(0,0,350,250);
-
-cmyCtx.fillStyle="white";
-cmyCtx.fillRect(0,0,350,250);
-
-cmyCtx.fillStyle=`rgba(0,255,255,${c/100})`;
-cmyCtx.fillRect(40,40,120,160);
-
-cmyCtx.fillStyle=`rgba(255,0,255,${m/100})`;
-cmyCtx.fillRect(115,40,120,160);
-
-cmyCtx.fillStyle=`rgba(255,255,0,${y/100})`;
-cmyCtx.fillRect(190,40,120,160);
-
-cmyCtx.fillStyle=`rgb(${r},${g},${b})`;
-cmyCtx.fillRect(135,90,80,60);
-
-}
-
-[cyan,magenta,yellow].forEach(el=>{
-el.addEventListener("input",updateCMY);
+[cyan, magenta, yellow].forEach(el => {
+    el.addEventListener("input", updateCMY);
 });
-
-updateCMY();
 
 // ======================================
 // FILTRES
 // ======================================
 
-const filterCanvas=document.getElementById("filterCanvas");
-const filterCtx=filterCanvas.getContext("2d");
+const filterCanvas = document.getElementById("filterCanvas");
+const filterCtx = filterCanvas.getContext("2d");
 
-function applyFilter(){
+function applyFilter() {
 
-const light=document.getElementById("lightSelect").value;
-const filter=document.getElementById("filterSelect").value;
+    resizeCanvas(filterCanvas);
 
-const allowed={
+    const w = filterCanvas.width;
+    const h = filterCanvas.height;
 
-red:["red","magenta","yellow"],
-green:["green","cyan","yellow"],
-blue:["blue","cyan","magenta"],
-white:["red","green","blue","cyan","magenta","yellow"]
+    const light =
+        document.getElementById("lightSelect").value;
 
-};
+    const filter =
+        document.getElementById("filterSelect").value;
 
-const pass=allowed[light].includes(filter);
+    const allowed = {
 
-filterCtx.clearRect(0,0,350,250);
+        red: ["red", "magenta", "yellow"],
+        green: ["green", "cyan", "yellow"],
+        blue: ["blue", "cyan", "magenta"],
+        white: ["red", "green", "blue", "cyan", "magenta", "yellow"]
 
-filterCtx.fillStyle=light;
-filterCtx.fillRect(0,0,150,250);
+    };
 
-filterCtx.fillStyle=filter;
-filterCtx.fillRect(150,0,80,250);
+    const pass =
+        allowed[light].includes(filter);
 
-filterCtx.fillStyle=pass?light:"black";
-filterCtx.fillRect(230,0,120,250);
+    filterCtx.clearRect(0, 0, w, h);
 
-document.getElementById("filterResult")
-.innerHTML=pass
-?"La lumière traverse"
-:"La lumière est absorbée";
+    filterCtx.fillStyle = light;
+    filterCtx.fillRect(0, 0, w * 0.4, h);
+
+    filterCtx.fillStyle = filter;
+    filterCtx.fillRect(w * 0.4, 0, w * 0.2, h);
+
+    filterCtx.fillStyle = pass ? light : "black";
+    filterCtx.fillRect(w * 0.6, 0, w * 0.4, h);
+
+    document.getElementById("filterResult")
+        .innerHTML = pass
+        ? "✅ La lumière traverse"
+        : "❌ La lumière est absorbée";
 
 }
 
-applyFilter();
+document
+    .getElementById("lightSelect")
+    .addEventListener("change", applyFilter);
+
+document
+    .getElementById("filterSelect")
+    .addEventListener("change", applyFilter);
 
 // ======================================
 // CONES
 // ======================================
 
-const waveSlider=document.getElementById("waveSlider");
+const waveSlider =
+    document.getElementById("waveSlider");
 
-waveSlider.addEventListener("input",()=>{
+waveSlider.addEventListener("input", () => {
 
-const wavelength=parseInt(waveSlider.value);
+    const wavelength =
+        parseInt(waveSlider.value);
 
-document.getElementById("waveValue")
-.textContent=wavelength+" nm";
+    document.getElementById("waveValue")
+        .textContent = wavelength + " nm";
 
-const s=Math.max(0,100-Math.abs(wavelength-420));
-const m=Math.max(0,100-Math.abs(wavelength-530));
-const l=Math.max(0,100-Math.abs(wavelength-565));
+    const s =
+        Math.max(0, 100 - Math.abs(wavelength - 420));
 
-document.getElementById("sCone")
-.style.width=s+"%";
+    const m =
+        Math.max(0, 100 - Math.abs(wavelength - 530));
 
-document.getElementById("mCone")
-.style.width=m+"%";
+    const l =
+        Math.max(0, 100 - Math.abs(wavelength - 565));
 
-document.getElementById("lCone")
-.style.width=l+"%";
+    document.getElementById("sCone")
+        .style.width = s + "%";
+
+    document.getElementById("mCone")
+        .style.width = m + "%";
+
+    document.getElementById("lCone")
+        .style.width = l + "%";
 
 });
 
-// =========================================
-// TEST ISHIHARA COMPLET
-// =========================================
+// ======================================
+// TEST ISHIHARA RESPONSIVE
+// ======================================
 
 const ishCanvas =
-document.getElementById("ishiharaCanvas");
+    document.getElementById("ishiharaCanvas");
 
 const ishCtx =
-ishCanvas.getContext("2d");
+    ishCanvas.getContext("2d");
 
 const visionMode =
-document.getElementById("visionMode");
+    document.getElementById("visionMode");
 
 const answerInput =
-document.getElementById("answerInput");
+    document.getElementById("answerInput");
 
 const resultBox =
-document.getElementById("resultBox");
+    document.getElementById("resultBox");
+
+let canvasSize;
+let center;
+let bigRadius;
 
 const plates = [
 
-{
-number:"12",
-fg:"#ff7f50",
-bg:"#6bbf59"
-},
+    {
+        number: "12",
+        fg: "#ff7f50",
+        bg: "#6bbf59"
+    },
 
-{
-number:"8",
-fg:"#ff8c42",
-bg:"#4caf50"
-},
+    {
+        number: "8",
+        fg: "#ff8c42",
+        bg: "#4caf50"
+    },
 
-{
-number:"29",
-fg:"#f78154",
-bg:"#5cae5c"
-},
+    {
+        number: "29",
+        fg: "#f78154",
+        bg: "#5cae5c"
+    },
 
-{
-number:"74",
-fg:"#f79f79",
-bg:"#60b060"
-},
+    {
+        number: "74",
+        fg: "#f79f79",
+        bg: "#60b060"
+    },
 
-{
-number:"5",
-fg:"#f76f6f",
-bg:"#58a858"
-}
+    {
+        number: "5",
+        fg: "#f76f6f",
+        bg: "#58a858"
+    }
 
 ];
 
 let currentPlate = null;
 
-// =========================================
+// ======================================
+// RESIZE ISHIHARA
+// ======================================
+
+function resizeIshihara() {
+
+    canvasSize =
+        Math.min(window.innerWidth * 0.65, 420);
+
+    ishCanvas.width = canvasSize;
+    ishCanvas.height = canvasSize;
+
+    center = canvasSize / 2;
+
+    bigRadius = canvasSize * 0.42;
+
+    generatePlate();
+
+}
+
+// ======================================
 // GENERATE PLATE
-// =========================================
+// ======================================
 
-function generatePlate(){
+function generatePlate() {
 
-ishCtx.clearRect(0,0,500,500);
+    ishCtx.clearRect(
+        0,
+        0,
+        canvasSize,
+        canvasSize
+    );
 
-ishCtx.fillStyle="#222";
+    ishCtx.fillStyle = "#222";
 
-ishCtx.beginPath();
-ishCtx.arc(125,125,110,0,Math.PI*2);
-ishCtx.fill();
+    ishCtx.beginPath();
 
-currentPlate =
-plates[Math.floor(Math.random()*plates.length)];
+    ishCtx.arc(
+        center,
+        center,
+        bigRadius,
+        0,
+        Math.PI * 2
+    );
 
-drawDots(currentPlate);
+    ishCtx.fill();
+
+    currentPlate =
+        plates[
+            Math.floor(
+                Math.random() * plates.length
+            )
+        ];
+
+    drawDots(currentPlate);
 
 }
 
-// =========================================
+// ======================================
 // DRAW DOTS
-// =========================================
+// ======================================
 
-function drawDots(plate){
+function drawDots(plate) {
 
-const mode = visionMode.value;
+    const mode = visionMode.value;
 
-for(let i=0;i<1400;i++){
+    const dots =
+        Math.floor(canvasSize * 5);
 
-let x = Math.random()*500;
-let y = Math.random()*500;
+    for (let i = 0; i < dots; i++) {
 
-let dx = x-125;
-let dy = y-125;
+        let x =
+            Math.random() * canvasSize;
 
-if(dx*dx+dy*dy > 105*105){
-continue;
-}
+        let y =
+            Math.random() * canvasSize;
 
-let radius = 2 + Math.random()*4;
+        let dx = x - center;
+        let dy = y - center;
 
-let inside =
-isInsideNumber(x,y,plate.number);
+        if (
+            dx * dx + dy * dy >
+            bigRadius * bigRadius
+        ) {
+            continue;
+        }
 
-let color =
-inside ? plate.fg : plate.bg;
+        let dotRadius =
+            canvasSize * 0.004 +
+            Math.random() *
+            canvasSize * 0.008;
 
-color =
-applyColorBlindness(color,mode);
+        let inside =
+            isInsideNumber(
+                x,
+                y,
+                plate.number
+            );
 
-ishCtx.fillStyle=color;
+        let color =
+            inside ? plate.fg : plate.bg;
 
-ishCtx.beginPath();
-ishCtx.arc(x,y,radius,0,Math.PI*2);
-ishCtx.fill();
+        color =
+            applyColorBlindness(
+                color,
+                mode
+            );
 
-}
+        ishCtx.fillStyle = color;
 
-}
+        ishCtx.beginPath();
 
-// =========================================
-// DETECT NUMBER SHAPE
-// =========================================
+        ishCtx.arc(
+            x,
+            y,
+            dotRadius,
+            0,
+            Math.PI * 2
+        );
 
-function isInsideNumber(x,y,number){
+        ishCtx.fill();
 
-ishCtx.font="bold 70px Arial";
-
-const textWidth =
-ishCtx.measureText(number).width;
-
-const tx = 175 - textWidth/2;
-const ty = 210;
-
-const temp =
-document.createElement("canvas");
-
-temp.width=500;
-temp.height=500;
-
-const tctx =
-temp.getContext("2d");
-
-tctx.font="bold 70px Arial";
-
-tctx.fillStyle="white";
-
-tctx.fillText(number,tx,ty);
-
-const pixel =
-tctx.getImageData(x,y,1,1).data;
-
-return pixel[3] > 0;
+    }
 
 }
 
-// =========================================
-// COLOR BLINDNESS SIMULATION
-// =========================================
+// ======================================
+// INSIDE NUMBER
+// ======================================
 
-function applyColorBlindness(hex,mode){
+function isInsideNumber(x, y, number) {
 
-let rgb = hexToRgb(hex);
+    const temp =
+        document.createElement("canvas");
 
-let r=rgb.r;
-let g=rgb.g;
-let b=rgb.b;
+    temp.width = canvasSize;
+    temp.height = canvasSize;
 
-switch(mode){
+    const tctx =
+        temp.getContext("2d");
 
-case "protanopia":
+    const fontSize =
+        canvasSize * 0.28;
 
-r = 0.567*r + 0.433*g;
-g = 0.558*r + 0.442*g;
-b = b;
+    tctx.font =
+        `bold ${fontSize}px Arial`;
 
-break;
+    const textWidth =
+        tctx.measureText(number).width;
 
-case "deuteranopia":
+    const tx =
+        center - textWidth / 2;
 
-r = 0.625*r + 0.375*g;
-g = 0.7*r + 0.3*g;
-b = b;
+    const ty =
+        center + canvasSize * 0.1;
 
-break;
+    tctx.fillStyle = "white";
 
-case "tritanopia":
+    tctx.fillText(
+        number,
+        tx,
+        ty
+    );
 
-r = r;
-g = 0.95*g + 0.05*b;
-b = 0.433*g + 0.567*b;
+    const pixel =
+        tctx.getImageData(
+            x,
+            y,
+            1,
+            1
+        ).data;
 
-break;
+    return pixel[3] > 0;
 
 }
 
-return `rgb(${r},${g},${b})`;
+// ======================================
+// COLOR BLINDNESS
+// ======================================
+
+function applyColorBlindness(hex, mode) {
+
+    let rgb = hexToRgb(hex);
+
+    let r = rgb.r;
+    let g = rgb.g;
+    let b = rgb.b;
+
+    switch (mode) {
+
+        case "protanopia":
+
+            r = 0.567 * r + 0.433 * g;
+            g = 0.558 * r + 0.442 * g;
+
+            break;
+
+        case "deuteranopia":
+
+            r = 0.625 * r + 0.375 * g;
+            g = 0.7 * r + 0.3 * g;
+
+            break;
+
+        case "tritanopia":
+
+            g = 0.95 * g + 0.05 * b;
+            b = 0.433 * g + 0.567 * b;
+
+            break;
+
+    }
+
+    return `rgb(${r},${g},${b})`;
 
 }
 
-// =========================================
+// ======================================
 // HEX TO RGB
-// =========================================
+// ======================================
 
-function hexToRgb(hex){
+function hexToRgb(hex) {
 
-hex = hex.replace("#","");
+    hex = hex.replace("#", "");
 
-let bigint =
-parseInt(hex,16);
+    let bigint =
+        parseInt(hex, 16);
 
-return {
+    return {
 
-r:(bigint>>16)&255,
-g:(bigint>>8)&255,
-b:bigint&255
+        r: (bigint >> 16) & 255,
+        g: (bigint >> 8) & 255,
+        b: bigint & 255
 
-};
-
-}
-
-// =========================================
-// VALIDATION
-// =========================================
-
-document
-.getElementById("checkAnswer")
-.addEventListener("click",()=>{
-
-const userAnswer =
-answerInput.value.trim();
-
-if(userAnswer === currentPlate.number){
-
-resultBox.innerHTML =
-"<span class='good'>Bonne réponse ✔</span>";
-
-}else{
-
-resultBox.innerHTML =
-`<span class='bad'>
-Incorrect ❌ — réponse :
-${currentPlate.number}
-</span>`;
+    };
 
 }
 
-});
-
-// =========================================
-// NEW PLATE
-// =========================================
+// ======================================
+// ISHIHARA EVENTS
+// ======================================
 
 document
-.getElementById("newPlateBtn")
-.addEventListener("click",()=>{
+    .getElementById("checkAnswer")
+    .addEventListener("click", () => {
 
-answerInput.value="";
-resultBox.innerHTML="";
+        const userAnswer =
+            answerInput.value.trim();
 
-generatePlate();
+        if (
+            userAnswer === currentPlate.number
+        ) {
 
-});
+            resultBox.innerHTML =
+                "<span class='good'>✔ Bonne réponse</span>";
 
-// =========================================
-// CHANGE MODE
-// =========================================
+        } else {
 
-visionMode.addEventListener("change",()=>{
+            resultBox.innerHTML = `
+            <span class='bad'>
+            ❌ Réponse :
+            ${currentPlate.number}
+            </span>
+        `;
 
-generatePlate();
+        }
 
-});
+    });
 
-// =========================================
-// INIT
-// =========================================
+document
+    .getElementById("newPlateBtn")
+    .addEventListener("click", () => {
 
-generatePlate();
+        answerInput.value = "";
+        resultBox.innerHTML = "";
+
+        generatePlate();
+
+    });
+
+visionMode.addEventListener(
+    "change",
+    generatePlate
+);
+
+window.addEventListener(
+    "resize",
+    () => {
+
+        updateRGB();
+        updateCMY();
+        applyFilter();
+        resizeIshihara();
+
+    }
+);
 
 // ======================================
 // QUIZ
 // ======================================
 
-function correctQuiz(){
+function correctQuiz() {
 
-let score=0;
+    let score = 0;
 
-if(document.querySelector('input[name="q1"]:checked')?.value==="true"){
-score++;
+    if (
+        document.querySelector(
+            'input[name="q1"]:checked'
+        )?.value === "true"
+    ) {
+        score++;
+    }
+
+    if (
+        document.querySelector(
+            'input[name="q2"]:checked'
+        )?.value === "true"
+    ) {
+        score++;
+    }
+
+    document.getElementById("score")
+        .innerHTML =
+        `<h3>Score : ${score}/2</h3>`;
+
 }
 
-if(document.querySelector('input[name="q2"]:checked')?.value==="true"){
-score++;
-}
+// ======================================
+// INIT
+// ======================================
 
-document.getElementById("score")
-.innerHTML=`<h3>Score : ${score}/2</h3>`;
-
-}
+updateRGB();
+updateCMY();
+applyFilter();
+resizeIshihara();
