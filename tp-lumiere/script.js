@@ -298,7 +298,7 @@ ishCtx.clearRect(0,0,500,500);
 ishCtx.fillStyle="#222";
 
 ishCtx.beginPath();
-ishCtx.arc(250,250,240,0,Math.PI*2);
+ishCtx.arc(175,175,160,0,Math.PI*2);
 ishCtx.fill();
 
 currentPlate =
