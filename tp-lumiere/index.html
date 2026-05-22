@@ -31,7 +31,7 @@ spectre lumineux et vision humaine
 <button data-target="filters">Filtres</button>
 <button data-target="cones">Cônes</button>
 <button data-target="spectrum">Spectre</button>
-<button data-target="daltonism">Daltonisme</button>
+<button data-target="ishihara">Daltonisme</button>
 <button data-target="quiz">QCM</button>
 
 </nav>
@@ -295,24 +295,65 @@ UV → Visible → Infrarouge
 
 </section>
 
-<!-- ====================================== -->
-<!-- DALTONISME -->
-<!-- ====================================== -->
+<!-- ========================================= -->
+<!-- Daltonisme -->
+<!-- ========================================= -->
 
-<section id="daltonism" class="section">
+<section id="ishihara" class="section">
 
-<h2>🧠 Daltonisme</h2>
+<h2>🧠 Simulation complète du Test d'Ishihara</h2>
 
 <div class="panel">
 
 <p>
-Le daltonisme est lié à un dysfonctionnement des cônes.
+Le test d’Ishihara permet de détecter certaines formes
+de daltonisme.
 </p>
 
-<img
-src="assets/img/ishihara.png"
-class="ishihara"
-alt="Test Ishihara">
+<div class="controls">
+
+<label>Mode de vision :</label>
+
+<select id="visionMode">
+
+<option value="normal">Vision normale</option>
+<option value="protanopia">Protanopie</option>
+<option value="deuteranopia">Deutéranopie</option>
+<option value="tritanopia">Tritanopie</option>
+
+</select>
+
+<button id="newPlateBtn">
+Nouvelle planche
+</button>
+
+</div>
+
+<div class="ishihara-container">
+
+<canvas id="ishiharaCanvas"
+width="500"
+height="500">
+</canvas>
+
+</div>
+
+<div class="question-box">
+
+<h3>Quel nombre voyez-vous ?</h3>
+
+<input
+type="text"
+id="answerInput"
+placeholder="Votre réponse">
+
+<button id="checkAnswer">
+Valider
+</button>
+
+<div id="resultBox"></div>
+
+</div>
 
 </div>
 
