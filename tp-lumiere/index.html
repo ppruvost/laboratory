@@ -1,581 +1,146 @@
 <!DOCTYPE html>
 <html lang="fr">
-
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Parcours Lumière et Couleurs</title>
-
-<link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TP Optique - Couleurs</title>
+  <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
 <header>
-
-<h1>🌈 Parcours Scientifique : Lumière et Couleurs</h1>
-
-<p>
-TP interactif de physique sur les couleurs, les longueurs d’onde,
-les filtres, les photons et les applications technologiques.
-</p>
-
+  <h1>Travaux Pratiques - Optique et Couleurs</h1>
+  <p>Synthèse additive, vision humaine et spectre lumineux</p>
 </header>
 
 <nav>
-
-<button class="tab-btn active" data-tab="intro">Introduction</button>
-<button class="tab-btn" data-tab="rgb">Synthèse additive</button>
-<button class="tab-btn" data-tab="cmy">Synthèse soustractive</button>
-<button class="tab-btn" data-tab="spectrum">Spectre lumineux</button>
-<button class="tab-btn" data-tab="eye">Œil humain</button>
-<button class="tab-btn" data-tab="infrared">Infrarouge</button>
-<button class="tab-btn" data-tab="uv">Ultraviolets</button>
-<button class="tab-btn" data-tab="photon">Photons</button>
-<button class="tab-btn" data-tab="sensor">Photocomposants</button>
-<button class="tab-btn" data-tab="quiz">Quiz final</button>
-
+  <button data-section="intro">Introduction</button>
+  <button data-section="spectrum">Spectre lumineux</button>
+  <button data-section="cones">Les cônes</button>
+  <button data-section="additive">Synthèse additive</button>
+  <button data-section="subtractive">Synthèse soustractive</button>
+  <button data-section="quiz">Quiz</button>
 </nav>
 
 <main>
 
-<!-- ====================================== -->
-<!-- INTRO -->
-<!-- ====================================== -->
+<section id="intro" class="active">
+  <h2>Introduction</h2>
+  <p>
+    La lumière blanche est composée de toutes les couleurs visibles.
+    L’œil humain perçoit les longueurs d’onde comprises entre environ
+    380 nm et 780 nm.
+  </p>
 
-<section id="intro" class="tab active">
+  <img src="assets/img/spectrum.png" alt="Spectre lumineux">
 
-<h2>Introduction</h2>
-
-<div class="card">
-
-<h3>Objectifs du parcours</h3>
-
-<ul>
-
-<li>Comprendre les couleurs et les longueurs d’onde</li>
-<li>Comprendre la synthèse additive et soustractive</li>
-<li>Découvrir le fonctionnement de l’œil humain</li>
-<li>Comprendre les rayonnements UV et infrarouges</li>
-<li>Découvrir les applications des LED infrarouges</li>
-<li>Manipuler un simulateur scientifique interactif</li>
-
-</ul>
-
-</div>
-
-<div class="card">
-
-<h3>Rappels scientifiques</h3>
-
-<p>
-
-La lumière est une onde électromagnétique.
-
-Chaque couleur correspond à une longueur d’onde λ.
-
-La lumière blanche contient toutes les couleurs visibles.
-
-</p>
-
-</div>
-
+  <div class="card">
+    <h3>Le spectre électromagnétique</h3>
+    <ul>
+      <li>Ultraviolet : &lt; 380 nm</li>
+      <li>Visible : 380 → 780 nm</li>
+      <li>Infrarouge : &gt; 780 nm</li>
+    </ul>
+  </div>
 </section>
 
-<!-- ====================================== -->
-<!-- SYNTHÈSE ADDITIVE -->
-<!-- ====================================== -->
+<section id="spectrum">
+  <h2>Longueurs d’onde et couleurs</h2>
 
-<section id="rgb" class="tab">
+  <div class="spectrum-bar"></div>
 
-<h2>1️⃣ Synthèse additive RVB</h2>
+  <table>
+    <tr>
+      <th>Couleur</th>
+      <th>Longueur d’onde</th>
+    </tr>
+    <tr><td>Violet</td><td>380 - 450 nm</td></tr>
+    <tr><td>Bleu</td><td>450 - 495 nm</td></tr>
+    <tr><td>Vert</td><td>495 - 570 nm</td></tr>
+    <tr><td>Jaune</td><td>570 - 590 nm</td></tr>
+    <tr><td>Orange</td><td>590 - 620 nm</td></tr>
+    <tr><td>Rouge</td><td>620 - 780 nm</td></tr>
+  </table>
 
-<div class="grid">
-
-<div class="controls">
-
-<h3>Réglage des lumières</h3>
-
-<label>
-Rouge
-<input type="range" id="red" min="0" max="255" value="255">
-</label>
-
-<label>
-Vert
-<input type="range" id="green" min="0" max="255" value="255">
-</label>
-
-<label>
-Bleu
-<input type="range" id="blue" min="0" max="255" value="255">
-</label>
-
-<div id="rgbColor"></div>
-
-</div>
-
-<div>
-
-<canvas id="rgbCanvas" width="400" height="300"></canvas>
-
-</div>
-
-</div>
-
-<div class="card">
-
-<h3>Expérience</h3>
-
-<p>
-
-Observer :
-- Rouge + Vert
-- Rouge + Bleu
-- Vert + Bleu
-- Rouge + Vert + Bleu
-
-Compléter le tableau de résultats.
-
-</p>
-
-</div>
-
+  <div class="card">
+    <h3>Applications dans la vie quotidienne</h3>
+    <ul>
+      <li>Télécommandes : LED infrarouges</li>
+      <li>UV : bronzage, désinfection</li>
+      <li>Écrans : pixels RGB</li>
+      <li>Imprimantes : CMJN</li>
+    </ul>
+  </div>
 </section>
 
-<!-- ====================================== -->
-<!-- CMJ -->
-<!-- ====================================== -->
+<section id="cones">
+  <h2>Sensibilité des trois cônes de la rétine</h2>
 
-<section id="cmy" class="tab">
+  <img src="assets/img/cones.png" alt="Sensibilité des cônes">
 
-<h2>2️⃣ Synthèse soustractive CMJ</h2>
+  <p>
+    La rétine possède trois types de cônes :
+  </p>
 
-<div class="grid">
+  <ul>
+    <li><strong>Cônes S</strong> : sensibles au bleu (~420 nm)</li>
+    <li><strong>Cônes M</strong> : sensibles au vert (~530 nm)</li>
+    <li><strong>Cônes L</strong> : sensibles au rouge (~565 nm)</li>
+  </ul>
 
-<div class="controls">
+  <div class="interactive-rgb">
+    <h3>Simulation de perception</h3>
 
-<label>
-Cyan
-<input type="range" id="cyan" min="0" max="100" value="0">
-</label>
+    <label>Rouge</label>
+    <input type="range" id="r" min="0" max="255" value="255">
 
-<label>
-Magenta
-<input type="range" id="magenta" min="0" max="100" value="0">
-</label>
+    <label>Vert</label>
+    <input type="range" id="g" min="0" max="255" value="255">
 
-<label>
-Jaune
-<input type="range" id="yellow" min="0" max="100" value="0">
-</label>
+    <label>Bleu</label>
+    <input type="range" id="b" min="0" max="255" value="255">
 
-<div id="cmyColor"></div>
-
-</div>
-
-<div>
-
-<canvas id="cmyCanvas" width="400" height="300"></canvas>
-
-</div>
-
-</div>
-
-<div class="card">
-
-<h3>Application réelle</h3>
-
-<p>
-
-Les imprimantes utilisent les couleurs CMJ.
-
-Chaque pigment absorbe certaines longueurs d’onde.
-
-</p>
-
-</div>
-
+    <div id="colorBox"></div>
+  </div>
 </section>
 
-<!-- ====================================== -->
-<!-- SPECTRE -->
-<!-- ====================================== -->
+<section id="additive">
+  <h2>Synthèse additive</h2>
 
-<section id="spectrum" class="tab">
+  <img src="assets/img/additive.png" alt="Synthèse additive">
 
-<h2>3️⃣ Spectre lumineux et longueurs d’onde</h2>
+  <div class="card">
+    <h3>Principe</h3>
+    <p>
+      Rouge + Vert + Bleu = Blanc
+    </p>
+  </div>
 
-<div class="card">
-
-<h3>Spectre visible</h3>
-
-<canvas id="spectrumCanvas" width="900" height="180"></canvas>
-
-</div>
-
-<div class="card">
-
-<h3>Informations</h3>
-
-<table>
-
-<tr>
-<th>Couleur</th>
-<th>Longueur d’onde</th>
-</tr>
-
-<tr>
-<td>Violet</td>
-<td>400 nm</td>
-</tr>
-
-<tr>
-<td>Bleu</td>
-<td>450 nm</td>
-</tr>
-
-<tr>
-<td>Vert</td>
-<td>530 nm</td>
-</tr>
-
-<tr>
-<td>Jaune</td>
-<td>580 nm</td>
-</tr>
-
-<tr>
-<td>Rouge</td>
-<td>700 nm</td>
-</tr>
-
-</table>
-
-</div>
-
-<div class="card">
-
-<h3>Domaines électromagnétiques</h3>
-
-<ul>
-
-<li>Ultraviolet : λ &lt; 400 nm</li>
-<li>Visible : 400 nm → 800 nm</li>
-<li>Infrarouge : λ &gt; 800 nm</li>
-
-</ul>
-
-</div>
-
+  <canvas id="rgbCanvas"></canvas>
 </section>
 
-<!-- ====================================== -->
-<!-- OEIL -->
-<!-- ====================================== -->
+<section id="subtractive">
+  <h2>Synthèse soustractive</h2>
 
-<section id="eye" class="tab">
+  <img src="assets/img/subtractive.png" alt="Synthèse soustractive">
 
-<h2>4️⃣ Fonctionnement de l’œil</h2>
-
-<div class="grid">
-
-<div class="card">
-
-<h3>Les cônes de l’œil</h3>
-
-<p>
-
-L’œil possède trois types de cônes sensibles :
-- au rouge
-- au vert
-- au bleu
-
-L’œil réalise une synthèse additive.
-
-</p>
-
-</div>
-
-<div>
-
-<canvas id="eyeCanvas" width="400" height="300"></canvas>
-
-</div>
-
-</div>
-
-<div class="card">
-
-<h3>Expérience</h3>
-
-<p>
-
-Modifier les intensités RVB et observer
-la couleur perçue par l’œil.
-
-</p>
-
-</div>
-
+  <div class="card">
+    <h3>Principe</h3>
+    <p>
+      Cyan + Magenta + Jaune → Noir
+    </p>
+  </div>
 </section>
 
-<!-- ====================================== -->
-<!-- INFRA -->
-<!-- ====================================== -->
-
-<section id="infrared" class="tab">
-
-<h2>5️⃣ Infrarouges</h2>
-
-<div class="grid">
-
-<div class="card">
-
-<h3>Télécommande infrarouge</h3>
-
-<p>
-
-Les télécommandes utilisent des LED infrarouges.
-
-Le rayonnement est invisible à l’œil humain.
-
-</p>
-
-<button id="remoteBtn">Émettre un signal IR</button>
-
-</div>
-
-<div>
-
-<canvas id="irCanvas" width="400" height="250"></canvas>
-
-</div>
-
-</div>
-
-<div class="card">
-
-<h3>Applications des infrarouges</h3>
-
-<ul>
-
-<li>Télécommandes</li>
-<li>Caméras thermiques</li>
-<li>Détecteurs de mouvement</li>
-<li>Vision nocturne</li>
-
-</ul>
-
-</div>
-
-<div class="card danger">
-
-<h3>Danger</h3>
-
-<p>
-
-Une exposition excessive aux infrarouges peut provoquer :
-- brûlures
-- échauffement des tissus
-
-</p>
-
-</div>
-
-</section>
-
-<!-- ====================================== -->
-<!-- UV -->
-<!-- ====================================== -->
-
-<section id="uv" class="tab">
-
-<h2>6️⃣ Ultraviolets</h2>
-
-<div class="card">
-
-<h3>Les UV</h3>
-
-<p>
-
-Les ultraviolets ont une longueur d’onde plus petite que le violet.
-
-Ils transportent davantage d’énergie.
-
-</p>
-
-</div>
-
-<div class="card danger">
-
-<h3>Effets sur la santé</h3>
-
-<ul>
-
-<li>Coups de soleil</li>
-<li>Vieillissement de la peau</li>
-<li>Cancers cutanés</li>
-<li>Lésions oculaires</li>
-
-</ul>
-
-</div>
-
-<div class="card success">
-
-<h3>Protection</h3>
-
-<ul>
-
-<li>Crème solaire</li>
-<li>Lunettes UV</li>
-<li>Éviter les expositions longues</li>
-
-</ul>
-
-</div>
-
-</section>
-
-<!-- ====================================== -->
-<!-- PHOTONS -->
-<!-- ====================================== -->
-
-<section id="photon" class="tab">
-
-<h2>7️⃣ Lumière et photons</h2>
-
-<div class="card">
-
-<h3>La lumière est composée de photons</h3>
-
-<p>
-
-Chaque photon possède :
-- une énergie E
-- une longueur d’onde λ
-
-</p>
-
-</div>
-
-<div class="card">
-
-<h3>Relation énergie / longueur d’onde</h3>
-
-<p class="formula">
-
-E = hc / λ
-
-</p>
-
-<ul>
-
-<li>E : énergie du photon</li>
-<li>h : constante de Planck</li>
-<li>c : vitesse de la lumière</li>
-<li>λ : longueur d’onde</li>
-
-</ul>
-
-</div>
-
-<div class="card">
-
-<h3>Calculateur</h3>
-
-<label>
-
-Longueur d’onde (nm)
-
-<input type="range" id="lambdaSlider" min="400" max="800" value="550">
-
-</label>
-
-<p id="energyResult"></p>
-
-</div>
-
-</section>
-
-<!-- ====================================== -->
-<!-- CAPTEURS -->
-<!-- ====================================== -->
-
-<section id="sensor" class="tab">
-
-<h2>8️⃣ Photocomposants</h2>
-
-<div class="grid">
-
-<div class="card">
-
-<h3>Capteur lumineux</h3>
-
-<p>
-
-Un photocomposant transforme la lumière en signal électrique.
-
-</p>
-
-<label>
-
-Intensité lumineuse
-
-<input type="range" id="lightIntensity" min="0" max="100" value="50">
-
-</label>
-
-<p id="sensorOutput"></p>
-
-</div>
-
-<div>
-
-<canvas id="sensorCanvas" width="400" height="250"></canvas>
-
-</div>
-
-</div>
-
-<div class="card">
-
-<h3>Applications</h3>
-
-<ul>
-
-<li>Capteurs de luminosité</li>
-<li>Panneaux solaires</li>
-<li>Cellules photoélectriques</li>
-<li>Appareils photo numériques</li>
-
-</ul>
-
-</div>
-
-</section>
-
-<!-- ====================================== -->
-<!-- QUIZ -->
-<!-- ====================================== -->
-
-<section id="quiz" class="tab">
-
-<h2>9️⃣ Quiz final</h2>
-
-<div id="quizContainer"></div>
-
-<button id="correctQuiz">Corriger</button>
-
-<div id="score"></div>
-
+<section id="quiz">
+  <h2>Quiz interactif</h2>
+
+  <div id="quizContainer"></div>
+  <button id="nextQuestion">Question suivante</button>
 </section>
 
 </main>
 
 <script src="script.js"></script>
-
 </body>
 </html>
