@@ -200,11 +200,37 @@ margin:25px 0;
 
 }
 
+/* ========================================= */
+/* RESPONSIVE ISHIHARA */
+/* ========================================= */
+
+.ishihara-wrapper{
+
+width:100%;
+display:flex;
+justify-content:center;
+align-items:center;
+margin-top:20px;
+
+}
+
 #ishiharaCanvas{
 
-background:#111;
+width:min(90vw,500px);
+height:min(90vw,500px);
+
+max-width:500px;
+max-height:500px;
+
+aspect-ratio:1/1;
+
 border-radius:50%;
+
+background:#111;
+
 box-shadow:0 0 20px rgba(0,0,0,0.5);
+
+display:block;
 
 }
 
