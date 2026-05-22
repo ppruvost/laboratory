@@ -1,86 +1,93 @@
 body{
-    margin:0;
-    background:#101820;
-    color:white;
-    font-family:Arial;
+  margin:0;
+  font-family:Arial, sans-serif;
+  background:#f0f4f8;
+  color:#222;
 }
 
 header{
-    padding:20px;
-    text-align:center;
+  background:#111827;
+  color:white;
+  padding:20px;
+  text-align:center;
 }
 
 nav{
-    display:flex;
-    flex-wrap:wrap;
-    gap:10px;
-    justify-content:center;
-    padding:10px;
+  display:flex;
+  justify-content:center;
+  gap:10px;
+  padding:10px;
+  background:#1f2937;
 }
 
-.tab-btn{
-    padding:10px 15px;
-    border:none;
-    border-radius:10px;
-    background:#223040;
-    color:white;
-    cursor:pointer;
+nav button{
+  padding:10px 15px;
+  border:none;
+  background:#3b82f6;
+  color:white;
+  cursor:pointer;
+  border-radius:8px;
 }
 
-.tab-btn.active{
-    background:#00b4d8;
+section{
+  display:none;
+  padding:20px;
 }
 
-.tab{
-    display:none;
-    padding:20px;
+section.active{
+  display:block;
 }
 
-.tab.active{
-    display:block;
+img{
+  max-width:100%;
+  border-radius:10px;
 }
 
 .card{
-    background:#172432;
-    padding:20px;
-    border-radius:15px;
-    margin-bottom:20px;
+  background:white;
+  padding:15px;
+  margin-top:20px;
+  border-radius:10px;
+  box-shadow:0 0 10px rgba(0,0,0,0.1);
 }
 
-.grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(350px,1fr));
-    gap:20px;
+.spectrum-bar{
+  height:60px;
+  border-radius:10px;
+  background:linear-gradient(
+    to right,
+    violet,
+    blue,
+    cyan,
+    green,
+    yellow,
+    orange,
+    red
+  );
 }
 
-.controls label{
-    display:block;
-    margin-bottom:15px;
+table{
+  width:100%;
+  margin-top:20px;
+  border-collapse:collapse;
+}
+
+td, th{
+  border:1px solid #ccc;
+  padding:10px;
+}
+
+#colorBox{
+  width:200px;
+  height:200px;
+  margin-top:20px;
+  border-radius:12px;
+  border:3px solid black;
 }
 
 canvas{
-    background:white;
-    border-radius:15px;
-}
-
-#rgbColor,
-#cmyColor{
-    width:100%;
-    height:80px;
-    border-radius:10px;
-    margin-top:15px;
-}
-
-.formula{
-    font-size:2rem;
-    text-align:center;
-    font-weight:bold;
-}
-
-.danger{
-    border-left:6px solid red;
-}
-
-.success{
-    border-left:6px solid lime;
+  width:100%;
+  height:300px;
+  background:black;
+  border-radius:12px;
 }
