@@ -1,146 +1,365 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TP Optique - Couleurs</title>
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>TP Optique et Couleurs</title>
+
+<link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
 <header>
-  <h1>Travaux Pratiques - Optique et Couleurs</h1>
-  <p>Synthèse additive, vision humaine et spectre lumineux</p>
+
+<h1>🎨 TP Physique — Optique et Couleurs</h1>
+
+<p>
+Synthèse additive, synthèse soustractive, filtres,
+spectre lumineux et vision humaine
+</p>
+
 </header>
 
 <nav>
-  <button data-section="intro">Introduction</button>
-  <button data-section="spectrum">Spectre lumineux</button>
-  <button data-section="cones">Les cônes</button>
-  <button data-section="additive">Synthèse additive</button>
-  <button data-section="subtractive">Synthèse soustractive</button>
-  <button data-section="quiz">Quiz</button>
+
+<button data-target="intro">Introduction</button>
+<button data-target="rvb">RVB</button>
+<button data-target="cmj">CMJ</button>
+<button data-target="filters">Filtres</button>
+<button data-target="cones">Cônes</button>
+<button data-target="spectrum">Spectre</button>
+<button data-target="daltonism">Daltonisme</button>
+<button data-target="quiz">QCM</button>
+
 </nav>
 
 <main>
 
-<section id="intro" class="active">
-  <h2>Introduction</h2>
-  <p>
-    La lumière blanche est composée de toutes les couleurs visibles.
-    L’œil humain perçoit les longueurs d’onde comprises entre environ
-    380 nm et 780 nm.
-  </p>
+<!-- ====================================== -->
+<!-- INTRO -->
+<!-- ====================================== -->
 
-  <img src="assets/img/spectrum.png" alt="Spectre lumineux">
+<section id="intro" class="active section">
 
-  <div class="card">
-    <h3>Le spectre électromagnétique</h3>
-    <ul>
-      <li>Ultraviolet : &lt; 380 nm</li>
-      <li>Visible : 380 → 780 nm</li>
-      <li>Infrarouge : &gt; 780 nm</li>
-    </ul>
-  </div>
+<h2>🌈 Introduction</h2>
+
+<div class="card">
+
+<p>
+La lumière visible est une petite partie du spectre électromagnétique.
+L’œil humain perçoit les longueurs d’onde entre environ
+380 nm et 780 nm.
+</p>
+
+<div class="spectrum-bar"></div>
+
+<table>
+
+<tr>
+<th>Rayonnement</th>
+<th>Longueur d’onde</th>
+</tr>
+
+<tr>
+<td>UV</td>
+<td>&lt; 380 nm</td>
+</tr>
+
+<tr>
+<td>Visible</td>
+<td>380 → 780 nm</td>
+</tr>
+
+<tr>
+<td>IR</td>
+<td>&gt; 780 nm</td>
+</tr>
+
+</table>
+
+</div>
+
 </section>
 
-<section id="spectrum">
-  <h2>Longueurs d’onde et couleurs</h2>
+<!-- ====================================== -->
+<!-- RVB -->
+<!-- ====================================== -->
 
-  <div class="spectrum-bar"></div>
+<section id="rvb" class="section">
 
-  <table>
-    <tr>
-      <th>Couleur</th>
-      <th>Longueur d’onde</th>
-    </tr>
-    <tr><td>Violet</td><td>380 - 450 nm</td></tr>
-    <tr><td>Bleu</td><td>450 - 495 nm</td></tr>
-    <tr><td>Vert</td><td>495 - 570 nm</td></tr>
-    <tr><td>Jaune</td><td>570 - 590 nm</td></tr>
-    <tr><td>Orange</td><td>590 - 620 nm</td></tr>
-    <tr><td>Rouge</td><td>620 - 780 nm</td></tr>
-  </table>
+<h2>💡 Synthèse Additive RVB</h2>
 
-  <div class="card">
-    <h3>Applications dans la vie quotidienne</h3>
-    <ul>
-      <li>Télécommandes : LED infrarouges</li>
-      <li>UV : bronzage, désinfection</li>
-      <li>Écrans : pixels RGB</li>
-      <li>Imprimantes : CMJN</li>
-    </ul>
-  </div>
+<div class="grid">
+
+<div class="panel">
+
+<div class="slider-group">
+<label>Rouge <span id="rVal">255</span></label>
+<input class="r-slider" type="range" id="red" min="0" max="255" value="255">
+</div>
+
+<div class="slider-group">
+<label>Vert <span id="gVal">255</span></label>
+<input class="g-slider" type="range" id="green" min="0" max="255" value="255">
+</div>
+
+<div class="slider-group">
+<label>Bleu <span id="bVal">255</span></label>
+<input class="b-slider" type="range" id="blue" min="0" max="255" value="255">
+</div>
+
+<div class="color-preview" id="rgbPreview"></div>
+
+<div class="result" id="rgbResult"></div>
+
+</div>
+
+<div class="panel">
+
+<canvas id="rgbCanvas" width="350" height="250"></canvas>
+
+</div>
+
+</div>
+
 </section>
 
-<section id="cones">
-  <h2>Sensibilité des trois cônes de la rétine</h2>
+<!-- ====================================== -->
+<!-- CMJ -->
+<!-- ====================================== -->
 
-  <img src="assets/img/cones.png" alt="Sensibilité des cônes">
+<section id="cmj" class="section">
 
-  <p>
-    La rétine possède trois types de cônes :
-  </p>
+<h2>🖨️ Synthèse Soustractive CMJ</h2>
 
-  <ul>
-    <li><strong>Cônes S</strong> : sensibles au bleu (~420 nm)</li>
-    <li><strong>Cônes M</strong> : sensibles au vert (~530 nm)</li>
-    <li><strong>Cônes L</strong> : sensibles au rouge (~565 nm)</li>
-  </ul>
+<div class="grid">
 
-  <div class="interactive-rgb">
-    <h3>Simulation de perception</h3>
+<div class="panel">
 
-    <label>Rouge</label>
-    <input type="range" id="r" min="0" max="255" value="255">
+<div class="slider-group">
+<label>Cyan <span id="cVal">0%</span></label>
+<input class="c-slider" type="range" id="cyan" min="0" max="100" value="0">
+</div>
 
-    <label>Vert</label>
-    <input type="range" id="g" min="0" max="255" value="255">
+<div class="slider-group">
+<label>Magenta <span id="mVal">0%</span></label>
+<input class="m-slider" type="range" id="magenta" min="0" max="100" value="0">
+</div>
 
-    <label>Bleu</label>
-    <input type="range" id="b" min="0" max="255" value="255">
+<div class="slider-group">
+<label>Jaune <span id="yVal">0%</span></label>
+<input class="y-slider" type="range" id="yellow" min="0" max="100" value="0">
+</div>
 
-    <div id="colorBox"></div>
-  </div>
+<div class="color-preview" id="cmyPreview"></div>
+
+<div class="result" id="cmyResult"></div>
+
+</div>
+
+<div class="panel">
+
+<canvas id="cmyCanvas" width="350" height="250"></canvas>
+
+</div>
+
+</div>
+
 </section>
 
-<section id="additive">
-  <h2>Synthèse additive</h2>
+<!-- ====================================== -->
+<!-- FILTRES -->
+<!-- ====================================== -->
 
-  <img src="assets/img/additive.png" alt="Synthèse additive">
+<section id="filters" class="section">
 
-  <div class="card">
-    <h3>Principe</h3>
-    <p>
-      Rouge + Vert + Bleu = Blanc
-    </p>
-  </div>
+<h2>🔬 Filtres colorés</h2>
 
-  <canvas id="rgbCanvas"></canvas>
+<div class="grid">
+
+<div class="panel">
+
+<label>Lumière incidente</label>
+
+<select id="lightSelect">
+
+<option value="red">Rouge</option>
+<option value="green">Vert</option>
+<option value="blue">Bleu</option>
+<option value="white">Blanc</option>
+
+</select>
+
+<label>Filtre</label>
+
+<select id="filterSelect">
+
+<option value="red">Rouge</option>
+<option value="green">Vert</option>
+<option value="blue">Bleu</option>
+<option value="cyan">Cyan</option>
+<option value="magenta">Magenta</option>
+<option value="yellow">Jaune</option>
+
+</select>
+
+<button onclick="applyFilter()">
+Appliquer
+</button>
+
+<div class="result" id="filterResult"></div>
+
+</div>
+
+<div class="panel">
+
+<canvas id="filterCanvas" width="350" height="250"></canvas>
+
+</div>
+
+</div>
+
 </section>
 
-<section id="subtractive">
-  <h2>Synthèse soustractive</h2>
+<!-- ====================================== -->
+<!-- CONES -->
+<!-- ====================================== -->
 
-  <img src="assets/img/subtractive.png" alt="Synthèse soustractive">
+<section id="cones" class="section">
 
-  <div class="card">
-    <h3>Principe</h3>
-    <p>
-      Cyan + Magenta + Jaune → Noir
-    </p>
-  </div>
+<h2>👁️ Sensibilité des cônes</h2>
+
+<div class="panel">
+
+<label>Longueur d’onde (nm)</label>
+
+<input type="range"
+id="waveSlider"
+min="380"
+max="780"
+value="550">
+
+<h3 id="waveValue">550 nm</h3>
+
+<div class="cones-container">
+
+<div class="cone">
+<h4>Cône S</h4>
+<div class="bar blue-bar" id="sCone"></div>
+</div>
+
+<div class="cone">
+<h4>Cône M</h4>
+<div class="bar green-bar" id="mCone"></div>
+</div>
+
+<div class="cone">
+<h4>Cône L</h4>
+<div class="bar red-bar" id="lCone"></div>
+</div>
+
+</div>
+
+</div>
+
 </section>
 
-<section id="quiz">
-  <h2>Quiz interactif</h2>
+<!-- ====================================== -->
+<!-- SPECTRE -->
+<!-- ====================================== -->
 
-  <div id="quizContainer"></div>
-  <button id="nextQuestion">Question suivante</button>
+<section id="spectrum" class="section">
+
+<h2>📡 Spectre lumineux</h2>
+
+<div class="panel">
+
+<div class="spectrum-bar"></div>
+
+<p>
+UV → Visible → Infrarouge
+</p>
+
+<ul>
+
+<li>UV : bronzage, désinfection</li>
+<li>Visible : vision humaine</li>
+<li>IR : télécommandes, thermique</li>
+
+</ul>
+
+</div>
+
+</section>
+
+<!-- ====================================== -->
+<!-- DALTONISME -->
+<!-- ====================================== -->
+
+<section id="daltonism" class="section">
+
+<h2>🧠 Daltonisme</h2>
+
+<div class="panel">
+
+<p>
+Le daltonisme est lié à un dysfonctionnement des cônes.
+</p>
+
+<img
+src="assets/img/ishihara.png"
+class="ishihara"
+alt="Test Ishihara">
+
+</div>
+
+</section>
+
+<!-- ====================================== -->
+<!-- QUIZ -->
+<!-- ====================================== -->
+
+<section id="quiz" class="section">
+
+<h2>📝 Validation des connaissances</h2>
+
+<div class="panel">
+
+<div class="qcm">
+
+<h3>1. Rouge + Vert donne :</h3>
+
+<label><input type="radio" name="q1" value="true"> Jaune</label>
+<label><input type="radio" name="q1" value="false"> Cyan</label>
+<label><input type="radio" name="q1" value="false"> Noir</label>
+
+</div>
+
+<div class="qcm">
+
+<h3>2. Le cyan absorbe :</h3>
+
+<label><input type="radio" name="q2" value="true"> Rouge</label>
+<label><input type="radio" name="q2" value="false"> Bleu</label>
+
+</div>
+
+<button onclick="correctQuiz()">
+Corriger
+</button>
+
+<div id="score"></div>
+
+</div>
+
 </section>
 
 </main>
 
 <script src="script.js"></script>
+
 </body>
 </html>
