@@ -298,7 +298,7 @@ ishCtx.clearRect(0,0,500,500);
 ishCtx.fillStyle="#222";
 
 ishCtx.beginPath();
-ishCtx.arc(175,175,160,0,Math.PI*2);
+ishCtx.arc(125,125,110,0,Math.PI*2);
 ishCtx.fill();
 
 currentPlate =
@@ -321,14 +321,14 @@ for(let i=0;i<1400;i++){
 let x = Math.random()*500;
 let y = Math.random()*500;
 
-let dx = x-175;
-let dy = y-175;
+let dx = x-125;
+let dy = y-125;
 
-if(dx*dx+dy*dy > 150*150){
+if(dx*dx+dy*dy > 105*105){
 continue;
 }
 
-let radius = 6 + Math.random()*10;
+let radius = 2 + Math.random()*4;
 
 let inside =
 isInsideNumber(x,y,plate.number);
@@ -355,7 +355,7 @@ ishCtx.fill();
 
 function isInsideNumber(x,y,number){
 
-ishCtx.font="bold 110px Arial";
+ishCtx.font="bold 70px Arial";
 
 const textWidth =
 ishCtx.measureText(number).width;
@@ -372,7 +372,7 @@ temp.height=500;
 const tctx =
 temp.getContext("2d");
 
-tctx.font="bold 110px Arial";
+tctx.font="bold 70px Arial";
 
 tctx.fillStyle="white";
 
