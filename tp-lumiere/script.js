@@ -282,79 +282,117 @@ waveSlider.addEventListener("input", () => {
 // TEST ISHIHARA RESPONSIVE
 // ======================================
 
-const ishCanvas =
-    document.getElementById("ishiharaCanvas");
+const ishCanvas = document.getElementById("ishiharaCanvas");
+const ishCtx = ishCanvas.getContext("2d");
 
-const ishCtx =
-    ishCanvas.getContext("2d");
-
-const visionMode =
-    document.getElementById("visionMode");
-
-const answerInput =
-    document.getElementById("answerInput");
-
-const resultBox =
-    document.getElementById("resultBox");
+const visionMode = document.getElementById("visionMode");
+const answerInput = document.getElementById("answerInput");
+const resultBox = document.getElementById("resultBox");
 
 let canvasSize;
 let center;
 let bigRadius;
 
-const plates = [
-
-    {
-        number: "12",
-        fg: "#ff7f50",
-        bg: "#6bbf59"
-    },
-
-    {
-        number: "8",
-        fg: "#ff8c42",
-        bg: "#4caf50"
-    },
-
-    {
-        number: "29",
-        fg: "#f78154",
-        bg: "#5cae5c"
-    },
-
-    {
-        number: "74",
-        fg: "#f79f79",
-        bg: "#60b060"
-    },
-
-    {
-        number: "5",
-        fg: "#f76f6f",
-        bg: "#58a858"
-    }
-
-];
-
+let numberMask = null;
 let currentPlate = null;
+let lastNumber = null;
 
 // ======================================
-// RESIZE ISHIHARA
+// RESIZE
 // ======================================
 
 function resizeIshihara() {
 
-    canvasSize =
-        Math.min(window.innerWidth * 0.65, 420);
+    canvasSize = Math.min(window.innerWidth * 0.65, 420);
 
     ishCanvas.width = canvasSize;
     ishCanvas.height = canvasSize;
 
     center = canvasSize / 2;
-
     bigRadius = canvasSize * 0.42;
 
     generatePlate();
+}
 
+// ======================================
+// GENERATION NOMBRE ALÉATOIRE (DYNAMIQUE)
+// ======================================
+
+function generateRandomPlate() {
+
+    let number;
+
+    do {
+        number = String(Math.floor(Math.random() * 90) + 10);
+    } while (number === lastNumber);
+
+    lastNumber = number;
+
+    return {
+        number,
+        fg: randomFgColor(),
+        bg: randomBgColor()
+    };
+}
+
+// ======================================
+// COULEURS (AMÉLIORÉES CONTRASTE ISHIHARA)
+// ======================================
+
+function randomFgColor() {
+
+    const colors = [
+        "#ff7f50", "#ff8c42", "#f78154",
+        "#f79f79", "#f76f6f", "#ff6b6b"
+    ];
+
+    return colors[Math.floor(Math.random() * colors.length)];
+}
+
+function randomBgColor() {
+
+    const colors = [
+        "#4caf50", "#5cae5c", "#60b060",
+        "#58a858", "#6bbf59", "#55aa55"
+    ];
+
+    return colors[Math.floor(Math.random() * colors.length)];
+}
+
+// ======================================
+// MASK (ULTRA IMPORTANT PERFS)
+// ======================================
+
+function buildNumberMask(number) {
+
+    const temp = document.createElement("canvas");
+    temp.width = canvasSize;
+    temp.height = canvasSize;
+
+    const tctx = temp.getContext("2d");
+
+    const fontSize = canvasSize * 0.30;
+
+    tctx.clearRect(0, 0, canvasSize, canvasSize);
+
+    tctx.font = `bold ${fontSize}px Arial`;
+    tctx.textAlign = "center";
+    tctx.textBaseline = "middle";
+
+    tctx.fillStyle = "white";
+    tctx.fillText(number, center, center);
+
+    const img = tctx.getImageData(
+        0, 0, canvasSize, canvasSize
+    ).data;
+
+    const mask = new Uint8Array(canvasSize * canvasSize);
+
+    for (let i = 0; i < mask.length; i++) {
+        mask[i] = img[i * 4 + 3] > 0 ? 1 : 0;
+    }
+
+    return mask;
 }
 
 // ======================================
@@ -363,158 +401,68 @@ function resizeIshihara() {
 
 function generatePlate() {
 
-    ishCtx.clearRect(
-        0,
-        0,
-        canvasSize,
-        canvasSize
-    );
+    ishCtx.clearRect(0, 0, canvasSize, canvasSize);
 
+    // fond cercle
     ishCtx.fillStyle = "#222";
-
     ishCtx.beginPath();
-
-    ishCtx.arc(
-        center,
-        center,
-        bigRadius,
-        0,
-        Math.PI * 2
-    );
-
+    ishCtx.arc(center, center, bigRadius, 0, Math.PI * 2);
     ishCtx.fill();
 
-    currentPlate =
-        plates[
-            Math.floor(
-                Math.random() * plates.length
-            )
-        ];
+    currentPlate = generateRandomPlate();
+
+    // masque dynamique
+    numberMask = buildNumberMask(currentPlate.number);
 
     drawDots(currentPlate);
-
 }
 
 // ======================================
-// DRAW DOTS
+// DRAW DOTS (ISHIHARA RÉALISTE)
 // ======================================
 
 function drawDots(plate) {
 
     const mode = visionMode.value;
 
-    const dots =
-        Math.floor(canvasSize * 5);
+    // 🔥 densité réaliste
+    const dots = Math.floor(canvasSize * canvasSize * 0.16);
 
     for (let i = 0; i < dots; i++) {
 
-        let x =
-            Math.random() * canvasSize;
-
-        let y =
-            Math.random() * canvasSize;
+        let x = Math.random() * canvasSize;
+        let y = Math.random() * canvasSize;
 
         let dx = x - center;
         let dy = y - center;
 
-        if (
-            dx * dx + dy * dy >
-            bigRadius * bigRadius
-        ) {
+        // cercle
+        if (dx * dx + dy * dy > bigRadius * bigRadius) {
             continue;
         }
 
+        // 🔥 points très fins (réaliste Ishihara)
         let dotRadius =
-            canvasSize * 0.004 +
-            Math.random() *
-            canvasSize * 0.008;
+            canvasSize * (0.0013 + Math.random() * 0.0028);
 
-        let inside =
-            isInsideNumber(
-                x,
-                y,
-                plate.number
-            );
+        // masque ultra rapide
+        let ix = (y | 0) * canvasSize + (x | 0);
+        let inside = numberMask[ix] === 1;
 
-        let color =
-            inside ? plate.fg : plate.bg;
+        let color = inside ? plate.fg : plate.bg;
 
-        color =
-            applyColorBlindness(
-                color,
-                mode
-            );
+        color = applyColorBlindness(color, mode);
 
         ishCtx.fillStyle = color;
 
         ishCtx.beginPath();
-
-        ishCtx.arc(
-            x,
-            y,
-            dotRadius,
-            0,
-            Math.PI * 2
-        );
-
+        ishCtx.arc(x, y, dotRadius, 0, Math.PI * 2);
         ishCtx.fill();
-
     }
-
 }
 
 // ======================================
-// INSIDE NUMBER
-// ======================================
-
-function isInsideNumber(x, y, number) {
-
-    const temp =
-        document.createElement("canvas");
-
-    temp.width = canvasSize;
-    temp.height = canvasSize;
-
-    const tctx =
-        temp.getContext("2d");
-
-    const fontSize =
-        canvasSize * 0.28;
-
-    tctx.font =
-        `bold ${fontSize}px Arial`;
-
-    const textWidth =
-        tctx.measureText(number).width;
-
-    const tx =
-        center - textWidth / 2;
-
-    const ty =
-        center + canvasSize * 0.1;
-
-    tctx.fillStyle = "white";
-
-    tctx.fillText(
-        number,
-        tx,
-        ty
-    );
-
-    const pixel =
-        tctx.getImageData(
-            x,
-            y,
-            1,
-            1
-        ).data;
-
-    return pixel[3] > 0;
-
-}
-
-// ======================================
-// COLOR BLINDNESS
+// SIMULATION DALTONISME (SIMPLE)
 // ======================================
 
 function applyColorBlindness(hex, mode) {
@@ -528,112 +476,77 @@ function applyColorBlindness(hex, mode) {
     switch (mode) {
 
         case "protanopia":
-
             r = 0.567 * r + 0.433 * g;
             g = 0.558 * r + 0.442 * g;
-
             break;
 
         case "deuteranopia":
-
             r = 0.625 * r + 0.375 * g;
             g = 0.7 * r + 0.3 * g;
-
             break;
 
         case "tritanopia":
-
             g = 0.95 * g + 0.05 * b;
             b = 0.433 * g + 0.567 * b;
-
             break;
-
     }
 
     return `rgb(${r},${g},${b})`;
-
 }
 
 // ======================================
-// HEX TO RGB
+// HEX → RGB
 // ======================================
 
 function hexToRgb(hex) {
 
     hex = hex.replace("#", "");
 
-    let bigint =
-        parseInt(hex, 16);
+    let bigint = parseInt(hex, 16);
 
     return {
-
         r: (bigint >> 16) & 255,
         g: (bigint >> 8) & 255,
         b: bigint & 255
-
     };
-
 }
 
 // ======================================
-// ISHIHARA EVENTS
+// EVENTS
 // ======================================
 
-document
-    .getElementById("checkAnswer")
+document.getElementById("checkAnswer")
     .addEventListener("click", () => {
 
-        const userAnswer =
-            answerInput.value.trim();
+        const userAnswer = answerInput.value.trim();
 
-        if (
-            userAnswer === currentPlate.number
-        ) {
+        if (userAnswer === currentPlate.number) {
 
             resultBox.innerHTML =
                 "<span class='good'>✔ Bonne réponse</span>";
 
         } else {
 
-            resultBox.innerHTML = `
-            <span class='bad'>
-            ❌ Réponse :
-            ${currentPlate.number}
-            </span>
-        `;
-
+            resultBox.innerHTML =
+                `<span class='bad'>❌ Réponse : ${currentPlate.number}</span>`;
         }
-
     });
 
-document
-    .getElementById("newPlateBtn")
+document.getElementById("newPlateBtn")
     .addEventListener("click", () => {
 
         answerInput.value = "";
         resultBox.innerHTML = "";
 
         generatePlate();
-
     });
 
-visionMode.addEventListener(
-    "change",
-    generatePlate
-);
+visionMode.addEventListener("change", generatePlate);
 
-window.addEventListener(
-    "resize",
-    () => {
+window.addEventListener("resize", () => {
 
-        updateRGB();
-        updateCMY();
-        applyFilter();
-        resizeIshihara();
-
-    }
-);
-
+    resizeIshihara();
+});
 // ======================================
 // QUIZ
 // ======================================
