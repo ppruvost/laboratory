@@ -432,3 +432,53 @@ overflow:auto;
 -webkit-overflow-scrolling:touch;
 
 }
+
+/* ===================================== */
+/* MOBILE */
+/* ===================================== */
+
+@media (max-width:768px){
+
+.tp-viewer{
+
+height:calc(100dvh - 80px);
+
+}
+
+.viewer-topbar{
+
+height:55px;
+
+padding:0 12px;
+
+}
+
+.viewer-topbar h2{
+
+font-size:0.95rem;
+
+}
+
+.viewer-topbar button{
+
+padding:8px 12px;
+
+font-size:0.9rem;
+
+}
+
+#tpFrame{
+
+height:calc(100dvh - 135px);
+
+}
+
+/* IMPORTANT :
+   évite le contenu collé au bas */
+body{
+
+padding-bottom:80px;
+
+}
+
+}
