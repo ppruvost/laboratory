@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 120">
+
+<text x="20" y="60">Émetteur</text>
+
+<line x1="120" y1="50" x2="260" y2="50" stroke="black"></line>
+
+<text x="280" y="60">Milieu</text>
+
+<line x1="360" y1="50" x2="500" y2="50" stroke="black"></line>
+
+<text x="520" y="60">Récepteur</text>
+
+</svg>

@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 120">
+
+<circle cx="60" cy="60" r="20" fill="#1f3c63"></circle>
+
+<text x="30" y="100">Émetteur</text>
+
+<path d="M90 60 H400" stroke="#444" stroke-width="4"></path>
+
+<circle cx="440" cy="60" r="20" fill="#6ca6d9"></circle>
+
+<text x="410" y="100">Récepteur</text>
+
+</svg>
