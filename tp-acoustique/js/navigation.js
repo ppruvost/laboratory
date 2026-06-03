@@ -30,9 +30,23 @@ await fetch(
 
 );
 
-content.innerHTML=
+async function loadModule(name){
 
-await html.text();
+const response =
+
+await fetch(
+
+`modules/${name}.html`
+
+);
+
+content.innerHTML =
+
+await response.text();
+
+saveProgress(name);
+
+}
 
 updateProgress();
 
