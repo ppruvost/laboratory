@@ -1,1 +1,16 @@
+[
+ {
+   "nom":"Propagation",
+   "objectif":"Mesurer le temps de propagation"
+ },
 
+ {
+   "nom":"Isolation",
+   "objectif":"Comparer les matériaux"
+ },
+
+ {
+   "nom":"Transmission",
+   "objectif":"Envoyer une information sonore"
+ }
+]
