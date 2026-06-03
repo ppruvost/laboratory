@@ -1,1 +1,21 @@
+[
+ {
+   "titre":"Fréquence",
+   "contenu":"La fréquence détermine si un son est grave ou aigu."
+ },
 
+ {
+   "titre":"Intensité",
+   "contenu":"L’intensité sonore se mesure en décibels."
+ },
+
+ {
+   "titre":"Propagation",
+   "contenu":"Le son nécessite un milieu matériel."
+ },
+
+ {
+   "titre":"Sécurité",
+   "contenu":"Au-delà de 85 dB, un risque auditif apparaît."
+ }
+]
