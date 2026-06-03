@@ -1,1 +1,46 @@
+<div class="card">
 
+<h2>
+
+Sécurité auditive
+
+</h2>
+
+<input
+type="range"
+id="risk"
+min="20"
+max="120">
+
+<p id="riskText">
+
+</p>
+
+<img
+src="../assets/icons/warning.svg">
+
+</div>
+
+<script>
+
+risk.oninput=()=>{
+
+const d=
+
+Number(risk.value);
+
+if(d>85)
+
+riskText.innerHTML=
+
+"Danger auditif";
+
+else
+
+riskText.innerHTML=
+
+"Zone sûre";
+
+};
+
+</script>
