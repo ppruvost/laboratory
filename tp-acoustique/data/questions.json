@@ -1,1 +1,28 @@
+[
+{
+"question":"Une fréquence élevée donne :",
+"options":[
+"son grave",
+"son aigu"
+],
+"answer":"son aigu"
+},
 
+{
+"question":"Seuil danger auditif ?",
+"options":[
+"40 dB",
+"85 dB"
+],
+"answer":"85 dB"
+},
+
+{
+"question":"Le son se propage dans :",
+"options":[
+"le vide",
+"un milieu"
+],
+"answer":"un milieu"
+}
+]
