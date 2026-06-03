@@ -1,32 +1,78 @@
+/* ==========================
+   VARIABLES
+========================== */
+
+:root{
+
+--bleu:#1f3c63;
+
+--bleu-clair:#eef3f8;
+
+--texte:#1f2b38;
+
+--blanc:#ffffff;
+
+--ombre:0 2px 10px rgba(0,0,0,.08);
+
+--radius:15px;
+
+--transition:.25s;
+
+}
+
+/* ==========================
+   RESET
+========================== */
+
 *{
 
 box-sizing:border-box;
+
+margin:0;
+
+padding:0;
 
 }
 
 body{
 
-margin:0;
+font-family:Arial,sans-serif;
 
-font-family:Arial;
+background:var(--bleu-clair);
 
-background:#eef3f8;
+color:var(--texte);
 
-color:#1f2b38;
+line-height:1.5;
 
 }
+
+/* ==========================
+   HEADER
+========================== */
 
 header{
 
-background:#1f3c63;
-
-padding:25px;
+background:var(--bleu);
 
 color:white;
 
+padding:25px;
+
 text-align:center;
 
+box-shadow:0 2px 8px rgba(0,0,0,.15);
+
 }
+
+header h1{
+
+margin-bottom:15px;
+
+}
+
+/* ==========================
+   PROGRESSION
+========================== */
 
 .progress{
 
@@ -44,9 +90,9 @@ margin-top:15px;
 
 #bar{
 
-width:10%;
-
 height:100%;
+
+width:10%;
 
 background:white;
 
@@ -54,15 +100,19 @@ transition:.5s;
 
 }
 
+/* ==========================
+   NAVIGATION
+========================== */
+
 nav{
 
 display:flex;
 
+justify-content:center;
+
 gap:10px;
 
 padding:20px;
-
-justify-content:center;
 
 flex-wrap:wrap;
 
@@ -80,9 +130,31 @@ border-radius:10px;
 
 cursor:pointer;
 
-box-shadow:0 2px 6px rgba(0,0,0,.15);
+font-weight:bold;
+
+box-shadow:0 2px 6px rgba(0,0,0,.12);
+
+transition:var(--transition);
 
 }
+
+nav button:hover{
+
+transform:translateY(-2px);
+
+background:#dce7f4;
+
+}
+
+nav button:active{
+
+transform:scale(.98);
+
+}
+
+/* ==========================
+   MAIN
+========================== */
 
 main{
 
@@ -94,6 +166,10 @@ padding:20px;
 
 }
 
+/* ==========================
+   CARTES
+========================== */
+
 .card{
 
 background:white;
@@ -102,22 +178,270 @@ padding:25px;
 
 margin-bottom:25px;
 
-border-radius:15px;
+border-radius:var(--radius);
 
-box-shadow:0 2px 10px rgba(0,0,0,.08);
+box-shadow:var(--ombre);
 
 }
+
+.card h2,
+.card h3{
+
+margin-bottom:15px;
+
+}
+
+.card p,
+.card li{
+
+margin-bottom:10px;
+
+}
+
+/* ==========================
+   FORMULAIRES
+========================== */
+
+input,
+select{
+
+padding:10px;
+
+border:1px solid #ccc;
+
+border-radius:8px;
+
+width:100%;
+
+max-width:300px;
+
+}
+
+input[type="range"]{
+
+padding:0;
+
+width:250px;
+
+}
+
+label{
+
+font-weight:bold;
+
+margin-bottom:8px;
+
+display:block;
+
+}
+
+/* ==========================
+   GROUPES CONTROLES
+========================== */
+
+.controls,
+.buttons,
+.presets{
+
+display:flex;
+
+gap:12px;
+
+flex-wrap:wrap;
+
+align-items:center;
+
+margin:20px 0;
+
+}
+
+.buttons button,
+.presets button{
+
+background:var(--bleu);
+
+color:white;
+
+border:none;
+
+padding:12px 16px;
+
+border-radius:10px;
+
+cursor:pointer;
+
+transition:var(--transition);
+
+}
+
+.buttons button:hover,
+.presets button:hover{
+
+opacity:.9;
+
+transform:translateY(-2px);
+
+}
+
+.presets button{
+
+min-width:130px;
+
+}
+
+/* ==========================
+   TABLEAUX
+========================== */
+
+table{
+
+width:100%;
+
+border-collapse:collapse;
+
+margin:15px 0;
+
+}
+
+th,
+td{
+
+border:1px solid #ddd;
+
+padding:10px;
+
+text-align:center;
+
+}
+
+th{
+
+background:#dce7f4;
+
+}
+
+/* ==========================
+   CANVAS
+========================== */
 
 canvas{
 
 width:100%;
 
+max-width:100%;
+
 height:300px;
+
+background:white;
 
 border:1px solid #ccc;
 
 border-radius:10px;
 
-background:white;
+margin-bottom:20px;
+
+display:block;
+
+}
+
+/* ==========================
+   IMAGES SVG
+========================== */
+
+img{
+
+max-width:100%;
+
+display:block;
+
+margin:auto;
+
+}
+
+/* ==========================
+   QUIZ
+========================== */
+
+#quizContainer div{
+
+margin-bottom:20px;
+
+padding:15px;
+
+background:#f8fbff;
+
+border-radius:10px;
+
+}
+
+#score{
+
+font-size:1.2rem;
+
+font-weight:bold;
+
+margin-top:20px;
+
+}
+
+/* ==========================
+   ALERTES
+========================== */
+
+.warning{
+
+color:#b80000;
+
+font-weight:bold;
+
+}
+
+.success{
+
+color:#0a7c28;
+
+font-weight:bold;
+
+}
+
+/* ==========================
+   RESPONSIVE
+========================== */
+
+@media(max-width:700px){
+
+nav{
+
+flex-direction:column;
+
+}
+
+nav button{
+
+width:100%;
+
+}
+
+.controls,
+.buttons,
+.presets{
+
+flex-direction:column;
+
+align-items:stretch;
+
+}
+
+input[type="range"]{
+
+width:100%;
+
+}
+
+canvas{
+
+height:220px;
+
+}
 
 }
