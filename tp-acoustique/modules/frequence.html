@@ -1,72 +1,107 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <title>TP - Plage auditive - Fréquences sonores</title>
-
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-        }
-
-        .card {
-            max-width: 900px;
-            margin: auto;
-        }
-
-        canvas {
-            border: 1px solid #000;
-            margin-top: 15px;
-        }
-
-        button {
-            margin: 5px;
-        }
-
-        input[type="range"] {
-            width: 100%;
-        }
-    </style>
-</head>
-
-<body>
-
 <div class="card">
 
-    <h2>TP : Plage auditive et audiogramme</h2>
+<h2>
 
-    <p>
-        🎧 Utilise un casque. Explore les sons graves et aigus.
-        Détermine ta zone d’audition.
-    </p>
+TP – Test de plage auditive
 
-    <!-- CURSEUR -->
-    <input type="range" min="20" max="20000" value="440" id="freq">
+</h2>
 
-    <p id="freqText">440 Hz</p>
+<p>
 
-    <!-- AUDIO -->
-    <button id="playBtn">▶ Démarrer</button>
-    <button id="stopBtn">⏹ Stop</button>
+Mettre un casque audio.  
+Le son passera progressivement des basses fréquences vers les hautes fréquences.
 
-    <!-- MESURE -->
-    <button id="hearBtn">🎧 J'entends</button>
-    <button id="noHearBtn">🔇 Je n’entends plus</button>
+</p>
 
-    <!-- DIAGNOSTIC -->
-    <button id="diagnoseBtn">🧠 Diagnostic</button>
+<div class="buttons">
 
-    <!-- EXPORT -->
-    <button id="exportPdf">📄 Export PDF</button>
+<button id="startTest">
 
-    <!-- GRAPHE -->
-    <canvas id="audiogram" width="800" height="400"></canvas>
+▶ Démarrer le test
 
-    <p id="result"></p>
+</button>
+
+<button id="stopTest">
+
+■ Stop
+
+</button>
+
+</div>
+
+
+<div class="infos">
+
+<p>
+
+Temps :
+
+<span id="timer">
+
+0
+
+</span>
+s / 40 s
+
+</p>
+
+<p>
+
+Fréquence :
+
+<span id="currentFreq">
+
+20 Hz
+
+</span>
+
+</p>
+
+</div>
+
+
+<div class="buttons">
+
+<button id="hearBtn">
+
+🎧 Je commence à entendre
+
+</button>
+
+<button id="lostBtn">
+
+🔇 Je n'entends plus
+
+</button>
+
+</div>
+
+
+<canvas
+id="audiogram"
+width="900"
+height="350">
+
+</canvas>
+
+
+<div id="report">
+
+Aucun test réalisé.
+
+</div>
+
+
+<div class="buttons">
+
+<button id="exportPdf">
+
+📄 Export PDF
+
+</button>
+
+</div>
 
 </div>
 
 <script src="../js/frequence.js"></script>
-
-</body>
-</html>
