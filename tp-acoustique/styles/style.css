@@ -503,15 +503,20 @@ transform:translateX(-3px);
 
 }
 
-#milieuBloc{
+#milieuBloc,
+#croixBloc{
 
 display:none;
 
 }
 
-#croixBloc{
+.milieuBloc{
 
-display:none;
+flex-direction:column;
+
+justify-content:center;
+
+align-items:center;
 
 }
 
