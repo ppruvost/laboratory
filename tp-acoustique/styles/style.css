@@ -5,11 +5,8 @@
 :root{
 
 --bleu:#1f3c63;
-
 --bleu-clair:#eef3f8;
-
 --texte:#1f2b38;
-
 --blanc:#ffffff;
 
 --ombre:0 2px 10px rgba(0,0,0,.08);
@@ -27,9 +24,7 @@
 *{
 
 box-sizing:border-box;
-
 margin:0;
-
 padding:0;
 
 }
@@ -148,14 +143,8 @@ background:#dce7f4;
 
 }
 
-nav button:active{
-
-transform:scale(.98);
-
-}
-
 /* ==========================
-   BOUTONS GENERAUX
+   BOUTONS
 ========================== */
 
 button{
@@ -172,9 +161,9 @@ border-radius:10px;
 
 cursor:pointer;
 
-transition:var(--transition);
-
 font-weight:bold;
+
+transition:var(--transition);
 
 }
 
@@ -183,12 +172,6 @@ button:hover{
 opacity:.92;
 
 transform:translateY(-2px);
-
-}
-
-button:active{
-
-transform:scale(.98);
 
 }
 
@@ -273,18 +256,8 @@ max-width:100%;
 
 }
 
-label{
-
-display:block;
-
-margin-bottom:8px;
-
-font-weight:bold;
-
-}
-
 /* ==========================
-   GROUPES CONTROLES
+   CONTROLES
 ========================== */
 
 .controls,
@@ -300,12 +273,6 @@ flex-wrap:wrap;
 align-items:center;
 
 margin:20px 0;
-
-}
-
-.presets button{
-
-min-width:130px;
 
 }
 
@@ -348,10 +315,6 @@ canvas{
 
 width:100%;
 
-max-width:100%;
-
-height:auto;
-
 min-height:250px;
 
 background:white;
@@ -362,12 +325,10 @@ border-radius:10px;
 
 margin-bottom:20px;
 
-display:block;
-
 }
 
 /* ==========================
-   IMAGES / SVG
+   IMAGES
 ========================== */
 
 img{
@@ -394,132 +355,129 @@ justify-content:space-between;
 
 align-items:center;
 
-gap:20px;
+gap:30px;
 
-margin-top:30px;
+margin-top:35px;
 
 flex-wrap:wrap;
 
 }
 
-.emetteur,
-.recepteur{
+.bloc{
 
-width:180px;
+flex:1;
+
+min-width:140px;
 
 text-align:center;
 
 }
 
-#receiverImg{
+.bloc img{
 
-width:90px;
+max-height:140px;
+
+object-fit:contain;
 
 margin:auto;
 
 }
 
-#zoneOnde{
+.milieuBloc{
 
-position:relative;
+display:flex;
 
-flex:1;
+flex-direction:column;
 
-height:120px;
+justify-content:center;
 
-overflow:hidden;
-
-}
-
-.onde{
-
-position:absolute;
-
-top:40px;
-
-left:0;
-
-width:40px;
-
-height:40px;
-
-border:4px solid var(--bleu);
-
-border-radius:50%;
-
-opacity:0;
+align-items:center;
 
 }
 
-.propagation{
+#milieuTxt{
 
-animation:
+font-size:42px;
 
-waveMove 3s linear;
+font-weight:bold;
 
-}
+color:var(--bleu);
 
-.delay1{
-
-animation-delay:.5s;
+margin-bottom:15px;
 
 }
 
-.delay2{
+#ondeImg{
 
-animation-delay:1s;
+width:180px;
+
+transition:.5s;
+
+visibility:visible;
 
 }
 
-@keyframes waveMove{
+.ondeMove{
+
+animation:ondePropagation 2s linear infinite;
+
+}
+
+@keyframes ondePropagation{
 
 0%{
 
-left:0;
+transform:
+translateX(-20px)
+scale(.9);
 
-opacity:1;
+}
 
-transform:scale(.3);
+50%{
+
+transform:
+translateX(20px)
+scale(1.08);
 
 }
 
 100%{
 
-left:100%;
-
-opacity:0;
-
-transform:scale(4);
+transform:
+translateX(-20px)
+scale(.9);
 
 }
 
 }
+
+/* Marteau */
 
 #marteau{
 
-font-size:42px;
-
-transition:.4s;
-
-position:relative;
+transition:.35s;
 
 }
 
 .frappe{
 
 transform:
+translateX(50px)
+rotate(-25deg);
 
-translateX(35px)
+}
 
-rotate(-40deg);
+/* Diapason */
+
+#diapason{
+
+transition:.1s;
 
 }
 
 .vibre{
 
-animation:
-
-vibration .08s infinite;
+animation:vibration .08s infinite;
 
 }
 
@@ -527,25 +485,19 @@ vibration .08s infinite;
 
 0%{
 
-transform:
-
-translateX(-2px);
+transform:translateX(-3px);
 
 }
 
 50%{
 
-transform:
-
-translateX(2px);
+transform:translateX(3px);
 
 }
 
 100%{
 
-transform:
-
-translateX(-2px);
+transform:translateX(-3px);
 
 }
 
@@ -557,13 +509,13 @@ translateX(-2px);
 
 .result{
 
-padding:10px;
+padding:12px;
 
 border-radius:8px;
 
 background:#f5f8fc;
 
-margin-top:10px;
+margin-top:15px;
 
 font-weight:bold;
 
@@ -576,7 +528,6 @@ font-weight:bold;
 .danger{
 
 color:#c40000;
-
 font-weight:bold;
 
 }
@@ -584,7 +535,6 @@ font-weight:bold;
 .warning{
 
 color:#d97706;
-
 font-weight:bold;
 
 }
@@ -592,7 +542,6 @@ font-weight:bold;
 .success{
 
 color:#0a7c28;
-
 font-weight:bold;
 
 }
@@ -624,28 +573,6 @@ margin-top:20px;
 }
 
 /* ==========================
-   MODULES SPECIFIQUES
-========================== */
-
-.infos{
-
-margin:20px 0;
-
-font-weight:bold;
-
-}
-
-#riskLevel,
-#advice,
-#riskText,
-#morseResult,
-#piezoOut{
-
-margin-top:10px;
-
-}
-
-/* ==========================
    RESPONSIVE
 ========================== */
 
@@ -673,9 +600,23 @@ align-items:stretch;
 
 }
 
-input[type="range"]{
+.scene{
 
-width:100%;
+flex-direction:column;
+
+gap:20px;
+
+}
+
+#milieuTxt{
+
+font-size:30px;
+
+}
+
+.bloc img{
+
+max-height:100px;
 
 }
 
