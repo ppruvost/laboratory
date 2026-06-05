@@ -260,6 +260,7 @@ audioCtx.currentTime + 0.02
     diagnoseBtn.addEventListener("click", diagnose);
     exportBtn.addEventListener("click", exportPDF);
 
+    stopBtn.disabled = true;
     updateFreq();
     draw();
 });
