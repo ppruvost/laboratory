@@ -503,6 +503,36 @@ transform:translateX(-3px);
 
 }
 
+#milieuBloc{
+
+display:none;
+
+}
+
+#croixBloc{
+
+display:none;
+
+}
+
+#crossImg{
+
+width:90px;
+
+margin:auto;
+
+}
+
+#receiverText{
+
+font-weight:bold;
+
+margin-top:10px;
+
+font-size:1.1rem;
+
+}
+
 /* ==========================
    RESULTATS
 ========================== */
