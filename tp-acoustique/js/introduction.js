@@ -98,7 +98,7 @@ milieu.value==="air"
 
 milieuBloc.style.display=
 
-"flex";
+"block";
 
 croixBloc.style.display=
 
@@ -132,7 +132,7 @@ else{
 
 milieuBloc.style.display=
 
-"flex";
+"block";
 
 croixBloc.style.display=
 
