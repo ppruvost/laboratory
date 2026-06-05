@@ -1,18 +1,22 @@
 <div class="card">
-    <h2>Fréquence et période</h2>
-    <p>Modifier la fréquence.</p>
+    <h2>Fréquence et perception auditive</h2>
 
-    <!-- Curseur pour la fréquence -->
-    <input type="range" min="20" max="2000" value="440" id="freq">
+    <p>
+        Utilise un casque 🎧. Fais varier la fréquence pour explorer les sons graves et aigus.
+        Note à partir de quand tu entends le son.
+    </p>
 
-    <!-- Affichage de la fréquence et de la période -->
+    <input type="range" min="20" max="20000" value="440" id="freq">
+
     <p id="freqText">440 Hz</p>
     <p id="periodText"></p>
 
-    <!-- Boutons Jouer/Stop -->
-    <button id="playBtn">Jouer</button>
+    <button id="playBtn">Démarrer le son</button>
     <button id="stopBtn">Stop</button>
 
-    <!-- Canvas pour l'oscilloscope -->
-    <canvas id="oscillo" width="400" height="200"></canvas>
+    <canvas id="oscillo" width="500" height="200"></canvas>
+
+    <p id="info"></p>
 </div>
+
+<script src="js/frequence.js"></script>
