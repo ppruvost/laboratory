@@ -1,4 +1,4 @@
-console.log("frequence.js chargé OK");
+console.log("module fréquence chargé");
 
 document.addEventListener(
 
@@ -7,69 +7,37 @@ document.addEventListener(
 ()=>{
 
 const AudioContextClass =
-
 window.AudioContext ||
-
 window.webkitAudioContext;
 
 const audioCtx =
-
 new AudioContextClass();
 
+let osc=null;
+let gain=null;
 
-let osc = null;
+let interval=null;
 
-let gain = null;
+let heardFreq=null;
+let lostFreq=null;
 
-let isPlaying = false;
+let elapsed=0;
 
-let lowLimit = null;
+const DURATION=40;
 
-let highLimit = null;
-
-
-/* =====================
-   DOM
-===================== */
-
-const freq =
+const timer =
 document.getElementById(
-"freq"
+"timer"
 );
 
-const freqText =
+const currentFreq =
 document.getElementById(
-"freqText"
+"currentFreq"
 );
 
-const playBtn =
+const report =
 document.getElementById(
-"playBtn"
-);
-
-const stopBtn =
-document.getElementById(
-"stopBtn"
-);
-
-const hearBtn =
-document.getElementById(
-"hearBtn"
-);
-
-const noHearBtn =
-document.getElementById(
-"noHearBtn"
-);
-
-const diagnoseBtn =
-document.getElementById(
-"diagnoseBtn"
-);
-
-const exportBtn =
-document.getElementById(
-"exportPdf"
+"report"
 );
 
 const canvas =
@@ -78,49 +46,58 @@ document.getElementById(
 );
 
 const ctx =
-canvas.getContext(
-"2d"
+canvas.getContext("2d");
+
+
+/* ------------------ */
+
+function freqAt(t){
+
+const ratio =
+
+t / DURATION;
+
+return Math.round(
+
+20 *
+
+Math.pow(
+
+20000/20,
+
+ratio
+
+)
+
 );
 
-const result =
-document.getElementById(
-"result"
-);
+}
 
+/* ------------------ */
 
-/* =====================
-   AUDIO
-===================== */
-
-async function start(){
+async function startTest(){
 
 await audioCtx.resume();
 
-stop();
+stopTest();
+
+heardFreq=null;
+
+lostFreq=null;
+
+elapsed=0;
 
 osc =
-
 audioCtx.createOscillator();
 
 gain =
-
 audioCtx.createGain();
 
-osc.type =
+osc.type="sine";
 
-"sine";
+gain.gain.value=0.2;
 
-osc.frequency.value =
-
-Number(freq.value);
-
-gain.gain.value =
-
-0.25;
-
-osc.connect(
-gain
-);
+osc.connect(gain);
 
 gain.connect(
 audioCtx.destination
@@ -128,23 +105,47 @@ audioCtx.destination
 
 osc.start();
 
-isPlaying = true;
+interval=setInterval(()=>{
 
-playBtn.disabled = true;
+elapsed+=0.1;
 
-stopBtn.disabled = false;
+timer.innerHTML=
 
-}
+elapsed.toFixed(1);
 
+const f=
 
+freqAt(elapsed);
 
-function stop(){
+currentFreq.innerHTML=
+
+f+" Hz";
+
+osc.frequency.value=f;
+
+draw();
 
 if(
 
-osc
+elapsed>=DURATION
 
 ){
+
+stopTest();
+
+}
+
+},100);
+
+}
+
+/* ------------------ */
+
+function stopTest(){
+
+clearInterval(interval);
+
+if(osc){
 
 try{
 
@@ -154,225 +155,121 @@ osc.stop();
 
 osc.disconnect();
 
-osc = null;
-
-}
-
-if(
-
-gain
-
-){
-
-gain.disconnect();
-
-gain = null;
-
-}
-
-isPlaying = false;
-
-playBtn.disabled = false;
-
-stopBtn.disabled = true;
-
-}
-
-
-
-/* =====================
-   FREQUENCE
-===================== */
-
-function updateFreq(){
-
-const value =
-
-Number(
-
-freq.value
-
-);
-
-freqText.innerHTML =
-
-value +
-
-" Hz";
-
-
-if(
-
-osc
-
-){
-
-osc.frequency.value =
-
-value;
+osc=null;
 
 }
 
 }
 
+/* ------------------ */
 
-/* =====================
-   MESURE AUDITIVE
-===================== */
+function heard(){
 
-function hear(){
+heardFreq=
 
-const value =
-
-Number(freq.value);
-
-if(
-
-lowLimit===null
-
-){
-
-lowLimit = value;
-
-}
-
-else{
-
-highLimit = value;
-
-}
+freqAt(elapsed);
 
 draw();
 
 }
 
+/* ------------------ */
 
+function lost(){
 
-function noHear(){
+lostFreq=
 
-const value =
-
-Number(freq.value);
-
-if(
-
-lowLimit!==null &&
-
-highLimit===null
-
-){
-
-highLimit = value;
-
-}
-
-else{
-
-lowLimit = value;
-
-}
+freqAt(elapsed);
 
 draw();
 
+analyse();
+
 }
 
+/* ------------------ */
 
-/* =====================
-   DIAGNOSTIC
-===================== */
-
-function diagnose(){
+function analyse(){
 
 if(
 
-lowLimit===null ||
+heardFreq===null ||
 
-highLimit===null
+lostFreq===null
 
 ){
-
-result.innerHTML =
-
-"⚠️ Mesure incomplète";
 
 return;
 
 }
 
-const min =
+const range=
 
-Math.min(
+lostFreq-heardFreq;
 
-lowLimit,
-
-highLimit
-
-);
-
-const max =
-
-Math.max(
-
-lowLimit,
-
-highLimit
-
-);
-
-const range =
-
-max-min;
-
-let diag = "";
+let msg="";
 
 if(
 
-range>=18000
+heardFreq<40 &&
+
+lostFreq>16000
 
 ){
 
-diag=
+msg=
 
-"🟢 Audition normale";
+"🟢 Audition dans la plage attendue.";
 
 }
 
 else if(
 
-range>=12000
+lostFreq>12000
 
 ){
 
-diag=
+msg=
 
-"🟠 Fatigue auditive possible";
+"🟠 Fatigue auditive possible.";
 
 }
 
 else{
 
-diag=
+msg=
 
-"🔴 Perte auditive possible";
+"🔴 Plage réduite. Pensez à consulter pour confirmer cet essai.";
 
 }
 
-result.innerHTML =
+report.innerHTML=
 
 `
-Plage : ${min} Hz → ${max} Hz
+<h3>Compte rendu</h3>
+
+Début perception :
+${heardFreq} Hz
+
 <br>
-Amplitude : ${range} Hz
+
+Fin perception :
+${lostFreq} Hz
+
 <br>
-<strong>${diag}</strong>
+
+Plage :
+${range} Hz
+
+<br><br>
+
+<b>${msg}</b>
+
 `;
 
 }
 
-
-/* =====================
-   AUDIOGRAMME
-===================== */
+/* ------------------ */
 
 function draw(){
 
@@ -385,43 +282,39 @@ canvas.height
 
 );
 
-
-/* axes */
-
 ctx.beginPath();
 
 ctx.moveTo(
 60,
-350
+300
 );
 
 ctx.lineTo(
-760,
-350
+850,
+300
 );
 
 ctx.moveTo(
 60,
-350
+300
 );
 
 ctx.lineTo(
 60,
-20
+40
 );
 
 ctx.stroke();
 
-
 if(
 
-lowLimit!==null
+heardFreq
 
 ){
 
-drawPoint(
+point(
 
-lowLimit,
+heardFreq,
 
 "green"
 
@@ -431,13 +324,13 @@ lowLimit,
 
 if(
 
-highLimit!==null
+lostFreq
 
 ){
 
-drawPoint(
+point(
 
-highLimit,
+lostFreq,
 
 "red"
 
@@ -447,9 +340,9 @@ highLimit,
 
 }
 
+/* ------------------ */
 
-
-function drawPoint(
+function point(
 
 f,
 
@@ -457,53 +350,9 @@ color
 
 ){
 
-const x =
+const x=
 
-map(f);
-
-ctx.beginPath();
-
-ctx.fillStyle =
-
-color;
-
-ctx.arc(
-
-x,
-
-200,
-
-6,
-
-0,
-
-Math.PI*2
-
-);
-
-ctx.fill();
-
-ctx.fillStyle =
-
-"black";
-
-ctx.fillText(
-
-f+" Hz",
-
-x-20,
-
-220
-
-);
-
-}
-
-
-
-function map(f){
-
-return 60 +
+60+
 
 (
 
@@ -523,32 +372,65 @@ Math.log10(20)
 
 )
 
-*700;
+*760;
+
+ctx.fillStyle=color;
+
+ctx.beginPath();
+
+ctx.arc(
+
+x,
+
+170,
+
+8,
+
+0,
+
+Math.PI*2
+
+);
+
+ctx.fill();
+
+ctx.fillText(
+
+f+" Hz",
+
+x-20,
+
+200
+
+);
 
 }
 
-
-/* =====================
-   EXPORT
-===================== */
+/* ------------------ */
 
 function exportPDF(){
 
-const img =
+const img=
 
-canvas.toDataURL(
-"image/png"
-);
+canvas.toDataURL();
 
-const w =
+const w=
 
 window.open("");
 
 w.document.write(
 
 `
-<h2>TP Audiogramme</h2>
-<img src="${img}" style="width:100%">
+<h2>
+
+Résultat test auditif
+
+</h2>
+
+${report.innerHTML}
+
+<img src="${img}" width="100%">
+
 `
 
 );
@@ -557,75 +439,37 @@ w.print();
 
 }
 
+/* ------------------ */
 
-/* =====================
-   EVENTS
-===================== */
+document
+.getElementById(
+"startTest"
+)
+.onclick=startTest;
 
-freq.addEventListener(
+document
+.getElementById(
+"stopTest"
+)
+.onclick=stopTest;
 
-"input",
+document
+.getElementById(
+"hearBtn"
+)
+.onclick=heard;
 
-updateFreq
+document
+.getElementById(
+"lostBtn"
+)
+.onclick=lost;
 
-);
-
-playBtn.addEventListener(
-
-"click",
-
-start
-
-);
-
-stopBtn.addEventListener(
-
-"click",
-
-stop
-
-);
-
-hearBtn.addEventListener(
-
-"click",
-
-hear
-
-);
-
-noHearBtn.addEventListener(
-
-"click",
-
-noHear
-
-);
-
-diagnoseBtn.addEventListener(
-
-"click",
-
-diagnose
-
-);
-
-exportBtn.addEventListener(
-
-"click",
-
-exportPDF
-
-);
-
-
-/* =====================
-   INIT
-===================== */
-
-stopBtn.disabled = true;
-
-updateFreq();
+document
+.getElementById(
+"exportPdf"
+)
+.onclick=exportPDF;
 
 draw();
 
