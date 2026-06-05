@@ -1,43 +1,306 @@
 const content = document.getElementById("content");
 
-document.querySelectorAll("nav button").forEach(btn => {
-    btn.onclick = () => {
-        loadModule(btn.dataset.module);
-    };
+
+/* ==========================
+   NAVIGATION BOUTONS
+========================== */
+
+document.querySelectorAll(
+
+"nav button"
+
+).forEach(btn=>{
+
+btn.addEventListener(
+
+"click",
+
+()=>{
+
+loadModule(
+
+btn.dataset.module
+
+);
+
+}
+
+);
+
 });
 
-async function loadModule(name) {
-    try {
-        // Charge le HTML du module
-        const response = await fetch(`modules/${name}.html`);
-        if (!response.ok) throw new Error("Module non trouvé");
-        content.innerHTML = await response.text();
 
-        // Supprime l'ancien script du module (si existe)
-        const oldScript = document.querySelector(`script[data-module-script]`);
-        if (oldScript) oldScript.remove();
+/* ==========================
+   CHARGEMENT MODULE
+========================== */
 
-        // Charge le script du module actuel
-        const script = document.createElement('script');
-        script.src = `js/${name}.js`;
-        script.setAttribute('data-module-script', name);
-        document.body.appendChild(script);
+async function loadModule(name){
 
-        // Met à jour la progression
-        saveProgress(name);
-        updateProgress();
-    } catch (error) {
-        content.innerHTML = `<p>Erreur : ${error.message}</p>`;
-    }
+try{
+
+console.log(
+
+"Chargement module :",
+
+name
+
+);
+
+
+/* charge HTML */
+
+const response =
+
+await fetch(
+
+`modules/${name}.html`
+
+);
+
+if(
+
+!response.ok
+
+){
+
+throw new Error(
+
+"Module introuvable"
+
+);
+
 }
 
-function saveProgress(name) {
-    localStorage.setItem('lastModule', name);
+const html =
+
+await response.text();
+
+content.innerHTML =
+
+html;
+
+
+/* suppression ancien script */
+
+document
+
+.querySelectorAll(
+
+"script[data-module-script]"
+
+)
+
+.forEach(
+
+s=>s.remove()
+
+);
+
+
+/* ajout script module */
+
+const script =
+
+document.createElement(
+
+"script"
+
+);
+
+script.src =
+
+`js/${name}.js?time=${Date.now()}`;
+
+
+/* évite cache GitHub */
+
+script.dataset.moduleScript =
+
+name;
+
+script.defer = true;
+
+
+script.onload = ()=>{
+
+console.log(
+
+`${name}.js chargé`
+
+);
+
+};
+
+
+script.onerror = ()=>{
+
+console.error(
+
+`Impossible de charger js/${name}.js`
+
+);
+
+};
+
+
+document.body.appendChild(
+
+script
+
+);
+
+
+/* progression */
+
+saveProgress(
+
+name
+
+);
+
+updateProgress();
+
+
+}catch(error){
+
+console.error(error);
+
+content.innerHTML =
+
+`
+<div class="card">
+
+<p>
+
+Erreur :
+
+${error.message}
+
+</p>
+
+</div>
+
+`;
+
 }
 
-function updateProgress() {
-    const progressBar = document.getElementById('bar');
-    if (progressBar) {
-        progressBar.style.width = '20%';
-    }
 }
+
+
+/* ==========================
+   SAUVEGARDE
+========================== */
+
+function saveProgress(name){
+
+localStorage.setItem(
+
+"lastModule",
+
+name
+
+);
+
+}
+
+
+/* ==========================
+   PROGRESSION
+========================== */
+
+function updateProgress(){
+
+const bar =
+
+document.getElementById(
+
+"bar"
+
+);
+
+if(!bar) return;
+
+const modules =
+
+document.querySelectorAll(
+
+"nav button"
+
+).length;
+
+const current =
+
+localStorage.getItem(
+
+"lastModule"
+
+);
+
+let index = 1;
+
+document
+
+.querySelectorAll(
+
+"nav button"
+
+)
+
+.forEach(
+
+(btn,i)=>{
+
+if(
+
+btn.dataset.module===current
+
+){
+
+index=i+1;
+
+}
+
+}
+
+);
+
+bar.style.width =
+
+(
+
+index/modules
+
+)*100 +
+
+"%";
+
+}
+
+
+/* ==========================
+   CHARGEMENT INITIAL
+========================== */
+
+window.addEventListener(
+
+"DOMContentLoaded",
+
+()=>{
+
+const last =
+
+localStorage.getItem(
+
+"lastModule"
+
+) ||
+
+"introduction";
+
+loadModule(
+
+last
+
+);
+
+});
