@@ -3,8 +3,8 @@ let questions = [];
 
 // Fonction d'initialisation du quiz
 function initQuiz() {
-    // Récupère les éléments du DOM
-    const quizContainer = document.getElementById("quiz-container");
+    // Récupère les éléments du DOM (IDs exacts de quiz.html)
+    const quizContainer = document.getElementById("quizContainer"); // Majuscule à "C"
     const correctBtn = document.getElementById("correct");
     const scoreElement = document.getElementById("score");
 
