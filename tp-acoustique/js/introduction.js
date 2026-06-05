@@ -1,5 +1,3 @@
-<script>
-
 const btn =
 document.getElementById(
 "startAnim"
@@ -174,5 +172,3 @@ audio.currentTime=0;
 },3000);
 
 };
-
-</script>
