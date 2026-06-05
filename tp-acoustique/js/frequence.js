@@ -6,7 +6,6 @@ document.addEventListener("DOMContentLoaded", () => {
     let gain = null;
     let isPlaying = false;
 
-    // seuils utilisateur
     let lowLimit = null;
     let highLimit = null;
 
@@ -17,8 +16,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const stopBtn = document.getElementById("stopBtn");
     const hearBtn = document.getElementById("hearBtn");
     const noHearBtn = document.getElementById("noHearBtn");
+    const exportBtn = document.getElementById("exportPdf");
 
-    const canvas = document.getElementById("curve");
+    const canvas = document.getElementById("audiogram");
     const ctx = canvas.getContext("2d");
 
     const result = document.getElementById("result");
@@ -33,7 +33,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     async function start() {
         await audioCtx.resume();
-
         if (isPlaying) return;
 
         osc = audioCtx.createOscillator();
@@ -62,19 +61,16 @@ document.addEventListener("DOMContentLoaded", () => {
         isPlaying = false;
     }
 
-    // 🎧 seuil BAS ou HAUT
     function hear() {
         const f = Number(freq.value);
 
         if (lowLimit === null) {
             lowLimit = f;
-            result.textContent = `Seuil bas enregistré : ${lowLimit} Hz`;
         } else {
             highLimit = f;
-            result.textContent = `Seuil haut enregistré : ${highLimit} Hz`;
         }
 
-        drawCurve();
+        drawAudiogram();
     }
 
     function noHear() {
@@ -82,48 +78,84 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (lowLimit !== null && highLimit === null) {
             highLimit = f;
-            result.textContent = `Seuil haut enregistré : ${highLimit} Hz`;
         } else {
             lowLimit = f;
-            result.textContent = `Seuil bas ajusté : ${lowLimit} Hz`;
         }
 
-        drawCurve();
+        drawAudiogram();
     }
 
-    // 📊 courbe de plage auditive
-    function drawCurve() {
+    // 📊 AUDIOGRAMME TYPE MÉDICAL
+    function drawAudiogram() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
 
+        // fond
+        ctx.fillStyle = "#fff";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        // axes
+        ctx.strokeStyle = "#000";
         ctx.beginPath();
-        ctx.lineWidth = 3;
-
-        // axe
-        ctx.moveTo(50, 250);
-        ctx.lineTo(450, 250);
-
-        ctx.moveTo(50, 50);
-        ctx.lineTo(50, 250);
-
+        ctx.moveTo(60, 300);
+        ctx.lineTo(580, 300); // freq
+        ctx.moveTo(60, 300);
+        ctx.lineTo(60, 20); // intensité
         ctx.stroke();
 
-        if (lowLimit !== null) {
-            drawPoint(lowLimit, "blue");
-        }
+        // grille fréquence (log)
+        const freqs = [20, 50, 100, 250, 500, 1000, 2000, 4000, 8000, 16000];
 
-        if (highLimit !== null) {
-            drawPoint(highLimit, "red");
-        }
+        freqs.forEach((f, i) => {
+            const x = mapFreq(f);
+            ctx.fillText(f + "Hz", x - 15, 320);
+        });
 
+        // seuil bas / haut
+        if (lowLimit) drawPoint(lowLimit, "green");
+        if (highLimit) drawPoint(highLimit, "red");
+
+        // zone auditive
         if (lowLimit && highLimit) {
             ctx.beginPath();
-            ctx.fillStyle = "rgba(0,150,255,0.2)";
+            ctx.fillStyle = "rgba(0, 120, 255, 0.2)";
 
             const x1 = mapFreq(lowLimit);
             const x2 = mapFreq(highLimit);
 
-            ctx.fillRect(x1, 80, x2 - x1, 120);
+            ctx.fillRect(x1, 60, x2 - x1, 240);
         }
+
+        // courbe simulée audiogramme (forme réaliste)
+        drawHearingCurve();
+    }
+
+    function drawHearingCurve() {
+        ctx.beginPath();
+        ctx.strokeStyle = "blue";
+        ctx.lineWidth = 2;
+
+        let first = true;
+
+        for (let f = 20; f <= 16000; f *= 1.15) {
+            const x = mapFreq(f);
+
+            // simulation physiologique simple :
+            // meilleure sensibilité autour de 1000-4000 Hz
+            let y =
+                200 +
+                40 * Math.sin(Math.log10(f) * 2) +
+                (f < 100 ? 60 : 0) +
+                (f > 8000 ? 80 : 0);
+
+            if (first) {
+                ctx.moveTo(x, y);
+                first = false;
+            } else {
+                ctx.lineTo(x, y);
+            }
+        }
+
+        ctx.stroke();
     }
 
     function drawPoint(f, color) {
@@ -131,27 +163,50 @@ document.addEventListener("DOMContentLoaded", () => {
 
         ctx.beginPath();
         ctx.fillStyle = color;
-        ctx.arc(x, 150, 6, 0, Math.PI * 2);
+        ctx.arc(x, 200, 6, 0, Math.PI * 2);
         ctx.fill();
 
-        ctx.fillText(`${f} Hz`, x - 10, 170);
+        ctx.fillText(f + " Hz", x - 20, 220);
     }
 
-    // mapping log pour perception humaine
     function mapFreq(f) {
-        const minLog = Math.log10(20);
-        const maxLog = Math.log10(20000);
-        const logF = Math.log10(f);
+        const min = Math.log10(20);
+        const max = Math.log10(20000);
 
-        return 50 + ((logF - minLog) / (maxLog - minLog)) * 400;
+        return 60 + ((Math.log10(f) - min) / (max - min)) * 500;
     }
 
-    // events
+    // 📄 EXPORT PDF
+    function exportPDF() {
+        const img = canvas.toDataURL("image/png");
+
+        const win = window.open("");
+        win.document.write(`
+            <html>
+            <head><title>TP Audiogramme</title></head>
+            <body>
+                <h2>Rapport TP - Plage auditive</h2>
+                <p>Résultats de l'élève :</p>
+                <ul>
+                    <li>Seuil bas : ${lowLimit ?? "non défini"} Hz</li>
+                    <li>Seuil haut : ${highLimit ?? "non défini"} Hz</li>
+                </ul>
+                <h3>Courbe audiogramme :</h3>
+                <img src="${img}" style="width:100%">
+            </body>
+            </html>
+        `);
+
+        win.print();
+    }
+
     freq.addEventListener("input", updateUI);
     playBtn.addEventListener("click", start);
     stopBtn.addEventListener("click", stop);
     hearBtn.addEventListener("click", hear);
     noHearBtn.addEventListener("click", noHear);
+    exportBtn.addEventListener("click", exportPDF);
 
     updateUI();
+    drawAudiogram();
 });
