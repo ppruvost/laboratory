@@ -1,125 +1,116 @@
-// Attend que le DOM soit prêt
-document.addEventListener('DOMContentLoaded', () => {
-    // Initialisation de l'AudioContext
+document.addEventListener("DOMContentLoaded", () => {
     const AudioContextClass = window.AudioContext || window.webkitAudioContext;
     const audioCtx = new AudioContextClass();
 
-    // Variables globales
     let oscillator = null;
     let gainNode = null;
     let analyser = null;
     let dataArray = null;
+    let animationId = null;
     let isPlaying = false;
 
-    // Récupère les éléments du DOM
     const freqSlider = document.getElementById("freq");
     const freqText = document.getElementById("freqText");
     const periodText = document.getElementById("periodText");
     const playBtn = document.getElementById("playBtn");
     const stopBtn = document.getElementById("stopBtn");
-    const oscilloCanvas = document.getElementById("oscillo");
+    const canvas = document.getElementById("oscillo");
+    const info = document.getElementById("info");
 
-    // Vérifie que tous les éléments existent
-    if (!freqSlider || !freqText || !periodText || !playBtn || !stopBtn || !oscilloCanvas) {
-        console.error("Un ou plusieurs éléments du module Fréquence sont introuvables !");
-        return;
-    }
+    const ctx = canvas.getContext("2d");
 
-    // Initialise l'analyseur audio pour l'oscilloscope
-    analyser = audioCtx.createAnalyser();
-    analyser.fftSize = 2048;
-    const bufferLength = analyser.frequencyBinCount;
-    dataArray = new Uint8Array(bufferLength);
+    // ⚠️ sécurité DOM
+    if (!freqSlider || !playBtn || !stopBtn) return;
 
-    // Met à jour les infos (fréquence et période)
-    function updateInfos() {
-        const freq = Number(freqSlider.value);
-        freqText.textContent = `${freq} Hz`;
-        const period = 1000 / freq; // Période en ms
-        periodText.textContent = `Période : ${period.toFixed(2)} ms`;
+    function updateDisplay() {
+        const f = Number(freqSlider.value);
+        freqText.textContent = `${f} Hz`;
+        periodText.textContent = `Période : ${(1000 / f).toFixed(2)} ms`;
 
-        // Si un son est en cours de lecture, met à jour la fréquence
-        if (isPlaying && oscillator) {
-            oscillator.frequency.value = freq;
+        if (oscillator) {
+            oscillator.frequency.setValueAtTime(f, audioCtx.currentTime);
+        }
+
+        if (f < 80) {
+            info.textContent = "Zone grave (basses fréquences)";
+        } else if (f > 5000) {
+            info.textContent = "Zone aiguë (hautes fréquences)";
+        } else {
+            info.textContent = "Zone médium";
         }
     }
 
-    // Démarre le son et l'oscilloscope
-    function startSound() {
+    async function startSound() {
         if (isPlaying) return;
 
-        // Crée les nœuds audio
+        await audioCtx.resume(); // 🔥 CRUCIAL
+
         oscillator = audioCtx.createOscillator();
         gainNode = audioCtx.createGain();
+        analyser = audioCtx.createAnalyser();
 
-        // Configure l'oscillateur
+        analyser.fftSize = 2048;
+        dataArray = new Uint8Array(analyser.frequencyBinCount);
+
         oscillator.type = "sine";
-        oscillator.frequency.value = freqSlider.value;
+        oscillator.frequency.value = Number(freqSlider.value);
 
-        // Configure le gain (volume)
-        gainNode.gain.value = 0.5; // Volume à 50%
+        gainNode.gain.value = 0.3;
 
-        // Connecte les nœuds à l'analyseur et à la destination
         oscillator.connect(gainNode);
         gainNode.connect(analyser);
         analyser.connect(audioCtx.destination);
 
-        // Démarre l'oscillateur
         oscillator.start();
+
         isPlaying = true;
-
-        // Lance l'affichage de l'oscilloscope
-        drawOscilloscope();
+        draw();
     }
 
-    // Arrête le son et l'oscilloscope
     function stopSound() {
-        if (!isPlaying || !oscillator) return;
-
-        oscillator.stop();
-        oscillator = null;
-        isPlaying = false;
-    }
-
-    // Fonction pour dessiner l'oscilloscope
-    function drawOscilloscope() {
         if (!isPlaying) return;
 
-        requestAnimationFrame(drawOscilloscope);
+        oscillator.stop();
+        oscillator.disconnect();
+        gainNode.disconnect();
+
+        oscillator = null;
+        isPlaying = false;
+
+        cancelAnimationFrame(animationId);
+
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+    }
+
+    function draw() {
+        if (!isPlaying) return;
+
+        animationId = requestAnimationFrame(draw);
 
         analyser.getByteTimeDomainData(dataArray);
 
-        const ctx = oscilloCanvas.getContext("2d");
-        ctx.clearRect(0, 0, oscilloCanvas.width, oscilloCanvas.height);
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
 
         ctx.beginPath();
-        ctx.strokeStyle = "rgb(0, 0, 0)";
         ctx.lineWidth = 2;
 
-        const sliceWidth = oscilloCanvas.width / bufferLength;
+        const slice = canvas.width / dataArray.length;
         let x = 0;
 
-        for (let i = 0; i < bufferLength; i++) {
-            const v = dataArray[i] / 128.0;
-            const y = v * oscilloCanvas.height / 2;
+        for (let i = 0; i < dataArray.length; i++) {
+            const v = dataArray[i] / 128;
+            const y = v * canvas.height / 2;
 
-            if (i === 0) {
-                ctx.moveTo(x, y);
-            } else {
-                ctx.lineTo(x, y);
-            }
-
-            x += sliceWidth;
+            i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+            x += slice;
         }
 
         ctx.stroke();
     }
 
-    // Écouteurs pour les curseurs et boutons
-    freqSlider.addEventListener("input", updateInfos);
+    freqSlider.addEventListener("input", updateDisplay);
     playBtn.addEventListener("click", startSound);
     stopBtn.addEventListener("click", stopSound);
 
-    // Initialise les infos au démarrage
-    updateInfos();
+    updateDisplay();
 });
