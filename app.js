@@ -148,3 +148,17 @@ tpViewer.classList.add("hidden");
 tpFrame.src="";
 
 });
+
+// =====================================
+// OPEN TP ACOUSTIQUE
+// =====================================
+
+const openAcoustique = document.getElementById("openAcoustique");
+
+openAcoustique?.addEventListener("click", () => {
+
+    tpViewer.classList.remove("hidden");
+
+    tpFrame.src = "tp-acoustique/index.html";
+
+});
