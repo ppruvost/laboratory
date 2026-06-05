@@ -2,9 +2,11 @@
 const AudioContextClass = window.AudioContext || window.webkitAudioContext;
 const audioCtx = new AudioContextClass();
 
-// Variables globales pour l'oscillateur et le gain
+// Variables globales
 let oscillator = null;
 let gainNode = null;
+let analyser = null;
+let dataArray = null;
 let isPlaying = false;
 
 // Fonction d'initialisation
@@ -23,6 +25,12 @@ function initFrequence() {
         return;
     }
 
+    // Initialise l'analyseur audio pour l'oscilloscope
+    analyser = audioCtx.createAnalyser();
+    analyser.fftSize = 2048;
+    const bufferLength = analyser.frequencyBinCount;
+    dataArray = new Uint8Array(bufferLength);
+
     // Met à jour les infos (fréquence et période)
     function updateInfos() {
         const freq = Number(freqSlider.value);
@@ -36,7 +44,7 @@ function initFrequence() {
         }
     }
 
-    // Démarre le son
+    // Démarre le son et l'oscilloscope
     function startSound() {
         if (isPlaying) return;
 
@@ -51,22 +59,60 @@ function initFrequence() {
         // Configure le gain (volume)
         gainNode.gain.value = 0.5; // Volume à 50%
 
-        // Connecte les nœuds
+        // Connecte les nœuds à l'analyseur et à la destination
         oscillator.connect(gainNode);
-        gainNode.connect(audioCtx.destination);
+        gainNode.connect(analyser);
+        analyser.connect(audioCtx.destination);
 
         // Démarre l'oscillateur
         oscillator.start();
         isPlaying = true;
+
+        // Lance l'affichage de l'oscilloscope
+        drawOscilloscope();
     }
 
-    // Arrête le son
+    // Arrête le son et l'oscilloscope
     function stopSound() {
         if (!isPlaying || !oscillator) return;
 
         oscillator.stop();
         oscillator = null;
         isPlaying = false;
+    }
+
+    // Fonction pour dessiner l'oscilloscope
+    function drawOscilloscope() {
+        if (!isPlaying) return;
+
+        requestAnimationFrame(drawOscilloscope);
+
+        analyser.getByteTimeDomainData(dataArray);
+
+        const ctx = oscilloCanvas.getContext("2d");
+        ctx.clearRect(0, 0, oscilloCanvas.width, oscilloCanvas.height);
+
+        ctx.beginPath();
+        ctx.strokeStyle = "rgb(0, 0, 0)";
+        ctx.lineWidth = 2;
+
+        const sliceWidth = oscilloCanvas.width / bufferLength;
+        let x = 0;
+
+        for (let i = 0; i < bufferLength; i++) {
+            const v = dataArray[i] / 128.0;
+            const y = v * oscilloCanvas.height / 2;
+
+            if (i === 0) {
+                ctx.moveTo(x, y);
+            } else {
+                ctx.lineTo(x, y);
+            }
+
+            x += sliceWidth;
+        }
+
+        ctx.stroke();
     }
 
     // Écouteurs pour les curseurs et boutons
