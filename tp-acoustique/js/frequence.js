@@ -37,50 +37,80 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     // -----------------------------
-    // AUDIO
-    // -----------------------------
-    async function start() {
-        console.log("start()");
-        await audioCtx.resume();
+// AUDIO
+// -----------------------------
 
-        if (isPlaying) return;
+async function start(){
 
-        osc = audioCtx.createOscillator();
-        gain = audioCtx.createGain();
+console.log("start()");
 
-        osc.type = "sine";
-        osc.frequency.value = Number(freq.value);
-        gain.gain.value = 0.3;
+await audioCtx.resume();
 
-        osc.connect(gain);
-        gain.connect(audioCtx.destination);
+if(isPlaying) return;
 
-        osc.start();
-        isPlaying = true;
-    }
+osc = audioCtx.createOscillator();
 
-    function stop() {
-        console.log("stop()");
+gain = audioCtx.createGain();
 
-        if (!isPlaying) return;
+osc.type = "sine";
 
-        osc.stop();
-        osc.disconnect();
-        gain.disconnect();
+osc.frequency.setValueAtTime(
 
-        osc = null;
-        isPlaying = false;
-    }
+Number(freq.value),
 
-    function updateFreq() {
-        const f = Number(freq.value);
+audioCtx.currentTime
 
-        freqText.textContent = `${f} Hz`;
+);
 
-        if (osc) {
-            osc.frequency.setValueAtTime(f, audioCtx.currentTime);
-        }
-    }
+gain.gain.value = 0.25;
+
+osc.connect(gain);
+
+gain.connect(
+
+audioCtx.destination
+
+);
+
+osc.start();
+
+isPlaying = true;
+
+playBtn.disabled = true;
+
+stopBtn.disabled = false;
+
+}
+
+
+
+function stop(){
+
+console.log("stop()");
+
+if(!isPlaying) return;
+
+try{
+
+osc.stop();
+
+}catch(e){}
+
+osc.disconnect();
+
+gain.disconnect();
+
+osc = null;
+
+gain = null;
+
+isPlaying = false;
+
+playBtn.disabled = false;
+
+stopBtn.disabled = true;
+
+}
 
     // -----------------------------
     // MESURE
