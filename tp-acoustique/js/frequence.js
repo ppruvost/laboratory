@@ -112,6 +112,39 @@ stopBtn.disabled = true;
 
 }
 
+// -----------------------------
+// FREQUENCE
+// -----------------------------
+
+function updateFreq(){
+
+const f = Number(freq.value);
+
+freqText.textContent =
+
+f + " Hz";
+
+
+if(
+
+osc &&
+
+isPlaying
+
+){
+
+osc.frequency.linearRampToValueAtTime(
+
+f,
+
+audioCtx.currentTime + 0.02
+
+);
+
+}
+
+}
+    
     // -----------------------------
     // MESURE
     // -----------------------------
