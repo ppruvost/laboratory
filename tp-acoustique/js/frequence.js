@@ -1,16 +1,16 @@
-// Initialisation de l'AudioContext
-const AudioContextClass = window.AudioContext || window.webkitAudioContext;
-const audioCtx = new AudioContextClass();
+// Attend que le DOM soit prêt
+document.addEventListener('DOMContentLoaded', () => {
+    // Initialisation de l'AudioContext
+    const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+    const audioCtx = new AudioContextClass();
 
-// Variables globales
-let oscillator = null;
-let gainNode = null;
-let analyser = null;
-let dataArray = null;
-let isPlaying = false;
+    // Variables globales
+    let oscillator = null;
+    let gainNode = null;
+    let analyser = null;
+    let dataArray = null;
+    let isPlaying = false;
 
-// Fonction d'initialisation
-function initFrequence() {
     // Récupère les éléments du DOM
     const freqSlider = document.getElementById("freq");
     const freqText = document.getElementById("freqText");
@@ -122,11 +122,4 @@ function initFrequence() {
 
     // Initialise les infos au démarrage
     updateInfos();
-}
-
-// Appel de l'initialisation quand le DOM est prêt
-if (document.readyState === 'complete' || document.readyState === 'interactive') {
-    initFrequence();
-} else {
-    document.addEventListener('DOMContentLoaded', initFrequence);
-}
+});
