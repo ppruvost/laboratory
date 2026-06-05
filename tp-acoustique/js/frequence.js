@@ -1,3 +1,5 @@
+console.log("frequence.js chargé OK");
+
 document.addEventListener("DOMContentLoaded", () => {
 
     const AudioContextClass = window.AudioContext || window.webkitAudioContext;
@@ -26,9 +28,19 @@ document.addEventListener("DOMContentLoaded", () => {
     const result = document.getElementById("result");
 
     // -----------------------------
+    // DEBUG EVENT BINDING
+    // -----------------------------
+    console.log("Elements OK ?", {
+        freq,
+        playBtn,
+        stopBtn
+    });
+
+    // -----------------------------
     // AUDIO
     // -----------------------------
     async function start() {
+        console.log("start()");
         await audioCtx.resume();
 
         if (isPlaying) return;
@@ -38,7 +50,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
         osc.type = "sine";
         osc.frequency.value = Number(freq.value);
-
         gain.gain.value = 0.3;
 
         osc.connect(gain);
@@ -49,6 +60,8 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function stop() {
+        console.log("stop()");
+
         if (!isPlaying) return;
 
         osc.stop();
@@ -60,10 +73,12 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function updateFreq() {
-        freqText.textContent = `${freq.value} Hz`;
+        const f = Number(freq.value);
+
+        freqText.textContent = `${f} Hz`;
 
         if (osc) {
-            osc.frequency.setValueAtTime(freq.value, audioCtx.currentTime);
+            osc.frequency.setValueAtTime(f, audioCtx.currentTime);
         }
     }
 
@@ -73,11 +88,8 @@ document.addEventListener("DOMContentLoaded", () => {
     function hear() {
         const f = Number(freq.value);
 
-        if (lowLimit === null) {
-            lowLimit = f;
-        } else {
-            highLimit = f;
-        }
+        if (lowLimit === null) lowLimit = f;
+        else highLimit = f;
 
         draw();
     }
@@ -99,7 +111,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // -----------------------------
     function diagnose() {
 
-        if (!lowLimit || !highLimit) {
+        if (lowLimit === null || highLimit === null) {
             result.textContent = "⚠️ Mesure incomplète";
             return;
         }
@@ -110,13 +122,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
         let diag = "";
 
-        if (range >= 18000) {
-            diag = "🟢 Audition normale";
-        } else if (range >= 12000) {
-            diag = "🟠 Légère fatigue auditive";
-        } else {
-            diag = "🔴 Perte auditive possible";
-        }
+        if (range >= 18000) diag = "🟢 Audition normale";
+        else if (range >= 12000) diag = "🟠 Légère fatigue auditive";
+        else diag = "🔴 Perte auditive possible";
 
         result.innerHTML =
             `Plage : ${min} Hz → ${max} Hz<br>` +
@@ -125,13 +133,12 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // -----------------------------
-    // AUDIOGRAMME
+    // CANVAS
     // -----------------------------
     function draw() {
 
         ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-        // axes
         ctx.beginPath();
         ctx.moveTo(60, 350);
         ctx.lineTo(760, 350);
@@ -139,47 +146,12 @@ document.addEventListener("DOMContentLoaded", () => {
         ctx.lineTo(60, 20);
         ctx.stroke();
 
-        // points
-        if (lowLimit) drawPoint(lowLimit, "green");
-        if (highLimit) drawPoint(highLimit, "red");
-
-        // zone
-        if (lowLimit && highLimit) {
-            const x1 = map(lowLimit);
-            const x2 = map(highLimit);
-
-            ctx.fillStyle = "rgba(0,120,255,0.2)";
-            ctx.fillRect(x1, 80, x2 - x1, 240);
-        }
-
-        // courbe réaliste simplifiée
-        ctx.beginPath();
-        ctx.strokeStyle = "blue";
-
-        let first = true;
-
-        for (let f = 20; f <= 20000; f *= 1.2) {
-
-            const x = map(f);
-
-            const y =
-                220 +
-                40 * Math.sin(Math.log10(f)) +
-                (f < 100 ? 50 : 0) +
-                (f > 8000 ? 60 : 0);
-
-            if (first) {
-                ctx.moveTo(x, y);
-                first = false;
-            } else {
-                ctx.lineTo(x, y);
-            }
-        }
-
-        ctx.stroke();
+        if (lowLimit !== null) drawPoint(lowLimit, "green");
+        if (highLimit !== null) drawPoint(highLimit, "red");
     }
 
     function drawPoint(f, color) {
+
         const x = map(f);
 
         ctx.beginPath();
@@ -196,7 +168,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // -----------------------------
-    // EXPORT PDF SIMPLE
+    // EXPORT
     // -----------------------------
     function exportPDF() {
 
@@ -205,11 +177,6 @@ document.addEventListener("DOMContentLoaded", () => {
         const w = window.open("");
         w.document.write(`
             <h2>TP Plage auditive</h2>
-            <p>Résultats :</p>
-            <ul>
-                <li>Seuil bas : ${lowLimit}</li>
-                <li>Seuil haut : ${highLimit}</li>
-            </ul>
             <img src="${img}" style="width:100%">
         `);
 
@@ -220,10 +187,13 @@ document.addEventListener("DOMContentLoaded", () => {
     // EVENTS
     // -----------------------------
     freq.addEventListener("input", updateFreq);
+
     playBtn.addEventListener("click", start);
     stopBtn.addEventListener("click", stop);
+
     hearBtn.addEventListener("click", hear);
     noHearBtn.addEventListener("click", noHear);
+
     diagnoseBtn.addEventListener("click", diagnose);
     exportBtn.addEventListener("click", exportPDF);
 
