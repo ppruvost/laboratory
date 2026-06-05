@@ -1,10 +1,5 @@
 const content = document.getElementById("content");
 
-// Supprimez tous les scripts des modules au démarrage
-document.querySelectorAll('script[data-module-script]').forEach(script => {
-    script.remove();
-});
-
 document.querySelectorAll("nav button").forEach(btn => {
     btn.onclick = () => {
         loadModule(btn.dataset.module);
@@ -19,14 +14,19 @@ async function loadModule(name) {
         content.innerHTML = await response.text();
 
         // Supprime l'ancien script du module (si existe)
-        const oldScript = document.querySelector(`script[data-module-script="${name}"]`);
+        const oldScript = document.querySelector(`script[data-module-script]`);
         if (oldScript) oldScript.remove();
 
-        // Charge le script du module actuel
-        const script = document.createElement('script');
-        script.src = `js/${name}.js`;
-        script.setAttribute('data-module-script', name);
-        document.body.appendChild(script);
+        // Liste des modules qui nécessitent un script JS
+        const modulesWithScripts = ["generateur", "quiz", "attenuation", "piezo", "transmission", "securite"];
+
+        // Charge le script uniquement si le module en a besoin
+        if (modulesWithScripts.includes(name)) {
+            const script = document.createElement('script');
+            script.src = `js/${name}.js`;
+            script.setAttribute('data-module-script', name);
+            document.body.appendChild(script);
+        }
 
         // Met à jour la progression
         saveProgress(name);
@@ -44,6 +44,6 @@ function saveProgress(name) {
 function updateProgress() {
     const progressBar = document.getElementById('bar');
     if (progressBar) {
-        progressBar.style.width = '20%'; // Exemple : à adapter
+        progressBar.style.width = '20%'; // À adapter selon votre logique
     }
 }
