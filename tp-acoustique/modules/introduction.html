@@ -36,7 +36,7 @@ Visualisation dynamique de la propagation du son
 
 <p>
 
-Choisir un milieu puis observer si le signal sonore se propage.
+Observer comment le son se propage selon le milieu traversé.
 
 </p>
 
@@ -65,30 +65,6 @@ Vide
 
 </select>
 
-
-<label>
-
-Récepteur :
-
-</label>
-
-<select id="recepteur">
-
-<option value="oreille">
-
-Oreille humaine
-
-</option>
-
-<option value="micro">
-
-Microphone
-
-</option>
-
-</select>
-
-
 <button id="startAnim">
 
 Lancer l'expérience
@@ -100,80 +76,80 @@ Lancer l'expérience
 
 <div class="scene">
 
-<!-- EMETTEUR -->
+<!-- OBJET PERCUTEUR -->
 
-<div class="emetteur">
+<div class="bloc">
 
-<svg
-id="diapason"
-viewBox="0 0 120 160"
-width="100">
-
-<rect
-x="40"
-y="10"
-width="10"
-height="90"
-fill="#1f3c63"/>
-
-<rect
-x="70"
-y="10"
-width="10"
-height="90"
-fill="#1f3c63"/>
-
-<rect
-x="45"
-y="90"
-width="30"
-height="50"
-fill="#1f3c63"/>
-
-</svg>
-
-<div id="marteau">
-
-🔨
-
-</div>
+<img
+id="marteau"
+src="assets/images/marteau.png"
+alt="marteau">
 
 <p>
 
-Émetteur
+Objet percuteur
 
 </p>
 
 </div>
 
 
-<!-- ONDES -->
+<!-- EMETTEUR -->
 
-<div id="zoneOnde">
+<div class="bloc">
 
-<div class="onde"></div>
+<img
+id="diapason"
+src="assets/images/diapason.png"
+alt="diapason">
 
-<div class="onde delay1"></div>
+<p>
 
-<div class="onde delay2"></div>
+Émetteur : diapason
+
+</p>
+
+</div>
+
+
+<!-- MILIEU -->
+
+<div class="bloc milieuBloc">
+
+<div id="milieuTxt">
+
+AIR
+
+</div>
+
+<img
+id="ondeImg"
+src="assets/images/onde.png"
+alt="onde sonore">
+
+<p>
+
+Milieu de propagation
+
+</p>
 
 </div>
 
 
 <!-- RECEPTEUR -->
 
-<div class="recepteur">
+<div class="bloc">
 
 <img
-id="receiverImg"
+id="oreille"
 src="assets/images/oreille.jpeg"
-alt="recepteur">
+alt="oreille">
 
-<p id="receiverText">
+<p>
 
-Oreille humaine
+Récepteur
 
-</p>
+p>
 
 </div>
 
@@ -195,7 +171,7 @@ Prêt à lancer l'expérience.
 
 <script>
 
-const btn =
+const startAnim =
 document.getElementById(
 "startAnim"
 );
@@ -205,19 +181,9 @@ document.getElementById(
 "milieu"
 );
 
-const receiver =
+const marteau =
 document.getElementById(
-"recepteur"
-);
-
-const msg =
-document.getElementById(
-"message"
-);
-
-const waves =
-document.querySelectorAll(
-".onde"
+"marteau"
 );
 
 const diapason =
@@ -225,52 +191,23 @@ document.getElementById(
 "diapason"
 );
 
-const marteau =
+const onde =
 document.getElementById(
-"marteau"
+"ondeImg"
 );
 
-const receiverImg =
+const milieuTxt =
 document.getElementById(
-"receiverImg"
+"milieuTxt"
 );
 
-const receiverText =
+const message =
 document.getElementById(
-"receiverText"
+"message"
 );
 
 
-receiver.onchange=()=>{
-
-if(receiver.value==="micro"){
-
-receiverImg.src=
-
-"assets/icons/sound.svg";
-
-receiverText.innerHTML=
-
-"Microphone";
-
-}
-
-else{
-
-receiverImg.src=
-
-"assets/images/oreille.svg";
-
-receiverText.innerHTML=
-
-"Oreille humaine";
-
-}
-
-};
-
-
-btn.onclick=()=>{
+startAnim.onclick=()=>{
 
 marteau.classList.add(
 "frappe"
@@ -280,13 +217,14 @@ diapason.classList.add(
 "vibre"
 );
 
+
 setTimeout(()=>{
 
 marteau.classList.remove(
 "frappe"
 );
 
-},500);
+},400);
 
 
 if(
@@ -295,33 +233,41 @@ milieu.value==="air"
 
 ){
 
-msg.innerHTML=
+milieuTxt.innerHTML=
 
-"Le signal sonore traverse le milieu air.";
+"AIR";
 
-waves.forEach(
+onde.style.visibility=
 
-w=>w.classList.add(
-"propagation"
-)
+"visible";
 
+onde.classList.add(
+"ondeMove"
 );
+
+message.innerHTML=
+
+"Le son se propage dans l'air : les ondes atteignent le récepteur.";
 
 }
 
 else{
 
-msg.innerHTML=
+milieuTxt.innerHTML=
 
-"Dans le vide : pas de propagation.";
+"VIDE";
 
-waves.forEach(
+onde.style.visibility=
 
-w=>w.classList.remove(
-"propagation"
-)
+"hidden";
 
+onde.classList.remove(
+"ondeMove"
 );
+
+message.innerHTML=
+
+"Dans le vide, le son ne peut pas se propager.";
 
 }
 
@@ -332,15 +278,11 @@ diapason.classList.remove(
 "vibre"
 );
 
-waves.forEach(
-
-w=>w.classList.remove(
-"propagation"
-)
-
+onde.classList.remove(
+"ondeMove"
 );
 
-},3500);
+},3000);
 
 };
 
