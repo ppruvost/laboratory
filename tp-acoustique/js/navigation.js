@@ -17,16 +17,11 @@ async function loadModule(name) {
         const oldScript = document.querySelector(`script[data-module-script]`);
         if (oldScript) oldScript.remove();
 
-        // Liste des modules qui nécessitent un script JS
-        const modulesWithScripts = ["frequence", "generateur", "quiz", "attenuation", "piezo", "transmission", "securite"];
-
-        // Charge le script uniquement si le module en a besoin
-        if (modulesWithScripts.includes(name)) {
-            const script = document.createElement('script');
-            script.src = `js/${name}.js`;
-            script.setAttribute('data-module-script', name);
-            document.body.appendChild(script);
-        }
+        // Charge le script du module actuel
+        const script = document.createElement('script');
+        script.src = `js/${name}.js`;
+        script.setAttribute('data-module-script', name);
+        document.body.appendChild(script);
 
         // Met à jour la progression
         saveProgress(name);
@@ -36,7 +31,6 @@ async function loadModule(name) {
     }
 }
 
-// Définissez saveProgress et updateProgress
 function saveProgress(name) {
     localStorage.setItem('lastModule', name);
 }
@@ -44,6 +38,6 @@ function saveProgress(name) {
 function updateProgress() {
     const progressBar = document.getElementById('bar');
     if (progressBar) {
-        progressBar.style.width = '20%'; // À adapter selon logique
+        progressBar.style.width = '20%';
     }
 }
