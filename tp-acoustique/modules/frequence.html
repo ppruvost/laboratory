@@ -2,18 +2,21 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>TP - Fréquences et audiogramme</title>
+    <title>TP - Plage auditive - Fréquences sonores</title>
 
     <style>
-        .card {
-            max-width: 800px;
-            margin: auto;
+        body {
             font-family: Arial, sans-serif;
+        }
+
+        .card {
+            max-width: 900px;
+            margin: auto;
         }
 
         canvas {
             border: 1px solid #000;
-            margin-top: 20px;
+            margin-top: 15px;
         }
 
         button {
@@ -30,11 +33,11 @@
 
 <div class="card">
 
-    <h2>TP : Fréquences et plage auditive</h2>
+    <h2>TP : Plage auditive et audiogramme</h2>
 
     <p>
-        Utilise un casque 🎧. Explore les sons graves et aigus.
-        Clique sur les boutons pour définir tes limites d’audition.
+        🎧 Utilise un casque. Explore les sons graves et aigus.
+        Détermine ta zone d’audition.
     </p>
 
     <!-- CURSEUR -->
@@ -42,7 +45,7 @@
 
     <p id="freqText">440 Hz</p>
 
-    <!-- CONTRÔLES AUDIO -->
+    <!-- AUDIO -->
     <button id="playBtn">▶ Démarrer</button>
     <button id="stopBtn">⏹ Stop</button>
 
@@ -50,17 +53,19 @@
     <button id="hearBtn">🎧 J'entends</button>
     <button id="noHearBtn">🔇 Je n’entends plus</button>
 
+    <!-- DIAGNOSTIC -->
+    <button id="diagnoseBtn">🧠 Diagnostic</button>
+
     <!-- EXPORT -->
     <button id="exportPdf">📄 Export PDF</button>
 
-    <!-- GRAPHIQUE -->
-    <canvas id="audiogram" width="700" height="350"></canvas>
+    <!-- GRAPHE -->
+    <canvas id="audiogram" width="800" height="400"></canvas>
 
     <p id="result"></p>
 
 </div>
 
-<!-- SCRIPT -->
 <script src="js/frequence.js"></script>
 
 </body>
