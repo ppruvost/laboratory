@@ -122,6 +122,8 @@ nav button{
 
 background:white;
 
+color:var(--texte);
+
 border:none;
 
 padding:12px 18px;
@@ -147,6 +149,44 @@ background:#dce7f4;
 }
 
 nav button:active{
+
+transform:scale(.98);
+
+}
+
+/* ==========================
+   BOUTONS GENERAUX
+========================== */
+
+button{
+
+background:var(--bleu);
+
+color:white;
+
+border:none;
+
+padding:12px 16px;
+
+border-radius:10px;
+
+cursor:pointer;
+
+transition:var(--transition);
+
+font-weight:bold;
+
+}
+
+button:hover{
+
+opacity:.92;
+
+transform:translateY(-2px);
+
+}
+
+button:active{
 
 transform:scale(.98);
 
@@ -213,7 +253,13 @@ border-radius:8px;
 
 width:100%;
 
-max-width:300px;
+}
+
+input[type="text"],
+input[type="number"],
+select{
+
+max-width:350px;
 
 }
 
@@ -223,15 +269,17 @@ padding:0;
 
 width:250px;
 
+max-width:100%;
+
 }
 
 label{
 
-font-weight:bold;
+display:block;
 
 margin-bottom:8px;
 
-display:block;
+font-weight:bold;
 
 }
 
@@ -252,34 +300,6 @@ flex-wrap:wrap;
 align-items:center;
 
 margin:20px 0;
-
-}
-
-.buttons button,
-.presets button{
-
-background:var(--bleu);
-
-color:white;
-
-border:none;
-
-padding:12px 16px;
-
-border-radius:10px;
-
-cursor:pointer;
-
-transition:var(--transition);
-
-}
-
-.buttons button:hover,
-.presets button:hover{
-
-opacity:.9;
-
-transform:translateY(-2px);
 
 }
 
@@ -330,7 +350,9 @@ width:100%;
 
 max-width:100%;
 
-height:300px;
+height:auto;
+
+min-height:250px;
 
 background:white;
 
@@ -345,16 +367,64 @@ display:block;
 }
 
 /* ==========================
-   IMAGES SVG
+   IMAGES / SVG
 ========================== */
 
 img{
 
 max-width:100%;
 
+height:auto;
+
 display:block;
 
 margin:auto;
+
+}
+
+/* ==========================
+   RESULTATS
+========================== */
+
+.result{
+
+padding:10px;
+
+border-radius:8px;
+
+background:#f5f8fc;
+
+margin-top:10px;
+
+font-weight:bold;
+
+}
+
+/* ==========================
+   SECURITE
+========================== */
+
+.danger{
+
+color:#c40000;
+
+font-weight:bold;
+
+}
+
+.warning{
+
+color:#d97706;
+
+font-weight:bold;
+
+}
+
+.success{
+
+color:#0a7c28;
+
+font-weight:bold;
 
 }
 
@@ -385,22 +455,24 @@ margin-top:20px;
 }
 
 /* ==========================
-   ALERTES
+   MODULES SPECIFIQUES
 ========================== */
 
-.warning{
+.infos{
 
-color:#b80000;
+margin:20px 0;
 
 font-weight:bold;
 
 }
 
-.success{
+#riskLevel,
+#advice,
+#riskText,
+#morseResult,
+#piezoOut{
 
-color:#0a7c28;
-
-font-weight:bold;
+margin-top:10px;
 
 }
 
@@ -440,7 +512,13 @@ width:100%;
 
 canvas{
 
-height:220px;
+min-height:220px;
+
+}
+
+.card{
+
+padding:18px;
 
 }
 
