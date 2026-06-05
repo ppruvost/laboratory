@@ -76,7 +76,7 @@ Lancer l'expérience
 
 <div class="scene">
 
-<!-- OBJET PERCUTEUR -->
+<!-- MARTEAU -->
 
 <div class="bloc">
 
@@ -94,7 +94,7 @@ Objet percuteur
 </div>
 
 
-<!-- EMETTEUR -->
+<!-- DIAPASON -->
 
 <div class="bloc">
 
@@ -105,7 +105,7 @@ alt="diapason">
 
 <p>
 
-Émetteur : diapason
+Émetteur
 
 </p>
 
@@ -114,7 +114,9 @@ alt="diapason">
 
 <!-- MILIEU -->
 
-<div class="bloc milieuBloc">
+<div
+class="bloc milieuBloc"
+id="milieuBloc">
 
 <div id="milieuTxt">
 
@@ -136,7 +138,27 @@ Milieu de propagation
 </div>
 
 
-<!-- RECEPTEUR -->
+<!-- CROIX VIDE -->
+
+<div
+class="bloc"
+id="croixBloc">
+
+<img
+src="assets/images/red_cross.png"
+id="crossImg"
+alt="croix">
+
+<p>
+
+Pas de propagation
+
+</p>
+
+</div>
+
+
+<!-- OREILLE -->
 
 <div class="bloc">
 
@@ -145,11 +167,11 @@ id="oreille"
 src="assets/images/oreille.jpeg"
 alt="oreille">
 
-<p>
+<p id="receiverText">
 
 Récepteur
 
-p>
+</p>
 
 </div>
 
@@ -160,7 +182,7 @@ p>
 
 <p id="message">
 
-Prêt à lancer l'expérience.
+Choisir un milieu puis lancer.
 
 </p>
 
@@ -171,7 +193,7 @@ Prêt à lancer l'expérience.
 
 <script>
 
-const startAnim =
+const btn =
 document.getElementById(
 "startAnim"
 );
@@ -206,8 +228,42 @@ document.getElementById(
 "message"
 );
 
+const milieuBloc =
+document.getElementById(
+"milieuBloc"
+);
 
-startAnim.onclick=()=>{
+const croixBloc =
+document.getElementById(
+"croixBloc"
+);
+
+const receiverText =
+document.getElementById(
+"receiverText"
+);
+
+
+milieuBloc.style.display="none";
+
+croixBloc.style.display="none";
+
+
+const audio =
+
+new Audio(
+
+"assets/sounds/grave.wav"
+
+);
+
+
+btn.onclick=()=>{
+
+audio.pause();
+
+audio.currentTime=0;
+
 
 marteau.classList.add(
 "frappe"
@@ -233,41 +289,63 @@ milieu.value==="air"
 
 ){
 
+milieuBloc.style.display=
+
+"flex";
+
+croixBloc.style.display=
+
+"none";
+
 milieuTxt.innerHTML=
 
 "AIR";
 
-onde.style.visibility=
+onde.style.display=
 
-"visible";
+"block";
 
 onde.classList.add(
 "ondeMove"
 );
 
+receiverText.innerHTML=
+
+"Oreille reçoit";
+
 message.innerHTML=
 
-"Le son se propage dans l'air : les ondes atteignent le récepteur.";
+"Le son traverse l'air.";
+
+audio.play();
 
 }
 
 else{
 
+milieuBloc.style.display=
+
+"flex";
+
+croixBloc.style.display=
+
+"block";
+
 milieuTxt.innerHTML=
 
 "VIDE";
 
-onde.style.visibility=
+onde.style.display=
 
-"hidden";
+"none";
 
-onde.classList.remove(
-"ondeMove"
-);
+receiverText.innerHTML=
+
+"Silence";
 
 message.innerHTML=
 
-"Dans le vide, le son ne peut pas se propager.";
+"Dans le vide : aucune propagation.";
 
 }
 
@@ -281,6 +359,10 @@ diapason.classList.remove(
 onde.classList.remove(
 "ondeMove"
 );
+
+audio.pause();
+
+audio.currentTime=0;
 
 },3000);
 
