@@ -2,115 +2,156 @@ document.addEventListener("DOMContentLoaded", () => {
     const AudioContextClass = window.AudioContext || window.webkitAudioContext;
     const audioCtx = new AudioContextClass();
 
-    let oscillator = null;
-    let gainNode = null;
-    let analyser = null;
-    let dataArray = null;
-    let animationId = null;
+    let osc = null;
+    let gain = null;
     let isPlaying = false;
 
-    const freqSlider = document.getElementById("freq");
+    // seuils utilisateur
+    let lowLimit = null;
+    let highLimit = null;
+
+    const freq = document.getElementById("freq");
     const freqText = document.getElementById("freqText");
-    const periodText = document.getElementById("periodText");
+
     const playBtn = document.getElementById("playBtn");
     const stopBtn = document.getElementById("stopBtn");
-    const canvas = document.getElementById("oscillo");
-    const info = document.getElementById("info");
+    const hearBtn = document.getElementById("hearBtn");
+    const noHearBtn = document.getElementById("noHearBtn");
 
+    const canvas = document.getElementById("curve");
     const ctx = canvas.getContext("2d");
 
-    // ⚠️ sécurité DOM
-    if (!freqSlider || !playBtn || !stopBtn) return;
+    const result = document.getElementById("result");
 
-    function updateDisplay() {
-        const f = Number(freqSlider.value);
-        freqText.textContent = `${f} Hz`;
-        periodText.textContent = `Période : ${(1000 / f).toFixed(2)} ms`;
+    function updateUI() {
+        freqText.textContent = `${freq.value} Hz`;
 
-        if (oscillator) {
-            oscillator.frequency.setValueAtTime(f, audioCtx.currentTime);
-        }
-
-        if (f < 80) {
-            info.textContent = "Zone grave (basses fréquences)";
-        } else if (f > 5000) {
-            info.textContent = "Zone aiguë (hautes fréquences)";
-        } else {
-            info.textContent = "Zone médium";
+        if (osc) {
+            osc.frequency.setValueAtTime(freq.value, audioCtx.currentTime);
         }
     }
 
-    async function startSound() {
+    async function start() {
+        await audioCtx.resume();
+
         if (isPlaying) return;
 
-        await audioCtx.resume(); // 🔥 CRUCIAL
+        osc = audioCtx.createOscillator();
+        gain = audioCtx.createGain();
 
-        oscillator = audioCtx.createOscillator();
-        gainNode = audioCtx.createGain();
-        analyser = audioCtx.createAnalyser();
+        osc.type = "sine";
+        osc.frequency.value = freq.value;
 
-        analyser.fftSize = 2048;
-        dataArray = new Uint8Array(analyser.frequencyBinCount);
+        gain.gain.value = 0.3;
 
-        oscillator.type = "sine";
-        oscillator.frequency.value = Number(freqSlider.value);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
 
-        gainNode.gain.value = 0.3;
-
-        oscillator.connect(gainNode);
-        gainNode.connect(analyser);
-        analyser.connect(audioCtx.destination);
-
-        oscillator.start();
-
+        osc.start();
         isPlaying = true;
-        draw();
     }
 
-    function stopSound() {
+    function stop() {
         if (!isPlaying) return;
 
-        oscillator.stop();
-        oscillator.disconnect();
-        gainNode.disconnect();
+        osc.stop();
+        osc.disconnect();
+        gain.disconnect();
 
-        oscillator = null;
+        osc = null;
         isPlaying = false;
-
-        cancelAnimationFrame(animationId);
-
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
     }
 
-    function draw() {
-        if (!isPlaying) return;
+    // 🎧 seuil BAS ou HAUT
+    function hear() {
+        const f = Number(freq.value);
 
-        animationId = requestAnimationFrame(draw);
+        if (lowLimit === null) {
+            lowLimit = f;
+            result.textContent = `Seuil bas enregistré : ${lowLimit} Hz`;
+        } else {
+            highLimit = f;
+            result.textContent = `Seuil haut enregistré : ${highLimit} Hz`;
+        }
 
-        analyser.getByteTimeDomainData(dataArray);
+        drawCurve();
+    }
 
+    function noHear() {
+        const f = Number(freq.value);
+
+        if (lowLimit !== null && highLimit === null) {
+            highLimit = f;
+            result.textContent = `Seuil haut enregistré : ${highLimit} Hz`;
+        } else {
+            lowLimit = f;
+            result.textContent = `Seuil bas ajusté : ${lowLimit} Hz`;
+        }
+
+        drawCurve();
+    }
+
+    // 📊 courbe de plage auditive
+    function drawCurve() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
 
         ctx.beginPath();
-        ctx.lineWidth = 2;
+        ctx.lineWidth = 3;
 
-        const slice = canvas.width / dataArray.length;
-        let x = 0;
+        // axe
+        ctx.moveTo(50, 250);
+        ctx.lineTo(450, 250);
 
-        for (let i = 0; i < dataArray.length; i++) {
-            const v = dataArray[i] / 128;
-            const y = v * canvas.height / 2;
-
-            i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
-            x += slice;
-        }
+        ctx.moveTo(50, 50);
+        ctx.lineTo(50, 250);
 
         ctx.stroke();
+
+        if (lowLimit !== null) {
+            drawPoint(lowLimit, "blue");
+        }
+
+        if (highLimit !== null) {
+            drawPoint(highLimit, "red");
+        }
+
+        if (lowLimit && highLimit) {
+            ctx.beginPath();
+            ctx.fillStyle = "rgba(0,150,255,0.2)";
+
+            const x1 = mapFreq(lowLimit);
+            const x2 = mapFreq(highLimit);
+
+            ctx.fillRect(x1, 80, x2 - x1, 120);
+        }
     }
 
-    freqSlider.addEventListener("input", updateDisplay);
-    playBtn.addEventListener("click", startSound);
-    stopBtn.addEventListener("click", stopSound);
+    function drawPoint(f, color) {
+        const x = mapFreq(f);
 
-    updateDisplay();
+        ctx.beginPath();
+        ctx.fillStyle = color;
+        ctx.arc(x, 150, 6, 0, Math.PI * 2);
+        ctx.fill();
+
+        ctx.fillText(`${f} Hz`, x - 10, 170);
+    }
+
+    // mapping log pour perception humaine
+    function mapFreq(f) {
+        const minLog = Math.log10(20);
+        const maxLog = Math.log10(20000);
+        const logF = Math.log10(f);
+
+        return 50 + ((logF - minLog) / (maxLog - minLog)) * 400;
+    }
+
+    // events
+    freq.addEventListener("input", updateUI);
+    playBtn.addEventListener("click", start);
+    stopBtn.addEventListener("click", stop);
+    hearBtn.addEventListener("click", hear);
+    noHearBtn.addEventListener("click", noHear);
+
+    updateUI();
 });
