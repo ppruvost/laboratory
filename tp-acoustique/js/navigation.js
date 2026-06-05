@@ -18,7 +18,7 @@ async function loadModule(name) {
         if (oldScript) oldScript.remove();
 
         // Liste des modules qui nécessitent un script JS
-        const modulesWithScripts = ["generateur", "quiz", "attenuation", "piezo", "transmission", "securite"];
+        const modulesWithScripts = ["frequence", "generateur", "quiz", "attenuation", "piezo", "transmission", "securite"];
 
         // Charge le script uniquement si le module en a besoin
         if (modulesWithScripts.includes(name)) {
@@ -44,6 +44,6 @@ function saveProgress(name) {
 function updateProgress() {
     const progressBar = document.getElementById('bar');
     if (progressBar) {
-        progressBar.style.width = '20%'; // À adapter selon votre logique
+        progressBar.style.width = '20%'; // À adapter selon logique
     }
 }
