@@ -1,7 +1,5 @@
 console.log("module fréquence chargé");
-
-export function initFrequence(){
-
+window.initFrequence = function(){
 const AudioContextClass =
 window.AudioContext ||
 window.webkitAudioContext;
@@ -469,4 +467,4 @@ document
 
 draw();
 
-}
+};
