@@ -53,31 +53,31 @@ function initGenerateur() {
     updateInfos();
 
     // Écouteurs pour les sliders
-freqSlider.oninput = () => {
+    freqSlider.oninput = () => {
 
-    updateInfos();
+        updateInfos();
 
-    if(oscillator){
+        if(oscillator){
 
-        oscillator.frequency.value =
-        Number(freqSlider.value);
+            oscillator.frequency.value =
+            Number(freqSlider.value);
 
-    }
+        }
 
-};
+    };
 
-gainSlider.oninput = () => {
+    gainSlider.oninput = () => {
 
-    updateInfos();
+        updateInfos();
 
-    if(gainNode){
+        if(gainNode){
 
-        gainNode.gain.value =
-        Number(gainSlider.value);
+            gainNode.gain.value =
+            Number(gainSlider.value);
 
-    }
+        }
 
-};
+    };
 
     // Fonction pour démarrer le son
     function startSound() {
