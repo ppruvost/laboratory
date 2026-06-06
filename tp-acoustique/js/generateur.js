@@ -207,10 +207,3 @@ window.initGenerateur = function() {
         URL.revokeObjectURL(url);
     };
 }
-
-// Appel de l'initialisation uniquement quand le DOM est prêt
-if (document.readyState === 'complete' || document.readyState === 'interactive') {
-    initGenerateur();
-} else {
-    document.addEventListener('DOMContentLoaded', initGenerateur);
-}
