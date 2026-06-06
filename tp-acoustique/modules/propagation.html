@@ -1,68 +1,41 @@
-<div class="card">
+<div class="module-container">
+    <h2>Propagation du son dans un atelier</h2>
 
-    <h2>Labo acoustique — réverbération & propagation</h2>
+    <p><strong>Situation :</strong> Une machine génère un niveau sonore de 94 dB à 1 m.</p>
 
-    <div class="controls">
+    <div class="card">
+        <h3>Simulation : atténuation du son</h3>
 
-        <label>Salle :</label>
+        <label for="distance">Distance (cm) :</label>
+        <input type="range" id="distance" min="5" max="500" value="100">
 
-        <select id="room">
-            <option value="vide">Salle vide</option>
-            <option value="classe">Salle de classe</option>
-            <option value="refectoire">Réfectoire</option>
-            <option value="usine">Usine</option>
-        </select>
-
+        <div class="output">
+            <p>Distance : <span id="d-value">100</span> cm (<span id="d-m">1</span> m)</p>
+            <p><strong>Niveau sonore :</strong> <span id="l-value">94</span> dB</p>
+        </div>
     </div>
 
-    <div class="controls">
+    <div class="card">
+        <h3>Table de mesures</h3>
 
-        <label>Occupation :</label>
-
-        <input id="people"
-               type="range"
-               min="0"
-               max="50"
-               value="10">
-
-        <span id="peopleVal">10 personnes</span>
-
+        <table border="1" cellpadding="5">
+            <thead>
+                <tr>
+                    <th>Distance (cm)</th>
+                    <th>Niveau (dB)</th>
+                </tr>
+            </thead>
+            <tbody id="table-body"></tbody>
+        </table>
     </div>
 
-    <div class="controls">
-
-        <label>Distance source :</label>
-
-        <input id="dist"
-               type="range"
-               min="1"
-               max="20"
-               value="5">
-
-        <span id="distVal">5 m</span>
-
+    <div class="card">
+        <h3>Conclusion</h3>
+        <p>
+            Le niveau sonore diminue avec la distance selon une loi logarithmique :
+        </p>
+        <p><strong>L = 94 − 20 log(d)</strong> (d en mètres)</p>
     </div>
-
-    <div class="controls">
-
-        <label>Position source (stéréo) :</label>
-
-        <input id="pan"
-               type="range"
-               min="-1"
-               max="1"
-               step="0.01"
-               value="0">
-
-        <span id="panVal">centre</span>
-
-    </div>
-
-    <button id="startBtn">▶ Lancer simulation</button>
-    <button id="stopBtn">■ Stop</button>
-
-    <div id="info" class="result"></div>
-
-    <canvas id="canvas" width="900" height="350"></canvas>
-
 </div>
+
+<script src="modules/propagation.js"></script>
