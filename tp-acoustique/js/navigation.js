@@ -1,15 +1,14 @@
-const content = document.getElementById("content");
+const content =
+document.getElementById("content");
 
 
 /* ==========================
    NAVIGATION BOUTONS
 ========================== */
 
-document.querySelectorAll(
-
-"nav button"
-
-).forEach(btn=>{
+document
+.querySelectorAll("nav button")
+.forEach(btn=>{
 
 btn.addEventListener(
 
@@ -18,9 +17,7 @@ btn.addEventListener(
 ()=>{
 
 loadModule(
-
 btn.dataset.module
-
 );
 
 }
@@ -43,6 +40,7 @@ console.log(
 name
 );
 
+
 /* ==========================
    CHARGE HTML
 ========================== */
@@ -55,7 +53,7 @@ await fetch(
 if(!response.ok){
 
 throw new Error(
-"Module introuvable"
+`Module ${name} introuvable`
 );
 
 }
@@ -81,49 +79,8 @@ s => s.remove()
 
 
 /* ==========================
-   CHARGEMENT MODULE
+   AJOUT SCRIPT MODULE
 ========================== */
-
-async function loadModule(name){
-
-try{
-
-console.log(
-"Chargement module :",
-name
-);
-
-/* HTML */
-
-const response =
-await fetch(
-`modules/${name}.html`
-);
-
-if(!response.ok){
-
-throw new Error(
-"Module introuvable"
-);
-
-}
-
-content.innerHTML =
-await response.text();
-
-
-/* supprime ancien script */
-
-document
-.querySelectorAll(
-"script[data-module-script]"
-)
-.forEach(
-s => s.remove()
-);
-
-
-/* ajoute script */
 
 const script =
 document.createElement(
@@ -137,7 +94,9 @@ script.dataset.moduleScript =
 name;
 
 
-/* quand chargé */
+/* ==========================
+   SCRIPT CHARGÉ
+========================== */
 
 script.onload = ()=>{
 
@@ -145,13 +104,23 @@ console.log(
 `${name}.js chargé`
 );
 
-/* initialise si fonction dispo */
+/* nom attendu :
+frequence -> initFrequence
+quiz -> initQuiz
+etc.
+*/
 
 const initName =
+
 "init" +
+
 name.charAt(0)
-.toUpperCase() +
+.toUpperCase()
+
++
+
 name.slice(1);
+
 
 if(
 
@@ -166,9 +135,16 @@ console.log(
 `${initName} exécuté`
 );
 
+}else{
+
+console.log(
+`Pas de ${initName}()`
+);
+
 }
 
 };
+
 
 script.onerror = ()=>{
 
@@ -178,13 +154,18 @@ console.error(
 
 };
 
+
 document.body.appendChild(
 script);
 
 
-/* progression */
+/* ==========================
+   SAUVEGARDE + BARRE
+========================== */
 
-saveProgress(name);
+saveProgress(
+name
+);
 
 updateProgress();
 
@@ -192,27 +173,34 @@ updateProgress();
 
 console.error(error);
 
-content.innerHTML=
+content.innerHTML =
 
 `
 <div class="card">
 
+<h2>
+
+Erreur
+
+</h2>
+
 <p>
 
-Erreur :
 ${error.message}
 
 </p>
 
 </div>
+
 `;
 
 }
 
 }
 
+
 /* ==========================
-   SAUVEGARDE
+   SAUVEGARDE MODULE
 ========================== */
 
 function saveProgress(name){
@@ -229,7 +217,7 @@ name
 
 
 /* ==========================
-   PROGRESSION
+   BARRE DE PROGRESSION
 ========================== */
 
 function updateProgress(){
@@ -237,50 +225,39 @@ function updateProgress(){
 const bar =
 
 document.getElementById(
-
 "bar"
-
 );
 
 if(!bar) return;
 
-const modules =
+
+const buttons =
 
 document.querySelectorAll(
-
 "nav button"
-
-).length;
+);
 
 const current =
 
 localStorage.getItem(
-
 "lastModule"
-
 );
 
 let index = 1;
 
-document
 
-.querySelectorAll(
-
-"nav button"
-
-)
-
-.forEach(
+buttons.forEach(
 
 (btn,i)=>{
 
 if(
 
-btn.dataset.module===current
+btn.dataset.module
+=== current
 
 ){
 
-index=i+1;
+index = i + 1;
 
 }
 
@@ -288,15 +265,17 @@ index=i+1;
 
 );
 
+
+const percent =
+
+(index / buttons.length)
+
+* 100;
+
+
 bar.style.width =
 
-(
-
-index/modules
-
-)*100 +
-
-"%";
+percent + "%";
 
 }
 
@@ -314,17 +293,16 @@ window.addEventListener(
 const last =
 
 localStorage.getItem(
-
 "lastModule"
+)
 
-) ||
+||
 
 "introduction";
 
+
 loadModule(
-
 last
-
 );
 
 });
