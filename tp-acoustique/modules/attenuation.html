@@ -1,43 +1,57 @@
 <div class="card">
 
-<h2>
+    <h2>Isolation phonique — simulation réaliste</h2>
 
-Isolation phonique
+    <div class="controls">
 
-</h2>
+        <label>Environnement :</label>
 
-<select id="mat">
+        <select id="env">
+            <option value="refectoire">Réfectoire</option>
+            <option value="classe">Salle de classe</option>
+            <option value="usine">Usine</option>
+        </select>
 
-<option value="0.2">
+    </div>
 
-Mousse
+    <div class="controls">
 
-</option>
+        <label>Matériau murs :</label>
 
-<option value="0.5">
+        <select id="wallMat">
+            <option value="0.2">Mousse acoustique</option>
+            <option value="0.5">Bois</option>
+            <option value="0.8">Béton</option>
+        </select>
 
-Bois
+    </div>
 
-</option>
+    <div class="controls">
 
-<option value="0.8">
+        <label>Matériau plafond :</label>
 
-Béton
+        <select id="ceilingMat">
+            <option value="0.2">Mousse</option>
+            <option value="0.5">Plâtre</option>
+            <option value="0.8">Béton armé</option>
+        </select>
 
-</option>
+    </div>
 
-</select>
+    <div class="controls">
 
-<button onclick="calcAtt()">
+        <label>Distance source (m) :</label>
 
-Tester
+        <input id="distance" type="range" min="1" max="20" value="5">
 
-</button>
+        <span id="distVal">5 m</span>
 
-<p id="attResult">
+    </div>
 
-</p>
+    <button id="testBtn">▶ Tester simulation</button>
+
+    <div id="result" class="result"></div>
+
+    <canvas id="canvas" width="900" height="350"></canvas>
 
 </div>
-
-<script src="../js/attenuation.js"></script>
