@@ -1,6 +1,4 @@
-const content =
-document.getElementById("content");
-
+const content = document.getElementById("content");
 
 /* ==========================
    NAVIGATION BOUTONS
@@ -8,21 +6,12 @@ document.getElementById("content");
 
 document
 .querySelectorAll("nav button")
-.forEach(btn=>{
+.forEach(btn => {
 
-btn.addEventListener(
-
-"click",
-
-()=>{
-
-loadModule(
-btn.dataset.module
-);
-
-}
-
-);
+    btn.addEventListener(
+        "click",
+        () => loadModule(btn.dataset.module)
+    );
 
 });
 
@@ -33,249 +22,175 @@ btn.dataset.module
 
 async function loadModule(name){
 
-try{
+    try{
 
-console.log(
-"Chargement module :",
-name
-);
+        console.log(
+            "Chargement module :",
+            name
+        );
 
+        /* charge HTML */
 
-/* ==========================
-   CHARGE HTML
-========================== */
+        const response =
+        await fetch(
+            `modules/${name}.html`
+        );
 
-const response =
-await fetch(
-`modules/${name}.html`
-);
+        if(!response.ok){
 
-if(!response.ok){
+            throw new Error(
+                `Module ${name} introuvable`
+            );
 
-throw new Error(
-`Module ${name} introuvable`
-);
+        }
 
-}
-
-const html =
-await response.text();
-
-content.innerHTML =
-html;
+        content.innerHTML =
+        await response.text();
 
 
-/* ==========================
-   SUPPRIME ANCIENS SCRIPTS
-========================== */
+        /* supprime anciens scripts */
 
-document
-.querySelectorAll(
-"script[data-module-script]"
-)
-.forEach(
-s => s.remove()
-);
+        document
+        .querySelectorAll(
+            "script[data-module-script]"
+        )
+        .forEach(
+            s => s.remove()
+        );
 
 
-/* ==========================
-   AJOUT SCRIPT MODULE
-========================== */
+        /* charge JS associé */
 
-const script =
-document.createElement(
-"script"
-);
+        const script =
+        document.createElement(
+            "script"
+        );
 
-script.src =
-`js/${name}.js?time=${Date.now()}`;
+        script.src =
+        `js/${name}.js?time=${Date.now()}`;
 
-script.dataset.moduleScript =
-name;
+        script.dataset.moduleScript =
+        name;
 
 
-/* ==========================
-   SCRIPT CHARGÉ
-========================== */
+        script.onload = () => {
 
-script.onload = ()=>{
+            console.log(
+                `${name}.js chargé`
+            );
 
-console.log(
-`${name}.js chargé`
-);
+            const initName =
+            "init" +
+            name.charAt(0).toUpperCase() +
+            name.slice(1);
 
-/* nom attendu :
-frequence -> initFrequence
-quiz -> initQuiz
-etc.
-*/
+            if(
+                typeof window[initName]
+                === "function"
+            ){
 
-const initName =
+                window[initName]();
 
-"init" +
+                console.log(
+                    `${initName} exécuté`
+                );
 
-name.charAt(0)
-.toUpperCase()
+            }
 
-+
-
-name.slice(1);
-
-
-if(
-
-typeof window[initName]
-=== "function"
-
-){
-
-window[initName]();
-
-console.log(
-`${initName} exécuté`
-);
-
-}else{
-
-console.log(
-`Pas de ${initName}()`
-);
-
-}
-
-};
+        };
 
 
-script.onerror = ()=>{
+        script.onerror = () => {
 
-console.error(
-`Impossible charger js/${name}.js`
-);
+            console.error(
+                `Impossible charger js/${name}.js`
+            );
 
-};
-
-
-document.body.appendChild(
-script);
+        };
 
 
-/* ==========================
-   SAUVEGARDE + BARRE
-========================== */
+        document.body.appendChild(
+            script
+        );
 
-saveProgress(
-name
-);
 
-updateProgress();
+        saveProgress(name);
 
-}catch(error){
+        updateProgress();
 
-console.error(error);
+    }
 
-content.innerHTML =
+    catch(error){
 
-`
-<div class="card">
+        console.error(error);
 
-<h2>
+        content.innerHTML = `
+        <div class="card">
+            <h2>Erreur</h2>
+            <p>${error.message}</p>
+        </div>
+        `;
 
-Erreur
-
-</h2>
-
-<p>
-
-${error.message}
-
-</p>
-
-</div>
-
-`;
-
-}
+    }
 
 }
 
 
 /* ==========================
-   SAUVEGARDE MODULE
+   SAUVEGARDE
 ========================== */
 
 function saveProgress(name){
 
-localStorage.setItem(
-
-"lastModule",
-
-name
-
-);
+    localStorage.setItem(
+        "lastModule",
+        name
+    );
 
 }
 
 
 /* ==========================
-   BARRE DE PROGRESSION
+   BARRE PROGRESSION
 ========================== */
 
 function updateProgress(){
 
-const bar =
+    const bar =
+    document.getElementById(
+        "bar"
+    );
 
-document.getElementById(
-"bar"
-);
+    if(!bar) return;
 
-if(!bar) return;
+    const buttons =
+    document.querySelectorAll(
+        "nav button"
+    );
 
+    const current =
+    localStorage.getItem(
+        "lastModule"
+    );
 
-const buttons =
+    let index = 1;
 
-document.querySelectorAll(
-"nav button"
-);
+    buttons.forEach((btn,i)=>{
 
-const current =
+        if(
+            btn.dataset.module
+            === current
+        ){
 
-localStorage.getItem(
-"lastModule"
-);
+            index = i + 1;
 
-let index = 1;
+        }
 
+    });
 
-buttons.forEach(
-
-(btn,i)=>{
-
-if(
-
-btn.dataset.module
-=== current
-
-){
-
-index = i + 1;
-
-}
-
-}
-
-);
-
-
-const percent =
-
-(index / buttons.length)
-
-* 100;
-
-
-bar.style.width =
-
-percent + "%";
+    bar.style.width =
+    ((index / buttons.length) * 100)
+    + "%";
 
 }
 
@@ -286,23 +201,24 @@ percent + "%";
 
 window.addEventListener(
 
-"DOMContentLoaded",
+    "DOMContentLoaded",
 
-()=>{
+    ()=>{
 
-const last =
+        const last =
 
-localStorage.getItem(
-"lastModule"
-)
+        localStorage.getItem(
+            "lastModule"
+        )
 
-||
+        ||
 
-"introduction";
+        "introduction";
 
+        loadModule(
+            last
+        );
 
-loadModule(
-last
+    }
+
 );
-
-});
