@@ -1,5 +1,5 @@
 // Fonction d'initialisation du module Générateur
-function initGenerateur() {
+window.initGenerateur = function() {
     // Vérifie que tous les éléments nécessaires existent
     const AudioContextClass = window.AudioContext || window.webkitAudioContext;
     const audioCtx = new AudioContextClass();
