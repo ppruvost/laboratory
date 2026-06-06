@@ -1,10 +1,6 @@
 console.log("module fréquence chargé");
 
-document.addEventListener(
-
-"DOMContentLoaded",
-
-()=>{
+export function initFrequence(){
 
 const AudioContextClass =
 window.AudioContext ||
@@ -473,4 +469,4 @@ document
 
 draw();
 
-});
+}
