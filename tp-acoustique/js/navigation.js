@@ -81,8 +81,49 @@ s => s.remove()
 
 
 /* ==========================
-   CHARGE SCRIPT MODULE
+   CHARGEMENT MODULE
 ========================== */
+
+async function loadModule(name){
+
+try{
+
+console.log(
+"Chargement module :",
+name
+);
+
+/* HTML */
+
+const response =
+await fetch(
+`modules/${name}.html`
+);
+
+if(!response.ok){
+
+throw new Error(
+"Module introuvable"
+);
+
+}
+
+content.innerHTML =
+await response.text();
+
+
+/* supprime ancien script */
+
+document
+.querySelectorAll(
+"script[data-module-script]"
+)
+.forEach(
+s => s.remove()
+);
+
+
+/* ajoute script */
 
 const script =
 document.createElement(
@@ -92,75 +133,58 @@ document.createElement(
 script.src =
 `js/${name}.js?time=${Date.now()}`;
 
-/* évite cache GitHub */
-
 script.dataset.moduleScript =
 name;
 
-script.defer = true;
 
+/* quand chargé */
 
-/* ==========================
-   APRES CHARGEMENT SCRIPT
-========================== */
-
-script.onload = async ()=>{
+script.onload = ()=>{
 
 console.log(
 `${name}.js chargé`
 );
 
-/* initialise modules dynamiques */
+/* initialise si fonction dispo */
 
-try{
+const initName =
+"init" +
+name.charAt(0)
+.toUpperCase() +
+name.slice(1);
 
-if(name === "frequence"){
+if(
 
-const mod =
-await import(
-`./js/frequence.js?time=${Date.now()}`
-);
+typeof window[initName]
+=== "function"
 
-if(mod.initFrequence){
+){
 
-mod.initFrequence();
+window[initName]();
 
-}
-
-}
-
-}catch(e){
-
-console.error(
-"Erreur init module :",
-e
+console.log(
+`${initName} exécuté`
 );
 
 }
 
 };
 
-
 script.onerror = ()=>{
 
 console.error(
-`Impossible de charger js/${name}.js`
+`Impossible charger js/${name}.js`
 );
 
 };
 
 document.body.appendChild(
-script
-);
+script);
 
 
-/* ==========================
-   PROGRESSION
-========================== */
+/* progression */
 
-saveProgress(
-name
-);
+saveProgress(name);
 
 updateProgress();
 
@@ -168,7 +192,7 @@ updateProgress();
 
 console.error(error);
 
-content.innerHTML =
+content.innerHTML=
 
 `
 <div class="card">
@@ -181,7 +205,6 @@ ${error.message}
 </p>
 
 </div>
-
 `;
 
 }
