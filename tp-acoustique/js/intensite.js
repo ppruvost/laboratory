@@ -1,174 +1,211 @@
-/* ==========================
-   MODULE INTENSITÉ SONORE (TP LYCÉE)
-   - dB SPL simplifié
-   - seuil auditif / douleur
-   - visualisation
-========================== */
-
 window.initIntensite = function () {
 
-    console.log("module intensité chargé");
+console.log("module intensité avancé chargé");
 
-    const AudioContextClass =
-        window.AudioContext || window.webkitAudioContext;
+const AudioContextClass =
+window.AudioContext || window.webkitAudioContext;
 
-    const audioCtx = new AudioContextClass();
+const audioCtx = new AudioContextClass();
 
-    let oscillator = null;
-    let gainNode = null;
+let osc = null;
+let gainNode = null;
 
-    /* ==========================
-       CONSTANTES PHYSIOLOGIQUES
-    ========================== */
+/* ==========================
+   ELEMENTS
+========================== */
 
-    const SEUIL_AUDITIF = 0.00002;   // 20 µPa
-    const SEUIL_DOULEUR = 1;         // intensité relative simplifiée
+const freqSlider = document.getElementById("freqSlider");
+const intensitySlider = document.getElementById("intensitySlider");
+const ageSelect = document.getElementById("ageSelect");
 
-    /* ==========================
-       ELEMENTS DOM
-    ========================== */
+const canvas = document.getElementById("canvas");
+const ctx = canvas.getContext("2d");
 
-    const slider = document.getElementById("intensitySlider");
-    const intensityValue = document.getElementById("intensityValue");
-    const dbInfo = document.getElementById("dbInfo");
-    const levelBar = document.getElementById("levelBar");
-    const danger = document.getElementById("danger");
+const dbInfo = document.getElementById("dbInfo");
+const danger = document.getElementById("danger");
 
-    const startBtn = document.getElementById("startBtn");
-    const stopBtn = document.getElementById("stopBtn");
+const startBtn = document.getElementById("startBtn");
+const stopBtn = document.getElementById("stopBtn");
 
-    if (!slider || !dbInfo || !levelBar) {
-        console.error("UI intensité incomplète");
-        return;
+/* ==========================
+   FLETCHER-MUNSON (approx)
+========================== */
+
+function earSensitivity(freq) {
+
+    const f = Math.log10(freq);
+
+    // creux 3-4 kHz (zone la plus sensible)
+    const center = Math.log10(3500);
+
+    const dist = Math.abs(f - center);
+
+    return Math.exp(-Math.pow(dist * 3, 2));
+
+}
+
+/* ==========================
+   PRESBYACOUSIE (âge)
+========================== */
+
+function ageLoss(freq, age) {
+
+    const f = Math.log10(freq);
+
+    const cutoff = age === 20 ? 18000 :
+                   age === 40 ? 14000 :
+                                8000;
+
+    if (freq < cutoff) return 1;
+
+    return Math.exp(-(f - Math.log10(cutoff)) * 4);
+
+}
+
+/* ==========================
+   dB SPL simplifié
+========================== */
+
+function dbSPL(intensity, freq, age) {
+
+    const base = 20 * Math.log10(intensity / 0.00002);
+
+    const correction =
+        20 * Math.log10(
+            earSensitivity(freq) *
+            ageLoss(freq, age)
+        );
+
+    return base + correction;
+
+}
+
+/* ==========================
+   UPDATE UI
+========================== */
+
+function update() {
+
+    const f = Number(freqSlider.value);
+    const I = Number(intensitySlider.value);
+    const age = Number(ageSelect.value);
+
+    const db = dbSPL(I, f, age);
+
+    dbInfo.innerHTML =
+        `Fréquence: ${f} Hz<br>` +
+        `Intensité: ${I.toFixed(3)}<br>` +
+        `<b>Niveau perçu: ${db.toFixed(1)} dB SPL</b>`;
+
+    if (db < 20) danger.innerHTML = "🟢 quasi inaudible";
+    else if (db < 80) danger.innerHTML = "🟡 zone normale";
+    else if (db < 120) danger.innerHTML = "🟠 fort";
+    else danger.innerHTML = "🔴 danger";
+
+    draw(f, I, age);
+
+}
+
+/* ==========================
+   FLETCHER CURVE VISUALISATION
+========================== */
+
+function draw(freq, intensity, age) {
+
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    const width = canvas.width;
+    const height = canvas.height;
+
+    function x(f) {
+        return (Math.log10(f) - Math.log10(20)) /
+               (Math.log10(20000) - Math.log10(20)) * width;
     }
 
-    /* ==========================
-       MODELE dB SPL SIMPLIFIE
-       dB = 20 log10(I / I0)
-    ========================== */
+    function y(db) {
+        return height - (db / 120) * height;
+    }
 
-    function computeDb(intensity) {
+    /* axe audible */
+    ctx.strokeStyle = "#ccc";
+    ctx.beginPath();
+    ctx.moveTo(x(20), y(0));
+    ctx.lineTo(x(20000), y(0));
+    ctx.stroke();
 
-        const I = Math.max(intensity, 0.000001);
+    /* courbe sensibilité */
+    ctx.strokeStyle = "blue";
+    ctx.beginPath();
 
-        return 20 * Math.log10(I / SEUIL_AUDITIF);
+    for (let f = 20; f <= 20000; f *= 1.02) {
+
+        const db = dbSPL(intensity, f, age);
+
+        const X = x(f);
+        const Y = y(db);
+
+        if (f === 20) ctx.moveTo(X, Y);
+        else ctx.lineTo(X, Y);
 
     }
 
-    /* ==========================
-       UI UPDATE
-    ========================== */
+    ctx.stroke();
 
-    function updateUI() {
+    /* point courant */
+    ctx.fillStyle = "red";
+    ctx.beginPath();
+    ctx.arc(x(freq), y(dbSPL(intensity, freq, age)), 6, 0, Math.PI * 2);
+    ctx.fill();
 
-        const I = Number(slider.value);
+}
 
-        const db = computeDb(I);
+/* ==========================
+   AUDIO
+========================== */
 
-        intensityValue.textContent =
-            Math.round(I * 100) + " %";
+function start() {
 
-        dbInfo.innerHTML = `
-            Intensité relative : ${I.toFixed(2)} <br>
-            Niveau sonore : <b>${db.toFixed(1)} dB SPL</b>
-        `;
+    stop();
 
-        /* BARRE VISUELLE (non linéaire) */
-        const visual = Math.min(100, Math.log10(I + 0.0001) * 50 + 100);
-        levelBar.style.width = visual + "%";
+    osc = audioCtx.createOscillator();
+    gainNode = audioCtx.createGain();
 
-        /* ==========================
-           SEUILS PHYSIOLOGIQUES
-        ========================== */
+    osc.type = "sine";
 
-        if (db < 20) {
+    osc.frequency.value =
+        Number(freqSlider.value);
 
-            danger.innerHTML =
-                "🟢 Sous le seuil auditif (quasi inaudible)";
+    gainNode.gain.value =
+        Number(intensitySlider.value);
 
-            danger.style.color = "green";
+    osc.connect(gainNode);
+    gainNode.connect(audioCtx.destination);
 
-        }
+    osc.start();
 
-        else if (db < 80) {
+}
 
-            danger.innerHTML =
-                "🟡 Zone auditive confortable";
+function stop() {
 
-            danger.style.color = "#d97706";
-
-        }
-
-        else if (db < 120) {
-
-            danger.innerHTML =
-                "🟠 Zone forte (risque à long terme)";
-
-            danger.style.color = "orange";
-
-        }
-
-        else {
-
-            danger.innerHTML =
-                "🔴 SEUIL DE DOULEUR (danger)";
-
-            danger.style.color = "red";
-
-        }
-
+    if (osc) {
+        osc.stop();
+        osc.disconnect();
+        osc = null;
     }
 
-    updateUI();
+}
 
-    /* ==========================
-       AUDIO
-    ========================== */
+/* ==========================
+   EVENTS
+========================== */
 
-    function startSound() {
+freqSlider.oninput = update;
+intensitySlider.oninput = update;
+ageSelect.onchange = update;
 
-        stopSound();
+startBtn.onclick = start;
+stopBtn.onclick = stop;
 
-        oscillator = audioCtx.createOscillator();
-        gainNode = audioCtx.createGain();
-
-        oscillator.type = "sine";
-        oscillator.frequency.value = 440;
-
-        gainNode.gain.value = Number(slider.value);
-
-        oscillator.connect(gainNode);
-        gainNode.connect(audioCtx.destination);
-
-        oscillator.start();
-
-    }
-
-    function stopSound() {
-
-        if (oscillator) {
-            oscillator.stop();
-            oscillator.disconnect();
-            oscillator = null;
-        }
-
-    }
-
-    /* ==========================
-       EVENTS
-    ========================== */
-
-    slider.addEventListener("input", () => {
-
-        updateUI();
-
-        if (gainNode) {
-            gainNode.gain.value = Number(slider.value);
-        }
-
-    });
-
-    startBtn.onclick = startSound;
-    stopBtn.onclick = stopSound;
+update();
 
 };
