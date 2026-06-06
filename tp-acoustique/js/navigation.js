@@ -39,95 +39,104 @@ async function loadModule(name){
 try{
 
 console.log(
-
 "Chargement module :",
-
 name
-
 );
 
-
-/* charge HTML */
+/* ==========================
+   CHARGE HTML
+========================== */
 
 const response =
-
 await fetch(
-
 `modules/${name}.html`
-
 );
 
-if(
-
-!response.ok
-
-){
+if(!response.ok){
 
 throw new Error(
-
 "Module introuvable"
-
 );
 
 }
 
 const html =
-
 await response.text();
 
 content.innerHTML =
-
 html;
 
 
-/* suppression ancien script */
+/* ==========================
+   SUPPRIME ANCIENS SCRIPTS
+========================== */
 
 document
-
 .querySelectorAll(
-
 "script[data-module-script]"
-
 )
-
 .forEach(
-
-s=>s.remove()
-
+s => s.remove()
 );
 
 
-/* ajout script module */
+/* ==========================
+   CHARGE SCRIPT MODULE
+========================== */
 
 const script =
-
 document.createElement(
-
 "script"
-
 );
 
 script.src =
-
 `js/${name}.js?time=${Date.now()}`;
-
 
 /* évite cache GitHub */
 
 script.dataset.moduleScript =
-
 name;
 
 script.defer = true;
 
 
-script.onload = ()=>{
+/* ==========================
+   APRES CHARGEMENT SCRIPT
+========================== */
+
+script.onload = async ()=>{
 
 console.log(
-
 `${name}.js chargé`
-
 );
+
+/* initialise modules dynamiques */
+
+try{
+
+if(name === "frequence"){
+
+const mod =
+await import(
+`./js/frequence.js?time=${Date.now()}`
+);
+
+if(mod.initFrequence){
+
+mod.initFrequence();
+
+}
+
+}
+
+}catch(e){
+
+console.error(
+"Erreur init module :",
+e
+);
+
+}
 
 };
 
@@ -135,31 +144,25 @@ console.log(
 script.onerror = ()=>{
 
 console.error(
-
 `Impossible de charger js/${name}.js`
-
 );
 
 };
 
-
 document.body.appendChild(
-
 script
-
 );
 
 
-/* progression */
+/* ==========================
+   PROGRESSION
+========================== */
 
 saveProgress(
-
 name
-
 );
 
 updateProgress();
-
 
 }catch(error){
 
@@ -173,7 +176,6 @@ content.innerHTML =
 <p>
 
 Erreur :
-
 ${error.message}
 
 </p>
@@ -185,7 +187,6 @@ ${error.message}
 }
 
 }
-
 
 /* ==========================
    SAUVEGARDE
