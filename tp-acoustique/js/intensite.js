@@ -1,5 +1,8 @@
 /* ==========================
-   MODULE INTENSITÉ SONORE
+   MODULE INTENSITÉ SONORE (TP LYCÉE)
+   - dB SPL simplifié
+   - seuil auditif / douleur
+   - visualisation
 ========================== */
 
 window.initIntensite = function () {
@@ -15,68 +18,111 @@ window.initIntensite = function () {
     let gainNode = null;
 
     /* ==========================
+       CONSTANTES PHYSIOLOGIQUES
+    ========================== */
+
+    const SEUIL_AUDITIF = 0.00002;   // 20 µPa
+    const SEUIL_DOULEUR = 1;         // intensité relative simplifiée
+
+    /* ==========================
        ELEMENTS DOM
     ========================== */
 
-    const intensitySlider =
-        document.getElementById("intensitySlider");
+    const slider = document.getElementById("intensitySlider");
+    const intensityValue = document.getElementById("intensityValue");
+    const dbInfo = document.getElementById("dbInfo");
+    const levelBar = document.getElementById("levelBar");
+    const danger = document.getElementById("danger");
 
-    const intensityValue =
-        document.getElementById("intensityValue");
+    const startBtn = document.getElementById("startBtn");
+    const stopBtn = document.getElementById("stopBtn");
 
-    const startBtn =
-        document.getElementById("startBtn");
-
-    const stopBtn =
-        document.getElementById("stopBtn");
-
-    const levelBar =
-        document.getElementById("levelBar");
-
-    const dbInfo =
-        document.getElementById("dbInfo");
-
-    /* ==========================
-       CHECK DOM
-    ========================== */
-
-    if (
-        !intensitySlider ||
-        !intensityValue ||
-        !startBtn ||
-        !stopBtn ||
-        !levelBar ||
-        !dbInfo
-    ) {
-        console.error("UI Intensité incomplète");
+    if (!slider || !dbInfo || !levelBar) {
+        console.error("UI intensité incomplète");
         return;
     }
 
     /* ==========================
-       INIT AFFICHAGE
+       MODELE dB SPL SIMPLIFIE
+       dB = 20 log10(I / I0)
+    ========================== */
+
+    function computeDb(intensity) {
+
+        const I = Math.max(intensity, 0.000001);
+
+        return 20 * Math.log10(I / SEUIL_AUDITIF);
+
+    }
+
+    /* ==========================
+       UI UPDATE
     ========================== */
 
     function updateUI() {
 
-        const value = Number(intensitySlider.value);
+        const I = Number(slider.value);
+
+        const db = computeDb(I);
 
         intensityValue.textContent =
-            Math.round(value * 100) + " %";
+            Math.round(I * 100) + " %";
 
-        const db = Math.round(20 * Math.log10(value + 0.0001));
+        dbInfo.innerHTML = `
+            Intensité relative : ${I.toFixed(2)} <br>
+            Niveau sonore : <b>${db.toFixed(1)} dB SPL</b>
+        `;
 
-        dbInfo.textContent =
-            "Niveau estimé : " + db + " dB";
+        /* BARRE VISUELLE (non linéaire) */
+        const visual = Math.min(100, Math.log10(I + 0.0001) * 50 + 100);
+        levelBar.style.width = visual + "%";
 
-        levelBar.style.width =
-            Math.min(100, value * 100) + "%";
+        /* ==========================
+           SEUILS PHYSIOLOGIQUES
+        ========================== */
+
+        if (db < 20) {
+
+            danger.innerHTML =
+                "🟢 Sous le seuil auditif (quasi inaudible)";
+
+            danger.style.color = "green";
+
+        }
+
+        else if (db < 80) {
+
+            danger.innerHTML =
+                "🟡 Zone auditive confortable";
+
+            danger.style.color = "#d97706";
+
+        }
+
+        else if (db < 120) {
+
+            danger.innerHTML =
+                "🟠 Zone forte (risque à long terme)";
+
+            danger.style.color = "orange";
+
+        }
+
+        else {
+
+            danger.innerHTML =
+                "🔴 SEUIL DE DOULEUR (danger)";
+
+            danger.style.color = "red";
+
+        }
 
     }
 
     updateUI();
 
     /* ==========================
-       CREATION SON
+       AUDIO
     ========================== */
 
     function startSound() {
@@ -89,29 +135,21 @@ window.initIntensite = function () {
         oscillator.type = "sine";
         oscillator.frequency.value = 440;
 
-        gainNode.gain.value =
-            Number(intensitySlider.value);
+        gainNode.gain.value = Number(slider.value);
 
         oscillator.connect(gainNode);
         gainNode.connect(audioCtx.destination);
 
         oscillator.start();
 
-        console.log("son intensité démarré");
-
     }
 
     function stopSound() {
 
         if (oscillator) {
-
-            try {
-                oscillator.stop();
-            } catch (e) {}
-
+            oscillator.stop();
             oscillator.disconnect();
             oscillator = null;
-
         }
 
     }
@@ -120,13 +158,12 @@ window.initIntensite = function () {
        EVENTS
     ========================== */
 
-    intensitySlider.addEventListener("input", () => {
+    slider.addEventListener("input", () => {
 
         updateUI();
 
         if (gainNode) {
-            gainNode.gain.value =
-                Number(intensitySlider.value);
+            gainNode.gain.value = Number(slider.value);
         }
 
     });
