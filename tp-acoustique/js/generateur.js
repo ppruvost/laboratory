@@ -53,8 +53,31 @@ function initGenerateur() {
     updateInfos();
 
     // Écouteurs pour les sliders
-    freqSlider.oninput = updateInfos;
-    gainSlider.oninput = updateInfos;
+freqSlider.oninput = () => {
+
+    updateInfos();
+
+    if(oscillator){
+
+        oscillator.frequency.value =
+        Number(freqSlider.value);
+
+    }
+
+};
+
+gainSlider.oninput = () => {
+
+    updateInfos();
+
+    if(gainNode){
+
+        gainNode.gain.value =
+        Number(gainSlider.value);
+
+    }
+
+};
 
     // Fonction pour démarrer le son
     function startSound() {
