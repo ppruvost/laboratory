@@ -1,0 +1,68 @@
+<div class="card">
+
+    <h2>Labo acoustique — réverbération & propagation</h2>
+
+    <div class="controls">
+
+        <label>Salle :</label>
+
+        <select id="room">
+            <option value="vide">Salle vide</option>
+            <option value="classe">Salle de classe</option>
+            <option value="refectoire">Réfectoire</option>
+            <option value="usine">Usine</option>
+        </select>
+
+    </div>
+
+    <div class="controls">
+
+        <label>Occupation :</label>
+
+        <input id="people"
+               type="range"
+               min="0"
+               max="50"
+               value="10">
+
+        <span id="peopleVal">10 personnes</span>
+
+    </div>
+
+    <div class="controls">
+
+        <label>Distance source :</label>
+
+        <input id="dist"
+               type="range"
+               min="1"
+               max="20"
+               value="5">
+
+        <span id="distVal">5 m</span>
+
+    </div>
+
+    <div class="controls">
+
+        <label>Position source (stéréo) :</label>
+
+        <input id="pan"
+               type="range"
+               min="-1"
+               max="1"
+               step="0.01"
+               value="0">
+
+        <span id="panVal">centre</span>
+
+    </div>
+
+    <button id="startBtn">▶ Lancer simulation</button>
+    <button id="stopBtn">■ Stop</button>
+
+    <div id="info" class="result"></div>
+
+    <canvas id="canvas" width="900" height="350"></canvas>
+
+</div>
