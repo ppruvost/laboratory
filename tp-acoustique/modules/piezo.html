@@ -2,26 +2,40 @@
 
 <h2>
 
-Piézoélectricité
+TP – Capteur piézoélectrique
 
 </h2>
 
-<img src="assets/icons/piezo.svg">
-
 <p>
 
-Compression → tension électrique
+Simuler une vibration mécanique.
 
 </p>
 
-<button onclick="piezoEmit()">
+<button id="impact">
 
-Tester
+Créer un choc
 
 </button>
 
-<p id="piezoOut">
+<p>
+
+Amplitude :
+
+<span id="piezoVal">
+
+0
+
+</span>
+
+V
 
 </p>
+
+<canvas
+id="piezoCanvas"
+width="900"
+height="250">
+</canvas>
 
 </div>
