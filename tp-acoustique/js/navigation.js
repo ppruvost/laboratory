@@ -1,19 +1,91 @@
-const content = document.getElementById("content");
+const content =
+document.getElementById(
+    "content"
+);
+
+let isLoading = false;
 
 /* ==========================
    NAVIGATION BOUTONS
 ========================== */
 
 document
-.querySelectorAll("nav button")
-.forEach(btn => {
+.querySelectorAll(
+    "nav button"
+)
+.forEach(btn=>{
 
     btn.addEventListener(
         "click",
-        () => loadModule(btn.dataset.module)
+        ()=>{
+
+            const moduleName =
+            btn.dataset.module;
+
+            if(
+                !moduleName ||
+                isLoading
+            ) return;
+
+            loadModule(
+                moduleName
+            );
+
+        }
     );
 
 });
+
+
+/* ==========================
+   ETAT BOUTON ACTIF
+========================== */
+
+function setActiveButton(name){
+
+    document
+    .querySelectorAll(
+        "nav button"
+    )
+    .forEach(btn=>{
+
+        btn.classList.remove(
+            "active"
+        );
+
+        if(
+            btn.dataset.module
+            === name
+        ){
+
+            btn.classList.add(
+                "active"
+            );
+
+        }
+
+    });
+
+}
+
+
+/* ==========================
+   SUPPRESSION SCRIPTS
+========================== */
+
+function removeOldScripts(){
+
+    document
+    .querySelectorAll(
+        "script[data-module-script]"
+    )
+    .forEach(script=>{
+
+        script.remove();
+
+    });
+
+}
 
 
 /* ==========================
@@ -22,6 +94,10 @@ document
 
 async function loadModule(name){
 
+    if(isLoading) return;
+
+    isLoading = true;
+
     try{
 
         console.log(
@@ -29,37 +105,48 @@ async function loadModule(name){
             name
         );
 
-        /* charge HTML */
+        setActiveButton(
+            name
+        );
+
+        content.innerHTML =
+
+        `
+        <div class="card">
+            Chargement...
+        </div>
+        `;
+
+        /* -------- HTML -------- */
 
         const response =
         await fetch(
             `modules/${name}.html`
         );
 
-        if(!response.ok){
+        if(
+            !response.ok
+        ){
 
             throw new Error(
+
                 `Module ${name} introuvable`
+
             );
 
         }
 
-        content.innerHTML =
+        const html =
         await response.text();
 
+        content.innerHTML =
+        html;
 
-        /* supprime anciens scripts */
+        /* -------- nettoyage anciens scripts -------- */
 
-        document
-        .querySelectorAll(
-            "script[data-module-script]"
-        )
-        .forEach(
-            s => s.remove()
-        );
+        removeOldScripts();
 
-
-        /* charge JS associé */
+        /* -------- JS -------- */
 
         const script =
         document.createElement(
@@ -67,69 +154,167 @@ async function loadModule(name){
         );
 
         script.src =
-        `js/${name}.js?time=${Date.now()}`;
+
+        `js/${name}.js?v=${Date.now()}`;
 
         script.dataset.moduleScript =
         name;
 
-
-        script.onload = () => {
+        script.onload = ()=>{
 
             console.log(
+
                 `${name}.js chargé`
+
             );
 
             const initName =
+
             "init" +
-            name.charAt(0).toUpperCase() +
+
+            name.charAt(0)
+            .toUpperCase()
+
+            +
+
             name.slice(1);
 
             if(
-                typeof window[initName]
-                === "function"
+
+                typeof
+                window[initName]
+
+                ===
+
+                "function"
+
             ){
 
-                window[initName]();
+                try{
 
-                console.log(
-                    `${initName} exécuté`
+                    window[
+                        initName
+                    ]();
+
+                    console.log(
+
+                        initName,
+
+                        "executé"
+
+                    );
+
+                }
+
+                catch(err){
+
+                    console.error(
+
+                        "Erreur init :", err
+
+                    );
+
+                }
+
+            }
+
+            else{
+
+                console.warn(
+
+                    initName,
+
+                    "absent"
+
                 );
 
             }
 
         };
 
-
-        script.onerror = () => {
+        script.onerror = ()=>{
 
             console.error(
-                `Impossible charger js/${name}.js`
+
+                `Erreur chargement js/${name}.js`
+
             );
 
-        };
+            content.innerHTML =
 
+            `
+            <div class="card">
+
+            <h2>
+
+            Erreur JS
+
+            </h2>
+
+            <p>
+
+            Impossible charger :
+
+            js/${name}.js
+
+            </p>
+
+            </div>
+            `;
+
+        };
 
         document.body.appendChild(
             script
         );
 
-
-        saveProgress(name);
+        saveProgress(
+            name
+        );
 
         updateProgress();
+
+        window.scrollTo({
+
+            top:0,
+
+            behavior:"smooth"
+
+        });
 
     }
 
     catch(error){
 
-        console.error(error);
+        console.error(
+            error
+        );
 
-        content.innerHTML = `
+        content.innerHTML =
+
+        `
         <div class="card">
-            <h2>Erreur</h2>
-            <p>${error.message}</p>
+
+            <h2>
+
+            Erreur
+
+            </h2>
+
+            <p>
+
+            ${error.message}
+
+            </p>
+
         </div>
         `;
+
+    }
+
+    finally{
+
+        isLoading = false;
 
     }
 
@@ -143,8 +328,11 @@ async function loadModule(name){
 function saveProgress(name){
 
     localStorage.setItem(
+
         "lastModule",
+
         name
+
     );
 
 }
@@ -157,6 +345,7 @@ function saveProgress(name){
 function updateProgress(){
 
     const bar =
+
     document.getElementById(
         "bar"
     );
@@ -164,39 +353,62 @@ function updateProgress(){
     if(!bar) return;
 
     const buttons =
+
     document.querySelectorAll(
         "nav button"
     );
 
     const current =
+
     localStorage.getItem(
         "lastModule"
     );
 
     let index = 1;
 
-    buttons.forEach((btn,i)=>{
+    buttons.forEach(
 
-        if(
-            btn.dataset.module
-            === current
-        ){
+        (btn,i)=>{
 
-            index = i + 1;
+            if(
+
+                btn.dataset.module
+
+                ===
+
+                current
+
+            ){
+
+                index =
+
+                i+1;
+
+            }
 
         }
 
-    });
+    );
+
+    const percent =
+
+    (
+
+        index /
+
+        buttons.length
+
+    ) * 100;
 
     bar.style.width =
-    ((index / buttons.length) * 100)
-    + "%";
+
+    percent + "%";
 
 }
 
 
 /* ==========================
-   CHARGEMENT INITIAL
+   INITIALISATION
 ========================== */
 
 window.addEventListener(
@@ -214,6 +426,8 @@ window.addEventListener(
         ||
 
         "introduction";
+
+        updateProgress();
 
         loadModule(
             last
