@@ -1,210 +1,604 @@
-window.initIntensite = function () {
+window.initIntensite = function(){
 
-console.log("module intensité avancé chargé");
+console.log(
+"module intensité avancé chargé"
+);
 
 const AudioContextClass =
-window.AudioContext || window.webkitAudioContext;
 
-const audioCtx = new AudioContextClass();
+window.AudioContext ||
+
+window.webkitAudioContext;
+
+const audioCtx =
+
+new AudioContextClass();
 
 let osc = null;
+
 let gainNode = null;
 
-/* ==========================
-   ELEMENTS
-========================== */
+/* ================= */
 
-const freqSlider = document.getElementById("freqSlider");
-const intensitySlider = document.getElementById("intensitySlider");
-const ageSelect = document.getElementById("ageSelect");
+const freqSlider =
+document.getElementById(
+"freqSlider"
+);
 
-const canvas = document.getElementById("canvas");
-const ctx = canvas.getContext("2d");
+const intensitySlider =
+document.getElementById(
+"intensitySlider"
+);
 
-const dbInfo = document.getElementById("dbInfo");
-const danger = document.getElementById("danger");
+const ageSelect =
+document.getElementById(
+"ageSelect"
+);
 
-const startBtn = document.getElementById("startBtn");
-const stopBtn = document.getElementById("stopBtn");
+const freqValue =
+document.getElementById(
+"freqValue"
+);
 
-/* ==========================
-   FLETCHER-MUNSON (approx)
-========================== */
+const intensityValue =
+document.getElementById(
+"intensityValue"
+);
 
-function earSensitivity(freq) {
+const dbInfo =
+document.getElementById(
+"dbInfo"
+);
 
-    const f = Math.log10(freq);
+const danger =
+document.getElementById(
+"danger"
+);
 
-    // creux 3-4 kHz (zone la plus sensible)
-    const center = Math.log10(3500);
+const canvas =
+document.getElementById(
+"canvas"
+);
 
-    const dist = Math.abs(f - center);
+const ctx =
+canvas.getContext("2d");
 
-    return Math.exp(-Math.pow(dist * 3, 2));
+/* ================= */
 
-}
+function earSensitivity(freq){
 
-/* ==========================
-   PRESBYACOUSIE (âge)
-========================== */
+const f = Math.log10(freq);
 
-function ageLoss(freq, age) {
+const center =
 
-    const f = Math.log10(freq);
+Math.log10(3500);
 
-    const cutoff = age === 20 ? 18000 :
-                   age === 40 ? 14000 :
-                                8000;
+const dist =
 
-    if (freq < cutoff) return 1;
+Math.abs(
 
-    return Math.exp(-(f - Math.log10(cutoff)) * 4);
+f-center
 
-}
+);
 
-/* ==========================
-   dB SPL simplifié
-========================== */
+return Math.exp(
 
-function dbSPL(intensity, freq, age) {
+-Math.pow(
 
-    const base = 20 * Math.log10(intensity / 0.00002);
+dist*3,
 
-    const correction =
-        20 * Math.log10(
-            earSensitivity(freq) *
-            ageLoss(freq, age)
-        );
+2
 
-    return base + correction;
+)
 
-}
-
-/* ==========================
-   UPDATE UI
-========================== */
-
-function update() {
-
-    const f = Number(freqSlider.value);
-    const I = Number(intensitySlider.value);
-    const age = Number(ageSelect.value);
-
-    const db = dbSPL(I, f, age);
-
-    dbInfo.innerHTML =
-        `Fréquence: ${f} Hz<br>` +
-        `Intensité: ${I.toFixed(3)}<br>` +
-        `<b>Niveau perçu: ${db.toFixed(1)} dB SPL</b>`;
-
-    if (db < 20) danger.innerHTML = "🟢 quasi inaudible";
-    else if (db < 80) danger.innerHTML = "🟡 zone normale";
-    else if (db < 120) danger.innerHTML = "🟠 fort";
-    else danger.innerHTML = "🔴 danger";
-
-    draw(f, I, age);
+);
 
 }
 
-/* ==========================
-   FLETCHER CURVE VISUALISATION
-========================== */
+/* ================= */
 
-function draw(freq, intensity, age) {
+function ageLoss(freq,age){
 
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+const cutoff =
 
-    const width = canvas.width;
-    const height = canvas.height;
+age===20 ?
 
-    function x(f) {
-        return (Math.log10(f) - Math.log10(20)) /
-               (Math.log10(20000) - Math.log10(20)) * width;
-    }
+18000 :
 
-    function y(db) {
-        return height - (db / 120) * height;
-    }
+age===40 ?
 
-    /* axe audible */
-    ctx.strokeStyle = "#ccc";
-    ctx.beginPath();
-    ctx.moveTo(x(20), y(0));
-    ctx.lineTo(x(20000), y(0));
-    ctx.stroke();
+14000 :
 
-    /* courbe sensibilité */
-    ctx.strokeStyle = "blue";
-    ctx.beginPath();
+8000;
 
-    for (let f = 20; f <= 20000; f *= 1.02) {
+if(
 
-        const db = dbSPL(intensity, f, age);
+freq < cutoff
 
-        const X = x(f);
-        const Y = y(db);
+)
 
-        if (f === 20) ctx.moveTo(X, Y);
-        else ctx.lineTo(X, Y);
+return 1;
 
-    }
+return Math.exp(
 
-    ctx.stroke();
+-(
 
-    /* point courant */
-    ctx.fillStyle = "red";
-    ctx.beginPath();
-    ctx.arc(x(freq), y(dbSPL(intensity, freq, age)), 6, 0, Math.PI * 2);
-    ctx.fill();
+Math.log10(freq)
+
+-
+
+Math.log10(cutoff)
+
+)
+
+*4
+
+);
 
 }
 
-/* ==========================
-   AUDIO
-========================== */
+/* ================= */
 
-function start() {
+function dbSPL(I,f,age){
 
-    stop();
+const safeI =
 
-    osc = audioCtx.createOscillator();
-    gainNode = audioCtx.createGain();
+Math.max(
 
-    osc.type = "sine";
+I,
 
-    osc.frequency.value =
-        Number(freqSlider.value);
+0.00001
 
-    gainNode.gain.value =
-        Number(intensitySlider.value);
+);
 
-    osc.connect(gainNode);
-    gainNode.connect(audioCtx.destination);
+const base =
 
-    osc.start();
+20 *
+
+Math.log10(
+
+safeI /
+
+0.00002
+
+);
+
+const corr =
+
+20 *
+
+Math.log10(
+
+Math.max(
+
+0.01,
+
+earSensitivity(f)
+
+*
+
+ageLoss(f,age)
+
+)
+
+);
+
+return base + corr;
 
 }
 
-function stop() {
+/* ================= */
 
-    if (osc) {
-        osc.stop();
-        osc.disconnect();
-        osc = null;
-    }
+function draw(freq,intensity,age){
+
+ctx.clearRect(
+
+0,
+0,
+canvas.width,
+canvas.height
+
+);
+
+const W=
+canvas.width;
+
+const H=
+canvas.height;
+
+/* grille */
+
+ctx.strokeStyle="#ddd";
+
+for(
+
+let i=0;
+
+i<=120;
+
+i+=20
+
+){
+
+const y=
+
+H -
+
+(i/120)*H;
+
+ctx.beginPath();
+
+ctx.moveTo(0,y);
+
+ctx.lineTo(W,y);
+
+ctx.stroke();
 
 }
 
-/* ==========================
-   EVENTS
-========================== */
+/* courbe */
 
-freqSlider.oninput = update;
-intensitySlider.oninput = update;
-ageSelect.onchange = update;
+ctx.strokeStyle=
 
-startBtn.onclick = start;
-stopBtn.onclick = stop;
+"#1f3c63";
+
+ctx.lineWidth=3;
+
+ctx.beginPath();
+
+for(
+
+let f=20;
+
+f<=20000;
+
+f*=1.02
+
+){
+
+const db=
+
+dbSPL(
+
+intensity,
+
+f,
+
+age
+
+);
+
+const x=
+
+(
+
+Math.log10(f)
+
+-
+
+Math.log10(20)
+
+)
+
+/
+
+(
+
+Math.log10(20000)
+
+-
+
+Math.log10(20)
+
+)
+
+*W;
+
+const y=
+
+H -
+
+(db/120)*H;
+
+if(f<21)
+
+ctx.moveTo(x,y);
+
+else
+
+ctx.lineTo(x,y);
+
+}
+
+ctx.stroke();
+
+/* point */
+
+const x =
+
+(
+
+Math.log10(freq)
+
+-
+
+Math.log10(20)
+
+)
+
+/
+
+(
+
+Math.log10(20000)
+
+-
+
+Math.log10(20)
+
+)
+
+*W;
+
+const y =
+
+H -
+
+(
+
+dbSPL(
+
+intensity,
+
+freq,
+
+age
+
+)
+
+/120
+
+)
+
+*H;
+
+ctx.fillStyle=
+
+"red";
+
+ctx.beginPath();
+
+ctx.arc(
+
+x,
+
+y,
+
+7,
+
+0,
+
+Math.PI*2
+
+);
+
+ctx.fill();
+
+}
+
+/* ================= */
+
+function update(){
+
+const freq=
+
+Number(
+freqSlider.value
+);
+
+const intensity=
+
+Number(
+intensitySlider.value
+);
+
+const age=
+
+Number(
+ageSelect.value
+);
+
+freqValue.innerHTML=
+
+freq+" Hz";
+
+intensityValue.innerHTML=
+
+intensity.toFixed(3);
+
+const db=
+
+dbSPL(
+
+intensity,
+
+freq,
+
+age
+
+);
+
+dbInfo.innerHTML=
+
+`
+Fréquence :
+
+${freq} Hz
+
+<br>
+
+Intensité :
+
+${intensity.toFixed(3)}
+
+<br><br>
+
+<b>
+
+${db.toFixed(1)} dB SPL
+
+</b>
+`;
+
+if(db<20){
+
+danger.className=
+
+"result success";
+
+danger.innerHTML=
+
+"🟢 quasi inaudible";
+
+}
+
+else if(db<80){
+
+danger.className=
+
+"result warning";
+
+danger.innerHTML=
+
+"🟡 zone normale";
+
+}
+
+else if(db<120){
+
+danger.className=
+
+"result warning";
+
+danger.innerHTML=
+
+"🟠 exposition forte";
+
+}
+
+else{
+
+danger.className=
+
+"result danger";
+
+danger.innerHTML=
+
+"🔴 danger auditif";
+
+}
+
+draw(
+
+freq,
+
+intensity,
+
+age
+
+);
+
+if(osc){
+
+osc.frequency.value=freq;
+
+gainNode.gain.value=
+
+Math.min(
+
+0.3,
+
+intensity
+
+);
+
+}
+
+}
+
+/* ================= */
+
+async function start(){
+
+await audioCtx.resume();
+
+stop();
+
+osc=
+
+audioCtx.createOscillator();
+
+gainNode=
+
+audioCtx.createGain();
+
+osc.type="sine";
+
+osc.frequency.value=
+
+freqSlider.value;
+
+gainNode.gain.value=
+
+Math.min(
+
+0.3,
+
+intensitySlider.value
+
+);
+
+osc.connect(gainNode);
+
+gainNode.connect(
+
+audioCtx.destination
+
+);
+
+osc.start();
+
+}
+
+function stop(){
+
+if(osc){
+
+try{
+
+osc.stop();
+
+}catch(e){}
+
+osc.disconnect();
+
+osc=null;
+
+}
+
+}
+
+/* ================= */
+
+freqSlider.oninput=update;
+
+intensitySlider.oninput=update;
+
+ageSelect.onchange=update;
+
+startBtn.onclick=start;
+
+stopBtn.onclick=stop;
 
 update();
 
