@@ -1,70 +1,86 @@
-// Variable globale pour stocker les questions
-let questions = [];
+window.initQuiz=function(){
 
-// Fonction d'initialisation du quiz
-function initQuiz() {
-    // Récupère les éléments du DOM (IDs exacts de quiz.html)
-    const quizContainer = document.getElementById("quizContainer"); // Majuscule à "C"
-    const correctBtn = document.getElementById("correct");
-    const scoreElement = document.getElementById("score");
+const q=[
 
-    // Si un élément manquant, on arrête l'initialisation
-    if (!quizContainer || !correctBtn || !scoreElement) {
-        console.error("Un ou plusieurs éléments du quiz sont introuvables !");
-        return;
-    }
+["Unité sonore ?",
+["Hz","dB","m"],
+1],
 
-    // Charge les questions depuis le fichier JSON
-    fetch("data/questions.json")
-        .then(response => {
-            if (!response.ok) throw new Error("Fichier questions.json introuvable");
-            return response.json();
-        })
-        .then(data => {
-            questions = data; // Stocke les questions
-            buildQuiz(data, quizContainer, correctBtn, scoreElement);
-        })
-        .catch(error => {
-            quizContainer.innerHTML = `<p>Erreur : ${error.message}</p>`;
-        });
-}
+["Vitesse du son air ?",
+["340","100","1000"],
+0]
 
-// Fonction pour construire le quiz
-function buildQuiz(qs, quizContainer, correctBtn, scoreElement) {
-    let html = "";
+];
 
-    qs.forEach((q, i) => {
-        html += `
-            <div>
-                <p>${q.question}</p>
-                ${q.options.map(o => `
-                    <label>
-                        <input type="radio" name="q${i}" value="${o}">
-                        ${o}
-                    </label>
-                `).join("")}
-            </div>
-        `;
-    });
+let html="";
 
-    quizContainer.innerHTML = html;
+q.forEach((e,i)=>{
 
-    // Attache l'événement pour corriger le quiz
-    correctBtn.onclick = () => {
-        let score = 0;
+html+=`
 
-        questions.forEach((q, i) => {
-            const rep = document.querySelector(`input[name="q${i}"]:checked`);
-            if (rep && rep.value === q.answer) score++;
-        });
+<div>
 
-        scoreElement.innerHTML = `${score}/${questions.length}`;
-    };
-}
+<p>${e[0]}</p>
 
-// Appel de l'initialisation uniquement quand le DOM est prêt
-if (document.readyState === 'complete' || document.readyState === 'interactive') {
-    initQuiz();
-} else {
-    document.addEventListener('DOMContentLoaded', initQuiz);
-}
+`;
+
+e[1].forEach((r,j)=>{
+
+html+=`
+
+<label>
+
+<input
+type="radio"
+name="${i}"
+value="${j}">
+
+${r}
+
+</label><br>
+
+`;
+
+});
+
+html+="</div>";
+
+});
+
+quizContainer.innerHTML=
+
+html;
+
+corriger.onclick=()=>{
+
+let s=0;
+
+q.forEach((e,i)=>{
+
+const c=
+
+document.querySelector(
+
+`input[name="${i}"]:checked`
+
+);
+
+if(
+
+c &&
+
+Number(c.value)===e[2]
+
+)
+
+s++;
+
+});
+
+score.innerHTML=
+
+`${s}/${q.length}`;
+
+};
+
+};
