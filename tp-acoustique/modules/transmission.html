@@ -2,344 +2,49 @@
 
 <h2>
 
-Transmission d'informations par canal sonore
+TP – Transmission sonore
 
 </h2>
 
-<p>
+<select id="medium">
 
-Une transmission sonore nécessite :
+<option value="340">
 
-</p>
+Air
 
-<ul>
+</option>
 
-<li>un émetteur</li>
+<option value="1480">
 
-<li>un milieu de propagation</li>
+Eau
 
-<li>un récepteur</li>
+</option>
 
-</ul>
+<option value="5000">
 
-<img
-src="assets/images/chaine-son.svg"
-alt="chaine sonore">
+Acier
 
+</option>
 
-<hr>
-
-
-<h3>
-
-Transmission Morse simplifiée
-
-</h3>
-
-<p>
-
-Entrer un message court :
-
-</p>
+</select>
 
 <input
-type="text"
-id="msg"
-placeholder="EX : SOS"
-maxlength="20">
-
-
-<div class="buttons">
-
-<button id="sendBtn">
-
-Envoyer le message
-
-</button>
-
-<button id="clearBtn">
-
-Effacer
-
-</button>
-
-</div>
-
-
-<div class="card">
-
-<h3>
-
-Résultat
-
-</h3>
+id="distance"
+type="number"
+value="10">
 
 <p>
 
-Texte :
+Temps :
 
-<span id="msgResult">
+<span id="timeResult">
 
--
-
-</span>
-
-</p>
-
-<p>
-
-Code Morse :
-
-<span id="morseResult">
-
--
+0
 
 </span>
 
-</p>
-
-<p>
-
-État :
-
-<span id="transmissionState">
-
-En attente
-
-</span>
+s
 
 </p>
 
 </div>
-
-</div>
-
-
-<script>
-
-const morseCode={
-
-A:".-",
-B:"-...",
-C:"-.-.",
-D:"-..",
-E:".",
-F:"..-.",
-G:"--.",
-H:"....",
-I:"..",
-J:".---",
-K:"-.-",
-L:".-..",
-M:"--",
-N:"-.",
-O:"---",
-P:".--.",
-Q:"--.-",
-R:".-.",
-S:"...",
-T:"-",
-U:"..-",
-V:"...-",
-W:".--",
-X:"-..-",
-Y:"-.--",
-Z:"--..",
-
-0:"-----",
-1:".----",
-2:"..---",
-3:"...--",
-4:"....-",
-5:".....",
-6:"-....",
-7:"--...",
-8:"---..",
-9:"----."
-
-};
-
-
-function textToMorse(txt){
-
-return txt
-
-.toUpperCase()
-
-.split("")
-
-.map(
-
-c=>morseCode[c] || "/"
-
-)
-
-.join(" ");
-
-}
-
-
-
-async function emitBeep(
-
-duration=200
-
-){
-
-if(
-
-typeof startSound !==
-
-"function"
-
-){
-
-alert(
-
-"Le générateur sonore n'est pas chargé"
-
-);
-
-return;
-
-}
-
-freqSlider.value=700;
-
-updateInfos();
-
-startSound();
-
-await new Promise(
-
-r=>setTimeout(
-
-r,
-
-duration
-
-)
-
-);
-
-stopSound();
-
-}
-
-
-
-async function playMorse(
-
-sequence
-
-){
-
-transmissionState.innerHTML=
-
-"Transmission...";
-
-for(
-
-const symbol
-
-of sequence
-
-){
-
-if(symbol==="."){
-
-await emitBeep(150);
-
-}
-
-else if(symbol==="-"){
-
-await emitBeep(350);
-
-}
-
-else{
-
-await new Promise(
-
-r=>setTimeout(
-
-r,
-
-250
-
-)
-
-);
-
-}
-
-await new Promise(
-
-r=>setTimeout(
-
-r,
-
-120
-
-)
-
-);
-
-}
-
-transmissionState.innerHTML=
-
-"Transmission terminée";
-
-}
-
-
-
-sendBtn.onclick=
-
-async()=>{
-
-const txt=
-
-msg.value.trim();
-
-if(!txt) return;
-
-msgResult.innerHTML=
-
-txt;
-
-const morse=
-
-textToMorse(txt);
-
-morseResult.innerHTML=
-
-morse;
-
-await playMorse(
-
-morse
-
-);
-
-};
-
-
-
-clearBtn.onclick=()=>{
-
-msg.value="";
-
-msgResult.innerHTML="-";
-
-morseResult.innerHTML="-";
-
-transmissionState.innerHTML=
-
-"En attente";
-
-};
-
-</script>
