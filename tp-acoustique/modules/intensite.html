@@ -1,61 +1,128 @@
 <div class="card">
 
-    <h2>Intensité + perception auditive humaine</h2>
+<h2>
 
-    <div class="controls">
+TP – Intensité sonore et perception auditive humaine
 
-        <label>Fréquence :</label>
+</h2>
 
-        <input type="range"
-               id="freqSlider"
-               min="20"
-               max="20000"
-               value="1000">
+<p>
 
-        <span id="freqValue"></span>
+Étudier l'influence de la fréquence, de l'intensité et de l'âge sur la perception sonore.
 
-    </div>
+</p>
 
-    <div class="controls">
+<div class="controls">
 
-        <label>Intensité :</label>
+<label>
 
-        <input type="range"
-               id="intensitySlider"
-               min="0.0001"
-               max="1"
-               step="0.0001"
-               value="0.3">
+Fréquence :
 
-        <span id="intensityValue"></span>
+</label>
 
-    </div>
+<input
+type="range"
+id="freqSlider"
+min="20"
+max="20000"
+value="1000">
 
-    <div class="controls">
+<span id="freqValue">
 
-        <label>Âge audition :</label>
+1000 Hz
 
-        <select id="ageSelect">
+</span>
 
-            <option value="20">Jeune (20 ans)</option>
-            <option value="40">Adulte (40 ans)</option>
-            <option value="60">Senior (60 ans)</option>
+</div>
 
-        </select>
+<div class="controls">
 
-    </div>
+<label>
 
-    <div id="dbInfo" class="result"></div>
+Intensité :
 
-    <div id="danger" style="font-weight:bold;"></div>
+</label>
 
-    <canvas id="canvas" width="900" height="400"></canvas>
+<input
+type="range"
+id="intensitySlider"
+min="0.001"
+max="1"
+step="0.001"
+value="0.30">
 
-    <div class="buttons">
+<span id="intensityValue">
 
-        <button id="startBtn">▶ Son</button>
-        <button id="stopBtn">■ Stop</button>
+0.300
 
-    </div>
+</span>
+
+</div>
+
+<div class="controls">
+
+<label>
+
+Âge audition :
+
+</label>
+
+<select id="ageSelect">
+
+<option value="20">
+
+Jeune (20 ans)
+
+</option>
+
+<option value="40">
+
+Adulte (40 ans)
+
+</option>
+
+<option value="60">
+
+Senior (60 ans)
+
+</option>
+
+</select>
+
+</div>
+
+<div id="dbInfo"
+class="result">
+
+</div>
+
+<div
+id="danger"
+class="result">
+
+</div>
+
+<canvas
+id="canvas"
+width="900"
+height="400">
+
+</canvas>
+
+<div class="buttons">
+
+<button id="startBtn">
+
+▶ Son
+
+</button>
+
+<button id="stopBtn">
+
+■ Stop
+
+</button>
+
+</div>
 
 </div>
