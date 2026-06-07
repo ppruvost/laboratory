@@ -51,6 +51,8 @@ line-height:1.5;
 
 min-height:100vh;
 
+overflow-x:hidden;
+
 }
 
 /* ==========================
@@ -161,8 +163,6 @@ background:var(--bleu);
 
 color:white;
 
-transform:translateY(-2px);
-
 }
 
 /* ==========================
@@ -217,7 +217,7 @@ margin:auto;
 
 padding:20px;
 
-min-height:400px;
+min-height:500px;
 
 }
 
@@ -239,6 +239,8 @@ box-shadow:var(--ombre);
 
 animation:fadeIn .25s ease;
 
+overflow:hidden;
+
 }
 
 .card h2,
@@ -257,18 +259,11 @@ margin-bottom:10px;
 
 }
 
-.module-title{
-
-margin-bottom:20px;
-
-}
-
 @keyframes fadeIn{
 
 from{
 
 opacity:0;
-
 transform:translateY(8px);
 
 }
@@ -276,7 +271,6 @@ transform:translateY(8px);
 to{
 
 opacity:1;
-
 transform:none;
 
 }
@@ -324,7 +318,7 @@ input[type="range"]{
 
 padding:0;
 
-width:250px;
+width:280px;
 
 max-width:100%;
 
@@ -409,6 +403,8 @@ border-radius:10px;
 
 margin-bottom:20px;
 
+min-height:250px;
+
 }
 
 /* ==========================
@@ -473,9 +469,9 @@ display:flex;
 
 flex-direction:column;
 
-justify-content:center;
-
 align-items:center;
+
+justify-content:center;
 
 }
 
@@ -495,10 +491,6 @@ margin-bottom:15px;
 
 width:180px;
 
-transition:.5s;
-
-visibility:visible;
-
 }
 
 .ondeMove{
@@ -509,35 +501,9 @@ animation:ondePropagation 2s linear infinite;
 
 @keyframes ondePropagation{
 
-0%{
-
-transform:translateX(-20px) scale(.9);
-
-}
-
-50%{
-
-transform:translateX(20px) scale(1.08);
-
-}
-
-100%{
-
-transform:translateX(-20px) scale(.9);
-
-}
-
-}
-
-#marteau{
-
-transition:.35s;
-
-}
-
-.frappe{
-
-transform:translateX(50px) rotate(-25deg);
+0%{transform:translateX(-20px) scale(.9);}
+50%{transform:translateX(20px) scale(1.08);}
+100%{transform:translateX(-20px) scale(.9);}
 
 }
 
@@ -561,27 +527,6 @@ animation:vibration .08s infinite;
 
 }
 
-#milieuBloc,
-#croixBloc{
-
-display:none;
-
-}
-
-#crossImg{
-
-width:90px;
-
-}
-
-#receiverText{
-
-font-weight:bold;
-
-margin-top:10px;
-
-}
-
 /* ==========================
    RESULTATS
 ========================== */
@@ -600,53 +545,51 @@ font-weight:bold;
 
 }
 
-.success{
+.success{color:var(--success);}
+.warning{color:var(--warning);}
+.danger{color:var(--danger);}
 
-color:var(--success);
-
-font-weight:bold;
-
-}
-
-.warning{
-
-color:var(--warning);
-
-font-weight:bold;
-
-}
-
+.success,
+.warning,
 .danger{
-
-color:var(--danger);
 
 font-weight:bold;
 
 }
 
 /* ==========================
-   QUIZ
+   QUIZ IFRAME
 ========================== */
 
-#quizContainer div{
+.quiz-frame{
 
-margin-bottom:20px;
+margin-top:25px;
 
-padding:15px;
+width:100%;
 
-background:#f8fbff;
+height:80vh;
 
-border-radius:10px;
+min-height:650px;
+
+border-radius:12px;
+
+overflow:hidden;
+
+border:1px solid #ccc;
+
+background:white;
 
 }
 
-#score{
+.quiz-frame iframe{
 
-font-size:1.2rem;
+width:100%;
 
-font-weight:bold;
+height:100%;
 
-margin-top:20px;
+border:none;
+
+display:block;
 
 }
 
@@ -695,6 +638,12 @@ box-shadow:none;
 border:1px solid #ddd;
 
 break-inside:avoid;
+
+}
+
+.quiz-frame{
+
+display:none;
 
 }
 
@@ -764,6 +713,14 @@ input,
 select{
 
 max-width:100%;
+
+}
+
+.quiz-frame{
+
+height:75vh;
+
+min-height:500px;
 
 }
 
