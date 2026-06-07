@@ -1,24 +1,68 @@
-function piezoEmit(){
+console.log("module piezo chargé");
 
-const signal=
+window.initPiezo=function(){
+
+const canvas=
+document.getElementById("piezoCanvas");
+
+const ctx=
+canvas.getContext("2d");
+
+document
+.getElementById("impact")
+.onclick=()=>{
+
+const amp=
 
 Math.random()*5;
 
 document
-.getElementById(
-"piezoOut"
-)
-
+.getElementById("piezoVal")
 .innerHTML=
 
-"Tension : "
+amp.toFixed(2);
 
-+
+ctx.clearRect(
+0,
+0,
+900,
+250
+);
 
-signal.toFixed(2)
+ctx.beginPath();
 
-+
+for(let x=0;x<900;x++){
 
-" V";
+const y=
+
+120+
+
+Math.exp(
+
+-x/100
+
+)
+
+*
+
+Math.sin(x/10)
+
+*
+
+amp*20;
+
+if(x===0)
+
+ctx.moveTo(x,y);
+
+else
+
+ctx.lineTo(x,y);
 
 }
+
+ctx.stroke();
+
+};
+
+};
