@@ -5,6 +5,7 @@ document.getElementById(
 
 let isLoading = false;
 
+
 /* ==========================
    NAVIGATION BOUTONS
 ========================== */
@@ -16,15 +17,21 @@ document
 .forEach(btn=>{
 
     btn.addEventListener(
+
         "click",
+
         ()=>{
 
             const moduleName =
+
             btn.dataset.module;
 
             if(
+
                 !moduleName ||
+
                 isLoading
+
             ) return;
 
             loadModule(
@@ -32,13 +39,14 @@ document
             );
 
         }
+
     );
 
 });
 
 
 /* ==========================
-   ETAT BOUTON ACTIF
+   BOUTON ACTIF
 ========================== */
 
 function setActiveButton(name){
@@ -54,8 +62,11 @@ function setActiveButton(name){
         );
 
         if(
+
             btn.dataset.module
-            === name
+            ===
+            name
+
         ){
 
             btn.classList.add(
@@ -70,7 +81,7 @@ function setActiveButton(name){
 
 
 /* ==========================
-   SUPPRESSION SCRIPTS
+   SUPPRIME ANCIENS SCRIPTS
 ========================== */
 
 function removeOldScripts(){
@@ -89,6 +100,41 @@ function removeOldScripts(){
 
 
 /* ==========================
+   DETRUIT ANCIEN ETAT
+========================== */
+
+function cleanupModule(){
+
+    if(window.currentAnimationFrame){
+
+        cancelAnimationFrame(
+
+            window.currentAnimationFrame
+
+        );
+
+        window.currentAnimationFrame =
+        null;
+
+    }
+
+    if(window.currentInterval){
+
+        clearInterval(
+
+            window.currentInterval
+
+        );
+
+        window.currentInterval =
+        null;
+
+    }
+
+}
+
+
+/* ==========================
    CHARGEMENT MODULE
 ========================== */
 
@@ -98,11 +144,16 @@ async function loadModule(name){
 
     isLoading = true;
 
+    cleanupModule();
+
     try{
 
         console.log(
+
             "Chargement module :",
+
             name
+
         );
 
         setActiveButton(
@@ -113,19 +164,27 @@ async function loadModule(name){
 
         `
         <div class="card">
-            Chargement...
+
+        Chargement...
+
         </div>
         `;
 
-        /* -------- HTML -------- */
+
+        /* ========= HTML ========= */
 
         const response =
+
         await fetch(
-            `modules/${name}.html`
+
+            `modules/${name}.html?v=${Date.now()}`
+
         );
 
         if(
+
             !response.ok
+
         ){
 
             throw new Error(
@@ -137,18 +196,22 @@ async function loadModule(name){
         }
 
         const html =
+
         await response.text();
 
         content.innerHTML =
         html;
 
-        /* -------- nettoyage anciens scripts -------- */
+
+        /* ========= CLEAN ========= */
 
         removeOldScripts();
 
-        /* -------- JS -------- */
+
+        /* ========= JS ========= */
 
         const script =
+
         document.createElement(
             "script"
         );
@@ -160,6 +223,9 @@ async function loadModule(name){
         script.dataset.moduleScript =
         name;
 
+        script.defer = true;
+
+
         script.onload = ()=>{
 
             console.log(
@@ -168,9 +234,11 @@ async function loadModule(name){
 
             );
 
-            const initName =
+            let initName =
 
-            "init" +
+            "init"
+
+            +
 
             name.charAt(0)
             .toUpperCase()
@@ -178,6 +246,18 @@ async function loadModule(name){
             +
 
             name.slice(1);
+
+            /*
+             Cas particulier A12 FFT
+             fft.js expose initFFT()
+            */
+
+            if(name==="fft"){
+
+                initName =
+                "initFFT";
+
+            }
 
             if(
 
@@ -210,7 +290,9 @@ async function loadModule(name){
 
                     console.error(
 
-                        "Erreur init :", err
+                        "Erreur init :",
+
+                        err
 
                     );
 
@@ -224,13 +306,14 @@ async function loadModule(name){
 
                     initName,
 
-                    "absent"
+                    "introuvable"
 
                 );
 
             }
 
         };
+
 
         script.onerror = ()=>{
 
@@ -268,6 +351,7 @@ async function loadModule(name){
             script
         );
 
+
         saveProgress(
             name
         );
@@ -295,17 +379,17 @@ async function loadModule(name){
         `
         <div class="card">
 
-            <h2>
+        <h2>
 
-            Erreur
+        Erreur
 
-            </h2>
+        </h2>
 
-            <p>
+        <p>
 
-            ${error.message}
+        ${error.message}
 
-            </p>
+        </p>
 
         </div>
         `;
@@ -339,7 +423,7 @@ function saveProgress(name){
 
 
 /* ==========================
-   BARRE PROGRESSION
+   PROGRESSION
 ========================== */
 
 function updateProgress(){
