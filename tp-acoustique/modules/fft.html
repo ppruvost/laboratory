@@ -1,0 +1,39 @@
+<section class="fft-module">
+
+<h1>Analyse Vibratoire FFT</h1>
+
+<div class="controls">
+
+<label>Vitesse rotation (tr/min)</label>
+<input id="rpm" type="range"
+min="600"
+max="3600"
+value="1500">
+
+<span id="rpmValue">1500</span>
+
+<label>Défaut simulé</label>
+
+<select id="defaut">
+
+<option value="balourd">Balourd</option>
+
+<option value="desalignement">Désalignement</option>
+
+<option value="roulement">Roulement</option>
+
+</select>
+
+</div>
+
+<div class="zone">
+
+<canvas id="signal"></canvas>
+
+<canvas id="spectre"></canvas>
+
+</div>
+
+<div id="diagnostic"></div>
+
+</section>
