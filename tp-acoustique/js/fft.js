@@ -1,4 +1,4 @@
-function initFFT(){
+function initfft(){
 
 const rpm=document.getElementById("rpm");
 const rpmValue=document.getElementById("rpmValue");
