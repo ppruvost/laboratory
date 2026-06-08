@@ -255,7 +255,7 @@ async function loadModule(name){
             if(name==="fft"){
 
                 initName =
-                "initFFT";
+                "initfft";
 
             }
 
