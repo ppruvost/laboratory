@@ -252,11 +252,8 @@ async function loadModule(name){
              fft.js expose initFft()
             */
 
-            if(name==="fft"){
-
-                initName =
-                "initFft";
-
+            if(name === "fft"){
+                initName = "initFFT";
             }
 
             if(
