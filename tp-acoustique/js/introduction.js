@@ -1,3 +1,5 @@
+function initIntroduction(){
+
 const btn =
 document.getElementById(
 "startAnim"
@@ -49,25 +51,53 @@ document.getElementById(
 );
 
 
-milieuBloc.style.display="none";
+/* sécurité */
 
-croixBloc.style.display="none";
+if(
+!btn ||
+!milieu ||
+!marteau ||
+!diapason ||
+!onde
+){
+
+console.warn(
+"Elements introduction manquants"
+);
+
+return;
+
+}
+
+
+/* état initial */
+
+milieuBloc.style.display =
+"none";
+
+croixBloc.style.display =
+"none";
+
+onde.style.display =
+"none";
 
 
 const audio =
-
 new Audio(
-
 "assets/sounds/grave.wav"
-
 );
 
 
-btn.onclick=()=>{
+/* évite doubles listeners */
+
+btn.onclick = null;
+
+
+btn.onclick = ()=>{
 
 audio.pause();
 
-audio.currentTime=0;
+audio.currentTime = 0;
 
 
 marteau.classList.add(
@@ -88,38 +118,37 @@ marteau.classList.remove(
 },400);
 
 
+
 if(
-
 milieu.value==="air"
-
 ){
 
-milieuBloc.style.display=
-
+milieuBloc.style.display =
 "block";
 
-croixBloc.style.display=
-
+croixBloc.style.display =
 "none";
 
-milieuTxt.innerHTML=
-
+milieuTxt.textContent =
 "AIR";
 
-onde.style.display=
-
+onde.style.display =
 "block";
+
+onde.classList.remove(
+"ondeMove"
+);
+
+void onde.offsetWidth;
 
 onde.classList.add(
 "ondeMove"
 );
 
-receiverText.innerHTML=
-
+receiverText.textContent =
 "Oreille reçoit";
 
-message.innerHTML=
-
+message.textContent =
 "Le son traverse l'air.";
 
 audio.play();
@@ -128,33 +157,28 @@ audio.play();
 
 else{
 
-milieuBloc.style.display=
-
+milieuBloc.style.display =
 "block";
 
-croixBloc.style.display=
-
+croixBloc.style.display =
 "block";
 
-milieuTxt.innerHTML=
-
+milieuTxt.textContent =
 "VIDE";
 
-onde.style.display=
-
+onde.style.display =
 "none";
 
-receiverText.innerHTML=
-
+receiverText.textContent =
 "Silence";
 
-message.innerHTML=
-
+message.textContent =
 "Dans le vide : aucune propagation.";
 
 }
 
 
+window.currentTimeout =
 setTimeout(()=>{
 
 diapason.classList.remove(
@@ -167,8 +191,20 @@ onde.classList.remove(
 
 audio.pause();
 
-audio.currentTime=0;
+audio.currentTime = 0;
 
 },3000);
 
 };
+
+console.log(
+"initIntroduction exécuté"
+);
+
+}
+
+
+/* export module */
+
+window.initIntroduction =
+initIntroduction;
