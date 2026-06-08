@@ -1,41 +1,33 @@
 <div class="card">
 
-<h2>
+    <h2>TP – Capteur piézoélectrique</h2>
 
-TP – Capteur piézoélectrique
+    <p>Simulation d'une vibration mécanique amortie.</p>
 
-</h2>
+    <button id="impact">Créer un choc</button>
 
-<p>
+    <label>
+        Amortissement :
+        <input
+            id="damping"
+            type="range"
+            min="20"
+            max="300"
+            value="100">
+    </label>
 
-Simuler une vibration mécanique.
+    <p>Amplitude maximale :
+        <span id="piezoVal">0</span> V
+    </p>
 
-</p>
+    <p>Fréquence :
+        <span id="freqVal">0</span> Hz
+    </p>
 
-<button id="impact">
-
-Créer un choc
-
-</button>
-
-<p>
-
-Amplitude :
-
-<span id="piezoVal">
-
-0
-
-</span>
-
-V
-
-</p>
-
-<canvas
-id="piezoCanvas"
-width="900"
-height="250">
-</canvas>
+    <canvas
+        id="piezoCanvas"
+        width="900"
+        height="250">
+    </canvas>
 
 </div>
