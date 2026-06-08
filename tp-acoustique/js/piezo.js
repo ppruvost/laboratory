@@ -1,68 +1,57 @@
 console.log("module piezo chargé");
 
-window.initPiezo=function(){
+window.initPiezo = function () {
 
-const canvas=
-document.getElementById("piezoCanvas");
+    const canvas = document.getElementById("piezoCanvas");
+    const ctx = canvas.getContext("2d");
 
-const ctx=
-canvas.getContext("2d");
+    const piezoVal = document.getElementById("piezoVal");
+    const freqVal = document.getElementById("freqVal");
+    const dampingSlider = document.getElementById("damping");
 
-document
-.getElementById("impact")
-.onclick=()=>{
+    document.getElementById("impact").onclick = () => {
 
-const amp=
+        const amplitude = 1 + Math.random() * 4;
 
-Math.random()*5;
+        const frequency = 20 + Math.random() * 80;
 
-document
-.getElementById("piezoVal")
-.innerHTML=
+        const damping = Number(dampingSlider.value);
 
-amp.toFixed(2);
+        piezoVal.textContent = amplitude.toFixed(2);
+        freqVal.textContent = frequency.toFixed(1);
 
-ctx.clearRect(
-0,
-0,
-900,
-250
-);
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-ctx.beginPath();
+        ctx.beginPath();
 
-for(let x=0;x<900;x++){
+        let maxValue = 0;
 
-const y=
+        for (let x = 0; x < canvas.width; x++) {
 
-120+
+            const signal =
+                Math.exp(-x / damping) *
+                Math.sin(2 * Math.PI * frequency * x / 1000);
 
-Math.exp(
+            const y = 125 - signal * amplitude * 60;
 
--x/100
+            maxValue = Math.max(maxValue, Math.abs(signal));
 
-)
+            if (x === 0)
+                ctx.moveTo(x, y);
+            else
+                ctx.lineTo(x, y);
+        }
 
-*
+        ctx.strokeStyle = "blue";
+        ctx.lineWidth = 2;
+        ctx.stroke();
 
-Math.sin(x/10)
+        // axe central
 
-*
-
-amp*20;
-
-if(x===0)
-
-ctx.moveTo(x,y);
-
-else
-
-ctx.lineTo(x,y);
-
-}
-
-ctx.stroke();
-
-};
-
+        ctx.beginPath();
+        ctx.moveTo(0, 125);
+        ctx.lineTo(canvas.width, 125);
+        ctx.strokeStyle = "#999";
+        ctx.stroke();
+    };
 };
