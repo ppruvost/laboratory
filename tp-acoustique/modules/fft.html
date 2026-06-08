@@ -1,39 +1,148 @@
 <section class="fft-module">
 
-<h1>Analyse Vibratoire FFT</h1>
+<h1>
+A12 – Analyse vibratoire FFT en atelier
+</h1>
 
-<div class="controls">
+<p class="intro">
+
+Observer un signal machine,
+transformer le signal temporel
+en spectre fréquentiel
+et identifier le défaut.
+
+</p>
+
+<div class="parametres">
+
+<div>
 
 <label>Vitesse rotation (tr/min)</label>
-<input id="rpm" type="range"
+
+<input
+id="rpm"
+type="range"
 min="600"
 max="3600"
+step="50"
 value="1500">
 
 <span id="rpmValue">1500</span>
+
+</div>
+
+<div>
 
 <label>Défaut simulé</label>
 
 <select id="defaut">
 
-<option value="balourd">Balourd</option>
+<option value="balourd">
+Balourd
+</option>
 
-<option value="desalignement">Désalignement</option>
+<option value="desalignement">
+Désalignement
+</option>
 
-<option value="roulement">Roulement</option>
+<option value="jeu">
+Jeu mécanique
+</option>
+
+<option value="roulement">
+Roulement
+</option>
 
 </select>
 
 </div>
 
-<div class="zone">
+</div>
 
-<canvas id="signal"></canvas>
+<div class="graphiques">
 
-<canvas id="spectre"></canvas>
+<div>
+
+<h3>Signal temporel</h3>
+
+<canvas id="signalCanvas"></canvas>
 
 </div>
 
-<div id="diagnostic"></div>
+<div>
+
+<h3>Spectre FFT</h3>
+
+<canvas id="fftCanvas"></canvas>
+
+</div>
+
+</div>
+
+<div class="resultat">
+
+<p>
+
+Fréquence rotation :
+
+<strong id="freqRot">
+25
+</strong> Hz
+
+</p>
+
+<p>
+
+Diagnostic probable :
+
+<strong id="diag">
+
+Balourd
+
+</strong>
+
+</p>
+
+</div>
+
+<div class="quiz">
+
+<h2>Diagnostic atelier</h2>
+
+<p>
+
+Le pic principal apparaît à 1× rotation.
+
+</p>
+
+<select id="quizRep">
+
+<option value="">
+Choisir
+</option>
+
+<option>
+Balourd
+</option>
+
+<option>
+Roulement
+</option>
+
+<option>
+Engrenage
+</option>
+
+</select>
+
+<button id="corrigerBtn">
+
+Corriger
+
+</button>
+
+<p id="quizResult"></p>
+
+</div>
 
 </section>
