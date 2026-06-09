@@ -1,6 +1,6 @@
 // Fonction d'initialisation du module Générateur
 window.initGenerateur = function() {
-    // Vérifie que tous les éléments nécessaires existent
+
     const AudioContextClass = window.AudioContext || window.webkitAudioContext;
     const audioCtx = new AudioContextClass();
 
@@ -9,10 +9,14 @@ window.initGenerateur = function() {
 
     const analyser = audioCtx.createAnalyser();
     analyser.fftSize = 2048;
-    const bufferLength = analyser.frequencyBinCount;
-    const dataArray = new Uint8Array(bufferLength);
 
-    // Récupère les éléments du DOM
+    const bufferLength = analyser.frequencyBinCount;
+
+    // ✅ Séparation des buffers (IMPORTANT)
+    const timeArray = new Uint8Array(bufferLength);
+    const freqArray = new Uint8Array(bufferLength);
+
+    // ===== DOM =====
     const freqSlider = document.getElementById("freqSlider");
     const gainSlider = document.getElementById("gainSlider");
     const freqValue = document.getElementById("freqValue");
@@ -21,13 +25,12 @@ window.initGenerateur = function() {
     const soundType = document.getElementById("soundType");
     const waveCanvas = document.getElementById("waveCanvas");
     const fftCanvas = document.getElementById("fftCanvas");
-    let fftTooltip;
     const playBtn = document.getElementById("playBtn");
     const stopBtn = document.getElementById("stopBtn");
     const exportBtn = document.getElementById("exportBtn");
 
-    // Si un élément manquant, on arrête l'initialisation
-    if (!freqSlider || !gainSlider || !freqValue || !gainValue || !periodInfo || !soundType || !waveCanvas || !fftCanvas || !playBtn || !stopBtn || !exportBtn) {
+    if (!freqSlider || !gainSlider || !freqValue || !gainValue || !periodInfo ||
+        !soundType || !waveCanvas || !fftCanvas || !playBtn || !stopBtn || !exportBtn) {
         console.error("Un ou plusieurs éléments du module Générateur sont introuvables !");
         return;
     }
@@ -36,52 +39,55 @@ window.initGenerateur = function() {
     const fftCtx = fftCanvas.getContext("2d");
 
     // ===== TOOLTIP FFT =====
-fftTooltip = document.createElement("div");
-fftTooltip.style.position = "absolute";
-fftTooltip.style.padding = "5px 8px";
-fftTooltip.style.background = "rgba(0,0,0,0.75)";
-fftTooltip.style.color = "#fff";
-fftTooltip.style.fontSize = "12px";
-fftTooltip.style.borderRadius = "6px";
-fftTooltip.style.pointerEvents = "none";
-fftTooltip.style.display = "none";
-fftTooltip.style.zIndex = "9999";
-document.body.appendChild(fftTooltip);
-
-    fftCanvas.addEventListener("mousemove", (e) => {
-    const rect = fftCanvas.getBoundingClientRect();
-
-    const x = e.clientX - rect.left;
-
-    const index = Math.floor((x / fftCanvas.width) * bufferLength);
-
-    const value = dataArray[index];
-
-    if (!value || value < 10) {
-        fftTooltip.style.display = "none";
-        return;
-    }
-
-    // conversion index -> fréquence (Nyquist)
-    const nyquist = audioCtx.sampleRate / 2;
-    const frequency = (index / bufferLength) * nyquist;
-
-    fftTooltip.style.display = "block";
-    fftTooltip.innerHTML = frequency.toFixed(1) + " Hz";
-
-    fftTooltip.style.left = (e.pageX + 10) + "px";
-    fftTooltip.style.top = (e.pageY + 10) + "px";
-});
-
-fftCanvas.addEventListener("mouseleave", () => {
+    const fftTooltip = document.createElement("div");
+    fftTooltip.style.position = "fixed"; // ✔ FIX POSITION
+    fftTooltip.style.padding = "5px 8px";
+    fftTooltip.style.background = "rgba(0,0,0,0.75)";
+    fftTooltip.style.color = "#fff";
+    fftTooltip.style.fontSize = "12px";
+    fftTooltip.style.borderRadius = "6px";
+    fftTooltip.style.pointerEvents = "none";
     fftTooltip.style.display = "none";
-});
+    fftTooltip.style.zIndex = "9999";
+    document.body.appendChild(fftTooltip);
 
-    // Fonction pour mettre à jour les infos
+    // ===== MOUSE MOVE FFT =====
+    fftCanvas.addEventListener("mousemove", (e) => {
+
+        const rect = fftCanvas.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+
+        const index = Math.floor((x / fftCanvas.width) * bufferLength);
+
+        const value = freqArray[index];
+
+        // ignore bruit faible
+        if (value < 10) {
+            fftTooltip.style.display = "none";
+            return;
+        }
+
+        // ✔ fréquence précise FFT
+        const frequency = index * (audioCtx.sampleRate / analyser.fftSize);
+
+        fftTooltip.style.display = "block";
+        fftTooltip.innerHTML = frequency.toFixed(1) + " Hz";
+
+        fftTooltip.style.left = e.clientX + 10 + "px";
+        fftTooltip.style.top = e.clientY + 10 + "px";
+    });
+
+    fftCanvas.addEventListener("mouseleave", () => {
+        fftTooltip.style.display = "none";
+    });
+
+    // ===== INFOS =====
     function updateInfos() {
         const f = Number(freqSlider.value);
+
         freqValue.innerHTML = f + " Hz";
         gainValue.innerHTML = Math.round(gainSlider.value * 100) + " %";
+
         const T = 1000 / f;
         periodInfo.innerHTML = "Période : " + T.toFixed(2) + " ms";
 
@@ -89,56 +95,49 @@ fftCanvas.addEventListener("mouseleave", () => {
         if (f < 250) type = "Grave";
         else if (f < 2000) type = "Médium";
         else type = "Aigu";
+
         soundType.innerHTML = "Type : " + type;
     }
 
-    // Initialise les infos
     updateInfos();
 
-    // Écouteurs pour les sliders
+    // ===== SLIDERS =====
     freqSlider.oninput = () => {
-
         updateInfos();
-
-        if(oscillator){
-
-            oscillator.frequency.value =
-            Number(freqSlider.value);
-
+        if (oscillator) {
+            oscillator.frequency.value = Number(freqSlider.value);
         }
-
     };
 
     gainSlider.oninput = () => {
-
         updateInfos();
-
-        if(gainNode){
-
-            gainNode.gain.value =
-            Number(gainSlider.value);
-
+        if (gainNode) {
+            gainNode.gain.value = Number(gainSlider.value);
         }
-
     };
 
-    // Fonction pour démarrer le son
+    // ===== START SOUND =====
     function startSound() {
         stopSound();
+
         oscillator = audioCtx.createOscillator();
         gainNode = audioCtx.createGain();
+
         oscillator.type = "sine";
         oscillator.frequency.value = freqSlider.value;
         gainNode.gain.value = gainSlider.value;
+
         oscillator.connect(gainNode);
         gainNode.connect(analyser);
         analyser.connect(audioCtx.destination);
+
         oscillator.start();
+
         drawWave();
         drawFFT();
     }
 
-    // Fonction pour arrêter le son
+    // ===== STOP SOUND =====
     function stopSound() {
         if (oscillator) {
             oscillator.stop();
@@ -147,11 +146,10 @@ fftCanvas.addEventListener("mouseleave", () => {
         }
     }
 
-    // Écouteurs pour les boutons
-    playBtn.onclick = () => { startSound(); };
-    stopBtn.onclick = () => { stopSound(); };
+    playBtn.onclick = startSound;
+    stopBtn.onclick = stopSound;
 
-    // Écouteurs pour les presets
+    // ===== PRESETS =====
     document.querySelectorAll(".presets button").forEach(btn => {
         btn.onclick = () => {
             freqSlider.value = btn.dataset.f;
@@ -160,51 +158,65 @@ fftCanvas.addEventListener("mouseleave", () => {
         };
     });
 
-    // Fonction pour dessiner l'onde
+    // ===== WAVE =====
     function drawWave() {
         requestAnimationFrame(drawWave);
-        analyser.getByteTimeDomainData(dataArray);
+
+        analyser.getByteTimeDomainData(timeArray);
+
         waveCtx.clearRect(0, 0, waveCanvas.width, waveCanvas.height);
         waveCtx.beginPath();
+
         const slice = waveCanvas.width / bufferLength;
         let x = 0;
+
         for (let i = 0; i < bufferLength; i++) {
-            const v = dataArray[i] / 128;
+            const v = timeArray[i] / 128;
             const y = v * waveCanvas.height / 2;
+
             if (i === 0) waveCtx.moveTo(x, y);
             else waveCtx.lineTo(x, y);
+
             x += slice;
         }
+
         waveCtx.stroke();
     }
 
-    // Fonction pour dessiner le FFT
+    // ===== FFT =====
     function drawFFT() {
         requestAnimationFrame(drawFFT);
-        analyser.getByteFrequencyData(dataArray);
+
+        analyser.getByteFrequencyData(freqArray);
+
         fftCtx.clearRect(0, 0, fftCanvas.width, fftCanvas.height);
+
         const barWidth = fftCanvas.width / bufferLength;
+
         for (let i = 0; i < bufferLength; i++) {
-            const value = dataArray[i];
+            const value = freqArray[i];
             const h = value;
+
             fftCtx.fillRect(i * barWidth, fftCanvas.height - h, barWidth, h);
         }
     }
 
-    // Fonction pour créer un fichier WAV
+    // ===== WAV EXPORT =====
     function createWav() {
         const sampleRate = 44100;
         const duration = 2;
         const length = sampleRate * duration;
+
         const buffer = new Float32Array(length);
         const freq = Number(freqSlider.value);
+
         for (let i = 0; i < length; i++) {
             buffer[i] = Math.sin(2 * Math.PI * freq * i / sampleRate);
         }
+
         return encodeWAV(buffer, sampleRate);
     }
 
-    // Fonction pour encoder en WAV
     function encodeWAV(samples, sampleRate) {
         const buffer = new ArrayBuffer(44 + samples.length * 2);
         const view = new DataView(buffer);
@@ -230,23 +242,27 @@ fftCanvas.addEventListener("mouseleave", () => {
         view.setUint32(40, samples.length * 2, true);
 
         let offset = 44;
+
         for (let i = 0; i < samples.length; i++) {
             const s = Math.max(-1, Math.min(1, samples[i]));
             view.setInt16(offset, s * 32767, true);
             offset += 2;
         }
+
         return buffer;
     }
 
-    // Écouteur pour le bouton d'export
+    // ===== EXPORT =====
     exportBtn.onclick = () => {
         const wav = createWav();
         const blob = new Blob([wav], { type: "audio/wav" });
         const url = URL.createObjectURL(blob);
+
         const a = document.createElement("a");
         a.href = url;
         a.download = freqSlider.value + "Hz.wav";
         a.click();
+
         URL.revokeObjectURL(url);
     };
-}
+};
