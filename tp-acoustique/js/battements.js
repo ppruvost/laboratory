@@ -1,13 +1,13 @@
 window.initBattements=function(){
 
 const f1 =
-document.getElementById("f1");
+document.getElementById("freq1");
 
 const f2 =
-document.getElementById("f2");
+document.getElementById("freq2");
 
 const beat =
-document.getElementById("beat");
+document.getElementById("fb");
 
 const ctx =
 document
