@@ -12,7 +12,7 @@ document.getElementById("beat");
 const ctx =
 document
 .getElementById(
-"beatCanvas"
+"graph"
 )
 .getContext("2d");
 
