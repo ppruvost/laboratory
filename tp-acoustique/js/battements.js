@@ -3,63 +3,67 @@ window.initBattements = function () {
     console.log("initBattements exécuté");
 
     /* =========================
-       ELEMENTS UI
+       SAFE GET
     ========================= */
-
-    const f1 = document.getElementById("freq1");
-    const f2 = document.getElementById("freq2");
-
-    const f1Val = document.getElementById("f1Val");
-    const f2Val = document.getElementById("f2Val");
-
-    const fb = document.getElementById("fb");
-    const fbMesure = document.getElementById("fbMesure");
-
-    const canvas = document.getElementById("graph");
-
-    const casReel = document.getElementById("casReel");
-    const explication = document.getElementById("explication");
-
-    const startBtn = document.getElementById("startBtn");
-    const stopBtn = document.getElementById("stopBtn");
-    const showEnvBtn = document.getElementById("showEnv");
+    const $ = (id) => document.getElementById(id);
 
     /* =========================
-       SECURITE DOM
+       ELEMENTS HTML
     ========================= */
 
-    if (!f1 || !f2 || !fb || !canvas) {
-        console.error("Elements HTML manquants (freq1, freq2, fb, graph)");
+    const f1 = $("freq1");
+    const f2 = $("freq2");
+
+    const f1Val = $("f1Val");
+    const f2Val = $("f2Val");
+
+    const fb = $("fb");
+    const fbMesure = $("fbMesure");
+
+    const canvas = $("graph");
+
+    const startBtn = $("startBtn");
+    const stopBtn = $("stopBtn");
+    const showEnvBtn = $("showEnv");
+
+    const casReel = $("casReel");
+    const explication = $("explication");
+
+    /* =========================
+       SECURITE
+    ========================= */
+
+    if (!f1 || !f2 || !canvas || !fb) {
+        console.error("Module battements : éléments HTML manquants");
         return;
     }
 
     const ctx = canvas.getContext("2d");
 
     /* =========================
-       AUDIO (OPTIONNEL)
+       AUDIO
     ========================= */
 
-    let audioCtx;
-    let osc1;
-    let osc2;
-    let gain;
-
+    let audioCtx = null;
+    let osc1 = null;
+    let osc2 = null;
+    let gain = null;
     let running = false;
+
     let showEnvelope = false;
 
     /* =========================
        UPDATE UI
     ========================= */
 
-    function updateValues() {
+    function updateUI() {
 
         if (f1Val) f1Val.textContent = f1.value;
         if (f2Val) f2Val.textContent = f2.value;
-
     }
 
     /* =========================
-       DRAW GRAPH
+       DRAW
     ========================= */
 
     function draw() {
@@ -77,14 +81,14 @@ window.initBattements = function () {
 
         ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-        /* axe horizontal */
+        /* axe */
         ctx.beginPath();
         ctx.strokeStyle = "#ccc";
         ctx.moveTo(0, canvas.height / 2);
         ctx.lineTo(canvas.width, canvas.height / 2);
         ctx.stroke();
 
-        /* signal */
+        /* signal battement */
         ctx.beginPath();
         ctx.strokeStyle = "#1f77b4";
         ctx.lineWidth = 2;
@@ -105,7 +109,7 @@ window.initBattements = function () {
 
         ctx.stroke();
 
-        /* enveloppe (optionnelle) */
+        /* enveloppe optionnelle */
         if (showEnvelope) {
 
             ctx.beginPath();
@@ -115,8 +119,7 @@ window.initBattements = function () {
 
                 const t = x / 20;
 
-                const env =
-                    Math.abs(Math.cos(t * diff * 0.02));
+                const env = Math.abs(Math.cos(t * diff * 0.02));
 
                 const y =
                     canvas.height / 2 -
@@ -131,18 +134,18 @@ window.initBattements = function () {
     }
 
     /* =========================
-       CONTROLS CURSEURS
+       EVENTS CURSEURS
     ========================= */
 
-    f1.addEventListener("input", () => {
-        updateValues();
+    f1.oninput = () => {
+        updateUI();
         draw();
-    });
+    };
 
-    f2.addEventListener("input", () => {
-        updateValues();
+    f2.oninput = () => {
+        updateUI();
         draw();
-    });
+    };
 
     /* =========================
        CAS REELS
@@ -150,7 +153,7 @@ window.initBattements = function () {
 
     if (casReel) {
 
-        casReel.addEventListener("change", () => {
+        casReel.onchange = () => {
 
             switch (casReel.value) {
 
@@ -158,50 +161,49 @@ window.initBattements = function () {
                     f1.value = 120;
                     f2.value = 124;
                     explication.textContent =
-                        "Deux ventilateurs proches produisent un battement audible (effet wou-wou).";
+                        "Deux ventilateurs proches créent des battements audibles (effet wou-wou).";
                     break;
 
                 case "moteur":
                     f1.value = 300;
                     f2.value = 307;
                     explication.textContent =
-                        "Deux moteurs proches en vitesse créent des vibrations périodiques utiles au diagnostic.";
+                        "Deux moteurs industriels proches produisent des vibrations périodiques utiles au diagnostic.";
                     break;
 
                 case "accordage":
                     f1.value = 440;
                     f2.value = 442;
                     explication.textContent =
-                        "En accordage, les battements disparaissent quand les fréquences sont identiques.";
+                        "En accordage, les battements disparaissent lorsque les fréquences sont identiques.";
                     break;
-
-                default:
-                    explication.textContent = "";
             }
 
-            updateValues();
+            updateUI();
             draw();
-        });
+        };
     }
 
     /* =========================
-       BOUTON ENVELOPPE
+       ENVELOPPE
     ========================= */
 
     if (showEnvBtn) {
-        showEnvBtn.addEventListener("click", () => {
+
+        showEnvBtn.onclick = () => {
+
             showEnvelope = !showEnvelope;
             draw();
-        });
+        };
     }
 
     /* =========================
-       AUDIO (OPTIONNEL)
+       AUDIO START
     ========================= */
 
     if (startBtn) {
 
-        startBtn.addEventListener("click", () => {
+        startBtn.onclick = () => {
 
             if (running) return;
 
@@ -220,7 +222,6 @@ window.initBattements = function () {
 
             osc1.connect(gain);
             osc2.connect(gain);
-
             gain.connect(audioCtx.destination);
 
             gain.gain.value = 0.1;
@@ -229,12 +230,16 @@ window.initBattements = function () {
             osc2.start();
 
             running = true;
-        });
+        };
     }
+
+    /* =========================
+       AUDIO STOP
+    ========================= */
 
     if (stopBtn) {
 
-        stopBtn.addEventListener("click", () => {
+        stopBtn.onclick = () => {
 
             if (!running) return;
 
@@ -244,14 +249,17 @@ window.initBattements = function () {
             audioCtx.close();
 
             running = false;
-        });
+        };
     }
 
     /* =========================
-       INIT
+       INIT SAFE (IMPORTANT)
     ========================= */
 
-    updateValues();
-    draw();
+    setTimeout(() => {
 
+        updateUI();
+        draw();
+
+    }, 0);
 };
