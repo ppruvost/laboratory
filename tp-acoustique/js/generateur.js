@@ -21,6 +21,7 @@ window.initGenerateur = function() {
     const soundType = document.getElementById("soundType");
     const waveCanvas = document.getElementById("waveCanvas");
     const fftCanvas = document.getElementById("fftCanvas");
+    let fftTooltip;
     const playBtn = document.getElementById("playBtn");
     const stopBtn = document.getElementById("stopBtn");
     const exportBtn = document.getElementById("exportBtn");
@@ -33,6 +34,48 @@ window.initGenerateur = function() {
 
     const waveCtx = waveCanvas.getContext("2d");
     const fftCtx = fftCanvas.getContext("2d");
+
+    // ===== TOOLTIP FFT =====
+fftTooltip = document.createElement("div");
+fftTooltip.style.position = "absolute";
+fftTooltip.style.padding = "5px 8px";
+fftTooltip.style.background = "rgba(0,0,0,0.75)";
+fftTooltip.style.color = "#fff";
+fftTooltip.style.fontSize = "12px";
+fftTooltip.style.borderRadius = "6px";
+fftTooltip.style.pointerEvents = "none";
+fftTooltip.style.display = "none";
+fftTooltip.style.zIndex = "9999";
+document.body.appendChild(fftTooltip);
+
+    fftCanvas.addEventListener("mousemove", (e) => {
+    const rect = fftCanvas.getBoundingClientRect();
+
+    const x = e.clientX - rect.left;
+
+    const index = Math.floor((x / fftCanvas.width) * bufferLength);
+
+    const value = dataArray[index];
+
+    if (!value || value < 10) {
+        fftTooltip.style.display = "none";
+        return;
+    }
+
+    // conversion index -> fréquence (Nyquist)
+    const nyquist = audioCtx.sampleRate / 2;
+    const frequency = (index / bufferLength) * nyquist;
+
+    fftTooltip.style.display = "block";
+    fftTooltip.innerHTML = frequency.toFixed(1) + " Hz";
+
+    fftTooltip.style.left = (e.pageX + 10) + "px";
+    fftTooltip.style.top = (e.pageY + 10) + "px";
+});
+
+fftCanvas.addEventListener("mouseleave", () => {
+    fftTooltip.style.display = "none";
+});
 
     // Fonction pour mettre à jour les infos
     function updateInfos() {
