@@ -1,41 +1,135 @@
-<div class="card">
+<div class="module">
 
-<h2>
+<h2>TP - Battements sonores</h2>
 
-TP – Battements sonores
-
-</h2>
+<p>
+Observer comment deux fréquences proches créent des variations périodiques du volume sonore.
+</p>
 
 <div class="controls">
 
-<input
-id="f1"
-type="number"
-value="440">
+<div class="bloc">
+
+<label>Fréquence 1 :
+<span id="f1Val">440</span> Hz
+</label>
 
 <input
-id="f2"
-type="number"
-value="445">
+id="freq1"
+type="range"
+min="100"
+max="1000"
+value="440"
+>
 
 </div>
 
+<div class="bloc">
+
+<label>Fréquence 2 :
+<span id="f2Val">444</span> Hz
+</label>
+
+<input
+id="freq2"
+type="range"
+min="100"
+max="1000"
+value="444"
+>
+
+</div>
+
+</div>
+
+
+<div class="resultats">
+
 <p>
-
-Battement :
-
-<span id="beat">
-
-</span>
-
-Hz
-
+Battement théorique :
+<strong id="fb">4 Hz</strong>
 </p>
 
+<p>
+Battements détectés :
+<strong id="fbMesure">0</strong>
+</p>
+
+</div>
+
+
+<div class="buttons">
+
+<button id="startBtn">
+▶ Démarrer
+</button>
+
+<button id="stopBtn">
+■ Stop
+</button>
+
+<button id="showEnv">
+Afficher enveloppe
+</button>
+
+</div>
+
+
+<h3>Cas réels</h3>
+
+<select id="casReel">
+
+<option value="">
+Choisir une situation
+</option>
+
+<option value="ventilo">
+Deux ventilateurs
+</option>
+
+<option value="moteur">
+Deux moteurs industriels
+</option>
+
+<option value="accordage">
+Accordage guitare
+</option>
+
+</select>
+
+<p id="explication"></p>
+
+
+<h3>Visualisation</h3>
+
 <canvas
-id="beatCanvas"
+id="graph"
 width="900"
-height="300">
+height="300"
+style="
+width:100%;
+background:white;
+border:1px solid #ccc;
+">
 </canvas>
+
+
+<h3>Questions TP</h3>
+
+<ol>
+
+<li>
+Que se passe-t-il lorsque les fréquences sont identiques ?
+</li>
+
+<li>
+Quand les battements deviennent-ils rapides ?
+</li>
+
+<li>
+À quoi servent-ils dans la vie réelle ?
+</li>
+
+</ol>
 
 </div>
