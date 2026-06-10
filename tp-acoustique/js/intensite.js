@@ -421,6 +421,60 @@ ctx.fill();
 }
 
 /* ================= */
+/* ANALYSE PEDAGOGIQUE */
+/* ================= */
+
+function updateProgress(){
+
+if(!explorationMessage) return;
+
+explorationMessage.innerHTML =
+
+`Fréquence grave ${graveObserve ? "✓" : "✗"} |
+Fréquence aiguë ${aiguObserve ? "✓" : "✗"}<br>
+
+Faible intensité ${faibleObserve ? "✓" : "✗"} |
+Forte intensité ${forteObserve ? "✓" : "✗"}<br>
+
+20 ans ${age20Observe ? "✓" : "✗"} |
+40 ans ${age40Observe ? "✓" : "✗"} |
+60 ans ${age60Observe ? "✓" : "✗"}`;
+
+}
+
+function checkAnalyse(){
+
+if(!analyseBloc) return;
+
+const termine =
+
+graveObserve &&
+aiguObserve &&
+faibleObserve &&
+forteObserve &&
+age20Observe &&
+age40Observe &&
+age60Observe;
+
+if(termine){
+
+analyseBloc.classList.remove(
+"hidden"
+);
+
+analyseBloc.classList.add(
+"visible"
+);
+
+explorationMessage.innerHTML =
+
+"✅ Toutes les situations ont été explorées. Analyse pédagogique débloquée.";
+
+}
+
+}
+ 
+/* ================= */
 
 function update(){
 
