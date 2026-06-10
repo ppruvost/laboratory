@@ -1,167 +1,209 @@
 <div class="card">
 
-<h2>
+    <h2>
+        Générateur de fréquences
+    </h2>
 
-Générateur de fréquences
+    <p>
+        Créer et analyser un signal sonore pur.
+    </p>
 
-</h2>
+    <div class="result">
 
-<p>
+        <p id="explorationMessage">
+            Mission : écouter un son grave, un son médium et un son aigu avant d'accéder à l'analyse.
+        </p>
 
-Créer et analyser un signal sonore pur.
+    </div>
 
-</p>
+    <div class="controls">
 
+        <label>
+            Fréquence :
+        </label>
 
-<div class="controls">
+        <input
+            type="range"
+            id="freqSlider"
+            min="20"
+            max="5000"
+            value="440">
 
-<label>
+        <span id="freqValue">
+            440 Hz
+        </span>
 
-Fréquence :
+    </div>
 
-</label>
+    <div class="controls">
 
-<input
-type="range"
-id="freqSlider"
-min="20"
-max="5000"
-value="440">
+        <label>
+            Volume :
+        </label>
 
-<span id="freqValue">
+        <input
+            type="range"
+            id="gainSlider"
+            min="0"
+            max="1"
+            step="0.01"
+            value="0.3">
 
-440 Hz
+        <span id="gainValue">
+            30 %
+        </span>
 
-</span>
+    </div>
 
-</div>
+    <div class="presets">
 
+        <button data-f="120">
+            grave.wav
+            <br>
+            120 Hz
+        </button>
+
+        <button data-f="700">
+            morse-beep.wav
+            <br>
+            700 Hz
+        </button>
 
-<div class="controls">
+        <button data-f="1500">
+            aigu.wav
+            <br>
+            1500 Hz
+        </button>
 
-<label>
+    </div>
 
-Volume :
+    <div class="buttons">
 
-</label>
+        <button id="playBtn">
+            ▶ Jouer
+        </button>
 
-<input
-type="range"
-id="gainSlider"
-min="0"
-max="1"
-step="0.01"
-value="0.3">
+        <button id="stopBtn">
+            ■ Stop
+        </button>
 
-<span id="gainValue">
+        <button id="exportBtn">
+            ⬇ Export WAV
+        </button>
 
-30 %
+    </div>
 
-</span>
+    <div class="infos">
 
-</div>
+        <p id="periodInfo">
+            Période :
+        </p>
 
+        <p id="soundType">
+            Type :
+        </p>
+
+    </div>
 
-<div class="presets">
-
-<button data-f="120">
-
-grave.wav
-
-<br>
-
-120 Hz
-
-</button>
-
-<button data-f="700">
-
-morse-beep.wav
-
-<br>
-
-700 Hz
-
-</button>
-
-<button data-f="1000">
-
-aigu.wav
-
-<br>
-
-1000 Hz
-
-</button>
-
-</div>
-
-
-<div class="buttons">
-
-<button id="playBtn">
-
-▶ Jouer
-
-</button>
-
-<button id="stopBtn">
-
-■ Stop
-
-</button>
-
-<button id="exportBtn">
-
-⬇ Export WAV
-
-</button>
-
-</div>
-
-
-<div class="infos">
-
-<p id="periodInfo">
-
-Période :
-
-</p>
-
-<p id="soundType">
-
-Type :
-
-</p>
-
-</div>
-
-
-<h3>
-
-Oscillogramme
-
-</h3>
-
-<canvas
-id="waveCanvas"
-width="900"
-height="250">
-
-</canvas>
-
-
-<h3>
-
-Spectre fréquentiel FFT
-
-</h3>
-
-<canvas
-id="fftCanvas"
-width="900"
-height="250">
-
-</canvas>
+    <h3>
+        Oscillogramme
+    </h3>
+
+    <canvas
+        id="waveCanvas"
+        width="900"
+        height="250">
+    </canvas>
+
+    <h3>
+        Spectre fréquentiel FFT
+    </h3>
+
+    <canvas
+        id="fftCanvas"
+        width="900"
+        height="250">
+    </canvas>
+
+    <!-- ANALYSE PEDAGOGIQUE -->
+
+    <div
+        id="analyseGenerateur"
+        class="analyse hidden">
+
+        <h3>
+            Analyse des observations
+        </h3>
+
+        <p>
+            Tu as exploré différentes fréquences sonores à l'aide du générateur.
+        </p>
+
+        <p>
+            <strong>Observation des sons graves</strong><br>
+            Les sons graves correspondent à des fréquences faibles.
+            Les vibrations sont plus lentes et la période est relativement grande.
+        </p>
+
+        <p>
+            <strong>Observation des sons aigus</strong><br>
+            Les sons aigus correspondent à des fréquences élevées.
+            Les vibrations sont plus rapides et la période devient plus courte.
+        </p>
+
+        <p>
+            <strong>Analyse de l'oscillogramme</strong><br>
+            Lorsque la fréquence augmente, les oscillations se rapprochent.
+            On observe davantage de cycles sur une même durée.
+        </p>
+
+        <p>
+            <strong>Analyse du spectre FFT</strong><br>
+            Le spectre met en évidence la fréquence principale du signal.
+            Pour un son pur, un seul pic dominant apparaît.
+        </p>
+
+        <p>
+            <strong>Lien entre fréquence et période</strong><br>
+            La fréquence et la période sont liées par la relation :
+        </p>
+
+        
+::contentReference[oaicite:0]{index=0}
+
+
+        <p>
+            Lorsque la fréquence augmente, la période diminue.
+        </p>
+
+        <div class="bilan">
+
+            <h4>
+                Je retiens
+            </h4>
+
+            <p>
+                ✔ La fréquence s'exprime en Hertz (Hz).
+            </p>
+
+            <p>
+                ✔ Plus la fréquence est élevée, plus le son est aigu.
+            </p>
+
+            <p>
+                ✔ Plus la fréquence est faible, plus le son est grave.
+            </p>
+
+            <p>
+                ✔ Un son pur possède une fréquence dominante unique.
+            </p>
+
+            <p>
+                ✔ La période diminue lorsque la fréquence augmente.
+            </p>
+
+        </div>
+
+    </div>
 
 </div>
