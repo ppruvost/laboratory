@@ -650,6 +650,152 @@ display:none;
 }
 
 /* ==========================
+   ANALYSE PEDAGOGIQUE
+========================== */
+
+.analyse{
+
+margin-top:25px;
+
+padding:25px;
+
+background:linear-gradient(
+180deg,
+#f8fbff 0%,
+#eef6ff 100%
+);
+
+border-left:6px solid var(--bleu);
+
+border-radius:12px;
+
+box-shadow:var(--ombre);
+
+text-align:left;
+
+animation:fadeAnalyse .5s ease;
+
+}
+
+.hidden{
+
+display:none;
+
+}
+
+.analyse h3{
+
+color:var(--bleu);
+
+margin-bottom:15px;
+
+font-size:1.4rem;
+
+}
+
+.analyse p{
+
+margin-bottom:12px;
+
+line-height:1.7;
+
+}
+
+.analyse strong{
+
+color:var(--bleu);
+
+}
+
+.bilan{
+
+margin-top:20px;
+
+padding:18px;
+
+background:white;
+
+border-radius:10px;
+
+border:2px solid #dce7f4;
+
+box-shadow:0 2px 8px rgba(0,0,0,.05);
+
+}
+
+.bilan h4{
+
+color:var(--bleu);
+
+margin-bottom:12px;
+
+font-size:1.15rem;
+
+}
+
+.bilan p{
+
+margin-bottom:8px;
+
+font-weight:500;
+
+}
+
+.bilan p:last-child{
+
+margin-bottom:0;
+
+}
+
+@keyframes fadeAnalyse{
+
+from{
+
+opacity:0;
+
+transform:translateY(15px);
+
+}
+
+to{
+
+opacity:1;
+
+transform:translateY(0);
+
+}
+
+}
+
+/* Effet de mise en évidence lors de l'apparition */
+
+.analyse.visible{
+
+animation:
+fadeAnalyse .5s ease,
+pulseAnalyse .8s ease;
+
+}
+
+@keyframes pulseAnalyse{
+
+0%{
+
+box-shadow:
+0 0 0 0 rgba(31,60,99,.35);
+
+}
+
+100%{
+
+box-shadow:
+0 0 0 18px rgba(31,60,99,0);
+
+}
+
+}
+
+/* ==========================
    RESPONSIVE
 ========================== */
 
