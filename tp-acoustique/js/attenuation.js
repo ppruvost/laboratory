@@ -3,7 +3,7 @@ window.initAttenuation = function () {
 console.log("module atténuation chargé");
 
 /* ==========================
-   AUDIO SIMULATION
+   AUDIO
 ========================== */
 
 const AudioContextClass =
@@ -30,31 +30,44 @@ const btn = document.getElementById("testBtn");
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 
+const analyseBloc = document.getElementById("analyseAttenuation");
+const explorationMsg = document.getElementById("explorationAttenuation");
+
+/* ==========================
+   SUIVI PEDAGOGIQUE
+========================== */
+
+let envDone = {
+refectoire:false,
+classe:false,
+usine:false
+};
+
+let matDone = {
+soft:false,
+medium:false,
+hard:false
+};
+
+let distDone = {
+near:false,
+far:false
+};
+
 /* ==========================
    ENVIRONNEMENTS
 ========================== */
 
 const environments = {
 
-refectoire: {
-    base: 75,
-    noise: 5
-},
-
-classe: {
-    base: 65,
-    noise: 2
-},
-
-usine: {
-    base: 95,
-    noise: 15
-}
+refectoire: { base: 75, noise: 5 },
+classe: { base: 65, noise: 2 },
+usine: { base: 95, noise: 15 }
 
 };
 
 /* ==========================
-   CALCUL ATTENUATION
+   CALCUL
 ========================== */
 
 function compute() {
@@ -63,34 +76,24 @@ const e = environments[env.value];
 
 const wall = Number(wallMat.value);
 const ceiling = Number(ceilingMat.value);
-
 const dist = Number(distance.value);
 
-/* absorption matériaux */
+/* matériaux */
 const absorption =
 (1 - wall) * 12 +
 (1 - ceiling) * 8;
 
-/* perte distance (loi simplifiée) */
+/* distance */
 const distanceLoss =
 20 * Math.log10(dist);
 
-/* bruit ambiant */
-const noise = e.noise;
-
 /* niveau final */
-const level =
-e.base
-- absorption
-- distanceLoss
-+ noise;
-
-return level;
+return e.base - absorption - distanceLoss + e.noise;
 
 }
 
 /* ==========================
-   UI UPDATE
+   UPDATE UI
 ========================== */
 
 function update() {
@@ -99,19 +102,34 @@ distVal.textContent = distance.value + " m";
 
 const level = compute();
 
+/* suivi */
+if(env.value === "refectoire") envDone.refectoire = true;
+if(env.value === "classe") envDone.classe = true;
+if(env.value === "usine") envDone.usine = true;
+
+if(wallMat.value === "0.2" || ceilingMat.value === "0.2") matDone.soft = true;
+if(wallMat.value === "0.5" || ceilingMat.value === "0.5") matDone.medium = true;
+if(wallMat.value === "0.8" || ceilingMat.value === "0.8") matDone.hard = true;
+
+if(distance.value < 5) distDone.near = true;
+if(distance.value > 15) distDone.far = true;
+
+/* affichage */
 let msg = "";
 
-if (level < 40) msg = "🟢 environnement calme";
-else if (level < 70) msg = "🟡 acceptable";
-else if (level < 90) msg = "🟠 bruyant";
-else msg = "🔴 dangereux / usine forte intensité";
+if(level < 40) msg = "🟢 calme";
+else if(level < 70) msg = "🟡 acceptable";
+else if(level < 90) msg = "🟠 bruyant";
+else msg = "🔴 dangereux";
 
-result.innerHTML = `
-Niveau sonore perçu : <b>${level.toFixed(1)} dB</b><br>
-${msg}
-`;
+result.innerHTML =
+`Niveau sonore : <b>${level.toFixed(1)} dB</b><br>${msg}`;
 
+/* dessin */
 draw(level);
+
+/* analyse */
+checkAnalyse();
 
 }
 
@@ -121,25 +139,16 @@ draw(level);
 
 function draw(level) {
 
-ctx.clearRect(0, 0, canvas.width, canvas.height);
+ctx.clearRect(0,0,canvas.width,canvas.height);
 
-/* gradient */
-const grad = ctx.createLinearGradient(0, 0, canvas.width, 0);
-
-grad.addColorStop(0, "green");
-grad.addColorStop(0.5, "orange");
-grad.addColorStop(1, "red");
-
-ctx.fillStyle = grad;
-ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-/* barre niveau */
 const x = (level / 120) * canvas.width;
 
-ctx.fillStyle = "black";
-ctx.fillRect(x, 0, 5, canvas.height);
+ctx.fillStyle = "green";
+ctx.fillRect(0,0,canvas.width,canvas.height);
 
-/* texte */
+ctx.fillStyle = "red";
+ctx.fillRect(x,0,5,canvas.height);
+
 ctx.fillStyle = "white";
 ctx.font = "20px Arial";
 ctx.fillText(level.toFixed(1) + " dB", 20, 40);
@@ -147,7 +156,48 @@ ctx.fillText(level.toFixed(1) + " dB", 20, 40);
 }
 
 /* ==========================
-   AUDIO SIMULATION
+   ANALYSE
+========================== */
+
+function updateProgress() {
+
+if(!explorationMsg) return;
+
+explorationMsg.innerHTML =
+
+`Environnements ${envDone.refectoire && envDone.classe && envDone.usine ? "✓" : "✗"}<br>
+Matériaux ${matDone.soft && matDone.medium && matDone.hard ? "✓" : "✗"}<br>
+Distance proche/loin ${distDone.near && distDone.far ? "✓" : "✗"}`;
+
+}
+
+function checkAnalyse() {
+
+const done =
+envDone.refectoire &&
+envDone.classe &&
+envDone.usine &&
+matDone.soft &&
+matDone.medium &&
+matDone.hard &&
+distDone.near &&
+distDone.far;
+
+if(done && analyseBloc){
+
+analyseBloc.classList.remove("hidden");
+analyseBloc.classList.add("visible");
+
+analyseBloc.scrollIntoView({behavior:"smooth"});
+
+}
+
+updateProgress();
+
+}
+
+/* ==========================
+   AUDIO
 ========================== */
 
 function play() {
@@ -160,12 +210,33 @@ gain = audioCtx.createGain();
 osc.type = "sawtooth";
 osc.frequency.value = 200;
 
-gain.gain.value = Math.max(0.05, compute() / 120);
+gain.gain.value = Math.max(0.05, compute()/120);
 
 osc.connect(gain);
 gain.connect(audioCtx.destination);
 
 osc.start();
+
+}
+
+/* ==========================
+   STOP
+========================== */
+
+function stop() {
+
+if(osc){
+
+osc.stop();
+osc.disconnect();
+osc = null;
+
+}
+
+if(gain){
+gain.disconnect();
+gain = null;
+}
 
 }
 
