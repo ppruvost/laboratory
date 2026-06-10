@@ -390,20 +390,20 @@ background:#dce7f4;
 canvas{
 
 width:100%;
-
 max-width:100%;
-
 display:block;
 
-background:white;
+background:#ffffff;
 
-border:1px solid #ccc;
+border:1px solid #d8e2ee;
 
 border-radius:10px;
 
 margin-bottom:20px;
 
 min-height:250px;
+
+box-shadow:0 1px 4px rgba(0,0,0,.05);
 
 }
 
@@ -539,6 +539,8 @@ border-radius:8px;
 
 background:#f5f8fc;
 
+border-left:4px solid #dce7f4;
+
 margin-top:15px;
 
 font-weight:bold;
@@ -673,13 +675,27 @@ box-shadow:var(--ombre);
 
 text-align:left;
 
+opacity:1;
+
+transition:.35s ease;
+
 animation:fadeAnalyse .5s ease;
 
 }
 
 .hidden{
-
 display:none;
+}
+
+.visible{
+display:block;
+}
+
+#explorationMessage{
+
+line-height:1.8;
+
+font-weight:600;
 
 }
 
@@ -859,6 +875,30 @@ input,
 select{
 
 max-width:100%;
+
+}
+
+.analyse{
+
+padding:18px;
+
+}
+
+.bilan{
+
+padding:14px;
+
+}
+
+.analyse h3{
+
+font-size:1.2rem;
+
+}
+
+.bilan h4{
+
+font-size:1rem;
 
 }
 
