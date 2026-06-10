@@ -63,6 +63,30 @@ document.getElementById(
 const ctx =
 canvas.getContext("2d");
 
+ /* ================= */
+/* SUIVI PEDAGOGIQUE */
+/* ================= */
+
+const analyseBloc =
+document.getElementById(
+"analyseIntensite"
+);
+
+const explorationMessage =
+document.getElementById(
+"explorationMessage"
+);
+
+let graveObserve = false;
+let aiguObserve = false;
+
+let faibleObserve = false;
+let forteObserve = false;
+
+let age20Observe = false;
+let age40Observe = false;
+let age60Observe = false; 
+
 /* ================= */
 
 function earSensitivity(freq){
@@ -534,36 +558,67 @@ await audioCtx.resume();
 
 stop();
 
-osc=
+const freq =
+Number(freqSlider.value);
 
+const intensity =
+Number(intensitySlider.value);
+
+const age =
+Number(ageSelect.value);
+
+/* fréquence */
+
+if(freq < 250)
+graveObserve = true;
+
+if(freq > 5000)
+aiguObserve = true;
+
+/* intensité */
+
+if(intensity < 0.05)
+faibleObserve = true;
+
+if(intensity > 0.5)
+forteObserve = true;
+
+/* âge */
+
+if(age === 20)
+age20Observe = true;
+
+if(age === 40)
+age40Observe = true;
+
+if(age === 60)
+age60Observe = true;
+
+updateProgress();
+
+checkAnalyse();
+
+osc =
 audioCtx.createOscillator();
 
-gainNode=
-
+gainNode =
 audioCtx.createGain();
 
-osc.type="sine";
+osc.type = "sine";
 
-osc.frequency.value=
+osc.frequency.value =
+freq;
 
-freqSlider.value;
-
-gainNode.gain.value=
-
+gainNode.gain.value =
 Math.min(
-
 0.3,
-
-intensitySlider.value
-
+intensity
 );
 
 osc.connect(gainNode);
 
 gainNode.connect(
-
 audioCtx.destination
-
 );
 
 osc.start();
@@ -600,6 +655,7 @@ startBtn.onclick=start;
 
 stopBtn.onclick=stop;
 
+updateProgress();
 update();
 
 };
