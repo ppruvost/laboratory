@@ -12,7 +12,6 @@ window.initGenerateur = function() {
 
     const bufferLength = analyser.frequencyBinCount;
 
-    // ✅ Séparation des buffers (IMPORTANT)
     const timeArray = new Uint8Array(bufferLength);
     const freqArray = new Uint8Array(bufferLength);
 
@@ -29,6 +28,9 @@ window.initGenerateur = function() {
     const stopBtn = document.getElementById("stopBtn");
     const exportBtn = document.getElementById("exportBtn");
 
+    const analyseBloc = document.getElementById("analyseGenerateur");
+    const explorationMessage = document.getElementById("explorationMessage");
+
     if (!freqSlider || !gainSlider || !freqValue || !gainValue || !periodInfo ||
         !soundType || !waveCanvas || !fftCanvas || !playBtn || !stopBtn || !exportBtn) {
         console.error("Un ou plusieurs éléments du module Générateur sont introuvables !");
@@ -38,9 +40,40 @@ window.initGenerateur = function() {
     const waveCtx = waveCanvas.getContext("2d");
     const fftCtx = fftCanvas.getContext("2d");
 
+    // ===== ANALYSE PEDAGOGIQUE =====
+    let graveObserve = false;
+    let mediumObserve = false;
+    let aiguObserve = false;
+
+    function updateProgressUI() {
+
+        if (!explorationMessage) return;
+
+        explorationMessage.textContent =
+            `Exploration : Grave ${graveObserve ? "✓" : "✗"} | ` +
+            `Médium ${mediumObserve ? "✓" : "✗"} | ` +
+            `Aigu ${aiguObserve ? "✓" : "✗"}`;
+    }
+
+    function checkAnalyse() {
+
+        if (!analyseBloc) return;
+
+        if (graveObserve && mediumObserve && aiguObserve) {
+
+            analyseBloc.classList.remove("hidden");
+            analyseBloc.classList.add("visible");
+
+            analyseBloc.scrollIntoView({
+                behavior: "smooth",
+                block: "start"
+            });
+        }
+    }
+
     // ===== TOOLTIP FFT =====
     const fftTooltip = document.createElement("div");
-    fftTooltip.style.position = "fixed"; // ✔ FIX POSITION
+    fftTooltip.style.position = "fixed";
     fftTooltip.style.padding = "5px 8px";
     fftTooltip.style.background = "rgba(0,0,0,0.75)";
     fftTooltip.style.color = "#fff";
@@ -51,7 +84,6 @@ window.initGenerateur = function() {
     fftTooltip.style.zIndex = "9999";
     document.body.appendChild(fftTooltip);
 
-    // ===== MOUSE MOVE FFT =====
     fftCanvas.addEventListener("mousemove", (e) => {
 
         const rect = fftCanvas.getBoundingClientRect();
@@ -61,13 +93,11 @@ window.initGenerateur = function() {
 
         const value = freqArray[index];
 
-        // ignore bruit faible
         if (value < 10) {
             fftTooltip.style.display = "none";
             return;
         }
 
-        // ✔ fréquence précise FFT
         const frequency = index * (audioCtx.sampleRate / analyser.fftSize);
 
         fftTooltip.style.display = "block";
@@ -83,6 +113,7 @@ window.initGenerateur = function() {
 
     // ===== INFOS =====
     function updateInfos() {
+
         const f = Number(freqSlider.value);
 
         freqValue.innerHTML = f + " Hz";
@@ -100,17 +131,22 @@ window.initGenerateur = function() {
     }
 
     updateInfos();
+    updateProgressUI();
 
     // ===== SLIDERS =====
     freqSlider.oninput = () => {
+
         updateInfos();
+
         if (oscillator) {
             oscillator.frequency.value = Number(freqSlider.value);
         }
     };
 
     gainSlider.oninput = () => {
+
         updateInfos();
+
         if (gainNode) {
             gainNode.gain.value = Number(gainSlider.value);
         }
@@ -118,6 +154,7 @@ window.initGenerateur = function() {
 
     // ===== START SOUND =====
     function startSound() {
+
         stopSound();
 
         oscillator = audioCtx.createOscillator();
@@ -135,10 +172,25 @@ window.initGenerateur = function() {
 
         drawWave();
         drawFFT();
+
+        // ===== LOGIQUE PEDAGOGIQUE =====
+        const f = Number(freqSlider.value);
+
+        if (f < 300) {
+            graveObserve = true;
+        } else if (f <= 1000) {
+            mediumObserve = true;
+        } else {
+            aiguObserve = true;
+        }
+
+        updateProgressUI();
+        checkAnalyse();
     }
 
     // ===== STOP SOUND =====
     function stopSound() {
+
         if (oscillator) {
             oscillator.stop();
             oscillator.disconnect();
@@ -152,6 +204,7 @@ window.initGenerateur = function() {
     // ===== PRESETS =====
     document.querySelectorAll(".presets button").forEach(btn => {
         btn.onclick = () => {
+
             freqSlider.value = btn.dataset.f;
             updateInfos();
             startSound();
@@ -160,6 +213,7 @@ window.initGenerateur = function() {
 
     // ===== WAVE =====
     function drawWave() {
+
         requestAnimationFrame(drawWave);
 
         analyser.getByteTimeDomainData(timeArray);
@@ -171,6 +225,7 @@ window.initGenerateur = function() {
         let x = 0;
 
         for (let i = 0; i < bufferLength; i++) {
+
             const v = timeArray[i] / 128;
             const y = v * waveCanvas.height / 2;
 
@@ -185,6 +240,7 @@ window.initGenerateur = function() {
 
     // ===== FFT =====
     function drawFFT() {
+
         requestAnimationFrame(drawFFT);
 
         analyser.getByteFrequencyData(freqArray);
@@ -195,14 +251,13 @@ window.initGenerateur = function() {
 
         for (let i = 0; i < bufferLength; i++) {
             const value = freqArray[i];
-            const h = value;
-
-            fftCtx.fillRect(i * barWidth, fftCanvas.height - h, barWidth, h);
+            fftCtx.fillRect(i * barWidth, fftCanvas.height - value, barWidth, value);
         }
     }
 
     // ===== WAV EXPORT =====
     function createWav() {
+
         const sampleRate = 44100;
         const duration = 2;
         const length = sampleRate * duration;
@@ -218,6 +273,7 @@ window.initGenerateur = function() {
     }
 
     function encodeWAV(samples, sampleRate) {
+
         const buffer = new ArrayBuffer(44 + samples.length * 2);
         const view = new DataView(buffer);
 
@@ -254,6 +310,7 @@ window.initGenerateur = function() {
 
     // ===== EXPORT =====
     exportBtn.onclick = () => {
+
         const wav = createWav();
         const blob = new Blob([wav], { type: "audio/wav" });
         const url = URL.createObjectURL(blob);
