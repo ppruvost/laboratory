@@ -1,225 +1,179 @@
 <div class="card">
 
-<h2>
+    <h2>Introduction</h2>
 
-Introduction
+    <img
+        src="assets/images/chaine-son.svg"
+        alt="chaine sonore">
 
-</h2>
+    <p>
+        Un son nécessite :
+    </p>
 
-<img
-src="assets/images/chaine-son.svg"
-alt="chaine sonore">
+    <ul>
+        <li>un émetteur</li>
+        <li>un milieu</li>
+        <li>un récepteur</li>
+    </ul>
 
-<p>
+    <hr>
 
-Un son nécessite :
+    <h3>Visualisation dynamique de la propagation du son</h3>
 
-</p>
+    <p>
+        Observer comment le son se propage selon le milieu traversé.
+    </p>
 
-<ul>
+    <div class="controls">
 
-<li>un émetteur</li>
+        <label>
+            Milieu :
+        </label>
 
-<li>un milieu</li>
+        <select id="milieu">
+            <option value="air">Air</option>
+            <option value="vide">Vide</option>
+        </select>
 
-<li>un récepteur</li>
+        <button id="startAnim">
+            Lancer l'expérience
+        </button>
 
-</ul>
+    </div>
 
-<hr>
+    <div class="scene">
 
-<h3>
+        <!-- MARTEAU -->
+        <div class="bloc">
 
-Visualisation dynamique de la propagation du son
+            <img
+                id="marteau"
+                src="assets/images/marteau.png"
+                alt="marteau">
 
-</h3>
+            <p>Objet percuteur</p>
 
-<p>
+        </div>
 
-Observer comment le son se propage selon le milieu traversé.
+        <!-- DIAPASON -->
+        <div class="bloc">
 
-</p>
+            <img
+                id="diapason"
+                src="assets/images/diapason.png"
+                alt="diapason">
 
+            <p>Émetteur</p>
 
-<div class="controls">
+        </div>
 
-<label>
+        <!-- MILIEU -->
+        <div
+            class="bloc milieuBloc"
+            id="milieuBloc">
 
-Milieu :
+            <div id="milieuTxt">
+                AIR
+            </div>
 
-</label>
+            <img
+                id="ondeImg"
+                src="assets/images/onde.png"
+                alt="onde sonore">
 
-<select id="milieu">
+            <p>Milieu de propagation</p>
 
-<option value="air">
+        </div>
 
-Air
+        <!-- CROIX VIDE -->
+        <div
+            class="bloc"
+            id="croixBloc">
 
-</option>
+            <img
+                src="assets/images/red_cross.png"
+                id="crossImg"
+                alt="croix">
 
-<option value="vide">
+            <p>Pas de propagation</p>
 
-Vide
+        </div>
 
-</option>
+        <!-- OREILLE -->
+        <div class="bloc">
 
-</select>
+            <img
+                id="oreille"
+                src="assets/images/oreille.jpeg"
+                alt="oreille">
 
-<button id="startAnim">
+            <p id="receiverText">
+                Récepteur
+            </p>
 
-Lancer l'expérience
+        </div>
 
-</button>
+    </div>
+
+    <div class="result">
+
+        <p id="message">
+            Choisir un milieu puis lancer.
+        </p>
+
+    </div>
+
+    <!-- ANALYSE PEDAGOGIQUE -->
+    <div id="analyseBloc" class="analyse hidden">
+
+        <h3>Analyse des résultats</h3>
+
+        <p>
+            Tu as maintenant observé la propagation du son dans deux
+            situations différentes.
+        </p>
+
+        <p>
+            <strong>Observation 1 : dans l'air</strong><br>
+            Le son se propage depuis le diapason jusqu'au récepteur.
+            Les vibrations produites par le diapason sont transmises
+            par les molécules d'air.
+        </p>
+
+        <p>
+            <strong>Observation 2 : dans le vide</strong><br>
+            Aucun son ne peut être transmis car il n'y a aucune matière
+            pour transporter les vibrations.
+        </p>
+
+        <p>
+            <strong>Interprétation :</strong><br>
+            Le son est une onde mécanique. Une onde mécanique a besoin
+            d'un milieu matériel pour se propager.
+        </p>
+
+        <div class="bilan">
+
+            <h4>Je retiens</h4>
+
+            <p>
+                ✔ Le son se propage dans les solides, les liquides
+                et les gaz.
+            </p>
+
+            <p>
+                ✔ Le son ne se propage pas dans le vide.
+            </p>
+
+            <p>
+                ✔ La présence d'un milieu matériel est indispensable
+                à la propagation d'une onde sonore.
+            </p>
+
+        </div>
+
+    </div>
 
 </div>
-
-
-<div class="scene">
-
-<!-- MARTEAU -->
-
-<div class="bloc">
-
-<img
-id="marteau"
-src="assets/images/marteau.png"
-alt="marteau">
-
-<p>
-
-Objet percuteur
-
-</p>
-
-</div>
-
-
-<!-- DIAPASON -->
-
-<div class="bloc">
-
-<img
-id="diapason"
-src="assets/images/diapason.png"
-alt="diapason">
-
-<p>
-
-Émetteur
-
-</p>
-
-</div>
-
-
-<!-- MILIEU -->
-
-<div
-class="bloc milieuBloc"
-id="milieuBloc">
-
-<div id="milieuTxt">
-
-AIR
-
-</div>
-
-<img
-id="ondeImg"
-src="assets/images/onde.png"
-alt="onde sonore">
-
-<p>
-
-Milieu de propagation
-
-</p>
-
-</div>
-
-
-<!-- CROIX VIDE -->
-
-<div
-class="bloc"
-id="croixBloc">
-
-<img
-src="assets/images/red_cross.png"
-id="crossImg"
-alt="croix">
-
-<p>
-
-Pas de propagation
-
-</p>
-
-</div>
-
-
-<!-- OREILLE -->
-
-<div class="bloc">
-
-<img
-id="oreille"
-src="assets/images/oreille.jpeg"
-alt="oreille">
-
-<p id="receiverText">
-
-Récepteur
-
-</p>
-
-</div>
-
-</div>
-
-
-<div class="result">
-
-<p id="message">
-
-Choisir un milieu puis lancer.
-
-</p>
-
-</div>
-<!-- ANALYSE PEDAGOGIQUE -->
-
-<div id="analyseBloc" class="analyse hidden">
-
-<h3>Analyse des résultats</h3>
-
-<p>
-Tu as maintenant observé la propagation du son dans deux situations
-différentes.
-</p>
-
-<p>
-<b>Dans l'air :</b>
-le son est transmis par les vibrations des molécules d'air.
-Les vibrations produites par le diapason se propagent jusqu'à l'oreille,
-qui reçoit alors le signal sonore.
-</p>
-
-<p>
-<b>Dans le vide :</b>
-aucune particule n'est présente pour transmettre les vibrations.
-Le son ne peut donc pas se propager jusqu'au récepteur.
-</p>
-
-<p>
-<b>Conclusion :</b>
-le son est une onde mécanique. Il a besoin d'un milieu matériel
-(solide, liquide ou gaz) pour se propager.
-Il ne peut pas se déplacer dans le vide.
-</p>
-
-</div>
-</div>
-
 
 <script src="./js/introduction.js"></script>
