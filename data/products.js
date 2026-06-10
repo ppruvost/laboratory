@@ -346,19 +346,7 @@ export const products = [
     "image": "chaux_sodee.jpg",
     "fds": "FicheTox_ChauxSodee.pdf",
     "dangers": ["H314"]
-  },
-  {
-    "cas": "7647-14-5",
-    "nom": "chlorure de sodium",
-    "formule": "NaCl",
-    "categorie": "Sel minéral",
-    "localisation": "Salle B27 / étagère B3",
-    "pictogramme": [],
-    "obligation": ["BLOUSE"],
-    "image": "sodium_chlorure.jpg",
-    "fds": "FicheTox_NaCl.pdf",
-    "dangers": []
-  },
+  },  
     {
     "cas": "7447-39-4",
     "nom": "cuivre (II) chlorure",
@@ -851,6 +839,18 @@ export const products = [
     dangers: ["H351"],    
   },
   {
+    "cas": "7786-81-4",
+    "nom": "nickel sulfate",
+    "formule": "NiSO₄",
+    "categorie": "sel métallique",
+    "localisation": "Salle B27 / étagère D2",
+    "pictogramme": ["SGH07_PointExclamation.jpg", "SGH08_DangerSante.jpg", "SGH09_Environnement.jpg"],
+    "obligation": ["LUNETTES", "GANTS", "BLOUSE", "HOTTE"],
+    "image": "sulfate_nickel.jpg",
+    "fds": "FicheTox_NiSO4.pdf",
+    "dangers": ["H317", "H350", "H410"]
+  },
+  {
   cas: "7722-64-7",
   nom: "permanganate de potassium",
   formule: "KMnO₄",
@@ -962,14 +962,14 @@ export const products = [
     "cas": "7447-40-7",
     "nom": "potassium chlorure",
     "formule": "KCl",
-    "categorie": "sel minéral",
-    "localisation": "Salle B27 / étagère D2",
+    "categorie": "Solution de conservation / électrolyte de stockage pour électrodes",
+    "localisation": "Salle B27 / étagère D2-D4",
     "pictogramme": [],
-    "obligation": ["BLOUSE"],
+    "obligation": ["LUNETTES", "GANTS", "BLOUSE"],
     "image": "potassium_chlorure.jpg",
     "fds": "FicheTox_KCl.pdf",
     "dangers": []
-  },
+  },  
     {
     "cas": "7789-00-6",
     "nom": "potassium chromate",
@@ -1163,6 +1163,54 @@ export const products = [
   dangers: ["H315", "H319"]
   },
   {
+    "cas": "497-19-8",
+    "nom": "sodium carbonate",
+    "formule": "Na₂CO₃",
+    "categorie": "Base / sel alcalin",
+    "localisation": "Salle B27 / étagère D1",
+    "pictogramme": ["SGH07_Irritant.jpg"],
+    "obligation": ["LUNETTES", "GANTS", "BLOUSE"],
+    "image": "carbonate_sodium.jpg",
+    "fds": "FicheTox_CarbonateSodium.pdf",
+    "dangers": ["H319"]
+  },
+  {
+    "cas": "7647-14-5",
+    "nom": "sodium chlorure",
+    "formule": "NaCl",
+    "categorie": "Sel minéral",
+    "localisation": "Salle B27 / étagère B3",
+    "pictogramme": [],
+    "obligation": ["BLOUSE"],
+    "image": "sodium_chlorure.jpg",
+    "fds": "FicheTox_NaCl.pdf",
+    "dangers": []
+  },
+  {
+    "cas": "127-09-3",
+    "nom": "sodium éthanoate anhydre",
+    "formule": "CH₃COONa",
+    "categorie": "Sel organique",
+    "localisation": "Salle B27 / étagère D3",
+    "pictogramme": [],
+    "obligation": ["LUNETTES", "GANTS"],
+    "image": "acetate_sodium.jpg",
+    "fds": "FicheTox_AcetateSodium.pdf",
+    "dangers": []
+  },
+  {
+    "cas": "144-55-8",
+    "nom": "sodium hydrogénocarbonate",
+    "formule": "NaHCO₃",
+    "categorie": "Sel basique",
+    "localisation": "Salle B27 / étagère D1",
+    "pictogramme": [],
+    "obligation": ["LUNETTES"],
+    "image": "bicarbonate_sodium.jpg",
+    "fds": "FicheTox_BicarbonateSodium.pdf",
+    "dangers": []
+  },
+  {
     "cas": "7631-90-5",
     "nom": "sodium hydrogénosulfite",
     "formule": "NaHSO₃",
@@ -1174,18 +1222,30 @@ export const products = [
     "fds": "FicheTox_NaHSO3.pdf",
     "dangers": ["H302", "H319"]
   },
-  {
-    cas: "7447-40-7",
-    nom: "solution de chlorure de potassium (KCl)",
-    formule: "KCl + H₂O",
-    categorie: "Solution de conservation / électrolyte de stockage pour électrodes",
-    localisation: "Salle B27 / étagère D4",
-    pictogramme: [],
-    obligation: ["LUNETTES", "GANTS"],
-    image: "storage_solution_ph_orp.jpg",
-    fds: "FDS_KCl_storage_solution.pdf",
-    dangers: []
-},
+    {
+    "cas": "7601-54-9",
+    "nom": "sodium phosphate (trisodique)",
+    "formule": "Na₃PO₄",
+    "categorie": "Base / sel alcalin",
+    "localisation": "Salle B27 / étagère D2",
+    "pictogramme": ["SGH07_Irritant.jpg"],
+    "obligation": ["LUNETTES", "GANTS", "BLOUSE"],
+    "image": "phosphate_sodium.jpg",
+    "fds": "FicheTox_PhosphateSodium.pdf",
+    "dangers": ["H315"]
+  },
+    {
+    "cas": "7757-83-7",
+    "nom": "sodium sulfite",
+    "formule": "Na₂SO₃",
+    "categorie": "Réducteur",
+    "localisation": "Salle B27 / étagère D3",
+    "pictogramme": ["SGH07_Irritant.jpg"],
+    "obligation": ["LUNETTES", "GANTS", "BLOUSE"],
+    "image": "sulfite_sodium.jpg",
+    "fds": "FicheTox_SulfiteSodium.pdf",
+    "dangers": ["H319"]
+  },  
   {
     cas: "1336-21-6",
     nom: "solution tampon pH 4.01",
@@ -1233,17 +1293,41 @@ export const products = [
     image: "ph10.jpg",
     fds: "",
     dangers: [],    
+  },    
+  {
+    "cas": "8009-03-8",
+    "nom": "vaseline",
+    "formule": "CₓHᵧ (mélange d'hydrocarbures)",
+    "categorie": "Hydrocarbure / émollient",
+    "localisation": "Stock général / armoire produits non dangereux",
+    "pictogramme": [],
+    "obligation": ["GANTS"],
+    "image": "vaseline.jpg",
+    "fds": "FicheTox_Vaseline.pdf",
+    "dangers": []
   },
-    {
-    "cas": "7786-81-4",
-    "nom": "sulfate de nickel",
-    "formule": "NiSO₄",
-    "categorie": "sel métallique",
-    "localisation": "Salle B27 / étagère D2",
-    "pictogramme": ["SGH07_PointExclamation.jpg", "SGH08_DangerSante.jpg", "SGH09_Environnement.jpg"],
+  {
+    "cas": "7646-85-7",
+    "nom": "zinc chlorure anhydre",
+    "formule": "ZnCl₂",
+    "categorie": "Corrosif",
+    "localisation": "Salle B27 / armoire acides / bac C1",
+    "pictogramme": ["SGH05_Corrosion.jpg", "SGH07_Irritant.jpg"],
     "obligation": ["LUNETTES", "GANTS", "BLOUSE", "HOTTE"],
-    "image": "sulfate_nickel.jpg",
-    "fds": "FicheTox_NiSO4.pdf",
-    "dangers": ["H317", "H350", "H410"]
-  }
+    "image": "chlorure_zinc.jpg",
+    "fds": "FicheTox_ChlorureZinc.pdf",
+    "dangers": ["H302", "H314"]
+  },
+  {
+    "cas": "7446-20-0",
+    "nom": "zinc sulfate heptahydraté",
+    "formule": "ZnSO₄·7H₂O",
+    "categorie": "Sel métallique",
+    "localisation": "Salle B27 / étagère D2",
+    "pictogramme": ["SGH07_Irritant.jpg"],
+    "obligation": ["LUNETTES", "GANTS", "BLOUSE"],
+    "image": "sulfate_zinc.jpg",
+    "fds": "FicheTox_SulfateZinc.pdf",
+    "dangers": ["H302", "H319"]
+  },
 ];
