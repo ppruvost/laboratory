@@ -55,6 +55,16 @@ document.getElementById(
 "danger"
 );
 
+const startBtn =
+document.getElementById(
+"startBtn"
+);
+
+const stopBtn =
+document.getElementById(
+"stopBtn"
+);
+
 const canvas =
 document.getElementById(
 "canvas"
