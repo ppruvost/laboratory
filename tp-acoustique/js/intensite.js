@@ -73,6 +73,27 @@ document.getElementById(
 const ctx =
 canvas.getContext("2d");
 
+ if(
+!freqSlider ||
+!intensitySlider ||
+!ageSelect ||
+!freqValue ||
+!intensityValue ||
+!dbInfo ||
+!danger ||
+!startBtn ||
+!stopBtn ||
+!canvas
+){
+
+console.error(
+"Elements du module intensité introuvables"
+);
+
+return;
+
+}
+
  /* ================= */
 /* SUIVI PEDAGOGIQUE */
 /* ================= */
