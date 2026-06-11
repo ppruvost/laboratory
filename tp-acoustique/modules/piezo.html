@@ -1,33 +1,239 @@
 <div class="card">
 
-    <h2>TP – Capteur piézoélectrique</h2>
+    <h2>
+        TP – Capteur piézoélectrique
+    </h2>
 
-    <p>Simulation d'une vibration mécanique amortie.</p>
+    <p>
+        Étudier la tension électrique produite par un capteur
+        piézoélectrique lorsqu'il subit un choc mécanique.
+    </p>
 
-    <button id="impact">Créer un choc</button>
+    <div class="controls">
 
-    <label>
-        Amortissement :
+        <button id="impact">
+
+            Créer un choc
+
+        </button>
+
+    </div>
+
+    <div class="controls">
+
+        <label>
+
+            Amortissement :
+
+        </label>
+
         <input
             id="damping"
             type="range"
             min="20"
             max="300"
             value="100">
-    </label>
 
-    <p>Amplitude maximale :
-        <span id="piezoVal">0</span> V
-    </p>
+        <span id="dampingValue">
 
-    <p>Fréquence :
-        <span id="freqVal">0</span> Hz
-    </p>
+            100
+
+        </span>
+
+    </div>
+
+    <div class="infos">
+
+        <p>
+
+            Amplitude maximale :
+            <span id="piezoVal">
+
+                0
+
+            </span> V
+
+        </p>
+
+        <p>
+
+            Fréquence :
+            <span id="freqVal">
+
+                0
+
+            </span> Hz
+
+        </p>
+
+    </div>
 
     <canvas
         id="piezoCanvas"
         width="900"
         height="250">
+
     </canvas>
+
+</div>
+
+<!-- ==========================
+     MISSION ELEVES
+========================== -->
+
+<div class="result">
+
+    <p id="explorationMessage">
+
+        Mission :
+        réaliser plusieurs chocs avec différentes valeurs
+        d'amortissement,
+        observer l'amplitude maximale obtenue,
+        comparer la durée des oscillations
+        puis consulter l'analyse.
+
+    </p>
+
+</div>
+
+<!-- ==========================
+     ANALYSE PEDAGOGIQUE
+========================== -->
+
+<div
+id="analysePiezo"
+class="analyse hidden">
+
+    <h3>
+        Analyse des observations
+    </h3>
+
+    <p>
+        Tu as étudié le fonctionnement d'un capteur
+        piézoélectrique soumis à une vibration mécanique.
+    </p>
+
+    <p>
+
+        <strong>
+            Effet piézoélectrique
+        </strong>
+
+        <br>
+
+        Certains matériaux produisent une tension électrique
+        lorsqu'ils sont comprimés, étirés ou soumis à une vibration.
+        Ce phénomène est appelé
+        <strong>effet piézoélectrique</strong>.
+
+    </p>
+
+    <p>
+
+        <strong>
+            Influence du choc mécanique
+        </strong>
+
+        <br>
+
+        Lors d'un impact,
+        le capteur se déforme brutalement.
+        Cette déformation crée une tension électrique
+        qui peut être mesurée et enregistrée.
+
+    </p>
+
+    <p>
+
+        <strong>
+            Influence de l'amortissement
+        </strong>
+
+        <br>
+
+        Lorsque l'amortissement est faible,
+        les oscillations persistent plus longtemps.
+        Lorsque l'amortissement augmente,
+        l'énergie vibratoire est dissipée plus rapidement
+        et les oscillations disparaissent plus vite.
+
+    </p>
+
+    <p>
+
+        <strong>
+            Observation du signal
+        </strong>
+
+        <br>
+
+        La courbe représente la tension électrique
+        générée par le capteur.
+        Après le choc,
+        on observe une oscillation amortie :
+        l'amplitude diminue progressivement
+        jusqu'à devenir presque nulle.
+
+    </p>
+
+    <p>
+
+        <strong>
+            Fréquence des vibrations
+        </strong>
+
+        <br>
+
+        La fréquence correspond au nombre d'oscillations
+        réalisées en une seconde.
+        Elle caractérise la rapidité des vibrations
+        du système mécanique.
+
+    </p>
+
+    <p>
+
+        <strong>
+            Applications industrielles
+        </strong>
+
+        <br>
+
+        Les capteurs piézoélectriques sont utilisés
+        pour détecter des chocs,
+        surveiller les vibrations,
+        contrôler l'état de machines industrielles,
+        mesurer des accélérations
+        ou encore détecter des défauts mécaniques.
+
+    </p>
+
+    <div class="bilan">
+
+        <h4>
+            Je retiens
+        </h4>
+
+        <p>
+            ✔ Un matériau piézoélectrique produit une tension lorsqu'il est déformé.
+        </p>
+
+        <p>
+            ✔ Un choc mécanique crée un signal électrique mesurable.
+        </p>
+
+        <p>
+            ✔ L'amplitude représente l'intensité de la vibration.
+        </p>
+
+        <p>
+            ✔ L'amortissement réduit progressivement les oscillations.
+        </p>
+
+        <p>
+            ✔ Les capteurs piézoélectriques sont largement utilisés pour surveiller les vibrations et les chocs.
+        </p>
+
+    </div>
 
 </div>
