@@ -27,6 +27,8 @@ function initBattement() {
     const stopBtn = document.getElementById("stopBtn");
     const showEnvBtn = document.getElementById("showEnv");
 
+    const observation = document.getElementById("observation");
+
     if (!freq1 || !freq2 || !startBtn || !stopBtn) {
         console.warn("battement : UI incomplet");
         return;
@@ -40,8 +42,12 @@ function initBattement() {
     let running = false;
     let showEnvelope = false;
 
-    let compteur = 0;
-    let lastSign = 0;
+    let interactionCount = 0;
+    let observationShown = false;
+
+    /* =========================
+       MISE À JOUR UI
+    ========================= */
 
     function maj() {
 
@@ -59,14 +65,47 @@ function initBattement() {
         if (osc2) osc2.frequency.value = f2;
     }
 
-    freq1.oninput = maj;
-    freq2.oninput = maj;
+    /* =========================
+       DÉTECTION INTERACTION
+    ========================= */
+
+    function checkObservation() {
+
+        interactionCount++;
+
+        if (
+            interactionCount >= 2 &&
+            !observationShown &&
+            observation
+        ) {
+            observation.style.display = "block";
+            observationShown = true;
+        }
+    }
+
+    freq1.oninput = () => {
+        maj();
+        checkObservation();
+    };
+
+    freq2.oninput = () => {
+        maj();
+        checkObservation();
+    };
+
+    /* =========================
+       ENVELOPPE
+    ========================= */
 
     if (showEnvBtn) {
         showEnvBtn.onclick = () => {
             showEnvelope = !showEnvelope;
         };
     }
+
+    /* =========================
+       AUDIO
+    ========================= */
 
     startBtn.onclick = () => {
 
@@ -108,9 +147,12 @@ function initBattement() {
         } catch (e) {}
 
         audioCtx.close();
-
         running = false;
     };
+
+    /* =========================
+       CAS RÉELS
+    ========================= */
 
     cas.onchange = () => {
 
@@ -144,6 +186,10 @@ function initBattement() {
         maj();
     };
 
+    /* =========================
+       ANIMATION
+    ========================= */
+
     function animate() {
 
         if (!running) return;
@@ -169,8 +215,6 @@ function initBattement() {
 
             if (x === 0) ctx.moveTo(x, py);
             else ctx.lineTo(x, py);
-
-            if (prev < 0 && y >= 0) compteur++;
 
             prev = y;
         }
@@ -204,6 +248,7 @@ function initBattement() {
         requestAnimationFrame(animate);
     }
 
+    /* init */
     maj();
 }
 
