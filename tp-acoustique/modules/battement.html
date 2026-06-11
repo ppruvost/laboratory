@@ -1,37 +1,156 @@
-<h3>Spectre fréquentiel (FFT)</h3>
+<section class="module">
 
-<button id="toggleFFT">
-Afficher spectre
-</button>
+<h2>TP - Battements sonores</h2>
 
-<p id="lectureFFT">
-Le spectre montre les fréquences composant le signal.
+<p>
+Observer comment deux fréquences proches produisent des variations périodiques
+de l'intensité sonore appelées battements.
 </p>
 
-<canvas
-id="fftCanvas"
-width="900"
-height="250"
-style="
-width:100%;
-background:white;
-border:1px solid #ccc;
-margin-top:10px;
-">
-</canvas>
+<div class="controls">
+
+    <div class="bloc">
+
+        <label>
+            Fréquence 1 :
+            <span id="f1Val">440</span> Hz
+        </label>
+
+        <input
+            id="freq1"
+            type="range"
+            min="100"
+            max="1000"
+            value="440"
+            step="1">
+
+    </div>
+
+    <div class="bloc">
+
+        <label>
+            Fréquence 2 :
+            <span id="f2Val">442</span> Hz
+        </label>
+
+        <input
+            id="freq2"
+            type="range"
+            min="100"
+            max="1000"
+            value="442"
+            step="1">
+
+    </div>
+
+</div>
+
+<div class="resultats">
+
+    <p>
+        Fréquence de battement théorique :
+        <strong id="fb">2 Hz</strong>
+    </p>
+
+    <p>
+        Fréquence de battement observée :
+        <strong id="fbMesure">2</strong> Hz
+    </p>
+
+</div>
+
+<div class="boutons">
+
+    <button id="startBtn">
+        ▶ Démarrer
+    </button>
+
+    <button id="stopBtn">
+        ■ Arrêter
+    </button>
+
+    <button id="showEnv">
+        Afficher / masquer enveloppe
+    </button>
+
+</div>
+
+<div class="cas-reels">
+
+    <label>
+        Exemple réel :
+    </label>
+
+    <select id="casReel">
+
+        <option value="">
+            Choisir
+        </option>
+
+        <option value="ventilo">
+            Deux ventilateurs
+        </option>
+
+        <option value="moteur">
+            Deux moteurs
+        </option>
+
+        <option value="accordage">
+            Accordage d'un instrument
+        </option>
+
+    </select>
+
+</div>
+
+<p id="explication"></p>
+
+<div class="graphique">
+
+    <canvas
+        id="graph"
+        width="900"
+        height="300"
+        style="
+            width:100%;
+            border:1px solid #ccc;
+            background:white;
+            margin-top:15px;
+        ">
+    </canvas>
+
+</div>
+
+<div class="consigne">
+
+<h3>À retenir</h3>
 
 <p>
 
-Pic 1 :
-<strong id="pic1">
--
-</strong>
-
-|
-
-Pic 2 :
-<strong id="pic2">
--
-</strong>
+Lorsque deux fréquences proches sont émises simultanément :
 
 </p>
+
+<ul>
+
+<li>
+la fréquence moyenne détermine la hauteur du son ;
+</li>
+
+<li>
+la différence entre les deux fréquences produit les battements ;
+</li>
+
+<li>
+plus les fréquences se rapprochent, plus les battements deviennent lents ;
+</li>
+
+<li>
+lorsque les battements disparaissent, les fréquences sont identiques.
+</li>
+
+</ul>
+
+</div>
+
+</section>
