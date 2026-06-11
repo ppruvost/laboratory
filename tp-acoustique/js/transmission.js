@@ -1,34 +1,36 @@
 console.log("module transmission chargé");
 
-window.initTransmission=function(){
+window.initTransmission = function () {
 
-const m=
-document.getElementById("medium");
+    const $ = (id) => document.getElementById(id);
 
-const d=
-document.getElementById("distance");
+    const m = $("medium");
+    const d = $("distance");
+    const out = $("timeResult");
 
-const out=
-document.getElementById("timeResult");
+    /* =========================
+       SAFE CHECK (IMPORTANT)
+    ========================= */
 
-function calc(){
+    if (!m || !d || !out) {
+        console.error("transmission : éléments HTML manquants");
+        return;
+    }
 
-out.innerHTML=
+    function calc() {
 
-(
+        const val =
+            (Number(d.value) / Number(m.value)).toFixed(4);
 
-d.value/
+        out.innerHTML = val;
+    }
 
-m.value
+    /* =========================
+       EVENTS SAFE
+    ========================= */
 
-).toFixed(4);
+    m.addEventListener("change", calc);
+    d.addEventListener("input", calc);
 
-}
-
-m.onchange=calc;
-
-d.oninput=calc;
-
-calc();
-
+    calc();
 };
