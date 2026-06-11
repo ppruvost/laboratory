@@ -1,117 +1,256 @@
 <div class="module-container">
-    <h2>Propagation du son dans un atelier</h2>
 
-    <p><strong>Situation :</strong> Une machine génère un niveau sonore de 94 dB à 1 m.</p>
+    <h2>
+        Propagation du son dans un atelier
+    </h2>
+
+    <p>
+        <strong>Situation :</strong>
+        Une machine génère un niveau sonore de 94 dB à 1 m.
+    </p>
+
+    <!-- ==========================
+         SIMULATION
+    =========================== -->
 
     <div class="card">
-        <h3>Simulation : atténuation du son</h3>
 
-        <label for="distance">Distance (cm) :</label>
-        <input type="range" id="distance" min="5" max="500" value="100">
+        <h3>
+            Simulation : atténuation du son
+        </h3>
+
+        <label for="distance">
+            Distance (cm) :
+        </label>
+
+        <input
+            type="range"
+            id="distance"
+            min="5"
+            max="500"
+            value="100">
 
         <div class="output">
-            <p>Distance : <span id="d-value">100</span> cm (<span id="d-m">1</span> m)</p>
-            <p><strong>Niveau sonore :</strong> <span id="l-value">94</span> dB</p>
+
+            <p>
+                Distance :
+                <span id="d-value">100</span> cm
+                (
+                <span id="d-m">1</span> m
+                )
+            </p>
+
+            <p>
+                <strong>
+                    Niveau sonore :
+                </strong>
+                <span id="l-value">94</span> dB
+            </p>
+
         </div>
+
     </div>
 
-    <div class="card">
-        <h3>Table de mesures</h3>
+    <!-- ==========================
+         TABLEAU DE MESURES
+    =========================== -->
 
-        <table border="1" cellpadding="5">
+    <div class="card">
+
+        <h3>
+            Tableau de mesures
+        </h3>
+
+        <table>
+
             <thead>
+
                 <tr>
-                    <th>Distance (cm)</th>
-                    <th>Niveau (dB)</th>
+                    <th>
+                        Distance (cm)
+                    </th>
+
+                    <th>
+                        Niveau sonore (dB)
+                    </th>
                 </tr>
+
             </thead>
-            <tbody id="table-body"></tbody>
+
+            <tbody id="table-body">
+
+            </tbody>
+
         </table>
+
     </div>
+
+    <!-- ==========================
+         RAPPEL THEORIQUE
+    =========================== -->
 
     <div class="card">
-        <h3>Conclusion</h3>
+
+        <h3>
+            Relation entre distance et niveau sonore
+        </h3>
+
         <p>
-            Le niveau sonore diminue avec la distance selon une loi logarithmique :
+            Lorsque la distance à la source augmente,
+            le niveau sonore diminue.
         </p>
-        <p><strong>L = 94 − 20 log(d)</strong> (d en mètres)</p>
+
+        <p>
+            La relation utilisée dans cette simulation est :
+        </p>
+
+        <p>
+            <strong>
+                L = 94 − 20 log(d)
+            </strong>
+        </p>
+
+        <p>
+            avec :
+        </p>
+
+        <ul>
+
+            <li>
+                <strong>L</strong> : niveau sonore en décibels (dB)
+            </li>
+
+            <li>
+                <strong>d</strong> : distance à la source en mètres
+            </li>
+
+        </ul>
+
     </div>
-    <!-- ANALYSE PEDAGOGIQUE -->
 
-<div
-id="analysePropagation"
-class="analyse">
+    <!-- ==========================
+         MISSION ELEVES
+    =========================== -->
 
-<h3>
-Analyse des observations
-</h3>
+    <div class="result">
 
-<p>
-Tu as étudié l'évolution du niveau sonore lorsque la distance entre la source et l'observateur augmente.
-</p>
+        <p id="explorationMessage">
 
-<p>
-<strong>Influence de la distance</strong><br>
-Lorsque l'on s'éloigne de la source sonore, le niveau sonore diminue.
-L'énergie transportée par l'onde sonore se répartit dans un volume de plus en plus grand.
-Le son devient donc moins intense.
-</p>
+            Mission :
+            tester plusieurs distances
+            (5 cm, 50 cm, 100 cm, 200 cm et 500 cm),
+            relever les niveaux sonores obtenus
+            puis comparer les résultats avant de consulter l'analyse.
 
-<p>
-<strong>Observation des mesures</strong><br>
-Les valeurs relevées montrent que la diminution n'est pas linéaire.
-Le niveau sonore baisse rapidement près de la source puis plus progressivement lorsque la distance augmente.
-</p>
+        </p>
 
-<p>
-<strong>Interprétation physique</strong><br>
-Le son se propage dans toutes les directions autour de la source.
-À mesure que l'onde s'éloigne, son énergie est répartie sur une surface plus importante,
-ce qui réduit l'intensité reçue par l'observateur.
-</p>
+    </div>
 
-<p>
-<strong>Lecture du tableau</strong><br>
-Le tableau permet de comparer plusieurs distances et les niveaux sonores associés.
-On constate que doubler la distance entraîne une diminution du niveau sonore.
-</p>
+    <!-- ==========================
+         ANALYSE PEDAGOGIQUE
+    =========================== -->
 
-<p>
-<strong>Application en prévention des risques</strong><br>
-Dans un atelier ou une usine, s'éloigner d'une machine bruyante permet de réduire
-l'exposition au bruit.
-La distance constitue donc un moyen simple de protection contre les nuisances sonores.
-</p>
+    <div
+        id="analysePropagation"
+        class="analyse">
 
-<div class="bilan">
+        <h3>
+            Analyse des observations
+        </h3>
 
-<h4>
-Je retiens
-</h4>
+        <p>
+            Tu as étudié l'évolution du niveau sonore lorsque la distance
+            entre la source sonore et l'observateur augmente.
+        </p>
 
-<p>
-✔ Plus la distance à la source sonore augmente, plus le niveau sonore diminue.
-</p>
+        <p>
+            <strong>
+                Influence de la distance
+            </strong>
+            <br>
+            Lorsque l'on s'éloigne de la source sonore,
+            le niveau sonore diminue.
+            L'énergie transportée par l'onde sonore se répartit
+            dans un espace de plus en plus grand.
+            Le son devient donc moins intense.
+        </p>
 
-<p>
-✔ L'atténuation du son suit une loi logarithmique.
-</p>
+        <p>
+            <strong>
+                Observation des mesures
+            </strong>
+            <br>
+            Les valeurs relevées montrent que la diminution
+            n'est pas linéaire.
+            Le niveau sonore baisse rapidement près de la source,
+            puis plus progressivement lorsque la distance augmente.
+        </p>
 
-<p>
-✔ Le niveau sonore ne diminue pas de manière proportionnelle à la distance.
-</p>
+        <p>
+            <strong>
+                Interprétation physique
+            </strong>
+            <br>
+            Une source sonore diffuse son énergie dans toutes les directions.
+            À mesure que l'onde se propage,
+            cette énergie est répartie sur une surface plus grande,
+            ce qui réduit l'intensité reçue par l'auditeur.
+        </p>
 
-<p>
-✔ Les premiers mètres d'éloignement produisent souvent la plus forte diminution du bruit.
-</p>
+        <p>
+            <strong>
+                Lecture du tableau
+            </strong>
+            <br>
+            Le tableau permet de comparer plusieurs distances.
+            On constate que doubler la distance
+            entraîne une diminution du niveau sonore.
+        </p>
 
-<p>
-✔ L'éloignement constitue une méthode efficace pour limiter l'exposition sonore.
-</p>
+        <p>
+            <strong>
+                Prévention des risques professionnels
+            </strong>
+            <br>
+            Dans un atelier ou une usine,
+            augmenter la distance entre un opérateur
+            et une machine bruyante permet de réduire
+            l'exposition au bruit.
+            L'éloignement constitue donc une protection efficace.
+        </p>
+
+        <div class="bilan">
+
+            <h4>
+                Je retiens
+            </h4>
+
+            <p>
+                ✔ Plus la distance à la source sonore augmente,
+                plus le niveau sonore diminue.
+            </p>
+
+            <p>
+                ✔ L'atténuation du son suit une loi logarithmique.
+            </p>
+
+            <p>
+                ✔ Le niveau sonore ne diminue pas proportionnellement
+                à la distance.
+            </p>
+
+            <p>
+                ✔ Les premiers mètres d'éloignement provoquent
+                souvent la plus forte diminution du bruit.
+            </p>
+
+            <p>
+                ✔ L'éloignement est une méthode simple et efficace
+                pour réduire l'exposition sonore.
+            </p>
+
+        </div>
+
+    </div>
 
 </div>
-
-</div>
-</div>
-
-<script src="modules/propagation.js"></script>
