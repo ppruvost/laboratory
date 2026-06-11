@@ -2,6 +2,11 @@
 
     <h2>Isolation phonique — simulation réaliste</h2>
 
+    <p>
+        Étudier l'influence des matériaux, de la distance et de l'environnement
+        sur l'atténuation d'un niveau sonore.
+    </p>
+
     <div class="controls">
 
         <label>Environnement :</label>
@@ -16,7 +21,7 @@
 
     <div class="controls">
 
-        <label>Matériau murs :</label>
+        <label>Matériau des murs :</label>
 
         <select id="wallMat">
             <option value="0.2">Mousse acoustique</option>
@@ -28,10 +33,10 @@
 
     <div class="controls">
 
-        <label>Matériau plafond :</label>
+        <label>Matériau du plafond :</label>
 
         <select id="ceilingMat">
-            <option value="0.2">Mousse</option>
+            <option value="0.2">Mousse acoustique</option>
             <option value="0.5">Plâtre</option>
             <option value="0.8">Béton armé</option>
         </select>
@@ -40,77 +45,135 @@
 
     <div class="controls">
 
-        <label>Distance source (m) :</label>
+        <label>Distance à la source :</label>
 
-        <input id="distance" type="range" min="1" max="20" value="5">
+        <input
+            id="distance"
+            type="range"
+            min="1"
+            max="20"
+            value="5">
 
         <span id="distVal">5 m</span>
 
     </div>
 
-    <button id="testBtn">▶ Tester simulation</button>
+    <div class="buttons">
 
-    <div id="result" class="result"></div>
-
-    <canvas id="canvas" width="900" height="350"></canvas>
-
-    <!-- ==========================
-     ANALYSE PEDAGOGIQUE
-========================== -->
-
-<div id="analyseAttenuation" class="analyse hidden">
-
-    <h3>Analyse des observations</h3>
-
-    <p>
-        Tu as étudié comment le son se propage et s’atténue en fonction de l’environnement,
-        des matériaux et de la distance.
-    </p>
-
-    <p>
-        <strong>Influence de la distance</strong><br>
-        Plus la distance entre la source et le récepteur augmente,
-        plus le niveau sonore diminue selon une loi de propagation (perte d’énergie dans l’espace).
-    </p>
-
-    <p>
-        <strong>Influence des matériaux</strong><br>
-        Les matériaux absorbent une partie de l’énergie sonore.
-        Les matériaux mous (mousse acoustique) absorbent fortement le son,
-        tandis que les matériaux durs (béton) le transmettent davantage.
-    </p>
-
-    <p>
-        <strong>Influence de l’environnement</strong><br>
-        Un réfectoire ou une usine augmente le niveau sonore global à cause du bruit ambiant.
-    </p>
-
-    <p>
-        <strong>Lecture du résultat</strong><br>
-        Le niveau affiché en décibels (dB) représente l’intensité sonore perçue après toutes les pertes.
-        Le curseur visuel permet de comparer les situations.
-    </p>
-
-    <div class="bilan">
-
-        <h4>Je retiens</h4>
-
-        <p>✔ Le son diminue avec la distance.</p>
-        <p>✔ Les matériaux jouent un rôle clé dans l’isolation phonique.</p>
-        <p>✔ L’environnement peut amplifier ou réduire la perception du bruit.</p>
-        <p>✔ Une bonne isolation combine plusieurs matériaux efficaces.</p>
+        <button id="testBtn">
+            ▶ Tester la simulation
+        </button>
 
     </div>
 
-</div>
+    <div
+        id="result"
+        class="result">
+    </div>
 
-<!-- MESSAGE D'EXPLORATION -->
-<div class="result">
-    <p id="explorationAttenuation">
-        Mission :
-        tester différents environnements,
-        matériaux et distances avant de débloquer l’analyse.
-    </p>
-</div>
+    <canvas
+        id="canvas"
+        width="900"
+        height="350">
+    </canvas>
+
+    <!-- MESSAGE EXPLORATION -->
+
+    <div class="result">
+
+        <p id="explorationAttenuation">
+
+            Mission :
+            tester plusieurs distances,
+            plusieurs matériaux de murs,
+            plusieurs matériaux de plafond
+            ainsi que les différents environnements
+            avant d'accéder à l'analyse.
+
+        </p>
+
+    </div>
+
+    <!-- ANALYSE PEDAGOGIQUE -->
+
+    <div
+        id="analyseAttenuation"
+        class="analyse hidden">
+
+        <h3>
+            Analyse des observations
+        </h3>
+
+        <p>
+            Tu as étudié comment le niveau sonore évolue
+            lorsqu'un son se propage dans différents environnements.
+        </p>
+
+        <p>
+            <strong>Influence de la distance</strong><br>
+            Lorsque la distance entre la source sonore et l'observateur augmente,
+            le niveau sonore diminue progressivement.
+            L'énergie sonore se répartit dans un volume de plus en plus grand.
+        </p>
+
+        <p>
+            <strong>Influence des matériaux</strong><br>
+            Les matériaux absorbent une partie de l'énergie sonore.
+            La mousse acoustique est particulièrement efficace pour réduire
+            les réflexions du son.
+            Les matériaux rigides comme le béton absorbent moins et réfléchissent davantage les ondes sonores.
+        </p>
+
+        <p>
+            <strong>Influence de l'environnement</strong><br>
+            Le bruit ambiant modifie la perception du son.
+            Une usine possède un niveau sonore de fond beaucoup plus élevé
+            qu'une salle de classe.
+        </p>
+
+        <p>
+            <strong>Lecture du graphique</strong><br>
+            La barre indique le niveau sonore estimé après prise en compte
+            de la distance, de l'environnement et des matériaux.
+            Plus le curseur se rapproche de la zone rouge,
+            plus l'exposition sonore devient importante.
+        </p>
+
+        <p>
+            <strong>Niveau sonore et risque auditif</strong><br>
+            Le niveau sonore s'exprime en décibels (dB).
+            Une exposition prolongée à des niveaux élevés peut provoquer
+            une fatigue auditive voire des lésions de l'oreille interne.
+        </p>
+
+        <div class="bilan">
+
+            <h4>
+                Je retiens
+            </h4>
+
+            <p>
+                ✔ Le niveau sonore diminue lorsque la distance augmente.
+            </p>
+
+            <p>
+                ✔ Les matériaux absorbants améliorent l'isolation acoustique.
+            </p>
+
+            <p>
+                ✔ Les matériaux rigides réfléchissent davantage les ondes sonores.
+            </p>
+
+            <p>
+                ✔ Le bruit ambiant influence fortement la perception du son.
+            </p>
+
+            <p>
+                ✔ Une bonne isolation phonique combine distance et matériaux adaptés.
+            </p>
+
+        </div>
+
+    </div>
 
 </div>
