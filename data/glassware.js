@@ -28,21 +28,16 @@ const glassware = [
 
   // Distillation
   { nom: "Réfrigérant droit (Liebig)", contenance_ml: "N/A", lieu: "", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3b/Liebig_condenser.jpg/320px-Liebig_condenser.jpg" },
-
   { nom: "Réfrigérant à boules (Allihn)", contenance_ml: "N/A", lieu: "", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Allihn_condenser.jpg/320px-Allihn_condenser.jpg" },
-
   { nom: "Colonne de distillation", contenance_ml: "N/A", lieu: "", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/Fractionating_column.jpg/320px-Fractionating_column.jpg" },
 
   // Divers
   { nom: "Cristallisoir", contenance_ml: "100 / 250 / 500", lieu: "", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/Crystallizing_dish.jpg/320px-Crystallizing_dish.jpg" },
 
-  { nom: "Verre de montre", contenance_ml: "50 / 100", lieu: "", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1c/Watch_glass.jpg/320px-Watch_glass.jpg" },
-
-  { nom: "Flacon réactif", contenance_ml: "100 / 250 / 500 / 1000", lieu: "", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3d/Reagent_bottle.jpg/320px-Reagent_bottle.jpg" },
-
-  { nom: "Flacon compte-gouttes", contenance_ml: "10 / 20 / 50", lieu: "", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Dropper_bottle.jpg/320px-Dropper_bottle.jpg" },
-
-  { nom: "Pissette", contenance_ml: "250 / 500", lieu: "", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8c/Wash_bottle.jpg/320px-Wash_bottle.jpg" },
+  { nom: "Verre de montre", contenance_ml: "50 / 100", lieu: "", image: "assets/img/glassware/verre_montre.png" },
+  { nom: "Flacon réactif", contenance_ml: "100 / 250 / 500 / 1000", lieu: "", image: "assets/img/glassware/flacon_reactif.png" },
+  { nom: "Flacon compte-gouttes", contenance_ml: "10 / 20 / 50", lieu: "", image: "assets/img/glassware/flacon_compte_goutte.png" },
+  { nom: "Pissette", contenance_ml: "250 / 500", lieu: "", image: "assets/img/glassware/pissette.png" },
 
   // Verrerie spécialisée
   { nom: "Dessiccateur", contenance_ml: "N/A", lieu: "", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/Desiccator.jpg/320px-Desiccator.jpg" },
