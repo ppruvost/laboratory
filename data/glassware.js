@@ -1,39 +1,25 @@
 const glassware = [
   // Verrerie de base
   { nom: "Bécher", contenance_ml: "50 / 100 / 250 / 500 / 1000", lieu: "", image: "assets/img/glassware/becher.png" },
-
   { nom: "Erlenmeyer", contenance_ml: "50 / 100 / 250 / 500 / 1000", lieu: "", image: "assets/img/glassware/erlenmeyer.png" },
-
   { nom: "Fiole jaugée", contenance_ml: "50 / 100 / 200 / 250 / 500 / 1000", lieu: "", image: "assets/img/glassware/fiole_jaugee.png" },
-
   { nom: "Éprouvette graduée", contenance_ml: "10 / 25 / 50 / 100 / 250 / 500 / 1000", lieu: "", image: "assets/img/glassware/eprouvette_graduee.png" },
-
   { nom: "Tube à essai", contenance_ml: "5 / 10 / 20", lieu: "", image: "assets/img/glassware/tube_essai.png" },
 
   // Ballons
   { nom: "Ballon fond rond", contenance_ml: "50 / 100 / 250 / 500 / 1000", lieu: "", image: "assets/img/glassware/ballon_fond_rond.png" },
-
   { nom: "Ballon fond plat", contenance_ml: "100 / 250 / 500 / 1000", lieu: "", image: "assets/img/glassware/ballon_fond_plat.png" },
-
   { nom: "Ballon à col long", contenance_ml: "100 / 250 / 500", lieu: "", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7d/Round-bottom_flask.jpg/320px-Round-bottom_flask.jpg" },
 
   // Mesure précise
-  { nom: "Burette", contenance_ml: "25 / 50", lieu: "", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Burette.jpg/320px-Burette.jpg" },
-
-  { nom: "Pipette graduée", contenance_ml: "1 / 2 / 5 / 10 / 20", lieu: "", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/Graduated_pipette.jpg/320px-Graduated_pipette.jpg" },
-
-  { nom: "Pipette jaugée", contenance_ml: "5 / 10 / 20 / 25", lieu: "", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/37/Volumetric_pipette.jpg/320px-Volumetric_pipette.jpg" },
-
-  { nom: "Micropipette", contenance_ml: "0.1 à 1000 µL", lieu: "", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Micropipette.jpg/320px-Micropipette.jpg" },
-
+  { nom: "Burette", contenance_ml: "25 / 50", lieu: "", image: "assets/img/glassware/burette.png" },
+  { nom: "Pipette graduée", contenance_ml: "1 / 2 / 5 / 10 / 20", lieu: "", image: "assets/img/glassware/pipette_graduee.png" },
+  { nom: "Pipette jaugée", contenance_ml: "5 / 10 / 20 / 25", lieu: "", image: "assets/img/glassware/pipette_jaugee.png" },
+  
   // Transfert / séparation
-  { nom: "Ampoule à décanter", contenance_ml: "100 / 250 / 500 / 1000", lieu: "", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/Separatory_funnel.jpg/320px-Separatory_funnel.jpg" },
-
-  { nom: "Entonnoir simple", contenance_ml: "50 / 100 / 150", lieu: "", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/Funnel.jpg/320px-Funnel.jpg" },
-
-  { nom: "Entonnoir Büchner", contenance_ml: "50 / 100 / 250", lieu: "", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Buchner_funnel.jpg/320px-Buchner_funnel.jpg" },
-
-  { nom: "Fiole à vide (Kitasato)", contenance_ml: "250 / 500 / 1000", lieu: "", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Kitasato_flask.jpg/320px-Kitasato_flask.jpg" },
+  { nom: "Ampoule à décanter", contenance_ml: "100 / 250 / 500 / 1000", lieu: "", image: "assets/img/glassware/ampoule_decanter.png" },
+  { nom: "Entonnoir", contenance_ml: "50 / 100 / 150", lieu: "", image: "assets/img/glassware/entonnoir.png" },
+  { nom: "Fiole à vide (Kitasato)", contenance_ml: "250 / 500 / 1000", lieu: "", image: "assets/img/glassware/fiole_vide.png" },
 
   // Chauffage / réaction
   { nom: "Tube à essai gradué", contenance_ml: "10 / 20", lieu: "", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Test_tubes.jpg/320px-Test_tubes.jpg" },
