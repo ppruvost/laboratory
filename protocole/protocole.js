@@ -1,174 +1,87 @@
-import { products } from "./data/products.js";
+import { products } from "../data/products.js";
 
-const reactif = document.getElementById("reactif");
-const fiche = document.getElementById("fiche");
-
-let stock = new Map(products.map(p => [p.nom, p]));
-
-// ---------------------
+// --------------------
 // INIT LISTE PRODUITS
-// ---------------------
-products
-.sort((a,b)=>a.nom.localeCompare(b.nom))
-.forEach(p=>{
-  const opt=document.createElement("option");
-  opt.value=p.nom;
-  opt.textContent=p.nom;
-  reactif.appendChild(opt);
+// --------------------
+const select = document.getElementById("reactif");
+
+products.forEach(p => {
+  const option = document.createElement("option");
+  option.value = p.nom;
+  option.textContent = `${p.nom} (${p.formule})`;
+  select.appendChild(option);
 });
 
-// ---------------------
-// UI
-// ---------------------
-document.getElementById("typePrep").addEventListener("change",e=>{
-document.getElementById("blocMolaire").classList.toggle("hidden",e.target.value!=="molaire");
-document.getElementById("blocMassique").classList.toggle("hidden",e.target.value!=="massique");
-document.getElementById("blocDilution").classList.toggle("hidden",e.target.value!=="dilution");
-});
+// --------------------
+// DILUTION C1V1 = C2V2
+// --------------------
+window.calculerDilution = function () {
 
-// ---------------------
-// STOCK SAFE
-// ---------------------
-function getProduit(nom){
-return stock.get(nom);
-}
+  const c1 = parseFloat(document.getElementById("c1").value);
+  const c2 = parseFloat(document.getElementById("c2").value);
+  const v2 = parseFloat(document.getElementById("v2").value);
 
-// ---------------------
-// PICTOGRAMMES
-// ---------------------
-function pictos(p){
-if(!p?.pictogramme?.length) return "";
-return `<div class="pictoZone">
-${p.pictogramme.map(x=>`<img src="assets/img/pictogrammes/${x}">`).join("")}
-</div>`;
-}
+  if (!c1 || !c2 || !v2) return;
 
-// ---------------------
-// DILUTION
-// ---------------------
-function calcDilution(){
-const C1 = +document.getElementById("C1").value;
-const C2 = +document.getElementById("C2").value;
-const V2 = +document.getElementById("V2").value;
+  const v1 = (c2 * v2) / c1;
 
-const V1 = (C2*V2)/C1;
+  document.getElementById("resultatDilution").innerHTML =
+    `V₁ = <b>${v1.toFixed(2)} mL</b>`;
+};
 
-return `
-<div class="bloc">
-<h3>Dilution</h3>
-<p>C₁V₁ = C₂V₂</p>
-<p>V₁ = ${V1.toFixed(2)} mL</p>
-</div>
-`;
-}
+// --------------------
+// FICHE DE PRÉPARATION
+// --------------------
+window.genererFiche = function () {
 
-// ---------------------
-// GENERATION
-// ---------------------
-document.getElementById("generer").addEventListener("click",()=>{
+  const nom = document.getElementById("reactif").value;
+  const c = parseFloat(document.getElementById("concentration").value);
+  const v = parseFloat(document.getElementById("volume").value);
 
-const nom = reactif.value;
-const p = getProduit(nom);
-if(!p){
-fiche.innerHTML="Produit absent du stock";
-return;
-}
+  const produit = products.find(p => p.nom === nom);
+  if (!produit) return;
 
-const type = document.getElementById("typePrep").value;
+  const masse = (c * v / 1000) * 40; 
+  // ⚠ simplification volontaire (solution scolaire)
 
-let html = `
-<h2>${p.nom}</h2>
-<p><b>Formule :</b> ${p.formule}</p>
-<p><b>Catégorie :</b> ${p.categorie}</p>
+  const pictos = (produit.pictogramme || [])
+    .map(img => `<img src="../assets/img/pictogrammes/${img}">`)
+    .join("");
 
-<div class="bloc">
-<h3>EPI</h3>
-<p>${(p.obligation||[]).join(", ")}</p>
-</div>
+  document.getElementById("ficheContent").innerHTML = `
+    <h3>${produit.nom}</h3>
 
-<div class="bloc">
-<h3>Risques</h3>
-<p>${(p.dangers||[]).join(", ")}</p>
-</div>
+    <p><b>CAS :</b> ${produit.cas}</p>
+    <p><b>Formule :</b> ${produit.formule}</p>
+    <p><b>Catégorie :</b> ${produit.categorie}</p>
 
-${pictos(p)}
-`;
+    <div class="pictos">${pictos}</div>
 
-// ---------------- MOLÉCULAIRE ----------------
-if(type==="molaire"){
+    <hr>
 
-const C = +document.getElementById("C").value;
-const V = +document.getElementById("V").value/1000;
+    <p><b>Préparation :</b></p>
+    <p>
+      Dissoudre <b>${masse.toFixed(2)} g</b> de ${produit.nom}<br>
+      Compléter à <b>${v} mL</b>
+    </p>
 
-// approximation simple (Bac Pro)
-const M = 40; // fallback pédagogique
+    <p><b>Concentration cible :</b> ${c} mol·L⁻¹</p>
+  `;
+};
 
-const m = (C*V*M).toFixed(2);
-
-html += `
-<div class="bloc">
-<h3>Préparation molaire</h3>
-<p>m = ${m} g</p>
-<ol>
-<li>Peser ${m} g</li>
-<li>Dissoudre dans eau distillée</li>
-<li>Compléter à ${V*1000} mL</li>
-</ol>
-</div>
-`;
-}
-
-// ---------------- MASSIQUE ----------------
-if(type==="massique"){
-
-const Cm = +document.getElementById("Cm").value;
-const V = +document.getElementById("Vm").value/1000;
-
-const m = (Cm*V).toFixed(2);
-
-html += `
-<div class="bloc">
-<h3>Préparation massique</h3>
-<p>m = ${m} g</p>
-</div>
-`;
-}
-
-// ---------------- DILUTION ----------------
-if(type==="dilution"){
-html += calcDilution();
-}
-
-// ---------------- AUTO ----------------
-if(type==="auto"){
-html += `
-<div class="bloc">
-<h3>Protocole automatique</h3>
-<ol>
-<li>Vérifier le stock</li>
-<li>Port des EPI</li>
-<li>Préparer sous hotte si nécessaire</li>
-<li>Étiqueter la solution</li>
-</ol>
-</div>
-`;
-}
-
-fiche.innerHTML = html;
-
-});
-
-// ---------------------
+// --------------------
 // EXPORT PDF
-// ---------------------
-document.getElementById("export").addEventListener("click",async()=>{
+// --------------------
+window.exportPDF = async function () {
 
-const canvas = await html2canvas(fiche);
-const img = canvas.toDataURL("image/png");
+  const element = document.getElementById("fiche");
 
-const pdf = new jspdf.jsPDF("p","mm","a4");
+  const canvas = await html2canvas(element);
+  const img = canvas.toDataURL("image/png");
 
-pdf.addImage(img,"PNG",10,10,190,0);
-pdf.save("protocole_tp.pdf");
+  const { jsPDF } = window.jspdf;
+  const pdf = new jsPDF("p", "mm", "a4");
 
-});
+  pdf.addImage(img, "PNG", 10, 10, 180, 0);
+  pdf.save("fiche_tp.pdf");
+};
