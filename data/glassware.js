@@ -1,6 +1,6 @@
 const glassware = [
   // Verrerie de base
-  { nom: "Bécher", contenance_ml: "50 / 100 / 250 / 500 / 1000", lieu: "", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2e/Beaker.jpg/320px-Beaker.jpg" },
+  { nom: "Bécher", contenance_ml: "50 / 100 / 250 / 500 / 1000", lieu: "", image: "assets/img/glassware/becher.png" },
 
   { nom: "Erlenmeyer", contenance_ml: "50 / 100 / 250 / 500 / 1000", lieu: "", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/Erlenmeyer_flask.jpg/320px-Erlenmeyer_flask.jpg" },
 
