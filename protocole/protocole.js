@@ -1,87 +1,272 @@
 import { products } from "../data/products.js";
 
-// --------------------
-// INIT LISTE PRODUITS
-// --------------------
+// ======================
+// INITIALISATION
+// ======================
+
 const select = document.getElementById("reactif");
 
-products.forEach(p => {
-  const option = document.createElement("option");
-  option.value = p.nom;
-  option.textContent = `${p.nom} (${p.formule})`;
-  select.appendChild(option);
-});
+function chargerProduits() {
 
-// --------------------
-// DILUTION C1V1 = C2V2
-// --------------------
+    if (!products || !Array.isArray(products)) {
+        console.error("products.js non chargé");
+        return;
+    }
+
+    select.innerHTML = '<option value="">-- Choisir un réactif --</option>';
+
+    products.forEach(produit => {
+
+        const option = document.createElement("option");
+
+        option.value = produit.nom || "";
+
+        option.textContent =
+            `${produit.nom || "Sans nom"} ${
+                produit.formule ? `(${produit.formule})` : ""
+            }`;
+
+        select.appendChild(option);
+    });
+
+    console.log(`${products.length} réactifs chargés`);
+}
+
+chargerProduits();
+
+// ======================
+// CALCUL DILUTION
+// ======================
+
 window.calculerDilution = function () {
 
-  const c1 = parseFloat(document.getElementById("c1").value);
-  const c2 = parseFloat(document.getElementById("c2").value);
-  const v2 = parseFloat(document.getElementById("v2").value);
+    const c1 = parseFloat(document.getElementById("c1").value);
+    const c2 = parseFloat(document.getElementById("c2").value);
+    const v2 = parseFloat(document.getElementById("v2").value);
 
-  if (!c1 || !c2 || !v2) return;
+    if (isNaN(c1) || isNaN(c2) || isNaN(v2)) {
 
-  const v1 = (c2 * v2) / c1;
+        document.getElementById("resultatDilution").innerHTML =
+            "Compléter tous les champs.";
 
-  document.getElementById("resultatDilution").innerHTML =
-    `V₁ = <b>${v1.toFixed(2)} mL</b>`;
+        return;
+    }
+
+    if (c1 <= 0 || c2 <= 0 || v2 <= 0) {
+
+        document.getElementById("resultatDilution").innerHTML =
+            "Valeurs invalides.";
+
+        return;
+    }
+
+    const v1 = (c2 * v2) / c1;
+
+    document.getElementById("resultatDilution").innerHTML =
+        `V₁ = <b>${v1.toFixed(2)} mL</b>`;
 };
 
-// --------------------
-// FICHE DE PRÉPARATION
-// --------------------
+// ======================
+// PICTOGRAMMES
+// ======================
+
+function creerPictogrammes(produit) {
+
+    const liste =
+        produit.pictogramme ||
+        produit.pictogrammes ||
+        [];
+
+    if (!Array.isArray(liste) || liste.length === 0) {
+
+        return "<p>Aucun pictogramme renseigné</p>";
+    }
+
+    return `
+        <div class="pictoZone">
+            ${liste.map(pic => `
+                <img
+                    src="../assets/img/pictogrammes/${pic}"
+                    alt="${pic}"
+                    loading="lazy"
+                >
+            `).join("")}
+        </div>
+    `;
+}
+
+// ======================
+// FICHE DE PREPARATION
+// ======================
+
 window.genererFiche = function () {
 
-  const nom = document.getElementById("reactif").value;
-  const c = parseFloat(document.getElementById("concentration").value);
-  const v = parseFloat(document.getElementById("volume").value);
+    const nom = document.getElementById("reactif").value;
 
-  const produit = products.find(p => p.nom === nom);
-  if (!produit) return;
+    const concentration =
+        parseFloat(document.getElementById("concentration").value);
 
-  const masse = (c * v / 1000) * 40; 
-  // ⚠ simplification volontaire (solution scolaire)
+    const volume =
+        parseFloat(document.getElementById("volume").value);
 
-  const pictos = (produit.pictogramme || [])
-    .map(img => `<img src="../assets/img/pictogrammes/${img}">`)
-    .join("");
+    const produit =
+        products.find(p => p.nom === nom);
 
-  document.getElementById("ficheContent").innerHTML = `
-    <h3>${produit.nom}</h3>
+    if (!produit) {
 
-    <p><b>CAS :</b> ${produit.cas}</p>
-    <p><b>Formule :</b> ${produit.formule}</p>
-    <p><b>Catégorie :</b> ${produit.categorie}</p>
+        alert("Choisir un réactif.");
 
-    <div class="pictos">${pictos}</div>
+        return;
+    }
 
-    <hr>
+    const masse =
+        concentration && volume
+            ? (concentration * volume / 1000) * 40
+            : 0;
 
-    <p><b>Préparation :</b></p>
-    <p>
-      Dissoudre <b>${masse.toFixed(2)} g</b> de ${produit.nom}<br>
-      Compléter à <b>${v} mL</b>
-    </p>
+    const pictos =
+        creerPictogrammes(produit);
 
-    <p><b>Concentration cible :</b> ${c} mol·L⁻¹</p>
-  `;
+    const securite =
+        produit.securite ||
+        produit.danger ||
+        produit.hazard ||
+        {};
+
+    const hotte =
+        securite.hotte === true
+            ? "OUI"
+            : "NON";
+
+    document.getElementById("ficheContent").innerHTML = `
+
+        <h3>${produit.nom || ""}</h3>
+
+        <div class="bloc">
+            <p><b>Formule :</b> ${produit.formule || "-"}</p>
+            <p><b>CAS :</b> ${produit.cas || "-"}</p>
+            <p><b>Catégorie :</b> ${produit.categorie || "-"}</p>
+        </div>
+
+        <div class="bloc">
+            <h4>Pictogrammes SGH</h4>
+            ${pictos}
+        </div>
+
+        <div class="bloc">
+            <h4>Sécurité</h4>
+
+            <p>
+                <b>Préparation sous hotte :</b>
+                ${hotte}
+            </p>
+
+            ${
+                securite.avertissement
+                ? `<p><b>Mention :</b> ${securite.avertissement}</p>`
+                : ""
+            }
+
+            ${
+                securite.h
+                ? `
+                <p><b>Mentions H :</b></p>
+                <ul>
+                    ${securite.h.map(
+                        h => `<li>${h}</li>`
+                    ).join("")}
+                </ul>
+                `
+                : ""
+            }
+
+            ${
+                securite.p
+                ? `
+                <p><b>Conseils P :</b></p>
+                <ul>
+                    ${securite.p.map(
+                        p => `<li>${p}</li>`
+                    ).join("")}
+                </ul>
+                `
+                : ""
+            }
+        </div>
+
+        <div class="bloc">
+            <h4>Préparation</h4>
+
+            <p>
+                Dissoudre
+                <b>${masse.toFixed(2)} g</b>
+                de produit.
+            </p>
+
+            <p>
+                Compléter à
+                <b>${volume || 0} mL</b>.
+            </p>
+
+            <p>
+                Concentration finale :
+                <b>${concentration || 0} mol·L⁻¹</b>
+            </p>
+        </div>
+    `;
 };
 
-// --------------------
+// ======================
 // EXPORT PDF
-// --------------------
+// ======================
+
 window.exportPDF = async function () {
 
-  const element = document.getElementById("fiche");
+    if (typeof html2canvas === "undefined") {
 
-  const canvas = await html2canvas(element);
-  const img = canvas.toDataURL("image/png");
+        alert("html2canvas non chargé");
 
-  const { jsPDF } = window.jspdf;
-  const pdf = new jsPDF("p", "mm", "a4");
+        return;
+    }
 
-  pdf.addImage(img, "PNG", 10, 10, 180, 0);
-  pdf.save("fiche_tp.pdf");
+    if (!window.jspdf) {
+
+        alert("jsPDF non chargé");
+
+        return;
+    }
+
+    const element =
+        document.getElementById("fiche");
+
+    const canvas =
+        await html2canvas(element, {
+            scale: 2
+        });
+
+    const img =
+        canvas.toDataURL("image/png");
+
+    const { jsPDF } =
+        window.jspdf;
+
+    const pdf =
+        new jsPDF("p", "mm", "a4");
+
+    const largeur = 190;
+
+    const hauteur =
+        (canvas.height * largeur) /
+        canvas.width;
+
+    pdf.addImage(
+        img,
+        "PNG",
+        10,
+        10,
+        largeur,
+        hauteur
+    );
+
+    pdf.save("fiche_preparation.pdf");
 };
