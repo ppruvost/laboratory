@@ -2,18 +2,18 @@ const glassware = [
   // Verrerie de base
   { nom: "Bécher", contenance_ml: "50 / 100 / 250 / 500 / 1000", lieu: "", image: "assets/img/glassware/becher.png" },
 
-  { nom: "Erlenmeyer", contenance_ml: "50 / 100 / 250 / 500 / 1000", lieu: "", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/Erlenmeyer_flask.jpg/320px-Erlenmeyer_flask.jpg" },
+  { nom: "Erlenmeyer", contenance_ml: "50 / 100 / 250 / 500 / 1000", lieu: "", image: "assets/img/glassware/erlenmeyer.png" },
 
-  { nom: "Fiole jaugée", contenance_ml: "50 / 100 / 200 / 250 / 500 / 1000", lieu: "", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/Volumetric_flask.jpg/320px-Volumetric_flask.jpg" },
+  { nom: "Fiole jaugée", contenance_ml: "50 / 100 / 200 / 250 / 500 / 1000", lieu: "", image: "assets/img/glassware/fiole_jaugee.png" },
 
-  { nom: "Éprouvette graduée", contenance_ml: "10 / 25 / 50 / 100 / 250 / 500 / 1000", lieu: "", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Graduated_cylinder.jpg/320px-Graduated_cylinder.jpg" },
+  { nom: "Éprouvette graduée", contenance_ml: "10 / 25 / 50 / 100 / 250 / 500 / 1000", lieu: "", image: "assets/img/glassware/eprouvette_graduee.png" },
 
-  { nom: "Tube à essai", contenance_ml: "5 / 10 / 20", lieu: "", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Test_tubes.jpg/320px-Test_tubes.jpg" },
+  { nom: "Tube à essai", contenance_ml: "5 / 10 / 20", lieu: "", image: "assets/img/glassware/tube_essai.png" },
 
   // Ballons
-  { nom: "Ballon fond rond", contenance_ml: "50 / 100 / 250 / 500 / 1000", lieu: "", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7d/Round-bottom_flask.jpg/320px-Round-bottom_flask.jpg" },
+  { nom: "Ballon fond rond", contenance_ml: "50 / 100 / 250 / 500 / 1000", lieu: "", image: "assets/img/glassware/ballon_fond_rond.png" },
 
-  { nom: "Ballon fond plat", contenance_ml: "100 / 250 / 500 / 1000", lieu: "", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Flat_bottom_flask.jpg/320px-Flat_bottom_flask.jpg" },
+  { nom: "Ballon fond plat", contenance_ml: "100 / 250 / 500 / 1000", lieu: "", image: "assets/img/glassware/ballon_fond_plat.png" },
 
   { nom: "Ballon à col long", contenance_ml: "100 / 250 / 500", lieu: "", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7d/Round-bottom_flask.jpg/320px-Round-bottom_flask.jpg" },
 
