@@ -86,7 +86,7 @@ function creerPictogrammes(produit) {
         <div class="pictoZone">
             ${liste.map(pic => `
                 <img
-                    src="../assets/img/pictogrammes/${pic}"
+                    src="../assets/img/picto/${pic}"
                     alt="${pic}"
                     loading="lazy"
                 >
