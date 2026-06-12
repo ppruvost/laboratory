@@ -1,91 +1,69 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Générateur de protocoles TP</title>
+  <meta charset="UTF-8">
+  <title>Fiches TP Chimie</title>
 
-<link rel="stylesheet" href="protocole.css">
+  <link rel="stylesheet" href="./protocole.css">
 
-<script type="module" src="protocole.js"></script>
+  <link rel="icon" href="data:,">
 
-<script src="libs/html2canvas.min.js"></script>
-<script src="libs/jspdf.min.js"></script>
-
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 </head>
 
 <body>
 
 <header>
-<h1>🧪 Générateur de protocoles TP</h1>
-<p>Préparation des solutions – Bac Pro Sciences</p>
+  <h1>Fiches de préparation TP Chimie</h1>
 </header>
-
-<main>
 
 <section class="panel">
 
-<h2>Choix du réactif</h2>
+  <h2>🧪 Calcul de dilution</h2>
 
-<select id="reactif"></select>
+  <div class="grid">
+    <label>C₁ (mol/L)</label>
+    <input id="c1" type="number">
 
-<h2>Type de préparation</h2>
+    <label>C₂ (mol/L)</label>
+    <input id="c2" type="number">
 
-<select id="typePrep">
-<option value="molaire">Solution molaire</option>
-<option value="massique">Solution massique</option>
-<option value="dilution">Dilution</option>
-<option value="auto">Protocole automatique</option>
-</select>
+    <label>V₂ (mL)</label>
+    <input id="v2" type="number">
 
-<div id="blocMolaire">
+    <button onclick="calculerDilution()">Calculer V₁</button>
 
-<h3>Molaire</h3>
-
-<label>C (mol/L)</label>
-<input id="C" type="number" step="0.01">
-
-<label>V (mL)</label>
-<input id="V" type="number" value="1000">
-
-</div>
-
-<div id="blocMassique" class="hidden">
-
-<h3>Massique</h3>
-
-<label>Cm (g/L)</label>
-<input id="Cm" type="number" step="0.1">
-
-<label>V (mL)</label>
-<input id="Vm" type="number" value="1000">
-
-</div>
-
-<div id="blocDilution" class="hidden">
-
-<h3>Dilution</h3>
-
-<label>C₁</label>
-<input id="C1" type="number">
-
-<label>C₂</label>
-<input id="C2" type="number">
-
-<label>V₂ (mL)</label>
-<input id="V2" type="number">
-
-</div>
-
-<button id="generer">Générer</button>
-
-<button id="export">📄 PDF</button>
+    <div id="resultatDilution"></div>
+  </div>
 
 </section>
 
-<section id="fiche"></section>
+<section class="panel">
 
-</main>
+  <h2>📦 Fiche de préparation</h2>
+
+  <label>Réactif (stock)</label>
+  <select id="reactif"></select>
+
+  <label>Concentration (mol/L)</label>
+  <input id="concentration" type="number" step="0.01">
+
+  <label>Volume final (mL)</label>
+  <input id="volume" type="number">
+
+  <button onclick="genererFiche()">Générer fiche</button>
+  <button onclick="exportPDF()">Exporter PDF</button>
+
+</section>
+
+<section id="fiche" class="fiche">
+  <h2>FICHE DE PRÉPARATION</h2>
+  <div id="ficheContent"></div>
+</section>
+
+<!-- IMPORTANT : chemin corrigé -->
+<script type="module" src="./protocole.js"></script>
 
 </body>
 </html>
