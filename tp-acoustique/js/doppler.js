@@ -1,52 +1,139 @@
-window.initDoppler=function(){
+window.initDoppler = function () {
 
-const c = 340;
+    const c = 340;
+    const sourceFreq = 1000;
 
-const sourceFreq = 1000;
+    const speed =
+        document.getElementById("speed");
 
-const speed =
-document.getElementById(
-"speed"
-);
+    const txt =
+        document.getElementById("speedTxt");
 
-const txt =
-document.getElementById(
-"speedTxt"
-);
+    const out =
+        document.getElementById("dopplerFreq");
 
-const out =
-document.getElementById(
-"dopplerFreq"
-);
+    const analyseBloc =
+        document.getElementById(
+            "analyseDoppler"
+        );
 
-function update(){
+    const explorationMsg =
+        document.getElementById(
+            "explorationDoppler"
+        );
 
-const v =
+    if (
+        !speed ||
+        !txt ||
+        !out
+    ) {
 
-Number(speed.value);
+        console.error(
+            "doppler : éléments HTML manquants"
+        );
 
-txt.innerHTML=v;
+        return;
+    }
 
-const fp =
+    /* =========================
+       SUIVI PEDAGOGIQUE
+    ========================= */
 
-sourceFreq *
+    let eloignementObserve = false;
+    let immobileObserve = false;
+    let rapprochementObserve = false;
 
-(
+    /* =========================
+       PROGRESSION
+    ========================= */
 
-c/
+    function updateProgress() {
 
-(c-v)
+        if (!explorationMsg) return;
 
-);
+        explorationMsg.innerHTML =
 
-out.innerHTML=
+            `
+            Source qui s'éloigne ${eloignementObserve ? "✓" : "✗"}<br>
+            Source immobile ${immobileObserve ? "✓" : "✗"}<br>
+            Source qui se rapproche ${rapprochementObserve ? "✓" : "✗"}
+            `;
+    }
 
-fp.toFixed(1);
+    function checkAnalyse() {
 
-}
+        const done =
 
-speed.oninput=update;
+            eloignementObserve &&
+            immobileObserve &&
+            rapprochementObserve;
 
-update();
+        if (
+            done &&
+            analyseBloc
+        ) {
 
+            analyseBloc.classList.remove(
+                "hidden"
+            );
+
+            analyseBloc.classList.add(
+                "visible"
+            );
+
+            analyseBloc.scrollIntoView({
+                behavior: "smooth"
+            });
+        }
+    }
+
+    /* =========================
+       CALCUL
+    ========================= */
+
+    function update() {
+
+        const v =
+            Number(speed.value);
+
+        txt.textContent = v;
+
+        const fp =
+
+            sourceFreq *
+
+            (
+                c /
+                (c - v)
+            );
+
+        out.textContent =
+            fp.toFixed(1);
+
+        /* =====================
+           OBSERVATIONS
+        ===================== */
+
+        if (v < -10)
+            eloignementObserve = true;
+
+        if (
+            v >= -2 &&
+            v <= 2
+        )
+            immobileObserve = true;
+
+        if (v > 10)
+            rapprochementObserve = true;
+
+        updateProgress();
+        checkAnalyse();
+    }
+
+    speed.addEventListener(
+        "input",
+        update
+    );
+
+    update();
 };
