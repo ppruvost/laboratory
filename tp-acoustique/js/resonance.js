@@ -1,103 +1,176 @@
-window.initResonance=function(){
+window.initResonance = function () {
 
-const slider =
-document.getElementById(
-"resFreq"
-);
+    const slider =
+        document.getElementById("resFreq");
 
-const txt =
-document.getElementById(
-"resFreqTxt"
-);
+    const txt =
+        document.getElementById("resFreqTxt");
 
-const amp =
-document.getElementById(
-"ampRes"
-);
+    const amp =
+        document.getElementById("ampRes");
 
-const ctx =
-document
-.getElementById(
-"resCanvas"
-)
-.getContext("2d");
+    const canvas =
+        document.getElementById("resCanvas");
 
-const f0 = 1200;
+    if (!slider || !txt || !amp || !canvas) {
 
-function update(){
+        console.error(
+            "resonance : éléments HTML manquants"
+        );
 
-const f =
-Number(slider.value);
+        return;
+    }
 
-txt.innerHTML =
-f+" Hz";
+    const ctx =
+        canvas.getContext("2d");
 
-const A =
+    const analyseBloc =
+        document.getElementById(
+            "analyseResonance"
+        );
 
-100/
+    const explorationMsg =
+        document.getElementById(
+            "explorationResonance"
+        );
 
-(
+    /* =========================
+       SUIVI PEDAGOGIQUE
+    ========================= */
 
-1+
+    let basseObserve = false;
+    let resonanceObserve = false;
+    let hauteObserve = false;
 
-Math.pow(
+    const f0 = 1200;
 
-(f-f0)/250,
+    function update() {
 
-2
+        const f =
+            Number(slider.value);
 
-)
+        txt.textContent =
+            f + " Hz";
 
-);
+        const A =
 
-amp.innerHTML =
-A.toFixed(1);
+            100 /
 
-draw(f,A);
+            (
+                1 +
+                Math.pow(
+                    (f - f0) / 250,
+                    2
+                )
+            );
 
-}
+        amp.textContent =
+            A.toFixed(1);
 
-function draw(f,A){
+        /* =====================
+           OBSERVATIONS
+        ===================== */
 
-ctx.clearRect(
-0,
-0,
-900,
-300
-);
+        if (f < 600)
+            basseObserve = true;
 
-ctx.beginPath();
+        if (
+            f >= 1000 &&
+            f <= 1400
+        )
+            resonanceObserve = true;
 
-for(let x=0;x<900;x++){
+        if (f > 2000)
+            hauteObserve = true;
 
-const y=
+        draw(A);
 
-150+
+        updateProgress();
+        checkAnalyse();
+    }
 
-Math.sin(
+    function draw(A) {
 
-x/20
+        ctx.clearRect(
+            0,
+            0,
+            canvas.width,
+            canvas.height
+        );
 
-)
+        ctx.beginPath();
 
-*A;
+        ctx.lineWidth = 2;
+        ctx.strokeStyle = "#1f3c63";
 
-if(x===0)
+        for (
+            let x = 0;
+            x < canvas.width;
+            x++
+        ) {
 
-ctx.moveTo(x,y);
+            const y =
 
-else
+                150 +
 
-ctx.lineTo(x,y);
+                Math.sin(
+                    x / 20
+                ) * A;
 
-}
+            if (x === 0)
+                ctx.moveTo(x, y);
+            else
+                ctx.lineTo(x, y);
+        }
 
-ctx.stroke();
+        ctx.stroke();
+    }
 
-}
+    function updateProgress() {
 
-slider.oninput=update;
+        if (!explorationMsg)
+            return;
 
-update();
+        explorationMsg.innerHTML =
 
+            `
+            Fréquence basse ${basseObserve ? "✓" : "✗"}<br>
+            Zone de résonance ${resonanceObserve ? "✓" : "✗"}<br>
+            Fréquence élevée ${hauteObserve ? "✓" : "✗"}
+            `;
+    }
+
+    function checkAnalyse() {
+
+        const done =
+
+            basseObserve &&
+            resonanceObserve &&
+            hauteObserve;
+
+        if (
+            done &&
+            analyseBloc
+        ) {
+
+            analyseBloc.classList.remove(
+                "hidden"
+            );
+
+            analyseBloc.classList.add(
+                "visible"
+            );
+
+            analyseBloc.scrollIntoView({
+                behavior: "smooth"
+            });
+        }
+    }
+
+    slider.addEventListener(
+        "input",
+        update
+    );
+
+    update();
 };
