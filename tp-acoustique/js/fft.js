@@ -10,35 +10,28 @@ const freqRot=document.getElementById("freqRot");
 const diag=document.getElementById("diag");
 
 const analyseFFT =
-document.getElementById(
-"analyseFFT"
-);
+document.getElementById("analyseFFT");
 
 const explorationFFT =
-document.getElementById(
-"explorationFFT"
-);
+document.getElementById("explorationFFT");
 
-let testsFFT = {
-
-balourd:false,
-desalignement:false,
-jeu:false,
-roulement:false
-
-};
-
-const signalCanvas=
+const signalCanvas =
 document.getElementById("signalCanvas");
 
-const fftCanvas=
+const fftCanvas =
 document.getElementById("fftCanvas");
 
-const sctx=
-signalCanvas.getContext("2d");
+/* =========================
+   SAFE DOM CHECK
+========================= */
 
-const fctx=
-fftCanvas.getContext("2d");
+if(!rpm || !defaut || !signalCanvas || !fftCanvas){
+    console.error("FFT : éléments DOM manquants");
+    return;
+}
+
+const sctx = signalCanvas.getContext("2d");
+const fctx = fftCanvas.getContext("2d");
 
 signalCanvas.width=600;
 signalCanvas.height=220;
@@ -46,81 +39,89 @@ signalCanvas.height=220;
 fftCanvas.width=600;
 fftCanvas.height=220;
 
-function update(){
+/* =========================
+   SUIVI PEDAGOGIQUE
+========================= */
 
-rpmValue.textContent=rpm.value;
+let testsFFT = {
+    balourd:false,
+    desalignement:false,
+    jeu:false,
+    roulement:false
+};
 
-const freq=rpm.value/60;
-
-freqRot.textContent=
-freq.toFixed(1);
-
-drawSignal(freq);
-drawFFT(freq);
-majDiagnostic();
-
-}
-
-rpm.addEventListener("input",update);
-defaut.addEventListener("change",update);
-
-document
-.getElementById("corrigerBtn")
-.addEventListener("click",corrigerQuiz);
+/* =========================
+   FUNCTIONS (AVANT USAGE)
+========================= */
 
 function updateProgressFFT(){
 
 if(!explorationFFT) return;
 
 const total =
+Object.values(testsFFT).filter(Boolean).length;
 
-Object.values(
-testsFFT
-).filter(Boolean).length;
-
-explorationFFT.innerHTML =
-
-`
-Défauts explorés :
-${total}/3
-<br><br>
+explorationFFT.innerHTML = `
+Défauts explorés : ${total}/3<br><br>
 
 Balourd ${testsFFT.balourd ? "✓" : "✗"} |
 Désalignement ${testsFFT.desalignement ? "✓" : "✗"} |
 Jeu ${testsFFT.jeu ? "✓" : "✗"} |
 Roulement ${testsFFT.roulement ? "✓" : "✗"}
 `;
-
 }
 
 function checkAnalyseFFT(){
 
 const total =
+Object.values(testsFFT).filter(Boolean).length;
 
-Object.values(
-testsFFT
-).filter(Boolean).length;
+if(total >= 3 && analyseFFT){
 
-if(
-total >= 3 &&
-analyseFFT
-){
-
-analyseFFT.classList.remove(
-"hidden"
-);
-
-analyseFFT.classList.add(
-"visible"
-);
+analyseFFT.classList.remove("hidden");
+analyseFFT.classList.add("visible");
 
 }
 
 updateProgressFFT();
-
 }
-  
-update();
+
+/* =========================
+   UPDATE
+========================= */
+
+function update(){
+
+rpmValue.textContent=rpm.value;
+
+const freq=rpm.value/60;
+
+freqRot.textContent=freq.toFixed(1);
+
+/* tracking défaut */
+testsFFT[defaut.value] = true;
+
+checkAnalyseFFT();
+
+drawSignal(freq);
+drawFFT(freq);
+majDiagnostic();
+}
+
+/* =========================
+   EVENTS
+========================= */
+
+rpm.addEventListener("input",update);
+defaut.addEventListener("change",update);
+
+document
+.getElementById("corrigerBtn")
+?.addEventListener("click",corrigerQuiz);
+
+/* =========================
+   DRAW SIGNAL
+========================= */
 
 function drawSignal(freq){
 
@@ -132,13 +133,16 @@ for(let x=0;x<600;x++){
 
 let y=110 + Math.sin(x*0.02*freq)*40;
 
-sctx.lineTo(x,y);
-
+if(x===0) sctx.moveTo(x,y);
+else sctx.lineTo(x,y);
 }
 
 sctx.stroke();
-
 }
+
+/* =========================
+   FFT
+========================= */
 
 function drawFFT(freq){
 
@@ -163,8 +167,9 @@ break;
 case "roulement":
 pics=[freq*5,freq*6];
 break;
-
 }
+
+fctx.font = "12px Arial";
 
 pics.forEach((p,i)=>{
 
@@ -173,10 +178,12 @@ const h=50+(i*30);
 
 fctx.fillRect(x,200-h,18,h);
 fctx.fillText(p.toFixed(1)+" Hz",x,195-h);
-
 });
-
 }
+
+/* =========================
+   DIAGNOSTIC
+========================= */
 
 function majDiagnostic(){
 
@@ -188,22 +195,28 @@ roulement:"Défaut roulement"
 };
 
 diag.textContent=txt[defaut.value];
-
 }
+
+/* =========================
+   QUIZ
+========================= */
 
 function corrigerQuiz(){
 
-const rep=document.getElementById("quizRep").value;
-
+const rep=document.getElementById("quizRep");
 const zone=document.getElementById("quizResult");
 
 zone.textContent =
-
-rep==="Balourd"
+rep?.value==="Balourd"
 ? "Correct"
 : "Incorrect";
-
 }
+
+/* =========================
+   INIT
+========================= */
+
+update();
 
 }
 
