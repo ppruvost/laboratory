@@ -9,6 +9,25 @@ const freqRot=document.getElementById("freqRot");
 
 const diag=document.getElementById("diag");
 
+const analyseFFT =
+document.getElementById(
+"analyseFFT"
+);
+
+const explorationFFT =
+document.getElementById(
+"explorationFFT"
+);
+
+let testsFFT = {
+
+balourd:false,
+desalignement:false,
+jeu:false,
+roulement:false
+
+};
+
 const signalCanvas=
 document.getElementById("signalCanvas");
 
@@ -49,6 +68,58 @@ document
 .getElementById("corrigerBtn")
 .addEventListener("click",corrigerQuiz);
 
+function updateProgressFFT(){
+
+if(!explorationFFT) return;
+
+const total =
+
+Object.values(
+testsFFT
+).filter(Boolean).length;
+
+explorationFFT.innerHTML =
+
+`
+Défauts explorés :
+${total}/3
+<br><br>
+
+Balourd ${testsFFT.balourd ? "✓" : "✗"} |
+Désalignement ${testsFFT.desalignement ? "✓" : "✗"} |
+Jeu ${testsFFT.jeu ? "✓" : "✗"} |
+Roulement ${testsFFT.roulement ? "✓" : "✗"}
+`;
+
+}
+
+function checkAnalyseFFT(){
+
+const total =
+
+Object.values(
+testsFFT
+).filter(Boolean).length;
+
+if(
+total >= 3 &&
+analyseFFT
+){
+
+analyseFFT.classList.remove(
+"hidden"
+);
+
+analyseFFT.classList.add(
+"visible"
+);
+
+}
+
+updateProgressFFT();
+
+}
+  
 update();
 
 function drawSignal(freq){
