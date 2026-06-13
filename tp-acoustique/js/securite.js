@@ -1,40 +1,152 @@
-window.initSecurite=function(){
+window.initSecurite = function () {
 
-const e=
-document.getElementById("expo");
+    const expo =
+    document.getElementById("expo");
 
-const t=
-document.getElementById("expoTxt");
+    const expoTxt =
+    document.getElementById("expoTxt");
 
-const r=
-document.getElementById("risk");
+    const risk =
+    document.getElementById("risk");
 
-function update(){
+    const analyseBloc =
+    document.getElementById("analyseSecurite");
 
-t.innerHTML=e.value;
+    const explorationMsg =
+    document.getElementById("explorationSecurite");
 
-if(e.value<80)
+    if(
+        !expo ||
+        !expoTxt ||
+        !risk
+    ){
+        console.error(
+            "module sécurité : éléments manquants"
+        );
+        return;
+    }
 
-r.innerHTML=
+    /* ==========================
+       SUIVI PEDAGOGIQUE
+    ========================== */
 
-"Risque faible";
+    let faibleObserve = false;
+    let moyenObserve = false;
+    let dangerObserve = false;
 
-else if(e.value<100)
+    /* ==========================
+       PROGRESSION
+    ========================== */
 
-r.innerHTML=
+    function updateProgress(){
 
-"Protection recommandée";
+        if(!explorationMsg) return;
 
-else
+        explorationMsg.innerHTML =
 
-r.innerHTML=
+        `Zone faible ${
+            faibleObserve ? "✓" : "✗"
+        }<br>
 
-"Danger auditif";
+        Zone moyenne ${
+            moyenObserve ? "✓" : "✗"
+        }<br>
 
-}
+        Zone dangereuse ${
+            dangerObserve ? "✓" : "✗"
+        }`;
 
-e.oninput=update;
+    }
 
-update();
+    /* ==========================
+       ANALYSE
+    ========================== */
+
+    function checkAnalyse(){
+
+        const done =
+
+        faibleObserve &&
+        moyenObserve &&
+        dangerObserve;
+
+        if(
+            done &&
+            analyseBloc
+        ){
+
+            analyseBloc.classList.remove(
+                "hidden"
+            );
+
+            analyseBloc.classList.add(
+                "visible"
+            );
+
+        }
+
+        updateProgress();
+
+    }
+
+    /* ==========================
+       UPDATE
+    ========================== */
+
+    function update(){
+
+        const value =
+        Number(expo.value);
+
+        expoTxt.innerHTML =
+        value;
+
+        if(value < 80){
+
+            risk.innerHTML =
+            "🟢 Risque faible";
+
+            risk.className =
+            "result success";
+
+            faibleObserve = true;
+
+        }
+
+        else if(value < 100){
+
+            risk.innerHTML =
+            "🟡 Protection recommandée";
+
+            risk.className =
+            "result warning";
+
+            moyenObserve = true;
+
+        }
+
+        else{
+
+            risk.innerHTML =
+            "🔴 Danger auditif";
+
+            risk.className =
+            "result danger";
+
+            dangerObserve = true;
+
+        }
+
+        checkAnalyse();
+
+    }
+
+    expo.addEventListener(
+        "input",
+        update
+    );
+
+    updateProgress();
+    update();
 
 };
