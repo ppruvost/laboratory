@@ -6,7 +6,7 @@ export const products = [
     categorie: "Solvant organique",
     localisation: "Salle B27 / étagère B1",
     pictogramme: ["SGH02_Flamme.jpg", "SGH07_PointExclamation.jpg"],
-    obligation: ["LUNETTES", "GANTS", "BLOUSE","HOTTE"],
+    obligation: ["GANTS", "BLOUSE", "HOTTE"],
     image: "propanone.jpg",
     fds: "FicheTox_3.pdf",
     dangers: ["H225", "H319", "H336"]
@@ -18,7 +18,7 @@ export const products = [
     categorie: "Alcool primaire",
     localisation: "Salle B27 / étagère B2",
     pictogramme: ["SGH02_Flamme.jpg", "SGH07_PointExclamation.jpg"],
-    obligation: ["LUNETTES", "GANTS", "BLOUSE","HOTTE"],
+    obligation: ["GANTS", "BLOUSE", "HOTTE"],
     image: "3_methylbutan_1_ol.jpg",
     fds: "FicheTox_123-51-3.pdf",
     dangers: ["H226", "H315", "H335"]
@@ -30,7 +30,7 @@ export const products = [
     categorie: "Indicateur coloré (pH 8,2-10)",
     localisation: "salle B27 / étagère B2",
     pictogramme: ["danger_sante.png"],
-    obligation: ["GANTS", "BLOUSE","HOTTE"],
+    obligation: ["GANTS", "BLOUSE", "HOTTE"],
     image: "phenolphtaleine.jpg",
     fds: "FAS33.pdf",
     dangers: ["H350"],    
@@ -66,7 +66,7 @@ export const products = [
   categorie: "Agent chélatant",
   localisation: "Salle B27 / étagère B2",
   pictogramme: ["irritant.png"],
-  obligation: ["GANTS", "BLOUSE"],
+  obligation: ["LUNETTES", "GANTS", "BLOUSE"],
   image: "edta.jpg",
   fds: "FicheTox_XXX.pdf",
   dangers: ["H319", "P264", "P280", "P305+P351+P338", "P337+P313"]
@@ -77,11 +77,11 @@ export const products = [
     formule: "CH₃COOH",
     categorie: "Acide faible",
     localisation: "Salle B27 / étagère B1",
-    pictogramme: ["SGH05_Corrosion.jpg", "SGH02_Flamme.jpg"],
-    obligation: ["LUNETTES", "GANTS", "BLOUSE", "HOTTE"],
+    pictogramme: ["SGH05_Corrosion.jpg"],
+    obligation: ["LUNETTES", "GANTS", "BLOUSE"],
     image: "acide_acetique.jpg",
     fds: "FicheTox_24.pdf",
-    dangers: ["H226", "H314"]
+    dangers: ["H314", "P280", "P305+P351+P338", "P310"]
   },
   {
     cas: "7697-37-2",
@@ -90,7 +90,7 @@ export const products = [
     categorie: "Acide fort",
     localisation: "Salle B27 / étagère B1",
     pictogramme: ["SGH05_Corrosion.jpg", "SGH03_FlammeSurCercle.jpg"],
-    obligation: ["LUNETTES", "GANTS", "BLOUSE", "HOTTE"],
+    obligation: ["GANTS", "BLOUSE", "HOTTE"],
     image: "acide_nitrique.jpg",
     fds: "FicheTox_9.pdf",
     dangers: ["H272", "H314"]
@@ -102,7 +102,7 @@ export const products = [
     categorie: "Acide carboxylique",
     localisation: "Salle B27 / étagère B1",
     pictogramme: ["SGH05_Corrosion.jpg", "SGH02_Flamme.jpg"],
-    obligation: ["LUNETTES", "GANTS", "BLOUSE", "HOTTE"],
+    obligation: ["GANTS", "BLOUSE", "HOTTE"],
     image: "acide_propanoique.jpg",
     fds: "FicheTox_XXX.pdf",
     dangers: ["H226","H314"]
