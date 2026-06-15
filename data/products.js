@@ -59,6 +59,18 @@ export const products = [
     fds: "FicheTox_13.pdf",
     dangers: ["H314", "H335", "P260", "P303+P351+P363", "P303+P351+P338", "P310", "P405", "P501"]
   },
+    {
+  cas: "60-00-4",
+  nom: "acide EDTA (éthylène diamine tétra acétique)",
+  formule: "C₁₀H₁₆N₂O₈",
+  categorie: "Agent chélatant",
+  localisation: "Salle B27 / étagère B2",
+  pictogramme: ["irritant.png"],
+  obligation: ["GANTS", "BLOUSE"],
+  image: "edta.jpg",
+  fds: "FicheTox_XXX.pdf",
+  dangers: ["H319", "P264", "P280", "P305+P351+P338", "P337+P313"]
+  },
   {
     cas: "64-19-7",
     nom: "acide éthanoïque (acétique)",
@@ -442,19 +454,7 @@ export const products = [
   image: "borate_anhydre.jpg",
   fds: "",
   dangers: ["Irritant", "Peut provoquer une irritation des yeux et de la peau"]
-  },
-    {
-  cas: "60-00-4",
-  nom: "EDTA (acide 2,2',2'',2'''-(éthane-1,2-diyldinitrilo)tétraacétique)",
-  formule: "C₁₀H₁₆N₂O₈",
-  categorie: "Agent chélatant",
-  localisation: "Salle B27 / étagère B2",
-  pictogramme: ["irritant.png"],
-  obligation: ["GANTS", "BLOUSE"],
-  image: "edta.jpg",
-  fds: "FicheTox_XXX.pdf",
-  dangers: ["H319"]
-  },
+  },  
   {
   cas: "17372-87-1",
   nom: "éosine",
