@@ -99,14 +99,23 @@ export const dangerDB = [
 {code:"P280", cat:"Prévention", text:"Porter des gants de protection/des vêtements de protection/un équipement de protection des yeux/du visage"},
 
 {code:"P301", cat:"Intervention", text:"EN CAS D’INGESTION"},
+{code:"P303", cat:"Intervention", text:"EN CAS DE CONTACT AVEC LA PEAU (ou les cheveux)"},
+{code:"P310", cat:"Intervention", text:"Appeler immédiatement un CENTRE ANTIPOISON ou un médecin"},
+   
 {code:"P330", cat:"Intervention", text:"Rincer la bouche"},
 {code:"P331", cat:"Intervention", text:"NE PAS faire vomir"},
 
-{code:"P303", cat:"Intervention", text:"EN CAS DE CONTACT AVEC LA PEAU (ou les cheveux)"},
-{code:"P361", cat:"Intervention", text:"Enlever immédiatement tous les vêtements contaminés"},
 {code:"P353", cat:"Intervention", text:"Rincer la peau à l’eau ou se doucher"},
 
+{code:"P361", cat:"Intervention", text:"Enlever immédiatement tous les vêtements contaminés"},
+
+{code:"P305+P351+P338", cat:"Intervention", text:"EN CAS DE CONTACT AVEC LES YEUX : rincer avec précaution à l’eau pendant plusieurs minutes. Enlever les lentilles de contact si la victime en porte et si elles peuvent être facilement enlevées. Continuer à rincer"},
 {code:"P301+P330+P331", cat:"Intervention", text:"EN CAS D’INGESTION : rincer la bouche. NE PAS faire vomir"},
-{code:"P303+P361+P353", cat:"Intervention", text:"EN CAS DE CONTACT AVEC LA PEAU (ou les cheveux) : enlever immédiatement tous les vêtements contaminés. Rincer la peau à l’eau ou se doucher"}
+{code:"P303+P361+P353", cat:"Intervention", text:"EN CAS DE CONTACT AVEC LA PEAU (ou les cheveux) : enlever immédiatement tous les vêtements contaminés. Rincer la peau à l’eau ou se doucher"}?
+{code:"P310+P405+P501", cat:"Intervention/Stockage/Élimination", text:"Appeler immédiatement un CENTRE ANTIPOISON ou un médecin. Garder sous clef. Éliminer le contenu conformément à la réglementation"}?
+
+
+{code:"P405", cat:"Stockage", text:"Garder sous clef"},
+{code:"P501", cat:"Élimination", text:"Éliminer le contenu/récipient conformément à la réglementation locale/régionale/nationale/internationale"}
 
 ];
