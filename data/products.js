@@ -49,15 +49,15 @@ export const products = [
 },
   {
     cas: "7647-01-0",
-    nom: "acide chlorhydrique",
+    nom: "acide chlorhydrique (muriatique)",
     formule: "HCl",
     categorie: "Acide fort",
     localisation: "Salle B27 / étagère B1",
-    pictogramme: ["SGH05_Corrosion.jpg"],
+    pictogramme: ["SGH05_Corrosion.jpg", "SGH07_PointExclamation.jpg"],
     obligation: ["LUNETTES", "GANTS", "BLOUSE"],
     image: "acide_chlorhydrique.jpg",
     fds: "FicheTox_13.pdf",
-    dangers: ["H290", "H314", "H335"]
+    dangers: ["H314", "H335", "P260", "P303+P351+P363", "P303+P351+P338", "P310", "P405", "P501"]
   },
   {
     cas: "64-19-7",
@@ -89,7 +89,7 @@ export const products = [
     formule: "C₃H₆O₂",
     categorie: "Acide carboxylique",
     localisation: "Salle B27 / étagère B1",
-    pictogramme: ["corrosif.png", "inflammable.png"],
+    pictogramme: ["SGH05_Corrosion.jpg", "SGH02_Flamme.jpg"],
     obligation: ["LUNETTES", "GANTS", "BLOUSE", "HOTTE"],
     image: "acide_propanoique.jpg",
     fds: "FicheTox_XXX.pdf",
