@@ -57,7 +57,7 @@ export const products = [
     obligation: ["LUNETTES", "GANTS", "BLOUSE"],
     image: "acide_chlorhydrique.jpg",
     fds: "FicheTox_13.pdf",
-    dangers: ["H314", "H335", "P260", "P303+P351+P363", "P303+P351+P338", "P310", "P405", "P501"]
+    dangers: ["H314", "H335", "P260", "P303+P351+P363", "P305+P351+P338", "P310", "P405", "P501"]
   },
     {
   cas: "60-00-4",
