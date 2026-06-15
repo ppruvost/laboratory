@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TP — Détermination de la vitesse du son</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ============================================================ -->
+<!-- HERO — la thèse : v = λ × f, deux micros, un déphasage       -->
+<!-- ============================================================ -->
+<header class="hero">
+  <div class="container hero-grid">
+    <div>
+      <p class="eyebrow">TP Acoustique · Ondes mécaniques</p>
+      <h1>Quelle vitesse pour une onde sonore ?</h1>
+      <p class="lede">
+        Un haut-parleur émet un son pur. Deux microphones, séparés
+        d'une distance <span class="formula-inline" style="font-family:var(--mono)">d</span>,
+        captent le même signal avec un léger retard. En mesurant ce
+        déphasage pour une fréquence connue, on remonte à la célérité
+        du son dans l'air.
+      </p>
+      <div class="formula">v = λ · f</div>
+      <p class="lede">
+        Faites glisser le réglage ci-contre : observez comment, lorsque
+        le micro 2 (en orange) se retrouve <em>en phase</em> avec le
+        micro 1 (en vert) une distance d entière de longueurs d'onde,
+        on peut lire λ directement sur l'écran.
+      </p>
+    </div>
+
+    <div class="scope">
+      <div class="scope-screen">
+        <svg id="scopeSvg" viewBox="0 0 400 200" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+          <!-- grid -->
+          <g id="scopeGrid"></g>
+          <line x1="0" y1="100" x2="400" y2="100" class="scope-grid-line" stroke="rgba(127,255,176,0.18)"/>
+          <path id="waveMic1" class="wave-mic1" d=""/>
+          <path id="waveMic2" class="wave-mic2" d=""/>
+        </svg>
+      </div>
+      <div class="legend-row">
+        <span><span class="legend-dot dot-phosphor"></span>Micro 1 (référence)</span>
+        <span><span class="legend-dot dot-amber"></span>Micro 2 (décalé de d)</span>
+      </div>
+      <div class="scope-controls">
+        <label>Fréquence
+          <input type="range" id="freqRange" min="100" max="2000" step="10" value="850">
+        </label>
+        <label>Distance d (cm)
+          <input type="range" id="distRange" min="5" max="80" step="0.5" value="40">
+        </label>
+      </div>
+      <div class="scope-readout" id="scopeReadout">f = 850 Hz · d = 40 cm</div>
+    </div>
+  </div>
+</header>
+
+<!-- ============================================================ -->
+<!-- THEORY                                                        -->
+<!-- ============================================================ -->
+<section class="on-paper">
+  <div class="container">
+    <p class="eyebrow">Le phénomène physique</p>
+    <h2>De la fréquence à la vitesse</h2>
+    <p class="lede" style="color:var(--text-ink-soft)">
+      Le GBF impose au haut-parleur une vibration sinusoïdale de
+      fréquence <span class="formula-inline">f</span>, connue avec
+      précision. Cette vibration se propage dans l'air sous forme
+      d'une onde de longueur d'onde <span class="formula-inline">λ</span>.
+      Les deux microphones, séparés d'une distance <span class="formula-inline">d</span>,
+      enregistrent le signal avec un décalage temporel
+      <span class="formula-inline">τ</span>.
+    </p>
+
+    <div class="theory-grid">
+      <div class="theory-card">
+        <p class="num">01 — Relation de propagation</p>
+        <h3>v = λ · f</h3>
+        <p>
+          Toute onde périodique vérifie cette relation entre célérité,
+          longueur d'onde et fréquence. C'est la loi que ce TP cherche
+          à vérifier numériquement.
+        </p>
+      </div>
+      <div class="theory-card">
+        <p class="num">02 — Mesure du décalage</p>
+        <h3>τ = d / v</h3>
+        <p>
+          La fenêtre d'acquisition affiche les deux signaux temporels.
+          Le retard <span class="formula-inline">τ</span> entre les deux
+          courbes, combiné à la distance <span class="formula-inline">d</span>
+          mesurée à la règle, donne directement <span class="formula-inline">v = d / τ</span>.
+        </p>
+      </div>
+      <div class="theory-card">
+        <p class="num">03 — Vérification</p>
+        <h3>v ≈ 340 m·s⁻¹</h3>
+        <p>
+          La valeur trouvée doit être comparée à la valeur théorique
+          de la vitesse du son dans l'air à température ambiante
+          (≈ 340 m·s⁻¹ à 15 °C), pour discuter de l'incertitude de mesure.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- EQUIPEMENT (chargé depuis equipement.json)                    -->
+<!-- ============================================================ -->
+<section id="materiel">
+  <div class="container">
+    <p class="eyebrow">Avant de commencer</p>
+    <h2>Matériel nécessaire</h2>
+    <p class="lede">La liste ci-dessous est chargée automatiquement depuis <code>equipement.json</code>.</p>
+    <ul id="equipement-liste" aria-live="polite"></ul>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- WIRING DIAGRAM                                                -->
+<!-- ============================================================ -->
+<section class="on-paper">
+  <div class="container">
+    <p class="eyebrow">Montage expérimental</p>
+    <h2>Schéma de câblage</h2>
+    <p class="lede" style="color:var(--text-ink-soft)">
+      Suivez les repères numérotés sur le schéma : ils correspondent
+      exactement aux branchements listés à droite.
+    </p>
+
+    <div class="wiring-wrap">
+      <div class="wiring-svg-frame">
+        <svg viewBox="0 0 640 380" role="img" aria-labelledby="wiringTitle wiringDesc">
+          <title id="wiringTitle">Schéma de montage du dispositif de mesure de la vitesse du son</title>
+          <desc id="wiringDesc">
+            Un GBF alimente un haut-parleur. Deux microphones, micro 1 et
+            micro 2, sont disposés le long d'une règle graduée et reliés
+            respectivement au capteur 1 et au capteur 2 du système
+            d'acquisition, lui-même relié à l'ordinateur.
+          </desc>
+
+          <!-- GBF box -->
+          <rect x="20" y="40" width="110" height="70" rx="6" fill="#fff" stroke="#0f2d2e" stroke-width="2"/>
+          <text x="75" y="70" text-anchor="middle" class="svg-label" font-weight="700">GBF</text>
+          <text x="75" y="88" text-anchor="middle" class="svg-label" font-size="10">SORTIE OUT</text>
+
+          <!-- wire GBF -> haut-parleur -->
+          <line x1="130" y1="60" x2="200" y2="60" stroke="#0f2d2e" stroke-width="2"/>
+          <line x1="130" y1="90" x2="200" y2="90" stroke="#0f2d2e" stroke-width="2"/>
+
+          <!-- numbered marker 1 : sortie GBF -->
+          <circle cx="150" cy="75" r="11" class="svg-num-circle"/>
+          <text x="150" y="76" class="svg-num-text">1</text>
+
+          <!-- haut-parleur (trapeze) -->
+          <polygon points="200,45 250,55 250,95 200,105" fill="#fff" stroke="#0f2d2e" stroke-width="2"/>
+          <rect x="180" y="60" width="20" height="30" fill="#fff" stroke="#0f2d2e" stroke-width="2"/>
+          <text x="210" y="125" text-anchor="middle" class="svg-label">Haut-parleur</text>
+
+          <!-- ruler -->
+          <rect x="60" y="220" width="520" height="14" fill="#fff" stroke="#0f2d2e" stroke-width="2"/>
+          <text x="62" y="216" class="svg-label" font-size="10">0</text>
+          <text x="566" y="216" class="svg-label" font-size="10">100</text>
+
+          <!-- Micro 1 -->
+          <ellipse cx="180" cy="195" rx="10" ry="16" fill="#fff" stroke="#0f2d2e" stroke-width="2"/>
+          <line x1="180" y1="211" x2="180" y2="220" stroke="#0f2d2e" stroke-width="2"/>
+          <text x="180" y="170" text-anchor="middle" class="svg-label">Micro 1</text>
+
+          <!-- Micro 2 -->
+          <ellipse cx="460" cy="195" rx="10" ry="16" fill="#fff" stroke="#0f2d2e" stroke-width="2"/>
+          <line x1="460" y1="211" x2="460" y2="220" stroke="#0f2d2e" stroke-width="2"/>
+          <text x="460" y="170" text-anchor="middle" class="svg-label">Micro 2</text>
+
+          <!-- distance d -->
+          <line x1="180" y1="260" x2="460" y2="260" stroke="#e8a33d" stroke-width="2" marker-start="url(#arrow)" marker-end="url(#arrow)"/>
+          <text x="320" y="278" text-anchor="middle" class="svg-label" fill="#c9852a" font-weight="700">d</text>
+
+          <defs>
+            <marker id="arrow" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto">
+              <path d="M0,0 L8,4 L0,8 Z" fill="#e8a33d"/>
+            </marker>
+          </defs>
+
+          <!-- wires micros -> capteurs -->
+          <line x1="180" y1="195" x2="180" y2="310" stroke="#0f2d2e" stroke-width="2"/>
+          <line x1="180" y1="310" x2="380" y2="310" stroke="#0f2d2e" stroke-width="2"/>
+          <line x1="460" y1="195" x2="460" y2="330" stroke="#0f2d2e" stroke-width="2"/>
+          <line x1="460" y1="330" x2="430" y2="330" stroke="#0f2d2e" stroke-width="2"/>
+
+          <!-- marker 2 : micro1 -> capteur1 -->
+          <circle cx="240" cy="310" r="11" class="svg-num-circle"/>
+          <text x="240" y="311" class="svg-num-text">2</text>
+
+          <!-- marker 3 : micro2 -> capteur2 -->
+          <circle cx="445" cy="330" r="11" class="svg-num-circle"/>
+          <text x="445" y="331" class="svg-num-text">3</text>
+
+          <!-- Capteur 1 -->
+          <rect x="380" y="295" width="70" height="30" rx="4" fill="#fff" stroke="#0f2d2e" stroke-width="2"/>
+          <text x="415" y="315" text-anchor="middle" class="svg-label" font-size="11">Capteur 1</text>
+
+          <!-- Capteur 2 -->
+          <rect x="380" y="315" width="70" height="30" rx="4" fill="#fff" stroke="#0f2d2e" stroke-width="2"/>
+          <text x="415" y="335" text-anchor="middle" class="svg-label" font-size="11">Capteur 2</text>
+
+          <!-- marker 4: capteur1 -> systeme -->
+          <circle cx="478" cy="310" r="11" class="svg-num-circle"/>
+          <text x="478" y="311" class="svg-num-text">4</text>
+          <!-- marker 5: capteur2 -> systeme -->
+          <circle cx="478" cy="330" r="11" class="svg-num-circle"/>
+          <text x="478" y="331" class="svg-num-text">5</text>
+
+          <!-- wires capteurs -> systeme acquisition -->
+          <line x1="450" y1="310" x2="540" y2="310" stroke="#0f2d2e" stroke-width="2"/>
+          <line x1="450" y1="330" x2="540" y2="330" stroke="#0f2d2e" stroke-width="2"/>
+
+          <!-- Systeme acquisition + fenetre -->
+          <rect x="540" y="40" width="80" height="300" rx="6" fill="#fff" stroke="#0f2d2e" stroke-width="2" stroke-dasharray="5 4"/>
+          <text x="580" y="60" text-anchor="middle" class="svg-label" font-size="10" font-weight="700">Système</text>
+          <text x="580" y="74" text-anchor="middle" class="svg-label" font-size="10" font-weight="700">d'acquisition</text>
+
+          <rect x="552" y="90" width="56" height="60" fill="#fff" stroke="#0f2d2e" stroke-width="1.5"/>
+          <text x="580" y="115" text-anchor="middle" class="svg-label" font-size="9">Fenêtre</text>
+          <text x="580" y="128" text-anchor="middle" class="svg-label" font-size="9">d'acquisition</text>
+
+          <!-- marker 6 : systeme -> ordinateur (USB) -->
+          <circle cx="580" cy="20" r="11" class="svg-num-circle"/>
+          <text x="580" y="21" class="svg-num-text">6</text>
+          <line x1="580" y1="40" x2="580" y2="29" stroke="#0f2d2e" stroke-width="2"/>
+
+        </svg>
+      </div>
+
+      <div>
+        <h3>Branchements numérotés</h3>
+        <ol class="conn-list">
+          <li><b>SORTIE / OUT</b> du GBF → entrée du <b>haut-parleur</b>. Vérifiez l'amplitude au minimum avant d'allumer.</li>
+          <li><b>Micro 1</b> → fiche <b>Capteur 1</b> du système d'acquisition.</li>
+          <li><b>Micro 2</b> → fiche <b>Capteur 2</b> du système d'acquisition.</li>
+          <li>Capteur 1 → entrée <b>EA1</b> du système d'acquisition (déjà câblé en interne).</li>
+          <li>Capteur 2 → entrée <b>EA2</b> du système d'acquisition.</li>
+          <li>Système d'acquisition → ordinateur via câble <b>USB</b>, pour ouvrir la fenêtre d'acquisition.</li>
+        </ol>
+        <div class="warn-box">
+          <strong>Avant la mise sous tension :</strong> placez le bouton
+          d'amplitude du GBF sur 0, vérifiez que le sélecteur de forme
+          de signal est sur <b>sinusoïdal</b> (∿), puis allumez le GBF
+          et augmentez progressivement l'amplitude.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- DATA TABLE                                                    -->
+<!-- ============================================================ -->
+<section id="mesures" class="on-paper">
+  <div class="container">
+    <p class="eyebrow">Acquisition</p>
+    <h2>Tableau de mesures</h2>
+    <p class="lede" style="color:var(--text-ink-soft)">
+      Pour chaque fréquence testée, mesurez la distance <span class="formula-inline">d</span>
+      pour laquelle les deux signaux sont en phase, et notez le retard
+      <span class="formula-inline">τ</span> lu sur la fenêtre d'acquisition.
+      Ajoutez une ligne par essai.
+    </p>
+
+    <div class="measure-toolbar">
+      <button class="btn-add" id="btnAddRow" type="button">+ Ajouter un essai</button>
+      <button class="btn-secondary" id="btnFillDemo" type="button">Remplir avec des valeurs d'exemple</button>
+    </div>
+
+    <table id="dataTable">
+      <caption>Essais — vitesse du son</caption>
+      <thead>
+        <tr>
+          <th scope="col">Essai</th>
+          <th scope="col">f (Hz)</th>
+          <th scope="col">d (cm)</th>
+          <th scope="col">τ (ms)</th>
+          <th scope="col">v = d/τ (m·s⁻¹)</th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody id="dataBody">
+        <!-- rows injected by JS -->
+      </tbody>
+    </table>
+
+    <div class="measure-toolbar">
+      <button class="btn-primary" id="btnValidate" type="button">Valider les mesures et calculer</button>
+    </div>
+    <div id="fieldError" class="field-error" role="alert" aria-live="assertive"></div>
+
+    <!-- ===================================================== -->
+    <!-- RESULTS                                                -->
+    <!-- ===================================================== -->
+    <div class="results-panel" id="resultsPanel" aria-live="polite">
+      <h3>Résultats statistiques</h3>
+      <div class="results-grid">
+        <div class="result-card">
+          <div class="label">Vitesse moyenne</div>
+          <div class="value" id="resMean">—<span class="unit"> m·s⁻¹</span></div>
+        </div>
+        <div class="result-card">
+          <div class="label">Écart-type σ</div>
+          <div class="value" id="resStd">—<span class="unit"> m·s⁻¹</span></div>
+        </div>
+        <div class="result-card amber">
+          <div class="label">Incertitude-type u(v)</div>
+          <div class="value" id="resUncertainty">—<span class="unit"> m·s⁻¹</span></div>
+        </div>
+        <div class="result-card">
+          <div class="label">Résultat final</div>
+          <div class="value" id="resFinal">—</div>
+        </div>
+      </div>
+
+      <div class="compare-bar">
+        <div>Comparaison avec la valeur de référence (340 m·s⁻¹ à 15 °C) — écart relatif : <span id="resEcart">—</span></div>
+        <div class="track"><div class="fill" id="resFill" style="width:0%"></div></div>
+      </div>
+      <p id="resInterpretation" style="margin-top:14px; font-family: var(--mono); font-size: 0.85rem; color: var(--text-soft);"></p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    TP Acoustique — laboratory/tp-acoustique/module/vitesse-son
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
