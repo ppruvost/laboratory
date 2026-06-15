@@ -37,11 +37,11 @@ export const products = [
   },
   {
   cas: "107-92-6",
-  nom: "acide butyrique",
+  nom: "acide butanoïque (butyrique)",
   formule: "CH₃CH₂CH₂COOH",
   categorie: "Acide carboxylique",
   localisation: "Salle B27 / étagère B1",
-  pictogramme: ["SGH05_Corrosion.jpg", "SGH07_Exclamation.jpg"],
+  pictogramme: ["SGH05_Corrosion.jpg"],
   obligation: ["LUNETTES", "GANTS", "BLOUSE"],
   image: "acide_butyrique.jpg",
   fds: "FDS_10792.pdf",
