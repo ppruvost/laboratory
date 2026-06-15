@@ -88,6 +88,25 @@ export const dangerDB = [
 
 {code:"EUH208", cat:"UE", text:"Peut produire une réaction allergique"},
 
-{code:"EUH210", cat:"UE", text:"Fiche de données de sécurité disponible sur demande"}
+{code:"EUH210", cat:"UE", text:"Fiche de données de sécurité disponible sur demande"},
+
+/* =========================
+   Prévention
+========================= */
+   
+{code:"P260", cat:"Prévention", text:"Ne pas respirer les poussières/fumées/gaz/brouillards/vapeurs/aérosols"},
+{code:"P264", cat:"Prévention", text:"Se laver soigneusement les mains après manipulation"},
+{code:"P280", cat:"Prévention", text:"Porter des gants de protection/des vêtements de protection/un équipement de protection des yeux/du visage"},
+
+{code:"P301", cat:"Intervention", text:"EN CAS D’INGESTION"},
+{code:"P330", cat:"Intervention", text:"Rincer la bouche"},
+{code:"P331", cat:"Intervention", text:"NE PAS faire vomir"},
+
+{code:"P303", cat:"Intervention", text:"EN CAS DE CONTACT AVEC LA PEAU (ou les cheveux)"},
+{code:"P361", cat:"Intervention", text:"Enlever immédiatement tous les vêtements contaminés"},
+{code:"P353", cat:"Intervention", text:"Rincer la peau à l’eau ou se doucher"},
+
+{code:"P301+P330+P331", cat:"Intervention", text:"EN CAS D’INGESTION : rincer la bouche. NE PAS faire vomir"},
+{code:"P303+P361+P353", cat:"Intervention", text:"EN CAS DE CONTACT AVEC LA PEAU (ou les cheveux) : enlever immédiatement tous les vêtements contaminés. Rincer la peau à l’eau ou se doucher"}
 
 ];
