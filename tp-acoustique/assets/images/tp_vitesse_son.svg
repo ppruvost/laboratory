@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 620" width="900" height="620" font-family="Arial, sans-serif">
+
+  <!-- Fond blanc -->
+  <rect width="900" height="620" fill="white"/>
+
+  <!-- ===== TITRE ===== -->
+  <text x="450" y="30" font-size="16" font-weight="bold" fill="black" text-anchor="middle">TP — Mesure de la vitesse du son dans l'air</text>
+  <text x="450" y="48" font-size="11" fill="black" text-anchor="middle">Schéma de montage</text>
+  <line x1="40" y1="55" x2="860" y2="55" stroke="black" stroke-width="1"/>
+
+  <!-- ===== GÉNÉRATEUR DE FONCTIONS (gauche) ===== -->
+  <rect x="30" y="80" width="160" height="90" rx="5" fill="white" stroke="black" stroke-width="2"/>
+  <rect x="30" y="80" width="160" height="18" rx="5" ry="5" fill="black"/>
+  <rect x="30" y="90" width="160" height="8" fill="black"/>
+  <text x="110" y="93" font-size="8" fill="white" text-anchor="middle" font-weight="bold">GÉNÉRATEUR DE FONCTIONS</text>
+  <text x="110" y="107" font-size="8" fill="black" text-anchor="middle">LS3002B  — 2 MHz</text>
+  <!-- Écran -->
+  <rect x="40" y="112" width="60" height="28" rx="2" fill="#1a1a1a" stroke="#444" stroke-width="1"/>
+  <text x="70" y="128" font-size="9" fill="#888" text-anchor="middle">~~~ Hz</text>
+  <!-- Potentiomètre schématique -->
+  <circle cx="148" cy="120" r="11" fill="#eeeeee" stroke="black" stroke-width="1.2"/>
+  <line x1="148" y1="109" x2="148" y2="114" stroke="black" stroke-width="1.5"/>
+  <text x="148" y="144" font-size="7" fill="black" text-anchor="middle">AMP</text>
+  <!-- Sortie OUTPUT -->
+  <circle cx="110" cy="158" r="7" fill="white" stroke="black" stroke-width="1.8"/>
+  <circle cx="110" cy="158" r="3" fill="#555"/>
+  <text x="110" y="173" font-size="7" fill="black" text-anchor="middle">OUTPUT</text>
+  <!-- Sortie SYNC/TTL -->
+  <circle cx="148" cy="158" r="7" fill="white" stroke="black" stroke-width="1.5"/>
+  <circle cx="148" cy="158" r="3" fill="#555"/>
+  <text x="148" y="173" font-size="7" fill="black" text-anchor="middle">TTL</text>
+
+  <!-- ===== HAUT-PARLEUR ===== -->
+  <!-- Corps -->
+  <polygon points="260,290 280,270 280,320 260,300" fill="white" stroke="black" stroke-width="2"/>
+  <rect x="240" y="290" width="20" height="12" fill="white" stroke="black" stroke-width="2"/>
+  <!-- Pavillons rayonnants -->
+  <path d="M280,265 Q310,253 320,235" stroke="black" stroke-width="1.2" fill="none" stroke-dasharray="3,2"/>
+  <path d="M280,270 Q315,265 328,255" stroke="black" stroke-width="1" fill="none" stroke-dasharray="3,2"/>
+  <path d="M280,295 Q330,295 340,295" stroke="black" stroke-width="1" fill="none" stroke-dasharray="3,2"/>
+  <path d="M280,320 Q315,325 328,338" stroke="black" stroke-width="1" fill="none" stroke-dasharray="3,2"/>
+  <text x="270" y="350" font-size="10" font-weight="bold" fill="black" text-anchor="middle">Haut-parleur</text>
+
+  <!-- ===== MICROPHONE 1 ===== -->
+  <!-- Micro 1 -->
+  <rect x="470" y="275" width="20" height="38" rx="10" fill="white" stroke="black" stroke-width="2"/>
+  <line x1="480" y1="313" x2="480" y2="330" stroke="black" stroke-width="1.5"/>
+  <line x1="465" y1="330" x2="495" y2="330" stroke="black" stroke-width="1.5"/>
+  <!-- Diaphragme (pointillés) -->
+  <ellipse cx="480" cy="294" rx="8" ry="2" fill="none" stroke="#888" stroke-width="0.8" stroke-dasharray="2,1"/>
+  <text x="480" y="350" font-size="10" font-weight="bold" fill="black" text-anchor="middle">Micro 1</text>
+
+  <!-- ===== MICROPHONE 2 ===== -->
+  <rect x="560" y="275" width="20" height="38" rx="10" fill="white" stroke="black" stroke-width="2"/>
+  <line x1="570" y1="313" x2="570" y2="330" stroke="black" stroke-width="1.5"/>
+  <line x1="555" y1="330" x2="585" y2="330" stroke="black" stroke-width="1.5"/>
+  <ellipse cx="570" cy="294" rx="8" ry="2" fill="none" stroke="#888" stroke-width="0.8" stroke-dasharray="2,1"/>
+  <text x="570" y="350" font-size="10" font-weight="bold" fill="black" text-anchor="middle">Micro 2</text>
+
+  <!-- Distance entre les micros (double flèche) -->
+  <line x1="490" y1="294" x2="560" y2="294" stroke="black" stroke-width="1"/>
+  <polygon points="490,294 497,290 497,298" fill="black"/>
+  <polygon points="560,294 553,290 553,298" fill="black"/>
+  <text x="525" y="290" font-size="9" fill="black" text-anchor="middle">d (ex: 10 cm)</text>
+
+  <!-- ===== OSCILLOSCOPE ===== -->
+  <rect x="650" y="190" width="210" height="170" rx="6" fill="white" stroke="black" stroke-width="2.5"/>
+  <text x="755" y="210" font-size="11" font-weight="bold" fill="black" text-anchor="middle">OSCILLOSCOPE</text>
+  <!-- Écran oscillo -->
+  <rect x="665" y="218" width="180" height="110" rx="3" fill="#0d0d0d" stroke="#444" stroke-width="1.5"/>
+  <!-- Grille -->
+  <line x1="710" y1="218" x2="710" y2="328" stroke="#333" stroke-width="0.5"/>
+  <line x1="755" y1="218" x2="755" y2="328" stroke="#333" stroke-width="0.5"/>
+  <line x1="800" y1="218" x2="800" y2="328" stroke="#333" stroke-width="0.5"/>
+  <line x1="665" y1="250" x2="845" y2="250" stroke="#333" stroke-width="0.5"/>
+  <line x1="665" y1="273" x2="845" y2="273" stroke="#333" stroke-width="0.5"/>
+  <line x1="665" y1="296" x2="845" y2="296" stroke="#333" stroke-width="0.5"/>
+  <!-- Signal CH1 (sinusoïde) -->
+  <path d="M670,258 Q684,238 697,258 Q710,278 723,258 Q736,238 749,258 Q762,278 775,258 Q788,238 801,258 Q814,278 827,258 Q840,238 843,245"
+        stroke="white" stroke-width="1.5" fill="none"/>
+  <!-- Signal CH2 (sinusoïde décalée) -->
+  <path d="M670,285 Q684,265 697,285 Q710,305 723,285 Q736,265 749,285 Q762,305 775,285 Q788,265 801,285 Q814,305 827,285 Q840,265 843,272"
+        stroke="#aaaaaa" stroke-width="1.5" fill="none" stroke-dasharray="4,2"/>
+  <!-- Légende écran -->
+  <line x1="670" y1="322" x2="690" y2="322" stroke="white" stroke-width="1.5"/>
+  <text x="695" y="326" font-size="7" fill="white">CH1 — Micro 1</text>
+  <line x1="740" y1="322" x2="760" y2="322" stroke="#aaaaaa" stroke-width="1.5" stroke-dasharray="3,2"/>
+  <text x="765" y="326" font-size="7" fill="#aaaaaa">CH2 — Micro 2</text>
+  <!-- Entrées oscillo -->
+  <circle cx="690" cy="348" r="7" fill="white" stroke="black" stroke-width="1.8"/>
+  <circle cx="690" cy="348" r="3" fill="#555"/>
+  <text x="690" y="366" font-size="8" fill="black" text-anchor="middle">CH1</text>
+  <circle cx="740" cy="348" r="7" fill="white" stroke="black" stroke-width="1.8"/>
+  <circle cx="740" cy="348" r="3" fill="#555"/>
+  <text x="740" y="366" font-size="8" fill="black" text-anchor="middle">CH2</text>
+
+  <!-- ===== CÂBLES DE CONNEXION ===== -->
+
+  <!-- Câble GÉNÉ OUTPUT → HP -->
+  <path d="M110,165 L110,296 L240,296" stroke="black" stroke-width="1.8" fill="none" stroke-linejoin="round"/>
+  <text x="175" y="285" font-size="8" fill="black" text-anchor="middle" transform="rotate(-90,175,300)"></text>
+  <!-- label câble -->
+  <text x="165" y="310" font-size="8" fill="black">Signal sinusoïdal</text>
+
+  <!-- Câble Micro 1 → CH1 oscillo -->
+  <path d="M480,275 L480,220 L690,220 L690,341" stroke="black" stroke-width="1.8" fill="none" stroke-linejoin="round"/>
+
+  <!-- Câble Micro 2 → CH2 oscillo -->
+  <path d="M570,275 L570,200 L740,200 L740,341" stroke="black" stroke-width="1.5" fill="none" stroke-dasharray="6,3" stroke-linejoin="round"/>
+
+  <!-- Câble TTL → Oscillo EXT TRIG (optionnel) -->
+  <path d="M148,165 L148,180 L800,180 L800,218" stroke="#555" stroke-width="1.2" fill="none" stroke-dasharray="4,3" stroke-linejoin="round"/>
+  <text x="490" y="177" font-size="7.5" fill="#555" text-anchor="middle">(optionnel) TTL → trig ext oscillo</text>
+
+  <!-- Ondes sonores entre HP et micro 1 -->
+  <path d="M300,295 Q330,285 360,295 Q390,305 420,295 Q450,285 470,295" stroke="black" stroke-width="1" fill="none" stroke-dasharray="3,3"/>
+  <text x="385" y="315" font-size="8" fill="black" text-anchor="middle">ondes sonores →</text>
+
+  <!-- ===== LÉGENDE CÂBLES ===== -->
+  <rect x="30" y="390" width="320" height="90" rx="5" fill="white" stroke="black" stroke-width="1.2"/>
+  <text x="190" y="407" font-size="10" font-weight="bold" fill="black" text-anchor="middle">Légende des connexions</text>
+  <line x1="45" y1="420" x2="90" y2="420" stroke="black" stroke-width="1.8"/>
+  <text x="100" y="424" font-size="9" fill="black">Câble coaxial BNC (signal sinusoïdal)</text>
+  <line x1="45" y1="440" x2="90" y2="440" stroke="black" stroke-width="1.8" stroke-dasharray="6,3"/>
+  <text x="100" y="444" font-size="9" fill="black">Câble coaxial BNC (micro 2 → CH2)</text>
+  <line x1="45" y1="460" x2="90" y2="460" stroke="#555" stroke-width="1.2" stroke-dasharray="4,2"/>
+  <text x="100" y="464" font-size="9" fill="#555">Câble optionnel (TTL → trig. externe)</text>
+  <path d="M45,475 Q55,470 65,475 Q75,480 85,475" stroke="black" stroke-width="1" fill="none" stroke-dasharray="3,3"/>
+  <text x="100" y="479" font-size="9" fill="black">Propagation sonore dans l'air</text>
+
+  <!-- ===== MODE D'EMPLOI ===== -->
+  <rect x="30" y="495" width="840" height="118" rx="5" fill="#f9f9f9" stroke="black" stroke-width="1.2"/>
+  <text x="450" y="514" font-size="11" font-weight="bold" fill="black" text-anchor="middle">Mode d'emploi — Branchements</text>
+  <text x="45" y="532" font-size="9" fill="black">1. Relier la sortie OUTPUT du générateur à l'entrée du haut-parleur (câble BNC → jack ou bornes).</text>
+  <text x="45" y="548" font-size="9" fill="black">2. Régler le générateur sur onde sinusoïdale (~), fréquence entre 1 kHz et 10 kHz, amplitude modérée.</text>
+  <text x="45" y="564" font-size="9" fill="black">3. Relier le micro 1 (plus proche du HP) à l'entrée CH1 de l'oscilloscope ; le micro 2 (plus loin) à l'entrée CH2.</text>
+  <text x="45" y="580" font-size="9" fill="black">4. (Optionnel) Relier TTL OUT du générateur à l'entrée EXT TRIG de l'oscilloscope pour synchroniser l'affichage.</text>
+  <text x="45" y="596" font-size="9" fill="black">5. Mesurer le déphasage Δt entre les deux signaux sur l'oscillo, puis calculer : v = d / Δt  (d = distance inter-micros).</text>
+  <text x="45" y="610" font-size="9" fill="black">6. Faire varier la fréquence ou la distance d et répéter pour améliorer la précision (≈ 340 m/s à 20 °C).</text>
+
+</svg>
