@@ -93,7 +93,7 @@ export const products = [
     obligation: ["GANTS", "BLOUSE", "HOTTE"],
     image: "acide_nitrique.jpg",
     fds: "FicheTox_9.pdf",
-    dangers: ["H272", "H314"]
+    dangers: ["H272", "H314", "P210", "P221", "P303+P361+P353", "P305+P351+P338", "P310", "P405", "P501"]
   },
   {
     cas: "79-09-4",
