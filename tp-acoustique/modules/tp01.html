@@ -10,13 +10,13 @@
 <link rel="stylesheet" href="tp-acoustique/css/tp01.css">
 </head>
 <body>
- 
+
 <!-- ════════════════════════════════════════════════
      HERO
 ════════════════════════════════════════════════ -->
 <header class="hero">
   <div class="container hero-grid">
- 
+
     <div>
       <p class="eyebrow">TP Acoustique · Ondes mécaniques</p>
       <h1>Quelle vitesse pour une onde sonore ?</h1>
@@ -34,7 +34,7 @@
         parcouru exactement une longueur d'onde.
       </p>
     </div>
- 
+
     <!-- Oscilloscope interactif -->
     <div class="scope-wrap">
       <div class="scope-bezel">
@@ -65,10 +65,10 @@
       <div class="scope-readout" id="scopeReadout">f = 1 000 Hz · d = 20 cm</div>
       <div class="delta-display" id="deltaDisplay">Δt = 0.59 ms · λ = 34.0 cm</div>
     </div>
- 
+
   </div>
 </header>
- 
+
 <!-- ════════════════════════════════════════════════
      THÉORIE
 ════════════════════════════════════════════════ -->
@@ -98,7 +98,7 @@
     </div>
   </div>
 </section>
- 
+
 <!-- ════════════════════════════════════════════════
      MATÉRIEL
 ════════════════════════════════════════════════ -->
@@ -107,7 +107,10 @@
     <p class="eyebrow">Avant de commencer</p>
     <h2>Matériel nécessaire</h2>
     <div class="mat-grid">
-      <div class="mat-card"><span class="mat-icon">🔊</span><div><strong>GBF</strong><br>Lodestar LS3002B (2 MHz)</div></div>
+      <div class="mat-card">
+        <img src="tp-acoustique/assets/images/lodestar_ls3002b.svg" alt="GBF Lodestar LS3002B" style="width: 60px; height: auto;">
+        <div><strong>GBF</strong><br>Lodestar LS3002B (2 MHz)</div>
+      </div>
       <div class="mat-card"><span class="mat-icon">📢</span><div><strong>Haut-parleur</strong><br>8 Ω, impédance adaptée</div></div>
       <div class="mat-card"><span class="mat-icon">🎤</span><div><strong>2 microphones</strong><br>Electret, sortie jack ou BNC</div></div>
       <div class="mat-card"><span class="mat-icon">📺</span><div><strong>Oscilloscope</strong><br>2 voies, curseurs Δt</div></div>
@@ -116,7 +119,7 @@
     </div>
   </div>
 </section>
- 
+
 <!-- ════════════════════════════════════════════════
      SCHÉMA DE CÂBLAGE
 ════════════════════════════════════════════════ -->
@@ -128,146 +131,11 @@
       Les repères numérotés correspondent exactement à la liste des branchements.
     </p>
     <div class="wiring-wrap">
- 
-      <!-- SVG schéma -->
+      <!-- Image du schéma de câblage -->
       <div class="wiring-svg-frame">
-        <svg viewBox="0 0 660 420" role="img" aria-labelledby="wT wD">
-          <title id="wT">Schéma de montage — vitesse du son avec GBF et oscilloscope</title>
-          <desc id="wD">GBF relié au haut-parleur ; deux micros en ligne reliés aux voies CH1 et CH2 de l'oscilloscope.</desc>
- 
-          <!-- ── GBF ── -->
-          <rect x="10" y="30" width="130" height="85" rx="5" fill="white" stroke="#0f1c1d" stroke-width="2"/>
-          <rect x="10" y="30" width="130" height="16" rx="5" fill="#0f1c1d"/>
-          <rect x="10" y="38" width="130" height="8" fill="#0f1c1d"/>
-          <text x="75" y="43" class="svg-lbl" font-size="9" fill="white" text-anchor="middle" font-weight="700">GBF — LS3002B</text>
-          <!-- écran GBF -->
-          <rect x="20" y="54" width="55" height="22" rx="2" fill="#111" stroke="#333" stroke-width="1"/>
-          <text x="47" y="69" class="svg-lbl-sm" fill="#39ff8f" text-anchor="middle">1 000 Hz</text>
-          <!-- sélecteur onde -->
-          <text x="90" y="65" class="svg-lbl-sm" fill="#0f1c1d" text-anchor="middle">∿  □  ∧</text>
-          <!-- BNC OUTPUT -->
-          <circle cx="75" cy="100" r="8" fill="white" stroke="#0f1c1d" stroke-width="1.8"/>
-          <circle cx="75" cy="100" r="3.5" fill="#555"/>
-          <text x="75" y="118" class="svg-lbl-sm" text-anchor="middle">OUTPUT</text>
-          <!-- TTL (optionnel) -->
-          <circle cx="115" cy="100" r="6" fill="white" stroke="#0f1c1d" stroke-width="1.5"/>
-          <circle cx="115" cy="100" r="2.5" fill="#555"/>
-          <text x="115" y="118" class="svg-lbl-sm" text-anchor="middle">TTL</text>
- 
-          <!-- ── câble GBF → HP ── -->
-          <line x1="75" y1="108" x2="75" y2="175" stroke="#0f1c1d" stroke-width="2"/>
-          <line x1="75" y1="175" x2="200" y2="175" stroke="#0f1c1d" stroke-width="2"/>
-          <!-- marqueur 1 -->
-          <circle cx="120" cy="175" r="11" class="svg-num-circle"/>
-          <text x="120" y="176" class="svg-num-text">1</text>
- 
-          <!-- ── HAUT-PARLEUR ── -->
-          <polygon points="200,158 248,168 248,204 200,214" fill="white" stroke="#0f1c1d" stroke-width="2"/>
-          <rect x="180" y="172" width="20" height="28" fill="white" stroke="#0f1c1d" stroke-width="2"/>
-          <text x="220" y="236" class="svg-lbl-bold" text-anchor="middle">Haut-parleur</text>
- 
-          <!-- ondes sonores -->
-          <path d="M252,186 Q270,178 282,186 Q294,194 306,186" stroke="#0f1c1d" stroke-width="1" fill="none" stroke-dasharray="3,2"/>
-          <path d="M252,186 Q275,170 292,186 Q309,202 326,186" stroke="#0f1c1d" stroke-width="1" fill="none" stroke-dasharray="3,2" opacity=".5"/>
-          <text x="290" y="220" class="svg-lbl-sm" text-anchor="middle">ondes →</text>
- 
-          <!-- ── RÈGLE ── -->
-          <rect x="160" y="266" width="440" height="12" fill="white" stroke="#0f1c1d" stroke-width="1.5"/>
-          <text x="162" y="262" class="svg-lbl-sm">0 cm</text>
-          <text x="578" y="262" class="svg-lbl-sm">80 cm</text>
-          <!-- graduations -->
-          <line x1="215" y1="266" x2="215" y2="270" stroke="#0f1c1d" stroke-width="1"/>
-          <line x1="270" y1="266" x2="270" y2="270" stroke="#0f1c1d" stroke-width="1"/>
-          <line x1="325" y1="266" x2="325" y2="270" stroke="#0f1c1d" stroke-width="1"/>
-          <line x1="380" y1="266" x2="380" y2="270" stroke="#0f1c1d" stroke-width="1"/>
-          <line x1="435" y1="266" x2="435" y2="270" stroke="#0f1c1d" stroke-width="1"/>
-          <line x1="490" y1="266" x2="490" y2="270" stroke="#0f1c1d" stroke-width="1"/>
-          <line x1="545" y1="266" x2="545" y2="270" stroke="#0f1c1d" stroke-width="1"/>
- 
-          <!-- ── MICRO 1 ── -->
-          <ellipse cx="330" cy="242" rx="10" ry="16" fill="white" stroke="#0f1c1d" stroke-width="2"/>
-          <line x1="330" y1="258" x2="330" y2="266" stroke="#0f1c1d" stroke-width="2"/>
-          <!-- grillage micro -->
-          <line x1="322" y1="235" x2="338" y2="235" stroke="#0f1c1d" stroke-width="0.7"/>
-          <line x1="322" y1="242" x2="338" y2="242" stroke="#0f1c1d" stroke-width="0.7"/>
-          <text x="330" y="220" class="svg-lbl-bold" text-anchor="middle">Micro 1</text>
- 
-          <!-- ── MICRO 2 ── -->
-          <ellipse cx="470" cy="242" rx="10" ry="16" fill="white" stroke="#0f1c1d" stroke-width="2"/>
-          <line x1="470" y1="258" x2="470" y2="266" stroke="#0f1c1d" stroke-width="2"/>
-          <line x1="462" y1="235" x2="478" y2="235" stroke="#0f1c1d" stroke-width="0.7"/>
-          <line x1="462" y1="242" x2="478" y2="242" stroke="#0f1c1d" stroke-width="0.7"/>
-          <text x="470" y="220" class="svg-lbl-bold" text-anchor="middle">Micro 2</text>
- 
-          <!-- distance d -->
-          <defs>
-            <marker id="arr" markerWidth="7" markerHeight="7" refX="3.5" refY="3.5" orient="auto">
-              <path d="M0,0 L7,3.5 L0,7 Z" fill="#c0392b"/>
-            </marker>
-            <marker id="arrl" markerWidth="7" markerHeight="7" refX="3.5" refY="3.5" orient="auto-start-reverse">
-              <path d="M0,0 L7,3.5 L0,7 Z" fill="#c0392b"/>
-            </marker>
-          </defs>
-          <line x1="330" y1="302" x2="470" y2="302" stroke="#c0392b" stroke-width="1.5" marker-start="url(#arrl)" marker-end="url(#arr)"/>
-          <text x="400" y="318" class="svg-lbl" fill="#c0392b" font-weight="700" text-anchor="middle">d (mesurer à la règle)</text>
- 
-          <!-- ── câble Micro1 → CH1 ── -->
-          <line x1="330" y1="242" x2="330" y2="340" stroke="#0f1c1d" stroke-width="1.8"/>
-          <line x1="330" y1="340" x2="570" y2="340" stroke="#0f1c1d" stroke-width="1.8"/>
-          <line x1="570" y1="340" x2="570" y2="380" stroke="#0f1c1d" stroke-width="1.8"/>
-          <!-- marqueur 2 -->
-          <circle cx="390" cy="340" r="11" class="svg-num-circle"/>
-          <text x="390" y="341" class="svg-num-text">2</text>
- 
-          <!-- ── câble Micro2 → CH2 ── -->
-          <line x1="470" y1="242" x2="470" y2="355" stroke="#0f1c1d" stroke-width="1.5" stroke-dasharray="6,3"/>
-          <line x1="470" y1="355" x2="600" y2="355" stroke="#0f1c1d" stroke-width="1.5" stroke-dasharray="6,3"/>
-          <line x1="600" y1="355" x2="600" y2="380" stroke="#0f1c1d" stroke-width="1.5" stroke-dasharray="6,3"/>
-          <!-- marqueur 3 -->
-          <circle cx="530" cy="355" r="11" class="svg-num-circle"/>
-          <text x="530" y="356" class="svg-num-text">3</text>
- 
-          <!-- ── OSCILLOSCOPE ── -->
-          <rect x="510" y="10" width="145" height="100" rx="5" fill="white" stroke="#0f1c1d" stroke-width="2"/>
-          <rect x="510" y="10" width="145" height="14" rx="5" fill="#0f1c1d"/>
-          <rect x="510" y="18" width="145" height="6" fill="#0f1c1d"/>
-          <text x="582" y="21" class="svg-lbl" fill="white" text-anchor="middle" font-weight="700" font-size="9">OSCILLOSCOPE</text>
-          <!-- écran -->
-          <rect x="520" y="28" width="80" height="55" rx="2" fill="#0a1a12" stroke="#1e3d28" stroke-width="1"/>
-          <!-- grille oscillo -->
-          <line x1="540" y1="28" x2="540" y2="83" stroke="#1e3d28" stroke-width="0.5"/>
-          <line x1="560" y1="28" x2="560" y2="83" stroke="#1e3d28" stroke-width="0.5"/>
-          <line x1="580" y1="28" x2="580" y2="83" stroke="#1e3d28" stroke-width="0.5"/>
-          <line x1="520" y1="45" x2="600" y2="45" stroke="#1e3d28" stroke-width="0.5"/>
-          <line x1="520" y1="60" x2="600" y2="60" stroke="#1e3d28" stroke-width="0.5"/>
-          <!-- signaux -->
-          <path d="M522,50 Q530,37 538,50 Q546,63 554,50 Q562,37 570,50 Q578,63 586,50 Q594,37 599,44"
-                stroke="#39ff8f" stroke-width="1.3" fill="none"/>
-          <path d="M522,58 Q530,45 538,58 Q546,71 554,58 Q562,45 570,58 Q578,71 586,58 Q594,45 599,52"
-                stroke="#f0c040" stroke-width="1.1" fill="none" stroke-dasharray="3,2"/>
-          <!-- BNC CH1 / CH2 -->
-          <circle cx="570" cy="95" r="6" fill="white" stroke="#0f1c1d" stroke-width="1.5"/>
-          <circle cx="570" cy="95" r="2.5" fill="#555"/>
-          <text x="570" y="110" class="svg-lbl-sm" text-anchor="middle">CH1</text>
-          <circle cx="600" cy="95" r="6" fill="white" stroke="#0f1c1d" stroke-width="1.5"/>
-          <circle cx="600" cy="95" r="2.5" fill="#555"/>
-          <text x="600" y="110" class="svg-lbl-sm" text-anchor="middle">CH2</text>
-          <!-- connexions BNC vers fils -->
-          <line x1="570" y1="101" x2="570" y2="380" stroke="#0f1c1d" stroke-width="1.8"/>
-          <line x1="600" y1="101" x2="600" y2="380" stroke="#0f1c1d" stroke-width="1.5" stroke-dasharray="6,3"/>
- 
-          <!-- câble TTL → EXT TRIG (optionnel) -->
-          <line x1="115" y1="106" x2="115" y2="10" stroke="#777" stroke-width="1.2" stroke-dasharray="4,3"/>
-          <line x1="115" y1="10" x2="510" y2="10" stroke="#777" stroke-width="1.2" stroke-dasharray="4,3"/>
-          <text x="310" y="8" class="svg-lbl-sm" fill="#777" text-anchor="middle">TTL → EXT TRIG (optionnel)</text>
- 
-          <!-- marqueur 4 optionnel -->
-          <circle cx="160" cy="10" r="10" fill="#777"/>
-          <text x="160" y="11" class="svg-num-text">4</text>
- 
-        </svg>
+        <img src="tp-acoustique/assets/images/tp_vitesse_son.svg" alt="Schéma de montage — vitesse du son avec GBF et oscilloscope" style="width: 100%; height: auto; display: block;">
       </div>
- 
+
       <!-- Liste branchements -->
       <div>
         <h3 style="margin-bottom:20px; font-family:var(--sans)">Branchements numérotés</h3>
@@ -294,7 +162,7 @@
             l'affichage sans toucher aux réglages de déclenchement.
           </li>
         </ol>
- 
+
         <div class="warn-box">
           <strong>Réglages oscilloscope :</strong><br>
           • Base de temps : 0.5 ms/div à 0.1 ms/div selon la fréquence<br>
@@ -307,7 +175,7 @@
     </div>
   </div>
 </section>
- 
+
 <!-- ════════════════════════════════════════════════
      COMMENT LIRE L'OSCILLO
 ════════════════════════════════════════════════ -->
@@ -335,7 +203,7 @@
     </div>
   </div>
 </section>
- 
+
 <!-- ════════════════════════════════════════════════
      TABLEAU DE MESURES
 ════════════════════════════════════════════════ -->
@@ -371,7 +239,7 @@
       <button class="btn-primary" id="btnCalc">Calculer les résultats</button>
     </div>
     <div class="field-error" id="fieldError" role="alert" aria-live="assertive"></div>
- 
+
     <div class="results-panel" id="resultsPanel">
       <h3>Résultats statistiques</h3>
       <div class="results-grid">
@@ -400,7 +268,7 @@
     </div>
   </div>
 </section>
- 
+
 <footer>
   <div class="container">TP Acoustique — GBF LS3002B + Oscilloscope 2 voies · v = d / τ</div>
 </footer>
