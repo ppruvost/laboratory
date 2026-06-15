@@ -45,7 +45,7 @@ export const products = [
   obligation: ["LUNETTES", "GANTS", "BLOUSE"],
   image: "acide_butyrique.jpg",
   fds: "FDS_10792.pdf",
-  dangers: ["H314"]
+  dangers: ["H314", "P260", "P264", "P280", "P301", "P330", "P331", "P303", "P361", "P353"]
 },
   {
     cas: "7647-01-0",
