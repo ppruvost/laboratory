@@ -101,9 +101,11 @@ export const dangerDB = [
 {code:"P301", cat:"Intervention", text:"EN CAS D’INGESTION"},
 {code:"P303", cat:"Intervention", text:"EN CAS DE CONTACT AVEC LA PEAU (ou les cheveux)"},
 {code:"P310", cat:"Intervention", text:"Appeler immédiatement un CENTRE ANTIPOISON ou un médecin"},
+{code:"P313", cat:"Intervention", text:"Consulter un médecin"},
    
 {code:"P330", cat:"Intervention", text:"Rincer la bouche"},
 {code:"P331", cat:"Intervention", text:"NE PAS faire vomir"},
+{code:"P337", cat:"Intervention", text:"Si l’irritation oculaire persiste"},
 
 {code:"P353", cat:"Intervention", text:"Rincer la peau à l’eau ou se doucher"},
 
@@ -116,8 +118,9 @@ export const dangerDB = [
 
 {code:"P305+P351+P338", cat:"Intervention", text:"EN CAS DE CONTACT AVEC LES YEUX : rincer avec précaution à l’eau pendant plusieurs minutes. Enlever les lentilles de contact si la victime en porte et si elles peuvent être facilement enlevées. Continuer à rincer"},
 {code:"P301+P330+P331", cat:"Intervention", text:"EN CAS D’INGESTION : rincer la bouche. NE PAS faire vomir"},
-{code:"P303+P361+P353", cat:"Intervention", text:"EN CAS DE CONTACT AVEC LA PEAU (ou les cheveux) : enlever immédiatement tous les vêtements contaminés. Rincer la peau à l’eau ou se doucher"},
-{code:"P310+P405+P501", cat:"Intervention/Stockage/Élimination", text:"Appeler immédiatement un CENTRE ANTIPOISON ou un médecin. Garder sous clef. Éliminer le contenu conformément à la réglementation"}
+{code:"P305+P351+P338", cat:"Intervention", text:"EN CAS DE CONTACT AVEC LES YEUX : rincer avec précaution à l’eau pendant plusieurs minutes. Enlever les lentilles de contact si la victime en porte et si elles peuvent être facilement enlevées. Continuer à rincer"},   
+{code:"P310+P405+P501", cat:"Intervention/Stockage/Élimination", text:"Appeler immédiatement un CENTRE ANTIPOISON ou un médecin. Garder sous clef. Éliminer le contenu conformément à la réglementation"},
 
+{code:"P337+P313", cat:"Intervention", text:"Si l’irritation oculaire persiste : consulter un médecin"}
 
 ];
