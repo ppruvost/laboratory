@@ -10,337 +10,400 @@
 <link rel="stylesheet" href="tp-acoustique/css/tp01.css">
 </head>
 <body>
-
-<!-- ============================================================ -->
-<!-- HERO — la thèse : v = λ × f, deux micros, un déphasage       -->
-<!-- ============================================================ -->
+ 
+<!-- ════════════════════════════════════════════════
+     HERO
+════════════════════════════════════════════════ -->
 <header class="hero">
   <div class="container hero-grid">
+ 
     <div>
       <p class="eyebrow">TP Acoustique · Ondes mécaniques</p>
       <h1>Quelle vitesse pour une onde sonore ?</h1>
       <p class="lede">
-        Un haut-parleur émet un son pur. Deux microphones, séparés
-        d'une distance <span class="formula-inline" style="font-family:var(--mono)">d</span>,
-        captent le même signal avec un léger retard. En mesurant ce
-        déphasage pour une fréquence connue, on remonte à la célérité
-        du son dans l'air.
+        Le GBF (Lodestar LS3002B) impose au haut-parleur une sinusoïde
+        de fréquence <span class="fi">f</span> connue. Deux microphones
+        espacés d'une distance <span class="fi">d</span> capte le même
+        signal avec un retard <span class="fi">τ</span> visible à
+        l'oscilloscope sur deux voies distinctes.
       </p>
-      <div class="formula">v = λ · f</div>
+      <div class="formula">v = d / τ</div>
       <p class="lede">
-        Faites glisser le réglage ci-contre : observez comment, lorsque
-        le micro 2 se retrouve <em>en phase</em> avec le
-        micro 1 une distance d entière de longueurs d'onde,
-        on peut lire λ directement sur l'écran.
+        Glissez les curseurs pour simuler ce que vous verriez sur
+        l'oscilloscope — quand les signaux sont en phase, vous avez
+        parcouru exactement une longueur d'onde.
       </p>
     </div>
-
-    <div class="scope">
-      <div class="scope-screen">
-        <svg id="scopeSvg" viewBox="0 0 400 200" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
-          <!-- grid -->
-          <g id="scopeGrid"></g>
-          <line x1="0" y1="100" x2="400" y2="100" class="scope-grid-line" stroke="rgba(127,255,176,0.18)"/>
-          <path id="waveMic1" class="wave-mic1" d=""/>
-          <path id="waveMic2" class="wave-mic2" d=""/>
-        </svg>
+ 
+    <!-- Oscilloscope interactif -->
+    <div class="scope-wrap">
+      <div class="scope-bezel">
+        <div class="scope-screen">
+          <svg id="scopeSvg" viewBox="0 0 400 200" preserveAspectRatio="xMidYMid meet">
+            <!-- grille -->
+            <g id="scopeGrid"></g>
+            <path id="wCH1" stroke="#39ff8f" stroke-width="2" fill="none"/>
+            <path id="wCH2" stroke="#f0c040" stroke-width="1.5" fill="none" stroke-dasharray="6 3"/>
+            <!-- labels voies -->
+            <text x="8" y="18" font-family="monospace" font-size="10" fill="#39ff8f">CH1</text>
+            <text x="8" y="32" font-family="monospace" font-size="10" fill="#f0c040">CH2</text>
+          </svg>
+        </div>
       </div>
-      <div class="legend-row">
-        <span><span class="legend-dot dot-phosphor"></span>Micro 1 (référence)</span>
-        <span><span class="legend-dot dot-amber"></span>Micro 2 (décalé de d)</span>
+      <div class="scope-label-row">
+        <span><span class="dot dot-p"></span>CH1 — Micro 1 (référence)</span>
+        <span><span class="dot dot-a"></span>CH2 — Micro 2 (décalé de d)</span>
       </div>
       <div class="scope-controls">
-        <label>Fréquence
-          <input type="range" id="freqRange" min="100" max="2000" step="10" value="850">
+        <label>Fréquence  <span id="fLabel" style="color:var(--phosphor)">1 000 Hz</span>
+          <input type="range" id="freqRange" min="200" max="5000" step="50" value="1000">
         </label>
-        <label>Distance d (cm)
-          <input type="range" id="distRange" min="5" max="80" step="0.5" value="40">
+        <label>Distance d (cm)  <span id="dLabel" style="color:var(--ch2)">20 cm</span>
+          <input type="range" id="distRange" min="5" max="80" step="0.5" value="20">
         </label>
       </div>
-      <div class="scope-readout" id="scopeReadout">f = 850 Hz · d = 40 cm</div>
+      <div class="scope-readout" id="scopeReadout">f = 1 000 Hz · d = 20 cm</div>
+      <div class="delta-display" id="deltaDisplay">Δt = 0.59 ms · λ = 34.0 cm</div>
     </div>
+ 
   </div>
 </header>
-
-<!-- ============================================================ -->
-<!-- THEORY                                                        -->
-<!-- ============================================================ -->
-<section class="on-paper">
+ 
+<!-- ════════════════════════════════════════════════
+     THÉORIE
+════════════════════════════════════════════════ -->
+<section>
   <div class="container">
     <p class="eyebrow">Le phénomène physique</p>
     <h2>De la fréquence à la vitesse</h2>
-    <p class="lede" style="color:var(--text-ink-soft)">
-      Le GBF impose au haut-parleur une vibration sinusoïdale de
-      fréquence <span class="formula-inline">f</span>, connue avec
-      précision. Cette vibration se propage dans l'air sous forme
-      d'une onde de longueur d'onde <span class="formula-inline">λ</span>.
-      Les deux microphones, séparés d'une distance <span class="formula-inline">d</span>,
-      enregistrent le signal avec un décalage temporel
-      <span class="formula-inline">τ</span>.
+    <p class="lede" style="color:var(--ink-soft)">
+      Trois relations suffisent à exploiter le montage.
     </p>
-
     <div class="theory-grid">
       <div class="theory-card">
-        <p class="num">01 — Relation de propagation</p>
+        <p class="step">Relation fondamentale</p>
         <h3>v = λ · f</h3>
-        <p>
-          Toute onde périodique vérifie cette relation entre célérité,
-          longueur d'onde et fréquence. C'est la loi que ce TP cherche
-          à vérifier numériquement.
-        </p>
+        <p>Toute onde périodique vérifie cette relation. On connaît <span class="fi">f</span> (affiché par le GBF) ; on mesure <span class="fi">λ</span> ou <span class="fi">τ</span> à l'oscilloscope.</p>
       </div>
       <div class="theory-card">
-        <p class="num">02 — Mesure du décalage</p>
+        <p class="step">Mesure du retard</p>
         <h3>τ = d / v</h3>
-        <p>
-          La fenêtre d'acquisition affiche les deux signaux temporels.
-          Le retard <span class="formula-inline">τ</span> entre les deux
-          courbes, combiné à la distance <span class="formula-inline">d</span>
-          mesurée à la règle, donne directement <span class="formula-inline">v = d / τ</span>.
-        </p>
+        <p>Sur l'oscilloscope, le curseur temporel mesure le décalage <span class="fi">τ</span> entre CH1 et CH2. Combiné à <span class="fi">d</span> mesuré à la règle : <span class="fi">v = d / τ</span>.</p>
       </div>
       <div class="theory-card">
-        <p class="num">03 — Vérification</p>
+        <p class="step">Vérification</p>
         <h3>v ≈ 340 m·s⁻¹</h3>
-        <p>
-          La valeur trouvée doit être comparée à la valeur théorique
-          de la vitesse du son dans l'air à température ambiante
-          (≈ 340 m·s⁻¹ à 15 °C), pour discuter de l'incertitude de mesure.
-        </p>
+        <p>Valeur attendue à 15 °C dans l'air. Comparez votre résultat et calculez l'écart relatif pour discuter de l'incertitude de mesure.</p>
       </div>
     </div>
   </div>
 </section>
-
-<!-- ============================================================ -->
-<!-- EQUIPEMENT (chargé depuis equipement.json)                    -->
-<!-- ============================================================ -->
-<section id="materiel">
+ 
+<!-- ════════════════════════════════════════════════
+     MATÉRIEL
+════════════════════════════════════════════════ -->
+<section class="alt">
   <div class="container">
     <p class="eyebrow">Avant de commencer</p>
     <h2>Matériel nécessaire</h2>
-    <p class="lede">La liste ci-dessous est chargée automatiquement depuis <code>equipement.json</code>.</p>
-    <ul id="equipement-liste" aria-live="polite"></ul>
+    <div class="mat-grid">
+      <div class="mat-card"><span class="mat-icon">🔊</span><div><strong>GBF</strong><br>Lodestar LS3002B (2 MHz)</div></div>
+      <div class="mat-card"><span class="mat-icon">📢</span><div><strong>Haut-parleur</strong><br>8 Ω, impédance adaptée</div></div>
+      <div class="mat-card"><span class="mat-icon">🎤</span><div><strong>2 microphones</strong><br>Electret, sortie jack ou BNC</div></div>
+      <div class="mat-card"><span class="mat-icon">📺</span><div><strong>Oscilloscope</strong><br>2 voies, curseurs Δt</div></div>
+      <div class="mat-card"><span class="mat-icon">📏</span><div><strong>Règle graduée</strong><br>1 m minimum</div></div>
+      <div class="mat-card"><span class="mat-icon">🔌</span><div><strong>Câbles BNC</strong><br>× 3 (OUTPUT, CH1, CH2)</div></div>
+    </div>
   </div>
 </section>
-
-<!-- ============================================================ -->
-<!-- WIRING DIAGRAM                                                -->
-<!-- ============================================================ -->
-<section class="on-paper">
+ 
+<!-- ════════════════════════════════════════════════
+     SCHÉMA DE CÂBLAGE
+════════════════════════════════════════════════ -->
+<section>
   <div class="container">
     <p class="eyebrow">Montage expérimental</p>
     <h2>Schéma de câblage</h2>
-    <p class="lede" style="color:var(--text-ink-soft)">
-      Suivez les repères numérotés sur le schéma : ils correspondent
-      exactement aux branchements listés à droite.
+    <p class="lede" style="color:var(--ink-soft)">
+      Les repères numérotés correspondent exactement à la liste des branchements.
     </p>
-
     <div class="wiring-wrap">
+ 
+      <!-- SVG schéma -->
       <div class="wiring-svg-frame">
-        <svg viewBox="0 0 640 380" role="img" aria-labelledby="wiringTitle wiringDesc">
-          <title id="wiringTitle">Schéma de montage du dispositif de mesure de la vitesse du son</title>
-          <desc id="wiringDesc">
-            Un GBF alimente un haut-parleur. Deux microphones, micro 1 et
-            micro 2, sont disposés le long d'une règle graduée et reliés
-            respectivement au capteur 1 et au capteur 2 du système
-            d'acquisition, lui-même relié à l'ordinateur.
-          </desc>
-
-          <!-- GBF box -->
-          <rect x="20" y="40" width="110" height="70" rx="6" fill="#fff" stroke="#0f2d2e" stroke-width="2"/>
-          <text x="75" y="70" text-anchor="middle" class="svg-label" font-weight="700">GBF</text>
-          <text x="75" y="88" text-anchor="middle" class="svg-label" font-size="10">SORTIE OUT</text>
-
-          <!-- wire GBF -> haut-parleur -->
-          <line x1="130" y1="60" x2="200" y2="60" stroke="#0f2d2e" stroke-width="2"/>
-          <line x1="130" y1="90" x2="200" y2="90" stroke="#0f2d2e" stroke-width="2"/>
-
-          <!-- numbered marker 1 : sortie GBF -->
-          <circle cx="150" cy="75" r="11" class="svg-num-circle"/>
-          <text x="150" y="76" class="svg-num-text">1</text>
-
-          <!-- haut-parleur (trapeze) -->
-          <polygon points="200,45 250,55 250,95 200,105" fill="#fff" stroke="#0f2d2e" stroke-width="2"/>
-          <rect x="180" y="60" width="20" height="30" fill="#fff" stroke="#0f2d2e" stroke-width="2"/>
-          <text x="210" y="125" text-anchor="middle" class="svg-label">Haut-parleur</text>
-
-          <!-- ruler -->
-          <rect x="60" y="220" width="520" height="14" fill="#fff" stroke="#0f2d2e" stroke-width="2"/>
-          <text x="62" y="216" class="svg-label" font-size="10">0</text>
-          <text x="566" y="216" class="svg-label" font-size="10">100</text>
-
-          <!-- Micro 1 -->
-          <ellipse cx="180" cy="195" rx="10" ry="16" fill="#fff" stroke="#0f2d2e" stroke-width="2"/>
-          <line x1="180" y1="211" x2="180" y2="220" stroke="#0f2d2e" stroke-width="2"/>
-          <text x="180" y="170" text-anchor="middle" class="svg-label">Micro 1</text>
-
-          <!-- Micro 2 -->
-          <ellipse cx="460" cy="195" rx="10" ry="16" fill="#fff" stroke="#0f2d2e" stroke-width="2"/>
-          <line x1="460" y1="211" x2="460" y2="220" stroke="#0f2d2e" stroke-width="2"/>
-          <text x="460" y="170" text-anchor="middle" class="svg-label">Micro 2</text>
-
+        <svg viewBox="0 0 660 420" role="img" aria-labelledby="wT wD">
+          <title id="wT">Schéma de montage — vitesse du son avec GBF et oscilloscope</title>
+          <desc id="wD">GBF relié au haut-parleur ; deux micros en ligne reliés aux voies CH1 et CH2 de l'oscilloscope.</desc>
+ 
+          <!-- ── GBF ── -->
+          <rect x="10" y="30" width="130" height="85" rx="5" fill="white" stroke="#0f1c1d" stroke-width="2"/>
+          <rect x="10" y="30" width="130" height="16" rx="5" fill="#0f1c1d"/>
+          <rect x="10" y="38" width="130" height="8" fill="#0f1c1d"/>
+          <text x="75" y="43" class="svg-lbl" font-size="9" fill="white" text-anchor="middle" font-weight="700">GBF — LS3002B</text>
+          <!-- écran GBF -->
+          <rect x="20" y="54" width="55" height="22" rx="2" fill="#111" stroke="#333" stroke-width="1"/>
+          <text x="47" y="69" class="svg-lbl-sm" fill="#39ff8f" text-anchor="middle">1 000 Hz</text>
+          <!-- sélecteur onde -->
+          <text x="90" y="65" class="svg-lbl-sm" fill="#0f1c1d" text-anchor="middle">∿  □  ∧</text>
+          <!-- BNC OUTPUT -->
+          <circle cx="75" cy="100" r="8" fill="white" stroke="#0f1c1d" stroke-width="1.8"/>
+          <circle cx="75" cy="100" r="3.5" fill="#555"/>
+          <text x="75" y="118" class="svg-lbl-sm" text-anchor="middle">OUTPUT</text>
+          <!-- TTL (optionnel) -->
+          <circle cx="115" cy="100" r="6" fill="white" stroke="#0f1c1d" stroke-width="1.5"/>
+          <circle cx="115" cy="100" r="2.5" fill="#555"/>
+          <text x="115" y="118" class="svg-lbl-sm" text-anchor="middle">TTL</text>
+ 
+          <!-- ── câble GBF → HP ── -->
+          <line x1="75" y1="108" x2="75" y2="175" stroke="#0f1c1d" stroke-width="2"/>
+          <line x1="75" y1="175" x2="200" y2="175" stroke="#0f1c1d" stroke-width="2"/>
+          <!-- marqueur 1 -->
+          <circle cx="120" cy="175" r="11" class="svg-num-circle"/>
+          <text x="120" y="176" class="svg-num-text">1</text>
+ 
+          <!-- ── HAUT-PARLEUR ── -->
+          <polygon points="200,158 248,168 248,204 200,214" fill="white" stroke="#0f1c1d" stroke-width="2"/>
+          <rect x="180" y="172" width="20" height="28" fill="white" stroke="#0f1c1d" stroke-width="2"/>
+          <text x="220" y="236" class="svg-lbl-bold" text-anchor="middle">Haut-parleur</text>
+ 
+          <!-- ondes sonores -->
+          <path d="M252,186 Q270,178 282,186 Q294,194 306,186" stroke="#0f1c1d" stroke-width="1" fill="none" stroke-dasharray="3,2"/>
+          <path d="M252,186 Q275,170 292,186 Q309,202 326,186" stroke="#0f1c1d" stroke-width="1" fill="none" stroke-dasharray="3,2" opacity=".5"/>
+          <text x="290" y="220" class="svg-lbl-sm" text-anchor="middle">ondes →</text>
+ 
+          <!-- ── RÈGLE ── -->
+          <rect x="160" y="266" width="440" height="12" fill="white" stroke="#0f1c1d" stroke-width="1.5"/>
+          <text x="162" y="262" class="svg-lbl-sm">0 cm</text>
+          <text x="578" y="262" class="svg-lbl-sm">80 cm</text>
+          <!-- graduations -->
+          <line x1="215" y1="266" x2="215" y2="270" stroke="#0f1c1d" stroke-width="1"/>
+          <line x1="270" y1="266" x2="270" y2="270" stroke="#0f1c1d" stroke-width="1"/>
+          <line x1="325" y1="266" x2="325" y2="270" stroke="#0f1c1d" stroke-width="1"/>
+          <line x1="380" y1="266" x2="380" y2="270" stroke="#0f1c1d" stroke-width="1"/>
+          <line x1="435" y1="266" x2="435" y2="270" stroke="#0f1c1d" stroke-width="1"/>
+          <line x1="490" y1="266" x2="490" y2="270" stroke="#0f1c1d" stroke-width="1"/>
+          <line x1="545" y1="266" x2="545" y2="270" stroke="#0f1c1d" stroke-width="1"/>
+ 
+          <!-- ── MICRO 1 ── -->
+          <ellipse cx="330" cy="242" rx="10" ry="16" fill="white" stroke="#0f1c1d" stroke-width="2"/>
+          <line x1="330" y1="258" x2="330" y2="266" stroke="#0f1c1d" stroke-width="2"/>
+          <!-- grillage micro -->
+          <line x1="322" y1="235" x2="338" y2="235" stroke="#0f1c1d" stroke-width="0.7"/>
+          <line x1="322" y1="242" x2="338" y2="242" stroke="#0f1c1d" stroke-width="0.7"/>
+          <text x="330" y="220" class="svg-lbl-bold" text-anchor="middle">Micro 1</text>
+ 
+          <!-- ── MICRO 2 ── -->
+          <ellipse cx="470" cy="242" rx="10" ry="16" fill="white" stroke="#0f1c1d" stroke-width="2"/>
+          <line x1="470" y1="258" x2="470" y2="266" stroke="#0f1c1d" stroke-width="2"/>
+          <line x1="462" y1="235" x2="478" y2="235" stroke="#0f1c1d" stroke-width="0.7"/>
+          <line x1="462" y1="242" x2="478" y2="242" stroke="#0f1c1d" stroke-width="0.7"/>
+          <text x="470" y="220" class="svg-lbl-bold" text-anchor="middle">Micro 2</text>
+ 
           <!-- distance d -->
-          <line x1="180" y1="260" x2="460" y2="260" stroke="#e8a33d" stroke-width="2" marker-start="url(#arrow)" marker-end="url(#arrow)"/>
-          <text x="320" y="278" text-anchor="middle" class="svg-label" fill="#c9852a" font-weight="700">d</text>
-
           <defs>
-            <marker id="arrow" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto">
-              <path d="M0,0 L8,4 L0,8 Z" fill="#e8a33d"/>
+            <marker id="arr" markerWidth="7" markerHeight="7" refX="3.5" refY="3.5" orient="auto">
+              <path d="M0,0 L7,3.5 L0,7 Z" fill="#c0392b"/>
+            </marker>
+            <marker id="arrl" markerWidth="7" markerHeight="7" refX="3.5" refY="3.5" orient="auto-start-reverse">
+              <path d="M0,0 L7,3.5 L0,7 Z" fill="#c0392b"/>
             </marker>
           </defs>
-
-          <!-- wires micros -> capteurs -->
-          <line x1="180" y1="195" x2="180" y2="310" stroke="#0f2d2e" stroke-width="2"/>
-          <line x1="180" y1="310" x2="380" y2="310" stroke="#0f2d2e" stroke-width="2"/>
-          <line x1="460" y1="195" x2="460" y2="330" stroke="#0f2d2e" stroke-width="2"/>
-          <line x1="460" y1="330" x2="430" y2="330" stroke="#0f2d2e" stroke-width="2"/>
-
-          <!-- marker 2 : micro1 -> capteur1 -->
-          <circle cx="240" cy="310" r="11" class="svg-num-circle"/>
-          <text x="240" y="311" class="svg-num-text">2</text>
-
-          <!-- marker 3 : micro2 -> capteur2 -->
-          <circle cx="445" cy="330" r="11" class="svg-num-circle"/>
-          <text x="445" y="331" class="svg-num-text">3</text>
-
-          <!-- Capteur 1 -->
-          <rect x="380" y="295" width="70" height="30" rx="4" fill="#fff" stroke="#0f2d2e" stroke-width="2"/>
-          <text x="415" y="315" text-anchor="middle" class="svg-label" font-size="11">Capteur 1</text>
-
-          <!-- Capteur 2 -->
-          <rect x="380" y="315" width="70" height="30" rx="4" fill="#fff" stroke="#0f2d2e" stroke-width="2"/>
-          <text x="415" y="335" text-anchor="middle" class="svg-label" font-size="11">Capteur 2</text>
-
-          <!-- marker 4: capteur1 -> systeme -->
-          <circle cx="478" cy="310" r="11" class="svg-num-circle"/>
-          <text x="478" y="311" class="svg-num-text">4</text>
-          <!-- marker 5: capteur2 -> systeme -->
-          <circle cx="478" cy="330" r="11" class="svg-num-circle"/>
-          <text x="478" y="331" class="svg-num-text">5</text>
-
-          <!-- wires capteurs -> systeme acquisition -->
-          <line x1="450" y1="310" x2="540" y2="310" stroke="#0f2d2e" stroke-width="2"/>
-          <line x1="450" y1="330" x2="540" y2="330" stroke="#0f2d2e" stroke-width="2"/>
-
-          <!-- Systeme acquisition + fenetre -->
-          <rect x="540" y="40" width="80" height="300" rx="6" fill="#fff" stroke="#0f2d2e" stroke-width="2" stroke-dasharray="5 4"/>
-          <text x="580" y="60" text-anchor="middle" class="svg-label" font-size="10" font-weight="700">Système</text>
-          <text x="580" y="74" text-anchor="middle" class="svg-label" font-size="10" font-weight="700">d'acquisition</text>
-
-          <rect x="552" y="90" width="56" height="60" fill="#fff" stroke="#0f2d2e" stroke-width="1.5"/>
-          <text x="580" y="115" text-anchor="middle" class="svg-label" font-size="9">Fenêtre</text>
-          <text x="580" y="128" text-anchor="middle" class="svg-label" font-size="9">d'acquisition</text>
-
-          <!-- marker 6 : systeme -> ordinateur (USB) -->
-          <circle cx="580" cy="20" r="11" class="svg-num-circle"/>
-          <text x="580" y="21" class="svg-num-text">6</text>
-          <line x1="580" y1="40" x2="580" y2="29" stroke="#0f2d2e" stroke-width="2"/>
-
+          <line x1="330" y1="302" x2="470" y2="302" stroke="#c0392b" stroke-width="1.5" marker-start="url(#arrl)" marker-end="url(#arr)"/>
+          <text x="400" y="318" class="svg-lbl" fill="#c0392b" font-weight="700" text-anchor="middle">d (mesurer à la règle)</text>
+ 
+          <!-- ── câble Micro1 → CH1 ── -->
+          <line x1="330" y1="242" x2="330" y2="340" stroke="#0f1c1d" stroke-width="1.8"/>
+          <line x1="330" y1="340" x2="570" y2="340" stroke="#0f1c1d" stroke-width="1.8"/>
+          <line x1="570" y1="340" x2="570" y2="380" stroke="#0f1c1d" stroke-width="1.8"/>
+          <!-- marqueur 2 -->
+          <circle cx="390" cy="340" r="11" class="svg-num-circle"/>
+          <text x="390" y="341" class="svg-num-text">2</text>
+ 
+          <!-- ── câble Micro2 → CH2 ── -->
+          <line x1="470" y1="242" x2="470" y2="355" stroke="#0f1c1d" stroke-width="1.5" stroke-dasharray="6,3"/>
+          <line x1="470" y1="355" x2="600" y2="355" stroke="#0f1c1d" stroke-width="1.5" stroke-dasharray="6,3"/>
+          <line x1="600" y1="355" x2="600" y2="380" stroke="#0f1c1d" stroke-width="1.5" stroke-dasharray="6,3"/>
+          <!-- marqueur 3 -->
+          <circle cx="530" cy="355" r="11" class="svg-num-circle"/>
+          <text x="530" y="356" class="svg-num-text">3</text>
+ 
+          <!-- ── OSCILLOSCOPE ── -->
+          <rect x="510" y="10" width="145" height="100" rx="5" fill="white" stroke="#0f1c1d" stroke-width="2"/>
+          <rect x="510" y="10" width="145" height="14" rx="5" fill="#0f1c1d"/>
+          <rect x="510" y="18" width="145" height="6" fill="#0f1c1d"/>
+          <text x="582" y="21" class="svg-lbl" fill="white" text-anchor="middle" font-weight="700" font-size="9">OSCILLOSCOPE</text>
+          <!-- écran -->
+          <rect x="520" y="28" width="80" height="55" rx="2" fill="#0a1a12" stroke="#1e3d28" stroke-width="1"/>
+          <!-- grille oscillo -->
+          <line x1="540" y1="28" x2="540" y2="83" stroke="#1e3d28" stroke-width="0.5"/>
+          <line x1="560" y1="28" x2="560" y2="83" stroke="#1e3d28" stroke-width="0.5"/>
+          <line x1="580" y1="28" x2="580" y2="83" stroke="#1e3d28" stroke-width="0.5"/>
+          <line x1="520" y1="45" x2="600" y2="45" stroke="#1e3d28" stroke-width="0.5"/>
+          <line x1="520" y1="60" x2="600" y2="60" stroke="#1e3d28" stroke-width="0.5"/>
+          <!-- signaux -->
+          <path d="M522,50 Q530,37 538,50 Q546,63 554,50 Q562,37 570,50 Q578,63 586,50 Q594,37 599,44"
+                stroke="#39ff8f" stroke-width="1.3" fill="none"/>
+          <path d="M522,58 Q530,45 538,58 Q546,71 554,58 Q562,45 570,58 Q578,71 586,58 Q594,45 599,52"
+                stroke="#f0c040" stroke-width="1.1" fill="none" stroke-dasharray="3,2"/>
+          <!-- BNC CH1 / CH2 -->
+          <circle cx="570" cy="95" r="6" fill="white" stroke="#0f1c1d" stroke-width="1.5"/>
+          <circle cx="570" cy="95" r="2.5" fill="#555"/>
+          <text x="570" y="110" class="svg-lbl-sm" text-anchor="middle">CH1</text>
+          <circle cx="600" cy="95" r="6" fill="white" stroke="#0f1c1d" stroke-width="1.5"/>
+          <circle cx="600" cy="95" r="2.5" fill="#555"/>
+          <text x="600" y="110" class="svg-lbl-sm" text-anchor="middle">CH2</text>
+          <!-- connexions BNC vers fils -->
+          <line x1="570" y1="101" x2="570" y2="380" stroke="#0f1c1d" stroke-width="1.8"/>
+          <line x1="600" y1="101" x2="600" y2="380" stroke="#0f1c1d" stroke-width="1.5" stroke-dasharray="6,3"/>
+ 
+          <!-- câble TTL → EXT TRIG (optionnel) -->
+          <line x1="115" y1="106" x2="115" y2="10" stroke="#777" stroke-width="1.2" stroke-dasharray="4,3"/>
+          <line x1="115" y1="10" x2="510" y2="10" stroke="#777" stroke-width="1.2" stroke-dasharray="4,3"/>
+          <text x="310" y="8" class="svg-lbl-sm" fill="#777" text-anchor="middle">TTL → EXT TRIG (optionnel)</text>
+ 
+          <!-- marqueur 4 optionnel -->
+          <circle cx="160" cy="10" r="10" fill="#777"/>
+          <text x="160" y="11" class="svg-num-text">4</text>
+ 
         </svg>
       </div>
-
+ 
+      <!-- Liste branchements -->
       <div>
-        <h3>Branchements numérotés</h3>
+        <h3 style="margin-bottom:20px; font-family:var(--sans)">Branchements numérotés</h3>
         <ol class="conn-list">
-          <li><b>SORTIE / OUT</b> du GBF → entrée du <b>haut-parleur</b>. Vérifiez l'amplitude au minimum avant d'allumer.</li>
-          <li><b>Micro 1</b> → fiche <b>Capteur 1</b> du système d'acquisition.</li>
-          <li><b>Micro 2</b> → fiche <b>Capteur 2</b> du système d'acquisition.</li>
-          <li>Capteur 1 → entrée <b>EA1</b> du système d'acquisition (déjà câblé en interne).</li>
-          <li>Capteur 2 → entrée <b>EA2</b> du système d'acquisition.</li>
-          <li>Système d'acquisition → ordinateur via câble <b>USB</b>, pour ouvrir la fenêtre d'acquisition.</li>
+          <li>
+            <strong>OUTPUT</strong> du GBF →
+            entrée du <b>haut-parleur</b>.
+            Amplitude à 0 avant d'allumer ; sélectionner le signal
+            <b>sinusoïdal (∿)</b>, régler la fréquence entre 1 et 5 kHz.
+          </li>
+          <li>
+            <b>Micro 1</b> (placé près du HP, position fixe) →
+            <b>CH1</b> de l'oscilloscope via câble BNC.
+            Ce signal sert de <em>référence</em>.
+          </li>
+          <li>
+            <b>Micro 2</b> (mobile sur la règle) →
+            <b>CH2</b> de l'oscilloscope.
+            Déplacer ce micro et noter le retard <span class="fi" style="font-family:var(--mono)">τ</span>.
+          </li>
+          <li style="color:#777">
+            <em>(Optionnel)</em> <b>TTL OUT</b> du GBF →
+            <b>EXT TRIG</b> de l'oscilloscope pour stabiliser
+            l'affichage sans toucher aux réglages de déclenchement.
+          </li>
         </ol>
+ 
         <div class="warn-box">
-          <strong>Avant la mise sous tension :</strong> placez le bouton
-          d'amplitude du GBF sur 0, vérifiez que le sélecteur de forme
-          de signal est sur <b>sinusoïdal</b> (∿), puis allumez le GBF
-          et augmentez progressivement l'amplitude.
+          <strong>Réglages oscilloscope :</strong><br>
+          • Base de temps : 0.5 ms/div à 0.1 ms/div selon la fréquence<br>
+          • Couplage CH1 et CH2 : <strong>AC</strong><br>
+          • Déclenchement : CH1 (ou EXT si TTL câblé)<br>
+          • Utiliser les <strong>curseurs Δt</strong> pour mesurer le retard
+          entre les deux fronts montants.
         </div>
       </div>
     </div>
   </div>
 </section>
-
-<!-- ============================================================ -->
-<!-- DATA TABLE                                                    -->
-<!-- ============================================================ -->
-<section id="mesures" class="on-paper">
+ 
+<!-- ════════════════════════════════════════════════
+     COMMENT LIRE L'OSCILLO
+════════════════════════════════════════════════ -->
+<section class="alt">
+  <div class="container">
+    <p class="eyebrow">Lecture de l'oscilloscope</p>
+    <h2>Mesurer τ sur l'écran</h2>
+    <div class="tip-grid">
+      <div class="tip-card">
+        <p class="tip-head">Superposer les signaux</p>
+        <p>Réglez les sensibilités V/div de CH1 et CH2 pour avoir deux sinusoïdes de même hauteur. Ajustez la base de temps pour voir 2 à 3 périodes complètes.</p>
+      </div>
+      <div class="tip-card">
+        <p class="tip-head">Utiliser les curseurs Δt</p>
+        <p>Placez le curseur t₁ sur un front montant de CH1, le curseur t₂ sur le front montant correspondant de CH2. La valeur <strong>Δt</strong> affichée est directement τ.</p>
+      </div>
+      <div class="tip-card">
+        <p class="tip-head">Vérifier la cohérence</p>
+        <p>Doublez la distance d et vérifiez que τ double aussi. Changez la fréquence : τ doit changer mais v = d/τ rester constant (~340 m·s⁻¹).</p>
+      </div>
+      <div class="tip-card">
+        <p class="tip-head">Éviter les erreurs</p>
+        <p>Assurez-vous que CH2 est bien en <em>retard</em> par rapport à CH1 (onde qui arrive après). Si c'est l'inverse, les micros sont inversés.</p>
+      </div>
+    </div>
+  </div>
+</section>
+ 
+<!-- ════════════════════════════════════════════════
+     TABLEAU DE MESURES
+════════════════════════════════════════════════ -->
+<section id="mesures">
   <div class="container">
     <p class="eyebrow">Acquisition</p>
     <h2>Tableau de mesures</h2>
-    <p class="lede" style="color:var(--text-ink-soft)">
-      Pour chaque fréquence testée, mesurez la distance <span class="formula-inline">d</span>
-      pour laquelle les deux signaux sont en phase, et notez le retard
-      <span class="formula-inline">τ</span> lu sur la fenêtre d'acquisition.
-      Ajoutez une ligne par essai.
+    <p class="lede" style="color:var(--ink-soft)">
+      Pour chaque essai, entrez la fréquence <span class="fi">f</span> réglée sur le GBF,
+      la distance <span class="fi">d</span> entre les micros mesurée à la règle,
+      et le retard <span class="fi">τ</span> lu à l'oscilloscope.
+      La vitesse est calculée automatiquement.
     </p>
-
     <div class="measure-toolbar">
-      <button class="btn-add" id="btnAddRow" type="button">+ Ajouter un essai</button>
-      <button class="btn-secondary" id="btnFillDemo" type="button">Remplir avec des valeurs d'exemple</button>
+      <button class="btn-add" id="btnAdd">+ Ajouter un essai</button>
+      <button class="btn-secondary" id="btnDemo">Remplir un exemple</button>
     </div>
-
     <table id="dataTable">
-      <caption>Essais — vitesse du son</caption>
+      <caption>Essais — mesure de la vitesse du son</caption>
       <thead>
         <tr>
-          <th scope="col">Essai</th>
-          <th scope="col">f (Hz)</th>
-          <th scope="col">d (cm)</th>
-          <th scope="col">τ (ms)</th>
-          <th scope="col">v = d/τ (m·s⁻¹)</th>
-          <th scope="col"></th>
+          <th>Essai</th>
+          <th>f (Hz)</th>
+          <th>d (cm)</th>
+          <th>τ (ms)</th>
+          <th>v = d/τ (m·s⁻¹)</th>
+          <th></th>
         </tr>
       </thead>
-      <tbody id="dataBody">
-        <!-- rows injected by JS -->
-      </tbody>
+      <tbody id="dataBody"></tbody>
     </table>
-
     <div class="measure-toolbar">
-      <button class="btn-primary" id="btnValidate" type="button">Valider les mesures et calculer</button>
+      <button class="btn-primary" id="btnCalc">Calculer les résultats</button>
     </div>
-    <div id="fieldError" class="field-error" role="alert" aria-live="assertive"></div>
-
-    <!-- ===================================================== -->
-    <!-- RESULTS                                                -->
-    <!-- ===================================================== -->
-    <div class="results-panel" id="resultsPanel" aria-live="polite">
+    <div class="field-error" id="fieldError" role="alert" aria-live="assertive"></div>
+ 
+    <div class="results-panel" id="resultsPanel">
       <h3>Résultats statistiques</h3>
       <div class="results-grid">
         <div class="result-card">
           <div class="label">Vitesse moyenne</div>
-          <div class="value" id="resMean">—<span class="unit"> m·s⁻¹</span></div>
+          <div class="value" id="rMean">—<span class="unit"> m·s⁻¹</span></div>
         </div>
         <div class="result-card">
           <div class="label">Écart-type σ</div>
-          <div class="value" id="resStd">—<span class="unit"> m·s⁻¹</span></div>
+          <div class="value" id="rStd">—<span class="unit"> m·s⁻¹</span></div>
         </div>
         <div class="result-card amber">
-          <div class="label">Incertitude-type u(v)</div>
-          <div class="value" id="resUncertainty">—<span class="unit"> m·s⁻¹</span></div>
+          <div class="label">Incertitude u(v)</div>
+          <div class="value" id="rUnc">—<span class="unit"> m·s⁻¹</span></div>
         </div>
         <div class="result-card">
           <div class="label">Résultat final</div>
-          <div class="value" id="resFinal">—</div>
+          <div class="value" id="rFinal">—</div>
         </div>
       </div>
-
       <div class="compare-bar">
-        <div>Comparaison avec la valeur de référence (340 m·s⁻¹ à 15 °C) — écart relatif : <span id="resEcart">—</span></div>
-        <div class="track"><div class="fill" id="resFill" style="width:0%"></div></div>
+        <div>Écart relatif par rapport à 340 m·s⁻¹ : <span id="rEcart" style="color:var(--amber)">—</span></div>
+        <div class="track"><div class="fill" id="rFill" style="width:0%"></div></div>
       </div>
-      <p id="resInterpretation" style="margin-top:14px; font-family: var(--mono); font-size: 0.85rem; color: var(--text-soft);"></p>
+      <p class="res-interp" id="rInterp"></p>
     </div>
   </div>
 </section>
-
+ 
 <footer>
-  <div class="container">
-    TP Acoustique — laboratory/tp-acoustique/module/vitesse-son
-  </div>
+  <div class="container">TP Acoustique — GBF LS3002B + Oscilloscope 2 voies · v = d / τ</div>
 </footer>
-
 <script src="tp-acoustique/js/tp01.js"></script>
 </body>
 </html>
