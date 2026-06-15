@@ -30,6 +30,7 @@ export const dangerDB = [
 
 {code:"H260", cat:"Physique", text:"Dégage des gaz inflammables au contact de l'eau"},
 {code:"H261", cat:"Physique", text:"Dégage des gaz inflammables au contact de l'eau"},
+{code:"H272", cat:"Physique", text:"Peut aggraver un incendie ; comburant"},
 
 /* =========================
    ☠️ DANGERS SANTÉ
@@ -93,7 +94,9 @@ export const dangerDB = [
 /* =========================
    Prévention
 ========================= */
-   
+
+{code:"P210", cat:"Prévention", text:"Tenir à l’écart de la chaleur, des surfaces chaudes, des étincelles, des flammes nues et de toute autre source d’inflammation. Ne pas fumer"},
+{code:"P221", cat:"Prévention", text:"Prendre toutes précautions pour éviter de mélanger avec des matières combustibles"},
 {code:"P260", cat:"Prévention", text:"Ne pas respirer les poussières/fumées/gaz/brouillards/vapeurs/aérosols"},
 {code:"P264", cat:"Prévention", text:"Se laver soigneusement les mains après manipulation"},
 {code:"P280", cat:"Prévention", text:"Porter des gants de protection/des vêtements de protection/un équipement de protection des yeux/du visage"},
@@ -115,7 +118,7 @@ export const dangerDB = [
 {code:"P405", cat:"Stockage", text:"Garder sous clef"},
 {code:"P501", cat:"Élimination", text:"Éliminer le contenu/récipient conformément à la réglementation locale/régionale/nationale/internationale"},
  
-
+{code:"P303+P361+P353", cat:"Intervention", text:"EN CAS DE CONTACT AVEC LA PEAU (ou les cheveux) : enlever immédiatement tous les vêtements contaminés. Rincer la peau à l’eau ou se doucher"},
 {code:"P305+P351+P338", cat:"Intervention", text:"EN CAS DE CONTACT AVEC LES YEUX : rincer avec précaution à l’eau pendant plusieurs minutes. Enlever les lentilles de contact si la victime en porte et si elles peuvent être facilement enlevées. Continuer à rincer"},
 {code:"P301+P330+P331", cat:"Intervention", text:"EN CAS D’INGESTION : rincer la bouche. NE PAS faire vomir"},
 {code:"P305+P351+P338", cat:"Intervention", text:"EN CAS DE CONTACT AVEC LES YEUX : rincer avec précaution à l’eau pendant plusieurs minutes. Enlever les lentilles de contact si la victime en porte et si elles peuvent être facilement enlevées. Continuer à rincer"},   
