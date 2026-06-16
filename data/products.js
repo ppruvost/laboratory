@@ -141,7 +141,7 @@ export const products = [
   "obligation": ["LUNETTES", "GANTS", "BLOUSE", "HOTTE"],
   "image": "aluminium_chlorure.jpg",
   "fds": "FicheTox_AlCl3.pdf",
-  "dangers": ["H314", "H335"]
+  "dangers": ["H314", "P260", "P264", "P280", "P301+P330+P331", "P303+P361+P353", "P501"]
   },
   {
   "cas": "16828-11-8",
