@@ -156,6 +156,18 @@ export const products = [
   "dangers": ["H319"]
   },
   {
+    "cas": "9005-25-8",
+    "nom": "amidon pulvérisé",
+    "formule": "(C₆H₁₀O₅)n",
+    "categorie": "Polysaccharide",
+    "localisation": "Salle B27 / étagère D2",
+    "pictogramme": [],
+    "obligation": ["BLOUSE"],
+    "image": "amidon.jpg",
+    "fds": "FicheTox_Amidon.pdf",
+    "dangers": []
+  },
+  {
     "cas": "12125-02-9",
     "nom": "ammonium chlorure",
     "formule": "NH₄Cl",
@@ -190,19 +202,7 @@ export const products = [
     "image": "ammonium_oxalate.jpg",
     "fds": "FicheTox_AmmoniumOxalate.pdf",
     "dangers": ["H312", "H302", "P264", "P270", "P301+P312", "P302+P352", "P312"]
-  },
-    {
-    "cas": "9005-25-8",
-    "nom": "amidon pulvérisé",
-    "formule": "(C₆H₁₀O₅)n",
-    "categorie": "Polysaccharide",
-    "localisation": "Salle B27 / étagère D2",
-    "pictogramme": [],
-    "obligation": ["BLOUSE"],
-    "image": "amidon.jpg",
-    "fds": "FicheTox_Amidon.pdf",
-    "dangers": []
-  },
+  },    
     {
     "cas": "7761-88-8",
     "nom": "argent nitrate",
@@ -213,7 +213,7 @@ export const products = [
     "obligation": ["LUNETTES", "GANTS", "BLOUSE", "HOTTE"],
     "image": "argent_nitrate.jpg",
     "fds": "FicheTox_ArgentNitrate.pdf",
-    "dangers": ["H272", "H314", "H410"]
+    "dangers": ["H272", "H314", "H410", "P210", "P220", "P221", "P260", "P264", "P501"]
   },
     {
     "cas": "10326-27-9",
