@@ -31,7 +31,10 @@ export const dangerDB = [
 
 {code:"H260", cat:"Physique", text:"Dégage des gaz inflammables au contact de l'eau"},
 {code:"H261", cat:"Physique", text:"Dégage des gaz inflammables au contact de l'eau"},
+{code:"H271", cat:"Danger", text:"Peut provoquer un incendie ou une explosion ; comburant puissant"},
 {code:"H272", cat:"Physique", text:"Peut aggraver un incendie ; comburant"},
+
+{code:"H290", cat:"Danger", text:"Peut être corrosif pour les métaux"},
 
 /* =========================
    ☠️ DANGERS SANTÉ
@@ -55,6 +58,8 @@ export const dangerDB = [
 {code:"H330", cat:"Santé", text:"Mortel par inhalation"},
 {code:"H331", cat:"Santé", text:"Toxique par inhalation"},
 {code:"H332", cat:"Santé", text:"Nocif par inhalation"},
+{code:"H335", cat:"Danger", text:"Peut irriter les voies respiratoires"},
+{code:"H336", cat:"Danger", text:"Peut provoquer somnolence ou vertiges"},
 
 {code:"H340", cat:"CMR", text:"Peut induire des anomalies génétiques"},
 {code:"H341", cat:"CMR", text:"Susceptible d'induire des anomalies génétiques"},
@@ -136,6 +141,7 @@ export const dangerDB = [
 {code:"P501", cat:"Élimination", text:"Éliminer le contenu/récipient conformément à la réglementation locale/régionale/nationale/internationale"},
 
 {code:"P231+P232", cat:"Prévention", text:"Manipuler et stocker le contenu sous gaz inerte. Protéger de l’humidité"},
+{code:"P301+P310", cat:"Intervention", text:"EN CAS D’INGESTION : Appeler immédiatement un CENTRE ANTIPOISON ou un médecin"},
 {code:"P301+P312", cat:"Intervention", text:"EN CAS D’INGESTION : Appeler un CENTRE ANTIPOISON ou un médecin en cas de malaise"},
 {code:"P302+P352", cat:"Intervention", text:"EN CAS DE CONTACT AVEC LA PEAU : Laver abondamment à l’eau et au savon"},
 {code:"P301+P312", cat:"Intervention", text:"EN CAS D’INGESTION : Appeler un CENTRE ANTIPOISON ou un médecin en cas de malaise"},
