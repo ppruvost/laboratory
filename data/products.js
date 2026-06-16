@@ -22,19 +22,7 @@ export const products = [
     image: "3_methylbutan_1_ol.jpg",
     fds: "FicheTox_123-51-3.pdf",
     dangers: ["H226", "H315", "H335"]
-  },
-  {
-    cas: "77-09-8",
-    nom: "3,3-bis(4-hydroxyphényl)-1(3H)-isobenzofuranone (phénolphtaléine)",
-    formule: "C₂₀H₁₄O₄",
-    categorie: "Indicateur coloré (pH 8,2-10)",
-    localisation: "salle B27 / étagère B2",
-    pictogramme: ["danger_sante.png"],
-    obligation: ["GANTS", "BLOUSE", "HOTTE"],
-    image: "phenolphtaleine.jpg",
-    fds: "FAS33.pdf",
-    dangers: ["H350"],    
-  },
+  },  
   {
   cas: "107-92-6",
   nom: "acide butanoïque (butyrique)",
@@ -864,16 +852,16 @@ export const products = [
   },
     {
     cas: "77-09-8",
-    nom: "phénolphtaléine",
+    nom: "phénolphtaléine (3,3-bis(4-hydroxyphényl)-1(3H)-isobenzofuranone)",
     formule: "C₂₀H₁₄O₄",
-    categorie: "Indicateur coloré",
+    categorie: "Indicateur coloré  (pH 8,2-10)",
     localisation: "Salle B27 / étagère B2",
     pictogramme: ["SGH08_DangerSante.jpg"],
     obligation: ["LUNETTES", "GANTS", "BLOUSE", "HOTTE"],
     image: "phenolphtaleine.jpg",
     fds: "FAS33.pdf",
-    dangers: ["H350"]
-  },
+    dangers: ["H225", "H350", "H341", "P201", "P202", "P210", "P233", "P240"]
+  },  
     {
     "cas": "7723-14-0",
     "nom": "phosphore blanc",
