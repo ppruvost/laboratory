@@ -634,18 +634,6 @@ export const products = [
   fds: "hydrogene_peroxyde.pdf",
   dangers: ["H302", "H318", "P264", "P270", "P280", "P301+P312", "P305+P351+P338", "P310"]
   },  
-  {
-    cas: "1310-73-2",
-    nom: "hydroxyde de sodium",
-    formule: "NaOH",
-    categorie: "Base forte",
-    localisation: "Salle B27 / étagère B2 + D2",
-    pictogramme: ["SGH05_Corrosion.jpg"],
-    obligation: ["LUNETTES", "GANTS", "BLOUSE"],
-    image: "soude.jpg",
-    fds: "FicheTox_20.pdf",
-    dangers: ["H314"]
-  },
     {
     "cas": "7553-56-2",
     "nom": "iode",
@@ -1149,6 +1137,18 @@ export const products = [
     "image": "sodium_hydrogenosulfite.jpg",
     "fds": "FicheTox_NaHSO3.pdf",
     "dangers": ["H302", "H319"]
+  },
+  {
+    cas: "1310-73-2",
+    nom: "sodium hydroxyde",
+    formule: "NaOH",
+    categorie: "Base forte",
+    localisation: "Salle B27 / étagère B2 + D2",
+    pictogramme: ["SGH05_Corrosion.jpg"],
+    obligation: ["LUNETTES", "GANTS", "BLOUSE"],
+    image: "soude.jpg",
+    fds: "FicheTox_20.pdf",
+    dangers: ["H314", "P260", "P264", "P280", "P301+P330+P331", "P303+P361+P353"]
   },
     {
     "cas": "7601-54-9",
