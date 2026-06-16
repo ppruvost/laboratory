@@ -576,7 +576,7 @@ export const products = [
   },
     {
     "cas": "56-81-5",
-    "nom": "glycérol (glycérine)",
+    "nom": "glycérol (glycérine, propane-1,2,3 triol)",
     "formule": "C₃H₈O₃",
     "categorie": "alcool organique",
     "localisation": "Salle B27 / étagère D2",
@@ -600,15 +600,15 @@ export const products = [
 },
   {
     "cas": "124-09-4",
-    "nom": "hexane diamine (1,6-diaminohexane)",
+    "nom": "hexaméthylène diamine ( hexane 1,6-diamine)",
     "formule": "C₆H₁₆N₂",
-    "categorie": "Amine organique",
+    "categorie": "réactif pour la synthèse du nylon",
     "localisation": "Salle B27 / étagère B2",
     "pictogramme": ["SGH05_Corrosion.jpg", "SGH07_PointExclamation.jpg"],
     "obligation": ["LUNETTES", "GANTS", "BLOUSE", "HOTTE"],
     "image": "hexane_diamine.jpg",
     "fds": "FicheTox_HexaneDiamine.pdf",
-    "dangers": ["H302", "H314", "H335"]
+    "dangers": ["H312", "H302", "H314", "H335", "P260", "P261", "P264", "P270", "P271", "P280"]
   },
   {
   cas: "7722-84-1",
