@@ -480,15 +480,15 @@ export const products = [
   },   
     {
     "cas": "10025-77-1",
-    "nom": "fer chlorure (III) hexahydraté",
+    "nom": "fer III chlorure hexahydraté",
     "formule": "FeCl₃·6H₂O",
     "categorie": "Sel métallique",
     "localisation": "Salle B27 / étagère B2",
-    "pictogramme": ["SGH05_Corrosion.jpg"],
+    "pictogramme": ["SGH07_PointExclamation.jpg"],
     "obligation": ["LUNETTES", "GANTS", "BLOUSE"],
     "image": "fer_III_chlorure_hexahydrate.jpg",
     "fds": "FicheTox_FeCl3_6H2O.pdf",
-    "dangers": ["H302", "H314"]
+    "dangers": ["H302", "H319", "H315", "P264", "P270", "P280", "P301+P312", "P302+P352"]
   },
     {
     "cas": "7439-89-6",
@@ -504,7 +504,7 @@ export const products = [
   },
       {
     "cas": "1309-37-1",
-    "nom": "fer oxyde (III)",
+    "nom": "fer III oxyde anhydre",
     "formule": "Fe₂O₃",
     "categorie": "Oxyde métallique",
     "localisation": "Salle B27 / étagère B2",
@@ -528,43 +528,31 @@ export const products = [
   },
     {
     "cas": "7720-78-7",
-    "nom": "fer sulfate (II)",
-    "formule": "FeSO₄",
+    "nom": "fer II sulfate",
+    "formule": "FeSO₄·7H₂O",
     "categorie": "Sel métallique",
     "localisation": "Salle B27 / étagère B2",
     "pictogramme": ["SGH07_PointExclamation.jpg"],
     "obligation": ["LUNETTES", "GANTS", "BLOUSE"],
     "image": "sulfate_fer.jpg",
     "fds": "FicheTox_FeSO4.pdf",
-    "dangers": ["H302", "H315", "H319"]
-  },
+    "dangers": ["H302", "H315", "H319", "P264", "P270", "P280", "P301+P312", "P302+P352"]
+  },    
     {
-    "cas": "7782-63-0",
-    "nom": "fer sulfate (II) heptahydraté",
-    "formule": "FeSO₄·7H₂O",
+    "cas": "15244-10-7",
+    "nom": "fer III sulfate hydraté",
+    "formule": "Fe₂(SO₄)₃·xH₂O",
     "categorie": "Sel métallique",
     "localisation": "Salle B27 / étagère D2",
     "pictogramme": ["SGH07_PointExclamation.jpg"],
     "obligation": ["LUNETTES", "GANTS", "BLOUSE"],
-    "image": "fer_sulfate_heptahydrate.jpg",
-    "fds": "FicheTox_FeSO4_7H2O.pdf",
-    "dangers": ["H302", "H315", "H319"]
-  },
-    {
-    "cas": "15244-10-7",
-    "nom": "fer sulfate (III) hydraté",
-    "formule": "Fe₂(SO₄)₃·xH₂O",
-    "categorie": "Sel métallique",
-    "localisation": "Salle B27 / étagère D2",
-    "pictogramme": ["SGH05_Corrosion.jpg"],
-    "obligation": ["LUNETTES", "GANTS", "BLOUSE"],
     "image": "fer_III_sulfate_hydrate.jpg",
     "fds": "FicheTox_Fe2SO43_H2O.pdf",
-    "dangers": ["H315", "H318"]
+    "dangers": ["H302", "H319", "H335", "P261", "P305+P351+P338"]
   },
       {
     "cas": "1317-37-9",
-    "nom": "fer sulfure",
+    "nom": "fer II sulfure",
     "formule": "FeS",
     "categorie": "Sulfure métallique",
     "localisation": "Salle B27 / étagère B2",
@@ -576,7 +564,7 @@ export const products = [
   },
     {
     "cas": "2321-07-5",
-    "nom": "fluorescéine",
+    "nom": "fluorescéine (uranine)",
     "formule": "C₂₀H₁₂O₅",
     "categorie": "colorant organique",
     "localisation": "Salle B27 / étagère D2",
