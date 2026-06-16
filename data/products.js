@@ -73,7 +73,7 @@ export const products = [
   },
   {
     cas: "7697-37-2",
-    nom: "acide nitrique",
+    nom: "acide nitrique (azotique)",
     formule: "HNO₃",
     categorie: "Acide fort",
     localisation: "Salle B27 / étagère B1",
@@ -89,11 +89,11 @@ export const products = [
     formule: "C₃H₆O₂",
     categorie: "Acide carboxylique",
     localisation: "Salle B27 / étagère B1",
-    pictogramme: ["SGH05_Corrosion.jpg", "SGH02_Flamme.jpg"],
+    pictogramme: ["SGH05_Corrosion.jpg"],
     obligation: ["GANTS", "BLOUSE", "HOTTE"],
     image: "acide_propanoique.jpg",
     fds: "FicheTox_XXX.pdf",
-    dangers: ["H226","H314"]
+    dangers: ["H314", "P260", "P264", "P280", "P301+P330+P331", "P303+P361+P353"]
     },
     {
     cas: "7664-93-9",
