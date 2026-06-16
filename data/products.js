@@ -221,11 +221,11 @@ export const products = [
     "formule": "BaCl₂·2H₂O",
     "categorie": "Sel toxique",
     "localisation": "Salle B27 / étagère D2",
-    "pictogramme": ["SGH06_TeteDeMort.jpg", "SGH07_PointExclamation.jpg"],
-    "obligation": ["LUNETTES", "GANTS", "BLOUSE", "HOTTE"],
+    "pictogramme": ["SGH06_TeteDeMort.jpg"],
+    "obligation": ["GANTS", "BLOUSE", "HOTTE"],
     "image": "baryum_chlorure_dihydrate.jpg",
     "fds": "FicheTox_BaCl2_2H2O.pdf",
-    "dangers": ["H301", "H332"]
+    "dangers": ["H332", "H301", "P301+P310"]
   },
   {
   cas: "76-59-5",
