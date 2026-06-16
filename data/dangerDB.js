@@ -111,12 +111,15 @@ export const dangerDB = [
 {code:"P260", cat:"Prévention", text:"Ne pas respirer les poussières/fumées/gaz/brouillards/vapeurs/aérosols"},
 {code:"P264", cat:"Prévention", text:"Se laver soigneusement après manipulation"},
 
+{code:"P270", cat:"Prévention", text:"Ne pas manger, boire ou fumer en manipulant ce produit"},
+
 {code:"P280", cat:"Prévention", text:"Porter des gants de protection/des vêtements de protection/un équipement de protection des yeux/du visage"},
 
 {code:"P301", cat:"Intervention", text:"EN CAS D’INGESTION :"},
 {code:"P303", cat:"Intervention", text:"EN CAS DE CONTACT AVEC LA PEAU (ou les cheveux) :"},
 
 {code:"P310", cat:"Intervention", text:"Appeler immédiatement un CENTRE ANTIPOISON ou un médecin"},
+{code:"P312", cat:"Intervention", text:"Appeler un CENTRE ANTIPOISON ou un médecin en cas de malaise"},
 {code:"P313", cat:"Intervention", text:"Consulter un médecin"},
 
 {code:"P330", cat:"Intervention", text:"Rincer la bouche"},
@@ -132,6 +135,8 @@ export const dangerDB = [
 {code:"P501", cat:"Élimination", text:"Éliminer le contenu/récipient conformément à la réglementation locale/régionale/nationale/internationale"},
 
 {code:"P231+P232", cat:"Prévention", text:"Manipuler et stocker le contenu sous gaz inerte. Protéger de l’humidité"},
+{code:"P301+P312", cat:"Intervention", text:"EN CAS D’INGESTION : Appeler un CENTRE ANTIPOISON ou un médecin en cas de malaise"},
+{code:"P302+P352", cat:"Intervention", text:"EN CAS DE CONTACT AVEC LA PEAU : Laver abondamment à l’eau et au savon"},
 {code:"P301+P330+P331", cat:"Intervention", text:"EN CAS D’INGESTION : Rincer la bouche. NE PAS faire vomir"},
 {code:"P303+P361+P353", cat:"Intervention", text:"EN CAS DE CONTACT AVEC LA PEAU (ou les cheveux) : Enlever immédiatement tous les vêtements contaminés. Rincer la peau à l’eau ou se doucher"},
 {code:"P305+P351+P338", cat:"Intervention", text:"EN CAS DE CONTACT AVEC LES YEUX : Rincer avec précaution à l’eau pendant plusieurs minutes. Enlever les lentilles de contact si la victime en porte et si elles peuvent être facilement enlevées. Continuer à rincer"},
