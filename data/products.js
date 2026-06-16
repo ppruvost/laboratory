@@ -102,10 +102,10 @@ export const products = [
     categorie: "Acide fort",
     localisation: "Salle B27 / étagère B1",
     pictogramme: ["SGH05_Corrosion.jpg"],
-    obligation: ["LUNETTES", "GANTS", "BLOUSE", "HOTTE"],
+    obligation: ["GANTS", "BLOUSE", "HOTTE"],
     image: "acide_sulfurique.jpg",
     fds: "FicheTox_30.pdf",
-    dangers: ["H314"]
+    dangers: ["H314", "P260", "P264", "P280", "P301+P330+P331", "P303+P361+P353"]
   },
   {
   cas: "9002-89-5",
@@ -114,7 +114,7 @@ export const products = [
   categorie: "Polymère hydrosoluble",
   localisation: "salle B27 / étagère B1",
   pictogramme: [],
-  obligation:["GANTS", "BLOUSE", "HOTTE"],
+  obligation:["GANTS", "BLOUSE"],
   image: "alcool_polyvinylique.jpg",
   fds: "",
   dangers: ["Produit généralement non classé dangereux selon le règlement CLP", "Peut provoquer une légère irritation mécanique des yeux ou des voies respiratoires sous forme de poussières"]
@@ -126,10 +126,10 @@ export const products = [
   "categorie": "Métal pulvérulent",
   "localisation": "Salle B27 / étagère D2",
   "pictogramme": ["SGH02_Flamme.jpg"],
-  "obligation": ["LUNETTES", "GANTS", "BLOUSE"],
+  "obligation": ["GANTS", "BLOUSE"],
   "image": "aluminium_poudre.jpg",
   "fds": "FicheTox_AluminiumPoudre.pdf",
-  "dangers": ["H228"]
+  "dangers": ["H228", "H260", "P210", "P223", "P231+P232", "P240", "P241", "P280"]
   },
   {
   "cas": "7446-70-0",
