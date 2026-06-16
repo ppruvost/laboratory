@@ -100,6 +100,7 @@ export const dangerDB = [
 
 {code:"P210", cat:"Prévention", text:"Tenir à l’écart de la chaleur, des surfaces chaudes, des étincelles, des flammes nues et de toute autre source d’inflammation. Ne pas fumer"},
 
+{code:"P220", cat:"Prévention", text:"Tenir à l’écart des vêtements et d’autres matières combustibles"},
 {code:"P221", cat:"Prévention", text:"Prendre toutes précautions pour éviter de mélanger avec des matières combustibles"},
 {code:"P223", cat:"Prévention", text:"Éviter tout contact avec l’eau, à cause du risque de réaction violente et d’inflammation spontanée"},
    
