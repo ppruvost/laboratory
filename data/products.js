@@ -468,28 +468,16 @@ export const products = [
   },  
     {
     "cas": "7758-94-3",
-    "nom": "fer chlorure (II) pur",
-    "formule": "FeCl₂",
-    "categorie": "Sel métallique",
-    "localisation": "Salle B27 / étagère B2",
-    "pictogramme": ["SGH07_PointExclamation.jpg"],
-    "obligation": ["LUNETTES", "GANTS", "BLOUSE"],
-    "image": "fer_II_chlorure.jpg",
-    "fds": "FicheTox_FeCl2.pdf",
-    "dangers": ["H302", "H315", "H319"]
-  },
-    {
-    "cas": "13478-10-9",
-    "nom": "fer chlorure (II) tétrahydraté",
+    "nom": "fer II chlorure tétrahydraté",
     "formule": "FeCl₂·4H₂O",
     "categorie": "Sel métallique",
     "localisation": "Salle B27 / étagère B2",
-    "pictogramme": ["SGH07_PointExclamation.jpg"],
+    "pictogramme": ["SGH05_Corrosion.jpg", "SGH07_PointExclamation.jpg"],
     "obligation": ["LUNETTES", "GANTS", "BLOUSE"],
-    "image": "fer_II_chlorure_tetrahydrate.jpg",
-    "fds": "FicheTox_FeCl2_4H2O.pdf",
-    "dangers": ["H302", "H315", "H319"]
-  },
+    "image": "fer_II_chlorure.jpg",
+    "fds": "FicheTox_FeCl2.pdf",
+    "dangers": ["H302", "H315", "H318", "P264", "P270", "P280", "P301+P312", "P302+P352", "P305+P351+P338"]
+  },   
     {
     "cas": "10025-77-1",
     "nom": "fer chlorure (III) hexahydraté",
