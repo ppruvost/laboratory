@@ -47,14 +47,12 @@ export const dangerDB = [
 {code:"H310", cat:"Santé", text:"Mortel par contact cutané"},
 {code:"H311", cat:"Santé", text:"Toxique par contact cutané"},
 {code:"H312", cat:"Santé", text:"Nocif par contact cutané"},
-
 {code:"H314", cat:"Santé", text:"Provoque des brûlures graves de la peau"},
 {code:"H315", cat:"Santé", text:"Provoque une irritation cutanée"},
-
 {code:"H317", cat:"Santé", text:"Peut provoquer une allergie cutanée"},
 {code:"H318", cat:"Santé", text:"Provoque des lésions oculaires graves"},
 {code:"H319", cat:"Santé", text:"Provoque une sévère irritation des yeux"},
-
+ 
 {code:"H330", cat:"Santé", text:"Mortel par inhalation"},
 {code:"H331", cat:"Santé", text:"Toxique par inhalation"},
 {code:"H332", cat:"Santé", text:"Nocif par inhalation"},
@@ -69,6 +67,8 @@ export const dangerDB = [
 
 {code:"H360", cat:"CMR", text:"Peut nuire à la fertilité ou au fœtus"},
 {code:"H361", cat:"CMR", text:"Susceptible de nuire à la fertilité ou au fœtus"},
+
+{code:"H373", cat:"Danger", text:"Risque présumé d’effets graves pour les organes à la suite d’expositions répétées ou d’une exposition prolongée"},
 
 /* =========================
    🌊 ENVIRONNEMENT
@@ -113,13 +113,18 @@ export const dangerDB = [
 
 {code:"P240", cat:"Prévention", text:"Mettre à la terre et relier par liaison équipotentielle le récipient et le matériel de réception"},
 {code:"P241", cat:"Prévention", text:"Utiliser du matériel électrique/de ventilation/d’éclairage/…/antidéflagrant"},
+{code:"P243", cat:"Prévention", text:"Prendre des mesures de précaution contre les décharges électrostatiques"},
 
 {code:"P260", cat:"Prévention", text:"Ne pas respirer les poussières/fumées/gaz/brouillards/vapeurs/aérosols"},
+{code:"P261", cat:"Prévention", text:"Éviter de respirer les poussières/fumées/gaz/brouillards/vapeurs/aérosols"},
 {code:"P264", cat:"Prévention", text:"Se laver soigneusement après manipulation"},
 
 {code:"P270", cat:"Prévention", text:"Ne pas manger, boire ou fumer en manipulant ce produit"},
+{code:"P271", cat:"Prévention", text:"Utiliser seulement en plein air ou dans un endroit bien ventilé"},
+{code:"P273", cat:"Prévention", text:"Éviter le rejet dans l’environnement"},
 
 {code:"P280", cat:"Prévention", text:"Porter des gants de protection/des vêtements de protection/un équipement de protection des yeux/du visage"},
+{code:"P281", cat:"Prévention", text:"Utiliser l’équipement de protection individuel requis"},
 
 {code:"P301", cat:"Intervention", text:"EN CAS D’INGESTION :"},
 {code:"P303", cat:"Intervention", text:"EN CAS DE CONTACT AVEC LA PEAU (ou les cheveux) :"},
@@ -136,18 +141,24 @@ export const dangerDB = [
 
 {code:"P361", cat:"Intervention", text:"Enlever immédiatement tous les vêtements contaminés"},
 
+{code:"P391", cat:"Intervention", text:"Recueillir le produit répandu"},
+
+{code:"P403+P235", cat:"Stockage", text:"Stocker dans un endroit bien ventilé. Tenir au frais"},
 {code:"P405", cat:"Stockage", text:"Garder sous clef"},
+{code:"P422", cat:"Stockage", text:"Stocker le contenu sous gaz inerte"},
 
 {code:"P501", cat:"Élimination", text:"Éliminer le contenu/récipient conformément à la réglementation locale/régionale/nationale/internationale"},
 
 {code:"P231+P232", cat:"Prévention", text:"Manipuler et stocker le contenu sous gaz inerte. Protéger de l’humidité"},
+
 {code:"P301+P310", cat:"Intervention", text:"EN CAS D’INGESTION : Appeler immédiatement un CENTRE ANTIPOISON ou un médecin"},
 {code:"P301+P312", cat:"Intervention", text:"EN CAS D’INGESTION : Appeler un CENTRE ANTIPOISON ou un médecin en cas de malaise"},
+{code:"P301+P330+P331", cat:"Intervention", text:"EN CAS D’INGESTION : Rincer la bouche. NE PAS faire vomir"},   
 {code:"P302+P352", cat:"Intervention", text:"EN CAS DE CONTACT AVEC LA PEAU : Laver abondamment à l’eau et au savon"},
-{code:"P301+P312", cat:"Intervention", text:"EN CAS D’INGESTION : Appeler un CENTRE ANTIPOISON ou un médecin en cas de malaise"},
-{code:"P301+P330+P331", cat:"Intervention", text:"EN CAS D’INGESTION : Rincer la bouche. NE PAS faire vomir"},
 {code:"P303+P361+P353", cat:"Intervention", text:"EN CAS DE CONTACT AVEC LA PEAU (ou les cheveux) : Enlever immédiatement tous les vêtements contaminés. Rincer la peau à l’eau ou se doucher"},
+{code:"P304+P340", cat:"Intervention", text:"EN CAS D’INHALATION : Transporter la personne à l’extérieur et la maintenir dans une position où elle peut confortablement respirer"},
 {code:"P305+P351+P338", cat:"Intervention", text:"EN CAS DE CONTACT AVEC LES YEUX : Rincer avec précaution à l’eau pendant plusieurs minutes. Enlever les lentilles de contact si la victime en porte et si elles peuvent être facilement enlevées. Continuer à rincer"},
+{code:"P309+P311", cat:"Intervention", text:"EN CAS d’exposition ou de malaise : Appeler un CENTRE ANTIPOISON ou un médecin"},
 {code:"P310+P405+P501", cat:"Intervention/Stockage/Élimination", text:"Appeler immédiatement un CENTRE ANTIPOISON ou un médecin. Garder sous clef. Éliminer le contenu/récipient conformément à la réglementation locale/régionale/nationale/internationale"},
 {code:"P337+P313", cat:"Intervention", text:"Si l’irritation oculaire persiste : Consulter un médecin"}
 
