@@ -138,6 +138,7 @@ export const dangerDB = [
 {code:"P231+P232", cat:"Prévention", text:"Manipuler et stocker le contenu sous gaz inerte. Protéger de l’humidité"},
 {code:"P301+P312", cat:"Intervention", text:"EN CAS D’INGESTION : Appeler un CENTRE ANTIPOISON ou un médecin en cas de malaise"},
 {code:"P302+P352", cat:"Intervention", text:"EN CAS DE CONTACT AVEC LA PEAU : Laver abondamment à l’eau et au savon"},
+{code:"P301+P312", cat:"Intervention", text:"EN CAS D’INGESTION : Appeler un CENTRE ANTIPOISON ou un médecin en cas de malaise"},
 {code:"P301+P330+P331", cat:"Intervention", text:"EN CAS D’INGESTION : Rincer la bouche. NE PAS faire vomir"},
 {code:"P303+P361+P353", cat:"Intervention", text:"EN CAS DE CONTACT AVEC LA PEAU (ou les cheveux) : Enlever immédiatement tous les vêtements contaminés. Rincer la peau à l’eau ou se doucher"},
 {code:"P305+P351+P338", cat:"Intervention", text:"EN CAS DE CONTACT AVEC LES YEUX : Rincer avec précaution à l’eau pendant plusieurs minutes. Enlever les lentilles de contact si la victime en porte et si elles peuvent être facilement enlevées. Continuer à rincer"},
