@@ -191,6 +191,18 @@ export const products = [
     "fds": "FicheTox_SelMohr.pdf",
     "dangers": ["H302", "H315", "H319"]
   },
+  {
+    cas: "1336-21-6",
+    nom: "ammonium hydroxyde (ammoniaque)",
+    formule: "NH₄OH",
+    categorie: "Traitement des eaux",
+    localisation: "salle B27 / étagère B1",
+    pictogramme: ["corrosif.png", "toxique.png"],
+    obligation: ["LUNETTES", "GANTS", "BLOUSE", "HOTTE"],
+    image: "ammoniaque.jpg",
+    fds: "FicheTox_16.pdf",
+    dangers: ["H314"],    
+  },
     {
     "cas": "1113-38-8",
     "nom": "ammonium oxalate",
@@ -620,20 +632,8 @@ export const products = [
   obligation: ["LUNETTES", "GANTS", "BLOUSE"],
   image: "hydrogene_peroxyde.jpg",
   fds: "hydrogene_peroxyde.pdf",
-  dangers: ["H272", "H302", "H314"]
-  },
-  {
-    cas: "1336-21-6",
-    nom: "hydroxyde d'ammonium (ammoniaque)",
-    formule: "NH₄OH",
-    categorie: "Traitement des eaux",
-    localisation: "salle B27 / étagère B1",
-    pictogramme: ["corrosif.png", "toxique.png"],
-    obligation: ["LUNETTES", "GANTS", "BLOUSE", "HOTTE"],
-    image: "ammoniaque.jpg",
-    fds: "FicheTox_16.pdf",
-    dangers: ["H314"],    
-  },
+  dangers: ["H302", "H318", "P264", "P270", "P280", "P301+P312", "P305+P351+P338", "P310"]
+  },  
   {
     cas: "1310-73-2",
     nom: "hydroxyde de sodium",
