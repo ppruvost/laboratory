@@ -94,36 +94,53 @@ export const dangerDB = [
 /* =========================
    Prévention
 ========================= */
+{code:"P201", cat:"Prévention", text:"Se procurer les instructions spéciales avant utilisation"},
+{code:"P202", cat:"Prévention", text:"Ne pas manipuler avant d’avoir lu et compris toutes les précautions de sécurité"},
 
 {code:"P210", cat:"Prévention", text:"Tenir à l’écart de la chaleur, des surfaces chaudes, des étincelles, des flammes nues et de toute autre source d’inflammation. Ne pas fumer"},
+
 {code:"P221", cat:"Prévention", text:"Prendre toutes précautions pour éviter de mélanger avec des matières combustibles"},
+
+{code:"P233", cat:"Prévention", text:"Maintenir le récipient fermé de manière étanche"},
+
+{code:"P240", cat:"Prévention", text:"Mettre à la terre et relier par liaison équipotentielle le récipient et le matériel de réception"},
+
 {code:"P260", cat:"Prévention", text:"Ne pas respirer les poussières/fumées/gaz/brouillards/vapeurs/aérosols"},
-{code:"P264", cat:"Prévention", text:"Se laver soigneusement les mains après manipulation"},
+
+{code:"P264", cat:"Prévention", text:"Se laver soigneusement après manipulation"},
+
 {code:"P280", cat:"Prévention", text:"Porter des gants de protection/des vêtements de protection/un équipement de protection des yeux/du visage"},
 
-{code:"P301", cat:"Intervention", text:"EN CAS D’INGESTION"},
-{code:"P303", cat:"Intervention", text:"EN CAS DE CONTACT AVEC LA PEAU (ou les cheveux)"},
+{code:"P301", cat:"Intervention", text:"EN CAS D’INGESTION :"},
+
+{code:"P303", cat:"Intervention", text:"EN CAS DE CONTACT AVEC LA PEAU (ou les cheveux) :"},
+
 {code:"P310", cat:"Intervention", text:"Appeler immédiatement un CENTRE ANTIPOISON ou un médecin"},
+
 {code:"P313", cat:"Intervention", text:"Consulter un médecin"},
-   
+
 {code:"P330", cat:"Intervention", text:"Rincer la bouche"},
+
 {code:"P331", cat:"Intervention", text:"NE PAS faire vomir"},
-{code:"P337", cat:"Intervention", text:"Si l’irritation oculaire persiste"},
+
+{code:"P337", cat:"Intervention", text:"Si l’irritation oculaire persiste :"},
 
 {code:"P353", cat:"Intervention", text:"Rincer la peau à l’eau ou se doucher"},
 
 {code:"P361", cat:"Intervention", text:"Enlever immédiatement tous les vêtements contaminés"},
 
-  
 {code:"P405", cat:"Stockage", text:"Garder sous clef"},
-{code:"P501", cat:"Élimination", text:"Éliminer le contenu/récipient conformément à la réglementation locale/régionale/nationale/internationale"},
- 
-{code:"P303+P361+P353", cat:"Intervention", text:"EN CAS DE CONTACT AVEC LA PEAU (ou les cheveux) : enlever immédiatement tous les vêtements contaminés. Rincer la peau à l’eau ou se doucher"},
-{code:"P305+P351+P338", cat:"Intervention", text:"EN CAS DE CONTACT AVEC LES YEUX : rincer avec précaution à l’eau pendant plusieurs minutes. Enlever les lentilles de contact si la victime en porte et si elles peuvent être facilement enlevées. Continuer à rincer"},
-{code:"P301+P330+P331", cat:"Intervention", text:"EN CAS D’INGESTION : rincer la bouche. NE PAS faire vomir"},
-{code:"P305+P351+P338", cat:"Intervention", text:"EN CAS DE CONTACT AVEC LES YEUX : rincer avec précaution à l’eau pendant plusieurs minutes. Enlever les lentilles de contact si la victime en porte et si elles peuvent être facilement enlevées. Continuer à rincer"},   
-{code:"P310+P405+P501", cat:"Intervention/Stockage/Élimination", text:"Appeler immédiatement un CENTRE ANTIPOISON ou un médecin. Garder sous clef. Éliminer le contenu conformément à la réglementation"},
 
-{code:"P337+P313", cat:"Intervention", text:"Si l’irritation oculaire persiste : consulter un médecin"}
+{code:"P501", cat:"Élimination", text:"Éliminer le contenu/récipient conformément à la réglementation locale/régionale/nationale/internationale"},
+
+{code:"P303+P361+P353", cat:"Intervention", text:"EN CAS DE CONTACT AVEC LA PEAU (ou les cheveux) : Enlever immédiatement tous les vêtements contaminés. Rincer la peau à l’eau ou se doucher"},
+
+{code:"P305+P351+P338", cat:"Intervention", text:"EN CAS DE CONTACT AVEC LES YEUX : Rincer avec précaution à l’eau pendant plusieurs minutes. Enlever les lentilles de contact si la victime en porte et si elles peuvent être facilement enlevées. Continuer à rincer"},
+
+{code:"P301+P330+P331", cat:"Intervention", text:"EN CAS D’INGESTION : Rincer la bouche. NE PAS faire vomir"},
+
+{code:"P310+P405+P501", cat:"Intervention/Stockage/Élimination", text:"Appeler immédiatement un CENTRE ANTIPOISON ou un médecin. Garder sous clef. Éliminer le contenu/récipient conformément à la réglementation locale/régionale/nationale/internationale"},
+
+{code:"P337+P313", cat:"Intervention", text:"Si l’irritation oculaire persiste : Consulter un médecin"}
 
 ];
