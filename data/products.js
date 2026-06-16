@@ -267,14 +267,14 @@ export const products = [
     "cas": "10043-52-4",
     "nom": "calcium chlorure anhydre pur",
     "formule": "CaCl₂",
-    "categorie": "Sel hygroscopique",
+    "categorie": "Sel hygroscopique, Traitement des eaux",
     "localisation": "Salle B27 / étagère D2",
     "pictogramme": ["SGH07_PointExclamation.jpg"],
     "obligation": ["LUNETTES", "GANTS", "BLOUSE"],
     "image": "calcium_chlorure.jpg",
     "fds": "FicheTox_CaCl2.pdf",
     "dangers": ["H319", "P264", "P280", "P305+P351+P338", "P337+P313"]
-  },
+  }, 
   {
     "cas": "7440-70-2",
     "nom": "calcium fondu pur",
@@ -373,8 +373,8 @@ export const products = [
   },
   {
     "cas": "75-09-2",
-    "nom": "dichlorométhane",
-    "formule": "CH7Cl₂",
+    "nom": "dichlorométhane (méthylène chlorure)",
+    "formule": "CH₂Cl₂",
     "categorie": "Solvant chloré",
     "localisation": "Salle B27 / étagère B1",
     "pictogramme": ["SGH07_PointExclamation.jpg", "SGH08_DangerSante.jpg"],
@@ -382,19 +382,7 @@ export const products = [
     "image": "dichloromethane.jpg",
     "fds": "FicheTox_Dichloromethane.pdf",
     "dangers": ["H302", "P281"]
-  },
-  {
-    cas: "10043-52-4",
-    nom: "dichlorure de calcium",
-    formule: "CaCl₂",
-    categorie: "Traitement des eaux",
-    localisation: "salle B27 / étagère D2",
-    pictogramme: ["irritant.png"],
-    obligation: ["GANTS", "BLOUSE"],
-    image: "chlorure_calcium.jpg",
-    fds: "10043-52-A001.pdf",
-    dangers: ["H318"],    
-  },
+  },  
   {
     cas: "7791-18-6",
     nom: "dichlorure de magnésium hexahydraté",
