@@ -185,7 +185,7 @@ export const products = [
     formule: "NH₄OH",
     categorie: "Traitement des eaux",
     localisation: "salle B27 / étagère B1",
-    pictogramme: ["corrosif.png", "toxique.png"],
+    pictogramme: ["SGH05_Corrosion.jpg", "toxique.png"],
     obligation: ["LUNETTES", "GANTS", "BLOUSE", "HOTTE"],
     image: "ammoniaque.jpg",
     fds: "FicheTox_16.pdf",
@@ -369,7 +369,7 @@ export const products = [
     "obligation": ["LUNETTES", "GANTS", "BLOUSE"],
     "image": "cuivre_sulfate_anhydre.jpg",
     "fds": "FicheTox_CuSO4.pdf",
-    "dangers": ["H302", "H319", "315", "H410", "P264", "P270", "P273", "P280", "P301+P312"]
+    "dangers": ["H302", "H319", "H315", "H410", "P264", "P270", "P273", "P280", "P301+P312"]
   },
   {
     "cas": "75-09-2",
@@ -700,7 +700,7 @@ export const products = [
     formule: "C₅H₈O₂",
     categorie: "monomère du PMMA (Plexiglas)",
     localisation: "salle B27/ étagère B2",
-    pictogramme: ["flammable.png", "irritant.png"],
+    pictogramme: ["SGH02_Flamme.jpg", "irritant.png"],
     obligation: ["LUNETTES", "GANTS", "BLOUSE", "HOTTE"],
     image: "methyl_methacrylate.jpg",
     fds: "methyl_methacrylate.pdf",
@@ -708,7 +708,7 @@ export const products = [
   },
   {
     "cas": "513-35-9",
-    "nom": "méthyl-2 butène-2",
+    "nom": "méthyl-2 butène-2 (amylène)",
     "formule": "C₅H₁₀",
     "categorie": "Hydrocarbure insaturé",
     "localisation": "Salle B27 / étagère B1",
