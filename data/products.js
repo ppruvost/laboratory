@@ -325,15 +325,27 @@ export const products = [
   },  
     {
     "cas": "7447-39-4",
-    "nom": "cuivre (II) chlorure",
+    "nom": "cuivre II chlorure",
     "formule": "CuCl₂",
     "categorie": "Sel métallique",
     "localisation": "Salle B27 / étagère D2",
     "pictogramme": ["SGH07_PointExclamation.jpg", "SGH09_Environnement.jpg"],
-    "obligation": ["LUNETTES", "GANTS", "BLOUSE"],
+    "obligation": ["GANTS", "BLOUSE"],
     "image": "cuivre_chlorure_II.jpg",
     "fds": "FicheTox_CuCl2.pdf",
-    "dangers": ["H302", "H315", "H410"]
+    "dangers": ["H302", "H315", "H319", "H335", "H400", "P261", "P273", "P305+P351+P338"]
+  },
+  {
+    "cas": "1317-38-0",
+    "nom": "cuivre II oxyde",
+    "formule": "CuO",
+    "categorie": "Oxyde métallique",
+    "localisation": "Salle B27 / étagère D2",
+    "pictogramme": ["SGH07_PointExclamation.jpg", "SGH09_Environnement.jpg"],
+    "obligation": ["LUNETTES", "GANTS", "BLOUSE"],
+    "image": "cuivre_oxyde.jpg",
+    "fds": "FicheTox_CuO.pdf",
+    "dangers": ["H302", "P264", "P270", "P301+P312", "P330"]
   },
   {
     "cas": "7440-50-8",
@@ -342,14 +354,14 @@ export const products = [
     "categorie": "Métal pulvérulent",
     "localisation": "Salle B27 / étagère D2",
     "pictogramme": [],
-    "obligation": ["LUNETTES", "BLOUSE"],
+    "obligation": ["GANTS", "BLOUSE"],
     "image": "cuivre_poudre.jpg",
     "fds": "FicheTox_CuivrePoudre.pdf",
     "dangers": []
   },
     {
     "cas": "7758-98-7",
-    "nom": "cuivre (II) sulfate anhydre",
+    "nom": "cuivre II sulfate anhydre",
     "formule": "CuSO₄",
     "categorie": "Sel métallique",
     "localisation": "Salle B27 / étagère D2",
@@ -357,31 +369,19 @@ export const products = [
     "obligation": ["LUNETTES", "GANTS", "BLOUSE"],
     "image": "cuivre_sulfate_anhydre.jpg",
     "fds": "FicheTox_CuSO4.pdf",
-    "dangers": ["H302", "H319", "H410"]
-  },
-    {
-    "cas": "1317-38-0",
-    "nom": "cuivre (II) oxyde",
-    "formule": "CuO",
-    "categorie": "Oxyde métallique",
-    "localisation": "Salle B27 / étagère D2",
-    "pictogramme": ["SGH07_PointExclamation.jpg", "SGH09_Environnement.jpg"],
-    "obligation": ["LUNETTES", "GANTS", "BLOUSE"],
-    "image": "cuivre_oxyde.jpg",
-    "fds": "FicheTox_CuO.pdf",
-    "dangers": ["H302", "H410"]
+    "dangers": ["H302", "H319", "315", "H410", "P264", "P270", "P273", "P280", "P301+P312"]
   },
   {
     "cas": "75-09-2",
     "nom": "dichlorométhane",
-    "formule": "CH₂Cl₂",
+    "formule": "CH7Cl₂",
     "categorie": "Solvant chloré",
     "localisation": "Salle B27 / étagère B1",
     "pictogramme": ["SGH07_PointExclamation.jpg", "SGH08_DangerSante.jpg"],
-    "obligation": ["LUNETTES", "GANTS", "BLOUSE", "HOTTE"],
+    "obligation": ["GANTS", "BLOUSE", "HOTTE"],
     "image": "dichloromethane.jpg",
     "fds": "FicheTox_Dichloromethane.pdf",
-    "dangers": ["H315", "H319", "H351", "H336"]
+    "dangers": ["H302", "P281"]
   },
   {
     cas: "10043-52-4",
