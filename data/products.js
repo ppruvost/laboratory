@@ -10,19 +10,7 @@ export const products = [
     image: "propanone.jpg",
     fds: "FicheTox_3.pdf",
     dangers: ["H225", "H319", "H336"]
-  },
-  {
-    cas: "123-51-3",
-    nom: "3-methyl-1-butanol (alcool isoamylique, isopentanol)",
-    formule: "(CH₃)₂CHCH₂CH₂OH",
-    categorie: "Alcool primaire",
-    localisation: "Salle B27 / étagère B2",
-    pictogramme: ["SGH02_Flamme.jpg", "SGH07_PointExclamation.jpg"],
-    obligation: ["GANTS", "BLOUSE", "HOTTE"],
-    image: "3_methylbutan_1_ol.jpg",
-    fds: "FicheTox_123-51-3.pdf",
-    dangers: ["H226", "H315", "H335"]
-  },  
+  },   
   {
   cas: "107-92-6",
   nom: "acide butanoïque (butyrique)",
@@ -658,6 +646,18 @@ export const products = [
     "fds": "FicheTox_IodeBisublime.pdf",
     "dangers": ["H312", "H332", "H400", "P261", "P271", "P273", "P302+P352", "P304+P340"]
   },
+  {
+    cas: "123-51-3",
+    nom: " isoamyle éthanoate (alcool isoamylique, isopentanol, 3-methyl-1-butanol)",
+    formule: "(CH₃)₂CHCH₂CH₂OH",
+    categorie: "Alcool primaire",
+    localisation: "Salle B27 / étagère B2",
+    pictogramme: ["SGH02_Flamme.jpg", "SGH07_PointExclamation.jpg"],
+    obligation: ["GANTS", "BLOUSE", "HOTTE"],
+    image: "3_methylbutan_1_ol.jpg",
+    fds: "FicheTox_123-51-3.pdf",
+    dangers: ["H226", "H315", "H335"]
+  }, 
     {
     "cas": "7791-18-6",
     "nom": "magnésium chlorure hexahydraté",
@@ -674,7 +674,7 @@ export const products = [
     "cas": "1317-65-3",
     "nom": "marbre concassé",
     "formule": "CaCO₃",
-    "categorie": "Minéral",
+    "categorie": "fabrication du dioxyde de carbone",
     "localisation": "Salle B27 / étagère D2",
     "pictogramme": [],
     "obligation": ["BLOUSE"],
