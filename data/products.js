@@ -253,7 +253,7 @@ export const products = [
   },  
     {
     cas: "471-34-1",
-    nom: "calcium carbonate",
+    nom: "calcium carbonate (craie naturelle)",
     formule: "CaCO₃",
     categorie: "Sel minéral",
     localisation: "Salle B27 / étagère D2",
@@ -265,7 +265,7 @@ export const products = [
   },
     {
     "cas": "10043-52-4",
-    "nom": "calcium chlorure pur",
+    "nom": "calcium chlorure anhydre pur",
     "formule": "CaCl₂",
     "categorie": "Sel hygroscopique",
     "localisation": "Salle B27 / étagère D2",
@@ -273,19 +273,19 @@ export const products = [
     "obligation": ["LUNETTES", "GANTS", "BLOUSE"],
     "image": "calcium_chlorure.jpg",
     "fds": "FicheTox_CaCl2.pdf",
-    "dangers": ["H319"]
+    "dangers": ["H319", "P264", "P280", "P305+P351+P338", "P337+P313"]
   },
   {
     "cas": "7440-70-2",
-    "nom": "calcium métal",
+    "nom": "calcium fondu pur",
     "formule": "Ca",
     "categorie": "Métal réactif",
     "localisation": "Salle B27 / étagère D2",
-    "pictogramme": ["SGH02_Flamme.jpg", "SGH05_Corrosion.jpg"],
-    "obligation": ["LUNETTES", "GANTS", "BLOUSE", "HOTTE"],
+    "pictogramme": ["SGH02_Flamme.jpg"],
+    "obligation": ["GANTS", "BLOUSE", "HOTTE"],
     "image": "calcium_metal.jpg",
     "fds": "FicheTox_CalciumMetal.pdf",
-    "dangers": ["H260", "H314"]
+    "dangers": ["H261", "P231+P232+P422"]
   },
     {
     "cas": "7778-18-9",
@@ -301,7 +301,7 @@ export const products = [
   },
     {
     "cas": "7440-44-0",
-    "nom": "charbon",
+    "nom": "charbon végétal (fusains)",
     "formule": "C",
     "categorie": "Matériau carboné",
     "localisation": "Salle B27 / étagère D2",
@@ -315,13 +315,13 @@ export const products = [
     "cas": "8006-28-8",
     "nom": "chaux sodée",
     "formule": "NaOH + Ca(OH)₂",
-    "categorie": "Absorbant chimique",
+    "categorie": "Absorption dioxyde de carbone",
     "localisation": "Salle B27 / étagère B2",
-    "pictogramme": ["SGH05_Corrosion.jpg"],
+    "pictogramme": ["SGH05_Corrosion.jpg", "SGH07_PointExclamation.jpg"],
     "obligation": ["LUNETTES", "GANTS", "BLOUSE"],
     "image": "chaux_sodee.jpg",
     "fds": "FicheTox_ChauxSodee.pdf",
-    "dangers": ["H314"]
+    "dangers": ["H314", "H335", "P260", "P303+P361+P353", "P305+P351+P338", "P310", "P405", "P501"]
   },  
     {
     "cas": "7447-39-4",
