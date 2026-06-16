@@ -229,9 +229,9 @@ export const products = [
   },
   {
   cas: "76-59-5",
-  nom: "bleu de bromothymol (BBT)",
+  nom: "bleu de bromothymol (BBT, dibromothymol sulfone phtaléïne)",
   formule: "C₂₇H₂₈Br₂O₅S",
-  categorie: "Indicateur coloré / pH",
+  categorie: "Indicateur coloré Redox, pH <6,0 , >7,6",
   localisation: "salle B27 / étagère D4",
   pictogramme: ["irritant.png"],
   obligation: ["GANTS", "BLOUSE"],
@@ -242,39 +242,15 @@ export const products = [
   {
   cas: "61-73-4",
   nom: "bleu de méthylène",
-  formule: "C₁₆H₁₈ClN₃S",
+  formule: "C₁₆H₁₈N₃SCl",
   categorie: "Colorant / Réactif",
   localisation: "salle B27 / étagère D4",
   pictogramme: ["irritant.png"],
   obligation: ["GANTS", "BLOUSE"],
   image: "bleu_methylene.jpg",
   fds: "bleu_methylene.pdf",
-  dangers: ["H302", "H319"]
-  },
-    {
-    cas: "10043-35-3",
-    nom: "borax (tétraborate de sodium décahydraté)",
-    formule: "B₄H₂₀Na₂O₁₇",
-    categorie: "Acide faible",
-    localisation: "salle B27 / étagère B2",
-    pictogramme: ["danger_sante.png"],
-    obligation: ["LUNETTES", "GANTS", "BLOUSE"],
-    image: "borax.jpg",
-    fds: "FicheTox_138.pdf",
-    dangers: ["H360FD"],    
-  },
-  {
-    "cas": "7758-01-2",
-    "nom": "bromate de potassium",
-    "formule": "KBrO₃",
-    "categorie": "Oxydant",
-    "localisation": "Salle B27 / étagère B2",
-    "pictogramme": ["SGH03_Comburant.jpg", "SGH06_TeteDeMort.jpg"],
-    "obligation": ["LUNETTES", "GANTS", "BLOUSE", "HOTTE"],
-    "image": "potassium_bromate.jpg",
-    "fds": "FicheTox_KBrO3.pdf",
-    "dangers": ["H271", "H301", "H350"]
-  },
+  dangers: ["H302", "P264", "P270", "P301+P312", "P330", "P501"]
+  },  
     {
     cas: "471-34-1",
     nom: "calcium carbonate",
@@ -935,6 +911,18 @@ export const products = [
     "dangers": []
   },
   {
+    "cas": "7758-01-2",
+    "nom": "potassium bromate",
+    "formule": "KBrO₃",
+    "categorie": "Oxydant",
+    "localisation": "Salle B27 / étagère B2",
+    "pictogramme": ["SGH03_Comburant.jpg", "SGH06_TeteDeMort.jpg"],
+    "obligation": ["GANTS", "BLOUSE", "HOTTE"],
+    "image": "potassium_bromate.jpg",
+    "fds": "FicheTox_KBrO3.pdf",
+    "dangers": ["H271", "H301", "H350"]
+  },
+  {
     "cas": "3811-04-9",
     "nom": "potassium chlorate",
     "formule": "KClO₃",
@@ -1233,7 +1221,19 @@ export const products = [
     "image": "sulfite_sodium.jpg",
     "fds": "FicheTox_SulfiteSodium.pdf",
     "dangers": ["H319"]
-  },  
+  },
+  {
+    cas: "10043-35-3",
+    nom: "sodium tétraborate décahydraté (borax)",
+    formule: "B₄H₂₀Na₂O₁₇",
+    categorie: "Acide faible",
+    localisation: "salle B27 / étagère B2",
+    pictogramme: ["danger_sante.png"],
+    obligation: ["LUNETTES", "GANTS", "BLOUSE"],
+    image: "borax.jpg",
+    fds: "FicheTox_138.pdf",
+    dangers: ["H360", "P201", "P308+P313"],    
+  },
   {
     cas: "1336-21-6",
     nom: "solution tampon pH 4.01",
