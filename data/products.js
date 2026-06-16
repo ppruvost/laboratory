@@ -165,16 +165,16 @@ export const products = [
     "obligation": ["LUNETTES", "GANTS", "BLOUSE"],
     "image": "ammonium_chlorure.jpg",
     "fds": "FicheTox_AmmoniumChlorure.pdf",
-    "dangers": ["H302", "H319"]
+    "dangers": ["H302", "H319", "P264", "P270", "P280", "P301+P312", "P305+P351+P338", "P501"]
   },
   {
     "cas": "7783-85-9",
-    "nom": "ammonium fer (II) sel de Mohr",
+    "nom": "ammonium fer II sulfate (sel de Mohr)",
     "formule": "(NH₄)₂Fe(SO₄)₂·6H₂O",
     "categorie": "Sel double",
     "localisation": "Salle B27 / Étagère D2",
     "pictogramme": ["SGH07_PointExclamation.jpg"],
-    "obligation": ["LUNETTES", "GANTS", "BLOUSE"],
+    "obligation": ["GANTS", "BLOUSE"],
     "image": "sel_mohr.jpg",
     "fds": "FicheTox_SelMohr.pdf",
     "dangers": ["H302", "H315", "H319"]
@@ -186,10 +186,10 @@ export const products = [
     "categorie": "Sel organique",
     "localisation": "Salle B27 / étagère D2",
     "pictogramme": ["SGH07_PointExclamation.jpg"],
-    "obligation": ["LUNETTES", "GANTS", "BLOUSE"],
+    "obligation": ["GANTS", "BLOUSE"],
     "image": "ammonium_oxalate.jpg",
     "fds": "FicheTox_AmmoniumOxalate.pdf",
-    "dangers": ["H302", "H312"]
+    "dangers": ["H312", "H302", "P264", "P270", "P301+P312", "P302+P352", "P312"]
   },
     {
     "cas": "9005-25-8",
