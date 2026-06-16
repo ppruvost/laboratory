@@ -382,7 +382,19 @@ export const products = [
     "image": "dichloromethane.jpg",
     "fds": "FicheTox_Dichloromethane.pdf",
     "dangers": ["H302", "P281"]
-  },  
+  },
+  {
+  cas: "60-29-7",
+  nom: "diéthylique oxyde (éther)",
+  formule: "C₄H₁₀O",
+  categorie: "Solvant / Éther",
+  localisation: "salle B27 / étagère B2",
+  pictogramme: ["flammable.png", "irritant.png"],
+  obligation: ["LUNETTES", "GANTS", "BLOUSE"],
+  image: "diethyl_ether.jpg",
+  fds: "diethyl_ether.pdf",
+  dangers: ["H224", "H302", "H336", "P210", "P243", "P280", "P304+P340", "P309+P311"]
+  },
   {
   cas: "1330-43-4",
   nom: "disodium tétraborate anhydre",
@@ -393,13 +405,13 @@ export const products = [
   obligation: ["GANTS", "BLOUSE"],  
   image: "borate_anhydre.jpg",
   fds: "",
-  dangers: ["Irritant", "Peut provoquer une irritation des yeux et de la peau"]
+  dangers: ["H315", "H319"]
   },  
   {
   cas: "17372-87-1",
-  nom: "éosine",
+  nom: "éosine (éosine Y)",
   formule: "C₂₀H₆Br₄NaO₅",
-  categorie: "Colorant / Réactif",
+  categorie: "Colorant plasmatique basique",
   localisation: "salle B27 / étagère D4",
   pictogramme: ["irritant.png"],
   image: "eosine.jpg",
@@ -416,19 +428,19 @@ export const products = [
   obligation: ["LUNETTES", "GANTS", "BLOUSE"],
   image: "eriochrome_black_t.jpg",
   fds: "",
-  dangers: ["Irritant", "Peut provoquer une irritation des yeux et de la peau", "Nocif en cas d'ingestion"]
+  dangers: ["H302", "H315", "H319"]
   },
   {
     "cas": "7772-99-8",
-    "nom": "étain (II) chlorure",
-    "formule": "SnCl₂",
+    "nom": "étain II chlorure",
+    "formule": "SnCl₂·2H₂O",
     "categorie": "Sel métallique",
     "localisation": "Salle B27 / étagère D2",
     "pictogramme": ["SGH05_Corrosion.jpg", "SGH07_PointExclamation.jpg"],
     "obligation": ["LUNETTES", "GANTS", "BLOUSE"],
     "image": "etain_chlorure.jpg",
     "fds": "FicheTox_SnCl2.pdf",
-    "dangers": ["H302", "H314"]
+    "dangers": ["H302", "H319", "H335", "H315", "P261", "P264", "P270", "P271", "P280"]
   },
   {
     "cas": "7440-31-5",
@@ -444,7 +456,7 @@ export const products = [
   },
   {
     cas: "64-17-5",
-    nom: "éthanol (éthylique)",
+    nom: "éthanol (alcool éthylique)",
     formule: "C₂H₅OH",
     categorie: "Solvant",
     localisation: "Salle B27 / étagère B2",
@@ -452,20 +464,8 @@ export const products = [
     obligation: ["LUNETTES", "GANTS", "BLOUSE"],
     image: "ethanol.jpg",
     fds: "ethanol.pdf",
-    dangers: ["H225", "H319"]
-  },
-  {
-  cas: "60-29-7",
-  nom: "éther diéthylique",
-  formule: "C₄H₁₀O",
-  categorie: "Solvant / Éther",
-  localisation: "salle B27 / étagère B2",
-  pictogramme: ["flammable.png", "irritant.png"],
-  obligation: ["LUNETTES", "GANTS", "BLOUSE"],
-  image: "diethyl_ether.jpg",
-  fds: "diethyl_ether.pdf",
-  dangers: ["H224", "H302", "H336"]
-  },
+    dangers: ["H225", "P210", "P241", "P280", "P240", "P233", "P303+P361+P353", "P403+P235+P501"]
+  },  
     {
     "cas": "7758-94-3",
     "nom": "fer chlorure (II) pur",
