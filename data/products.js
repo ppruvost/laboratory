@@ -384,18 +384,6 @@ export const products = [
     "dangers": ["H302", "P281"]
   },  
   {
-    cas: "7791-18-6",
-    nom: "dichlorure de magnésium hexahydraté",
-    formule: "MgCl₂·6H₂O",
-    categorie: "additif alimentaire (E511)",
-    localisation: "salle B27 / étagère D2",
-    pictogramme: [],
-    obligation: [],
-    image: "chlorure_magnesium.jpg",
-    fds: "FDS_Chlorure.pdf",
-    dangers: [],    
-  },
-  {
   cas: "1330-43-4",
   nom: "disodium tétraborate anhydre",
   formule: "Na₂B₄O₇",
@@ -710,14 +698,14 @@ export const products = [
     "cas": "7791-18-6",
     "nom": "magnésium chlorure hexahydraté",
     "formule": "MgCl₂·6H₂O",
-    "categorie": "Sel minéral",
+    "categorie": "additif alimentaire (E511)",
     "localisation": "Salle B27 / étagère D2",
     "pictogramme": [],
     "obligation": ["BLOUSE"],
     "image": "magnesium_chlorure_hexahydrate.jpg",
     "fds": "FicheTox_MgCl2_6H2O.pdf",
     "dangers": []
-  },
+  }, 
     {
     "cas": "1317-65-3",
     "nom": "marbre concassé",
