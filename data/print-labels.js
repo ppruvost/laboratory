@@ -118,8 +118,8 @@ const PIC_LABELS = {
 /* ------------------------------------------------------------------ */
 /*  Chemin relatif des ressources (adapter selon votre arborescence)   */
 /* ------------------------------------------------------------------ */
-const IMG_BASE  = "assets/images/products/";   // photos produits
-const PIC_BASE  = "assets/images/pictogrammes/"; // pictogrammes GHS
+const IMG_BASE  = "assets/img/";   // photos produits
+const PIC_BASE  = "assets/picto/"; // pictogrammes GHS
 
 /* ------------------------------------------------------------------ */
 /*  Fonction principale                                                 */
