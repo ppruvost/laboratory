@@ -422,13 +422,13 @@
   cas: "1787-61-7",
   nom: "ériochrome Black T",
   formule: "C₂₀H₁₂N₃NaO₇S",
-  categorie: "Indicateur complexométrique (EDTA)",
+  categorie: "dureté de l'eau",
   localisation: "salle B27 / étagère B2",
   pictogramme: [""SGH07_PointExclamation.jpg""],
   obligation: ["LUNETTES", "GANTS", "BLOUSE"],
   image: "eriochrome_black_t.jpg",
   fds: "",
-  dangers: ["H302", "H315", "H319"]
+  dangers: []
   },
   {
     "cas": "7772-99-8",
