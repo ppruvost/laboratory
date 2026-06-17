@@ -1,15 +1,15 @@
    export const products = [
   {
     cas: " 98-86-2",
-    nom: "acétophénone (1-phényléthanone phényl méthyl cétone)",
+    nom: "acétophénone (1-phényléthanone, méthylphénylcétone)",
     formule: "C₈H₈O",
-    categorie: "Solvant organique",
+    categorie: "Cétone aromatique",
     localisation: "Salle B27 / étagère B1",
-    pictogramme: ["SGH02_Flamme.jpg", "SGH07_PointExclamation.jpg"],
+    pictogramme: ["SGH07_PointExclamation.jpg"],
     obligation: ["GANTS", "BLOUSE", "HOTTE"],
     image: "propanone.jpg",
     fds: "FicheTox_3.pdf",
-    dangers: ["H225", "H319", "H336", "P210", "P233", "P240", "P241", "P242", "P243", "P261", "P271", "P280"]
+    dangers: ["H319", "H335", "H336", "P261", "P271", "P280"]
   },   
   {
   cas: "107-92-6",
@@ -64,7 +64,7 @@
     nom: "acide nitrique (azotique)",
     formule: "HNO₃",
     categorie: "Acide fort",
-    localisation: "Salle B27 / étagère B1",
+",     localisation: "Salle B27 / étagère B1",
     pictogramme: ["SGH05_Corrosion.jpg", "SGH03_FlammeSurCercle.jpg"],
     obligation: ["GANTS", "BLOUSE", "HOTTE"],
     image: "acide_nitrique.jpg",
