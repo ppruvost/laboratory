@@ -1,6 +1,6 @@
    export const products = [
   {
-    cas: " 98-86-2",
+    cas: "98-86-2",
     nom: "acétophénone (1-phényléthanone, méthylphénylcétone)",
     formule: "C₈H₈O",
     categorie: "Cétone aromatique",
