@@ -89,6 +89,8 @@ export const dangerDB = [
 {code:"EUH014", cat:"UE", text:"Réagit violemment au contact de l'eau"},
 {code:"EUH018", cat:"UE", text:"Peut former un mélange explosif"},
 
+{code:"EUH032", cat:"Information complémentaire", text:"Au contact d’un acide, dégage un gaz très toxique"},
+
 {code:"EUH066", cat:"UE", text:"L'exposition répétée peut provoquer dessèchement de la peau"},
 {code:"EUH070", cat:"UE", text:"Toxique par contact oculaire"},
 {code:"EUH071", cat:"UE", text:"Corrosif pour les voies respiratoires"},
