@@ -118,8 +118,8 @@ const PIC_LABELS = {
 /* ------------------------------------------------------------------ */
 /*  Chemin relatif des ressources (adapter selon votre arborescence)   */
 /* ------------------------------------------------------------------ */
-const IMG_BASE  = "assets/img/";   // photos produits
-const PIC_BASE  = "assets/picto/"; // pictogrammes GHS
+const IMG_BASE  = "assets/images/products/";   // photos produits
+const PIC_BASE  = "assets/images/pictogrammes/"; // pictogrammes GHS
 
 /* ------------------------------------------------------------------ */
 /*  Fonction principale                                                 */
@@ -591,4 +591,69 @@ function escHtml(str) {
     .replace(/</g, '&lt;')
     .replace(/>/g, '&gt;')
     .replace(/"/g, '&quot;');
+}
+
+/* ------------------------------------------------------------------ */
+/*  Sélection par checkbox dans le tableau                             */
+/* ------------------------------------------------------------------ */
+
+function _toggleSelectAll(master) {
+  document.querySelectorAll('.row-chk').forEach(chk => chk.checked = master.checked);
+}
+
+function _getSelectedCas() {
+  return [...document.querySelectorAll('.row-chk:checked')].map(c => c.dataset.cas);
+}
+
+/* ------------------------------------------------------------------ */
+/*  Fonctions modal — appelées via les wrappers de index.html          */
+/* ------------------------------------------------------------------ */
+
+function _openLabelModal() {
+  const sel   = _getSelectedCas();
+  const total = (typeof products !== 'undefined') ? products.length : 0;
+
+  document.getElementById('opt-all-count').textContent = total;
+  document.getElementById('modal-selection-count').textContent =
+    sel.length > 0
+      ? `${sel.length} produit${sel.length > 1 ? 's' : ''} sélectionné${sel.length > 1 ? 's' : ''} dans le tableau.`
+      : 'Aucun produit sélectionné — choisissez « Tous les produits » ou cochez des lignes.';
+
+  const optSelected = document.getElementById('opt-selected');
+  optSelected.disabled = (sel.length === 0);
+  if (sel.length === 0) {
+    document.querySelector('input[name="label-scope"][value="all"]').checked = true;
+  }
+
+  document.getElementById('label-modal').style.display = 'flex';
+}
+
+function _closeLabelModal() {
+  document.getElementById('label-modal').style.display = 'none';
+}
+
+function _closeLabelModalOutside(e) {
+  if (e.target === document.getElementById('label-modal')) _closeLabelModal();
+}
+
+function _printLabels() {
+  const scope     = document.querySelector('input[name="label-scope"]:checked').value;
+  const showImage = document.getElementById('opt-show-image').checked;
+  const showFds   = document.getElementById('opt-show-fds').checked;
+
+  let subset;
+  if (scope === 'selected') {
+    const cas = _getSelectedCas();
+    subset = products.filter(p => cas.includes(p.cas.trim()));
+  } else {
+    subset = products;
+  }
+
+  if (!subset.length) {
+    alert('Aucun produit à imprimer.');
+    return;
+  }
+
+  _closeLabelModal();
+  generateLabelPage(subset, { showImage, showFds });
 }
