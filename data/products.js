@@ -744,15 +744,15 @@
   },
   {
     "cas": "7786-81-4",
-    "nom": "nickel sulfate",
-    "formule": "NiSO₄",
+    "nom": "nickel II sulfate",
+    "formule": "NiSO₄·6H₂O",
     "categorie": "sel métallique",
     "localisation": "Salle B27 / étagère D2",
     "pictogramme": ["SGH07_PointExclamation.jpg", "SGH08_DangerSante.jpg", "SGH09_Environnement.jpg"],
     "obligation": ["LUNETTES", "GANTS", "BLOUSE", "HOTTE"],
     "image": "sulfate_nickel.jpg",
     "fds": "FicheTox_NiSO4.pdf",
-    "dangers": ["H317", "H350", "H410"]
+    "dangers": ["H350", "H360", "H332", "H302", "H315", "H334",  "H317", "H372", "H341", "H410", "P202", "P260", "P264", "P270"]
   },
   {
   cas: "7722-64-7",
