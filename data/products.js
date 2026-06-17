@@ -1259,3 +1259,5 @@
     "dangers": ["H302", "H319"]
   },
 ];
+
+window.products = products
