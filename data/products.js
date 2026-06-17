@@ -64,7 +64,7 @@
     nom: "acide nitrique (azotique)",
     formule: "HNO₃",
     categorie: "Acide fort",
-",     localisation: "Salle B27 / étagère B1",
+    localisation: "Salle B27 / étagère B1",
     pictogramme: ["SGH05_Corrosion.jpg", "SGH03_FlammeSurCercle.jpg"],
     obligation: ["GANTS", "BLOUSE", "HOTTE"],
     image: "acide_nitrique.jpg",
@@ -424,7 +424,7 @@
   formule: "C₂₀H₁₂N₃NaO₇S",
   categorie: "dureté de l'eau",
   localisation: "salle B27 / étagère B2",
-  pictogramme: [""SGH07_PointExclamation.jpg""],
+  pictogramme: ["SGH07_PointExclamation.jpg"],
   obligation: ["LUNETTES", "GANTS", "BLOUSE"],
   image: "eriochrome_black_t.jpg",
   fds: "",
@@ -860,7 +860,7 @@
     "obligation": ["LUNETTES", "GANTS", "BLOUSE", "HOTTE"],
     "image": "potassium_chlorate.jpg",
     "fds": "FicheTox_KClO3.pdf",
-    "dangers": ["H271", "H332", "H302", "H411", "P210", "P220", "P221", "P261", "P264"
+    "dangers": ["H271", "H332", "H302", "H411", "P210", "P220", "P221", "P261", "P264"]
   },
     {
     "cas": "7447-40-7",
@@ -1124,7 +1124,7 @@
     "obligation": ["LUNETTES", "GANTS", "BLOUSE"],
     "image": "sodium_hydrogenosulfite.jpg",
     "fds": "FicheTox_NaHSO3.pdf",
-    "dangers": ["H302", "EUH031"], "P262"
+    "dangers": ["H302", "EUH031", "P262"],
   },
   {
     cas: "1310-73-2",
@@ -1244,7 +1244,7 @@
     "obligation": ["LUNETTES", "GANTS", "BLOUSE", "HOTTE"],
     "image": "chlorure_zinc.jpg",
     "fds": "FicheTox_ChlorureZinc.pdf",
-    "dangers": ["H302", "H314", "H410", "P260", "P264", "P270", "P273"; "P280", "P301+P312"]
+    "dangers": ["H302", "H314", "H410", "P260", "P264", "P270", "P273", "P280", "P301+P312"]
   },
   {
     "cas": "7446-20-0",
