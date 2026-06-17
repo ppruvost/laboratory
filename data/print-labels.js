@@ -610,19 +610,32 @@ function _getSelectedCas() {
 /* ------------------------------------------------------------------ */
 
 function _openLabelModal() {
-  const sel   = _getSelectedCas();
-  const total = (typeof products !== 'undefined') ? products.length : 0;
+
+  const sel = _getSelectedCas();
+  const total = (typeof products !== 'undefined')
+    ? products.length
+    : 0;
 
   document.getElementById('opt-all-count').textContent = total;
+
   document.getElementById('modal-selection-count').textContent =
     sel.length > 0
       ? `${sel.length} produit${sel.length > 1 ? 's' : ''} sélectionné${sel.length > 1 ? 's' : ''} dans le tableau.`
       : 'Aucun produit sélectionné — choisissez « Tous les produits » ou cochez des lignes.';
 
   const optSelected = document.getElementById('opt-selected');
-  optSelected.disabled = (sel.length === 0);
+  const optAll = document.querySelector(
+    'input[name="label-scope"][value="all"]'
+  );
+
+  // Réinitialisation complète à chaque ouverture
+  optSelected.disabled = false;
+
   if (sel.length === 0) {
-    document.querySelector('input[name="label-scope"][value="all"]').checked = true;
+    optSelected.disabled = true;
+    optAll.checked = true;
+  } else {
+    optSelected.checked = true;
   }
 
   document.getElementById('label-modal').style.display = 'flex';
@@ -637,16 +650,34 @@ function _closeLabelModalOutside(e) {
 }
 
 function _printLabels() {
-  const scope     = document.querySelector('input[name="label-scope"]:checked').value;
-  const showImage = document.getElementById('opt-show-image').checked;
-  const showFds   = document.getElementById('opt-show-fds').checked;
 
-  let subset;
+  const scope =
+    document.querySelector(
+      'input[name="label-scope"]:checked'
+    )?.value || 'selected';
+
+  const showImage =
+    document.getElementById('opt-show-image').checked;
+
+  const showFds =
+    document.getElementById('opt-show-fds').checked;
+
+  let subset = [];
+
   if (scope === 'selected') {
-    const cas = _getSelectedCas();
-    subset = products.filter(p => cas.includes(p.cas.trim()));
+
+    const selectedCas = _getSelectedCas();
+
+    subset = products.filter(p =>
+      selectedCas.includes(
+        (p.cas || '').trim()
+      )
+    );
+
   } else {
-    subset = products;
+
+    subset = [...products];
+
   }
 
   if (!subset.length) {
@@ -655,5 +686,12 @@ function _printLabels() {
   }
 
   _closeLabelModal();
-  generateLabelPage(subset, { showImage, showFds });
+
+  generateLabelPage(
+    subset,
+    {
+      showImage,
+      showFds
+    }
+  );
 }
