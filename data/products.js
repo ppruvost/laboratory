@@ -860,7 +860,7 @@
     "obligation": ["LUNETTES", "GANTS", "BLOUSE", "HOTTE"],
     "image": "potassium_chlorate.jpg",
     "fds": "FicheTox_KClO3.pdf",
-    "dangers": ["H272", "H302"]
+    "dangers": ["H271", "H332", "H302", "H411", "P210", "P220", "P221", "P261", "P264"
   },
     {
     "cas": "7447-40-7",
@@ -880,15 +880,15 @@
     "formule": "K₂CrO₄",
     "categorie": "sel toxique",
     "localisation": "Salle B27 / étagère D2",
-    "pictogramme": ["SGH06_TeteDeMort.jpg", "SGH08_DangerSante.jpg", "SGH09_Environnement.jpg"],
+    "pictogramme": ["SGH07_PointExclamation.jpg", "SGH08_DangerSante.jpg"],
     "obligation": ["LUNETTES", "GANTS", "BLOUSE", "HOTTE"],
     "image": "potassium_chromate.jpg",
     "fds": "FicheTox_K2CrO4.pdf",
-    "dangers": ["H301", "H340", "H350", "H410"]
+    "dangers": ["H350", "H340", "H332", "H334", "H317", "H412", "P202", "P261", "P271", "P272", "P272"]
   },
     {
     "cas": "13746-66-2",
-    "nom": "potassium ferricyanure",
+    "nom": "potassium hexacyanoferrate II (potassium ferricyanure)",
     "formule": "K₃[Fe(CN)₆]",
     "categorie": "complexe métallique",
     "localisation": "Salle B27 / étagère D2",
@@ -896,7 +896,7 @@
     "obligation": ["LUNETTES", "GANTS", "BLOUSE"],
     "image": "potassium_ferricyanure.jpg",
     "fds": "FicheTox_K3FeCN6.pdf",
-    "dangers": ["H302"]
+    "dangers": ["H302", "P264", "P270"]
   },
     {
     "cas": "13943-58-3",
