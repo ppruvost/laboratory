@@ -90,7 +90,7 @@ export const dangerDB = [
 {code:"EUH006", cat:"UE", text:"Explosif avec ou sans contact avec l'air"},
 {code:"EUH014", cat:"UE", text:"Réagit violemment au contact de l'eau"},
 {code:"EUH018", cat:"UE", text:"Peut former un mélange explosif"},
-
+{code:"EUH031", cat:"Information complémentaire", text:"Au contact d’un acide, dégage un gaz toxique"},
 {code:"EUH032", cat:"Information complémentaire", text:"Au contact d’un acide, dégage un gaz très toxique"},
 
 {code:"EUH066", cat:"UE", text:"L'exposition répétée peut provoquer dessèchement de la peau"},
@@ -122,6 +122,7 @@ export const dangerDB = [
 
 {code:"P260", cat:"Prévention", text:"Ne pas respirer les poussières/fumées/gaz/brouillards/vapeurs/aérosols"},
 {code:"P261", cat:"Prévention", text:"Éviter de respirer les poussières/fumées/gaz/brouillards/vapeurs/aérosols"},
+{code:"P262", cat:"Prévention", text:"Éviter tout contact avec les yeux, la peau ou les vêtements"},
 {code:"P264", cat:"Prévention", text:"Se laver soigneusement après manipulation"},
 
 {code:"P270", cat:"Prévention", text:"Ne pas manger, boire ou fumer en manipulant ce produit"},
@@ -149,23 +150,24 @@ export const dangerDB = [
 
 {code:"P391", cat:"Intervention", text:"Recueillir le produit répandu"},
 
-{code:"P403+P235", cat:"Stockage", text:"Stocker dans un endroit bien ventilé. Tenir au frais"},
 {code:"P405", cat:"Stockage", text:"Garder sous clef"},
 {code:"P422", cat:"Stockage", text:"Stocker le contenu sous gaz inerte"},
 
 {code:"P501", cat:"Élimination", text:"Éliminer le contenu/récipient conformément à la réglementation locale/régionale/nationale/internationale"},
 
 {code:"P231+P232", cat:"Prévention", text:"Manipuler et stocker le contenu sous gaz inerte. Protéger de l’humidité"},
-
+ 
 {code:"P301+P310", cat:"Intervention", text:"EN CAS D’INGESTION : Appeler immédiatement un CENTRE ANTIPOISON ou un médecin"},
 {code:"P301+P312", cat:"Intervention", text:"EN CAS D’INGESTION : Appeler un CENTRE ANTIPOISON ou un médecin en cas de malaise"},
+{code:"P301+P330", cat:"Intervention", text:"EN CAS D’INGESTION : Rincer la bouche"},
 {code:"P301+P330+P331", cat:"Intervention", text:"EN CAS D’INGESTION : Rincer la bouche. NE PAS faire vomir"},   
 {code:"P302+P352", cat:"Intervention", text:"EN CAS DE CONTACT AVEC LA PEAU : Laver abondamment à l’eau et au savon"},
 {code:"P303+P361+P353", cat:"Intervention", text:"EN CAS DE CONTACT AVEC LA PEAU (ou les cheveux) : Enlever immédiatement tous les vêtements contaminés. Rincer la peau à l’eau ou se doucher"},
 {code:"P304+P340", cat:"Intervention", text:"EN CAS D’INHALATION : Transporter la personne à l’extérieur et la maintenir dans une position où elle peut confortablement respirer"},
 {code:"P305+P351+P338", cat:"Intervention", text:"EN CAS DE CONTACT AVEC LES YEUX : Rincer avec précaution à l’eau pendant plusieurs minutes. Enlever les lentilles de contact si la victime en porte et si elles peuvent être facilement enlevées. Continuer à rincer"},
+{code:"P308+P313", cat:"Intervention", text:"EN CAS d’exposition prouvée ou suspectée : Consulter un médecin"},
 {code:"P309+P311", cat:"Intervention", text:"EN CAS d’exposition ou de malaise : Appeler un CENTRE ANTIPOISON ou un médecin"},
 {code:"P310+P405+P501", cat:"Intervention/Stockage/Élimination", text:"Appeler immédiatement un CENTRE ANTIPOISON ou un médecin. Garder sous clef. Éliminer le contenu/récipient conformément à la réglementation locale/régionale/nationale/internationale"},
-{code:"P337+P313", cat:"Intervention", text:"Si l’irritation oculaire persiste : Consulter un médecin"}
-
+{code:"P337+P313", cat:"Intervention", text:"Si l’irritation oculaire persiste : Consulter un médecin"},
+{code:"P403+P235", cat:"Stockage", text:"Stocker dans un endroit bien ventilé. Tenir au frais"}
 ];
