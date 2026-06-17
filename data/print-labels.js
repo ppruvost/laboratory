@@ -104,10 +104,10 @@ const MENTIONS = {
 /*  Codes couleur des cadres de pictogrammes GHS                       */
 /* ------------------------------------------------------------------ */
 const PIC_LABELS = {
-  "SGH01_ExplosionBombe.jpg"    : "Explosif",
+  "SGH01_BombeExplosant.jpg"    : "Explosif",
   "SGH02_Flamme.jpg"            : "Inflammable",
   "SGH03_FlammeSurCercle.jpg"   : "Comburant",
-  "SGH04_BouteilleDeGaz.jpg"    : "Gaz sous pression",
+  "SGH04_BouteilleGaz.jpg"    : "Gaz sous pression",
   "SGH05_Corrosion.jpg"         : "Corrosif",
   "SGH06_TeteDeMort.jpg"        : "Toxique",
   "SGH07_PointExclamation.jpg"  : "Irritant / Nocif",
