@@ -153,7 +153,7 @@ function generateLabelPage(products, options = {}) {
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<title>Étiquettes CLP — Labo</title>
+<title>Étiquettes CLP — Labo LP Mermoz</title>
 <style>
   /* ============================================================
      Mise en page impression : Avery L7121
