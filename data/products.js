@@ -1012,12 +1012,24 @@
   formule: "CuSO₄·5H₂O",
   categorie: "Solution de sulfate de cuivre(II)",
   localisation: "Salle B27 / étagère B2",
-  pictogramme: ["irritant.png", "environnement.png"],
+  pictogramme: ["SGH07_PointExclamation.jpg", "SGH09_Environnement.jpg"],
   obligation: ["LUNETTES", "GANTS", "BLOUSE"],  
   image: "fehling_A.jpg",
   fds: "FicheTox_XXX.pdf",
-  dangers: ["H302", "H319", "H410"]
+  dangers: ["H411", "P273", "P291"]
   },
+ {
+  cas: "1310-73-2",
+  nom: "Réactif de Fehling B",
+  formule: "NaOH + KNaC₄H₄O₆",
+  categorie: "Solution alcaline de tartrate double de sodium et potassium",
+  localisation: "Salle B27 / étagère B2",
+  pictogramme: ["SGH05_Corrosion.jpg"],
+  obligation: ["LUNETTES", "GANTS", "BLOUSE"],
+  image: "fehling_B.jpg",
+  fds: "FicheTox_FehlingB.pdf",
+  dangers: ["H314", "P260", "P264", "P280", "P301+P330", "P331", "P303+P361+P353"] 
+},  
   {
     cas: "7783-33-7",
     nom: "réactif de Nessler (tétraiodomercurate(II) de dipotassium)",
