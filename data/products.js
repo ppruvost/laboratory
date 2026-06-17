@@ -1008,7 +1008,7 @@
   },
   {
   cas: "7758-99-8",
-  nom: "réactif de Fehling A",
+  nom: "réactif de Fehling A (sulfate de cuivre pentahydraté)",
   formule: "CuSO₄·5H₂O",
   categorie: "Solution de sulfate de cuivre(II)",
   localisation: "Salle B27 / étagère B2",
@@ -1016,11 +1016,11 @@
   obligation: ["LUNETTES", "GANTS", "BLOUSE"],  
   image: "fehling_A.jpg",
   fds: "FicheTox_XXX.pdf",
-  dangers: ["H411", "P273", "P291"]
+  dangers: ["H411", "P273"]
   },
  {
   cas: "1310-73-2",
-  nom: "Réactif de Fehling B",
+  nom: "Réactif de Fehling B (Hydroxyde de sodium et tartrate double de sodium et de potassium, sel de Rochelle)",
   formule: "NaOH + KNaC₄H₄O₆",
   categorie: "Solution alcaline de tartrate double de sodium et potassium",
   localisation: "Salle B27 / étagère B2",
