@@ -887,20 +887,20 @@
     "dangers": ["H350", "H340", "H332", "H334", "H317", "H412", "P202", "P261", "P271", "P272", "P272"]
   },
     {
-    "cas": "13746-66-2",
-    "nom": "potassium hexacyanoferrate II (potassium ferricyanure)",
-    "formule": "K₃[Fe(CN)₆]",
-    "categorie": "complexe métallique",
-    "localisation": "Salle B27 / étagère D2",
-    "pictogramme": ["SGH07_PointExclamation.jpg"],
-    "obligation": ["LUNETTES", "GANTS", "BLOUSE"],
+  "cas": "13746-66-2",
+  "nom": "Potassium III hexacyanoferrate (potassium ferricyanure)",
+  "formule": "K₃[Fe(CN)₆]",
+  "categorie": "Complexe métallique",
+  "localisation": "Salle B27 / étagère D2",
+  "pictogramme": ["SGH07_PointExclamation.jpg"],
+  "obligation": ["LUNETTES", "GANTS", "BLOUSE"],
     "image": "potassium_ferricyanure.jpg",
     "fds": "FicheTox_K3FeCN6.pdf",
     "dangers": ["H302", "P264", "P270"]
   },
     {
     "cas": "13943-58-3",
-    "nom": "potassium ferrocyanure",
+    "nom": " potassium II hexacyanoferrate (potassium ferrocyanure)",
     "formule": "K₄[Fe(CN)₆]",
     "categorie": "complexe métallique",
     "localisation": "Salle B27 / étagère D2",
@@ -908,7 +908,7 @@
     "obligation": ["BLOUSE"],
     "image": "potassium_ferrocyanure.jpg",
     "fds": "FicheTox_K4FeCN6.pdf",
-    "dangers": []
+    "dangers": ["P264"]
   },
   {
   cas: "13746-66-2",
@@ -920,7 +920,7 @@
   obligation: ["GANTS", "BLOUSE"], 
   image: "ferricyanure_III.jpg",
   fds: "",
-  dangers: ["Irritant", "Peut être nocif en cas d'ingestion", "Décomposition possible en milieu fortement acide avec libération de composés cyanurés"]
+  dangers: [H302", "H319", "EUH032"]
   },
   {
   "cas": "1310-58-3",
