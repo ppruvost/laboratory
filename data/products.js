@@ -713,10 +713,10 @@
     "categorie": "Hydrocarbure insaturé",
     "localisation": "Salle B27 / étagère B1",
     "pictogramme": ["SGH02_Flamme.jpg", "SGH07_PointExclamation.jpg"],
-    "obligation": ["LUNETTES", "GANTS", "BLOUSE", "HOTTE"],
+    "obligation": ["LUNETTES", "GANTS", "BLOUSE"],
     "image": "methyl2_butene2.jpg",
     "fds": "FicheTox_Methyl2Butene2.pdf",
-    "dangers": ["H224", "H336"]
+    "dangers": ["H225", "H302", "P210"]
   },
   {
     "cas": "96-33-3",
