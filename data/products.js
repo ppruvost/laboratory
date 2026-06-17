@@ -1,7 +1,7 @@
-export const products = [
+   export const products = [
   {
-    cas: "67-64-1",
-    nom: "1-phényléthanone (acétophénone)",
+    cas: " 98-86-2",
+    nom: "acétophénone (1-phényléthanone phényl méthyl cétone)",
     formule: "C₈H₈O",
     categorie: "Solvant organique",
     localisation: "Salle B27 / étagère B1",
@@ -9,7 +9,7 @@ export const products = [
     obligation: ["GANTS", "BLOUSE", "HOTTE"],
     image: "propanone.jpg",
     fds: "FicheTox_3.pdf",
-    dangers: ["H225", "H319", "H336"]
+    dangers: ["H225", "H319", "H336", "P210", "P233", "P240", "P241", "P242", "P243", "P261", "P271", "P280"]
   },   
   {
   cas: "107-92-6",
