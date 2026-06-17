@@ -1034,13 +1034,13 @@
     cas: "7783-33-7",
     nom: "réactif de Nessler (tétraiodomercurate(II) de dipotassium)",
     formule: "K₂[HgI₄]",
-    categorie: "Détection ammonium",
+    categorie: "Détection ammonium --> précipité rouge",
     localisation: "Salle B27 / étagère B2",
     pictogramme: ["SGH06_TeteDeMort.jpg", "SGH09_Environnement.jpg"],
     obligation: ["LUNETTES", "GANTS", "BLOUSE", "HOTTE"],
     image: "nessler.jpg",
     fds: "SDB_8132.pdf",
-    dangers: ["H314"]
+    dangers: ["H302", "H332", "H314", "H334", "H317", "H373", "H411", "P260", "P303+P361+P353", "P305+P351+P338", "P310"]
   },
   {
     cas: "mélange (HNO₃ + (NH₄)₆Mo₇O₂₄)",
