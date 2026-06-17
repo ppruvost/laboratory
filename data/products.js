@@ -984,19 +984,19 @@
   },
   {
     "cas": "7727-21-1",
-    "nom": "potassium peroxodisulfate",
+    "nom": "potassium peroxodisulfate (potassium persulfate)",
     "formule": "K₂S₂O₈",
     "categorie": "oxydant",
     "localisation": "Salle B27 / étagère D2",
-    "pictogramme": ["SGH03_Comburant.jpg", "SGH07_PointExclamation.jpg"],
+    "pictogramme": ["SGH03_Comburant.jpg", "SGH07_PointExclamation.jpg", "SGH08_DangerSante.jpg"],
     "obligation": ["LUNETTES", "GANTS", "BLOUSE"],
     "image": "potassium_peroxodisulfate.jpg",
     "fds": "FicheTox_K2S2O8.pdf",
-    "dangers": ["H272", "H315", "H319"]
+    "dangers": ["H272", "H302", "H319", "H335", "H315", "H334", "H317", "P210", "P221", "P261", "P264", "P270"]
   },
   {
     cas: "67-64-1",
-    nom: "propan-2-one (propanone, acétone)",
+    nom: "propanone (propan-2-one, acétone)",
     formule: "C₃H₆O",
     categorie: "Cétone (solvant organique)",
     localisation: "Salle B27 / étagère B1",
@@ -1004,7 +1004,7 @@
     obligation: ["LUNETTES","GANTS", "BLOUSE", "HOTTE"],
     image: "propanone.jpg",
     fds: "FicheTox_3.pdf",
-    dangers: ["H225", "H319", "H336"]
+    dangers: ["H225", "H336", "P210", "P241", "P303+P361+P353", "P305+P351+P338", "P403+P235", "P405", "P501"]
   },
   {
   cas: "7758-99-8",
