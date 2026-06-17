@@ -753,19 +753,7 @@
     "image": "sulfate_nickel.jpg",
     "fds": "FicheTox_NiSO4.pdf",
     "dangers": ["H350", "H360", "H332", "H302", "H315", "H334",  "H317", "H372", "H341", "H410", "P202", "P260", "P264", "P270"]
-  },
-  {
-  cas: "7722-64-7",
-  nom: "permanganate de potassium",
-  formule: "KMnO₄",
-  categorie: "Oxydant / Réactif",
-  localisation: "Salle B27 / étagère D4",
-  pictogramme: ["SGH03_FlammeSurCercle.jpg", "SGH09_Environnement.jpg", "SGH07_PointExclamation.jpg"],
-  obligation: ["LUNETTES", "GANTS", "BLOUSE"],
-  image: "permanganate_potassium.jpg",
-  fds: "permanganate_potassium.pdf",
-  dangers: ["H272", "H302", "H410"]
-  },
+  },  
     {
     cas: "77-09-8",
     nom: "phénolphtaléine (3,3-bis(4-hydroxyphényl)-1(3H)-isobenzofuranone)",
@@ -1000,11 +988,11 @@
     "formule": "KMnO₄",
     "categorie": "oxydant",
     "localisation": "Salle B27 / étagère D2",
-    "pictogramme": ["SGH03_Comburant.jpg", "SGH05_Corrosion.jpg", "SGH09_Environnement.jpg"],
+    "pictogramme": ["SGH03_Comburant.jpg", "SGH07_PointExclamation.jpg", "SGH09_Environnement.jpg"],
     "obligation": ["LUNETTES", "GANTS", "BLOUSE"],
     "image": "potassium_permanganate.jpg",
     "fds": "FicheTox_KMnO4.pdf",
-    "dangers": ["H272", "H302", "H410"]
+    "dangers": ["H272", "H302", "H410", "P210", "P220", "P221", "P264", "P270"]
   },
   {
     "cas": "7727-21-1",
