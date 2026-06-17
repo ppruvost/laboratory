@@ -948,7 +948,7 @@
   },
   {
     "cas": "7757-79-1",
-    "nom": "potassium nitrate",
+    "nom": "potassium nitrate (salpêtre)",
     "formule": "KNO₃",
     "categorie": "sel oxydant",
     "localisation": "Salle B27 / étagère D2",
@@ -956,7 +956,7 @@
     "obligation": ["LUNETTES", "GANTS", "BLOUSE"],
     "image": "potassium_nitrate.jpg",
     "fds": "FicheTox_KNO3.pdf",
-    "dangers": ["H272"]
+    "dangers": ["H272", "P210", "P280"]
   },
     {
     "cas": "6487-48-5",
@@ -968,7 +968,7 @@
     "obligation": ["LUNETTES", "GANTS", "BLOUSE"],
     "image": "potassium_oxalate.jpg",
     "fds": "FicheTox_K2C2O4.pdf",
-    "dangers": ["H302"]
+    "dangers": ["H312", "H302", "P264", "P270", "P301+P312", "P302+P352", "P312"]
   },
   {
     "cas": "7722-64-7",
