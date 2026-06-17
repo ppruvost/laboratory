@@ -56,6 +56,7 @@ export const dangerDB = [
 {code:"H330", cat:"Santé", text:"Mortel par inhalation"},
 {code:"H331", cat:"Santé", text:"Toxique par inhalation"},
 {code:"H332", cat:"Santé", text:"Nocif par inhalation"},
+{code:"H334", cat:"Danger", text:"Peut provoquer des symptômes allergiques ou d’asthme ou des difficultés respiratoires par inhalation"},
 {code:"H335", cat:"Danger", text:"Peut irriter les voies respiratoires"},
 {code:"H336", cat:"Danger", text:"Peut provoquer somnolence ou vertiges"},
 
@@ -68,6 +69,7 @@ export const dangerDB = [
 {code:"H360", cat:"CMR", text:"Peut nuire à la fertilité ou au fœtus"},
 {code:"H361", cat:"CMR", text:"Susceptible de nuire à la fertilité ou au fœtus"},
 
+{code:"H372", cat:"Danger", text:"Risque avéré d’effets graves pour les organes à la suite d’expositions répétées ou d’une exposition prolongée"},
 {code:"H373", cat:"Danger", text:"Risque présumé d’effets graves pour les organes à la suite d’expositions répétées ou d’une exposition prolongée"},
 
 /* =========================
@@ -115,6 +117,7 @@ export const dangerDB = [
 
 {code:"P240", cat:"Prévention", text:"Mettre à la terre et relier par liaison équipotentielle le récipient et le matériel de réception"},
 {code:"P241", cat:"Prévention", text:"Utiliser du matériel électrique/de ventilation/d’éclairage/…/antidéflagrant"},
+{code:"P242", cat:"Prévention", text:"Utiliser des outils ne produisant pas d’étincelles"},
 {code:"P243", cat:"Prévention", text:"Prendre des mesures de précaution contre les décharges électrostatiques"},
 
 {code:"P260", cat:"Prévention", text:"Ne pas respirer les poussières/fumées/gaz/brouillards/vapeurs/aérosols"},
@@ -123,6 +126,7 @@ export const dangerDB = [
 
 {code:"P270", cat:"Prévention", text:"Ne pas manger, boire ou fumer en manipulant ce produit"},
 {code:"P271", cat:"Prévention", text:"Utiliser seulement en plein air ou dans un endroit bien ventilé"},
+{code:"P272", cat:"Prévention", text:"Les vêtements de travail contaminés ne devraient pas sortir du lieu de travail"},
 {code:"P273", cat:"Prévention", text:"Éviter le rejet dans l’environnement"},
 
 {code:"P280", cat:"Prévention", text:"Porter des gants de protection/des vêtements de protection/un équipement de protection des yeux/du visage"},
