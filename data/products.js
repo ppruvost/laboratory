@@ -760,8 +760,8 @@
     formule: "C₂₀H₁₄O₄",
     categorie: "Indicateur coloré  (pH 8,2-10)",
     localisation: "Salle B27 / étagère B2",
-    pictogramme: ["SGH08_DangerSante.jpg"],
-    obligation: ["LUNETTES", "GANTS", "BLOUSE", "HOTTE"],
+    pictogramme: ["SGH02_Flamme.jpg", "SGH08_DangerSante.jpg"],
+    obligation: ["GANTS", "BLOUSE", "HOTTE"],
     image: "phenolphtaleine.jpg",
     fds: "FAS33.pdf",
     dangers: ["H225", "H350", "H341", "P201", "P202", "P210", "P233", "P240"]
@@ -776,7 +776,7 @@
     "obligation": ["LUNETTES", "GANTS", "BLOUSE", "HOTTE"],
     "image": "phosphore_blanc.jpg",
     "fds": "FicheTox_PhosphoreBlanc.pdf",
-    "dangers": ["H228", "H300", "H410"]
+    "dangers": ["H228", "H300", "H410", "P210","P223","P231+P232","P240","P241","P242","P243","P260","P264","P270","P273","P280"]
   },
     {
     "cas": "7758-87-4",
