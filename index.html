@@ -1,4 +1,4 @@
-  <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="fr">
 
 <head>
@@ -110,32 +110,32 @@
 
     <!-- ================= RÉACTIFS ================= -->
     <div id="products" class="section">
-  <div class="section-header">
-    <h2>Produits chimiques</h2>
-    <button id="btn-print-labels" onclick="openLabelModal()">
-      <i class="fas fa-print"></i> Imprimer étiquettes
-    </button>
-  </div>
- 
-  <div class="table-wrapper">
-    <table>
-      <thead>
-        <tr>
-          <th><input type="checkbox" id="select-all-chk" title="Tout sélectionner" onchange="toggleSelectAll(this)"></th>
-          <th>CAS</th>
-          <th>Nom</th>
-          <th>Formule</th>
-          <th>Catégorie</th>
-          <th>Localisation</th>
-          <th>Pictogrammes</th>
-          <th>Dangers</th>
-          <th>Visuel</th>
-        </tr>
-      </thead>
-      <tbody id="table-body"></tbody>
-    </table>
-  </div>
-</div>
+      <div class="section-header">
+        <h2>Produits chimiques</h2>
+        <button id="btn-print-labels" onclick="openLabelModal()">
+          <i class="fas fa-print"></i> Imprimer étiquettes
+        </button>
+      </div>
+
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th><input type="checkbox" id="select-all-chk" title="Tout sélectionner" onchange="toggleSelectAll(this)"></th>
+              <th>CAS</th>
+              <th>Nom</th>
+              <th>Formule</th>
+              <th>Catégorie</th>
+              <th>Localisation</th>
+              <th>Pictogrammes</th>
+              <th>Dangers</th>
+              <th>Visuel</th>
+            </tr>
+          </thead>
+          <tbody id="table-body"></tbody>
+        </table>
+      </div>
+    </div>
 
     <!-- ================= ÉQUIPEMENTS ================= -->
     <div id="equipment" class="section">
@@ -192,133 +192,163 @@
   <script>
 
     function setActive(element) {
-
       document.querySelectorAll(".menu-item").forEach(item => {
         item.classList.remove("active");
       });
-
       if (element) {
         element.classList.add("active");
       }
     }
 
     function showSection(sectionId, element = null) {
-
       document.querySelectorAll(".section").forEach(section => {
         section.classList.remove("active");
       });
-
       const target = document.getElementById(sectionId);
-
       if (target) {
         target.classList.add("active");
       }
-
       setActive(element);
     }
 
     function loadInFrame(url, element = null) {
-
       document.querySelectorAll(".section").forEach(section => {
         section.classList.remove("active");
       });
-
       const externalSection = document.getElementById("external-content");
       const iframe = document.getElementById("external-frame");
-
       if (externalSection && iframe) {
         iframe.src = url;
         externalSection.classList.add("active");
       }
-
       setActive(element);
     }
 
-    // rendre accessibles aux onclick HTML
-    window.setActive = setActive;
-    window.showSection = showSection;
-    window.loadInFrame = loadInFrame;
+    /* ---- Fonctions modal étiquettes ---- */
+    /* Délèguent à print-labels.js chargé juste après app.js.
+       Les wrappers ci-dessous sont définis ici (script classique)
+       donc disponibles pour les onclick du HTML dès le chargement. */
+
+    function openLabelModal() {
+      if (typeof _openLabelModal === 'function') {
+        _openLabelModal();
+      } else {
+        console.error('print-labels.js non chargé');
+      }
+    }
+
+    function closeLabelModal() {
+      if (typeof _closeLabelModal === 'function') _closeLabelModal();
+    }
+
+    function closeLabelModalOutside(e) {
+      if (typeof _closeLabelModalOutside === 'function') _closeLabelModalOutside(e);
+    }
+
+    function printLabels() {
+      if (typeof _printLabels === 'function') _printLabels();
+    }
+
+    function toggleSelectAll(master) {
+      if (typeof _toggleSelectAll === 'function') {
+        _toggleSelectAll(master);
+      } else {
+        /* fallback minimal si print-labels.js pas encore prêt */
+        document.querySelectorAll('.row-chk').forEach(chk => chk.checked = master.checked);
+      }
+    }
+
+    /* Exposition globale (redondant mais explicite) */
+    window.setActive              = setActive;
+    window.showSection            = showSection;
+    window.loadInFrame            = loadInFrame;
+    window.openLabelModal         = openLabelModal;
+    window.closeLabelModal        = closeLabelModal;
+    window.closeLabelModalOutside = closeLabelModalOutside;
+    window.printLabels            = printLabels;
+    window.toggleSelectAll        = toggleSelectAll;
 
   </script>
 
-  <!-- JS principal -->
+  <!-- JS principal (module) -->
   <script type="module" src="app.js"></script>
 
-<!-- ===================================== -->
-<!-- VIEWER TP -->
-<!-- ===================================== -->
+  <!-- Générateur d'étiquettes (script classique — pas de module,
+       car il doit exposer ses fonctions sur window directement)
+       Adapter le chemin si print-labels.js est dans un sous-dossier. -->
+  <script src="print-labels.js"></script>
 
-<div id="tpViewer" class="tp-viewer hidden">
+  <!-- ===================================== -->
+  <!-- VIEWER TP                             -->
+  <!-- ===================================== -->
+
+  <div id="tpViewer" class="tp-viewer hidden">
 
     <div class="viewer-topbar">
-
-        <h2>Travaux Pratiques</h2>
-
-        <button id="closeViewer">
-            ✖ Fermer
-        </button>
-
+      <h2>Travaux Pratiques</h2>
+      <button id="closeViewer">✖ Fermer</button>
     </div>
 
     <iframe
-        id="tpFrame"
-        src=""
-        loading="lazy">
+      id="tpFrame"
+      src=""
+      loading="lazy">
     </iframe>
 
-</div>
+  </div>
 
-<!-- ===================================== -->
-<!-- PRINT ETIQUETTE -->
-<!-- ===================================== -->
+  <!-- ===================================== -->
+  <!-- MODAL IMPRESSION ÉTIQUETTES           -->
+  <!-- ===================================== -->
+
   <div id="label-modal" class="modal-overlay" style="display:none;" onclick="closeLabelModalOutside(event)">
-  <div class="modal-box">
-    <div class="modal-header">
-      <h3><i class="fas fa-tag"></i> Impression d'étiquettes</h3>
-      <button class="modal-close" onclick="closeLabelModal()" title="Fermer">×</button>
-    </div>
- 
-    <div class="modal-body">
-      <p class="modal-info">
-        Format <strong>Avery L7121</strong> — 16 étiquettes / feuille A4 (99,1 × 33,9 mm)<br>
-        Présentation conforme au règlement CLP (CE n° 1272/2008).
-      </p>
- 
-      <div class="modal-selection-info" id="modal-selection-count">
-        <!-- rempli par JS -->
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3><i class="fas fa-tag"></i> Impression d'étiquettes</h3>
+        <button class="modal-close" onclick="closeLabelModal()" title="Fermer">×</button>
       </div>
- 
-      <div class="modal-options">
-        <label class="modal-option">
-          <input type="radio" name="label-scope" value="selected" id="opt-selected" checked>
-          <span>Produits sélectionnés dans le tableau</span>
-        </label>
-        <label class="modal-option">
-          <input type="radio" name="label-scope" value="all">
-          <span>Tous les produits (<span id="opt-all-count"></span>)</span>
-        </label>
+
+      <div class="modal-body">
+        <p class="modal-info">
+          Format <strong>Avery L7121</strong> — 16 étiquettes / feuille A4 (99,1 × 33,9 mm)<br>
+          Présentation conforme au règlement CLP (CE n° 1272/2008).
+        </p>
+
+        <div class="modal-selection-info" id="modal-selection-count">
+          <!-- rempli par JS -->
+        </div>
+
+        <div class="modal-options">
+          <label class="modal-option">
+            <input type="radio" name="label-scope" value="selected" id="opt-selected" checked>
+            <span>Produits sélectionnés dans le tableau</span>
+          </label>
+          <label class="modal-option">
+            <input type="radio" name="label-scope" value="all">
+            <span>Tous les produits (<span id="opt-all-count"></span>)</span>
+          </label>
+        </div>
+
+        <div class="modal-options" style="margin-top:12px;">
+          <label class="modal-opt-check">
+            <input type="checkbox" id="opt-show-image" checked>
+            <span>Afficher la photo du produit</span>
+          </label>
+          <label class="modal-opt-check">
+            <input type="checkbox" id="opt-show-fds" checked>
+            <span>Afficher le lien / référence FDS</span>
+          </label>
+        </div>
       </div>
- 
-      <div class="modal-options" style="margin-top:12px;">
-        <label class="modal-opt-check">
-          <input type="checkbox" id="opt-show-image" checked>
-          <span>Afficher la photo du produit</span>
-        </label>
-        <label class="modal-opt-check">
-          <input type="checkbox" id="opt-show-fds" checked>
-          <span>Afficher le lien / référence FDS</span>
-        </label>
+
+      <div class="modal-footer">
+        <button class="btn-secondary" onclick="closeLabelModal()">Annuler</button>
+        <button class="btn-primary" onclick="printLabels()">
+          <i class="fas fa-print"></i> Générer &amp; imprimer
+        </button>
       </div>
-    </div>
- 
-    <div class="modal-footer">
-      <button class="btn-secondary" onclick="closeLabelModal()">Annuler</button>
-      <button class="btn-primary" onclick="printLabels()">
-        <i class="fas fa-print"></i> Générer &amp; imprimer
-      </button>
     </div>
   </div>
-</div>
-</body>
 
+</body>
 </html>
