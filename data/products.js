@@ -818,7 +818,7 @@
     "cas": "1332-09-8",
     "nom": "ponce en grain",
     "formule": "silicates naturels",
-    "categorie": "minéral abrasif",
+    "categorie": "dessécher les gaz acides",
     "localisation": "Salle B27 / étagère D2",
     "pictogramme": [],
     "obligation": ["BLOUSE"],
@@ -828,7 +828,7 @@
   },
     {
     "cas": "7784-24-9",
-    "nom": "potassium alun",
+    "nom": "potassium aluminium sulfate (potassium alun)",
     "formule": "KAl(SO₄)₂·12H₂O",
     "categorie": "sel double",
     "localisation": "Salle B27 / étagère D2",
@@ -848,7 +848,7 @@
     "obligation": ["GANTS", "BLOUSE", "HOTTE"],
     "image": "potassium_bromate.jpg",
     "fds": "FicheTox_KBrO3.pdf",
-    "dangers": ["H271", "H301", "H350"]
+    "dangers": ["H271", "H301", "H350", "P201", "P202", "P220", "P221", "P270", "P280"]
   },
   {
     "cas": "3811-04-9",
