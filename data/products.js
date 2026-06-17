@@ -740,7 +740,7 @@
     obligation: ["LUNETTES", "GANTS", "BLOUSE", "HOTTE"],
     image: "naphtalene.jpg",
     fds: "FicheTox_204.pdf",
-    dangers: ["H351"],    
+    dangers: ["H302", "H351", "H410", "P202", "P264", "P270", "P273", "P281"],    
   },
   {
     "cas": "7786-81-4",
