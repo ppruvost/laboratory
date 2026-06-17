@@ -896,7 +896,7 @@
   "obligation": ["LUNETTES", "GANTS", "BLOUSE"],
     "image": "potassium_ferricyanure.jpg",
     "fds": "FicheTox_K3FeCN6.pdf",
-    "dangers": ["H302", "P264", "P270"]
+    "dangers": ["H302", "H319", "EUH032", "P264", "P270"]
   },
     {
     "cas": "13943-58-3",
@@ -909,19 +909,7 @@
     "image": "potassium_ferrocyanure.jpg",
     "fds": "FicheTox_K4FeCN6.pdf",
     "dangers": ["P264"]
-  },
-  {
-  cas: "13746-66-2",
-  nom: "potassium hexacyanoferrate (III)",
-  formule: "K₃[Fe(CN)₆]",
-  categorie: "Agent oxydant / réactif redox (ferricyanure)",
-  localisation: "salle B27 / étagère D2",
-  pictogramme: ["GHS07"],
-  obligation: ["GANTS", "BLOUSE"], 
-  image: "ferricyanure_III.jpg",
-  fds: "",
-  dangers: [H302", "H319", "EUH032"]
-  },
+  },  
   {
   "cas": "1310-58-3",
   "nom": "potassium hydroxyde",
@@ -932,7 +920,7 @@
   "obligation": ["LUNETTES", "GANTS", "BLOUSE", "HOTTE"],
   "image": "potassium_hydroxyde.jpg",
   "fds": "FicheTox_KOH.pdf",
-  "dangers": ["H290", "H302", "H314"]
+  "dangers": ["H319", "H315", "P264", "P280", "P302+P352", "P305+P351+P338"]
 },
     {
     "cas": "7681-11-0",
