@@ -3,7 +3,7 @@
    Acquisition vitesse du son - SYSAM V6
    ============================================================ */
 
-document.addEventListener("DOMContentLoaded", () => {
+   window.initExao01 = function () {
 
   /* ========================================================
      ELEMENTS
@@ -624,4 +624,4 @@ document.addEventListener("DOMContentLoaded", () => {
   drawScope();
   drawCorrelation();
 
-});
+};
