@@ -1,15 +1,3 @@
-/**
- * print-labels.js
- * Génère une page d'impression d'étiquettes au format Avery L7121
- * 16 étiquettes / feuille A4 — 99,1 × 33,9 mm
- * Présentation conforme au règlement CLP (CE n° 1272/2008)
- *
- * Dépendance : data/products.js (tableau `products`)
- * Usage : generateLabelPage(subset, options)
- *   subset    : tableau de produits (ou products entier)
- *   options   : { showImage: bool, showFds: bool }
- */
-
 /* ------------------------------------------------------------------ */
 /*  Textes H/P officiels (FR) — liste partielle, compléter si besoin  */
 /* ------------------------------------------------------------------ */
