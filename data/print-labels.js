@@ -95,7 +95,7 @@ const PIC_LABELS = {
   "SGH01_BombeExplosant.jpg"    : "Explosif",
   "SGH02_Flamme.jpg"            : "Inflammable",
   "SGH03_FlammeSurCercle.jpg"   : "Comburant",
-  "SGH04_BouteilleGaz.jpg"    : "Gaz sous pression",
+  "SGH04_BouteilleGaz.jpg"      : "Gaz sous pression",
   "SGH05_Corrosion.jpg"         : "Corrosif",
   "SGH06_TeteDeMort.jpg"        : "Toxique",
   "SGH07_PointExclamation.jpg"  : "Irritant / Nocif",
