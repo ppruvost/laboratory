@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ExAo01 — Acquisition réelle · Vitesse du son</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="./exao01.css">
+</head>
+<body>
+
+<!-- ════════════════════════════════════
+     HERO
+════════════════════════════════════ -->
+<header class="hero">
+  <div class="container hero-grid">
+
+    <div class="hero-text">
+      <p class="eyebrow">ExAo · Acquisition réelle · SYSAM-V6</p>
+      <h1>Mesure de la vitesse du son<br><span class="h1-accent">en temps réel</span></h1>
+      <p class="lede">
+        Deux capteurs sonores connectés via le module
+        <strong>EuroSmart SYSAM-V6</strong> (USB) capturent simultanément
+        le même signal acoustique. Le retard <span class="fi">τ</span>
+        entre les deux voies est calculé par corrélation croisée ;
+        la vitesse s'en déduit : <span class="fi-formula">v = d / τ</span>.
+      </p>
+      <div class="status-bar" id="statusBar">
+        <span class="status-dot" id="statusDot"></span>
+        <span id="statusText">Modules non connectés — cliquez sur « Connecter »</span>
+      </div>
+    </div>
+
+    <!-- Panneau oscilloscope temps réel -->
+    <div class="scope-wrap">
+      <div class="scope-header">
+        <span class="scope-title">OSCILLOSCOPE TEMPS RÉEL</span>
+        <span class="scope-badge" id="acqBadge">ARRÊT</span>
+      </div>
+      <div class="scope-bezel">
+        <div class="scope-screen">
+          <canvas id="scopeCanvas" width="800" height="300"></canvas>
+        </div>
+      </div>
+      <div class="scope-label-row">
+        <span><span class="dot dot-p"></span>CH1 — Capteur 1 (référence)</span>
+        <span><span class="dot dot-a"></span>CH2 — Capteur 2 (décalé de d)</span>
+      </div>
+      <div class="scope-readouts">
+        <div class="readout-box" id="rdTau">τ = —</div>
+        <div class="readout-box" id="rdV">v = —</div>
+        <div class="readout-box" id="rdLambda">λ = —</div>
+      </div>
+    </div>
+
+  </div>
+</header>
+
+<!-- ════════════════════════════════════
+     CONNEXION MATÉRIEL
+════════════════════════════════════ -->
+<section class="alt">
+  <div class="container">
+    <p class="eyebrow">Étape 1</p>
+    <h2>Connexion du module SYSAM-V6</h2>
+    <p class="lede" style="color:var(--ink-soft)">
+      Branchez le câble USB du module EuroSmart SYSAM-V6 à votre
+      ordinateur, puis connectez les deux capteurs sonores sur les
+      entrées <strong>EA1</strong> et <strong>EA2</strong>.
+    </p>
+
+    <div class="connect-grid">
+
+      <!-- Schéma connexion simplifié -->
+      <div class="connect-schema">
+        <svg viewBox="0 0 480 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Schéma de connexion SYSAM-V6">
+
+          <!-- SYSAM-V6 boîtier -->
+          <rect x="160" y="50" width="160" height="100" rx="8" fill="#1a2c1e" stroke="#39ff8f" stroke-width="1.5"/>
+          <text x="240" y="80" text-anchor="middle" font-family="'Space Grotesk',sans-serif" font-size="12" font-weight="700" fill="#39ff8f">SYSAM-V6</text>
+          <text x="240" y="96" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="9" fill="#6a9a9e">EuroSmart</text>
+
+          <!-- Prises EA1 EA2 -->
+          <rect x="170" y="110" width="40" height="24" rx="3" fill="#0a1a12" stroke="#39ff8f" stroke-width="1"/>
+          <text x="190" y="125" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="9" fill="#39ff8f">EA1</text>
+          <rect x="270" y="110" width="40" height="24" rx="3" fill="#0a1a12" stroke="#f0c040" stroke-width="1"/>
+          <text x="290" y="125" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="9" fill="#f0c040">EA2</text>
+
+          <!-- USB sortie -->
+          <rect x="220" y="148" width="40" height="14" rx="2" fill="#333" stroke="#888" stroke-width="1"/>
+          <text x="240" y="158" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="8" fill="#aaa">USB</text>
+
+          <!-- Capteur 1 gauche -->
+          <ellipse cx="60" cy="90" rx="32" ry="22" fill="#0d1f16" stroke="#39ff8f" stroke-width="1.5"/>
+          <text x="60" y="87" text-anchor="middle" font-family="'Space Grotesk',sans-serif" font-size="9" font-weight="700" fill="#39ff8f">Capteur</text>
+          <text x="60" y="99" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="8" fill="#6a9a9e">Micro 1</text>
+
+          <!-- Capteur 2 droite -->
+          <ellipse cx="420" cy="90" rx="32" ry="22" fill="#0d1f16" stroke="#f0c040" stroke-width="1.5"/>
+          <text x="420" y="87" text-anchor="middle" font-family="'Space Grotesk',sans-serif" font-size="9" font-weight="700" fill="#f0c040">Capteur</text>
+          <text x="420" y="99" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="8" fill="#8a6a10">Micro 2</text>
+
+          <!-- Câbles capteurs -->
+          <line x1="92" y1="90" x2="170" y2="122" stroke="#39ff8f" stroke-width="1.5" stroke-dasharray="4 3"/>
+          <line x1="388" y1="90" x2="310" y2="122" stroke="#f0c040" stroke-width="1.5" stroke-dasharray="4 3"/>
+
+          <!-- Câble USB vers PC -->
+          <line x1="240" y1="162" x2="240" y2="185" stroke="#888" stroke-width="2"/>
+          <rect x="215" y="185" width="50" height="12" rx="2" fill="#222" stroke="#666" stroke-width="1"/>
+          <text x="240" y="194" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="7" fill="#aaa">ORDINATEUR</text>
+
+          <!-- Distance d -->
+          <line x1="60" y1="170" x2="420" y2="170" stroke="#555" stroke-width="1" stroke-dasharray="3 3"/>
+          <line x1="60" y1="164" x2="60" y2="176" stroke="#888" stroke-width="1"/>
+          <line x1="420" y1="164" x2="420" y2="176" stroke="#888" stroke-width="1"/>
+          <text x="240" y="184" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="9" fill="#888">d (m) — à mesurer à la règle</text>
+
+          <!-- Cercles de numérotation -->
+          <circle cx="128" cy="104" r="9" fill="#1a2c1e" stroke="#39ff8f" stroke-width="1"/>
+          <text x="128" y="108" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="9" fill="#39ff8f">1</text>
+          <circle cx="352" cy="104" r="9" fill="#1a2c1e" stroke="#f0c040" stroke-width="1"/>
+          <text x="352" y="108" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="9" fill="#f0c040">2</text>
+          <circle cx="240" cy="170" r="9" fill="#222" stroke="#888" stroke-width="1"/>
+          <text x="240" y="174" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="9" fill="#aaa">3</text>
+        </svg>
+      </div>
+
+      <!-- Liste branchements -->
+      <div>
+        <ol class="conn-list">
+          <li>
+            <strong>Capteur 1 (Micro référence)</strong> →
+            entrée <b>EA1</b> du module SYSAM-V6.<br>
+            <em>Placez-le près de la source sonore, position fixe.</em>
+          </li>
+          <li>
+            <strong>Capteur 2 (Micro mobile)</strong> →
+            entrée <b>EA2</b> du module SYSAM-V6.<br>
+            <em>Positionnez-le à la distance <span class="fi">d</span>
+            mesurée à la règle.</em>
+          </li>
+          <li>
+            <strong>Module SYSAM-V6</strong> →
+            port <b>USB</b> de l'ordinateur.<br>
+            <em>Le pilote EuroSmart doit être installé.
+            L'interface Web Audio API prend le relais.</em>
+          </li>
+        </ol>
+
+        <div class="warn-box">
+          <strong>Note navigateur :</strong><br>
+          L'accès aux périphériques audio nécessite <strong>HTTPS</strong>
+          ou <code>localhost</code>. Utilisez Chrome ou Edge pour une
+          compatibilité optimale avec l'API Web Audio.<br>
+          Le SYSAM-V6 apparaît comme <em>carte son USB</em> dans le
+          système ; sélectionnez-le dans le menu ci-dessous.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════
+     PANNEAU DE CONTRÔLE ACQUISITION
+════════════════════════════════════ -->
+<section id="acquisition">
+  <div class="container">
+    <p class="eyebrow">Étape 2</p>
+    <h2>Paramètres d'acquisition</h2>
+
+    <div class="acq-panel">
+
+      <!-- Sélection des entrées audio -->
+      <div class="acq-block">
+        <h3>Sélection des entrées SYSAM-V6</h3>
+        <div class="device-row">
+          <div class="device-select-wrap">
+            <label class="device-label ch1-label">
+              <span class="dot dot-p"></span> CH1 — Capteur 1
+            </label>
+            <select id="deviceCH1" class="device-select">
+              <option value="">— sélectionner un périphérique —</option>
+            </select>
+          </div>
+          <div class="device-select-wrap">
+            <label class="device-label ch2-label">
+              <span class="dot dot-a"></span> CH2 — Capteur 2
+            </label>
+            <select id="deviceCH2" class="device-select">
+              <option value="">— sélectionner un périphérique —</option>
+            </select>
+          </div>
+        </div>
+        <div class="btn-row">
+          <button class="btn-connect" id="btnEnum">🔍 Détecter les périphériques</button>
+          <button class="btn-connect" id="btnConnect">⚡ Connecter</button>
+        </div>
+      </div>
+
+      <!-- Paramètres physiques -->
+      <div class="acq-block">
+        <h3>Paramètres physiques</h3>
+        <div class="param-grid">
+          <div class="param-field">
+            <label for="inputD">Distance <span class="fi">d</span> entre les capteurs</label>
+            <div class="input-unit-wrap">
+              <input type="number" id="inputD" value="0.30" min="0.05" max="2.00" step="0.01" placeholder="0.30">
+              <span class="unit-badge">m</span>
+            </div>
+          </div>
+          <div class="param-field">
+            <label for="inputFs">Fréquence d'échantillonnage</label>
+            <div class="input-unit-wrap">
+              <select id="inputFs" class="device-select">
+                <option value="44100">44 100 Hz (standard)</option>
+                <option value="48000" selected>48 000 Hz (recommandé)</option>
+                <option value="96000">96 000 Hz (haute qualité)</option>
+              </select>
+            </div>
+          </div>
+          <div class="param-field">
+            <label for="inputGain">Gain des capteurs</label>
+            <div class="input-unit-wrap">
+              <input type="range" id="inputGain" min="1" max="10" step="0.5" value="3" style="flex:1">
+              <span class="unit-badge" id="gainLabel">× 3</span>
+            </div>
+          </div>
+          <div class="param-field">
+            <label for="inputWindow">Fenêtre d'analyse</label>
+            <div class="input-unit-wrap">
+              <select id="inputWindow" class="device-select">
+                <option value="1024">1 024 échantillons (~21 ms @ 48 kHz)</option>
+                <option value="2048" selected>2 048 échantillons (~43 ms)</option>
+                <option value="4096">4 096 échantillons (~85 ms)</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Boutons contrôle -->
+      <div class="acq-block acq-controls">
+        <button class="btn-start" id="btnStart" disabled>▶ Démarrer l'acquisition</button>
+        <button class="btn-stop" id="btnStop" disabled>■ Arrêter</button>
+        <button class="btn-snapshot" id="btnSnap" disabled>📸 Prendre un instantané</button>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════
+     CORRÉLATION CROISÉE
+════════════════════════════════════ -->
+<section class="alt" id="correlation">
+  <div class="container">
+    <p class="eyebrow">Étape 3</p>
+    <h2>Corrélation croisée — calcul de τ</h2>
+    <p class="lede" style="color:var(--ink-soft)">
+      La corrélation croisée entre CH1 et CH2 révèle le décalage temporel
+      <span class="fi">τ</span> par la position de son maximum.
+      Plus le pic est net, plus la mesure est fiable.
+    </p>
+    <div class="corr-wrap">
+      <div class="scope-bezel" style="flex:1">
+        <div class="scope-screen">
+          <canvas id="corrCanvas" width="600" height="200"></canvas>
+        </div>
+        <div class="corr-labels">
+          <span style="color:var(--amber)">Corrélation croisée R(τ)</span>
+          <span style="color:var(--phosphor);font-size:0.8rem" id="corrPeakInfo">Pic : —</span>
+        </div>
+      </div>
+      <div class="corr-stats">
+        <div class="stat-row">
+          <span class="stat-label">Décalage τ mesuré</span>
+          <span class="stat-val phosphor" id="statTau">—</span>
+        </div>
+        <div class="stat-row">
+          <span class="stat-label">Vitesse calculée v = d/τ</span>
+          <span class="stat-val phosphor" id="statV">—</span>
+        </div>
+        <div class="stat-row">
+          <span class="stat-label">Confiance du pic</span>
+          <span class="stat-val amber" id="statConf">—</span>
+        </div>
+        <div class="stat-row">
+          <span class="stat-label">Fréquence dominante</span>
+          <span class="stat-val" id="statFreq">—</span>
+        </div>
+        <div class="stat-row">
+          <span class="stat-label">Longueur d'onde λ</span>
+          <span class="stat-val" id="statLambda">—</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════
+     TABLEAU DE MESURES
+════════════════════════════════════ -->
+<section id="mesures">
+  <div class="container">
+    <p class="eyebrow">Étape 4</p>
+    <h2>Tableau de mesures</h2>
+    <p class="lede" style="color:var(--ink-soft)">
+      Chaque instantané ajoute automatiquement une ligne.
+      Vous pouvez aussi saisir manuellement distance <span class="fi">d</span>
+      et retard <span class="fi">τ</span>.
+    </p>
+    <div class="measure-toolbar">
+      <button class="btn-add" id="btnAdd">+ Ajouter une ligne</button>
+      <button class="btn-secondary" id="btnDemo">Charger un exemple</button>
+      <button class="btn-secondary" id="btnClear">Vider le tableau</button>
+    </div>
+    <table id="dataTable">
+      <caption>Acquisitions — mesure de la vitesse du son · SYSAM-V6</caption>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Source τ</th>
+          <th>d (m)</th>
+          <th>τ (ms)</th>
+          <th>v = d/τ (m·s⁻¹)</th>
+          <th>Qualité</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody id="dataBody"></tbody>
+    </table>
+    <div class="measure-toolbar">
+      <button class="btn-primary" id="btnCalc">Calculer les résultats</button>
+    </div>
+    <div class="field-error" id="fieldError" role="alert" aria-live="assertive"></div>
+
+    <div class="results-panel" id="resultsPanel">
+      <h3>Résultats statistiques</h3>
+      <div class="results-grid">
+        <div class="result-card">
+          <div class="label">Vitesse moyenne</div>
+          <div class="value" id="rMean">—<span class="unit"> m·s⁻¹</span></div>
+        </div>
+        <div class="result-card">
+          <div class="label">Écart-type σ</div>
+          <div class="value" id="rStd">—<span class="unit"> m·s⁻¹</span></div>
+        </div>
+        <div class="result-card amber">
+          <div class="label">Incertitude u(v)</div>
+          <div class="value" id="rUnc">—<span class="unit"> m·s⁻¹</span></div>
+        </div>
+        <div class="result-card">
+          <div class="label">Résultat final</div>
+          <div class="value" id="rFinal">—</div>
+        </div>
+      </div>
+      <div class="compare-bar">
+        <div>Écart relatif par rapport à 340 m·s⁻¹ :
+          <span id="rEcart" style="color:var(--amber)">—</span>
+        </div>
+        <div class="track">
+          <div class="fill" id="rFill" style="width:0%"></div>
+        </div>
+      </div>
+      <p class="res-interp" id="rInterp"></p>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════
+     AIDE TECHNIQUE
+════════════════════════════════════ -->
+<section class="alt">
+  <div class="container">
+    <p class="eyebrow">Référence</p>
+    <h2>Notes techniques SYSAM-V6</h2>
+    <div class="tip-grid">
+      <div class="tip-card">
+        <p class="tip-head">Pilote USB</p>
+        <p>Le SYSAM-V6 s'installe comme périphérique audio USB classe 2.
+        Sous Windows, utilisez le gestionnaire de périphériques pour vérifier
+        l'installation. Sous macOS et Linux, il est reconnu nativement.</p>
+      </div>
+      <div class="tip-card">
+        <p class="tip-head">Fréquence d'échantillonnage</p>
+        <p>48 000 Hz donne une résolution temporelle de ~20 µs, soit une
+        précision de ±7 m·s⁻¹ à 30 cm. Pour améliorer, augmentez <span class="fi">d</span>
+        plutôt que <span class="fi">Fs</span>.</p>
+      </div>
+      <div class="tip-card">
+        <p class="tip-head">Corrélation croisée</p>
+        <p>L'algorithme calcule la corrélation normalisée sur la fenêtre
+        sélectionnée. Un pic supérieur à 0,7 indique une mesure fiable.
+        Utilisez un signal périodique (sifflement, claquement régulier).</p>
+      </div>
+      <div class="tip-card">
+        <p class="tip-head">Bruit et interférences</p>
+        <p>Éloignez les capteurs des sources de bruit parasite
+        (ventilateurs, climatisation). Orientez les microphones face
+        à la source sonore sur l'axe de propagation.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    ExAo01 · Vitesse du son · Module EuroSmart SYSAM-V6 USB · Web Audio API · v = d / τ
+  </div>
+</footer>
+
+<script src="./exao01.js"></script>
+</body>
+</html>
