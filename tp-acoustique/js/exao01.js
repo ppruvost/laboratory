@@ -74,13 +74,15 @@
      VARIABLES
      ======================================================== */
 
-  let connected = false;
-  let running = false;
-  let animationId = null;
+   let connected = false;
+   let running = false;
+   let animationId = null;
 
-  let currentTau = 0.00088;
-  let currentFreq = 1000;
-  let currentConf = 0.92;
+   let autoSnapshotInterval = null;
+
+   let currentTau = 0.00088;
+   let currentFreq = 1000;
+   let currentConf = 0.92;
 
   /* ========================================================
      UTILITAIRES
@@ -308,52 +310,82 @@
 
   function updateMeasures(){
 
-    currentTau =
-      random(0.00082,0.00092);
+  currentTau =
+    random(0.00082,0.00092);
 
-    currentConf =
-      random(0.82,0.99);
+  currentConf =
+    random(0.82,0.99);
 
-    currentFreq =
-      random(900,1100);
+  currentFreq =
+    random(900,1100);
 
-    const d =
-      parseFloat(inputD.value);
+  const d =
+    parseFloat(inputD.value);
 
-    const v =
-      d/currentTau;
-
-    const lambda =
-      v/currentFreq;
-
-    rdTau.textContent =
-      `τ = ${(currentTau*1000).toFixed(3)} ms`;
-
-    rdV.textContent =
-      `v = ${v.toFixed(1)} m·s⁻¹`;
-
-    rdLambda.textContent =
-      `λ = ${lambda.toFixed(3)} m`;
-
-    statTau.textContent =
-      `${(currentTau*1000).toFixed(3)} ms`;
-
-    statV.textContent =
-      `${v.toFixed(1)} m·s⁻¹`;
-
-    statConf.textContent =
-      `${(currentConf*100).toFixed(0)} %`;
-
-    statFreq.textContent =
-      `${currentFreq.toFixed(0)} Hz`;
-
-    statLambda.textContent =
-      `${lambda.toFixed(3)} m`;
-
-    corrPeakInfo.textContent =
-      `Pic : ${(currentTau*1000).toFixed(3)} ms`;
+  if(
+    isNaN(d) ||
+    d <= 0
+  ){
+    return;
   }
 
+  const v =
+    d / currentTau;
+
+  const lambda =
+    v / currentFreq;
+
+  /* ===== Affichage oscilloscope ===== */
+
+  rdTau.textContent =
+    `τ = ${(currentTau * 1000).toFixed(3)} ms`;
+
+  rdV.textContent =
+    `v = ${v.toFixed(1)} m·s⁻¹`;
+
+  rdLambda.textContent =
+    `λ = ${lambda.toFixed(3)} m`;
+
+  /* ===== Affichage corrélation ===== */
+
+  statTau.textContent =
+    `${(currentTau * 1000).toFixed(3)} ms`;
+
+  statV.textContent =
+    `${v.toFixed(1)} m·s⁻¹`;
+
+  statConf.textContent =
+    `${(currentConf * 100).toFixed(0)} %`;
+
+  statFreq.textContent =
+    `${currentFreq.toFixed(0)} Hz`;
+
+  statLambda.textContent =
+    `${lambda.toFixed(3)} m`;
+
+  corrPeakInfo.textContent =
+    `Pic : ${(currentTau * 1000).toFixed(3)} ms`;
+
+  /* ===== Enregistrement automatique ===== */
+
+  if(
+    running &&
+    Date.now() - lastAutoSave >= 3000
+  ){
+
+    addRow(
+      d.toFixed(2),
+      (currentTau * 1000).toFixed(3),
+      "Auto",
+      "auto"
+    );
+
+    lastAutoSave =
+      Date.now();
+
+  }
+
+}
   /* ========================================================
      BOUCLE
      ======================================================== */
@@ -376,20 +408,37 @@
 
   btnStart.addEventListener("click",()=>{
 
-    if(!connected) return;
+  if(!connected) return;
 
-    running=true;
+  running = true;
 
-    acqBadge.textContent="ACQUISITION";
-    acqBadge.classList.add("running");
+  acqBadge.textContent = "ACQUISITION";
+  acqBadge.classList.add("running");
 
-    btnStart.disabled=true;
-    btnStop.disabled=false;
-    btnSnap.disabled=false;
+  btnStart.disabled = true;
+  btnStop.disabled = false;
+  btnSnap.disabled = false;
 
-    loop();
+  loop();
 
-  });
+  /* Acquisition automatique toutes les 3 s */
+
+  clearInterval(autoSnapshotInterval);
+
+  autoSnapshotInterval = setInterval(()=>{
+
+    if(!running) return;
+
+    addRow(
+      Number(inputD.value).toFixed(2),
+      (currentTau * 1000).toFixed(3),
+      "Auto",
+      "auto"
+    );
+
+  },3000);
+
+});
 
   /* ========================================================
      STOP
@@ -397,84 +446,114 @@
 
   btnStop.addEventListener("click",()=>{
 
-    running=false;
+  running = false;
 
-    cancelAnimationFrame(animationId);
+  cancelAnimationFrame(animationId);
 
-    acqBadge.textContent="ARRÊT";
-    acqBadge.classList.remove("running");
+  clearInterval(autoSnapshotInterval);
 
-    btnStart.disabled=false;
-    btnStop.disabled=true;
+  acqBadge.textContent = "ARRÊT";
+  acqBadge.classList.remove("running");
 
-  });
+  btnStart.disabled = false;
+  btnStop.disabled = true;
+
+});
 
   /* ========================================================
      TABLE
      ======================================================== */
 
   function addRow(
-    d="",
-    tau="",
-    source="Manuel",
-    quality="manual"
+  d = "",
+  tau = "",
+  source = "Manuel",
+  quality = "manual"
+){
+
+  const tr = document.createElement("tr");
+
+  const distance = parseFloat(d);
+  const retard = parseFloat(tau);
+
+  let vitesse = "";
+
+  if(
+    !isNaN(distance) &&
+    !isNaN(retard) &&
+    retard > 0
   ){
-
-    const tr=document.createElement("tr");
-
-    const v =
-      d && tau
-        ? (d/(tau/1000)).toFixed(1)
-        : "";
-
-    tr.innerHTML=`
-      <td>${dataBody.children.length+1}</td>
-
-      <td>
-      <span class="source-tag">${source}</span>
-      </td>
-
-      <td>
-      <input type="number"
-      value="${d}"
-      step="0.01">
-      </td>
-
-      <td>
-      <input type="number"
-      value="${tau}"
-      step="0.001">
-      </td>
-
-      <td class="computed">${v}</td>
-
-      <td>
-      <span class="quality-badge quality-${quality}">
-      ${quality}
-      </span>
-      </td>
-
-      <td>
-      <button class="btn-del">✕</button>
-      </td>
-    `;
-
-    dataBody.appendChild(tr);
-
-    renumber();
-
-    tr.querySelector(".btn-del")
-      .addEventListener("click",()=>{
-        tr.remove();
-        renumber();
-      });
-
-    tr.querySelectorAll("input")
-      .forEach(input=>{
-        input.addEventListener("input",updateRow);
-      });
+    vitesse = (
+      distance /
+      (retard / 1000)
+    ).toFixed(1);
   }
 
+  tr.innerHTML = `
+    <td>${dataBody.children.length + 1}</td>
+
+    <td>
+      <span class="source-tag">${source}</span>
+    </td>
+
+    <td>
+      <input type="number"
+             value="${d}"
+             step="0.01"
+             min="0">
+    </td>
+
+    <td>
+      <input type="number"
+             value="${tau}"
+             step="0.001"
+             min="0">
+    </td>
+
+    <td class="computed">${vitesse}</td>
+
+    <td>
+      <span class="quality-badge quality-${quality}">
+        ${quality}
+      </span>
+    </td>
+
+    <td>
+      <button class="btn-del">✕</button>
+    </td>
+  `;
+
+  /* Limitation à 30 mesures */
+
+  if(dataBody.children.length >= 30){
+    dataBody.removeChild(
+      dataBody.firstElementChild
+    );
+  }
+
+  dataBody.appendChild(tr);
+
+  renumber();
+
+  tr.querySelector(".btn-del")
+    .addEventListener("click", () => {
+
+      tr.remove();
+      renumber();
+
+    });
+
+  tr.querySelectorAll("input")
+    .forEach(input => {
+
+      input.addEventListener(
+        "input",
+        updateRow
+      );
+
+    });
+
+}
   function updateRow(e){
 
     const tr=e.target.closest("tr");
