@@ -2,6 +2,10 @@ import { products } from "./data/products.js";
 import laboratoryEquipment from "./data/equipment.js";
 import glassware from "./data/glassware.js";
 
+import { dangerDB }        from "./data/dangerDB.js";
+import { initPrintLabels } from "./data/print-labels.js";
+initPrintLabels(dangerDB);
+
 import { renderTable, showSection } from "./modules/ui.js";
 
 
