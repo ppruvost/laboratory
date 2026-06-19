@@ -326,7 +326,7 @@
   /* ========================================================
      GRAPHE CORRELATION
      ======================================================== */
-   function computeCorrelation(ch1, ch2){
+  function computeCorrelation(ch1, ch2){
 
   const maxLag = 200;
 
@@ -335,19 +335,18 @@
   let bestLag = 0;
   let bestCorr = -Infinity;
 
-  for(let lag=-maxLag; lag<=maxLag; lag++){
+  for(let lag = 0; lag <= maxLag; lag++){
 
     let sum = 0;
 
-    for(let i=0;i<ch1.length;i++){
+    for(let i = 0; i < ch1.length; i++){
 
       const j = i + lag;
 
-      if(j>=0 && j<ch2.length){
-
+      if(j < ch2.length){
         sum += ch1[i] * ch2[j];
-
       }
+
     }
 
     corrData.push({
@@ -361,14 +360,18 @@
       bestLag = lag;
 
     }
+
   }
 
   currentTau =
-    bestLag / parseFloat(inputFs.value);
+    Math.abs(
+      bestLag /
+      parseFloat(inputFs.value)
+    );
 
-  currentConf = 1;
+  currentConf = 0.95;
 
-}   
+}  
   /* ========================================================
    MESURE
    ======================================================== */
@@ -382,23 +385,38 @@ function updateMeasures(){
   ch1Data = [];
   ch2Data = [];
 
-  const trueLag =
-  20 + Math.floor(
-    60 * Math.sin(Date.now()/1000)
+  const vitesseSon = 340;
+
+const trueTau =
+  parseFloat(inputD.value) /
+  vitesseSon;
+
+const trueLag =
+  Math.round(
+    trueTau *
+    parseFloat(inputFs.value)
   );
 
   for(let i=0;i<N;i++){
 
-    const s = Math.sin(i * 0.08);
+  const s =
+    Math.exp(
+      -Math.pow((i-300)/20,2)
+    );
 
-    ch1Data.push(s);
+  ch1Data.push(s);
 
-    const delayed =
-      Math.sin((i - trueLag) * 0.08);
+  const delayed =
+    Math.exp(
+      -Math.pow(
+        (i-300-trueLag)/20,
+        2
+      )
+    );
 
-    ch2Data.push(delayed);
+  ch2Data.push(delayed);
 
-  }
+}
 
   /* ===== Calcul de la corrélation ===== */
 
@@ -439,13 +457,20 @@ function updateMeasures(){
   const v =
     d / currentTau;
 
+   if(
+  v < 250 ||
+  v > 450
+){
+  return;
+}
+
   const lambda =
     v / currentFreq;
 
   /* ===== Affichage oscilloscope ===== */
 
   rdTau.textContent =
-    `τ = ${(currentTau * 1000).toFixed(3)} ms`;
+    `τ = ${Math.abs(currentTau * 1000).toFixed(3)} ms`;
 
   rdV.textContent =
     `v = ${v.toFixed(1)} m·s⁻¹`;
