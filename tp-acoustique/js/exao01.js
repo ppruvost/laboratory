@@ -297,6 +297,8 @@
   let max =
     Math.max(...corrData.map(v=>v.value));
 
+   if(max === min) return;
+
   corrCtx.strokeStyle="#f0c040";
   corrCtx.lineWidth=2;
   corrCtx.beginPath();
