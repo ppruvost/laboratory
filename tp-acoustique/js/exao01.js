@@ -277,34 +277,62 @@
 
   function drawCorrelation(){
 
-    const w=corrCanvas.width;
-    const h=corrCanvas.height;
+  const w = corrCanvas.width;
+  const h = corrCanvas.height;
 
-    corrCtx.fillStyle="#0a1a12";
-    corrCtx.fillRect(0,0,w,h);
+  corrCtx.fillStyle = "#0a1a12";
+  corrCtx.fillRect(0,0,w,h);
 
-    drawGrid(corrCtx,w,h);
+  drawGrid(corrCtx,w,h);
 
-    corrCtx.strokeStyle="#f0c040";
-    corrCtx.lineWidth=2;
+  const tauMs = currentTau * 1000;
 
-    corrCtx.beginPath();
+  const maxTauMs = 2.0;
 
-    for(let x=0;x<w;x++){
+  const peakX =
+    w/2 +
+    (tauMs/maxTauMs)*(w/2);
 
-      const dx=(x-w/2)/90;
+  corrCtx.strokeStyle = "#f0c040";
+  corrCtx.lineWidth = 2;
+  corrCtx.beginPath();
 
-      const y=
-        h-(
-          Math.exp(-(dx*dx))*140
-        )-20;
+  for(let x=0;x<w;x++){
 
-      if(x===0) corrCtx.moveTo(x,y);
-      else corrCtx.lineTo(x,y);
-    }
+    const dx = (x - peakX) / 50;
 
-    corrCtx.stroke();
+    const corr =
+      Math.exp(-(dx*dx));
+
+    const y =
+      h - corr*140 - 20;
+
+    if(x===0)
+      corrCtx.moveTo(x,y);
+    else
+      corrCtx.lineTo(x,y);
   }
+
+  corrCtx.stroke();
+
+  /* ligne du pic */
+
+  corrCtx.strokeStyle="#39ff8f";
+  corrCtx.lineWidth=1;
+
+  corrCtx.beginPath();
+  corrCtx.moveTo(peakX,0);
+  corrCtx.lineTo(peakX,h);
+  corrCtx.stroke();
+
+  corrCtx.fillStyle="#39ff8f";
+  corrCtx.font="12px monospace";
+  corrCtx.fillText(
+    `${tauMs.toFixed(3)} ms`,
+    peakX + 5,
+    20
+  );
+}
 
   /* ========================================================
      MESURE
