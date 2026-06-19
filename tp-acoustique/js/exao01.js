@@ -84,6 +84,10 @@
    let currentFreq = 1000;
    let currentConf = 0.92;
 
+   let ch1Data = [];
+   let ch2Data = [];
+   let corrData = [];
+
    let lastAutoSave = 0;
 
   /* ========================================================
@@ -280,68 +284,128 @@
   const w = corrCanvas.width;
   const h = corrCanvas.height;
 
-  corrCtx.fillStyle = "#0a1a12";
+  corrCtx.fillStyle="#0a1a12";
   corrCtx.fillRect(0,0,w,h);
 
   drawGrid(corrCtx,w,h);
 
-  const tauMs = currentTau * 1000;
+  if(corrData.length===0) return;
 
-  const maxTauMs = 2.0;
+  let min =
+    Math.min(...corrData.map(v=>v.value));
 
-  const peakX =
-    w/2 +
-    (tauMs/maxTauMs)*(w/2);
+  let max =
+    Math.max(...corrData.map(v=>v.value));
 
-  corrCtx.strokeStyle = "#f0c040";
-  corrCtx.lineWidth = 2;
+  corrCtx.strokeStyle="#f0c040";
+  corrCtx.lineWidth=2;
   corrCtx.beginPath();
 
-  for(let x=0;x<w;x++){
+  corrData.forEach((p,i)=>{
 
-    const dx = (x - peakX) / 50;
-
-    const corr =
-      Math.exp(-(dx*dx));
+    const x =
+      i/(corrData.length-1)*w;
 
     const y =
-      h - corr*140 - 20;
+      h -
+      ((p.value-min)/(max-min))*
+      (h-40) -
+      20;
 
-    if(x===0)
+    if(i===0)
       corrCtx.moveTo(x,y);
     else
       corrCtx.lineTo(x,y);
+
+  });
+
+  corrCtx.stroke();
+}
+  /* ========================================================
+     GRAPHE CORRELATION
+     ======================================================== */
+   function computeCorrelation(ch1, ch2){
+
+  const maxLag = 200;
+
+  corrData = [];
+
+  let bestLag = 0;
+  let bestCorr = -Infinity;
+
+  for(let lag=-maxLag; lag<=maxLag; lag++){
+
+    let sum = 0;
+
+    for(let i=0;i<ch1.length;i++){
+
+      const j = i + lag;
+
+      if(j>=0 && j<ch2.length){
+
+        sum += ch1[i] * ch2[j];
+
+      }
+    }
+
+    corrData.push({
+      lag,
+      value: sum
+    });
+
+    if(sum > bestCorr){
+
+      bestCorr = sum;
+      bestLag = lag;
+
+    }
   }
 
-  corrCtx.stroke();
-
-  /* ligne du pic */
-
-  corrCtx.strokeStyle="#39ff8f";
-  corrCtx.lineWidth=1;
-
-  corrCtx.beginPath();
-  corrCtx.moveTo(peakX,0);
-  corrCtx.lineTo(peakX,h);
-  corrCtx.stroke();
-
-  corrCtx.fillStyle="#39ff8f";
-  corrCtx.font="12px monospace";
-  corrCtx.fillText(
-    `${tauMs.toFixed(3)} ms`,
-    peakX + 5,
-    20
-  );
-}
-
-  /* ========================================================
-     MESURE
-     ======================================================== */
-
-  function updateMeasures(){
-
   currentTau =
-  random(0.0001,0.0020);
+    bestLag / parseFloat(inputFs.value);
+
+  currentConf = 1;
+
+}   
+  /* ========================================================
+   MESURE
+   ======================================================== */
+
+function updateMeasures(){
+
+  /* ===== Génération des signaux simulés ===== */
+
+  const N = 1024;
+
+  ch1Data = [];
+  ch2Data = [];
+
+  const trueLag =
+  20 + Math.floor(
+    60 * Math.sin(Date.now()/1000)
+  );
+
+  for(let i=0;i<N;i++){
+
+    const s = Math.sin(i * 0.08);
+
+    ch1Data.push(s);
+
+    const delayed =
+      Math.sin((i - trueLag) * 0.08);
+
+    ch2Data.push(delayed);
+
+  }
+
+  /* ===== Calcul de la corrélation ===== */
+
+  computeCorrelation(
+    ch1Data,
+    ch2Data
+  );
+
+  /* ===== Paramètres complémentaires ===== */
 
   currentConf =
     random(0.82,0.99);
@@ -358,6 +422,17 @@
   ){
     return;
   }
+
+  /* Sécurité */
+
+  if(
+    !currentTau ||
+    currentTau <= 0
+  ){
+    return;
+  }
+
+  /* ===== Calculs physiques ===== */
 
   const v =
     d / currentTau;
@@ -416,7 +491,7 @@
   }
 
 }
-  /* ========================================================
+   /* ========================================================
      BOUCLE
      ======================================================== */
 
