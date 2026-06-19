@@ -341,7 +341,7 @@
   function updateMeasures(){
 
   currentTau =
-    random(0.00082,0.00092);
+  random(0.0001,0.0020);
 
   currentConf =
     random(0.82,0.99);
