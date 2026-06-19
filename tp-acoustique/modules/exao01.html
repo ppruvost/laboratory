@@ -18,11 +18,11 @@
   <div class="container hero-grid">
 
     <div class="hero-text">
-      <p class="eyebrow">ExAo · Acquisition réelle · SYSAM-V6</p>
+      <p class="eyebrow">ExAo · Acquisition réelle · SYSLAB Computer-V01</p>
       <h1>Mesure de la vitesse du son<br><span class="h1-accent">en temps réel</span></h1>
       <p class="lede">
-        Deux capteurs sonores connectés via le module
-        <strong>EuroSmart SYSAM-V6</strong> (USB) capturent simultanément
+        Deux capteurs sonores connectés 
+        <strong>micro interne</strong> de l'ordinateur et <strong>micro externe</strong> via l'USB capturent simultanément
         le même signal acoustique. Le retard <span class="fi">τ</span>
         entre les deux voies est calculé par corrélation croisée ;
         la vitesse s'en déduit : <span class="fi-formula">v = d / τ</span>.
@@ -64,23 +64,25 @@
 <section class="alt">
   <div class="container">
     <p class="eyebrow">Étape 1</p>
-    <h2>Connexion du module SYSAM-V6</h2>
+    <h2>Connexion du micro USB</h2>
     <p class="lede" style="color:var(--ink-soft)">
-      Branchez le câble USB du module EuroSmart SYSAM-V6 à votre
-      ordinateur, puis connectez les deux capteurs sonores sur les
-      entrées <strong>EA1</strong> et <strong>EA2</strong>.
+      Branchez le câble USB à votre ordinateur.
+      Le micro interne (1er capteur sonore) sera déclaré sur 
+      l'entrée <strong>EA1</strong> et 
+      le micro externe (2nd capteur sonore) sera déclaré sur
+      l'entrée <strong>EA2</strong>.
     </p>
 
     <div class="connect-grid">
 
       <!-- Schéma connexion simplifié -->
       <div class="connect-schema">
-        <svg viewBox="0 0 480 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Schéma de connexion SYSAM-V6">
+        <svg viewBox="0 0 480 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Schéma de connexion SYSLAB-V01">
 
-          <!-- SYSAM-V6 boîtier -->
+          <!-- SYLAB-V01 ordinateur -->
           <rect x="160" y="50" width="160" height="100" rx="8" fill="#1a2c1e" stroke="#39ff8f" stroke-width="1.5"/>
-          <text x="240" y="80" text-anchor="middle" font-family="'Space Grotesk',sans-serif" font-size="12" font-weight="700" fill="#39ff8f">SYSAM-V6</text>
-          <text x="240" y="96" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="9" fill="#6a9a9e">EuroSmart</text>
+          <text x="240" y="80" text-anchor="middle" font-family="'Space Grotesk',sans-serif" font-size="12" font-weight="700" fill="#39ff8f">SYSLAB Computer-V01</text>
+          <text x="240" y="96" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="9" fill="#6a9a9e">Labo Pro </text>
 
           <!-- Prises EA1 EA2 -->
           <rect x="170" y="110" width="40" height="24" rx="3" fill="#0a1a12" stroke="#39ff8f" stroke-width="1"/>
@@ -90,7 +92,7 @@
 
           <!-- USB sortie -->
           <rect x="220" y="148" width="40" height="14" rx="2" fill="#333" stroke="#888" stroke-width="1"/>
-          <text x="240" y="158" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="8" fill="#aaa">USB</text>
+          <text x="240" y="158" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="8" fill="#aaa">Acquisition</text>
 
           <!-- Capteur 1 gauche -->
           <ellipse cx="60" cy="90" rx="32" ry="22" fill="#0d1f16" stroke="#39ff8f" stroke-width="1.5"/>
@@ -109,7 +111,7 @@
           <!-- Câble USB vers PC -->
           <line x1="240" y1="162" x2="240" y2="185" stroke="#888" stroke-width="2"/>
           <rect x="215" y="185" width="50" height="12" rx="2" fill="#222" stroke="#666" stroke-width="1"/>
-          <text x="240" y="194" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="7" fill="#aaa">ORDINATEUR</text>
+          <text x="240" y="194" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="7" fill="#aaa">ANALYSE</text>
 
           <!-- Distance d -->
           <line x1="60" y1="170" x2="420" y2="170" stroke="#555" stroke-width="1" stroke-dasharray="3 3"/>
@@ -132,20 +134,19 @@
         <ol class="conn-list">
           <li>
             <strong>Capteur 1 (Micro référence)</strong> →
-            entrée <b>EA1</b> du module SYSAM-V6.<br>
+            entrée <b>EA1</b> interne à l'ordinateur.<br>
             <em>Placez-le près de la source sonore, position fixe.</em>
           </li>
           <li>
             <strong>Capteur 2 (Micro mobile)</strong> →
-            entrée <b>EA2</b> du module SYSAM-V6.<br>
+            entrée <b>EA2</b> externe à l'ordinateur (prise USB).<br>
             <em>Positionnez-le à la distance <span class="fi">d</span>
             mesurée à la règle.</em>
           </li>
           <li>
-            <strong>Module SYSAM-V6</strong> →
-            port <b>USB</b> de l'ordinateur.<br>
-            <em>Le pilote EuroSmart doit être installé.
-            L'interface Web Audio API prend le relais.</em>
+            <strong>Programme d'acquisition SYSLAB Computer-V01</strong> →
+            Aucune installation requise sur votre ordinateur.<br>
+            <em>Les micros sont reconnus par l'ordinateur grâce à l'API Web Audio.</em>
           </li>
         </ol>
 
@@ -154,7 +155,7 @@
           L'accès aux périphériques audio nécessite <strong>HTTPS</strong>
           ou <code>localhost</code>. Utilisez Chrome ou Edge pour une
           compatibilité optimale avec l'API Web Audio.<br>
-          Le SYSAM-V6 apparaît comme <em>carte son USB</em> dans le
+          Le micro <em>USB</em> apparaît dans le
           système ; sélectionnez-le dans le menu ci-dessous.
         </div>
       </div>
@@ -174,7 +175,7 @@
 
       <!-- Sélection des entrées audio -->
       <div class="acq-block">
-        <h3>Sélection des entrées SYSAM-V6</h3>
+        <h3>Sélection des entrées SYSLAB Computer-V01</h3>
         <div class="device-row">
           <div class="device-select-wrap">
             <label class="device-label ch1-label">
@@ -375,14 +376,8 @@
 <section class="alt">
   <div class="container">
     <p class="eyebrow">Référence</p>
-    <h2>Notes techniques SYSAM-V6</h2>
-    <div class="tip-grid">
-      <div class="tip-card">
-        <p class="tip-head">Pilote USB</p>
-        <p>Le SYSAM-V6 s'installe comme périphérique audio USB classe 2.
-        Sous Windows, utilisez le gestionnaire de périphériques pour vérifier
-        l'installation. Sous macOS et Linux, il est reconnu nativement.</p>
-      </div>
+    <h2>Notes techniques SYSLAB Computer-V01</h2>
+    <div class="tip-grid">      
       <div class="tip-card">
         <p class="tip-head">Fréquence d'échantillonnage</p>
         <p>48 000 Hz donne une résolution temporelle de ~20 µs, soit une
@@ -397,9 +392,8 @@
       </div>
       <div class="tip-card">
         <p class="tip-head">Bruit et interférences</p>
-        <p>Éloignez les capteurs des sources de bruit parasite
-        (ventilateurs, climatisation). Orientez les microphones face
-        à la source sonore sur l'axe de propagation.</p>
+        <p>Éloignez les capteurs des sources de bruit parasite.
+        Orientez les microphones face à la source sonore sur l'axe de propagation.</p>
       </div>
     </div>
   </div>
@@ -407,7 +401,7 @@
 
 <footer>
   <div class="container">
-    ExAo01 · Vitesse du son · Module EuroSmart SYSAM-V6 USB · Web Audio API · v = d / τ
+    ExAo01 · Détermination de la Vitesse du son · Web Audio API · v = d / τ
   </div>
 </footer>
 
