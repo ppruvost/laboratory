@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Fiches de préparation TP Chimie</title>
+
+    <link rel="stylesheet" href="./protocole.css">
+
+    <link rel="icon" href="data:,">
+
+    <!-- Bibliothèques PDF -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+</head>
+
+<body>
+
+<header>
+
+    <h1>🧪 Fiches de préparation TP Chimie</h1>
+
+</header>
+
+<div class="container">
+
+    <!-- COLONNE GAUCHE -->
+    <div class="sidebar">
+
+        <section class="panel">
+
+            <h2>Calcul de dilution</h2>
+
+            <div class="grid">
+
+                <label for="c1">C₁ (mol·L⁻¹)</label>
+                <input id="c1" type="number" step="0.001">
+
+                <label for="c2">C₂ (mol·L⁻¹)</label>
+                <input id="c2" type="number" step="0.001">
+
+                <label for="v2">V₂ (mL)</label>
+                <input id="v2" type="number" step="1">
+
+                <button onclick="calculerDilution()">
+                    Calculer V₁
+                </button>
+
+                <div id="resultatDilution" class="resultat"></div>
+
+            </div>
+
+        </section>
+
+        <section class="panel">
+
+            <h2>Fiche de préparation</h2>
+
+            <label for="reactif">
+                Choix du réactif
+            </label>
+
+            <select id="reactif">
+                <option>
+                    Chargement...
+                </option>
+            </select>
+
+            <label for="concentration">
+                Concentration cible (mol·L⁻¹)
+            </label>
+
+            <input
+                id="concentration"
+                type="number"
+                step="0.001"
+            >
+
+            <label for="volume">
+                Volume final (mL)
+            </label>
+
+            <input
+                id="volume"
+                type="number"
+                step="1"
+            >
+
+            <button onclick="genererFiche()">
+                Générer la fiche
+            </button>
+
+            <button onclick="exportPDF()">
+                Exporter en PDF
+            </button>
+
+        </section>
+
+    </div>
+
+    <!-- COLONNE DROITE -->
+    <section
+        id="fiche"
+        class="fiche"
+    >
+
+        <h2>
+            FICHE DE PRÉPARATION
+        </h2>
+
+        <div id="ficheContent">
+
+            <p class="placeholder">
+                Sélectionner un réactif puis générer la fiche.
+            </p>
+
+        </div>
+
+    </section>
+
+</div>
+
+<script type="module" src="./protocole.js"></script>
+
+</body>
+</html>
