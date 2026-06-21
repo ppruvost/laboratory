@@ -2,51 +2,70 @@ import { products } from "./data/products.js";
 import laboratoryEquipment from "./data/equipment.js";
 import glassware from "./data/glassware.js";
 
-import { dangerDB }        from "./data/dangerDB.js";
+import { dangerDB } from "./data/dangerDB.js";
 import { initPrintLabels } from "./data/print-labels.js";
-initPrintLabels(dangerDB);
-
 import { renderTable, showSection } from "./modules/ui.js";
 
 
-// ===============================
-// 🔗 RENDRE ACCESSIBLE AU HTML
-// ===============================
+// ====================================
+// INITIALISATION IMPRESSION ETIQUETTES
+// ====================================
+
+initPrintLabels(dangerDB);
+
+
+// ====================================
+// RENDRE ACCESSIBLE AU HTML
+// ====================================
 
 window.showSection = showSection;
 
-window.setActive = function(el) {
-    document.querySelectorAll(".menu-item")
+window.setActive = function (el) {
+
+    document
+        .querySelectorAll(".menu-item")
         .forEach(i => i.classList.remove("active"));
-    el.classList.add("active");
+
+    if (el) {
+        el.classList.add("active");
+    }
 };
 
-window.loadInFrame = function(url) {
+window.loadInFrame = function (url) {
 
-    // masquer sections classiques
-    document.querySelectorAll(".section")
+    document
+        .querySelectorAll(".section")
         .forEach(sec => sec.classList.remove("active"));
 
-    // afficher iframe container
     const container = document.getElementById("external-content");
-    if (container) container.classList.add("active");
 
-    // charger URL
+    if (container) {
+        container.classList.add("active");
+    }
+
     const frame = document.getElementById("external-frame");
-    if (frame) frame.src = url;
+
+    if (frame) {
+        frame.src = url;
+    }
 };
 
-// ===============================
-// 🧪 INIT REACTIFS
-// ===============================
+
+// ====================================
+// REACTIFS
+// ====================================
+
 renderTable(products, () => {});
 
-// ===============================
-// ⚡ ÉQUIPEMENTS
-// ===============================
+
+// ====================================
+// EQUIPEMENTS
+// ====================================
+
 function renderEquipmentTable(data) {
 
     const tbody = document.getElementById("equipment-body");
+
     if (!tbody) return;
 
     tbody.innerHTML = "";
@@ -61,7 +80,9 @@ function renderEquipmentTable(data) {
             <td>${eq.description || "-"}</td>
             <td>${eq.lieuStockage || "-"}</td>
             <td>
-                <a href="${eq.noticeUtilisation}" target="_blank">📄</a>
+                ${eq.noticeUtilisation
+                    ? `<a href="${eq.noticeUtilisation}" target="_blank">📄</a>`
+                    : "-"}
             </td>
         `;
 
@@ -69,12 +90,15 @@ function renderEquipmentTable(data) {
     });
 }
 
-// ===============================
-// 🧪 VERRERIE
-// ===============================
+
+// ====================================
+// VERRERIE
+// ====================================
+
 function renderGlasswareTable(data) {
 
     const tbody = document.getElementById("glassware-body");
+
     if (!tbody) return;
 
     tbody.innerHTML = "";
@@ -89,9 +113,9 @@ function renderGlasswareTable(data) {
             <td>${g.lieu || "-"}</td>
             <td>
                 <div class="image-container">
-                    <img 
-                        src="${g.image}" 
-                        alt="${g.nom || 'image'}"
+                    <img
+                        src="${g.image}"
+                        alt="${g.nom || "image"}"
                         class="table-image"
                     >
                 </div>
@@ -101,68 +125,143 @@ function renderGlasswareTable(data) {
         tbody.appendChild(tr);
     });
 }
-// ===============================
-// All Section
-// ===============================
+
+
+// ====================================
+// MASQUER TOUTES LES SECTIONS
+// ====================================
+
 function hideAllSections() {
-    document.querySelectorAll(".section").forEach(s => {
-        s.classList.remove("active");
-    });
+
+    document
+        .querySelectorAll(".section")
+        .forEach(section => section.classList.remove("active"));
 }
 
-// ===============================
-// 🧪 INIT ÉQUIPEMENTS + VERRERIE
-// ===============================
+
+// ====================================
+// INITIALISATION TABLEAUX
+// ====================================
+
 renderEquipmentTable(laboratoryEquipment);
 renderGlasswareTable(glassware);
 
-// =====================================
-// OPEN TP OPTIQUE
-// =====================================
 
-const openOptique =
-document.getElementById("openOptique");
+// ====================================
+// VIEWER TP
+// ====================================
 
-const tpViewer =
-document.getElementById("tpViewer");
+const tpViewer = document.getElementById("tpViewer");
+const tpFrame = document.getElementById("tpFrame");
+const closeViewer = document.getElementById("closeViewer");
 
-const tpFrame =
-document.getElementById("tpFrame");
 
-const closeViewer =
-document.getElementById("closeViewer");
+// ====================================
+// OUVRIR UN TP
+// ====================================
 
-// =====================================
+function openTP(url) {
 
-openOptique.addEventListener("click",()=>{
-
-tpViewer.classList.remove("hidden");
-
-tpFrame.src =
-"tp-lumiere/index.html";
-
-});
-
-// =====================================
-
-closeViewer.addEventListener("click",()=>{
-
-tpViewer.classList.add("hidden");
-
-tpFrame.src="";
-
-});
-
-// =====================================
-// OPEN TP ACOUSTIQUE
-// =====================================
-
-const openAcoustique = document.getElementById("openAcoustique");
-
-openAcoustique?.addEventListener("click", () => {
+    if (!tpViewer || !tpFrame) return;
 
     tpViewer.classList.remove("hidden");
 
-    tpFrame.src = "tp-acoustique/index.html";
+    tpFrame.src = url;
+}
 
+
+// ====================================
+// FERMER LE VIEWER
+// ====================================
+
+closeViewer?.addEventListener("click", () => {
+
+    tpViewer.classList.add("hidden");
+
+    tpFrame.src = "";
 });
+
+
+// ====================================
+// TP CHIMIE
+// ====================================
+
+document
+    .getElementById("openChimie")
+    ?.addEventListener("click", () => {
+
+        openTP("tp-chimie/index.html");
+
+    });
+
+
+// ====================================
+// TP ACOUSTIQUE
+// ====================================
+
+document
+    .getElementById("openAcoustique")
+    ?.addEventListener("click", () => {
+
+        openTP("tp-acoustique/index.html");
+
+    });
+
+
+// ====================================
+// TP OPTIQUE
+// ====================================
+
+document
+    .getElementById("openOptique")
+    ?.addEventListener("click", () => {
+
+        openTP("tp-lumiere/index.html");
+
+    });
+
+
+// ====================================
+// TP ELECTRICITE
+// ====================================
+
+document
+    .getElementById("openElectricite")
+    ?.addEventListener("click", () => {
+
+        openTP("tp-electricite/index.html");
+
+    });
+
+
+// ====================================
+// TP MECANIQUE
+// ====================================
+
+document
+    .getElementById("openMecanique")
+    ?.addEventListener("click", () => {
+
+        openTP("tp-mecanique/index.html");
+
+    });
+
+
+// ====================================
+// TP THERMIQUE
+// ====================================
+
+document
+    .getElementById("openThermique")
+    ?.addEventListener("click", () => {
+
+        openTP("tp-thermique/index.html");
+
+    });
+
+
+// ====================================
+// DEBUG
+// ====================================
+
+console.log("Laboratory chargé avec succès");
