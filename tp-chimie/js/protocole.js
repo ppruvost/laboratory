@@ -1,8 +1,8 @@
 console.log("protocole.js chargé");
-console.log(products);
 
-import { products } from "../data/products.js";
+const products = window.parent.products || window.products;
 
+console.log("Nombre de produits :", products?.length);
 // ======================
 // INITIALISATION
 // ======================
