@@ -1,11 +1,29 @@
 console.log("protocole.js chargé");
 
-const products = window.parent.products || window.products;
+// =====================================================
+// RÉCUPÉRATION PRODUITS (compatible iframe / main app)
+// =====================================================
 
-console.log("Nombre de produits :", products?.length);
-// ======================
+const products =
+    window.parent?.products ||
+    window.products ||
+    [];
+
+console.log("Nombre de produits :", products.length);
+
+// =====================================================
+// PROTECTION DOUBLE CHARGEMENT
+// =====================================================
+
+if (window.__protocoleLoaded) {
+    console.warn("protocole.js déjà chargé (bloqué)");
+} else {
+    window.__protocoleLoaded = true;
+}
+
+// =====================================================
 // INITIALISATION
-// ======================
+// =====================================================
 
 function getSelect() {
     return document.getElementById("reactif");
@@ -20,8 +38,8 @@ function chargerProduits() {
         return;
     }
 
-    if (!products || !Array.isArray(products)) {
-        console.error("products non chargé");
+    if (!Array.isArray(products)) {
+        console.error("products non valide");
         return;
     }
 
@@ -36,9 +54,7 @@ function chargerProduits() {
 
         option.textContent =
             `${produit.nom || "Sans nom"}${
-                produit.formule
-                    ? ` (${produit.formule})`
-                    : ""
+                produit.formule ? ` (${produit.formule})` : ""
             }`;
 
         select.appendChild(option);
@@ -52,44 +68,40 @@ window.initProtocole = function () {
     console.log("initProtocole exécuté");
 
     chargerProduits();
-
 };
 
-// ======================
+// =====================================================
 // CALCUL DILUTION
-// ======================
+// =====================================================
 
 window.calculerDilution = function () {
 
-    const c1 = parseFloat(document.getElementById("c1").value);
-    const c2 = parseFloat(document.getElementById("c2").value);
-    const v2 = parseFloat(document.getElementById("v2").value);
+    const c1 = parseFloat(document.getElementById("c1")?.value);
+    const c2 = parseFloat(document.getElementById("c2")?.value);
+    const v2 = parseFloat(document.getElementById("v2")?.value);
+
+    const result = document.getElementById("resultatDilution");
+
+    if (!result) return;
 
     if (isNaN(c1) || isNaN(c2) || isNaN(v2)) {
-
-        document.getElementById("resultatDilution").innerHTML =
-            "Compléter tous les champs.";
-
+        result.innerHTML = "Compléter tous les champs.";
         return;
     }
 
     if (c1 <= 0 || c2 <= 0 || v2 <= 0) {
-
-        document.getElementById("resultatDilution").innerHTML =
-            "Valeurs invalides.";
-
+        result.innerHTML = "Valeurs invalides.";
         return;
     }
 
     const v1 = (c2 * v2) / c1;
 
-    document.getElementById("resultatDilution").innerHTML =
-        `V₁ = <b>${v1.toFixed(2)} mL</b>`;
+    result.innerHTML = `V₁ = <b>${v1.toFixed(2)} mL</b>`;
 };
 
-// ======================
+// =====================================================
 // PICTOGRAMMES
-// ======================
+// =====================================================
 
 function creerPictogrammes(produit) {
 
@@ -99,7 +111,6 @@ function creerPictogrammes(produit) {
         [];
 
     if (!Array.isArray(liste) || liste.length === 0) {
-
         return "<p>Aucun pictogramme renseigné</p>";
     }
 
@@ -116,37 +127,34 @@ function creerPictogrammes(produit) {
     `;
 }
 
-// ======================
-// FICHE DE PREPARATION
-// ======================
+// =====================================================
+// FICHE DE PRÉPARATION
+// =====================================================
 
 window.genererFiche = function () {
 
-    const nom = document.getElementById("reactif").value;
+    const nom = document.getElementById("reactif")?.value;
 
     const concentration =
-        parseFloat(document.getElementById("concentration").value);
+        parseFloat(document.getElementById("concentration")?.value);
 
     const volume =
-        parseFloat(document.getElementById("volume").value);
+        parseFloat(document.getElementById("volume")?.value);
 
     const produit =
         products.find(p => p.nom === nom);
 
     if (!produit) {
-
         alert("Choisir un réactif.");
-
         return;
     }
 
     const masse =
-        concentration && volume
+        (concentration && volume)
             ? (concentration * volume / 1000) * 40
             : 0;
 
-    const pictos =
-        creerPictogrammes(produit);
+    const pictos = creerPictogrammes(produit);
 
     const securite =
         produit.securite ||
@@ -155,9 +163,7 @@ window.genererFiche = function () {
         {};
 
     const hotte =
-        securite.hotte === true
-            ? "OUI"
-            : "NON";
+        securite.hotte === true ? "OUI" : "NON";
 
     document.getElementById("ficheContent").innerHTML = `
 
@@ -177,117 +183,74 @@ window.genererFiche = function () {
         <div class="bloc">
             <h4>Sécurité</h4>
 
-            <p>
-                <b>Préparation sous hotte :</b>
-                ${hotte}
-            </p>
+            <p><b>Préparation sous hotte :</b> ${hotte}</p>
 
             ${
                 securite.avertissement
-                ? `<p><b>Mention :</b> ${securite.avertissement}</p>`
-                : ""
+                    ? `<p><b>Mention :</b> ${securite.avertissement}</p>`
+                    : ""
             }
 
             ${
                 securite.h
-                ? `
-                <p><b>Mentions H :</b></p>
-                <ul>
-                    ${securite.h.map(
-                        h => `<li>${h}</li>`
-                    ).join("")}
-                </ul>
-                `
-                : ""
+                    ? `<p><b>Mentions H :</b></p>
+                       <ul>${securite.h.map(h => `<li>${h}</li>`).join("")}</ul>`
+                    : ""
             }
 
             ${
                 securite.p
-                ? `
-                <p><b>Conseils P :</b></p>
-                <ul>
-                    ${securite.p.map(
-                        p => `<li>${p}</li>`
-                    ).join("")}
-                </ul>
-                `
-                : ""
+                    ? `<p><b>Conseils P :</b></p>
+                       <ul>${securite.p.map(p => `<li>${p}</li>`).join("")}</ul>`
+                    : ""
             }
         </div>
 
         <div class="bloc">
             <h4>Préparation</h4>
 
-            <p>
-                Dissoudre
-                <b>${masse.toFixed(2)} g</b>
-                de produit.
-            </p>
+            <p>Dissoudre <b>${masse.toFixed(2)} g</b> de produit.</p>
 
-            <p>
-                Compléter à
-                <b>${volume || 0} mL</b>.
-            </p>
+            <p>Compléter à <b>${volume || 0} mL</b>.</p>
 
-            <p>
-                Concentration finale :
-                <b>${concentration || 0} mol·L⁻¹</b>
-            </p>
+            <p>Concentration finale : <b>${concentration || 0} mol·L⁻¹</b></p>
         </div>
     `;
 };
 
-// ======================
+// =====================================================
 // EXPORT PDF
-// ======================
+// =====================================================
 
 window.exportPDF = async function () {
 
     if (typeof html2canvas === "undefined") {
-
         alert("html2canvas non chargé");
-
         return;
     }
 
     if (!window.jspdf) {
-
         alert("jsPDF non chargé");
-
         return;
     }
 
-    const element =
-        document.getElementById("fiche");
+    const element = document.getElementById("fiche");
 
-    const canvas =
-        await html2canvas(element, {
-            scale: 2
-        });
+    const canvas = await html2canvas(element, {
+        scale: 2
+    });
 
-    const img =
-        canvas.toDataURL("image/png");
+    const img = canvas.toDataURL("image/png");
 
-    const { jsPDF } =
-        window.jspdf;
+    const { jsPDF } = window.jspdf;
 
-    const pdf =
-        new jsPDF("p", "mm", "a4");
+    const pdf = new jsPDF("p", "mm", "a4");
 
     const largeur = 190;
 
-    const hauteur =
-        (canvas.height * largeur) /
-        canvas.width;
+    const hauteur = (canvas.height * largeur) / canvas.width;
 
-    pdf.addImage(
-        img,
-        "PNG",
-        10,
-        10,
-        largeur,
-        hauteur
-    );
+    pdf.addImage(img, "PNG", 10, 10, largeur, hauteur);
 
     pdf.save("fiche_preparation.pdf");
 };
