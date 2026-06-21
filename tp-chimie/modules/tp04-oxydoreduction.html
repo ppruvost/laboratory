@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TP 04 — Oxydoréduction | Labo B27</title>
+  <link rel="stylesheet" href="../css/global.css">
+  <link rel="stylesheet" href="../css/tp.css">
+</head>
+<body>
+<header class="site-header">
+  <div class="logo">⚗️ Labo<span>Chimie</span></div>
+  <nav>
+    <a href="../index.html">← Accueil</a>
+    <a href="tp01-solutions.html">TP 01</a><a href="tp02-ph-indicateurs.html">TP 02</a>
+    <a href="tp03-titrages.html">TP 03</a><a href="tp04-oxydoreduction.html" class="actif">TP 04</a>
+    <a href="tp05-chimie-organique.html">TP 05</a><a href="tp06-securite-clp.html">TP 06</a>
+  </nav>
+  <span class="badge-niveau">1ère · Tle</span>
+</header>
+<div class="page-wrapper">
+  <div class="tp-header">
+    <div>
+      <h1>Réactions d'oxydoréduction</h1>
+      <div class="tp-meta">
+        <span class="tag">TP 04</span><span class="tag">Première Pro</span><span class="tag">Terminale</span>
+        <span class="tag">⏱ 3h</span><span class="tag">Couples Ox/Réd · KMnO₄ · Dosage iodométrique</span>
+      </div>
+    </div>
+    <div class="tp-numero">04</div>
+  </div>
+
+  <div class="section" data-type="objectif">
+    <div class="section-titre"><div class="picto-section">🎯</div><h2>Objectifs pédagogiques</h2><span class="chevron">▼</span></div>
+    <div class="section-corps">
+      <ul style="padding-left:1.5rem;line-height:2">
+        <li>Identifier un oxydant et un réducteur dans un couple rédox</li>
+        <li>Écrire et équilibrer les demi-équations électroniques</li>
+        <li>Réaliser le dosage de Fe²⁺ par KMnO₄ (sel de Mohr)</li>
+        <li>Effectuer un dosage iodométrique (H₂O₂ par KMnO₄)</li>
+        <li>Réaliser une pile Daniell Zn/Cu et mesurer sa f.é.m.</li>
+      </ul>
+      <div class="formule-bloc">
+        Ox₁ + Réd₂ → Réd₁ + Ox₂&nbsp;&nbsp;|&nbsp;&nbsp;MnO₄⁻ + 8H⁺ + 5e⁻ → Mn²⁺ + 4H₂O
+      </div>
+    </div>
+  </div>
+
+  <div class="section" data-type="securite">
+    <div class="section-titre"><div class="picto-section">🛡️</div><h2>Sécurité — Produits utilisés</h2><span class="chevron">▼</span></div>
+    <div class="section-corps" id="securite-bloc"></div>
+  </div>
+
+  <div class="section" data-type="reactifs">
+    <div class="section-titre"><div class="picto-section">🧂</div><h2>Préparation des réactifs</h2><span class="chevron">▼</span></div>
+    <div class="section-corps">
+      <div class="tabs-container">
+        <div class="tabs-header">
+          <button class="tab-btn actif" data-tab="prep-kmno4">KMnO₄ 0,020 mol/L</button>
+          <button class="tab-btn" data-tab="prep-mohr">Sel de Mohr</button>
+          <button class="tab-btn" data-tab="prep-h2o2">H₂O₂ dilué</button>
+        </div>
+        <div class="tab-panel actif" id="prep-kmno4">
+          <div class="calcul-guide">
+            <h4>📐 KMnO₄ à 0,020 mol/L — 500 mL (M = 158,03 g/mol)</h4>
+            <div class="formule">m = 0,020 × 0,500 × 158,03 = <strong>1,580 g</strong></div>
+          </div>
+          <ol class="etapes" style="margin-top:var(--gap-md)">
+            <li>Peser 1,580 g de KMnO₄ <span style="color:var(--violet-kmno4);font-weight:600">(cristaux violets)</span> — <strong>lunettes + gants obligatoires</strong>, comburant !</li>
+            <li>Dissoudre dans ~200 mL d'eau distillée dans un bécher de 500 mL — la solution prend une couleur <strong>violette intense</strong></li>
+            <li>Transférer dans une fiole jaugée de 500 mL, compléter au trait de jauge</li>
+            <li>Conserver à l'abri de la lumière (flacon teinté) — KMnO₄ se décompose à la lumière</li>
+          </ol>
+        </div>
+        <div class="tab-panel" id="prep-mohr">
+          <div class="calcul-guide">
+            <h4>📐 Sel de Mohr 0,100 mol/L — 250 mL (M = 392,14 g/mol)</h4>
+            <div class="formule">m = 0,100 × 0,250 × 392,14 = <strong>9,804 g</strong></div>
+            <p style="font-size:.85rem;margin-top:.5rem">⚠️ Ajouter quelques mL de H₂SO₄ dilué (5 mL de H₂SO₄ à 1 mol/L) pour stabiliser Fe²⁺ et éviter son oxydation en Fe³⁺.</p>
+          </div>
+          <ol class="etapes" style="margin-top:var(--gap-md)">
+            <li>Peser 9,804 g de sel de Mohr (NH₄)₂Fe(SO₄)₂·6H₂O — cristaux bleu-vert</li>
+            <li>Dissoudre dans ~100 mL d'eau distillée légèrement acidifiée (5 mL H₂SO₄ à 1 mol/L)</li>
+            <li>Transférer dans une fiole jaugée de 250 mL, compléter à l'eau distillée</li>
+            <li>Préparer le jour même (Fe²⁺ s'oxyde rapidement)</li>
+          </ol>
+        </div>
+        <div class="tab-panel" id="prep-h2o2">
+          <div class="calcul-guide">
+            <h4>📐 Dilution de H₂O₂ commercial (30 vol. ≈ 10% m/m)</h4>
+            <p style="font-size:.85rem">Solution commerciale 30 volumes : c ≈ 8,8 mol/L<br>
+            Pour 0,1 mol/L → facteur de dilution = 88 → prélever 1,14 mL dans 100 mL</p>
+            <div class="formule">V₁ = (0,1 × 100) / 8,8 = <strong>1,14 mL</strong></div>
+          </div>
+          <div class="alerte-securite" style="margin-top:var(--gap-sm)">
+            <strong>⚠️ H₂O₂ concentré : oxydant puissant</strong>
+            Ne jamais manipuler H₂O₂ concentré sans lunettes de protection et gants. Lésions oculaires graves (H318).
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section" data-type="protocole">
+    <div class="section-titre"><div class="picto-section">🔬</div><h2>Expériences</h2><span class="chevron">▼</span></div>
+    <div class="section-corps">
+      <div class="tabs-container">
+        <div class="tabs-header">
+          <button class="tab-btn actif" data-tab="exp-mohr">Dosage Fe²⁺ / KMnO₄</button>
+          <button class="tab-btn" data-tab="exp-h2o2">Dosage H₂O₂ / KMnO₄</button>
+          <button class="tab-btn" data-tab="exp-pile">Pile Daniell Zn/Cu</button>
+        </div>
+
+        <div class="tab-panel actif" id="exp-mohr">
+          <div class="bilan-redox">
+            <div class="demi-eq-oxydation">
+              <div class="label-type">Oxydation (réducteur)</div>
+              Fe²⁺ → Fe³⁺ + 1e⁻
+            </div>
+            <div class="separateur">×5 / ×1</div>
+            <div class="demi-eq-reduction">
+              <div class="label-type">Réduction (oxydant)</div>
+              MnO₄⁻ + 8H⁺ + 5e⁻ → Mn²⁺ + 4H₂O
+            </div>
+          </div>
+          <div class="equation" style="margin-top:var(--gap-sm)">
+            <span class="coeff">5</span><span class="reactif">Fe²⁺</span>
+            <span class="fleche">+</span>
+            <span class="reactif">MnO₄⁻</span>
+            <span class="fleche">+</span>
+            <span class="coeff">8</span><span class="reactif">H⁺</span>
+            <span class="fleche">→</span>
+            <span class="coeff">5</span><span class="produit">Fe³⁺</span>
+            <span class="fleche">+</span>
+            <span class="produit">Mn²⁺</span>
+            <span class="fleche">+</span>
+            <span class="coeff">4</span><span class="produit">H₂O</span>
+          </div>
+          <ol class="etapes" style="margin-top:var(--gap-md)">
+            <li>Prélever 20,0 mL de sel de Mohr à la pipette jaugée dans un bécher de 250 mL</li>
+            <li>Acidifier avec 10 mL de H₂SO₄ à 1 mol/L <span class="attention">(évite la précipitation de Fe(OH)₂)</span></li>
+            <li>Remplir la burette avec KMnO₄ 0,020 mol/L — <strong>pas d'indicateur coloré nécessaire !</strong> (KMnO₄ est auto-indicateur)</li>
+            <li>Verser KMnO₄ goutte à goutte en agitant — la couleur violette disparaît à chaque ajout</li>
+            <li>L'équivalence est atteinte quand la coloration violette <strong>persiste 30 secondes</strong></li>
+            <li>Relever V<sub>E</sub>(KMnO₄)</li>
+          </ol>
+        </div>
+
+        <div class="tab-panel" id="exp-h2o2">
+          <div class="bilan-redox">
+            <div class="demi-eq-oxydation">
+              <div class="label-type">Oxydation</div>
+              H₂O₂ → O₂ + 2H⁺ + 2e⁻
+            </div>
+            <div class="separateur">×5 / ×2</div>
+            <div class="demi-eq-reduction">
+              <div class="label-type">Réduction</div>
+              MnO₄⁻ + 8H⁺ + 5e⁻ → Mn²⁺ + 4H₂O
+            </div>
+          </div>
+          <div class="equation" style="margin-top:var(--gap-sm)">
+            <span class="coeff">5</span><span class="reactif">H₂O₂</span>
+            <span class="fleche">+</span>
+            <span class="coeff">2</span><span class="reactif">MnO₄⁻</span>
+            <span class="fleche">+</span>
+            <span class="coeff">6</span><span class="reactif">H⁺</span>
+            <span class="fleche">→</span>
+            <span class="coeff">5</span><span class="produit">O₂</span>
+            <span class="fleche">+</span>
+            <span class="coeff">2</span><span class="produit">Mn²⁺</span>
+            <span class="fleche">+</span>
+            <span class="coeff">8</span><span class="produit">H₂O</span>
+          </div>
+          <ol class="etapes" style="margin-top:var(--gap-md)">
+            <li>Prélever 20,0 mL de H₂O₂ dilué à la pipette jaugée</li>
+            <li>Acidifier avec 10 mL de H₂SO₄ à 1 mol/L</li>
+            <li>Titrer avec KMnO₄ 0,020 mol/L comme précédemment</li>
+            <li>Calculer la concentration réelle en H₂O₂ de la solution commerciale</li>
+          </ol>
+        </div>
+
+        <div class="tab-panel" id="exp-pile">
+          <div class="bilan-redox">
+            <div class="demi-eq-oxydation">
+              <div class="label-type">Anode (−) Zn</div>
+              Zn → Zn²⁺ + 2e⁻&nbsp;&nbsp;(E° = −0,76 V)
+            </div>
+            <div class="separateur">||</div>
+            <div class="demi-eq-reduction">
+              <div class="label-type">Cathode (+) Cu</div>
+              Cu²⁺ + 2e⁻ → Cu&nbsp;&nbsp;(E° = +0,34 V)
+            </div>
+          </div>
+          <ol class="etapes" style="margin-top:var(--gap-md)">
+            <li>Préparer deux béchers : l'un avec ZnSO₄ 1 mol/L + électrode de zinc, l'autre avec CuSO₄ 0,050 mol/L + électrode de cuivre</li>
+            <li>Relier les deux béchers par un pont salin (papier filtre imbibé de KCl saturé ou KNO₃)</li>
+            <li>Brancher un voltmètre entre les deux électrodes</li>
+            <li>Mesurer la f.é.m. : valeur théorique = 0,34 − (−0,76) = <strong>1,10 V</strong></li>
+            <li>Observer : dépôt de cuivre rouge sur l'électrode de cuivre ; dissolution progressive du zinc</li>
+            <li>Écrire l'équation globale : Zn + Cu²⁺ → Zn²⁺ + Cu</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section" data-type="resultats">
+    <div class="section-titre"><div class="picto-section">📊</div><h2>Tableau de résultats</h2><span class="chevron">▼</span></div>
+    <div class="section-corps">
+      <div style="overflow-x:auto">
+        <table class="tableau-resultats">
+          <thead>
+            <tr><th>Expérience</th><th>V<sub>E</sub> (KMnO₄) mL</th><th>n(KMnO₄) mmol</th><th>n(réducteur) mmol</th><th>C (mol/L)</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><strong>Dosage Fe²⁺</strong></td><td class="saisie" contenteditable="true"></td><td class="saisie" contenteditable="true"></td><td class="saisie" contenteditable="true"></td><td class="saisie" contenteditable="true"></td></tr>
+            <tr><td><strong>Dosage H₂O₂</strong></td><td class="saisie" contenteditable="true"></td><td class="saisie" contenteditable="true"></td><td class="saisie" contenteditable="true"></td><td class="saisie" contenteditable="true"></td></tr>
+            <tr><td><strong>Pile Zn/Cu — f.é.m. mesurée</strong></td><td colspan="3" class="saisie" contenteditable="true"></td><td class="saisie" contenteditable="true"></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="section" data-type="bilan">
+    <div class="section-titre"><div class="picto-section">📝</div><h2>Exploitation</h2><span class="chevron">▼</span></div>
+    <div class="section-corps">
+      <ol style="padding-left:1.5rem;line-height:2.2;font-size:.92rem">
+        <li>Identifier l'oxydant et le réducteur dans chaque réaction.</li>
+        <li>Calculer la concentration en Fe²⁺ dans la solution de sel de Mohr.</li>
+        <li>En déduire le titre en H₂O₂ du produit commercial.</li>
+        <li>Expliquer le rôle du pont salin dans la pile Daniell.</li>
+        <li>Comparer la f.é.m. mesurée à la valeur théorique — comment expliquer l'écart ?</li>
+      </ol>
+      <div class="zone-eleve" style="margin-top:var(--gap-md)">
+        <h4>✏️ Réponses de l'élève</h4>
+        <textarea placeholder="Rédiger vos réponses ici…" rows="8"></textarea>
+      </div>
+    </div>
+  </div>
+
+  <div class="nav-tp">
+    <a href="tp03-titrages.html" class="btn btn-secondaire">← TP 03</a>
+    <button onclick="window.print()" class="btn btn-imprimer">🖨️ Imprimer</button>
+    <a href="tp05-chimie-organique.html" class="btn btn-primaire">TP 05 →</a>
+  </div>
+</div>
+
+<script type="module">
+import { PRODUITS } from '../js/produits.js';
+import { renderBlocSecurite, initSections, initTabs } from '../js/utils.js';
+const cas = ['7722-64-7','7783-85-9','7722-84-1','7664-93-9','7446-20-0'];
+const produits = cas.map(c => PRODUITS.find(p => p.cas === c)).filter(Boolean);
+document.getElementById('securite-bloc').innerHTML = renderBlocSecurite(produits);
+initSections(); initTabs();
+</script>
+</body>
+</html>
