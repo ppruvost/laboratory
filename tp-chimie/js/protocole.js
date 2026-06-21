@@ -6,9 +6,6 @@ import { products } from "../data/products.js";
 
 const select = document.getElementById("reactif");
 
-console.log("reactif =", document.getElementById("reactif"));
-console.log("products =", products);
-
 function chargerProduits() {
 
     if (!products || !Array.isArray(products)) {
@@ -35,7 +32,10 @@ function chargerProduits() {
     console.log(`${products.length} réactifs chargés`);
 }
 
-chargerProduits();
+window.initProtocole = function () {
+    chargerProduits();
+
+};
 
 // ======================
 // CALCUL DILUTION
