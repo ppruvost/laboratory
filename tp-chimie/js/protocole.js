@@ -1,7 +1,7 @@
 console.log("protocole.js chargé");
 
 // =====================================================
-// RÉCUPÉRATION PRODUITS (compatible iframe / main app)
+// RÉCUPÉRATION PRODUITS (iframe / main)
 // =====================================================
 
 const products =
@@ -9,7 +9,7 @@ const products =
     window.products ||
     [];
 
-console.log("Nombre de produits :", products.length);
+console.log("Nombre de produits :", Array.isArray(products) ? products.length : 0);
 
 // =====================================================
 // PROTECTION DOUBLE CHARGEMENT
@@ -22,12 +22,16 @@ if (window.__protocoleLoaded) {
 }
 
 // =====================================================
-// INITIALISATION
+// UTILITAIRES
 // =====================================================
 
 function getSelect() {
     return document.getElementById("reactif");
 }
+
+// =====================================================
+// CHARGEMENT PRODUITS
+// =====================================================
 
 function chargerProduits() {
 
@@ -63,7 +67,18 @@ function chargerProduits() {
     console.log(`${products.length} réactifs chargés`);
 }
 
+// =====================================================
+// INIT MODULE
+// =====================================================
+
 window.initProtocole = function () {
+
+    if (window.__protocoleInited) {
+        console.warn("initProtocole déjà exécuté (bloqué)");
+        return;
+    }
+
+    window.__protocoleInited = true;
 
     console.log("initProtocole exécuté");
 
@@ -192,14 +207,14 @@ window.genererFiche = function () {
             }
 
             ${
-                securite.h
+                Array.isArray(securite.h)
                     ? `<p><b>Mentions H :</b></p>
                        <ul>${securite.h.map(h => `<li>${h}</li>`).join("")}</ul>`
                     : ""
             }
 
             ${
-                securite.p
+                Array.isArray(securite.p)
                     ? `<p><b>Conseils P :</b></p>
                        <ul>${securite.p.map(p => `<li>${p}</li>`).join("")}</ul>`
                     : ""
