@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TP 05 — Chimie organique | Labo B27</title>
+  <link rel="stylesheet" href="../css/global.css">
+  <link rel="stylesheet" href="../css/tp.css">
+</head>
+<body>
+<header class="site-header">
+  <div class="logo">⚗️ Labo<span>Chimie</span></div>
+  <nav>
+    <a href="../index.html">← Accueil</a>
+    <a href="tp01-solutions.html">TP 01</a><a href="tp02-ph-indicateurs.html">TP 02</a>
+    <a href="tp03-titrages.html">TP 03</a><a href="tp04-oxydoreduction.html">TP 04</a>
+    <a href="tp05-chimie-organique.html" class="actif">TP 05</a><a href="tp06-securite-clp.html">TP 06</a>
+  </nav>
+  <span class="badge-niveau">2nde · 1ère · Tle</span>
+</header>
+<div class="page-wrapper">
+  <div class="tp-header">
+    <div>
+      <h1>Chimie organique</h1>
+      <div class="tp-meta">
+        <span class="tag">TP 05</span><span class="tag">Tous niveaux</span>
+        <span class="tag">⏱ 3h</span>
+        <span class="tag">Estérification · Saponification · Test de Fehling</span>
+      </div>
+    </div>
+    <div class="tp-numero">05</div>
+  </div>
+
+  <div class="section" data-type="objectif">
+    <div class="section-titre"><div class="picto-section">🎯</div><h2>Objectifs pédagogiques</h2><span class="chevron">▼</span></div>
+    <div class="section-corps">
+      <div class="progression-niveaux">
+        <div class="niveau-badge seconde actif">2nde — Test Fehling</div>
+        <div class="niveau-badge premiere">1ère — Estérification</div>
+        <div class="niveau-badge terminale">Tle — Saponification</div>
+      </div>
+      <ul style="padding-left:1.5rem;line-height:2;margin-top:var(--gap-sm)">
+        <li><strong>[2nde]</strong> Identifier un aldéhyde (glucose) par le test de Fehling — observer le précipité Cu₂O rouge brique</li>
+        <li><strong>[1ère]</strong> Synthétiser un ester (acétate d'isoamyle — odeur banane) par estérification</li>
+        <li><strong>[1ère]</strong> Purifier l'ester par extraction liquide-liquide et lavage</li>
+        <li><strong>[Tle]</strong> Réaliser une saponification (NaOH + corps gras) et tester le savon obtenu</li>
+        <li>Identifier les fonctions chimiques : alcool, acide, ester, aldéhyde</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section" data-type="securite">
+    <div class="section-titre"><div class="picto-section">🛡️</div><h2>Sécurité</h2><span class="chevron">▼</span></div>
+    <div class="section-corps" id="securite-bloc"></div>
+  </div>
+
+  <div class="section" data-type="reactifs">
+    <div class="section-titre"><div class="picto-section">🧂</div><h2>Préparation des réactifs</h2><span class="chevron">▼</span></div>
+    <div class="section-corps">
+      <div class="tabs-container">
+        <div class="tabs-header">
+          <button class="tab-btn actif" data-tab="fehling-prep">Réactif de Fehling</button>
+          <button class="tab-btn" data-tab="ester-prep">Synthèse ester</button>
+          <button class="tab-btn" data-tab="savon-prep">Saponification</button>
+        </div>
+
+        <div class="tab-panel actif" id="fehling-prep">
+          <p style="margin-bottom:var(--gap-sm)">Le réactif de Fehling est un mélange à parts égales de <strong>Fehling A</strong> et <strong>Fehling B</strong> :</p>
+          <div class="grille-materiel" style="margin-bottom:var(--gap-md)">
+            <div class="item-materiel"><span class="icone-materiel">🟦</span> Fehling A (CuSO₄·5H₂O) <span class="qte">Étagère B2</span></div>
+            <div class="item-materiel"><span class="icone-materiel">🟫</span> Fehling B (NaOH + sel de Rochelle) <span class="qte">Étagère B2</span></div>
+          </div>
+          <div class="alerte-securite">
+            <strong>⚠️ Fehling B contient NaOH — corrosif</strong>
+            Lunettes et gants obligatoires. En cas de contact avec les yeux, rincer 15 minutes à l'eau courante.
+          </div>
+          <ol class="etapes" style="margin-top:var(--gap-md)">
+            <li>Dans un tube à essai : mélanger 1 mL de Fehling A + 1 mL de Fehling B — solution bleue obtenue</li>
+            <li>Ajouter 1 mL de solution à tester (glucose, fructose, saccharose, éthanal…)</li>
+            <li>Chauffer au bain-marie à 60–70°C pendant 5 minutes</li>
+            <li>Observer : précipité <strong>rouge brique</strong> = aldéhyde détecté (Cu²⁺ réduit en Cu⁺ → Cu₂O)</li>
+            <li>Pas de changement = absence d'aldéhyde (saccharose négatif)</li>
+          </ol>
+          <div class="equation">
+            <span class="reactif">RCHO</span>
+            <span class="fleche">+</span>
+            <span class="coeff">2</span><span class="reactif">Cu²⁺</span>
+            <span class="fleche">+</span>
+            <span class="coeff">5</span><span class="reactif">HO⁻</span>
+            <span class="fleche">→</span>
+            <span class="reactif">RCOO⁻</span>
+            <span class="fleche">+</span>
+            <span class="produit">Cu₂O↓</span>
+            <span style="color:#F9E79F">(rouge brique)</span>
+            <span class="fleche">+</span>
+            <span class="coeff">3</span><span class="produit">H₂O</span>
+          </div>
+        </div>
+
+        <div class="tab-panel" id="ester-prep">
+          <h3 style="font-family:var(--font-titre);margin-bottom:var(--gap-sm)">Synthèse de l'acétate d'isoamyle (odeur banane)</h3>
+          <div class="equation">
+            <span class="reactif">CH₃COOH</span>
+            <span class="fleche">+</span>
+            <span class="reactif">(CH₃)₂CHCH₂CH₂OH</span>
+            <span class="condition">H₂SO₄ cat. / Δ</span>
+            <span class="fleche">⇌</span>
+            <span class="produit">CH₃COO(CH₂)₂CH(CH₃)₂</span>
+            <span class="fleche">+</span>
+            <span class="produit">H₂O</span>
+          </div>
+          <div class="calcul-guide" style="margin-top:var(--gap-sm)">
+            <h4>📐 Quantités pour un rendement optimisé</h4>
+            <div class="formule">CH₃COOH : 10 mL (0,175 mol) &nbsp;|&nbsp; Alcool isoamylique : 10 mL (0,092 mol)</div>
+            <p style="font-size:.85rem;margin-top:.5rem">Excès d'acide pour déplacer l'équilibre vers les produits. Acide sulfurique concentré : 5 gouttes (catalyseur).</p>
+          </div>
+          <ol class="etapes" style="margin-top:var(--gap-md)">
+            <li>Dans un ballon bicol de 100 mL : verser 10 mL d'acide éthanoïque + 10 mL d'alcool isoamylique <span class="attention">(HOTTE obligatoire)</span></li>
+            <li>Ajouter prudemment 5 gouttes de H₂SO₄ concentré (catalyseur)</li>
+            <li>Adapter un réfrigérant à boules — chauffer à reflux pendant 30 minutes</li>
+            <li>Laisser refroidir — verser dans une ampoule à décanter avec 30 mL d'eau froide</li>
+            <li>Agiter délicatement, décanter — phase organique = phase supérieure (ester moins dense)</li>
+            <li>Laver à l'eau (×2), puis avec Na₂CO₃ 10% pour éliminer l'acide résiduel</li>
+            <li>Sécher sur Na₂SO₄ anhydre — filtrer — récupérer l'ester purifié</li>
+            <li>Sentir prudemment (technique du poignet) — <strong>odeur caractéristique de banane</strong></li>
+          </ol>
+        </div>
+
+        <div class="tab-panel" id="savon-prep">
+          <h3 style="font-family:var(--font-titre);margin-bottom:var(--gap-sm)">Saponification d'une huile végétale</h3>
+          <div class="equation">
+            <span class="reactif">Triglycéride</span>
+            <span class="fleche">+</span>
+            <span class="coeff">3</span><span class="reactif">NaOH</span>
+            <span class="condition">Δ</span>
+            <span class="fleche">→</span>
+            <span class="coeff">3</span><span class="produit">RCOO⁻Na⁺</span>
+            <span style="color:#F9E79F">(savon)</span>
+            <span class="fleche">+</span>
+            <span class="produit">Glycérol</span>
+          </div>
+          <ol class="etapes" style="margin-top:var(--gap-md)">
+            <li>Dans un bécher de 250 mL : peser 15 g d'huile d'olive ou d'huile de coco</li>
+            <li>Préparer 30 mL de NaOH à 10 mol/L (solution concentrée — <strong>lunettes + gants obligatoires</strong>)</li>
+            <li>Verser le NaOH sur l'huile, chauffer à 70°C en agitant constamment pendant 45 minutes</li>
+            <li>Ajouter NaCl saturé pour favoriser la séparation du savon ("relargage")</li>
+            <li>Filtrer le savon précipité — rincer à l'eau froide</li>
+            <li>Tester le pH du savon (doit être entre 9 et 10), son pouvoir moussant et son pouvoir nettoyant</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section" data-type="resultats">
+    <div class="section-titre"><div class="picto-section">📊</div><h2>Résultats et observations</h2><span class="chevron">▼</span></div>
+    <div class="section-corps">
+      <h4 style="font-family:var(--font-titre);margin-bottom:var(--gap-sm)">Test de Fehling — Résultats</h4>
+      <div style="overflow-x:auto;margin-bottom:var(--gap-md)">
+        <table class="tableau-resultats">
+          <thead><tr><th>Solution testée</th><th>Couleur avant chauffe</th><th>Couleur après chauffe</th><th>Résultat</th></tr></thead>
+          <tbody>
+            <tr><td>Glucose (solution)</td><td class="saisie" contenteditable="true"></td><td class="saisie" contenteditable="true"></td><td class="saisie" contenteditable="true"></td></tr>
+            <tr><td>Saccharose (solution)</td><td class="saisie" contenteditable="true"></td><td class="saisie" contenteditable="true"></td><td class="saisie" contenteditable="true"></td></tr>
+            <tr><td>Éthanal (quelques gouttes)</td><td class="saisie" contenteditable="true"></td><td class="saisie" contenteditable="true"></td><td class="saisie" contenteditable="true"></td></tr>
+            <tr><td>Acétone (quelques gouttes)</td><td class="saisie" contenteditable="true"></td><td class="saisie" contenteditable="true"></td><td class="saisie" contenteditable="true"></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <h4 style="font-family:var(--font-titre);margin-bottom:var(--gap-sm)">Synthèse de l'ester — Bilan</h4>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:var(--gap-sm)">
+        <div style="border:1px solid var(--gris-clair);border-radius:var(--r-sm);padding:.6rem;text-align:center">
+          <div style="font-size:.78rem;color:var(--gris-moyen)">Volume d'ester récupéré</div>
+          <div class="saisie" contenteditable="true" style="font-family:var(--font-code);font-size:1.1rem;margin-top:.3rem">— mL</div>
+        </div>
+        <div style="border:1px solid var(--gris-clair);border-radius:var(--r-sm);padding:.6rem;text-align:center">
+          <div style="font-size:.78rem;color:var(--gris-moyen)">Odeur observée</div>
+          <div class="saisie" contenteditable="true" style="font-size:1.1rem;margin-top:.3rem">—</div>
+        </div>
+        <div style="border:1px solid var(--gris-clair);border-radius:var(--r-sm);padding:.6rem;text-align:center">
+          <div style="font-size:.78rem;color:var(--gris-moyen)">Rendement estimé</div>
+          <div class="saisie" contenteditable="true" style="font-family:var(--font-code);font-size:1.1rem;margin-top:.3rem">— %</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section" data-type="bilan">
+    <div class="section-titre"><div class="picto-section">📝</div><h2>Exploitation</h2><span class="chevron">▼</span></div>
+    <div class="section-corps">
+      <ol style="padding-left:1.5rem;line-height:2.2;font-size:.92rem">
+        <li>Pourquoi le saccharose est-il négatif au test de Fehling ? (répondre en termes de fonction chimique)</li>
+        <li>Écrire la demi-équation d'oxydation du glucose par le réactif de Fehling.</li>
+        <li>Calculer le rendement de la synthèse de l'acétate d'isoamyle (en supposant que le réactif limitant est l'alcool).</li>
+        <li>Pourquoi dit-on que l'estérification est une réaction d'équilibre ? Comment l'a-t-on déplacé ?</li>
+        <li>Quel est le rôle du Na₂CO₃ lors du lavage de l'ester ? Écrire la réaction.</li>
+        <li>[Tle] Expliquer le mécanisme de détergence du savon — pourquoi dissout-il les graisses dans l'eau ?</li>
+      </ol>
+      <div class="zone-eleve" style="margin-top:var(--gap-md)">
+        <h4>✏️ Réponses de l'élève</h4>
+        <textarea placeholder="Rédiger vos réponses ici…" rows="10"></textarea>
+      </div>
+    </div>
+  </div>
+
+  <div class="nav-tp">
+    <a href="tp04-oxydoreduction.html" class="btn btn-secondaire">← TP 04</a>
+    <button onclick="window.print()" class="btn btn-imprimer">🖨️ Imprimer</button>
+    <a href="tp06-securite-clp.html" class="btn btn-primaire">TP 06 →</a>
+  </div>
+</div>
+<script type="module">
+import { PRODUITS } from '../js/produits.js';
+import { renderBlocSecurite, initSections, initTabs } from '../js/utils.js';
+const cas = ['64-19-7','123-51-3','7758-99-8','1310-73-2b','1310-73-2','67-64-1'];
+const produits = cas.map(c => PRODUITS.find(p => p.cas === c)).filter(Boolean);
+document.getElementById('securite-bloc').innerHTML = renderBlocSecurite(produits);
+initSections(); initTabs();
+</script>
+</body>
+</html>
