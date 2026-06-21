@@ -7,16 +7,26 @@ console.log("Nombre de produits :", products?.length);
 // INITIALISATION
 // ======================
 
-const select = document.getElementById("reactif");
+function getSelect() {
+    return document.getElementById("reactif");
+}
 
 function chargerProduits() {
 
-    if (!products || !Array.isArray(products)) {
-        console.error("products.js non chargé");
+    const select = getSelect();
+
+    if (!select) {
+        console.error("Sélecteur #reactif introuvable");
         return;
     }
 
-    select.innerHTML = '<option value="">-- Choisir un réactif --</option>';
+    if (!products || !Array.isArray(products)) {
+        console.error("products non chargé");
+        return;
+    }
+
+    select.innerHTML =
+        '<option value="">-- Choisir un réactif --</option>';
 
     products.forEach(produit => {
 
@@ -25,8 +35,10 @@ function chargerProduits() {
         option.value = produit.nom || "";
 
         option.textContent =
-            `${produit.nom || "Sans nom"} ${
-                produit.formule ? `(${produit.formule})` : ""
+            `${produit.nom || "Sans nom"}${
+                produit.formule
+                    ? ` (${produit.formule})`
+                    : ""
             }`;
 
         select.appendChild(option);
@@ -36,6 +48,9 @@ function chargerProduits() {
 }
 
 window.initProtocole = function () {
+
+    console.log("initProtocole exécuté");
+
     chargerProduits();
 
 };
