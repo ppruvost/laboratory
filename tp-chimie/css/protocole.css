@@ -66,6 +66,13 @@ header h1{
    FORMULAIRES
 ========================= */
 
+.grid {
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    gap: 10px 15px;
+    align-items: center;
+}
+
 label{
     display:block;
     margin-top:10px;
