@@ -1,4 +1,6 @@
 import { products } from "./data/products.js";
+window.products = products;
+
 import laboratoryEquipment from "./data/equipment.js";
 import glassware from "./data/glassware.js";
 
