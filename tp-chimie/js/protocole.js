@@ -1,3 +1,6 @@
+console.log("protocole.js chargé");
+console.log(products);
+
 import { products } from "../data/products.js";
 
 // ======================
