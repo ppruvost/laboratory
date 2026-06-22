@@ -4,25 +4,61 @@
 
 import { PRODUITS } from './produits.js';
 
-// ── Pictogrammes GHS → emoji ──────────────────────────────────
-export const GHS_EMOJI = {
-  GHS01: { emoji: '💥', label: 'Explosif'              },
-  GHS02: { emoji: '🔥', label: 'Inflammable'           },
-  GHS03: { emoji: '🔶', label: 'Comburant'             },
-  GHS04: { emoji: '🔵', label: 'Gaz sous pression'     },
-  GHS05: { emoji: '⚠️',  label: 'Corrosif'              },
-  GHS06: { emoji: '☠️',  label: 'Toxique'               },
-  GHS07: { emoji: '❗',  label: 'Irritant / nocif'      },
-  GHS08: { emoji: '🩺',  label: 'Danger santé grave'   },
-  GHS09: { emoji: '🌿',  label: 'Danger environnement' },
+// ── Pictogrammes GHS → images + labels ───────────────────────
+export const GHS_PICTO = {
+  GHS01: { img: 'assets/picto/SGH01_BombeExplosant.jpg', label: 'Explosif' },
+  GHS02: { img: 'assets/picto/SGH02_Flamme.jpg', label: 'Inflammable' },
+  GHS03: { img: 'assets/picto/SGH03_FlammeSurCercle.jpg', label: 'Comburant' },
+  GHS04: { img: 'assets/picto/SGH04_BouteilleGaz.jpg', label: 'Gaz sous pression' },
+  GHS05: { img: 'assets/picto/SGH05_Corrosion.jpg', label: 'Corrosif' },
+  GHS06: { img: 'assets/picto/SGH06_TeteDeMort.jpg', label: 'Toxique' },
+  GHS07: { img: 'assets/picto/SGH07_PointExclamation.jpg', label: 'Irritant / nocif' },
+  GHS08: { img: 'assets/picto/SGH08_DangerSante.jpg', label: 'Danger santé grave' },
+  GHS09: { img: 'assets/picto/SGH09_Environnement.jpg', label: 'Danger environnement' },
 };
 
-// ── EPI → libellé + badge ─────────────────────────────────────
+// ── EPI → libellé + icône image ───────────────────────────────
 export const EPI_CONFIG = {
-  LUNETTES: { classe: 'lunettes', label: '🥽 Lunettes' },
-  GANTS:    { classe: 'gants',    label: '🧤 Gants'    },
-  BLOUSE:   { classe: 'blouse',   label: '🥼 Blouse'   },
-  HOTTE:    { classe: 'hotte',    label: '🌬️ Hotte'    },
+  LUNETTES: {
+    img: 'assets/picto/OBLIGATION-lunettes.jpg',
+    label: 'Lunettes de protection'
+  },
+  GANTS: {
+    img: 'assets/picto/OBLIGATION-gants.jpg',
+    label: 'Gants'
+  },
+  BLOUSE: {
+    img: 'assets/picto/OBLIGATION-blouse.jpg',
+    label: 'Blouse'
+  },
+  HOTTE: {
+    img: 'assets/picto/OBLIGATION-hotte.jpeg',
+    label: 'Hotte aspirante'
+  },
+  CASQUE: {
+    img: 'assets/picto/OBLIGATION-casque.jpg',
+    label: 'Casque'
+  },
+  VISIERE: {
+    img: 'assets/picto/OBLIGATION-visiere.jpg',
+    label: 'Visière'
+  },
+  CHAUSSURES: {
+    img: 'assets/picto/OBLIGATION-chaussures.jpg',
+    label: 'Chaussures de sécurité'
+  },
+  COMBINAISON: {
+    img: 'assets/picto/OBLIGATION-combinaison.jpg',
+    label: 'Combinaison'
+  },
+  HARNAIS: {
+    img: 'assets/picto/OBLIGATION-harnais.jpg',
+    label: 'Harnais'
+  },
+  RESPIRATOIRE: {
+    img: 'assets/picto/OBLIGATION-protection-voies-espiratoires.jpg',
+    label: 'Protection respiratoire'
+  },
 };
 
 // ── Masses molaires (g/mol) ───────────────────────────────────
