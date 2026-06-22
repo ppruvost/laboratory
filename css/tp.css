@@ -1,0 +1,408 @@
+/* ════════════════════════════════════════════════════════════════
+   tp.css  —  Styles spécifiques aux fiches TP
+   ════════════════════════════════════════════════════════════════ */
+
+/* ── Indicateur de pH visuel ─────────────────────────────────── */
+.ph-bande {
+  height: 28px;
+  border-radius: var(--r-sm);
+  background: linear-gradient(to right,
+    #FF0000 0%,   /* pH 0  */
+    #FF4500 7%,   /* pH 1  */
+    #FF8C00 14%,  /* pH 2  */
+    #FFA500 21%,  /* pH 3  */
+    #FFD700 28%,  /* pH 4  */
+    #ADFF2F 35%,  /* pH 5  */
+    #7CFC00 42%,  /* pH 6  */
+    #00FF7F 50%,  /* pH 7  */
+    #00CED1 57%,  /* pH 8  */
+    #1E90FF 64%,  /* pH 9  */
+    #4169E1 71%,  /* pH 10 */
+    #8A2BE2 78%,  /* pH 11 */
+    #9400D3 85%,  /* pH 12 */
+    #800080 92%,  /* pH 13 */
+    #4B0082 100%  /* pH 14 */
+  );
+  position: relative;
+  margin: var(--gap-sm) 0;
+}
+.ph-bande .ph-cursor {
+  position: absolute;
+  top: -6px;
+  width: 4px;
+  height: calc(100% + 12px);
+  background: #000;
+  border-radius: 2px;
+  transform: translateX(-50%);
+  transition: left .4s ease;
+}
+.ph-bande .ph-labels {
+  display: flex;
+  justify-content: space-between;
+  font-size: .65rem;
+  font-family: var(--font-code);
+  color: var(--gris-moyen);
+  margin-top: .25rem;
+}
+
+/* ── Schéma de titrage ───────────────────────────────────────── */
+.schema-titrage {
+  border: 2px solid var(--gris-clair);
+  border-radius: var(--r-md);
+  padding: var(--gap-md);
+  background: var(--blanc-paillasse);
+  text-align: center;
+}
+.schema-titrage canvas {
+  max-width: 100%;
+  border-radius: var(--r-sm);
+}
+.schema-titrage .legende {
+  font-size: .8rem;
+  color: var(--gris-moyen);
+  margin-top: var(--gap-sm);
+  font-style: italic;
+}
+
+/* ── Grille matériel ─────────────────────────────────────────── */
+.grille-materiel {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: var(--gap-sm);
+}
+.item-materiel {
+  border: 1px solid var(--gris-clair);
+  border-radius: var(--r-md);
+  padding: var(--gap-sm);
+  display: flex;
+  align-items: center;
+  gap: .6rem;
+  background: #fff;
+  font-size: .88rem;
+}
+.item-materiel .icone-materiel {
+  font-size: 1.4rem;
+  flex-shrink: 0;
+}
+.item-materiel .qte {
+  font-family: var(--font-code);
+  font-size: .75rem;
+  background: var(--gris-ardoise);
+  color: #fff;
+  padding: .1rem .4rem;
+  border-radius: 20px;
+  margin-left: auto;
+  white-space: nowrap;
+}
+
+/* ── Bloc observation ────────────────────────────────────────── */
+.bloc-observation {
+  border: 2px dashed var(--gris-clair);
+  border-radius: var(--r-md);
+  padding: var(--gap-md);
+  min-height: 80px;
+  background: #FFFDE7;
+  font-style: italic;
+  color: var(--gris-moyen);
+  font-size: .9rem;
+}
+.bloc-observation.avec-contenu {
+  border-style: solid;
+  border-color: var(--ambre-fer);
+  color: var(--gris-ardoise);
+  font-style: normal;
+}
+
+/* ── Équation chimique ───────────────────────────────────────── */
+.equation {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: .5rem;
+  padding: var(--gap-sm) var(--gap-md);
+  background: var(--gris-ardoise);
+  border-radius: var(--r-md);
+  font-family: var(--font-code);
+  font-size: 1.05rem;
+  color: #E8F8F5;
+  margin: var(--gap-sm) 0;
+  overflow-x: auto;
+}
+.equation .reactif { color: #AED6F1; }
+.equation .produit  { color: #A9DFBF; }
+.equation .fleche   { color: var(--ambre-fer); font-size: 1.3rem; }
+.equation .coeff    { color: #F9E79F; font-weight: 700; }
+.equation .condition {
+  font-size: .75rem;
+  background: rgba(255,255,255,.1);
+  padding: .15rem .5rem;
+  border-radius: 20px;
+  color: #D7DBDD;
+}
+
+/* ── Bilan électronique (oxydoréduction) ─────────────────────── */
+.bilan-redox {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: var(--gap-sm);
+  align-items: center;
+  padding: var(--gap-md);
+  background: #1A1A2E;
+  border-radius: var(--r-md);
+  color: #fff;
+  font-family: var(--font-code);
+  font-size: .9rem;
+  margin: var(--gap-sm) 0;
+}
+.bilan-redox .demi-eq-oxydation { border-left: 3px solid var(--rouge-ph); padding-left: var(--gap-sm); }
+.bilan-redox .demi-eq-reduction  { border-left: 3px solid var(--bleu-cuivre); padding-left: var(--gap-sm); }
+.bilan-redox .separateur { text-align: center; color: var(--gris-clair); }
+.bilan-redox .label-type {
+  font-size: .7rem;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  opacity: .6;
+  margin-bottom: .3rem;
+}
+
+/* ── Zone saisie élève ───────────────────────────────────────── */
+.zone-eleve {
+  background: #F8F9FA;
+  border: 2px solid var(--gris-clair);
+  border-radius: var(--r-md);
+  padding: var(--gap-md);
+  margin-top: var(--gap-sm);
+}
+.zone-eleve h4 {
+  font-size: .8rem;
+  text-transform: uppercase;
+  letter-spacing: .1em;
+  color: var(--gris-moyen);
+  margin-bottom: var(--gap-sm);
+  font-family: var(--font-titre);
+}
+.zone-eleve textarea {
+  width: 100%;
+  border: 1px solid var(--gris-clair);
+  border-radius: var(--r-sm);
+  padding: .6rem;
+  font-family: var(--font-corps);
+  font-size: .9rem;
+  resize: vertical;
+  min-height: 80px;
+  outline: none;
+  background: #fff;
+}
+.zone-eleve textarea:focus {
+  border-color: var(--bleu-cuivre);
+  box-shadow: 0 0 0 3px rgba(27,108,168,.15);
+}
+
+/* ── Chronomètre visuel ──────────────────────────────────────── */
+.chrono-bloc {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--gap-sm);
+  background: var(--gris-ardoise);
+  color: #fff;
+  padding: .4rem 1rem;
+  border-radius: 20px;
+  font-family: var(--font-code);
+  font-size: .85rem;
+  margin: .4rem 0;
+}
+.chrono-bloc .chrono-icone { font-size: 1rem; }
+
+/* ── Capsule concentration ───────────────────────────────────── */
+.capsule-concentration {
+  display: inline-flex;
+  align-items: center;
+  gap: .4rem;
+  background: #EBF5FB;
+  border: 1px solid #AED6F1;
+  border-radius: 20px;
+  padding: .25rem .8rem;
+  font-family: var(--font-code);
+  font-size: .85rem;
+  color: var(--bleu-cuivre);
+  font-weight: 600;
+}
+
+/* ── Indicateurs colorés virage ──────────────────────────────── */
+.virage-indicateur {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: var(--gap-sm);
+  align-items: center;
+  margin: var(--gap-sm) 0;
+}
+.virage-indicateur .couleur-acide,
+.virage-indicateur .couleur-basique {
+  padding: .4rem .8rem;
+  border-radius: var(--r-sm);
+  text-align: center;
+  font-size: .85rem;
+  font-weight: 700;
+  color: #fff;
+}
+.virage-indicateur .plage {
+  text-align: center;
+  font-family: var(--font-code);
+  font-size: .8rem;
+  color: var(--gris-moyen);
+}
+.virage-indicateur .fleche-virage {
+  font-size: 1.4rem;
+  color: var(--gris-moyen);
+}
+
+/* ── Tabs (onglets) ──────────────────────────────────────────── */
+.tabs-header {
+  display: flex;
+  border-bottom: 2px solid var(--gris-clair);
+  gap: 0;
+  margin-bottom: var(--gap-md);
+  overflow-x: auto;
+}
+.tab-btn {
+  padding: .6rem 1.2rem;
+  font-family: var(--font-titre);
+  font-size: .85rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  background: none;
+  color: var(--gris-moyen);
+  border-bottom: 3px solid transparent;
+  margin-bottom: -2px;
+  white-space: nowrap;
+  transition: color .2s, border-color .2s;
+}
+.tab-btn.actif {
+  color: var(--bleu-cuivre);
+  border-bottom-color: var(--bleu-cuivre);
+}
+.tab-btn:hover:not(.actif) { color: var(--gris-ardoise); }
+.tab-panel { display: none; }
+.tab-panel.actif { display: block; }
+
+/* ── Progression pédagogique ─────────────────────────────────── */
+.progression-niveaux {
+  display: flex;
+  gap: 0;
+  border-radius: var(--r-md);
+  overflow: hidden;
+  border: 1px solid var(--gris-clair);
+  margin-bottom: var(--gap-md);
+}
+.niveau-badge {
+  flex: 1;
+  padding: .5rem;
+  text-align: center;
+  font-size: .78rem;
+  font-weight: 700;
+  font-family: var(--font-titre);
+  text-transform: uppercase;
+  letter-spacing: .05em;
+  cursor: pointer;
+  transition: background .2s;
+}
+.niveau-badge.seconde  { background: #D5F5E3; color: #1E8449; }
+.niveau-badge.premiere { background: #D6EAF8; color: #1A5276; }
+.niveau-badge.terminale{ background: #E8DAEF; color: #6C3483; }
+.niveau-badge.actif    { filter: brightness(0.85); }
+
+/* ── Barre latérale résumé ───────────────────────────────────── */
+.sidebar-resume {
+  background: var(--blanc-paillasse);
+  border: 1px solid var(--gris-clair);
+  border-radius: var(--r-md);
+  padding: var(--gap-md);
+  position: sticky;
+  top: 80px;
+}
+.sidebar-resume h3 {
+  font-family: var(--font-titre);
+  font-size: .85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  color: var(--gris-moyen);
+  margin-bottom: var(--gap-sm);
+}
+.sidebar-resume ul {
+  list-style: none;
+}
+.sidebar-resume ul li {
+  font-size: .85rem;
+  padding: .3rem 0;
+  border-bottom: 1px solid var(--gris-clair);
+  display: flex;
+  justify-content: space-between;
+}
+.sidebar-resume ul li:last-child { border-bottom: none; }
+.sidebar-resume .valeur { font-family: var(--font-code); font-weight: 600; color: var(--bleu-cuivre); }
+
+/* ── Layout deux colonnes pour TP avancés ────────────────────── */
+.layout-tp {
+  display: grid;
+  grid-template-columns: 1fr 300px;
+  gap: var(--gap-md);
+  align-items: start;
+}
+@media (max-width: 900px) {
+  .layout-tp { grid-template-columns: 1fr; }
+  .sidebar-resume { position: static; }
+}
+
+/* ── Indicateur de danger combiné ────────────────────────────── */
+.danger-strip {
+  display: flex;
+  align-items: center;
+  gap: var(--gap-sm);
+  background: #FEF3CD;
+  border: 1px solid #F0C040;
+  border-radius: var(--r-sm);
+  padding: .4rem .8rem;
+  font-size: .82rem;
+  margin: .3rem 0;
+}
+.danger-strip .code-h {
+  font-family: var(--font-code);
+  font-weight: 700;
+  color: #8B5E00;
+  white-space: nowrap;
+}
+
+/* ── Tooltip ─────────────────────────────────────────────────── */
+[data-tooltip] { position: relative; cursor: help; }
+[data-tooltip]::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: calc(100% + 6px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--gris-ardoise);
+  color: #fff;
+  padding: .3rem .6rem;
+  border-radius: var(--r-sm);
+  font-size: .75rem;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity .2s;
+  z-index: 50;
+}
+[data-tooltip]:hover::after { opacity: 1; }
+
+/* ── Animation entrée ─────────────────────────────────────────── */
+@keyframes fadeSlideUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.section { animation: fadeSlideUp .3s ease both; }
+.section:nth-child(2) { animation-delay: .05s; }
+.section:nth-child(3) { animation-delay: .10s; }
+.section:nth-child(4) { animation-delay: .15s; }
+.section:nth-child(5) { animation-delay: .20s; }
+.section:nth-child(6) { animation-delay: .25s; }
