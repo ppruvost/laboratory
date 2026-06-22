@@ -2,6 +2,7 @@
    NAVIGATION.JS V2
    Laboratory
    ========================================================== */
+const BASE_PATH = "/laboratory";
 
 const content =
 document.getElementById("content");
@@ -143,11 +144,13 @@ async function loadModule(
         </div>
         `;
 
-        const htmlPath =
-        `/modules/${moduleName}.html`;
+        const cleanDomaine = domaine.replace(/^\/|\/$/g, "");
 
-        const jsPath =
-        `${domaine}/js/${moduleName}.js`;
+       const htmlPath =
+       `${BASE_PATH}/${cleanDomaine}/modules/${moduleName}.html`;
+
+       const jsPath =
+       `${BASE_PATH}/${cleanDomaine}/js/${moduleName}.js`;
 
         /* ======================
            HTML
@@ -181,7 +184,7 @@ async function loadModule(
 
             const module =
             await import(
-                `../${jsPath}?v=${Date.now()}`
+                `${jsPath}?v=${Date.now()}`
             );
 
             if(
