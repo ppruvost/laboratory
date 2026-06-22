@@ -37,22 +37,28 @@
 
             <div class="grid">
 
-                <label for="c1">C₁ (mol·L⁻¹)</label>
-                <input id="c1" type="number" step="0.001">
+    <div class="ligne">
+        <label for="c1">C₁ (mol·L⁻¹)</label>
+        <input id="c1" type="number" step="0.001">
+    </div>
 
-                <label for="c2">C₂ (mol·L⁻¹)</label>
-                <input id="c2" type="number" step="0.001">
+    <div class="ligne">
+        <label for="c2">C₂ (mol·L⁻¹)</label>
+        <input id="c2" type="number" step="0.001">
+    </div>
 
-                <label for="v2">V₂ (mL)</label>
-                <input id="v2" type="number" step="1">
+    <div class="ligne">
+        <label for="v2">V₂ (mL)</label>
+        <input id="v2" type="number" step="1">
+    </div>
 
-                <button onclick="calculerDilution()">
-                    Calculer V₁
-                </button>
+    <button onclick="calculerDilution()">
+        Calculer V₁
+    </button>
 
-                <div id="resultatDilution" class="resultat"></div>
+    <div id="resultatDilution" class="resultat"></div>
 
-            </div>
+</div>
 
         </section>
 
