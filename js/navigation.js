@@ -144,7 +144,7 @@ async function loadModule(
         `;
 
         const htmlPath =
-        `${domaine}/modules/${moduleName}.html`;
+        `/modules/${moduleName}.html`;
 
         const jsPath =
         `${domaine}/js/${moduleName}.js`;
