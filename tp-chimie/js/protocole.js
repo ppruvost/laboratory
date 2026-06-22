@@ -1,7 +1,7 @@
 console.log("protocole.js chargé");
 
 // =====================================================
-// RÉCUPÉRATION PRODUITS (iframe / main)
+// RÉCUPÉRATION PRODUITS
 // =====================================================
 
 const products =
@@ -9,7 +9,10 @@ const products =
     window.products ||
     [];
 
-console.log("Nombre de produits :", Array.isArray(products) ? products.length : 0);
+console.log(
+    "Nombre de produits :",
+    Array.isArray(products) ? products.length : 0
+);
 
 // =====================================================
 // PROTECTION DOUBLE CHARGEMENT
@@ -68,19 +71,19 @@ function chargerProduits() {
 }
 
 // =====================================================
-// INIT MODULE
+// INIT MODULE (IMPORTANT POUR navigation.js)
 // =====================================================
 
-window.initProtocole = function () {
+window.init = function () {
 
     if (window.__protocoleInited) {
-        console.warn("initProtocole déjà exécuté (bloqué)");
+        console.warn("init déjà exécuté (bloqué)");
         return;
     }
 
     window.__protocoleInited = true;
 
-    console.log("initProtocole exécuté");
+    console.log("init protocole exécuté");
 
     chargerProduits();
 };
