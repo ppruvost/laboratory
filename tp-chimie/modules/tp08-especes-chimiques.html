@@ -1,0 +1,282 @@
+<div class="tp-container" id="tp07-container">
+
+    <div class="tp-header">
+        <h1>
+            TP 07 - Espèces chimiques
+        </h1>
+
+        <p>
+            Connaître la différence entre atome, molécule et ion.
+            Identifier expérimentalement des espèces chimiques
+            en solution aqueuse.
+        </p>
+    </div>
+
+    <!-- OBJECTIFS -->
+
+    <section class="card">
+
+        <h2>🎯 Objectifs</h2>
+
+        <ul>
+            <li>Distinguer atome, molécule et ion.</li>
+            <li>Reconnaître les principaux ions.</li>
+            <li>Utiliser des réactifs d'identification.</li>
+            <li>Interpréter les observations.</li>
+        </ul>
+
+    </section>
+
+    <!-- RAPPEL COURS -->
+
+    <section class="card">
+
+        <h2>📖 Rappel</h2>
+
+        <table class="tableau-resultats">
+
+            <thead>
+                <tr>
+                    <th>Espèce</th>
+                    <th>Exemple</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                <tr>
+                    <td>Atome</td>
+                    <td>Cu</td>
+                    <td>Électriquement neutre</td>
+                </tr>
+
+                <tr>
+                    <td>Molécule</td>
+                    <td>H₂O</td>
+                    <td>Assemblage d'atomes</td>
+                </tr>
+
+                <tr>
+                    <td>Ion</td>
+                    <td>Cu²⁺</td>
+                    <td>Chargé électriquement</td>
+                </tr>
+
+            </tbody>
+
+        </table>
+
+    </section>
+
+    <!-- EXERCICE INTERACTIF -->
+
+    <section class="card">
+
+        <h2>🧩 Classification</h2>
+
+        <p>
+            Sélectionner la bonne catégorie.
+        </p>
+
+        <div class="quiz-grid">
+
+            <div class="quiz-item">
+
+                <span>Na⁺</span>
+
+                <select class="classification">
+
+                    <option value="">Choisir</option>
+
+                    <option value="atome">Atome</option>
+
+                    <option value="molecule">Molécule</option>
+
+                    <option value="ion">Ion</option>
+
+                </select>
+
+            </div>
+
+            <div class="quiz-item">
+
+                <span>CO₂</span>
+
+                <select class="classification">
+
+                    <option value="">Choisir</option>
+
+                    <option value="atome">Atome</option>
+
+                    <option value="molecule">Molécule</option>
+
+                    <option value="ion">Ion</option>
+
+                </select>
+
+            </div>
+
+            <div class="quiz-item">
+
+                <span>Fe</span>
+
+                <select class="classification">
+
+                    <option value="">Choisir</option>
+
+                    <option value="atome">Atome</option>
+
+                    <option value="molecule">Molécule</option>
+
+                    <option value="ion">Ion</option>
+
+                </select>
+
+            </div>
+
+        </div>
+
+        <button id="corrigerQuiz" class="btn">
+            Corriger
+        </button>
+
+        <div id="resultatQuiz"></div>
+
+    </section>
+
+    <!-- IDENTIFICATION -->
+
+    <section class="card">
+
+        <h2>🧪 Identification des ions</h2>
+
+        <p>
+            Choisir une solution inconnue puis réaliser
+            le test chimique.
+        </p>
+
+        <label>
+
+            Solution testée
+
+            <select id="solution">
+
+                <option value="chlorure">
+                    Chlorure de sodium
+                </option>
+
+                <option value="sulfate">
+                    Sulfate de cuivre
+                </option>
+
+                <option value="fer">
+                    Chlorure de fer III
+                </option>
+
+            </select>
+
+        </label>
+
+        <label>
+
+            Réactif utilisé
+
+            <select id="reactif">
+
+                <option value="nitrate">
+                    Nitrate d'argent
+                </option>
+
+                <option value="soude">
+                    Soude
+                </option>
+
+            </select>
+
+        </label>
+
+        <button id="testerIon">
+            Réaliser le test
+        </button>
+
+        <div id="observation"
+             class="resultat">
+        </div>
+
+    </section>
+
+    <!-- TABLEAU -->
+
+    <section class="card">
+
+        <h2>📋 Tableau de résultats</h2>
+
+        <table class="tableau-resultats">
+
+            <thead>
+
+                <tr>
+
+                    <th>Ion recherché</th>
+
+                    <th>Réactif</th>
+
+                    <th>Observation</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                <tr>
+
+                    <td>Cl⁻</td>
+
+                    <td>Nitrate d'argent</td>
+
+                    <td>Précipité blanc</td>
+
+                </tr>
+
+                <tr>
+
+                    <td>Cu²⁺</td>
+
+                    <td>Soude</td>
+
+                    <td>Précipité bleu</td>
+
+                </tr>
+
+                <tr>
+
+                    <td>Fe³⁺</td>
+
+                    <td>Soude</td>
+
+                    <td>Précipité brun</td>
+
+                </tr>
+
+            </tbody>
+
+        </table>
+
+    </section>
+
+    <!-- BILAN -->
+
+    <section class="card">
+
+        <h2>📝 Compte-rendu</h2>
+
+        <textarea
+            id="compteRendu"
+            rows="10"
+            placeholder="Rédiger vos observations..."
+        ></textarea>
+    </section>
+
+</div>
