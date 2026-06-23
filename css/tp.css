@@ -426,3 +426,9 @@
 .etapes li {
   width: 100%;
 }
+
+.section[data-type="protocole"] .etapes li {
+    display: grid;
+    grid-template-columns: 2.5rem 1fr;
+    align-items: center;
+}
