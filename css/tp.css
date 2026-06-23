@@ -407,28 +407,42 @@
 .section:nth-child(5) { animation-delay: .20s; }
 .section:nth-child(6) { animation-delay: .25s; }
 
-/* ── section ─────────────────────────────────────────── */
+/* ── Section ─────────────────────────────────────────── */
+
 .section-corps {
-  padding: var(--gap-md);
+    padding: var(--gap-md);
 }
 
 .section-corps > * {
-  max-width: 1000px;
-  margin-left: auto;
-  margin-right: auto;
+    width: 100%;
+    max-width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
+/* ── Étapes ─────────────────────────────────────────── */
+
 .etapes {
-  width: 100%;
-  padding-left: 0;
+    width: 100%;
+    list-style: none;
+    padding-left: 0;
+    margin: 0;
 }
 
 .etapes li {
-  width: 100%;
-}
-
-.section[data-type="protocole"] .etapes li {
+    width: 100%;
     display: grid;
     grid-template-columns: 2.5rem 1fr;
-    align-items: center;
+    gap: var(--gap-sm);
+    align-items: start;
+}
+
+/* Empêche les retours à la ligne parasites */
+
+.etapes li strong,
+.etapes li em,
+.etapes li span {
+    display: inline;
+    width: auto;
+    max-width: none;
 }
