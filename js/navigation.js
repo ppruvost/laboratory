@@ -1,8 +1,7 @@
 /* ==========================================================
-   NAVIGATION.JS V2
+   NAVIGATION.JS UNIVERSEL
    Laboratory
    ========================================================== */
-const BASE_PATH = "/laboratory";
 
 const content =
 document.getElementById("content");
@@ -10,7 +9,23 @@ document.getElementById("content");
 let isLoading = false;
 
 /* ==========================================================
-   BOUTONS DE NAVIGATION
+   DOMAINE COURANT
+   ========================================================== */
+
+function getCurrentDomain(){
+
+    const path =
+    window.location.pathname;
+
+    const parts =
+    path.split("/").filter(Boolean);
+
+    return parts[parts.length - 1];
+
+}
+
+/* ==========================================================
+   NAVIGATION
    ========================================================== */
 
 function initNavigation(){
@@ -20,32 +35,22 @@ function initNavigation(){
     .forEach(btn=>{
 
         btn.addEventListener(
-
             "click",
-
             ()=>{
 
                 const moduleName =
                 btn.dataset.module;
 
-                const domaine =
-                btn.dataset.domaine;
-
                 if(
                     !moduleName ||
-                    !domaine ||
                     isLoading
                 ){
                     return;
                 }
 
-                loadModule(
-                    domaine,
-                    moduleName
-                );
+                loadModule(moduleName);
 
             }
-
         );
 
     });
@@ -62,18 +67,12 @@ function setActiveButton(moduleName){
     .querySelectorAll("nav button")
     .forEach(btn=>{
 
-        btn.classList.remove(
-            "active"
-        );
+        btn.classList.remove("active");
 
         if(
-            btn.dataset.module
-            ===
-            moduleName
+            btn.dataset.module === moduleName
         ){
-            btn.classList.add(
-                "active"
-            );
+            btn.classList.add("active");
         }
 
     });
@@ -81,7 +80,7 @@ function setActiveButton(moduleName){
 }
 
 /* ==========================================================
-   NETTOYAGE
+   CLEANUP
    ========================================================== */
 
 function cleanupModule(){
@@ -92,8 +91,7 @@ function cleanupModule(){
             window.currentAnimationFrame
         );
 
-        window.currentAnimationFrame =
-        null;
+        window.currentAnimationFrame = null;
 
     }
 
@@ -103,8 +101,7 @@ function cleanupModule(){
             window.currentInterval
         );
 
-        window.currentInterval =
-        null;
+        window.currentInterval = null;
 
     }
 
@@ -114,10 +111,7 @@ function cleanupModule(){
    CHARGEMENT MODULE
    ========================================================== */
 
-async function loadModule(
-    domaine,
-    moduleName
-){
+async function loadModule(moduleName){
 
     if(isLoading) return;
 
@@ -127,15 +121,16 @@ async function loadModule(
 
     try{
 
+        const domaine =
+        getCurrentDomain();
+
         console.log(
             "Chargement module :",
             domaine,
             moduleName
         );
 
-        setActiveButton(
-            moduleName
-        );
+        setActiveButton(moduleName);
 
         content.innerHTML =
         `
@@ -144,17 +139,15 @@ async function loadModule(
         </div>
         `;
 
-        const cleanDomaine = domaine.replace(/^\/|\/$/g, "");
+        const htmlPath =
+        `modules/${moduleName}.html`;
 
-       const htmlPath =
-       `${BASE_PATH}/${cleanDomaine}/modules/${moduleName}.html`;
+        const jsPath =
+        `js/${moduleName}.js`;
 
-       const jsPath =
-       `${BASE_PATH}/${cleanDomaine}/js/${moduleName}.js`;
-
-        /* ======================
+        /* =====================
            HTML
-           ====================== */
+           ===================== */
 
         const response =
         await fetch(
@@ -164,8 +157,7 @@ async function loadModule(
         if(!response.ok){
 
             throw new Error(
-                `Module introuvable :
-                 ${htmlPath}`
+                `Module introuvable : ${htmlPath}`
             );
 
         }
@@ -176,21 +168,19 @@ async function loadModule(
         content.innerHTML =
         html;
 
-        /* ======================
-           JS MODULE
-           ====================== */
+        /* =====================
+           JS
+           ===================== */
 
         try{
 
             const module =
             await import(
-                `${jsPath}?v=${Date.now()}`
+                `./${jsPath}?v=${Date.now()}`
             );
 
             if(
-                typeof module.init
-                ===
-                "function"
+                typeof module.init === "function"
             ){
 
                 module.init();
@@ -200,23 +190,14 @@ async function loadModule(
                 );
 
             }
-            else{
-
-                console.warn(
-                    `${moduleName}.js :
-                     fonction init()
-                     absente`
-                );
-
-            }
 
         }
 
-        catch(jsError){
+        catch(err){
 
             console.error(
-                "Erreur JS :",
-                jsError
+                "Erreur JS module :",
+                err
             );
 
         }
@@ -231,23 +212,14 @@ async function loadModule(
         history.pushState(
 
             {
-                domaine,
                 moduleName
             },
 
             "",
 
-            `#${domaine}/${moduleName}`
+            `#${moduleName}`
 
         );
-
-        window.scrollTo({
-
-            top:0,
-
-            behavior:"smooth"
-
-        });
 
     }
 
@@ -261,9 +233,7 @@ async function loadModule(
 
             <h2>Erreur</h2>
 
-            <p>
-                ${error.message}
-            </p>
+            <p>${error.message}</p>
 
         </div>
         `;
@@ -289,29 +259,22 @@ function saveProgress(
 
     localStorage.setItem(
 
-        "laboratory_last_module",
+        `laboratory_${domaine}`,
 
-        JSON.stringify({
-
-            domaine,
-            moduleName
-
-        })
+        moduleName
 
     );
 
 }
 
 /* ==========================================================
-   PROGRESSION
+   BARRE DE PROGRESSION
    ========================================================== */
 
 function updateProgress(){
 
     const bar =
-    document.getElementById(
-        "bar"
-    );
+    document.getElementById("bar");
 
     if(!bar) return;
 
@@ -327,69 +290,54 @@ function updateProgress(){
 
     if(
         !active ||
-        buttons.length===0
+        buttons.length === 0
     ){
         return;
     }
 
     let index = 1;
 
-    buttons.forEach(
+    buttons.forEach((btn,i)=>{
 
-        (btn,i)=>{
+        if(btn === active){
 
-            if(
-                btn===active
-            ){
-                index=i+1;
-            }
+            index = i + 1;
 
         }
 
-    );
-
-    const percent =
-
-    (
-        index /
-        buttons.length
-    ) * 100;
+    });
 
     bar.style.width =
-    percent + "%";
+    ((index/buttons.length)*100)
+    + "%";
 
 }
 
 /* ==========================================================
-   RETOUR NAVIGATEUR
+   BOUTON RETOUR
    ========================================================== */
 
 window.addEventListener(
 
     "popstate",
 
-    event=>{
+    ()=>{
 
-        if(
-            !event.state
-        ){
-            return;
+        const moduleName =
+        location.hash.replace("#","");
+
+        if(moduleName){
+
+            loadModule(moduleName);
+
         }
-
-        loadModule(
-
-            event.state.domaine,
-
-            event.state.moduleName
-
-        );
 
     }
 
 );
 
 /* ==========================================================
-   CHARGEMENT INITIAL
+   INITIALISATION
    ========================================================== */
 
 window.addEventListener(
@@ -400,42 +348,27 @@ window.addEventListener(
 
         initNavigation();
 
-        let saved = null;
+        const domaine =
+        getCurrentDomain();
 
-        try{
+        const saved =
+        localStorage.getItem(
+            `laboratory_${domaine}`
+        );
 
-            saved = JSON.parse(
+        const hash =
+        location.hash.replace("#","");
 
-                localStorage.getItem(
-                    "laboratory_last_module"
-                )
+        if(hash){
 
-            );
-
-        }
-
-        catch(err){
-
-            console.warn(err);
+            loadModule(hash);
 
         }
+        else if(saved){
 
-        if(
-            saved &&
-            saved.domaine &&
-            saved.moduleName
-        ){
-
-            loadModule(
-
-                saved.domaine,
-
-                saved.moduleName
-
-            );
+            loadModule(saved);
 
         }
-
         else{
 
             const first =
@@ -446,11 +379,7 @@ window.addEventListener(
             if(first){
 
                 loadModule(
-
-                    first.dataset.domaine,
-
                     first.dataset.module
-
                 );
 
             }
