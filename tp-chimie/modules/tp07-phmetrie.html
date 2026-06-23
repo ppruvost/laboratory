@@ -1,0 +1,292 @@
+<div class="tp-container">
+
+    <div class="tp-header">
+        <h1>🧪 TP 06 - Dosage pH-métrique</h1>
+
+        <p>
+            Détermination du point d'équivalence d'un dosage
+            par suivi pH-métrique.
+        </p>
+
+        <div class="objectifs">
+            <h3>🎯 Objectifs</h3>
+
+            <ul>
+                <li>Tracer une courbe pH = f(V)</li>
+                <li>Identifier le point d'équivalence</li>
+                <li>Utiliser la méthode des tangentes</li>
+                <li>Utiliser la méthode de la dérivée</li>
+                <li>Exploiter un dosage acido-basique</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- ===================================== -->
+    <!-- IDENTIFICATION ELEVE -->
+    <!-- ===================================== -->
+
+    <section class="card">
+
+        <h2>👨‍🎓 Identification</h2>
+
+        <div class="grid">
+
+            <div class="ligne">
+                <label>Nom</label>
+                <input id="nomEleve" type="text">
+            </div>
+
+            <div class="ligne">
+                <label>Prénom</label>
+                <input id="prenomEleve" type="text">
+            </div>
+
+            <div class="ligne">
+                <label>Classe</label>
+                <input id="classeEleve" type="text">
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- ===================================== -->
+    <!-- CONTEXTE -->
+    <!-- ===================================== -->
+
+    <section class="card">
+
+        <h2>📖 Situation problème</h2>
+
+        <p>
+            On souhaite déterminer la concentration d'une
+            solution acide inconnue à l'aide d'un dosage
+            pH-métrique par une solution d'hydroxyde de sodium.
+        </p>
+
+        <p>
+            Le suivi du pH permet de mettre en évidence
+            le point d'équivalence du dosage.
+        </p>
+
+    </section>
+
+    <!-- ===================================== -->
+    <!-- PROTOCOLE -->
+    <!-- ===================================== -->
+
+    <section class="card">
+
+        <h2>🧪 Protocole</h2>
+
+        <ol>
+
+            <li>
+                Prélever 20,0 mL de solution acide.
+            </li>
+
+            <li>
+                Installer le pH-mètre.
+            </li>
+
+            <li>
+                Ajouter progressivement la soude.
+            </li>
+
+            <li>
+                Relever le pH après chaque ajout.
+            </li>
+
+            <li>
+                Compléter le tableau.
+            </li>
+
+        </ol>
+
+    </section>
+
+    <!-- ===================================== -->
+    <!-- TABLEAU DE MESURES -->
+    <!-- ===================================== -->
+
+    <section class="card">
+
+        <h2>📋 Tableau de mesures</h2>
+
+        <p>
+            Saisir les volumes versés et les pH mesurés.
+        </p>
+
+        <table id="tableMesures" class="tableau-resultats">
+
+            <thead>
+
+                <tr>
+
+                    <th>
+                        V(NaOH)
+                        <br>
+                        (mL)
+                    </th>
+
+                    <th>
+                        pH
+                    </th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                <tr><td contenteditable="true">0</td><td contenteditable="true">2.4</td></tr>
+                <tr><td contenteditable="true">1</td><td contenteditable="true">2.5</td></tr>
+                <tr><td contenteditable="true">2</td><td contenteditable="true">2.6</td></tr>
+                <tr><td contenteditable="true">3</td><td contenteditable="true">2.8</td></tr>
+                <tr><td contenteditable="true">4</td><td contenteditable="true">3.0</td></tr>
+                <tr><td contenteditable="true">5</td><td contenteditable="true">3.2</td></tr>
+                <tr><td contenteditable="true">6</td><td contenteditable="true">3.5</td></tr>
+                <tr><td contenteditable="true">7</td><td contenteditable="true">4.0</td></tr>
+                <tr><td contenteditable="true">8</td><td contenteditable="true">5.0</td></tr>
+                <tr><td contenteditable="true">9</td><td contenteditable="true">6.8</td></tr>
+                <tr><td contenteditable="true">10</td><td contenteditable="true">8.7</td></tr>
+                <tr><td contenteditable="true">11</td><td contenteditable="true">10.5</td></tr>
+                <tr><td contenteditable="true">12</td><td contenteditable="true">11.2</td></tr>
+                <tr><td contenteditable="true">13</td><td contenteditable="true">11.5</td></tr>
+                <tr><td contenteditable="true">14</td><td contenteditable="true">11.7</td></tr>
+
+            </tbody>
+
+        </table>
+
+        <br>
+
+        <button id="btnAjouterLigne">
+            ➕ Ajouter une ligne
+        </button>
+
+    </section>
+
+    <!-- ===================================== -->
+    <!-- OUTILS -->
+    <!-- ===================================== -->
+
+    <section class="card">
+
+        <h2>📈 Exploitation graphique</h2>
+
+        <div class="toolbar">
+
+            <button id="btnTracer">
+                Tracer la courbe
+            </button>
+
+            <button id="btnTangentes">
+                Méthode des tangentes
+            </button>
+
+            <button id="btnDerivee">
+                Méthode dérivée
+            </button>
+
+            <button id="btnReset">
+                Réinitialiser
+            </button>
+
+        </div>
+
+        <div class="resultat">
+
+            <strong>
+                Point d'équivalence :
+            </strong>
+
+            <span id="equivalence">
+                —
+            </span>
+
+        </div>
+
+    </section>
+
+    <!-- ===================================== -->
+    <!-- GRAPHIQUE -->
+    <!-- ===================================== -->
+
+    <section class="card">
+
+        <h2>📊 Courbe de dosage</h2>
+
+        <canvas
+            id="graphiquePH"
+            height="120">
+        </canvas>
+
+    </section>
+
+    <!-- ===================================== -->
+    <!-- QUESTIONS -->
+    <!-- ===================================== -->
+
+    <section class="card">
+
+        <h2>📝 Exploitation</h2>
+
+        <ol>
+
+            <li>
+                Déterminer le volume équivalent.
+            </li>
+
+            <li>
+                Comparer les résultats obtenus
+                par les deux méthodes.
+            </li>
+
+            <li>
+                Pourquoi le pH varie-t-il brutalement
+                au voisinage de l'équivalence ?
+            </li>
+
+            <li>
+                Comment déterminer la concentration
+                de la solution dosée ?
+            </li>
+
+        </ol>
+
+        <textarea
+            id="reponseEleve"
+            rows="10"
+            placeholder="Réponses de l'élève...">
+        </textarea>
+
+    </section>
+
+    <!-- ===================================== -->
+    <!-- EXPORT -->
+    <!-- ===================================== -->
+
+    <section class="card">
+
+        <h2>📄 Export</h2>
+
+        <button id="btnPdf">
+
+            Exporter le TP en PDF
+
+        </button>
+
+    </section>
+
+</div>
+
+<!-- ========================= -->
+<!-- BIBLIOTHEQUES -->
+<!-- ========================= -->
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
