@@ -409,13 +409,20 @@
 
 /* ── section ─────────────────────────────────────────── */
 .section-corps {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  padding: var(--gap-md);
 }
 
-/* Le contenu reste lisible et pas écrasé */
 .section-corps > * {
+  max-width: 1000px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.etapes {
   width: 100%;
-  max-width: 900px;
+  padding-left: 0;
+}
+
+.etapes li {
+  width: 100%;
 }
