@@ -1,6 +1,12 @@
 /* ==========================================================
    NAVIGATION.JS UNIVERSEL
    Laboratory
+   Compatible :
+   tp-chimie
+   tp-acoustique
+   tp-optique
+   tp-electricite
+   tp-mecanique
    ========================================================== */
 
 const content =
@@ -17,10 +23,31 @@ function getCurrentDomain(){
     const path =
     window.location.pathname;
 
-    const parts =
-    path.split("/").filter(Boolean);
+    const domaines = [
 
-    return parts[parts.length - 1];
+        "tp-chimie",
+        "tp-acoustique",
+        "tp-optique",
+        "tp-electricite",
+        "tp-mecanique"
+
+    ];
+
+    for(const domaine of domaines){
+
+        if(path.includes("/" + domaine + "/")){
+
+            return domaine;
+
+        }
+
+    }
+
+    console.warn(
+        "Domaine non détecté"
+    );
+
+    return "tp-chimie";
 
 }
 
@@ -35,7 +62,9 @@ function initNavigation(){
     .forEach(btn=>{
 
         btn.addEventListener(
+
             "click",
+
             ()=>{
 
                 const moduleName =
@@ -51,6 +80,7 @@ function initNavigation(){
                 loadModule(moduleName);
 
             }
+
         );
 
     });
@@ -67,12 +97,18 @@ function setActiveButton(moduleName){
     .querySelectorAll("nav button")
     .forEach(btn=>{
 
-        btn.classList.remove("active");
+        btn.classList.remove(
+            "active"
+        );
 
         if(
             btn.dataset.module === moduleName
         ){
-            btn.classList.add("active");
+
+            btn.classList.add(
+                "active"
+            );
+
         }
 
     });
@@ -91,7 +127,8 @@ function cleanupModule(){
             window.currentAnimationFrame
         );
 
-        window.currentAnimationFrame = null;
+        window.currentAnimationFrame =
+        null;
 
     }
 
@@ -101,7 +138,8 @@ function cleanupModule(){
             window.currentInterval
         );
 
-        window.currentInterval = null;
+        window.currentInterval =
+        null;
 
     }
 
@@ -130,7 +168,9 @@ async function loadModule(moduleName){
             moduleName
         );
 
-        setActiveButton(moduleName);
+        setActiveButton(
+            moduleName
+        );
 
         content.innerHTML =
         `
@@ -139,15 +179,29 @@ async function loadModule(moduleName){
         </div>
         `;
 
+        /* =====================================
+           CHEMINS
+           ===================================== */
+
         const htmlPath =
-        `modules/${moduleName}.html`;
+        `../${domaine}/modules/${moduleName}.html`;
 
         const jsPath =
-        `js/${moduleName}.js`;
+        `../${domaine}/js/${moduleName}.js`;
 
-        /* =====================
+        console.log(
+            "HTML :",
+            htmlPath
+        );
+
+        console.log(
+            "JS :",
+            jsPath
+        );
+
+        /* =====================================
            HTML
-           ===================== */
+           ===================================== */
 
         const response =
         await fetch(
@@ -168,19 +222,20 @@ async function loadModule(moduleName){
         content.innerHTML =
         html;
 
-        /* =====================
+        /* =====================================
            JS
-           ===================== */
+           ===================================== */
 
         try{
 
             const module =
             await import(
-                `./${jsPath}?v=${Date.now()}`
+                `${jsPath}?v=${Date.now()}`
             );
 
             if(
-                typeof module.init === "function"
+                typeof module.init ===
+                "function"
             ){
 
                 module.init();
@@ -225,7 +280,9 @@ async function loadModule(moduleName){
 
     catch(error){
 
-        console.error(error);
+        console.error(
+            error
+        );
 
         content.innerHTML =
         `
@@ -274,7 +331,9 @@ function saveProgress(
 function updateProgress(){
 
     const bar =
-    document.getElementById("bar");
+    document.getElementById(
+        "bar"
+    );
 
     if(!bar) return;
 
@@ -297,19 +356,23 @@ function updateProgress(){
 
     let index = 1;
 
-    buttons.forEach((btn,i)=>{
+    buttons.forEach(
+        (btn,i)=>{
 
-        if(btn === active){
+            if(btn === active){
 
-            index = i + 1;
+                index = i + 1;
+
+            }
 
         }
-
-    });
+    );
 
     bar.style.width =
-    ((index/buttons.length)*100)
-    + "%";
+    (
+        (index/buttons.length)
+        *100
+    ) + "%";
 
 }
 
@@ -324,11 +387,16 @@ window.addEventListener(
     ()=>{
 
         const moduleName =
-        location.hash.replace("#","");
+        location.hash.replace(
+            "#",
+            ""
+        );
 
         if(moduleName){
 
-            loadModule(moduleName);
+            loadModule(
+                moduleName
+            );
 
         }
 
@@ -353,20 +421,29 @@ window.addEventListener(
 
         const saved =
         localStorage.getItem(
+
             `laboratory_${domaine}`
+
         );
 
         const hash =
-        location.hash.replace("#","");
+        location.hash.replace(
+            "#",
+            ""
+        );
 
         if(hash){
 
-            loadModule(hash);
+            loadModule(
+                hash
+            );
 
         }
         else if(saved){
 
-            loadModule(saved);
+            loadModule(
+                saved
+            );
 
         }
         else{
