@@ -1,31 +1,31 @@
-import { products } from "../data/products.js";
+import products from "../data/products.js";
 import laboratoryEquipment from "../data/equipment.js";
 import glassware from "../data/glassware.js";
-import { dangerDB } from "../data/dangerDB.js";
+import dangerDB from "../data/dangerDB.js";
+
 import { initPrintLabels } from "../data/print-labels.js";
 import { renderTable, showSection } from "../modules/ui.js";
 
 
 // =====================================================
-// GLOBAL (HTML ACCESS)
+// GLOBAL
 // =====================================================
 window.products = products;
 window.showSection = showSection;
 
 
 // =====================================================
-// INITIALISATION ETIQUETTES
+// ETIQUETTES
 // =====================================================
 initPrintLabels(dangerDB);
 
 
 // =====================================================
-// NAVIGATION GLOBAL MENU
+// NAVIGATION
 // =====================================================
 window.setActive = function (el) {
 
-    document
-        .querySelectorAll(".menu-item")
+    document.querySelectorAll(".menu-item")
         .forEach(i => i.classList.remove("active"));
 
     if (el) el.classList.add("active");
@@ -33,14 +33,12 @@ window.setActive = function (el) {
 
 window.loadInFrame = function (url, element = null) {
 
-    document
-        .querySelectorAll(".section")
+    document.querySelectorAll(".section")
         .forEach(sec => sec.classList.remove("active"));
 
-    const container = document.getElementById("external-content");
-    const frame = document.getElementById("external-frame");
+    document.getElementById("external-content")?.classList.add("active");
 
-    if (container) container.classList.add("active");
+    const frame = document.getElementById("external-frame");
     if (frame) frame.src = url;
 
     if (element) window.setActive(element);
@@ -48,13 +46,13 @@ window.loadInFrame = function (url, element = null) {
 
 
 // =====================================================
-// RÉACTIFS (TABLE PRINCIPALE)
+// PRODUITS
 // =====================================================
 renderTable(products, () => {});
 
 
 // =====================================================
-// ÉQUIPEMENTS
+// EQUIPEMENTS
 // =====================================================
 function renderEquipmentTable(data) {
 
@@ -103,9 +101,7 @@ function renderGlasswareTable(data) {
             <td>${g.contenance_ml || "-"}</td>
             <td>${g.lieu || "-"}</td>
             <td>
-                <div class="image-container">
-                    <img src="${g.image}" alt="${g.nom || "verrerie"}" class="table-image">
-                </div>
+                <img src="${g.image}" alt="${g.nom || "verrerie"}" class="table-image">
             </td>
         `;
 
@@ -115,14 +111,14 @@ function renderGlasswareTable(data) {
 
 
 // =====================================================
-// INITIALISATION TABLES
+// INIT TABLES
 // =====================================================
 renderEquipmentTable(laboratoryEquipment);
 renderGlasswareTable(glassware);
 
 
 // =====================================================
-// VIEWER TP
+// TP VIEWER
 // =====================================================
 const tpViewer = document.getElementById("tpViewer");
 const tpFrame = document.getElementById("tpFrame");
@@ -166,7 +162,7 @@ document.getElementById("openThermique")
 
 
 // =====================================================
-// PROGRESS BAR (fusionné proprement)
+// PROGRESS BAR
 // =====================================================
 let progress = 10;
 
@@ -176,10 +172,7 @@ window.updateProgress = function () {
     if (progress > 100) progress = 100;
 
     const bar = document.getElementById("bar");
-
-    if (bar) {
-        bar.style.width = progress + "%";
-    }
+    if (bar) bar.style.width = progress + "%";
 };
 
 
