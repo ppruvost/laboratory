@@ -175,4 +175,4 @@ const pictogrammes = [
   { SECOURS_FLECHE_BAS_DROIT: "SECOURS-fleche-bas-droit.jpg" }
 ];
 
-export default pictogrammes;
+window.pictogrammes = pictogrammes;
