@@ -172,4 +172,4 @@ const dangerDB = [
 {code:"P403+P235", cat:"Stockage", text:"Stocker dans un endroit bien ventilé. Tenir au frais"}
 ];
 
-export default dangerDB;
+window.dangerDB = dangerDB;
