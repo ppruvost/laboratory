@@ -18,6 +18,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     initTabs();
 
+    initReactifs();
+
     renderSecurite();
 
     renderVerrerie();
@@ -74,6 +76,38 @@ function initTabs() {
 
 }
 
+function initReactifs() {
+
+    const select =
+        document.getElementById("reactif");
+
+    if (!select) return;
+
+    select.innerHTML =
+        '<option value="">Choisir un réactif</option>';
+
+    products.forEach(produit => {
+
+        const option =
+            document.createElement("option");
+
+        option.value =
+            produit.cas;
+
+        option.textContent =
+            produit.nom;
+
+        select.appendChild(option);
+
+    });
+
+    select.addEventListener(
+        "change",
+        renderSecurite
+    );
+
+}
+                                    
 /* ==========================================================
    SECURITE
    ========================================================== */
