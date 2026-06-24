@@ -131,7 +131,7 @@ img, svg { display: block; max-width: 100%; }
 }
 .tp-header h1 {
   font-family: var(--font-titre);
-  font-size: 1.8rem;
+  font-size: clamp(1.3rem, 2vw, 1.6rem);
   font-weight: 700;
   line-height: 1.2;
   margin-bottom: .5rem;
