@@ -1260,6 +1260,5 @@
   },
 ];
 
-window.products = products
+window.products = products;
 
-export default products;
