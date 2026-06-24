@@ -1,4 +1,4 @@
-export const pictogrammes = {
+const pictogrammes = {
   // =========================================
   // PICTOGRAMMES SGH (DANGERS CHIMIQUES)
   // =========================================
