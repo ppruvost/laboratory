@@ -80,117 +80,203 @@ function initTabs() {
 
 function renderSecurite() {
 
+    const select =
+        document.getElementById("reactif");
+
     const zone =
         document.getElementById("securite-bloc");
 
-    if (!zone) return;
+    if (!select || !zone) return;
 
-    const casUtilises = [
-        "7647-14-5",  // NaCl
-        "7758-98-7",  // CuSO4
-        "7647-01-0"   // HCl
-    ];
+    const cas =
+        select.value;
 
     zone.innerHTML = "";
 
-    casUtilises.forEach(cas => {
+    if (!cas) {
 
-        const produit =
-            products.find(
-                p => p.cas === cas
-            );
+        zone.innerHTML = `
+            <div class="info">
+                Sélectionner un réactif.
+            </div>
+        `;
 
-        if (!produit) return;
+        return;
+    }
 
-        const bloc =
-            document.createElement("div");
+    const produit =
+        products.find(
+            p => p.cas === cas
+        );
 
-        bloc.className =
-            "produit-securite";
+    if (!produit) {
 
-        let html = `
+        zone.innerHTML = `
+            <div class="erreur">
+                Produit introuvable.
+            </div>
+        `;
+
+        return;
+    }
+
+    let html = `
+        <div class="produit-securite">
+
             <h3>${produit.nom}</h3>
-        `;
 
-        /* pictogrammes */
+            <p>
+                <strong>Formule :</strong>
+                ${produit.formule || "-"}
+            </p>
+    `;
 
-        html += `
-            <div class="pictos-clp">
-        `;
+    /* =====================================
+       PICTOGRAMMES CLP
+       ===================================== */
 
-        const dejaAjoutes =
-            new Set();
+    html += `
+        <div class="pictos-clp">
+    `;
 
-        produit.dangers.forEach(code => {
+    const dejaAjoutes =
+        new Set();
 
-            const picto =
-                pictogrammes[code];
+    (produit.dangers || []).forEach(code => {
 
-            if (
-                picto &&
-                !dejaAjoutes.has(picto)
-            ) {
+        const picto =
+            pictogrammes[code];
 
-                dejaAjoutes.add(picto);
+        if (
+            picto &&
+            !dejaAjoutes.has(picto)
+        ) {
 
-                html += `
-                    <img
-                        src="../../assets/picto/${picto}"
-                        alt="${code}"
-                        class="picto-clp">
-                `;
-            }
-
-        });
-
-        html += `</div>`;
-
-        /* obligations */
-
-        if (produit.obligation?.length) {
+            dejaAjoutes.add(picto);
 
             html += `
-                <p>
-                <strong>EPI :</strong>
-                ${produit.obligation.join(" • ")}
-                </p>
+                <img
+                    src="../../assets/picto/${picto}"
+                    alt="${code}"
+                    title="${code}"
+                    class="picto-clp">
             `;
         }
 
-        /* dangers */
+    });
 
-        html += `<ul>`;
+    html += `
+        </div>
+    `;
 
-        produit.dangers.forEach(code => {
+    /* =====================================
+       EPI
+       ===================================== */
 
-            const danger =
+    if (
+        produit.obligation &&
+        produit.obligation.length
+    ) {
+
+        html += `
+            <div class="epi-bloc">
+
+                <h4>EPI obligatoires</h4>
+
+                <p>
+                    ${produit.obligation.join(" • ")}
+                </p>
+
+            </div>
+        `;
+    }
+
+    /* =====================================
+       PHRASES H
+       ===================================== */
+
+    html += `
+        <div class="danger-bloc">
+
+            <h4>Mentions de danger (H)</h4>
+
+            <ul>
+    `;
+
+    (produit.dangers || []).forEach(code => {
+
+        const danger =
+            dangerDB.find(
+                d => d.code === code
+            );
+
+        if (danger) {
+
+            html += `
+                <li>
+                    <strong>${code}</strong>
+                    :
+                    ${danger.text}
+                </li>
+            `;
+        }
+
+    });
+
+    html += `
+            </ul>
+        </div>
+    `;
+
+    /* =====================================
+       PHRASES P
+       ===================================== */
+
+    if (
+        produit.prevention &&
+        produit.prevention.length
+    ) {
+
+        html += `
+            <div class="prevention-bloc">
+
+                <h4>Conseils de prudence (P)</h4>
+
+                <ul>
+        `;
+
+        produit.prevention.forEach(code => {
+
+            const prevention =
                 dangerDB.find(
                     d => d.code === code
                 );
 
-            if (danger) {
+            if (prevention) {
 
                 html += `
                     <li>
                         <strong>${code}</strong>
                         :
-                        ${danger.text}
+                        ${prevention.text}
                     </li>
                 `;
             }
 
         });
 
-        html += `</ul>`;
+        html += `
+                </ul>
+            </div>
+        `;
+    }
 
-        bloc.innerHTML = html;
+    html += `
+        </div>
+    `;
 
-        zone.appendChild(bloc);
-
-    });
-
+    zone.innerHTML = html;
 }
-
 /* ==========================================================
    VERRERIE
    ========================================================== */
