@@ -8,16 +8,16 @@ import { renderTable, showSection } from "../modules/ui.js";
 
 
 // =====================================================
-// GLOBAL
+// GLOBAL ACCESS (UI uniquement)
 // =====================================================
 window.products = products;
 window.showSection = showSection;
 
 
 // =====================================================
-// ETIQUETTES
+// ETIQUETTES (IMPORTANT : on passe products)
 // =====================================================
-initPrintLabels(dangerDB);
+initPrintLabels(dangerDB, products);
 
 
 // =====================================================
