@@ -47,4 +47,4 @@ const glassware = [
   { nom: "Tube de Thiele", contenance_ml: "N/A", lieu: "", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Thiele_tube.jpg/320px-Thiele_tube.jpg" }
 ];
 
-export default glassware;
+window.glassware = glassware;
