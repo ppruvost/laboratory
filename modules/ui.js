@@ -2,9 +2,8 @@
 // /== IMPORTS ==/
 // ===============================
 
-import { pictogrammes } from "../data/pictogrammes.js";
-import { dangerDB } from "../data/dangerDB.js";
-
+const dangerDB = window.dangerDB || [];
+const pictogrammes = window.pictogrammes || [];
 
 // ===============================
 // /== AFFICHAGE TABLEAU PRODUITS ==/
