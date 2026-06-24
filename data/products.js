@@ -1,4 +1,4 @@
-   export const products = [
+   const products = [
   {
     cas: "98-86-2",
     nom: "acétophénone (1-phényléthanone, méthylphénylcétone)",
