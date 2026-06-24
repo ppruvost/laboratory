@@ -14,13 +14,13 @@ import laboratoryEquipment from "../../data/equipment.js";
    INITIALISATION
    ========================================================== */
 
-document.addEventListener("DOMContentLoaded", () => {
+export function init() {
+
+    console.log("Initialisation TP01");
 
     initTabs();
 
     initReactifs();
-
-    renderSecurite();
 
     renderVerrerie();
 
@@ -30,7 +30,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     initEcarts();
 
-});
+}
 
 /* ==========================================================
    ONGLETS
