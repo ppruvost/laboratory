@@ -421,4 +421,4 @@ const laboratoryEquipment = [
     }
 ];
 
-export default laboratoryEquipment;
+window.laboratoryEquipment = laboratoryEquipment;
