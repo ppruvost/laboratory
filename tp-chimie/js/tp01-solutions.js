@@ -4,11 +4,11 @@ console.log("tp01-solutions.js chargé");
    TP01 - SOLUTIONS
    ========================================================== */
 
-import { products } from "../../data/products.js";
-import { dangerDB } from "../../data/dangerDB.js";
-import { pictogrammes } from "../../data/pictogrammes.js";
-import { glassware } from "../../data/glassware.js";
-import { laboratoryEquipment } from "../../data/equipment.js";
+import products from "../../data/products.js";
+import dangerDB from "../../data/dangerDB.js";
+import pictogrammes from "../../data/pictogrammes.js";
+import glassware from "../../data/glassware.js";
+import laboratoryEquipment from "../../data/equipment.js";
 
 /* ==========================================================
    INITIALISATION
