@@ -1257,7 +1257,7 @@
     "image": "sulfate_zinc.jpg",
     "fds": "FicheTox_SulfateZinc.pdf",
     "dangers": ["H302", "H319"]
-  },
+  }
 ];
 
 export default products;
