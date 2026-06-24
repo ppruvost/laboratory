@@ -2,8 +2,8 @@
 // /== IMPORTS ==/
 // ===============================
 
-const dangerDB = window.dangerDB || [];
-const pictogrammes = window.pictogrammes || [];
+const dangerDB = window.dangerDB ?? [];
+const pictogrammes = window.pictogrammes ?? {};
 
 // ===============================
 // /== AFFICHAGE TABLEAU PRODUITS ==/
