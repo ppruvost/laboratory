@@ -171,3 +171,5 @@ export const dangerDB = [
 {code:"P337+P313", cat:"Intervention", text:"Si l’irritation oculaire persiste : Consulter un médecin"},
 {code:"P403+P235", cat:"Stockage", text:"Stocker dans un endroit bien ventilé. Tenir au frais"}
 ];
+
+export default dangerDB;
