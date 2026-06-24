@@ -151,9 +151,18 @@ img, svg { display: block; max-width: 100%; }
 }
 .tp-header .tp-meta {
   display: flex;
-  flex-wrap: wrap;
-  gap: var(--gap-sm);
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.4rem;
   margin-top: var(--gap-sm);
+  width: 100%;
+}
+
+.tp-header .tp-meta .tp-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  width: 100%;
 }
 .tp-header .tag {
   background: rgba(255,255,255,.2);
