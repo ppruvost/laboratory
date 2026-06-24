@@ -1,353 +1,487 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TP 01 — Solutions et concentrations</title>
-  <link rel="stylesheet" href="../css/global.css">
-  <link rel="stylesheet" href="../css/tp.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>TP01 - Préparation de solutions</title>
+
+<link rel="stylesheet" href="../css/global.css">
+<link rel="stylesheet" href="../css/tp.css">
 </head>
+
 <body>
- 
-<header class="site-header">
-  <div class="logo">Sci<span>Lab</span></div>
-  <nav>
-    <a href="../index.html">← Accueil</a>
-    <a href="protocole.html" class="actif">TP 01</a>
-    <a href="tp01-solutions.html">TP 02</a>
-    <a href="tp03-titrages.html">TP 03</a>
-    <a href="tp04-oxydoreduction.html">TP 04</a>
-    <a href="tp05-chimie-organique.html">TP 05</a>
-    <a href="tp06-securite-clp.html">TP 06</a>
-  </nav>
-  <span class="badge-niveau">2nde · 1ère</span>
-</header>
- 
+
 <div class="page-wrapper">
- 
-  <div class="tp-header">
-    <div>
-      <h1>Solutions et concentrations</h1>
-      <div class="tp-meta">
-        <span class="tag">TP 01</span>
-        <span class="tag">Seconde Pro</span>
-        <span class="tag">Première Pro</span>
-        <span class="tag">⏱ 2h</span>
-        <span class="tag">Dissolution · Dilution · Verrerie jaugée</span>
-      </div>
-    </div>
-    <div class="tp-numero">01</div>
-  </div>
- 
-  <!-- Objectifs -->
-  <div class="section" data-type="objectif">
-    <div class="section-titre">
-      <div class="picto-section">🎯</div>
-      <h2>Objectifs pédagogiques</h2>
-      <span class="chevron">▼</span>
-    </div>
-    <div class="section-corps">
-      <div class="progression-niveaux">
-        <div class="niveau-badge seconde actif">Seconde Pro</div>
-        <div class="niveau-badge premiere">Première Pro</div>
-        <div class="niveau-badge terminale">Terminale</div>
-      </div>
-      <ul style="padding-left:1.5rem;line-height:2">
-        <li>Préparer une solution de concentration molaire ou massique donnée <strong>par dissolution</strong></li>
-        <li>Préparer une solution diluée à partir d'une solution mère <strong>(dilution C₁V₁ = C₂V₂)</strong></li>
-        <li>Utiliser correctement la verrerie jaugée : fiole jaugée, pipette jaugée, burette</li>
-        <li>Calculer et exprimer une concentration en mol/L et en g/L</li>
-        <li>Tracer un protocole de préparation et rédiger un compte-rendu</li>
-      </ul>
-      <div class="formule-bloc">
-        C (mol/L) = n / V = m / (M × V)&nbsp;&nbsp;|&nbsp;&nbsp;Cm (g/L) = m / V&nbsp;&nbsp;|&nbsp;&nbsp;C₁V₁ = C₂V₂
-      </div>
-    </div>
-  </div>
- 
-  <!-- Sécurité -->
-  <div class="section" data-type="securite">
-    <div class="section-titre">
-      <div class="picto-section">🛡️</div>
-      <h2>Sécurité — Produits utilisés</h2>
-      <span class="chevron">▼</span>
-    </div>
-    <div class="section-corps" id="securite-bloc"></div>
-  </div>
- 
-  <!-- Matériel -->
-  <div class="section" data-type="materiel">
-    <div class="section-titre">
-      <div class="picto-section">🔬</div>
-      <h2>Matériel nécessaire</h2>
-      <span class="chevron">▼</span>
-    </div>
-    <div class="section-corps">
-      <div class="grille-materiel">
-        <div class="item-materiel"><span class="icone-materiel">⚗️</span> Fiole jaugée <span class="qte">100 mL · 250 mL</span></div>
-        <div class="item-materiel"><span class="icone-materiel">🧪</span> Pipette jaugée <span class="qte">10 mL · 20 mL</span></div>
-        <div class="item-materiel"><span class="icone-materiel">🥄</span> Spatule + verre de montre <span class="qte">×1</span></div>
-        <div class="item-materiel"><span class="icone-materiel">⚖️</span> Balance de précision <span class="qte">0,01 g</span></div>
-        <div class="item-materiel"><span class="icone-materiel">🧫</span> Bécher 100 mL <span class="qte">×2</span></div>
-        <div class="item-materiel"><span class="icone-materiel">🧴</span> Propipette <span class="qte">×1</span></div>
-        <div class="item-materiel"><span class="icone-materiel">🌡️</span> Agitateur en verre <span class="qte">×1</span></div>
-        <div class="item-materiel"><span class="icone-materiel">💧</span> Pissette d'eau distillée <span class="qte">×1</span></div>
-        <div class="item-materiel"><span class="icone-materiel">🧤</span> Gants + lunettes <span class="qte">obligatoires</span></div>
-      </div>
-    </div>
-  </div>
- 
-  <!-- Réactifs -->
-  <div class="section" data-type="reactifs">
-    <div class="section-titre">
-      <div class="picto-section">🧂</div>
-      <h2>Préparation des réactifs</h2>
-      <span class="chevron">▼</span>
-    </div>
-    <div class="section-corps">
- 
-      <div class="tabs-container">
-        <div class="tabs-header">
-          <button class="tab-btn actif" data-tab="tab-dissolution">Dissolution (NaCl)</button>
-          <button class="tab-btn" data-tab="tab-dissolution2">Dissolution (CuSO₄)</button>
-          <button class="tab-btn" data-tab="tab-dilution">Dilution (HCl)</button>
-        </div>
- 
-        <!-- Dissolution NaCl -->
-        <div class="tab-panel actif" id="tab-dissolution">
-          <h3 style="font-family:var(--font-titre);margin-bottom:var(--gap-sm)">
-            Préparer 250 mL de NaCl à <span class="capsule-concentration">0,100 mol/L</span>
-          </h3>
-          <div class="calcul-guide">
-            <h4>📐 Calcul de la masse à peser</h4>
-            <p style="font-size:.88rem;margin-bottom:.6rem">
-              M(NaCl) = 23,0 + 35,5 = <strong>58,5 g/mol</strong>
-            </p>
-            <div class="formule">m = C × V × M</div>
-            <div style="display:flex;gap:var(--gap-sm);flex-wrap:wrap;align-items:center;margin-top:.6rem">
-              <label style="font-size:.85rem">C (mol/L) : <input type="number" id="c-nacl" value="0.100" step="0.001"></label>
-              <label style="font-size:.85rem">V (mL) : <input type="number" id="v-nacl" value="250" step="10"></label>
-              <label style="font-size:.85rem">M (g/mol) : <input type="number" id="m-nacl" value="58.5" step="0.1"></label>
-            </div>
-            <div class="resultat-calcul" id="res-nacl">m = 1,4625 g</div>
-          </div>
-          <h4 style="margin:var(--gap-md) 0 var(--gap-sm);font-family:var(--font-titre)">Protocole de dissolution</h4>
-          <ol class="etapes">
-            <li>Peser <strong id="masse-nacl">1,4625 g</strong> de NaCl sur verre de montre (balance 0,01 g)</li>
-            <li>Transférer quantitativement dans un bécher de 100 mL — rincer le verre de montre 3 fois</li>
-            <li>Ajouter ~50 mL d'eau distillée et agiter jusqu'à dissolution complète</li>
-            <li>Verser dans une fiole jaugée de <strong>250 mL</strong></li>
-            <li>Rincer le bécher 3 fois et ajouter les eaux de rinçage dans la fiole</li>
-            <li>Compléter à l'eau distillée jusqu'au <em>trait de jauge</em> (dernière goutte à la pissette)</li>
-            <li>Boucher et retourner 10 fois pour homogénéiser</li>
-            <li>Étiqueter : nom, formule, concentration, date, initiales</li>
-          </ol>
-        </div>
- 
-        <!-- Dissolution CuSO4 -->
-        <div class="tab-panel" id="tab-dissolution2">
-          <h3 style="font-family:var(--font-titre);margin-bottom:var(--gap-sm)">
-            Préparer 100 mL de CuSO₄ à <span class="capsule-concentration">0,050 mol/L</span>
-          </h3>
-          <div class="calcul-guide">
-            <h4>📐 Calcul de la masse à peser (sel anhydre ou pentahydraté ?)</h4>
-            <div class="tabs-container" style="margin-top:.6rem">
-              <div class="tabs-header">
-                <button class="tab-btn actif" data-tab="cuso4-anhydre">CuSO₄ anhydre (M = 159,6 g/mol)</button>
-                <button class="tab-btn" data-tab="cuso4-penta">CuSO₄·5H₂O (M = 249,7 g/mol)</button>
-              </div>
-              <div class="tab-panel actif" id="cuso4-anhydre">
-                <div class="formule" style="margin-top:.6rem">m = 0,050 × 0,100 × 159,6 = <strong>0,798 g</strong></div>
-              </div>
-              <div class="tab-panel" id="cuso4-penta">
-                <div class="formule" style="margin-top:.6rem">m = 0,050 × 0,100 × 249,7 = <strong>1,249 g</strong></div>
-                <p style="font-size:.82rem;color:var(--gris-moyen);margin-top:.4rem">⚠️ Le sel pentahydraté (bleu) est plus courant en laboratoire scolaire.</p>
-              </div>
-            </div>
-          </div>
-          <ol class="etapes" style="margin-top:var(--gap-md)">
-            <li>Peser la masse calculée de CuSO₄ <span class="attention">(port des lunettes obligatoire)</span></li>
-            <li>Dissoudre dans ~30 mL d'eau distillée dans un bécher — la solution prend une <strong>couleur bleue</strong> caractéristique</li>
-            <li>Transvaser dans une fiole jaugée de <strong>100 mL</strong></li>
-            <li>Compléter à l'eau distillée jusqu'au trait de jauge</li>
-            <li>Étiqueter avec les pictogrammes GHS correspondants (♻️ H410 — toxique pour l'eau)</li>
-          </ol>
-        </div>
- 
-        <!-- Dilution HCl -->
-        <div class="tab-panel" id="tab-dilution">
-          <h3 style="font-family:var(--font-titre);margin-bottom:var(--gap-sm)">
-            Préparer 100 mL de HCl à <span class="capsule-concentration">0,100 mol/L</span>
-            depuis une solution mère à <span class="capsule-concentration">1,00 mol/L</span>
-          </h3>
-          <div class="calcul-guide">
-            <h4>📐 Loi de dilution : C₁V₁ = C₂V₂</h4>
-            <div class="formule">V₁ = C₂ × V₂ / C₁</div>
-            <div style="display:flex;gap:var(--gap-sm);flex-wrap:wrap;align-items:center;margin-top:.6rem">
-              <label style="font-size:.85rem">C₁ (mol/L) : <input type="number" id="c1-hcl" value="1.00" step="0.1"></label>
-              <label style="font-size:.85rem">C₂ (mol/L) : <input type="number" id="c2-hcl" value="0.100" step="0.001"></label>
-              <label style="font-size:.85rem">V₂ (mL) : <input type="number" id="v2-hcl" value="100" step="10"></label>
-            </div>
-            <div class="resultat-calcul" id="res-hcl">V₁ = 10,0 mL</div>
-          </div>
-          <div class="alerte-securite" style="margin-top:var(--gap-sm)">
-            <strong>⚠️ IMPORTANT — Toujours verser l'acide dans l'eau !</strong>
-            Ne jamais ajouter de l'eau à l'acide concentré (réaction exothermique dangereuse).
-          </div>
-          <ol class="etapes" style="margin-top:var(--gap-md)">
-            <li>Prélever avec une pipette jaugée le volume V₁ calculé de solution mère HCl — <span class="attention">sous hotte, lunettes + gants obligatoires</span></li>
-            <li>Introduire dans une fiole jaugée de 100 mL contenant déjà ~50 mL d'eau distillée</li>
-            <li>Compléter à l'eau distillée jusqu'au trait de jauge</li>
-            <li>Homogénéiser par 10 retournements successifs</li>
-            <li>Étiqueter : HCl — 0,100 mol/L — date</li>
-          </ol>
-        </div>
-      </div><!-- /tabs-container -->
- 
-    </div>
-  </div>
- 
-  <!-- Protocole expérimental -->
-  <div class="section" data-type="protocole">
-    <div class="section-titre">
-      <div class="picto-section">🔬</div>
-      <h2>Protocole expérimental</h2>
-      <span class="chevron">▼</span>
-    </div>
-    <div class="section-corps">
-      <p style="margin-bottom:var(--gap-md)">Réaliser les 3 préparations dans l'ordre indiqué. Compléter le tableau de résultats au fur et à mesure.</p>
-      <ol class="etapes">
-        <li><strong>Préparation A</strong> — Solution de NaCl à 0,100 mol/L (250 mL) par dissolution</li>
-        <li><strong>Préparation B</strong> — Solution de CuSO₄ à 0,050 mol/L (100 mL) par dissolution</li>
-        <li><strong>Vérification</strong> — Comparer les volumes lus et calculés ; noter les écarts</li>
-        <li><strong>Préparation C</strong> — Solution de HCl à 0,100 mol/L (100 mL) par dilution</li>
-        <li><strong>Nettoyage</strong> — Rincer toute la verrerie, éliminer les déchets dans les contenants prévus</li>
-      </ol>
-    </div>
-  </div>
- 
-  <!-- Résultats -->
-  <div class="section" data-type="resultats">
-    <div class="section-titre">
-      <div class="picto-section">📊</div>
-      <h2>Tableau de résultats</h2>
-      <span class="chevron">▼</span>
-    </div>
-    <div class="section-corps">
-      <div style="overflow-x:auto">
-        <table class="tableau-resultats">
-          <thead>
-            <tr>
-              <th>Préparation</th>
-              <th>Soluté utilisé</th>
-              <th>Masse pesée (g)</th>
-              <th>Volume final (mL)</th>
-              <th>C calculée (mol/L)</th>
-              <th>C visée (mol/L)</th>
-              <th>Écart (%)</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><strong>A — NaCl</strong></td>
-              <td>NaCl (M = 58,5 g/mol)</td>
-              <td class="saisie" contenteditable="true"></td>
-              <td class="saisie" contenteditable="true"></td>
-              <td class="saisie" contenteditable="true"></td>
-              <td>0,100</td>
-              <td class="saisie" contenteditable="true"></td>
-            </tr>
-            <tr>
-              <td><strong>B — CuSO₄</strong></td>
-              <td>CuSO₄·5H₂O (M = 249,7 g/mol)</td>
-              <td class="saisie" contenteditable="true"></td>
-              <td class="saisie" contenteditable="true"></td>
-              <td class="saisie" contenteditable="true"></td>
-              <td>0,050</td>
-              <td class="saisie" contenteditable="true"></td>
-            </tr>
-            <tr>
-              <td><strong>C — HCl dilué</strong></td>
-              <td>HCl mère 1,00 mol/L</td>
-              <td>—</td>
-              <td class="saisie" contenteditable="true"></td>
-              <td class="saisie" contenteditable="true"></td>
-              <td>0,100</td>
-              <td class="saisie" contenteditable="true"></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </div>
- 
-  <!-- Exploitation -->
-  <div class="section" data-type="bilan">
-    <div class="section-titre">
-      <div class="picto-section">📝</div>
-      <h2>Exploitation et bilan</h2>
-      <span class="chevron">▼</span>
-    </div>
-    <div class="section-corps">
-      <p style="font-weight:600;margin-bottom:var(--gap-sm)">Répondre aux questions suivantes :</p>
-      <ol style="padding-left:1.5rem;line-height:2.2;font-size:.92rem">
-        <li>Quelle est la différence entre une dissolution et une dilution ? Illustrer avec les préparations A et C.</li>
-        <li>Pourquoi doit-on <em>toujours verser l'acide dans l'eau</em> lors d'une dilution ?</li>
-        <li>Calculer la quantité de matière n(NaCl) dans la préparation A.</li>
-        <li>Quelle est la concentration massique Cm (en g/L) de la solution B de CuSO₄ ?</li>
-        <li>Identifier les sources d'erreur expérimentale. Comment les minimiser ?</li>
-      </ol>
-      <div class="zone-eleve" style="margin-top:var(--gap-md)">
-        <h4>✏️ Réponses de l'élève</h4>
-        <textarea placeholder="Rédiger vos réponses ici…" rows="8"></textarea>
-      </div>
-      <div class="formule-bloc" style="margin-top:var(--gap-md)">
-        Rappel : n = C × V (mol) &nbsp;|&nbsp; Cm = C × M (g/L) &nbsp;|&nbsp; Écart (%) = |Cexp − Cth| / Cth × 100
-      </div>
-    </div>
-  </div>
- 
-  <div class="nav-tp">
-    <a href="../index.html" class="btn btn-secondaire">← Accueil</a>
-    <button onclick="window.print()" class="btn btn-imprimer">🖨️ Imprimer</button>
-    <a href="tp02-ph-indicateurs.html" class="btn btn-primaire">TP 02 →</a>
-  </div>
- 
-</div><!-- /page-wrapper -->
- 
-<script type="module">
-import { PRODUITS } from '../js/produits.js';
-import { renderBlocSecurite, initSections, initTabs, bindCalcul } from '../js/utils.js';
- 
-// Produits du TP
-const produitsDuTP = ['7647-14-5','7758-98-7','7647-01-0'].map(cas => PRODUITS.find(p => p.cas === cas)).filter(Boolean);
-document.getElementById('securite-bloc').innerHTML = renderBlocSecurite(produitsDuTP);
- 
-initSections();
-initTabs();
- 
-// Calcul NaCl
-function calcNaCl() {
-  const c = parseFloat(document.getElementById('c-nacl').value) || 0;
-  const v = parseFloat(document.getElementById('v-nacl').value) || 0;
-  const m = parseFloat(document.getElementById('m-nacl').value) || 0;
-  const masse = (c * v / 1000 * m).toFixed(4);
-  document.getElementById('res-nacl').textContent = `m = ${masse} g`;
-  document.getElementById('masse-nacl').textContent = `${masse} g`;
-}
-['c-nacl','v-nacl','m-nacl'].forEach(id => document.getElementById(id).addEventListener('input', calcNaCl));
-calcNaCl();
- 
-// Calcul HCl dilution
-function calcHCl() {
-  const c1 = parseFloat(document.getElementById('c1-hcl').value) || 1;
-  const c2 = parseFloat(document.getElementById('c2-hcl').value) || 0;
-  const v2 = parseFloat(document.getElementById('v2-hcl').value) || 0;
-  const v1 = (c2 * v2 / c1).toFixed(2);
-  document.getElementById('res-hcl').textContent = `V₁ = ${v1} mL`;
-}
-['c1-hcl','c2-hcl','v2-hcl'].forEach(id => document.getElementById(id).addEventListener('input', calcHCl));
-calcHCl();
-</script>
+
+<header class="tp-header">
+
+<div>
+<h1>Préparation de solutions par dissolution et dilution</h1>
+
+<div class="tp-meta">
+<span class="tag">2nde</span>
+<span class="tag">Chimie</span>
+<span class="tag">Dissolution</span>
+<span class="tag">Dilution</span>
+</div>
+</div>
+
+<div class="tp-numero">
+TP01
+</div>
+
+</header>
+
+<!-- ====================================================== -->
+<!-- OBJECTIFS -->
+<!-- ====================================================== -->
+
+<div class="section" data-type="objectif">
+
+<div class="section-titre">
+<div class="picto-section">🎯</div>
+<h2>Objectifs</h2>
+<span class="chevron">▼</span>
+</div>
+
+<div class="section-corps">
+
+<ul>
+<li>Définir soluté, solvant et solution.</li>
+<li>Calculer une quantité de matière.</li>
+<li>Utiliser la relation n = m / M.</li>
+<li>Préparer une solution par dissolution.</li>
+<li>Préparer une solution par dilution.</li>
+<li>Utiliser correctement la verrerie volumétrique.</li>
+</ul>
+
+</div>
+</div>
+
+<!-- ====================================================== -->
+<!-- SECURITE -->
+<!-- ====================================================== -->
+
+<div class="section" data-type="securite">
+
+<div class="section-titre">
+<div class="picto-section">⚠️</div>
+<h2>Sécurité - Produits utilisés</h2>
+<span class="chevron">▼</span>
+</div>
+
+<div class="section-corps">
+
+<div id="securite-bloc">
+
+Chargement des informations CLP...
+
+</div>
+
+</div>
+</div>
+
+<!-- ====================================================== -->
+<!-- MATERIEL -->
+<!-- ====================================================== -->
+
+<div class="section" data-type="materiel">
+
+<div class="section-titre">
+<div class="picto-section">🧪</div>
+<h2>Matériel nécessaire</h2>
+<span class="chevron">▼</span>
+</div>
+
+<div class="section-corps">
+
+<h3>Verrerie</h3>
+
+<div id="materiel-verrerie"
+class="grille-materiel">
+</div>
+
+<br>
+
+<h3>Équipements</h3>
+
+<div id="materiel-equipements"
+class="grille-materiel">
+</div>
+
+</div>
+</div>
+
+<!-- ====================================================== -->
+<!-- PREPARATION -->
+<!-- ====================================================== -->
+
+<div class="section" data-type="reactifs">
+
+<div class="section-titre">
+<div class="picto-section">⚗️</div>
+<h2>Préparation des réactifs</h2>
+<span class="chevron">▼</span>
+</div>
+
+<div class="section-corps">
+
+<div class="tabs-container">
+
+<div class="tabs-header">
+
+<button class="tab-btn actif"
+data-tab="dissolution">
+Dissolution
+</button>
+
+<button class="tab-btn"
+data-tab="dilution">
+Dilution
+</button>
+
+</div>
+
+<!-- ======================================= -->
+<!-- DISSOLUTION -->
+<!-- ======================================= -->
+
+<div class="tab-panel actif"
+id="dissolution">
+
+<h3>Solution A — NaCl</h3>
+
+<div class="calcul-guide">
+
+<h4>Calcul de la masse à peser</h4>
+
+<div class="formule">
+m = C × V × M
+</div>
+
+<br><br>
+
+<label>C (mol/L)</label>
+<input id="c-nacl" type="number" value="0.10" step="0.01">
+
+<label>V (mL)</label>
+<input id="v-nacl" type="number" value="100">
+
+<label>M (g/mol)</label>
+<input id="m-nacl" type="number" value="58.5">
+
+<div id="res-nacl"
+class="resultat-calcul">
+</div>
+
+</div>
+
+<hr>
+
+<h3>Solution B — CuSO₄·5H₂O</h3>
+
+<div class="calcul-guide">
+
+<div class="formule">
+m = C × V × M
+</div>
+
+<br><br>
+
+<label>C (mol/L)</label>
+<input id="c-cuso4" type="number" value="0.05">
+
+<label>V (mL)</label>
+<input id="v-cuso4" type="number" value="100">
+
+<label>M (g/mol)</label>
+<input id="m-cuso4" type="number" value="249.7">
+
+<div id="res-cuso4"
+class="resultat-calcul">
+</div>
+
+</div>
+
+</div>
+
+<!-- ======================================= -->
+<!-- DILUTION -->
+<!-- ======================================= -->
+
+<div class="tab-panel"
+id="dilution">
+
+<h3>Dilution HCl</h3>
+
+<div class="calcul-guide">
+
+<div class="formule">
+C₁V₁ = C₂V₂
+</div>
+
+<br>
+
+<label>C₁</label>
+<input id="c1-hcl" type="number" value="1">
+
+<label>C₂</label>
+<input id="c2-hcl" type="number" value="0.10">
+
+<label>V₂ (mL)</label>
+<input id="v2-hcl" type="number" value="100">
+
+<div id="res-hcl"
+class="resultat-calcul">
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+<!-- ====================================================== -->
+<!-- PROTOCOLE -->
+<!-- ====================================================== -->
+
+<div class="section" data-type="protocole">
+
+<div class="section-titre">
+<div class="picto-section">📋</div>
+<h2>Protocole expérimental</h2>
+<span class="chevron">▼</span>
+</div>
+
+<div class="section-corps">
+
+<ul class="etapes">
+
+<li>
+Peser la masse de NaCl calculée.
+</li>
+
+<li>
+Introduire le solide dans une fiole jaugée de 100 mL.
+</li>
+
+<li>
+Ajouter un peu d'eau distillée et dissoudre.
+</li>
+
+<li>
+Compléter jusqu'au trait de jauge.
+</li>
+
+<li>
+Boucher puis homogénéiser.
+</li>
+
+<li>
+Préparer la solution de CuSO₄ selon la même méthode.
+</li>
+
+<li>
+Prélever le volume calculé d'HCl.
+</li>
+
+<li>
+Verser l'acide dans l'eau.
+</li>
+
+<li>
+Compléter au trait puis homogénéiser.
+</li>
+
+</ul>
+
+</div>
+</div>
+
+<!-- ====================================================== -->
+<!-- RESULTATS -->
+<!-- ====================================================== -->
+
+<div class="section" data-type="resultats">
+
+<div class="section-titre">
+<div class="picto-section">📊</div>
+<h2>Tableau de résultats</h2>
+<span class="chevron">▼</span>
+</div>
+
+<div class="section-corps">
+
+<table class="tableau-resultats">
+
+<thead>
+
+<tr>
+<th>Préparation</th>
+<th>Masse (g)</th>
+<th>Volume (mL)</th>
+<th>C calculée</th>
+<th>C visée</th>
+<th>C expérimentale</th>
+<th>Écart %</th>
+</tr>
+
+</thead>
+
+<tbody>
+
+<tr data-theo="0.10">
+
+<td>NaCl</td>
+
+<td id="table-masse-nacl"></td>
+
+<td>100</td>
+
+<td id="table-calc-nacl"></td>
+
+<td>0.10</td>
+
+<td>
+<input class="c-exp">
+</td>
+
+<td class="ecart"></td>
+
+</tr>
+
+<tr data-theo="0.05">
+
+<td>CuSO₄</td>
+
+<td id="table-masse-cuso4"></td>
+
+<td>100</td>
+
+<td id="table-calc-cuso4"></td>
+
+<td>0.05</td>
+
+<td>
+<input class="c-exp">
+</td>
+
+<td class="ecart"></td>
+
+</tr>
+
+<tr data-theo="0.10">
+
+<td>HCl</td>
+
+<td>—</td>
+
+<td>100</td>
+
+<td id="table-calc-hcl"></td>
+
+<td>0.10</td>
+
+<td>
+<input class="c-exp">
+</td>
+
+<td class="ecart"></td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+</div>
+
+<!-- ====================================================== -->
+<!-- RAPPORT -->
+<!-- ====================================================== -->
+
+<div class="section" data-type="bilan">
+
+<div class="section-titre">
+<div class="picto-section">📝</div>
+<h2>Compte rendu</h2>
+<span class="chevron">▼</span>
+</div>
+
+<div class="section-corps">
+
+<h3>Identification</h3>
+
+<div class="grille-materiel">
+
+<input placeholder="Nom">
+<input placeholder="Prénom">
+<input placeholder="Classe">
+<input type="date">
+
+</div>
+
+<br>
+
+<h3>Résumé du TP</h3>
+
+<div class="zone-eleve">
+<textarea rows="10"></textarea>
+</div>
+
+<h3>Questions</h3>
+
+<ol>
+
+<li>Différence entre dissolution et dilution ?</li>
+
+<li>Pourquoi verser l'acide dans l'eau ?</li>
+
+<li>Calculer n(NaCl).</li>
+
+<li>Calculer Cm(CuSO₄).</li>
+
+<li>Identifier les erreurs expérimentales possibles.</li>
+
+</ol>
+
+<div class="zone-eleve">
+<textarea rows="15"></textarea>
+</div>
+
+</div>
+</div>
+
+<!-- ====================================================== -->
+
+<div class="nav-tp">
+
+<a href="../index.html"
+class="btn btn-secondaire">
+← Accueil
+</a>
+
+<button
+onclick="window.print()"
+class="btn btn-imprimer">
+🖨️ Imprimer
+</button>
+
+<a href="tp02-ph-indicateurs.html"
+class="btn btn-primaire">
+TP02 →
+</a>
+
+</div>
+
+</div>
+
+<script type="module" src="../js/tp01-solutions.js"></script>
+
 </body>
 </html>
