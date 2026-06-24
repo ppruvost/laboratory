@@ -1,28 +1,15 @@
-console.log("protocole.js chargé");
-
 // =====================================================
 // RÉCUPÉRATION PRODUITS
 // =====================================================
 
-const products =
-    window.parent?.products ||
-    window.products ||
-    [];
+console.log("protocole.js chargé");
+
+import products from "../../data/products.js";
 
 console.log(
     "Nombre de produits :",
-    Array.isArray(products) ? products.length : 0
+    products.length
 );
-
-// =====================================================
-// PROTECTION DOUBLE CHARGEMENT
-// =====================================================
-
-if (window.__protocoleLoaded) {
-    console.warn("protocole.js déjà chargé (bloqué)");
-} else {
-    window.__protocoleLoaded = true;
-}
 
 // =====================================================
 // UTILITAIRES
@@ -69,24 +56,6 @@ function chargerProduits() {
 
     console.log(`${products.length} réactifs chargés`);
 }
-
-// =====================================================
-// INIT MODULE (IMPORTANT POUR navigation.js)
-// =====================================================
-
-window.init = function () {
-
-    if (window.__protocoleInited) {
-        console.warn("init déjà exécuté (bloqué)");
-        return;
-    }
-
-    window.__protocoleInited = true;
-
-    console.log("init protocole exécuté");
-
-    chargerProduits();
-};
 
 // =====================================================
 // CALCUL DILUTION
@@ -174,14 +143,14 @@ window.genererFiche = function () {
 
     const pictos = creerPictogrammes(produit);
 
-    const securite =
-        produit.securite ||
-        produit.danger ||
-        produit.hazard ||
-        {};
+    const dangers =
+    produit.dangers || [];
 
-    const hotte =
-        securite.hotte === true ? "OUI" : "NON";
+    const preventions =
+        produit.prevention || [];
+
+    const obligations =
+        produit.obligation || [];
 
     document.getElementById("ficheContent").innerHTML = `
 
@@ -198,31 +167,59 @@ window.genererFiche = function () {
             ${pictos}
         </div>
 
-        <div class="bloc">
-            <h4>Sécurité</h4>
+<div class="bloc">
 
-            <p><b>Préparation sous hotte :</b> ${hotte}</p>
+    <h4>Équipements de protection</h4>
 
-            ${
-                securite.avertissement
-                    ? `<p><b>Mention :</b> ${securite.avertissement}</p>`
-                    : ""
-            }
+    ${
+        obligations.length
+            ? `
+            <ul>
+                ${obligations.map(o => `
+                    <li>${o}</li>
+                `).join("")}
+            </ul>
+            `
+            : "<p>Aucune obligation renseignée.</p>"
+    }
 
-            ${
-                Array.isArray(securite.h)
-                    ? `<p><b>Mentions H :</b></p>
-                       <ul>${securite.h.map(h => `<li>${h}</li>`).join("")}</ul>`
-                    : ""
-            }
+</div>
 
-            ${
-                Array.isArray(securite.p)
-                    ? `<p><b>Conseils P :</b></p>
-                       <ul>${securite.p.map(p => `<li>${p}</li>`).join("")}</ul>`
-                    : ""
-            }
-        </div>
+<div class="bloc">
+
+    <h4>Mentions de danger (H)</h4>
+
+    ${
+        dangers.length
+            ? `
+            <ul>
+                ${dangers.map(h => `
+                    <li>${h}</li>
+                `).join("")}
+            </ul>
+            `
+            : "<p>Aucune mention H renseignée.</p>"
+    }
+
+</div>
+
+<div class="bloc">
+
+    <h4>Conseils de prudence (P)</h4>
+
+    ${
+        preventions.length
+            ? `
+            <ul>
+                ${preventions.map(p => `
+                    <li>${p}</li>
+                `).join("")}
+            </ul>
+            `
+            : "<p>Aucun conseil P renseigné.</p>"
+    }
+
+</div>
 
         <div class="bloc">
             <h4>Préparation</h4>
@@ -272,3 +269,14 @@ window.exportPDF = async function () {
 
     pdf.save("fiche_preparation.pdf");
 };
+
+// =====================================================
+// INIT
+// =====================================================
+export function init() {
+
+    console.log("Initialisation protocole");
+
+    chargerProduits();
+
+}
