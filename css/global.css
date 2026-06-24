@@ -1,6 +1,5 @@
 /* ════════════════════════════════════════════════════════════════
-   global.css  —  Labo Chimie Bac Pro · Salle B27
-   Palette : matière, rigueur, couleurs de réaction
+   global.css    Palette : matière, rigueur, couleurs de réaction
    ════════════════════════════════════════════════════════════════ */
 
 @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Fira+Code:wght@400;500&family=Lato:wght@300;400;700&display=swap');
@@ -108,6 +107,20 @@ img, svg { display: block; max-width: 100%; }
   color: #fff;
   padding: .2rem .6rem;
   border-radius: 20px;
+}
+
+.tp-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 0.3rem;
+}
+
+.tag {
+  padding: 0.2rem 0.6rem;
+  border-radius: 12px;
+  background: #e7dfd3;
+  font-size: 0.85rem;
 }
 
 /* ── Mise en page principale ─────────────────────────────────── */
