@@ -18,17 +18,15 @@ export function init() {
 
     console.log("Initialisation TP01");
 
-    initTabs();
+   initTabs();
+   initReactifs();
+   renderSecurite();
+   renderVerrerie();
+   renderEquipements();
 
-    initReactifs();
+   initCalculs();
 
-    renderVerrerie();
-
-    renderEquipements();
-
-    initCalculs();
-
-    initEcarts();
+   initEcarts();
 
 }
 
