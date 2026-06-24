@@ -420,6 +420,13 @@
     margin-right: auto;
 }
 
+.section-corps > *:not(.etapes){
+    width:100%;
+    max-width:1000px;
+    margin-left:auto;
+    margin-right:auto;
+}
+
 /* ── Étapes ─────────────────────────────────────────── */
 
 .etapes {
