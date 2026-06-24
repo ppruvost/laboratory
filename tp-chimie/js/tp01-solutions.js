@@ -163,43 +163,47 @@ function renderSecurite() {
             </p>
     `;
 
-    /* =====================================
-       PICTOGRAMMES CLP
-       ===================================== */
+/* =====================================
+   PICTOGRAMMES CLP
+   ===================================== */
 
-    html += `
-        <div class="pictos-clp">
-    `;
+html += `
+    <div class="pictos-clp">
+`;
 
-    const dejaAjoutes =
-        new Set();
+const dejaAjoutes = new Set();
 
-    (produit.dangers || []).forEach(code => {
+(produit.dangers || []).forEach(code => {
 
-        const picto =
-            pictogrammes[code];
+    const entree =
+        pictogrammes.find(
+            p => p.code === code
+        );
 
-        if (
-            picto &&
-            !dejaAjoutes.has(picto)
-        ) {
+    const picto =
+        entree?.image;
 
-            dejaAjoutes.add(picto);
+    if (
+        picto &&
+        !dejaAjoutes.has(picto)
+    ) {
 
-            html += `
-                <img
-                    src="../../assets/picto/${picto}"
-                    alt="${code}"
-                    title="${code}"
-                    class="picto-clp">
-            `;
-        }
+        dejaAjoutes.add(picto);
 
-    });
+        html += `
+            <img
+                src="../../assets/picto/${picto}"
+                alt="${code}"
+                title="${code}"
+                class="picto-clp">
+        `;
+    }
 
-    html += `
-        </div>
-    `;
+});
+
+html += `
+    </div>
+`;
 
     /* =====================================
        EPI
