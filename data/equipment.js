@@ -230,20 +230,7 @@ const laboratoryEquipment = [
     },
 
     // Chimie
-    {
-        domaine: "Chimie",
-        nom: "Bécher (divers volumes)",
-        description: "Conteneur pour solutions",
-        lieuStockage: "",
-        noticeUtilisation: "assets/notice/becher.pdf"
-    },
-    {
-        domaine: "Chimie",
-        nom: "Éprouvettes graduées",
-        description: "Mesure de volumes de liquides",
-        lieuStockage: "",
-        noticeUtilisation: "assets/notice/eprouvette.pdf"
-    },
+    
     {
         domaine: "Chimie",
         nom: "Pipettes et propipettes",
