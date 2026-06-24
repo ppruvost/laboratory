@@ -1,3 +1,6 @@
+console.log("dangerDB:", window.dangerDB);
+console.log("pictogrammes:", window.pictogrammes);
+
 let progress=10;
 
 function updateProgress(){
