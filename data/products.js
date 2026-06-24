@@ -1261,3 +1261,5 @@
 ];
 
 window.products = products
+
+export default products;
