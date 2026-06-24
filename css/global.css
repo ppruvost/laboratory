@@ -283,35 +283,79 @@ img, svg { display: block; max-width: 100%; }
   title: attr(title);
 }
 
-/* ── Étapes numérotées ───────────────────────────────────────── */
-.etapes { list-style: none; counter-reset: etape; }
-.etapes li {
-  counter-increment: etape;
-  display: grid;
-  grid-template-columns: 2.5rem 1fr;
-  gap: var(--gap-sm);
-  align-items: start;
-  margin-bottom: var(--gap-sm);
-  padding-bottom: var(--gap-sm);
-  border-bottom: 1px dashed var(--gris-clair);
+/* ─────────────────────────────────────────────
+   ÉTAPES NUMÉROTÉES
+   ───────────────────────────────────────────── */
+
+.etapes{
+    list-style:none;
+    counter-reset:etape;
+    padding:0;
+    margin:0;
 }
-.etapes li:last-child { border-bottom: none; margin-bottom: 0; }
-.etapes li::before {
-  content: counter(etape);
-  width: 2.5rem;
-  height: 2.5rem;
-  background: var(--bleu-cuivre);
-  color: #fff;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: var(--font-titre);
-  font-weight: 700;
-  font-size: .9rem;
-  flex-shrink: 0;
+
+.etapes li{
+    counter-increment:etape;
+
+    display:flex;
+    align-items:flex-start;
+    gap:1rem;
+
+    width:100%;
+    margin-bottom:1rem;
+    padding-bottom:1rem;
+
+    border-bottom:1px dashed var(--gris-clair);
 }
-.etapes li .attention { color: var(--clp-rouge); font-weight: 600; }
+
+.etapes li:last-child{
+    margin-bottom:0;
+    padding-bottom:0;
+    border-bottom:none;
+}
+
+.etapes li::before{
+
+    content:counter(etape);
+
+    width:40px;
+    height:40px;
+    min-width:40px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    border-radius:50%;
+
+    background:var(--bleu-cuivre);
+    color:#fff;
+
+    font-family:var(--font-titre);
+    font-weight:700;
+    font-size:.95rem;
+
+    flex-shrink:0;
+}
+
+.etapes li > *{
+    flex:1;
+    min-width:0;
+}
+
+.etapes li .attention{
+    color:var(--clp-rouge);
+    font-weight:600;
+}
+
+.etapes li strong,
+.etapes li em,
+.etapes li span,
+.etapes li p{
+    display:inline;
+    width:auto;
+    max-width:none;
+}
 
 /* ── Tableau de résultats ────────────────────────────────────── */
 .tableau-resultats {
