@@ -8,7 +8,7 @@ import { products } from "../../data/products.js";
 import { dangerDB } from "../../data/dangerDB.js";
 import { pictogrammes } from "../../data/pictogrammes.js";
 import { glassware } from "../../data/glassware.js";
-import { equipment } from "../../data/equipment.js";
+import { laboratoryEquipment } from "../../data/equipment.js";
 
 /* ==========================================================
    INITIALISATION
@@ -250,7 +250,7 @@ function renderEquipements() {
     if (!zone) return;
 
     const selection =
-        equipment.filter(
+        laboratoryEquipment.filter(
             e => e.domaine === "Chimie"
         );
 
