@@ -5,6 +5,7 @@
 console.log("protocole.js chargé");
 
 import products from "../../data/products.js";
+import pictogrammes from "../../data/pictogrammes.js";
 
 console.log(
     "Nombre de produits :",
@@ -92,24 +93,33 @@ window.calculerDilution = function () {
 
 function creerPictogrammes(produit) {
 
-    const liste =
-        produit.pictogramme ||
-        produit.pictogrammes ||
-        [];
+    const fichiers = new Set();
 
-    if (!Array.isArray(liste) || liste.length === 0) {
+    (produit.dangers || []).forEach(code => {
+
+        const picto = pictogrammes[code];
+
+        if (picto) {
+            fichiers.add(picto);
+        }
+
+    });
+
+    if (fichiers.size === 0) {
         return "<p>Aucun pictogramme renseigné</p>";
     }
 
     return `
         <div class="pictoZone">
-            ${liste.map(pic => `
+
+            ${[...fichiers].map(pic => `
                 <img
                     src="../../assets/picto/${pic}"
                     alt="${pic}"
                     loading="lazy"
                 >
             `).join("")}
+
         </div>
     `;
 }
