@@ -1,4 +1,4 @@
-export const dangerDB = [
+export dangerDB = [
 
 /* =========================
    💥 DANGERS PHYSIQUES
