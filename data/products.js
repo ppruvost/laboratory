@@ -117,16 +117,17 @@
   prevention: ["P280", "P305+P351+P338", "P337+P313"]
   },
   {
-  "cas": "7429-90-5",
-  "nom": "aluminium poudre",
-  "formule": "Al",
-  "categorie": "Métal pulvérulent",
-  "localisation": "Salle B27 / étagère D2",
-  "pictogramme": ["SGH02_Flamme.jpg"],
-  "obligation": ["GANTS", "BLOUSE"],
-  "image": "aluminium_poudre.jpg",
-  "fds": "FicheTox_AluminiumPoudre.pdf",
-  "dangers": ["H228", "H260", "P210", "P223", "P231+P232", "P240", "P241", "P280"]
+  cas: "7429-90-5",
+  nom: "aluminium poudre",
+  formule: "Al",
+  categorie: "Métal pulvérulent",
+  localisation: "Salle B27 / étagère D2",
+  pictogramme: ["SGH02_Flamme.jpg"],
+  obligation: ["GANTS", "BLOUSE"],
+  image: "aluminium_poudre.jpg",
+  fds: "FicheTox_AluminiumPoudre.pdf",
+  dangers: ["H228", "H260"],
+  prevention: ["P210", "P223", "P231+P232", "P240", "P241", "P280"]
   },
   {
   "cas": "7446-70-0",
