@@ -48,51 +48,53 @@
 /* ==========================================
    Titre + Logo
 ========================================== */
-
-.tp-title,
-.header-title{
+.tp-numero{
     display:flex;
     align-items:center;
     gap:12px;
+    font-size:1.4rem;
+    font-weight:700;
+}
+
+/* TP01 peut être stylé sans impacter le logo */
+.tp-numero > span,
+.tp-numero{
+    /* laisse ton style existant ici si besoin */
 }
 
 /* ==========================================
    Logo SciLab
 ========================================== */
-
 .logo{
-
     display:inline-flex;
     align-items:center;
 
-    padding:6px 14px;
-
+    padding:4px 10px;
     background:#000;
 
-    color:#fff;
-
     font-family:Arial, Helvetica, sans-serif;
-
-    font-size:1.1rem;
-
+    font-size:0.95rem;
     font-weight:700;
 
-    border-radius:8px;
-
+    border-radius:6px;
     letter-spacing:0.5px;
 
     user-select:none;
 
-    box-shadow:0 2px 6px rgba(0,0,0,.25);
-
+    /* 🔴 IMPORTANT : neutralise les effets du parent */
+    opacity:1 !important;
+    filter:none !important;
+    color:#fff;
 }
 
-.logo span{
+/* Sci blanc */
+.logo .sci{
+    color:#ffffff;
+}
 
+/* Lab rouge */
+.logo .lab{
     color:#d40000;
-
-    margin-left:2px;
-
 }
 
 /* ── Schéma de titrage ───────────────────────────────────────── */
