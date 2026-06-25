@@ -9,7 +9,8 @@
     obligation: ["GANTS", "BLOUSE", "HOTTE"],
     image: "propanone.jpg",
     fds: "FicheTox_3.pdf",
-    dangers: ["H319", "H335", "H336", "P261", "P271", "P280"]
+    dangers: ["H319", "H335", "H336"],
+    prevention: ["P261", "P271", "P280"]
   },   
   {
   cas: "107-92-6",
@@ -21,7 +22,8 @@
   obligation: ["LUNETTES", "GANTS", "BLOUSE"],
   image: "acide_butyrique.jpg",
   fds: "FDS_10792.pdf",
-  dangers: ["H314", "P260", "P264", "P280", "P301+P330+P331", "P303+P361+P353"]
+  dangers: ["H314", "P260"],
+  prevention: ["P264", "P280", "P301+P330+P331", "P303+P361+P353"]
 },
   {
     cas: "7647-01-0",
@@ -33,7 +35,8 @@
     obligation: ["LUNETTES", "GANTS", "BLOUSE"],
     image: "acide_chlorhydrique.jpg",
     fds: "FicheTox_13.pdf",
-    dangers: ["H314", "H335", "P260", "P303+P351+P363", "P305+P351+P338", "P310", "P405", "P501"]
+    dangers: ["H314", "H335"],
+    prevention: ["P260", "P303+P351+P363", "P305+P351+P338", "P310", "P405", "P501"]
   },
     {
   cas: "60-00-4",
@@ -45,7 +48,8 @@
   obligation: ["LUNETTES", "GANTS", "BLOUSE"],
   image: "edta.jpg",
   fds: "FicheTox_XXX.pdf",
-  dangers: ["H319", "P264", "P280", "P305+P351+P338", "P337+P313"]
+  dangers: ["H319"],
+  prevention: ["P264", "P280", "P305+P351+P338", "P337+P313"]
   },
   {
     cas: "64-19-7",
@@ -57,7 +61,8 @@
     obligation: ["LUNETTES", "GANTS", "BLOUSE"],
     image: "acide_acetique.jpg",
     fds: "FicheTox_24.pdf",
-    dangers: ["H314", "P280", "P305+P351+P338", "P310"]
+    dangers: ["H314"],
+    prevention: ["P280", "P305+P351+P338", "P310"]
   },
   {
     cas: "7697-37-2",
@@ -69,7 +74,8 @@
     obligation: ["GANTS", "BLOUSE", "HOTTE"],
     image: "acide_nitrique.jpg",
     fds: "FicheTox_9.pdf",
-    dangers: ["H272", "H314", "P210", "P221", "P303+P361+P353", "P305+P351+P338", "P310", "P405", "P501"]
+    dangers: ["H272", "H314"],
+    prevention: ["P210", "P221", "P303+P361+P353", "P305+P351+P338", "P310", "P405", "P501"]
   },
   {
     cas: "79-09-4",
@@ -81,7 +87,8 @@
     obligation: ["GANTS", "BLOUSE", "HOTTE"],
     image: "acide_propanoique.jpg",
     fds: "FicheTox_XXX.pdf",
-    dangers: ["H314", "P260", "P264", "P280", "P301+P330+P331", "P303+P361+P353"]
+    dangers: ["H314"],
+    prevention: ["P260", "P264", "P280", "P301+P330+P331", "P303+P361+P353"]
     },
     {
     cas: "7664-93-9",
@@ -93,7 +100,8 @@
     obligation: ["GANTS", "BLOUSE", "HOTTE"],
     image: "acide_sulfurique.jpg",
     fds: "FicheTox_30.pdf",
-    dangers: ["H314", "P260", "P264", "P280", "P301+P330+P331", "P303+P361+P353"]
+    dangers: ["H314"],
+    prevention: ["P260", "P264", "P280", "P301+P330+P331", "P303+P361+P353"]
   },
   {
   cas: "9002-89-5",
