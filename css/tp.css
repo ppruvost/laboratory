@@ -54,12 +54,11 @@
     gap:12px;
     font-size:1.4rem;
     font-weight:700;
-}
 
-/* TP01 peut être stylé sans impacter le logo */
-.tp-numero > span,
-.tp-numero{
-    /* laisse ton style existant ici si besoin */
+    /* ⚠️ si TP01 est opacifié ailleurs, ça ne doit pas toucher le logo */
+    opacity:1;
+    filter:none;
+    color:#000;
 }
 
 /* ==========================================
@@ -69,34 +68,31 @@
     display:inline-flex;
     align-items:center;
 
+    background:#000;        /* fond noir réel */
     padding:4px 10px;
-    background:#000;
+    border-radius:6px;
 
     font-family:Arial, Helvetica, sans-serif;
-    font-size:0.95rem;
     font-weight:700;
+    font-size:0.95rem;
 
-    border-radius:6px;
     letter-spacing:0.5px;
 
-    user-select:none;
-
-    /* 🔴 IMPORTANT : neutralise les effets du parent */
+    /* 🔥 CRUCIAL : empêche l'héritage visuel d'atténuation */
     opacity:1 !important;
     filter:none !important;
-    color:#fff;
+    mix-blend-mode:normal;
 }
 
-/* Sci blanc */
+/* Sci en blanc */
 .logo .sci{
-    color:#ffffff;
+    color:#ffffff !important;
 }
 
-/* Lab rouge */
+/* Lab en rouge */
 .logo .lab{
-    color:#d40000;
+    color:#d40000 !important;
 }
-
 /* ── Schéma de titrage ───────────────────────────────────────── */
 .schema-titrage {
   border: 2px solid var(--gris-clair);
