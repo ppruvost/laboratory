@@ -176,59 +176,104 @@ Dilution
 
 <div class="tab-panel actif" id="dissolution">
 
-<h3>Préparation par dissolution</h3>
+    <h3>Préparation par dissolution</h3>
 
-<div class="calcul-guide">
+    <div class="calcul-guide">
 
-<label>Réactif</label>
+        <label for="reactif-dissolution">
+            Réactif
+        </label>
 
-<select id="reactif-dissolution">
-    <option value="">
-        -- Sélectionner un sel --
-    </option>
-</select>
+        <select id="reactif-dissolution">
+            <option value="">
+                -- Sélectionner un sel --
+            </option>
+        </select>
 
-<br><br>
+        <br><br>
 
-<h4>Calcul de la masse à peser</h4>
+        <!-- Informations récupérées automatiquement -->
 
-<div class="formule">
-m = C × V × M
+        <div class="info-reactif">
+
+            <p>
+                <strong>Nom :</strong>
+                <span id="nom-reactif">
+                    -
+                </span>
+            </p>
+
+            <p>
+                <strong>Formule :</strong>
+                <span id="formule-dissolution">
+                    -
+                </span>
+            </p>
+
+            <p>
+                <strong>Masse molaire :</strong>
+                <span id="masse-dissolution">
+                    -
+                </span>
+                g/mol
+            </p>
+
+        </div>
+
+        <hr>
+
+        <h4>Calcul de la masse à peser</h4>
+
+        <div class="formule">
+            m = C × V × M
+        </div>
+
+        <br>
+
+        <label for="c-dissolution">
+            C (mol/L)
+        </label>
+
+        <input
+            id="c-dissolution"
+            type="number"
+            value="0.10"
+            step="0.01"
+            min="0"
+        >
+
+        <label for="v-dissolution">
+            V (mL)
+        </label>
+
+        <input
+            id="v-dissolution"
+            type="number"
+            value="100"
+            min="1"
+        >
+
+        <label for="m-dissolution">
+            M (g/mol)
+        </label>
+
+        <input
+            id="m-dissolution"
+            type="number"
+            readonly
+        >
+
+        <div
+            id="res-dissolution"
+            class="resultat-calcul">
+
+            Sélectionner un réactif.
+
+        </div>
+
+    </div>
+
 </div>
-
-<br>
-
-<label>C (mol/L)</label>
-<input
-    id="c-dissolution"
-    type="number"
-    value="0.10"
-    step="0.01"
->
-
-<label>V (mL)</label>
-<input
-    id="v-dissolution"
-    type="number"
-    value="100"
->
-
-<label>M (g/mol)</label>
-<input
-    id="m-dissolution"
-    type="number"
-    readonly
->
-
-<div
-    id="res-dissolution"
-    class="resultat-calcul">
-</div>
-
-</div>
-
-</div>
-
 <!-- ======================================= -->
 <!-- DILUTION -->
 <!-- ======================================= -->
