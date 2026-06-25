@@ -227,19 +227,24 @@ html += `
         `;
     }
 
-    /* =====================================
-       PHRASES H
-       ===================================== */
+/* =====================================
+   MENTIONS H
+   ===================================== */
+
+if (
+    produit.dangers &&
+    produit.dangers.length
+) {
 
     html += `
         <div class="danger-bloc">
 
-            <h4>Mentions de danger (H)</h4>
+            <h4>⚠️ Mentions de danger (H)</h4>
 
             <ul>
     `;
 
-    (produit.dangers || []).forEach(code => {
+    produit.dangers.forEach(code => {
 
         const danger =
             dangerDB.find(
@@ -250,8 +255,7 @@ html += `
 
             html += `
                 <li>
-                    <strong>${code}</strong>
-                    :
+                    <strong>${code}</strong> :
                     ${danger.text}
                 </li>
             `;
@@ -261,57 +265,52 @@ html += `
 
     html += `
             </ul>
+
         </div>
     `;
+}
 
-    /* =====================================
-       PHRASES P
-       ===================================== */
+/* =====================================
+   MENTIONS P
+   ===================================== */
 
-    if (
-        produit.prevention &&
-        produit.prevention.length
-    ) {
-
-        html += `
-            <div class="prevention-bloc">
-
-                <h4>Conseils de prudence (P)</h4>
-
-                <ul>
-        `;
-
-        produit.prevention.forEach(code => {
-
-            const prevention =
-                dangerDB.find(
-                    d => d.code === code
-                );
-
-            if (prevention) {
-
-                html += `
-                    <li>
-                        <strong>${code}</strong>
-                        :
-                        ${prevention.text}
-                    </li>
-                `;
-            }
-
-        });
-
-        html += `
-                </ul>
-            </div>
-        `;
-    }
+if (
+    produit.prevention &&
+    produit.prevention.length
+) {
 
     html += `
-        </div>
+        <div class="prevention-bloc">
+
+            <h4>🛡️ Conseils de prudence (P)</h4>
+
+            <ul>
     `;
 
-    zone.innerHTML = html;
+    produit.prevention.forEach(code => {
+
+        const prevention =
+            dangerDB.find(
+                d => d.code === code
+            );
+
+        if (prevention) {
+
+            html += `
+                <li>
+                    <strong>${code}</strong> :
+                    ${prevention.text}
+                </li>
+            `;
+        }
+
+    });
+
+    html += `
+            </ul>
+
+        </div>
+    `;
 }
 /* ==========================================================
    VERRERIE
