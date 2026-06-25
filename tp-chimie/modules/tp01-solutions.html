@@ -174,12 +174,21 @@ Dilution
 <!-- DISSOLUTION -->
 <!-- ======================================= -->
 
-<div class="tab-panel actif"
-id="dissolution">
+<div class="tab-panel actif" id="dissolution">
 
-<h3>Solution A — NaCl</h3>
+<h3>Préparation par dissolution</h3>
 
 <div class="calcul-guide">
+
+<label>Réactif</label>
+
+<select id="reactif-dissolution">
+    <option value="">
+        -- Sélectionner un sel --
+    </option>
+</select>
+
+<br><br>
 
 <h4>Calcul de la masse à peser</h4>
 
@@ -187,46 +196,33 @@ id="dissolution">
 m = C × V × M
 </div>
 
-<br><br>
+<br>
 
 <label>C (mol/L)</label>
-<input id="c-nacl" type="number" value="0.10" step="0.01">
+<input
+    id="c-dissolution"
+    type="number"
+    value="0.10"
+    step="0.01"
+>
 
 <label>V (mL)</label>
-<input id="v-nacl" type="number" value="100">
+<input
+    id="v-dissolution"
+    type="number"
+    value="100"
+>
 
 <label>M (g/mol)</label>
-<input id="m-nacl" type="number" value="58.5">
+<input
+    id="m-dissolution"
+    type="number"
+    readonly
+>
 
-<div id="res-nacl"
-class="resultat-calcul">
-</div>
-
-</div>
-
-<hr>
-
-<h3>Solution B — CuSO₄·5H₂O</h3>
-
-<div class="calcul-guide">
-
-<div class="formule">
-m = C × V × M
-</div>
-
-<br><br>
-
-<label>C (mol/L)</label>
-<input id="c-cuso4" type="number" value="0.05">
-
-<label>V (mL)</label>
-<input id="v-cuso4" type="number" value="100">
-
-<label>M (g/mol)</label>
-<input id="m-cuso4" type="number" value="249.7">
-
-<div id="res-cuso4"
-class="resultat-calcul">
+<div
+    id="res-dissolution"
+    class="resultat-calcul">
 </div>
 
 </div>
