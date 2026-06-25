@@ -160,10 +160,7 @@ async function loadModule(moduleName){
     try{
 
         const domaine =
-    getCurrentDomain();
-
-      const jsPath =
-          `../${domaine}/js/${moduleName}.js`;
+            getCurrentDomain();
 
         setActiveButton(
             moduleName
@@ -185,6 +182,12 @@ async function loadModule(moduleName){
 
         const jsPath =
         `../${domaine}/js/${moduleName}.js`;
+
+        console.log(
+            "Chargement module :",
+            domaine,
+            moduleName
+        );
 
         console.log(
             "HTML :",
