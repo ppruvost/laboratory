@@ -11,368 +11,169 @@ import glassware from "../../data/glassware.js";
 import laboratoryEquipment from "../../data/equipment.js";
 
 /* ==========================================================
-   INITIALISATION
+   INIT
    ========================================================== */
 
 export function init() {
 
     console.log("Initialisation TP01");
 
-   initTabs();
-   initReactifs();
-   renderSecurite();
-   renderVerrerie();
-   renderEquipements();
-
-   initCalculs();
-
-   initEcarts();
-
+    initTabs();
+    initReactifs();
+    renderSecurite();
+    renderVerrerie();
+    renderEquipements();
+    initCalculs();
+    initEcarts();
 }
 
 /* ==========================================================
-   ONGLETS
+   TABS
    ========================================================== */
 
 function initTabs() {
 
-    document
-        .querySelectorAll(".tabs-container")
-        .forEach(container => {
+    document.querySelectorAll(".tabs-container").forEach(container => {
 
-            const boutons =
-                container.querySelectorAll(".tab-btn");
+        const boutons = container.querySelectorAll(".tab-btn");
 
-            boutons.forEach(btn => {
+        boutons.forEach(btn => {
 
-                btn.addEventListener("click", () => {
+            btn.addEventListener("click", () => {
 
-                    const cible =
-                        btn.dataset.tab;
+                const cible = btn.dataset.tab;
 
-                    boutons.forEach(b =>
-                        b.classList.remove("actif")
-                    );
+                boutons.forEach(b => b.classList.remove("actif"));
 
-                    container
-                        .querySelectorAll(".tab-panel")
-                        .forEach(panel =>
-                            panel.classList.remove("actif")
-                        );
+                container.querySelectorAll(".tab-panel")
+                    .forEach(p => p.classList.remove("actif"));
 
-                    btn.classList.add("actif");
+                btn.classList.add("actif");
 
-                    container
-                        .querySelector("#" + cible)
-                        ?.classList.add("actif");
-
-                });
-
+                container.querySelector("#" + cible)
+                    ?.classList.add("actif");
             });
-
         });
-
+    });
 }
+
+/* ==========================================================
+   REACTIFS
+   ========================================================== */
 
 function initReactifs() {
 
-    const select =
-        document.getElementById("reactif");
+    const selectSec = document.getElementById("reactif");
+    const selectDis = document.getElementById("reactif-dissolution");
 
-    if (!select) return;
+    if (!selectSec || !selectDis) return;
 
-    select.innerHTML =
-        '<option value="">Choisir un réactif</option>';
+    selectSec.innerHTML = '<option value="">-- Sélectionner --</option>';
+    selectDis.innerHTML = '<option value="">-- Sélectionner un sel --</option>';
 
-    products.forEach(produit => {
+    products.forEach(p => {
 
-        const option =
-            document.createElement("option");
+        // sécurité (tous produits)
+        const opt1 = document.createElement("option");
+        opt1.value = p.cas;
+        opt1.textContent = p.nom;
+        selectSec.appendChild(opt1);
 
-        option.value =
-            produit.cas;
-
-        option.textContent =
-            produit.nom;
-
-        select.appendChild(option);
-
+        // dissolution (sels uniquement)
+        if (p.categorie === "Sel") {
+            const opt2 = document.createElement("option");
+            opt2.value = p.nom;
+            opt2.textContent = p.nom;
+            selectDis.appendChild(opt2);
+        }
     });
 
-    select.addEventListener(
-        "change",
-        renderSecurite
-    );
-
+    selectSec.addEventListener("change", renderSecurite);
+    selectDis.addEventListener("change", handleDissolutionSelect);
 }
-                                    
+
 /* ==========================================================
    SECURITE
    ========================================================== */
 
 function renderSecurite() {
 
-    const select =
-        document.getElementById("reactif");
-
-    const zone =
-        document.getElementById("securite-bloc");
+    const select = document.getElementById("reactif");
+    const zone = document.getElementById("securite-bloc");
 
     if (!select || !zone) return;
 
-    const cas =
-        select.value;
-
-    zone.innerHTML = "";
+    const cas = select.value;
 
     if (!cas) {
-
-        zone.innerHTML = `
-            <div class="info">
-                Sélectionner un réactif.
-            </div>
-        `;
-
+        zone.innerHTML = `<div class="info">Sélectionner un réactif.</div>`;
         return;
     }
 
-    const produit =
-        products.find(
-            p => p.cas === cas
-        );
+    const produit = products.find(p => p.cas === cas);
 
     if (!produit) {
-
-        zone.innerHTML = `
-            <div class="erreur">
-                Produit introuvable.
-            </div>
-        `;
-
+        zone.innerHTML = `<div class="erreur">Produit introuvable.</div>`;
         return;
     }
 
     let html = `
         <div class="produit-securite">
-
-            <h3>${produit.nom}</h3>
-
-            <p>
-                <strong>Formule :</strong>
-                ${produit.formule || "-"}
-            </p>
+        <h3>${produit.nom}</h3>
+        <p><strong>Formule :</strong> ${produit.formule || "-"}</p>
+        <div class="pictos-clp">
     `;
 
-/* =====================================
-   PICTOGRAMMES CLP
-   ===================================== */
+    const deja = new Set();
 
-html += `
-    <div class="pictos-clp">
-`;
+    (produit.dangers || []).forEach(code => {
 
-const dejaAjoutes = new Set();
+        const p = pictogrammes.find(x => x.code === code);
 
-(produit.dangers || []).forEach(code => {
+        if (p?.image && !deja.has(p.image)) {
+            deja.add(p.image);
 
-    const entree =
-        pictogrammes.find(
-            p => p.code === code
-        );
-
-    const picto =
-        entree?.image;
-
-    if (
-        picto &&
-        !dejaAjoutes.has(picto)
-    ) {
-
-        dejaAjoutes.add(picto);
-
-        html += `
-            <img
-                src="../../assets/picto/${picto}"
-                alt="${code}"
-                title="${code}"
-                class="picto-clp">
-        `;
-    }
-
-});
-
-html += `
-    </div>
-`;
-
-    /* =====================================
-       EPI
-       ===================================== */
-
-    if (
-        produit.obligation &&
-        produit.obligation.length
-    ) {
-
-        html += `
-            <div class="epi-bloc">
-
-                <h4>EPI obligatoires</h4>
-
-                <p>
-                    ${produit.obligation.join(" • ")}
-                </p>
-
-            </div>
-        `;
-    }
-
-/* =====================================
-   MENTIONS H
-   ===================================== */
-
-const mentionsH =
-    [...new Set(
-        (produit.dangers || [])
-            .filter(code =>
-                typeof code === "string" &&
-                code.startsWith("H")
-            )
-    )];
-
-if (mentionsH.length) {
-
-    html += `
-        <div class="danger-bloc">
-
-            <h4>⚠️ Mentions de danger (H)</h4>
-
-            <ul>
-    `;
-
-    mentionsH.forEach(code => {
-
-        const danger =
-            dangerDB.find(
-                d => d.code === code
-            );
-
-        html += `
-            <li>
-                <strong>${code}</strong>
-                :
-                ${danger?.text || "Description non disponible"}
-            </li>
-        `;
+            html += `
+                <img src="../../assets/picto/${p.image}"
+                class="picto-clp"
+                alt="${code}">
+            `;
+        }
     });
 
-    html += `
-            </ul>
+    html += `</div>`;
 
-        </div>
-    `;
+    if (produit.obligation?.length) {
+        html += `<div class="epi-bloc">
+        <h4>EPI</h4>
+        <p>${produit.obligation.join(" • ")}</p>
+        </div>`;
+    }
+
+    html += `</div>`;
+
+    zone.innerHTML = html;
 }
 
-/* =====================================
-   MENTIONS P
-   ===================================== */
-
-const mentionsP =
-    [...new Set(
-        (produit.prevention || [])
-            .filter(code =>
-                typeof code === "string" &&
-                code.startsWith("P")
-            )
-    )];
-
-if (mentionsP.length) {
-
-    html += `
-        <div class="prevention-bloc">
-
-            <h4>🛡️ Conseils de prudence (P)</h4>
-
-            <ul>
-    `;
-
-    mentionsP.forEach(code => {
-
-        const prevention =
-            dangerDB.find(
-                d => d.code === code
-            );
-
-        html += `
-            <li>
-                <strong>${code}</strong>
-                :
-                ${prevention?.text || "Description non disponible"}
-            </li>
-        `;
-    });
-
-    html += `
-            </ul>
-
-        </div>
-    `;
-}
-
-/* =====================================
-   FIN FICHE SECURITE
-   ===================================== */
-
-html += `
-    </div>
-`;
-
-zone.innerHTML = html;
-
-}
 /* ==========================================================
    VERRERIE
    ========================================================== */
 
 function renderVerrerie() {
 
-    const zone =
-        document.getElementById(
-            "materiel-verrerie"
-        );
-
+    const zone = document.getElementById("materiel-verrerie");
     if (!zone) return;
 
-    const liste = [
-        "Bécher",
-        "Fiole jaugée",
-        "Éprouvette graduée"
-    ];
+    const liste = ["Bécher", "Fiole jaugée", "Éprouvette graduée"];
 
-    const selection =
-        glassware.filter(v =>
-            liste.includes(v.nom)
-        );
-
-    zone.innerHTML =
-        selection.map(v => `
-
-        <div class="item-materiel">
-
-            <div>
-
-                <strong>${v.nom}</strong>
-
-                <br>
-
+    zone.innerHTML = glassware
+        .filter(v => liste.includes(v.nom))
+        .map(v => `
+            <div class="item-materiel">
+                <strong>${v.nom}</strong><br>
                 ${v.contenance_ml} mL
-
             </div>
-
-        </div>
-
-    `).join("");
-
+        `).join("");
 }
 
 /* ==========================================================
@@ -381,44 +182,22 @@ function renderVerrerie() {
 
 function renderEquipements() {
 
-    const zone =
-        document.getElementById(
-            "materiel-equipements"
-        );
-
+    const zone = document.getElementById("materiel-equipements");
     if (!zone) return;
 
-    const selection =
-        laboratoryEquipment.filter(
-            e => e.domaine === "Chimie"
-        );
-
-    zone.innerHTML =
-        selection.map(eq => `
-
-        <div class="item-materiel">
-
-            <div>
-
-                <strong>${eq.nom}</strong>
-
-                <br>
-
-                ${eq.description}
-
+    zone.innerHTML = laboratoryEquipment
+        .filter(e => e.domaine === "Chimie")
+        .map(e => `
+            <div class="item-materiel">
+                <strong>${e.nom}</strong><br>
+                ${e.description}
             </div>
-
-        </div>
-
-    `).join("");
-
+        `).join("");
 }
-
 
 /* ==========================================================
    PUBCHEM
    ========================================================== */
-
 
 async function recupererInfosMolecule(nom) {
 
@@ -427,408 +206,115 @@ async function recupererInfosMolecule(nom) {
         const url =
             `https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/${encodeURIComponent(nom)}/property/MolecularFormula,MolecularWeight/JSON`;
 
-        const response =
-            await fetch(url);
+        const res = await fetch(url);
+        if (!res.ok) throw new Error();
 
-        if (!response.ok)
-            throw new Error();
-
-        const data =
-            await response.json();
-
-        const props =
-            data.PropertyTable.Properties[0];
+        const data = await res.json();
+        const p = data.PropertyTable.Properties[0];
 
         return {
-            formule:
-                props.MolecularFormula,
-            masse:
-                Number(
-                    props.MolecularWeight
-                )
+            formule: p.MolecularFormula,
+            masse: Number(p.MolecularWeight)
         };
 
-    } catch (error) {
-
-        console.warn(
-            "PubChem indisponible"
-        );
-
+    } catch {
         return null;
     }
 }
 
-const selectSel =
-    document.getElementById(
-        "reactif-dissolution"
-    );
+/* ==========================================================
+   DISSOLUTION
+   ========================================================== */
 
-selectSel.addEventListener(
-    "change",
-    async () => {
+async function handleDissolutionSelect(e) {
 
-        const produit =
-            products.find(
-                p => p.nom === selectSel.value
-            );
+    const produit = products.find(p => p.nom === e.target.value);
+    if (!produit) return;
 
-        if (!produit)
-            return;
+    const infos = await recupererInfosMolecule(produit.nom);
+    if (!infos) return;
 
-        const infos =
-            await recupererInfosMolecule(
-                produit.formule ||
-                produit.nom
-            );
+    document.getElementById("nom-reactif").textContent = produit.nom;
+    document.getElementById("formule-dissolution").textContent = infos.formule;
+    document.getElementById("masse-dissolution").textContent = infos.masse.toFixed(2);
+    document.getElementById("m-dissolution").value = infos.masse.toFixed(2);
 
-        if (!infos)
-            return;
-
-        document.getElementById(
-            "formule-dissolution"
-        ).textContent =
-            infos.formule;
-
-        document.getElementById(
-            "masse-dissolution"
-        ).textContent =
-            infos.masse.toFixed(2);
-
-        document.getElementById(
-            "m-dissolution"
-        ).value =
-            infos.masse.toFixed(2);
-
-        document.getElementById(
-            "nom-sel-table"
-        ).textContent =
-            infos.formule;
-
-        calculDissolution();
-
-    }
-);
-
-const selectSel =
-    document.getElementById(
-        "reactif-dissolution"
-    );
-
-products
-    .filter(
-        p =>
-        p.categorie === "Sel"
-    )
-    .forEach(sel => {
-
-        const option =
-            document.createElement(
-                "option"
-            );
-
-        option.value =
-            sel.nom;
-
-        option.textContent =
-            sel.nom;
-
-        selectSel.appendChild(
-            option
-        );
-
-    });
+    calculDissolution();
+}
 
 function calculDissolution() {
 
-    const C =
-        parseFloat(
-            document.getElementById(
-                "c-dissolution"
-            ).value
-        ) || 0;
+    const C = parseFloat(document.getElementById("c-dissolution").value) || 0;
+    const V = parseFloat(document.getElementById("v-dissolution").value) || 0;
+    const M = parseFloat(document.getElementById("m-dissolution").value) || 0;
 
-    const V =
-        parseFloat(
-            document.getElementById(
-                "v-dissolution"
-            ).value
-        ) || 0;
+    const m = C * (V / 1000) * M;
 
-    const M =
-        parseFloat(
-            document.getElementById(
-                "m-dissolution"
-            ).value
-        ) || 0;
+    document.getElementById("res-dissolution").innerHTML =
+        `<strong>Masse : ${m.toFixed(2)} g</strong>`;
 
-    const masse =
-        C *
-        (V / 1000) *
-        M;
-
-    document.getElementById(
-        "res-dissolution"
-    ).innerHTML =
-        `<strong>Masse à peser : ${masse.toFixed(2)} g</strong>`;
+    document.getElementById("table-masse-dissolution").textContent = m.toFixed(2);
+    document.getElementById("table-calc-dissolution").textContent = C.toFixed(2);
+    document.getElementById("table-volume-dissolution").textContent = V;
 }
+
 /* ==========================================================
-   CALCULS
+   DILUTION
    ========================================================== */
 
 function initCalculs() {
 
-    [
-        "c-nacl",
-        "v-nacl",
-        "m-nacl",
+    ["c-dissolution", "v-dissolution", "c1-hcl", "c2-hcl", "v2-hcl"]
+        .forEach(id => {
 
-        "c-cuso4",
-        "v-cuso4",
-        "m-cuso4",
+            document.getElementById(id)?.addEventListener("input", () => {
+                calculDissolution();
+                calculHCl();
+            });
+        });
 
-        "c1-hcl",
-        "c2-hcl",
-        "v2-hcl"
-
-    ].forEach(id => {
-
-        document
-            .getElementById(id)
-            ?.addEventListener(
-                "input",
-                recalculer
-            );
-
-    });
-
-    recalculer();
-
-}
-
-function recalculer() {
-
-    calculNaCl();
-
-    calculCuSO4();
-
+    calculDissolution();
     calculHCl();
-
 }
-
-/* ==========================================================
-   NACL
-   ========================================================== */
-
-function calculNaCl() {
-
-    const c =
-        parseFloat(
-            document.getElementById(
-                "c-nacl"
-            ).value
-        );
-
-    const v =
-        parseFloat(
-            document.getElementById(
-                "v-nacl"
-            ).value
-        ) / 1000;
-
-    const M =
-        parseFloat(
-            document.getElementById(
-                "m-nacl"
-            ).value
-        );
-
-    const masse =
-        c * v * M;
-
-    document.getElementById(
-        "res-nacl"
-    ).innerHTML = `
-        Masse à peser :
-        <strong>
-        ${masse.toFixed(3)} g
-        </strong>
-    `;
-
-    document.getElementById(
-        "table-masse-nacl"
-    ).textContent =
-        masse.toFixed(3);
-
-    document.getElementById(
-        "table-calc-nacl"
-    ).textContent =
-        c.toFixed(3);
-
-}
-
-/* ==========================================================
-   CUSO4
-   ========================================================== */
-
-function calculCuSO4() {
-
-    const c =
-        parseFloat(
-            document.getElementById(
-                "c-cuso4"
-            ).value
-        );
-
-    const v =
-        parseFloat(
-            document.getElementById(
-                "v-cuso4"
-            ).value
-        ) / 1000;
-
-    const M =
-        parseFloat(
-            document.getElementById(
-                "m-cuso4"
-            ).value
-        );
-
-    const masse =
-        c * v * M;
-
-    document.getElementById(
-        "res-cuso4"
-    ).innerHTML = `
-        Masse à peser :
-        <strong>
-        ${masse.toFixed(3)} g
-        </strong>
-    `;
-
-    document.getElementById(
-        "table-masse-cuso4"
-    ).textContent =
-        masse.toFixed(3);
-
-    document.getElementById(
-        "table-calc-cuso4"
-    ).textContent =
-        c.toFixed(3);
-
-}
-
-/* ==========================================================
-   HCL
-   ========================================================== */
 
 function calculHCl() {
 
-    const c1 =
-        parseFloat(
-            document.getElementById(
-                "c1-hcl"
-            ).value
-        );
+    const c1 = parseFloat(document.getElementById("c1-hcl").value);
+    const c2 = parseFloat(document.getElementById("c2-hcl").value);
+    const v2 = parseFloat(document.getElementById("v2-hcl").value);
 
-    const c2 =
-        parseFloat(
-            document.getElementById(
-                "c2-hcl"
-            ).value
-        );
+    const v1 = (c2 * v2) / c1;
 
-    const v2 =
-        parseFloat(
-            document.getElementById(
-                "v2-hcl"
-            ).value
-        );
-
-    const v1 =
-        (c2 * v2) / c1;
-
-    document.getElementById(
-        "res-hcl"
-    ).innerHTML = `
-        Prélever
-        <strong>
-        ${v1.toFixed(2)} mL
-        </strong>
-        de solution mère.
-    `;
-
-    document.getElementById(
-        "table-calc-hcl"
-    ).textContent =
-        c2.toFixed(3);
-
+    document.getElementById("res-hcl").innerHTML =
+        `Prélever <strong>${v1.toFixed(2)} mL</strong>`;
 }
 
 /* ==========================================================
-   ECARTS %
+   ECARTS
    ========================================================== */
 
 function initEcarts() {
 
-    document
-        .querySelectorAll(".c-exp")
-        .forEach(input => {
-
-            input.addEventListener(
-                "input",
-                majEcarts
-            );
-
-        });
-
+    document.querySelectorAll(".c-exp").forEach(input => {
+        input.addEventListener("input", majEcarts);
+    });
 }
 
 function majEcarts() {
 
-    document
-        .querySelectorAll(
-            ".tableau-resultats tbody tr"
-        )
-        .forEach(ligne => {
+    document.querySelectorAll(".tableau-resultats tbody tr")
+        .forEach(tr => {
 
-            const theo =
-                parseFloat(
-                    ligne.dataset.theo
-                );
+            const theo = parseFloat(tr.dataset.theo);
+            const exp = parseFloat(tr.querySelector(".c-exp").value);
+            const cell = tr.querySelector(".ecart");
 
-            const cExp =
-                parseFloat(
-                    ligne.querySelector(
-                        ".c-exp"
-                    ).value
-                );
-
-            const cellule =
-                ligne.querySelector(
-                    ".ecart"
-                );
-
-            if (
-                isNaN(theo) ||
-                isNaN(cExp)
-            ) {
-
-                cellule.textContent = "";
-
+            if (isNaN(theo) || isNaN(exp)) {
+                cell.textContent = "";
                 return;
             }
 
-            const ecart =
-
-                Math.abs(
-                    (cExp - theo)
-                    / theo
-                ) * 100;
-
-            cellule.textContent =
-                ecart.toFixed(2)
-                + " %";
-
+            const ecart = Math.abs((exp - theo) / theo) * 100;
+            cell.textContent = ecart.toFixed(2) + " %";
         });
-
 }
