@@ -414,6 +414,163 @@ function renderEquipements() {
 
 }
 
+
+/* ==========================================================
+   PUBCHEM
+   ========================================================== */
+
+
+async function recupererInfosMolecule(nom) {
+
+    try {
+
+        const url =
+            `https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/${encodeURIComponent(nom)}/property/MolecularFormula,MolecularWeight/JSON`;
+
+        const response =
+            await fetch(url);
+
+        if (!response.ok)
+            throw new Error();
+
+        const data =
+            await response.json();
+
+        const props =
+            data.PropertyTable.Properties[0];
+
+        return {
+            formule:
+                props.MolecularFormula,
+            masse:
+                Number(
+                    props.MolecularWeight
+                )
+        };
+
+    } catch (error) {
+
+        console.warn(
+            "PubChem indisponible"
+        );
+
+        return null;
+    }
+}
+
+const selectSel =
+    document.getElementById(
+        "reactif-dissolution"
+    );
+
+selectSel.addEventListener(
+    "change",
+    async () => {
+
+        const produit =
+            products.find(
+                p => p.nom === selectSel.value
+            );
+
+        if (!produit)
+            return;
+
+        const infos =
+            await recupererInfosMolecule(
+                produit.formule ||
+                produit.nom
+            );
+
+        if (!infos)
+            return;
+
+        document.getElementById(
+            "formule-dissolution"
+        ).textContent =
+            infos.formule;
+
+        document.getElementById(
+            "masse-dissolution"
+        ).textContent =
+            infos.masse.toFixed(2);
+
+        document.getElementById(
+            "m-dissolution"
+        ).value =
+            infos.masse.toFixed(2);
+
+        document.getElementById(
+            "nom-sel-table"
+        ).textContent =
+            infos.formule;
+
+        calculDissolution();
+
+    }
+);
+
+const selectSel =
+    document.getElementById(
+        "reactif-dissolution"
+    );
+
+products
+    .filter(
+        p =>
+        p.categorie === "Sel"
+    )
+    .forEach(sel => {
+
+        const option =
+            document.createElement(
+                "option"
+            );
+
+        option.value =
+            sel.nom;
+
+        option.textContent =
+            sel.nom;
+
+        selectSel.appendChild(
+            option
+        );
+
+    });
+
+function calculDissolution() {
+
+    const C =
+        parseFloat(
+            document.getElementById(
+                "c-dissolution"
+            ).value
+        ) || 0;
+
+    const V =
+        parseFloat(
+            document.getElementById(
+                "v-dissolution"
+            ).value
+        ) || 0;
+
+    const M =
+        parseFloat(
+            document.getElementById(
+                "m-dissolution"
+            ).value
+        ) || 0;
+
+    const masse =
+        C *
+        (V / 1000) *
+        M;
+
+    document.getElementById(
+        "res-dissolution"
+    ).innerHTML =
+        `<strong>Masse à peser : ${masse.toFixed(2)} g</strong>`;
+}
 /* ==========================================================
    CALCULS
    ========================================================== */
