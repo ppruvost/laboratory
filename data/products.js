@@ -257,7 +257,8 @@
   obligation: ["GANTS", "BLOUSE"],
   image: "bleu_bromothymol.jpg",
   fds: "bleu_bromothymol.pdf",
-  dangers: ["H315", "H319"]
+  dangers: ["H315", "H319"],
+  prevention: []
   },
   {
   cas: "61-73-4",
@@ -269,7 +270,8 @@
   obligation: ["GANTS", "BLOUSE"],
   image: "bleu_methylene.jpg",
   fds: "bleu_methylene.pdf",
-  dangers: ["H302", "P264", "P270", "P301+P312", "P330", "P501"]
+  dangers: ["H302"],
+  prevention: ["P264", "P270", "P301+P312", "P330", "P501"]
   },  
     {
     cas: "471-34-1",
@@ -281,19 +283,21 @@
     obligation: ["GANTS", "BLOUSE"],
     image: "carbonate_calcium.jpg",
     fds: "FDS_SOF_CARB.pdf",
-    dangers: []
+    dangers: [],
+    prevention: []
   },
     {
-    "cas": "10043-52-4",
-    "nom": "calcium chlorure anhydre pur",
-    "formule": "CaCl₂",
-    "categorie": "Sel minéral hygroscopique",
-    "localisation": "Salle B27 / étagère D2",
-    "pictogramme": ["SGH07_PointExclamation.jpg"],
-    "obligation": ["LUNETTES", "GANTS", "BLOUSE"],
-    "image": "calcium_chlorure.jpg",
-    "fds": "FicheTox_CaCl2.pdf",
-    "dangers": ["H319", "P264", "P280", "P305+P351+P338", "P337+P313"]
+    cas: "10043-52-4",
+    nom: "calcium chlorure anhydre pur",
+    formule: "CaCl₂",
+    categorie: "Sel minéral hygroscopique",
+    localisation: "Salle B27 / étagère D2",
+    pictogramme: ["SGH07_PointExclamation.jpg"],
+    obligation: ["LUNETTES", "GANTS", "BLOUSE"],
+    image: "calcium_chlorure.jpg",
+    fds: "FicheTox_CaCl2.pdf",
+    dangers: ["H319"],
+    prevention: ["P264", "P280", "P305+P351+P338", "P337+P313"]
   }, 
   {
     "cas": "7440-70-2",
