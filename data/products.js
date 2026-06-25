@@ -404,16 +404,17 @@
     prevention: ["P264", "P270", "P273", "P280", "P301+P312"]
   },
   {
-    "cas": "75-09-2",
-    "nom": "dichlorométhane (méthylène chlorure)",
-    "formule": "CH₂Cl₂",
-    "categorie": "Solvant chloré",
-    "localisation": "Salle B27 / étagère B1",
-    "pictogramme": ["SGH07_PointExclamation.jpg", "SGH08_DangerSante.jpg"],
-    "obligation": ["GANTS", "BLOUSE", "HOTTE"],
-    "image": "dichloromethane.jpg",
-    "fds": "FicheTox_Dichloromethane.pdf",
-    "dangers": ["H302", "P281"]
+    cas: "75-09-2",
+    nom: "dichlorométhane (méthylène chlorure)",
+    formule: "CH₂Cl₂",
+    categorie: "Solvant chloré",
+    localisation: "Salle B27 / étagère B1",
+    pictogramme: ["SGH07_PointExclamation.jpg", "SGH08_DangerSante.jpg"],
+    obligation: ["GANTS", "BLOUSE", "HOTTE"],
+    image: "dichloromethane.jpg",
+    fds: "FicheTox_Dichloromethane.pdf",
+    dangers: ["H302"],
+    prevention: ["P281"]
   },
   {
   cas: "60-29-7",
@@ -425,7 +426,8 @@
   obligation: ["LUNETTES", "GANTS", "BLOUSE"],
   image: "diethyl_ether.jpg",
   fds: "diethyl_ether.pdf",
-  dangers: ["H224", "H302", "H336", "P210", "P243", "P280", "P304+P340", "P309+P311"]
+  dangers: ["H224", "H302", "H336"],
+  prevention: ["P210", "P243", "P280", "P304+P340", "P309+P311"]
   },
   {
   cas: "1330-43-4",
@@ -437,7 +439,8 @@
   obligation: ["GANTS", "BLOUSE"],  
   image: "borate_anhydre.jpg",
   fds: "",
-  dangers: ["H315", "H319"]
+  dangers: ["H315", "H319"],
+  prevention: []
   },  
   {
   cas: "17372-87-1",
@@ -448,7 +451,8 @@
   pictogramme: ["SGH07_PointExclamation.jpg"],
   image: "eosine.jpg",
   fds: "eosine.pdf",
-  dangers: ["H319"]
+  dangers: ["H319"],
+  prevention: []
   },
   {
   cas: "1787-61-7",
@@ -460,31 +464,34 @@
   obligation: ["LUNETTES", "GANTS", "BLOUSE"],
   image: "eriochrome_black_t.jpg",
   fds: "",
-  dangers: []
+  dangers: [],
+  prevention: []
   },
   {
-    "cas": "7772-99-8",
-    "nom": "étain II chlorure",
-    "formule": "SnCl₂·2H₂O",
-    "categorie": "Sel métallique",
-    "localisation": "Salle B27 / étagère D2",
-    "pictogramme": ["SGH05_Corrosion.jpg", "SGH07_PointExclamation.jpg"],
-    "obligation": ["LUNETTES", "GANTS", "BLOUSE"],
-    "image": "etain_chlorure.jpg",
-    "fds": "FicheTox_SnCl2.pdf",
-    "dangers": ["H302", "H319", "H335", "H315", "P261", "P264", "P270", "P271", "P280"]
+  cas: "7772-99-8",
+  nom: "étain II chlorure",
+  formule: "SnCl₂·2H₂O",
+  categorie: "Sel métallique",
+  localisation: "Salle B27 / étagère D2",
+  pictogramme: ["SGH05_Corrosion.jpg", "SGH07_PointExclamation.jpg"],
+  obligation: ["LUNETTES", "GANTS", "BLOUSE"],
+  image: "etain_chlorure.jpg",
+  fds: "FicheTox_SnCl2.pdf",
+  dangers: ["H302", "H319", "H335", "H315"],
+  prevention: ["P261", "P264", "P270", "P271", "P280"]
   },
   {
-    "cas": "7440-31-5",
-    "nom": "étain en limaille",
-    "formule": "Sn",
-    "categorie": "Métal",
-    "localisation": "Salle B27 / étagère D2",
-    "pictogramme": [],
-    "obligation": ["BLOUSE"],
-    "image": "etain_limaille.jpg",
-    "fds": "FicheTox_Etain.pdf",
-    "dangers": []
+   cas: "7440-31-5",
+   nom: "étain en limaille",
+   formule: "Sn",
+   categorie: "Métal",
+   localisation: "Salle B27 / étagère D2",
+   pictogramme: [],
+   obligation: ["BLOUSE"],
+   image: "etain_limaille.jpg",
+   fds: "FicheTox_Etain.pdf",
+   dangers: [],
+   prevention: []
   },
   {
     cas: "64-17-5",
@@ -496,43 +503,47 @@
     obligation: ["LUNETTES", "GANTS", "BLOUSE"],
     image: "ethanol.jpg",
     fds: "ethanol.pdf",
-    dangers: ["H225", "P210", "P241", "P280", "P240", "P233", "P303+P361+P353", "P403+P235+P501"]
+    dangers: ["H225"],
+    prevention: ["P210", "P241", "P280", "P240", "P233", "P303+P361+P353", "P403+P235+P501"]
   },  
     {
-    "cas": "7758-94-3",
-    "nom": "fer II chlorure tétrahydraté",
-    "formule": "FeCl₂·4H₂O",
-    "categorie": "Sel métallique",
-    "localisation": "Salle B27 / étagère B2",
-    "pictogramme": ["SGH05_Corrosion.jpg", "SGH07_PointExclamation.jpg"],
-    "obligation": ["LUNETTES", "GANTS", "BLOUSE"],
-    "image": "fer_II_chlorure.jpg",
-    "fds": "FicheTox_FeCl2.pdf",
-    "dangers": ["H302", "H315", "H318", "P264", "P270", "P280", "P301+P312", "P302+P352", "P305+P351+P338"]
+    cas: "7758-94-3",
+    nom: "fer II chlorure tétrahydraté",
+    formule: "FeCl₂·4H₂O",
+    categorie: "Sel métallique",
+    localisation: "Salle B27 / étagère B2",
+    pictogramme: ["SGH05_Corrosion.jpg", "SGH07_PointExclamation.jpg"],
+    obligation: ["LUNETTES", "GANTS", "BLOUSE"],
+    image: "fer_II_chlorure.jpg",
+    fds: "FicheTox_FeCl2.pdf",
+    dangers: ["H302", "H315", "H318"],
+    prevention: ["P264", "P270", "P280", "P301+P312", "P302+P352", "P305+P351+P338"]
   },   
     {
-    "cas": "10025-77-1",
-    "nom": "fer III chlorure hexahydraté",
-    "formule": "FeCl₃·6H₂O",
-    "categorie": "Sel métallique",
-    "localisation": "Salle B27 / étagère B2",
-    "pictogramme": ["SGH07_PointExclamation.jpg"],
-    "obligation": ["LUNETTES", "GANTS", "BLOUSE"],
-    "image": "fer_III_chlorure_hexahydrate.jpg",
-    "fds": "FicheTox_FeCl3_6H2O.pdf",
-    "dangers": ["H302", "H319", "H315", "P264", "P270", "P280", "P301+P312", "P302+P352"]
+    cas: "10025-77-1",
+    nom: "fer III chlorure hexahydraté",
+    formule: "FeCl₃·6H₂O",
+    categorie: "Sel métallique",
+    localisation: "Salle B27 / étagère B2",
+    pictogramme: ["SGH07_PointExclamation.jpg"],
+    obligation: ["LUNETTES", "GANTS", "BLOUSE"],
+    image: "fer_III_chlorure_hexahydrate.jpg",
+    fds: "FicheTox_FeCl3_6H2O.pdf",
+    dangers: ["H302", "H319", "H315"],
+    prevention: ["P264", "P270", "P280", "P301+P312", "P302+P352"]
   },
     {
-    "cas": "7439-89-6",
-    "nom": "fer limaille",
-    "formule": "Fe",
-    "categorie": "Métal",
-    "localisation": "Salle B27 / étagère B2",
-    "pictogramme": [],
-    "obligation": ["BLOUSE"],
-    "image": "fer_limaille.jpg",
-    "fds": "FicheTox_FerLimaille.pdf",
-    "dangers": []
+    cas: "7439-89-6",
+    nom: "fer limaille",
+    formule: "Fe",
+    categorie: "Métal",
+    localisation: "Salle B27 / étagère B2",
+    pictogramme: [],
+    obligation: ["BLOUSE"],
+    image: "fer_limaille.jpg",
+    fds: "FicheTox_FerLimaille.pdf",
+    dangers: [],
+    prevention: []
   },
       {
     "cas": "1309-37-1",
