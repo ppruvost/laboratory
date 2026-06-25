@@ -231,10 +231,16 @@ html += `
    MENTIONS H
    ===================================== */
 
-if (
-    produit.dangers &&
-    produit.dangers.length
-) {
+const mentionsH =
+    [...new Set(
+        (produit.dangers || [])
+            .filter(code =>
+                typeof code === "string" &&
+                code.startsWith("H")
+            )
+    )];
+
+if (mentionsH.length) {
 
     html += `
         <div class="danger-bloc">
@@ -244,23 +250,20 @@ if (
             <ul>
     `;
 
-    produit.dangers.forEach(code => {
+    mentionsH.forEach(code => {
 
         const danger =
             dangerDB.find(
                 d => d.code === code
             );
 
-        if (danger) {
-
-            html += `
-                <li>
-                    <strong>${code}</strong> :
-                    ${danger.text}
-                </li>
-            `;
-        }
-
+        html += `
+            <li>
+                <strong>${code}</strong>
+                :
+                ${danger?.text || "Description non disponible"}
+            </li>
+        `;
     });
 
     html += `
@@ -274,10 +277,16 @@ if (
    MENTIONS P
    ===================================== */
 
-if (
-    produit.prevention &&
-    produit.prevention.length
-) {
+const mentionsP =
+    [...new Set(
+        (produit.prevention || [])
+            .filter(code =>
+                typeof code === "string" &&
+                code.startsWith("P")
+            )
+    )];
+
+if (mentionsP.length) {
 
     html += `
         <div class="prevention-bloc">
@@ -287,23 +296,20 @@ if (
             <ul>
     `;
 
-    produit.prevention.forEach(code => {
+    mentionsP.forEach(code => {
 
         const prevention =
             dangerDB.find(
                 d => d.code === code
             );
 
-        if (prevention) {
-
-            html += `
-                <li>
-                    <strong>${code}</strong> :
-                    ${prevention.text}
-                </li>
-            `;
-        }
-
+        html += `
+            <li>
+                <strong>${code}</strong>
+                :
+                ${prevention?.text || "Description non disponible"}
+            </li>
+        `;
     });
 
     html += `
@@ -313,11 +319,15 @@ if (
     `;
 }
 
-    html += `
-        </div>
-    `;
+/* =====================================
+   FIN FICHE SECURITE
+   ===================================== */
 
-    zone.innerHTML = html;
+html += `
+    </div>
+`;
+
+zone.innerHTML = html;
 
 }
 /* ==========================================================
