@@ -113,7 +113,8 @@
   obligation:["GANTS", "BLOUSE"],
   image: "alcool_polyvinylique.jpg",
   fds: "",
-  dangers: ["Produit généralement non classé dangereux selon le règlement CLP", "Peut provoquer une légère irritation mécanique des yeux ou des voies respiratoires sous forme de poussières"]
+  dangers: ["H319", "H335"],
+  prevention: ["P280", "P305+P351+P338", "P337+P313"]
   },
   {
   "cas": "7429-90-5",
