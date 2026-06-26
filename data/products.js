@@ -933,7 +933,7 @@
     image: "potassium_chlorate.jpg",
     fds: "FicheTox_KClO3.pdf",
     dangers: ["H271", "H332", "H302", "H411"],
-    prevention: []"P210", "P220", "P221", "P261", "P264"]
+    prevention: ["P210", "P220", "P221", "P261", "P264"]
   },
     {
     cas: "7447-40-7",
@@ -959,7 +959,7 @@
     image: "potassium_chromate.jpg",
     fds: "FicheTox_K2CrO4.pdf",
     dangers: ["H350", "H340", "H332", "H334", "H317", "H412"],
-    prevention: []"P202", "P261", "P271", "P272", "P272"]
+    prevention: ["P202", "P261", "P271", "P272", "P272"]
   },
     {
      cas: "13746-66-2",
@@ -972,7 +972,7 @@
      image: "potassium_ferricyanure.jpg",
      fds: "FicheTox_K3FeCN6.pdf",
      dangers: ["H302", "H319", "EUH032"],
-     prevention: []"P264", "P270"]
+     prevention: ["P264", "P270"]
   },
     {
     cas: "13943-58-3",
