@@ -690,3 +690,104 @@ function initCalculs(){
 
 }
 
+/* ==========================================================
+   TABLEAU DES RESULTATS
+   ========================================================== */
+
+function initEcarts(){
+
+    const lignes=document.querySelectorAll(
+        ".tableau-resultats tbody tr"
+    );
+
+    if(!lignes.length)
+        return;
+
+    lignes.forEach(ligne=>{
+
+        const champ=
+        ligne.querySelector(".c-exp");
+
+        if(!champ)
+            return;
+
+        champ.addEventListener(
+            "input",
+            ()=>calculEcart(ligne)
+        );
+
+        calculEcart(ligne);
+
+    });
+
+}
+
+/* ==========================================================
+   CALCUL ECART
+   ========================================================== */
+
+function calculEcart(ligne){
+
+    const theorique=
+    parseFloat(
+        ligne.dataset.theo
+    );
+
+    const champ=
+    ligne.querySelector(".c-exp");
+
+    const cellule=
+    ligne.querySelector(".ecart");
+
+    if(
+        !champ ||
+        !cellule
+    )
+        return;
+
+    const experimental=
+    parseFloat(champ.value);
+
+    if(
+        isNaN(theorique) ||
+        isNaN(experimental)
+    ){
+
+        cellule.textContent="";
+
+        cellule.className="ecart";
+
+        return;
+
+    }
+
+    const ecart=
+    Math.abs(
+        (experimental-theorique)
+        /theorique
+    )*100;
+
+    cellule.textContent=
+    ecart.toFixed(2)+" %";
+
+    cellule.className="ecart";
+
+    if(ecart<2){
+
+        cellule.classList.add("excellent");
+
+    }
+
+    else if(ecart<5){
+
+        cellule.classList.add("correct");
+
+    }
+
+    else{
+
+        cellule.classList.add("erreur");
+
+    }
+
+}
