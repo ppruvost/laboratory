@@ -791,3 +791,132 @@ function calculEcart(ligne){
     }
 
 }
+
+/* ==========================================================
+   OUTILS
+   ========================================================== */
+
+function nombre(valeur){
+
+    const n=parseFloat(valeur);
+
+    return isNaN(n)
+        ?0
+        :n;
+
+}
+
+/* ---------------------------------------------------------- */
+
+function arrondir(valeur,decimales=2){
+
+    return Number(valeur)
+    .toFixed(decimales);
+
+}
+
+/* ---------------------------------------------------------- */
+
+function viderElement(id){
+
+    const element=$(id);
+
+    if(element){
+
+        element.innerHTML="";
+
+    }
+
+}
+
+/* ---------------------------------------------------------- */
+
+function afficherInfo(id,message){
+
+    const element=$(id);
+
+    if(!element)
+        return;
+
+    element.innerHTML=
+
+    `<div class="info">
+
+    ${message}
+
+    </div>`;
+
+}
+
+/* ---------------------------------------------------------- */
+
+function afficherErreur(id,message){
+
+    const element=$(id);
+
+    if(!element)
+        return;
+
+    element.innerHTML=
+
+    `<div class="erreur">
+
+    ${message}
+
+    </div>`;
+
+}
+
+/* ---------------------------------------------------------- */
+
+function creerOption(valeur,texte){
+
+    const option=
+    document.createElement("option");
+
+    option.value=valeur;
+
+    option.textContent=texte;
+
+    return option;
+
+}
+
+/* ---------------------------------------------------------- */
+
+function chargerImage(image){
+
+    if(!image){
+
+        return
+        "../../assets/images/no-image.png";
+
+    }
+
+    return image;
+
+}
+
+/* ---------------------------------------------------------- */
+
+function formatVolume(volume){
+
+    return volume+" mL";
+
+}
+
+/* ---------------------------------------------------------- */
+
+function formatMasse(masse){
+
+    return masse+" g";
+
+}
+
+/* ---------------------------------------------------------- */
+
+function formatConcentration(c){
+
+    return c+" mol·L⁻¹";
+
+}
