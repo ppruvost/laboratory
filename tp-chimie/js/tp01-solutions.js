@@ -458,61 +458,76 @@ ${item.description ?
 }
 
 /* ==========================================================
-   PUBCHEM
+   PUBCHEM, CHEMSPIDER, CHEMIDPLUS
    ========================================================== */
 
-async function getMoleculeInfo(nom){
+async function getMoleculeInfo(nom) {
+    // 1. Essayer PubChem
+    try {
+        const url = `https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/${encodeURIComponent(nom)}/property/MolecularFormula,MolecularWeight/JSON`;
+        const reponse = await fetch(url);
 
-    try{
-
-        const url=
-        `https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/${encodeURIComponent(nom)}/property/MolecularFormula,MolecularWeight/JSON`;
-
-        const reponse=await fetch(url);
-
-        if(!reponse.ok)
-            return null;
-
-        const json=await reponse.json();
-
-        if(
-            !json.PropertyTable ||
-            !json.PropertyTable.Properties ||
-            !json.PropertyTable.Properties.length
-        ){
-            return null;
+        if (reponse.ok) {
+            const json = await reponse.json();
+            if (json.PropertyTable?.Properties?.length) {
+                const molecule = json.PropertyTable.Properties[0];
+                return {
+                    formule: molecule.MolecularFormula,
+                    masseMolaire: Number(molecule.MolecularWeight),
+                    source: "PubChem"
+                };
+            }
         }
-
-        const molecule=
-        json.PropertyTable.Properties[0];
-
-        return{
-
-            formule:
-            molecule.MolecularFormula,
-
-            masseMolaire:
-            Number(
-                molecule.MolecularWeight
-            )
-
-        };
-
+    } catch (erreur) {
+        console.error("Erreur PubChem :", erreur);
     }
 
-    catch(erreur){
+    // 2. Essayer ChemSpider
+    try {
+        const url = `https://api.rsc.org/compounds/name/${encodeURIComponent(nom)}`;
+        const reponse = await fetch(url, {
+            headers: {
+                "Accept": "application/json"
+            }
+        });
 
-        console.error(
-            "Erreur PubChem",
-            erreur
-        );
-
-        return null;
-
+        if (reponse.ok) {
+            const json = await reponse.json();
+            if (json.compounds && json.compounds.length > 0) {
+                const molecule = json.compounds[0];
+                return {
+                    formule: molecule.molecularFormula,
+                    masseMolaire: Number(molecule.molecularWeight),
+                    source: "ChemSpider"
+                };
+            }
+        }
+    } catch (erreur) {
+        console.error("Erreur ChemSpider :", erreur);
     }
 
+    // 3. Essayer ChemIDplus (NIH)
+    try {
+        const url = `https://chem.nlm.nih.gov/chemidplus/rest/name/${encodeURIComponent(nom)}/json`;
+        const reponse = await fetch(url);
+
+        if (reponse.ok) {
+            const json = await reponse.json();
+            if (json.result && json.result.length > 0) {
+                const molecule = json.result[0];
+                return {
+                    formule: molecule.MolecularFormula,
+                    masseMolaire: Number(molecule.MolecularWeight),
+                    source: "ChemIDplus"
+                };
+            }
+        }
+    } catch (erreur) {
+        console.error("Erreur ChemIDplus :", erreur);
+    }
+
+    return null;
 }
-
 /* ==========================================================
    CHANGEMENT DE REACTIF
    ========================================================== */
