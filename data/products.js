@@ -555,7 +555,8 @@
     obligation: ["BLOUSE"],
     image: "fer_oxyde_III.jpg",
     fds: "FicheTox_Fe2O3.pdf",
-    dangers: []
+    dangers: [],
+    prevention: []
   },
     {
     cas: "7439-89-6",
@@ -567,7 +568,8 @@
     obligation: ["LUNETTES", "BLOUSE"],
     image: "fer_poudre.jpg",
     fds: "FicheTox_FerPoudre.pdf",
-    dangers: ["H228"]
+    dangers: ["H228"],
+    prevention: []
   },
     {
     cas: "7720-78-7",
@@ -579,55 +581,60 @@
     obligation: ["LUNETTES", "GANTS", "BLOUSE"],
     image: "sulfate_fer.jpg",
     fds: "FicheTox_FeSO4.pdf",
-    dangers: ["H302", "H315", "H319", "P264", "P270", "P280", "P301+P312", "P302+P352"]
+    dangers: ["H302", "H315", "H319"],
+    prevention: ["P264", "P270", "P280", "P301+P312", "P302+P352"]
   },    
     {
-    "cas": "15244-10-7",
-    "nom": "fer III sulfate hydraté",
-    "formule": "Fe₂(SO₄)₃·xH₂O",
-    "categorie": "Sel métallique",
-    "localisation": "Salle B27 / étagère D2",
-    "pictogramme": ["SGH07_PointExclamation.jpg"],
-    "obligation": ["LUNETTES", "GANTS", "BLOUSE"],
-    "image": "fer_III_sulfate_hydrate.jpg",
-    "fds": "FicheTox_Fe2SO43_H2O.pdf",
-    "dangers": ["H302", "H319", "H335", "P261", "P305+P351+P338"]
+    cas: "15244-10-7",
+    nom: "fer III sulfate hydraté",
+    formule: "Fe₂(SO₄)₃·xH₂O",
+    categorie: "Sel métallique",
+    localisation: "Salle B27 / étagère D2",
+    pictogramme: ["SGH07_PointExclamation.jpg"],
+    obligation: ["LUNETTES", "GANTS", "BLOUSE"],
+    image: "fer_III_sulfate_hydrate.jpg",
+    fds: "FicheTox_Fe2SO43_H2O.pdf",
+    dangers: ["H302", "H319", "H335"],
+    prevention: ["P261", "P305+P351+P338"]
   },
-      {
-    "cas": "1317-37-9",
-    "nom": "fer II sulfure",
-    "formule": "FeS",
-    "categorie": "Sulfure métallique",
-    "localisation": "Salle B27 / étagère B2",
-    "pictogramme": [],
-    "obligation": ["LUNETTES", "BLOUSE"],
-    "image": "sulfure_fer.jpg",
-    "fds": "FicheTox_FeS.pdf",
-    "dangers": []
-  },
-    {
-    "cas": "2321-07-5",
-    "nom": "fluorescéine (uranine)",
-    "formule": "C₂₀H₁₂O₅",
-    "categorie": "colorant organique",
-    "localisation": "Salle B27 / étagère D2",
-    "pictogramme": [],
-    "obligation": ["BLOUSE"],
-    "image": "fluoresceine.jpg",
-    "fds": "FicheTox_Fluoresceine.pdf",
-    "dangers": []
+   {
+    cas: "1317-37-9",
+    nom: "fer II sulfure",
+    formule: "FeS",
+    categorie: "Sulfure métallique",
+    localisation: "Salle B27 / étagère B2",
+    pictogramme: [],
+    obligation: ["LUNETTES", "BLOUSE"],
+    image: "sulfure_fer.jpg",
+    fds: "FicheTox_FeS.pdf",
+    dangers: [],
+    prevention: []
   },
     {
-    "cas": "56-81-5",
-    "nom": "glycérol (glycérine, propane-1,2,3 triol)",
-    "formule": "C₃H₈O₃",
-    "categorie": "Polyol (alcool trivalent)",
-    "localisation": "Salle B27 / étagère D2",
-    "pictogramme": [],
-    "obligation": ["BLOUSE"],
-    "image": "glycerol.jpg",
-    "fds": "FicheTox_Glycerol.pdf",
-    "dangers": []
+    cas: "2321-07-5",
+    nom: "fluorescéine (uranine)",
+    formule: "C₂₀H₁₂O₅",
+    categorie: "colorant organique",
+    localisation: "Salle B27 / étagère D2",
+    pictogramme: [],
+    obligation: ["BLOUSE"],
+    image: "fluoresceine.jpg",
+    fds: "FicheTox_Fluoresceine.pdf",
+    dangers: [],
+    prevention: []
+  },
+    {
+    cas: "56-81-5",
+    nom: "glycérol (glycérine, propane-1,2,3 triol)",
+    formule: "C₃H₈O₃",
+    categorie: "Polyol (alcool trivalent)",
+    localisation: "Salle B27 / étagère D2",
+    pictogramme: [],
+    obligation: ["BLOUSE"],
+    image: "glycerol.jpg",
+    fds: "FicheTox_Glycerol.pdf",
+    dangers: [],
+    prevention: []
   },
   {
     cas: "547-58-0",
@@ -639,19 +646,21 @@
     obligation: ["LUNETTES", "GANTS", "BLOUSE"],
     image: "helianthine.jpg",
     fds: "FDS_Helianthine.pdf",
-    dangers: ["H301"]
+    dangers: ["H301"],
+    prevention: []
 },
   {
-    "cas": "124-09-4",
-    "nom": "hexaméthylène diamine ( hexane 1,6-diamine)",
-    "formule": "C₆H₁₆N₂",
-    "categorie": "Diamine aliphatique",
-    "localisation": "Salle B27 / étagère B2",
-    "pictogramme": ["SGH05_Corrosion.jpg", "SGH07_PointExclamation.jpg"],
-    "obligation": ["LUNETTES", "GANTS", "BLOUSE", "HOTTE"],
-    "image": "hexane_diamine.jpg",
-    "fds": "FicheTox_HexaneDiamine.pdf",
-    "dangers": ["H312", "H302", "H314", "H335", "P260", "P261", "P264", "P270", "P271", "P280"]
+    cas: "124-09-4",
+    nom: "hexaméthylène diamine ( hexane 1,6-diamine)",
+    formule: "C₆H₁₆N₂",
+    categorie: "Diamine aliphatique",
+    localisation: "Salle B27 / étagère B2",
+    pictogramme: ["SGH05_Corrosion.jpg", "SGH07_PointExclamation.jpg"],
+    obligation: ["LUNETTES", "GANTS", "BLOUSE", "HOTTE"],
+    image: "hexane_diamine.jpg",
+    fds: "FicheTox_HexaneDiamine.pdf",
+    dangers: ["H312", "H302", "H314", "H335"],
+    prevention: ["P260", "P261", "P264", "P270", "P271", "P280"]
   },
   {
   cas: "7722-84-1",
@@ -663,19 +672,21 @@
   obligation: ["LUNETTES", "GANTS", "BLOUSE"],
   image: "hydrogene_peroxyde.jpg",
   fds: "hydrogene_peroxyde.pdf",
-  dangers: ["H302", "H318", "P264", "P270", "P280", "P301+P312", "P305+P351+P338", "P310"]
+  dangers: ["H302", "H318"],
+  prevention: ["P264", "P270", "P280", "P301+P312", "P305+P351+P338", "P310"]
   },  
     {
-    "cas": "7553-56-2",
-    "nom": "iode",
-    "formule": "I₂",
-    "categorie": "Halogène",
-    "localisation": "Salle B27 / étagère D2",
-    "pictogramme": ["SGH09_Environnement.jpg"],
-    "obligation": ["LUNETTES", "GANTS", "BLOUSE", "HOTTE"],
-    "image": "iode.jpg",
-    "fds": "FicheTox_Iode.pdf",
-    "dangers": ["H411", "P273", "P391"]
+    cas: "7553-56-2",
+    nom: "iode",
+    formule: "I₂",
+    categorie: "Halogène",
+    localisation: "Salle B27 / étagère D2",
+    pictogramme: ["SGH09_Environnement.jpg"],
+    obligation: ["LUNETTES", "GANTS", "BLOUSE", "HOTTE"],
+    image: "iode.jpg",
+    fds: "FicheTox_Iode.pdf",
+    dangers: ["H411"],
+    prevention: ["P273", "P391"]
   },
     {
     "cas": "7553-56-2",
