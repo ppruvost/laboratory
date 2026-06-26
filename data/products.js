@@ -1353,4 +1353,73 @@
   }
 ];
 
-export default products;
+// ================================
+// MASSES MOLAIRES ATOMIQUES
+// ================================
+const ATOMIC_MASS = {
+  H: 1.008,
+  C: 12.01,
+  N: 14.01,
+  O: 16.00,
+  Na: 22.99,
+  K: 39.10,
+  Ca: 40.08,
+  Cl: 35.45,
+  S: 32.06,
+  P: 30.97,
+  Fe: 55.85,
+  Cu: 63.55,
+  Zn: 65.38,
+  Al: 26.98,
+  Mg: 24.31,
+  Pb: 207.2,
+  Hg: 200.59,
+  Ag: 107.87,
+  Ba: 137.33,
+  I: 126.90,
+  Sn: 118.71,
+  Ni: 58.69,
+  Mn: 54.94,
+  Cr: 52.00,
+  Br: 79.90
+};
+function parseFormula(formula) {
+  const regex = /([A-Z][a-z]?)(\d*)/g;
+  const counts = {};
+
+  let match;
+  while ((match = regex.exec(formula)) !== null) {
+    const element = match[1];
+    const count = parseInt(match[2] || "1", 10);
+
+    counts[element] = (counts[element] || 0) + count;
+  }
+
+  return counts;
+}
+
+function calculateMolarMass(formula) {
+  const atoms = parseFormula(formula);
+  let mass = 0;
+
+  for (const [element, count] of Object.entries(atoms)) {
+    const atomicMass = ATOMIC_MASS[element];
+
+    if (!atomicMass) {
+      console.warn(`Element inconnu : ${element} dans ${formula}`);
+      continue;
+    }
+
+    mass += atomicMass * count;
+  }
+
+  return Number(mass.toFixed(2));
+}
+const productsWithMolarMass = products.map(p => ({
+  ...p,
+  masseMolaire: p.formule
+    ? calculateMolarMass(p.formule)
+    : null
+}));
+
+export default productsWithMolarMass;
