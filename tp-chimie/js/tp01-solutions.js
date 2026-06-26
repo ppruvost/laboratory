@@ -125,26 +125,6 @@ function afficherMessage(id,message){
 
 }
 
-/* ==========================================================
-   INITIALISATION MATERIEL
-   ========================================================== */
-
-function initMateriel(){
-
-    const zone = $("listeMateriel");
-
-    if(!zone) return;
-
-    zone.innerHTML =
-    `
-    <div class="info">
-
-        Chargement du matériel...
-
-    </div>
-    `;
-
-}
 
 /* ==========================================================
    REACTIFS
