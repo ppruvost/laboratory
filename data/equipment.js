@@ -236,6 +236,7 @@ const laboratoryEquipment = [
         nom: "Pipettes et propipettes",
         description: "Transfert précis de liquides",
         lieuStockage: "",
+        categorie: "Dissolution", 
         noticeUtilisation: "assets/notice/pipettes.pdf"
     },
     {
@@ -250,6 +251,7 @@ const laboratoryEquipment = [
         nom: "pH-mètre",
         description: "Mesure du pH des solutions",
         lieuStockage: "",
+        categorie: "Dissolution", 
         noticeUtilisation: "assets/notice/phmetre.pdf"
     },
     {
@@ -264,6 +266,7 @@ const laboratoryEquipment = [
         nom: "Agitateurs magnétiques",
         description: "Agitation des solutions",
         lieuStockage: "",
+        categorie: "Dissolution", 
         noticeUtilisation: "assets/notice/agitateur_magnetique.pdf"
     },
     {
@@ -271,15 +274,9 @@ const laboratoryEquipment = [
         nom: "Chauffe-ballon",
         description: "Chauffage de solutions",
         lieuStockage: "",
+        categorie: "Dissolution", 
         noticeUtilisation: "assets/notice/chauffe_ballon.pdf"
-    },
-    {
-        domaine: "Chimie",
-        nom: "Réactifs chimiques (acides, bases, sels)",
-        description: "Pour expériences de chimie",
-        lieuStockage: "",
-        noticeUtilisation: "assets/notice/reactifs_chimiques.pdf"
-    },
+    },    
     {
         domaine: "Chimie",
         nom: "Indicateurs colorés",
@@ -301,6 +298,7 @@ const laboratoryEquipment = [
         nom: "Thermomètre numérique",
         description: "Mesure de température",
         lieuStockage: "",
+        categorie: "Dissolution", 
         noticeUtilisation: "assets/notice/thermometre.pdf"
     },
     {
