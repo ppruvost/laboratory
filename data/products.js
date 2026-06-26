@@ -766,28 +766,30 @@
     dangers: ["H225", "H315", "H317", "H335"]
   },
   {
-    "cas": "513-35-9",
-    "nom": "méthyl-2 butène-2 (amylène)",
-    "formule": "C₅H₁₀",
-    "categorie": "Hydrocarbure insaturé",
-    "localisation": "Salle B27 / étagère B1",
-    "pictogramme": ["SGH02_Flamme.jpg", "SGH07_PointExclamation.jpg"],
-    "obligation": ["LUNETTES", "GANTS", "BLOUSE"],
-    "image": "methyl2_butene2.jpg",
-    "fds": "FicheTox_Methyl2Butene2.pdf",
-    "dangers": ["H225", "H302", "P210"]
+    cas: "513-35-9",
+    nom: "méthyl-2 butène-2 (amylène)",
+    formule: "C₅H₁₀",
+    categorie: "Hydrocarbure insaturé",
+    localisation: "Salle B27 / étagère B1",
+    pictogramme: ["SGH02_Flamme.jpg", "SGH07_PointExclamation.jpg"],
+    obligation: ["LUNETTES", "GANTS", "BLOUSE"],
+    image: "methyl2_butene2.jpg",
+    fds: "FicheTox_Methyl2Butene2.pdf",
+    dangers: ["H225", "H302"],
+    prevention: ["P210"]
   },
   {
-    "cas": "96-33-3",
-    "nom": "méthyl acrylate (methyl prop-2-enoate)",
-    "formule": "C₄H₆O₂",
-    "categorie": "Ester acrylique (monomère)",
-    "localisation": "Salle B27 / étagère B1",
-    "pictogramme": ["SGH02_Flamme.jpg", "SGH05_Corrosion.jpg", "SGH07_PointExclamation.jpg"],
-    "obligation": ["LUNETTES", "GANTS", "BLOUSE", "HOTTE"],
-    "image": "methyl_acrylate.jpg",
-    "fds": "FicheTox_MethylAcrylate.pdf",
-    "dangers": ["H225", "H315", "H317", "H335", "P210", "P243", "P280", "P302+P352", "P304+P340", "P309+P311"]
+    cas: "96-33-3",
+    nom: "méthyl acrylate (methyl prop-2-enoate)",
+    formule: "C₄H₆O₂",
+    categorie: "Ester acrylique (monomère)",
+    localisation: "Salle B27 / étagère B1",
+    pictogramme: ["SGH02_Flamme.jpg", "SGH05_Corrosion.jpg", "SGH07_PointExclamation.jpg"],
+    obligation: ["LUNETTES", "GANTS", "BLOUSE", "HOTTE"],
+    image: "methyl_acrylate.jpg",
+    fds: "FicheTox_MethylAcrylate.pdf",
+    dangers: ["H225", "H315", "H317", "H335"],
+    prevention: ["P210", "P243", "P280", "P302+P352", "P304+P340", "P309+P311"]
   },
   {
     cas: "91-20-3",
@@ -799,19 +801,21 @@
     obligation: ["LUNETTES", "GANTS", "BLOUSE", "HOTTE"],
     image: "naphtalene.jpg",
     fds: "FicheTox_204.pdf",
-    dangers: ["H302", "H351", "H410", "P202", "P264", "P270", "P273", "P281"],    
+    dangers: ["H302", "H351", "H410"],
+    prevention: ["P202", "P264", "P270", "P273", "P281"],    
   },
   {
-    "cas": "7786-81-4",
-    "nom": "nickel II sulfate",
-    "formule": "NiSO₄·6H₂O",
-    "categorie": "Sel métallique de nickel",
-    "localisation": "Salle B27 / étagère D2",
-    "pictogramme": ["SGH07_PointExclamation.jpg", "SGH08_DangerSante.jpg", "SGH09_Environnement.jpg"],
-    "obligation": ["LUNETTES", "GANTS", "BLOUSE", "HOTTE"],
-    "image": "sulfate_nickel.jpg",
-    "fds": "FicheTox_NiSO4.pdf",
-    "dangers": ["H350", "H360", "H332", "H302", "H315", "H334",  "H317", "H372", "H341", "H410", "P202", "P260", "P264", "P270"]
+    cas: "7786-81-4",
+    nom: "nickel II sulfate",
+    formule: "NiSO₄·6H₂O",
+    categorie: "Sel métallique de nickel",
+    localisation: "Salle B27 / étagère D2",
+    pictogramme: ["SGH07_PointExclamation.jpg", "SGH08_DangerSante.jpg", "SGH09_Environnement.jpg"],
+    obligation: ["LUNETTES", "GANTS", "BLOUSE", "HOTTE"],
+    image: "sulfate_nickel.jpg",
+    fds: "FicheTox_NiSO4.pdf",
+    dangers: ["H350", "H360", "H332", "H302", "H315", "H334",  "H317", "H372", "H341", "H410"],
+    prevention: ["P202", "P260", "P264", "P270"]
   },  
     {
     cas: "77-09-8",
@@ -823,7 +827,8 @@
     obligation: ["GANTS", "BLOUSE", "HOTTE"],
     image: "phenolphtaleine.jpg",
     fds: "FAS33.pdf",
-    dangers: ["H225", "H350", "H341", "P201", "P202", "P210", "P233", "P240"]
+    dangers: ["H225", "H350", "H341"],
+    prevention: ["P201", "P202", "P210", "P233", "P240"]
   },  
     {
     "cas": "7723-14-0",
