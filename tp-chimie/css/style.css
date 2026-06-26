@@ -1,9 +1,3 @@
-/* ════════════════════════════════════════════════════════════════
-   tp-chimie/css/style.css
-   Feuille de styles du domaine Chimie
-   Importe les feuilles globales depuis la racine du projet
-   ════════════════════════════════════════════════════════════════ */
-
 /* ── Tokens globaux + reset ─────────────────────────────────── */
 @import url("../../css/global.css");
 
