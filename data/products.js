@@ -920,7 +920,7 @@
     image: "potassium_bromate.jpg",
     fds: "FicheTox_KBrO3.pdf",
     dangers: ["H271", "H301", "H350"],
-    prevention: []"P201", "P202", "P220", "P221", "P270", "P280"]
+    prevention: ["P201", "P202", "P220", "P221", "P270", "P280"]
   },
   {
     cas: "3811-04-9",
