@@ -4,63 +4,63 @@ const laboratoryEquipment = [
         domaine: "Électricité",
         nom: "Générateur de tension continue (0-30V)",
         description: "Alimentation stabilisée pour circuits électriques",
-        lieuStockage: "",
+        lieu: "Salle B27 / étagère A1",
         noticeUtilisation: "assets/notice/alimentation_continue.pdf"
     },
     {
         domaine: "Électricité",
         nom: "Générateur de tension alternative (0-12V, 50Hz)",
         description: "Alimentation pour circuits alternatifs",
-        lieuStockage: "",
+        lieu: "Salle B27 / étagère A1",
         noticeUtilisation: "assets/notice/alimentation_alternative.pdf"
     },
     {
         domaine: "Électricité",
         nom: "Multimètre numérique",
         description: "Mesure de tension, courant, résistance",
-        lieuStockage: "",
+        lieu: "Salle B27 / étagère A1",
         noticeUtilisation: "assets/notice/multimetre.pdf"
     },
     {
         domaine: "Électricité",
         nom: "Oscilloscope numérique",
         description: "Visualisation de signaux électriques",
-        lieuStockage: "",
+        lieu: "Salle B27 / étagère A1",
         noticeUtilisation: "assets/notice/oscilloscope.pdf"
     },
     {
         domaine: "Électricité",
         nom: "Wattmètre",
         description: "Mesure de puissance électrique",
-        lieuStockage: "",
+        lieu: "Salle B27 / étagère A1",
         noticeUtilisation: "assets/notice/wattmetre.pdf"
     },
     {
         domaine: "Électricité",
         nom: "Transformateur (abaisseur/élévateur)",
         description: "Transformation de tension",
-        lieuStockage: "",
+        lieu: "Salle B27 / étagère A1",
         noticeUtilisation: "assets/notice/transformateur.pdf"
     },
     {
         domaine: "Électricité",
         nom: "Diode et pont de diodes",
         description: "Redressement de courant",
-        lieuStockage: "",
+        lieu: "Salle B27 / étagère A2",
         noticeUtilisation: "assets/notice/diode.pdf"
     },
     {
         domaine: "Électricité",
         nom: "Condensateurs (diverses capacités)",
         description: "Filtrage et stockage d'énergie",
-        lieuStockage: "",
+        lieu: "Salle B27 / étagère A2",
         noticeUtilisation: "assets/notice/condensateur.pdf"
     },
     {
         domaine: "Électricité",
         nom: "Moteur électrique (CC et CA)",
         description: "Conversion énergie électrique/mécanique",
-        lieuStockage: "",
+        lieu: "Salle B23 / étagère B1",
         noticeUtilisation: "assets/notice/moteur_electrique.pdf"
     },
     {
@@ -233,24 +233,33 @@ const laboratoryEquipment = [
     
     {
         domaine: "Chimie",
-        nom: "Pipettes et propipettes",
+        nom: "Pipettes",
         description: "Transfert précis de liquides",
-        lieuStockage: "",
+        lieu: "Salle B27 / étagère E2",
         categorie: "Dissolution", 
         noticeUtilisation: "assets/notice/pipettes.pdf"
     },
     {
         domaine: "Chimie",
+        nom: "Propipettes",
+        description: "Transfert précis de liquides",
+        lieu: "Salle B27 / étagère D4",
+        categorie: "Dissolution", 
+        noticeUtilisation: "assets/notice/propipettes.pdf"
+    },
+    {
+        domaine: "Chimie",
         nom: "Burette",
         description: "Titrage et dosage",
-        lieuStockage: "",
+        lieu: "Salle B27 / étagère E2",
+        categorie: "Dissolution",        
         noticeUtilisation: "assets/notice/burette.pdf"
     },
     {
         domaine: "Chimie",
         nom: "pH-mètre",
         description: "Mesure du pH des solutions",
-        lieuStockage: "",
+        lieu: "Salle B27 / étagère D4",
         categorie: "Dissolution", 
         noticeUtilisation: "assets/notice/phmetre.pdf"
     },
@@ -265,7 +274,7 @@ const laboratoryEquipment = [
         domaine: "Chimie",
         nom: "Agitateurs magnétiques",
         description: "Agitation des solutions",
-        lieuStockage: "",
+        lieu: "Salle B27 / étagère D4",
         categorie: "Dissolution", 
         noticeUtilisation: "assets/notice/agitateur_magnetique.pdf"
     },
@@ -273,7 +282,7 @@ const laboratoryEquipment = [
         domaine: "Chimie",
         nom: "Chauffe-ballon",
         description: "Chauffage de solutions",
-        lieuStockage: "",
+        lieu: "Salle B27 / étagère C1",
         categorie: "Dissolution", 
         noticeUtilisation: "assets/notice/chauffe_ballon.pdf"
     },    
@@ -281,7 +290,7 @@ const laboratoryEquipment = [
         domaine: "Chimie",
         nom: "Indicateurs colorés",
         description: "Repérage des équivalences en titrage",
-        lieuStockage: "",
+        lieu: "Salle B27 / étagère D4",
         noticeUtilisation: "assets/notice/indicateurs_colorés.pdf"
     },
     {
