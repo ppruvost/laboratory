@@ -693,7 +693,7 @@
     nom: "iode bisublimé",
     formule: "I₂",
     categorie: "Halogène",
-    localisation": "Salle B27 / étagère D2",
+    localisation: "Salle B27 / étagère D2",
     pictogramme: ["SGH07_PointExclamation.jpg", "SGH09_Environnement.jpg"],
     obligation: ["LUNETTES", "GANTS", "BLOUSE", "HOTTE"],
     image: "iode_bisublime.jpg",
