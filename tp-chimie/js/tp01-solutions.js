@@ -1,5 +1,6 @@
 /* ==========================================================
    TP01 - PREPARATION DE SOLUTIONS
+   tp-chimie/js/tp01-solutions.js
    ========================================================== */
 
 import products from "../../data/products.js";
@@ -166,17 +167,8 @@ function message(id, texte) {
 }
 
 /* ==========================================================
-   Les fonctions suivantes seront ajoutées
-   dans le bloc 2 :
-
-   initReactifs()
-   afficherSecurite()
-   initMateriel()
-
-   ========================================================== */
-/* ==========================================================
    REACTIFS
-========================================================== */
+   ========================================================== */
 
 function initReactifs() {
 
@@ -229,7 +221,7 @@ function initReactifs() {
 
 /* ==========================================================
    SECURITE
-========================================================== */
+   ========================================================== */
 
 function afficherSecurite() {
 
@@ -260,38 +252,49 @@ function afficherSecurite() {
 
     let html = "";
 
-    html += `<h3>${produit.nom}</h3>`;
+    html += `<h3 style="margin-bottom:.5rem;">${produit.nom}</h3>`;
 
-    html += `<p><strong>Formule :</strong> ${produit.formule}</p>`;
+    html += `<p style="margin-bottom:.5rem;">
+        <strong>Formule :</strong>
+        <span style="font-family:var(--font-code);color:var(--bleu-cuivre);">${produit.formule}</span>
+    </p>`;
 
-    html += `<div class="pictos-clp">`;
-
-    (produit.dangers || []).forEach(code => {
-
-        const picto =
-            pictogrammes.find(
-                p => p.code === code
-            );
-
-        if (picto) {
-
-            html += `
-            <img
-                class="picto-clp"
-                src="../../assets/picto/${picto.image}"
-                alt="${code}"
-                title="${code}">
-            `;
-
-        }
-
-    });
-
-    html += "</div>";
+    /* ---- Pictogrammes ---- */
 
     if (produit.dangers?.length) {
 
-        html += "<h4>Mentions H</h4><ul>";
+        html += `<div class="pictos-clp">`;
+
+        produit.dangers.forEach(code => {
+
+            const picto =
+                pictogrammes.find(
+                    p => p.code === code
+                );
+
+            if (picto) {
+
+                html += `
+                <img
+                    class="picto-clp"
+                    src="../../assets/picto/${picto.image}"
+                    alt="${code}"
+                    title="${code}">
+                `;
+
+            }
+
+        });
+
+        html += `</div>`;
+
+    }
+
+    /* ---- Mentions H ---- */
+
+    if (produit.dangers?.length) {
+
+        html += `<div class="danger-bloc"><h4>⚠️ Mentions de danger (H)</h4><ul>`;
 
         produit.dangers.forEach(code => {
 
@@ -308,7 +311,32 @@ function afficherSecurite() {
 
         });
 
-        html += "</ul>";
+        html += `</ul></div>`;
+
+    }
+
+    /* ---- Mentions P ---- */
+
+    if (produit.prevention?.length) {
+
+        html += `<div class="prevention-bloc"><h4>🛡️ Conseils de prudence (P)</h4><ul>`;
+
+        produit.prevention.forEach(code => {
+
+            const p =
+                dangerDB.find(
+                    d => d.code === code
+                );
+
+            if (p) {
+
+                html += `<li><strong>${code}</strong> : ${p.texte}</li>`;
+
+            }
+
+        });
+
+        html += `</ul></div>`;
 
     }
 
@@ -318,7 +346,7 @@ function afficherSecurite() {
 
 /* ==========================================================
    CHANGEMENT DE REACTIF
-========================================================== */
+   ========================================================== */
 
 function changerReactif() {
 
@@ -330,24 +358,31 @@ function changerReactif() {
             p => p.cas === cas
         );
 
+    /* ---- afficher le bloc info si un sel est sélectionné ---- */
+
+    const infoBloc = $("info-dissolution");
+    if (infoBloc) {
+        infoBloc.style.display = produit ? "block" : "none";
+    }
+
     if (!produit) return;
 
     reactifCourant = produit;
 
-    $("nom-reactif").textContent =
-        produit.nom;
+    if ($("nom-reactif"))
+        $("nom-reactif").textContent = produit.nom;
 
-    $("formule-dissolution").textContent =
-        produit.formule;
+    if ($("formule-dissolution"))
+        $("formule-dissolution").textContent = produit.formule;
 
-    $("masse-dissolution").textContent =
-        arrondir(produit.masseMolaire);
+    if ($("masse-dissolution"))
+        $("masse-dissolution").textContent = arrondir(produit.masseMolaire);
 
-    $("m-dissolution").value =
-        arrondir(produit.masseMolaire);
+    if ($("m-dissolution"))
+        $("m-dissolution").value = arrondir(produit.masseMolaire);
 
-    $("nom-sel-table").textContent =
-        produit.nom;
+    if ($("nom-sel-table"))
+        $("nom-sel-table").textContent = produit.nom;
 
     calculDissolution();
 
@@ -355,7 +390,7 @@ function changerReactif() {
 
 /* ==========================================================
    MATERIEL
-========================================================== */
+   ========================================================== */
 
 function initMateriel() {
 
@@ -375,8 +410,8 @@ function initMateriel() {
 
         verrerie.innerHTML += `
         <div class="carte-materiel">
-            <strong>${v.nom}</strong><br>
-            ${v.contenance_ml ?? ""} mL
+            <strong>${v.nom}</strong>
+            ${v.contenance_ml ? `${v.contenance_ml} mL` : ""}
         </div>
         `;
 
@@ -386,7 +421,7 @@ function initMateriel() {
 
         equipements.innerHTML += `
         <div class="carte-materiel">
-            <strong>${e.nom}</strong><br>
+            <strong>${e.nom}</strong>
             ${e.description ?? ""}
         </div>
         `;
@@ -396,8 +431,8 @@ function initMateriel() {
 }
 
 /* ==========================================================
-   CALCUL DISSOLUTION
-========================================================== */
+   INIT CALCULS (listeners)
+   ========================================================== */
 
 function initCalculs() {
 
@@ -434,7 +469,7 @@ function initCalculs() {
 
 /* ==========================================================
    DISSOLUTION
-========================================================== */
+   ========================================================== */
 
 function calculDissolution() {
 
@@ -450,85 +485,73 @@ function calculDissolution() {
         $("m-dissolution")?.value
     );
 
-    if (
-        C <= 0 ||
-        V <= 0 ||
-        M <= 0
-    ) {
+    if (C <= 0 || V <= 0 || M <= 0) {
 
         message(
             "res-dissolution",
-            "Compléter les données."
+            "Compléter les données (C, V et M)."
         );
 
         return;
 
     }
 
-    const masse =
-        C *
-        (V / 1000) *
-        M;
+    const masse = C * (V / 1000) * M;
 
     $("res-dissolution").innerHTML = `
+    <div class="resultat">
+        <h3>Masse à peser</h3>
+        <div class="valeur">${arrondir(masse, 3)} g</div>
+        <p style="font-size:.85rem;color:var(--gris-moyen);margin-top:.4rem;">
+            m = C × V × M = ${C} × ${V / 1000} × ${M}
+        </p>
+    </div>
+    `;
 
-<div class="resultat">
+    /* ---- Mise à jour protocole ---- */
 
-<h3>Masse à peser</h3>
+    if ($("proto-masse"))
+        $("proto-masse").textContent = `${arrondir(masse, 3)} g`;
 
-<div class="valeur">
+    if ($("proto-sel") && reactifCourant)
+        $("proto-sel").textContent = reactifCourant.nom;
 
-${arrondir(masse)} g
+    if ($("proto-volume"))
+        $("proto-volume").textContent = `${V} mL`;
 
-</div>
-
-</div>
-
-`;
+    /* ---- Mise à jour tableau résultats ---- */
 
     if ($("table-masse-dissolution"))
-        $("table-masse-dissolution").textContent =
-            arrondir(masse);
+        $("table-masse-dissolution").textContent = arrondir(masse, 3);
 
     if ($("table-volume-dissolution"))
-        $("table-volume-dissolution").textContent =
-            V;
+        $("table-volume-dissolution").textContent = V;
 
     if ($("table-calc-dissolution"))
-        $("table-calc-dissolution").textContent =
-            arrondir(C);
+        $("table-calc-dissolution").textContent = arrondir(C);
 
     if ($("table-theo-dissolution"))
-        $("table-theo-dissolution").textContent =
-            arrondir(C);
+        $("table-theo-dissolution").textContent = arrondir(C);
+
+    /* ---- Recalculer l'écart si masse expérimentale saisie ---- */
+
+    calculEcart();
 
 }
 
 /* ==========================================================
    DILUTION
-========================================================== */
+   ========================================================== */
 
 function calculDilution() {
 
-    const C1 = nombre(
-        $("c1-hcl")?.value
-    );
+    const C1 = nombre($("c1-hcl")?.value);
+    const C2 = nombre($("c2-hcl")?.value);
+    const V2 = nombre($("v2-hcl")?.value);
 
-    const C2 = nombre(
-        $("c2-hcl")?.value
-    );
+    if (C1 <= 0 || C2 <= 0 || V2 <= 0) {
 
-    const V2 = nombre(
-        $("v2-hcl")?.value
-    );
-
-    if (
-        C1 <= 0 ||
-        C2 <= 0 ||
-        V2 <= 0
-    ) {
-
-        $("res-hcl").innerHTML = "";
+        if ($("res-hcl")) $("res-hcl").innerHTML = "";
 
         return;
 
@@ -536,67 +559,149 @@ function calculDilution() {
 
     if (C2 >= C1) {
 
-        $("res-hcl").innerHTML =
-
-        `<div class="erreur">
-
-La solution mère doit être plus concentrée.
-
-</div>`;
+        $("res-hcl").innerHTML = `
+        <div class="erreur">
+            La concentration de la solution fille (C₂ = ${C2} mol·L⁻¹)
+            doit être inférieure à celle de la solution mère (C₁ = ${C1} mol·L⁻¹).
+        </div>`;
 
         return;
 
     }
 
-    const V1 =
-        (C2 * V2) / C1;
-
-    const eau =
-        V2 - V1;
+    const V1 = (C2 * V2) / C1;
+    const eau = V2 - V1;
+    const facteur = arrondir(C1 / C2, 0);
 
     $("res-hcl").innerHTML = `
-
-<div class="resultat">
-
-<p>
-
-<strong>Prélever :</strong>
-
-${arrondir(V1)} mL
-
-de solution mère
-
-</p>
-
-<p>
-
-<strong>Compléter avec :</strong>
-
-${arrondir(eau)} mL
-
-d'eau distillée
-
-</p>
-
-</div>
-
-`;
+    <div class="resultat">
+        <h3>Volumes à utiliser</h3>
+        <p style="font-family:var(--font-code);font-size:1.1rem;margin-bottom:.4rem;">
+            Prélever <strong>${arrondir(V1, 2)} mL</strong> de solution mère
+        </p>
+        <p style="font-family:var(--font-code);font-size:1.1rem;">
+            Compléter avec <strong>${arrondir(eau, 2)} mL</strong> d'eau distillée
+        </p>
+        <p style="font-size:.82rem;color:var(--gris-moyen);margin-top:.5rem;">
+            Facteur de dilution F = C₁/C₂ = ${facteur}
+        </p>
+    </div>
+    `;
 
 }
 
 /* ==========================================================
-   MISE A JOUR TABLEAU
-========================================================== */
+   RESULTATS — Calcul d'écart relatif
+   ========================================================== */
 
-function mettreAJourTableau() {
+function initResultats() {
 
-    if (!reactifCourant)
-        return;
+    /* Listener sur la saisie de la masse expérimentale */
 
-    $("nom-sel-table").textContent =
-        reactifCourant.nom;
+    const input = $("masse-exp");
 
-    calculDissolution();
+    if (!input) return;
+
+    input.addEventListener("input", calculEcart);
 
 }
 
+/* ==========================================================
+   ECART RELATIF
+   ========================================================== */
+
+function calculEcart() {
+
+    const input = $("masse-exp");
+    const zoneEcart = $("table-ecart");
+    const zoneRes = $("res-ecart");
+
+    if (!input || !zoneEcart) return;
+
+    const masseExp = nombre(input.value);
+
+    /* ---- Masse théorique depuis les champs dissolution ---- */
+
+    const C = nombre($("c-dissolution")?.value);
+    const V = nombre($("v-dissolution")?.value);
+    const M = nombre($("m-dissolution")?.value);
+
+    if (
+        masseExp <= 0 ||
+        C <= 0 ||
+        V <= 0 ||
+        M <= 0
+    ) {
+
+        zoneEcart.textContent = "—";
+
+        if (zoneRes) zoneRes.innerHTML = "";
+
+        return;
+
+    }
+
+    const masseTheo = C * (V / 1000) * M;
+
+    const ecart =
+        Math.abs((masseExp - masseTheo) / masseTheo) * 100;
+
+    const ecartSigne =
+        ((masseExp - masseTheo) / masseTheo * 100);
+
+    /* ---- Classification qualitative ---- */
+
+    let classe = "";
+    let appreciation = "";
+
+    if (ecart < 2) {
+
+        classe = "ecart excellent";
+        appreciation = "✅ Excellent — écart < 2 %";
+
+    } else if (ecart < 5) {
+
+        classe = "ecart correct";
+        appreciation = "⚠️ Acceptable — écart entre 2 % et 5 %";
+
+    } else {
+
+        classe = "ecart erreur";
+        appreciation = "❌ Écart trop important (> 5 %) — vérifier la pesée ou le calcul";
+
+    }
+
+    zoneEcart.innerHTML =
+        `<span class="${classe}">${arrondir(ecart, 2)} %</span>`;
+
+    if (zoneRes) {
+
+        zoneRes.innerHTML = `
+        <div class="resultat">
+            <h3>Analyse de l'écart</h3>
+            <p>
+                Masse théorique : <strong>${arrondir(masseTheo, 3)} g</strong> |
+                Masse expérimentale : <strong>${arrondir(masseExp, 3)} g</strong>
+            </p>
+            <p>
+                Écart relatif = <strong>${arrondir(ecartSigne, 2)} %</strong>
+            </p>
+            <p style="margin-top:.5rem;">${appreciation}</p>
+            ${ecartSigne > 0
+                ? `<p style="font-size:.85rem;color:var(--gris-moyen);">
+                    La concentration réelle est <strong>supérieure</strong>
+                    à la concentration nominale.
+                   </p>`
+                : ecartSigne < 0
+                ? `<p style="font-size:.85rem;color:var(--gris-moyen);">
+                    La concentration réelle est <strong>inférieure</strong>
+                    à la concentration nominale.
+                   </p>`
+                : ""
+            }
+        </div>
+        `;
+
+    }
+
+}
