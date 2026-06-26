@@ -689,16 +689,17 @@
     prevention: ["P273", "P391"]
   },
     {
-    "cas": "7553-56-2",
-    "nom": "iode bisublimé",
-    "formule": "I₂",
-    "categorie": "Halogène",
-    "localisation": "Salle B27 / étagère D2",
-    "pictogramme": ["SGH07_PointExclamation.jpg", "SGH09_Environnement.jpg"],
-    "obligation": ["LUNETTES", "GANTS", "BLOUSE", "HOTTE"],
-    "image": "iode_bisublime.jpg",
-    "fds": "FicheTox_IodeBisublime.pdf",
-    "dangers": ["H312", "H332", "H400", "P261", "P271", "P273", "P302+P352", "P304+P340"]
+    cas: "7553-56-2",
+    nom: "iode bisublimé",
+    formule: "I₂",
+    categorie: "Halogène",
+    localisation": "Salle B27 / étagère D2",
+    pictogramme: ["SGH07_PointExclamation.jpg", "SGH09_Environnement.jpg"],
+    obligation: ["LUNETTES", "GANTS", "BLOUSE", "HOTTE"],
+    image: "iode_bisublime.jpg",
+    fds: "FicheTox_IodeBisublime.pdf",
+    dangers: ["H312", "H332", "H400"],
+    prevention: ["P261", "P271", "P273", "P302+P352", "P304+P340"]
   },
   {
     cas: "123-51-3",
