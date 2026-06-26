@@ -157,6 +157,125 @@ function renderSecurite() {
 }
 
 /* ==========================================================
+   INIT LISTE MATERIEL
+   ========================================================== */
+
+
+function initMateriel(){
+
+const materiels = [
+
+...glassware.filter(
+v => v.categorie === "Dissolution"
+),
+
+...laboratoryEquipment.filter(
+m => m.categorie === "Dissolution"
+)
+
+];
+
+const container =
+document.getElementById(
+"listeMateriel"
+);
+
+container.innerHTML = "";
+
+materiels.forEach(item => {
+
+container.innerHTML += `
+
+<label
+class="materiel-check"
+>
+
+<input
+type="checkbox"
+value="${item.id}"
+>
+
+${item.nom}
+
+</label>
+
+`;
+
+});
+
+container
+.querySelectorAll(
+"input"
+)
+.forEach(cb => {
+
+cb.addEventListener(
+"change",
+afficherMateriel
+);
+
+});
+
+}
+
+
+function afficherMateriel(){
+
+const zone =
+document.getElementById(
+"materielSelectionne"
+);
+
+zone.innerHTML = "";
+
+const materiels = [
+...glassware,
+...laboratoryEquipment
+];
+
+document
+.querySelectorAll(
+"#listeMateriel input:checked"
+)
+.forEach(cb => {
+
+const item =
+materiels.find(
+m => m.id === cb.value
+);
+
+if(!item) return;
+
+zone.innerHTML += `
+
+<div class="fiche-materiel">
+
+<img
+src="${item.photo}"
+alt="${item.nom}"
+>
+
+<div>
+
+<h4>
+${item.nom}
+</h4>
+
+<p>
+📍 Lieu :
+${item.lieu}
+</p>
+
+</div>
+
+</div>
+
+`;
+
+});
+
+}
+/* ==========================================================
    VERRERIE
    ========================================================== */
 
