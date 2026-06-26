@@ -494,3 +494,91 @@
     width: auto;
     max-width: none;
 }
+
+
+/* matériel pour TP chimie */
+
+#listeMateriel{
+
+display:grid;
+
+grid-template-columns:
+repeat(
+auto-fit,
+minmax(220px,1fr)
+);
+
+gap:8px;
+
+margin:15px 0;
+}
+
+.materiel-check{
+
+display:flex;
+
+align-items:center;
+
+gap:8px;
+
+padding:8px;
+
+background:#f5f7fa;
+
+border-radius:8px;
+
+cursor:pointer;
+}
+
+.materiel-check:hover{
+
+background:#e8eef5;
+}
+
+#materielSelectionne{
+
+margin-top:20px;
+}
+
+.fiche-materiel{
+
+display:flex;
+
+gap:15px;
+
+align-items:center;
+
+padding:10px;
+
+margin-bottom:10px;
+
+background:white;
+
+border-radius:10px;
+
+border:1px solid #ddd;
+}
+
+.fiche-materiel img{
+
+width:90px;
+
+height:90px;
+
+object-fit:cover;
+
+border-radius:8px;
+
+border:1px solid #ddd;
+}
+
+.fiche-materiel h4{
+
+margin:0 0 5px 0;
+}
+
+.fiche-materiel p{
+
+margin:2px 0;
+}
+
