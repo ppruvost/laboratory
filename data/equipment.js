@@ -285,7 +285,25 @@ const laboratoryEquipment = [
         lieu: "Salle B27 / étagère C1",
         categorie: "Dissolution", 
         noticeUtilisation: "assets/notice/chauffe_ballon.pdf"
-    },    
+    },
+    {
+        domaine: "Chimie",
+        nom: "Balance Jeulin 701 277",
+        description: "capacité 2 000 g max",
+        lieu: "Salle B27 / étagère C2",
+        categorie: "Dissolution",
+        description: "Précision ± 1 g",
+        noticeUtilisation: "assets/notice/balance_jeulin.pdf"
+    },
+       {
+        domaine: "Chimie",
+        nom: "Balance METTLER TOLEDO PB602",
+        description: "capacité 610 g max - 0,5 g min",
+        lieu: "Salle B27 / pallasse E2",
+        categorie: "Dissolution",
+        description: "Précision ± 0,1 g",
+        noticeUtilisation: "assets/notice/balance_mettler.pdf"
+    }, 
     {
         domaine: "Chimie",
         nom: "Indicateurs colorés",
