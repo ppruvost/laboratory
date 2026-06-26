@@ -69,7 +69,7 @@ function renderEquipmentTable(data) {
             <td>${eq.domaine || "-"}</td>
             <td>${eq.nom || "-"}</td>
             <td>${eq.description || "-"}</td>
-            <td>${eq.lieuStockage || "-"}</td>
+            <td>${eq.lieu || "-"}</td>
             <td>
                 ${eq.noticeUtilisation
                     ? `<a href="${eq.noticeUtilisation}" target="_blank">📄</a>`
