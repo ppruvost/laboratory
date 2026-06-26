@@ -1051,8 +1051,8 @@
   },
   {
   cas: "7758-99-8",
-  nom: "réactif de Fehling A (sulfate de cuivre pentahydraté)",
-  formule: "CuSO₄·5H₂O",
+  nom: "réactif de Fehling A + B (sulfate de cuivre pentahydraté + Hydroxyde de sodium et tartrate double de sodium et de potassium)",
+  formule: "CuSO₄·5H₂O + NaOH KNaC₄H₄O₆",
   categorie: "Solution de sulfate de cuivre(II)",
   localisation: "Salle B27 / étagère B2",
   pictogramme: ["SGH07_PointExclamation.jpg", "SGH09_Environnement.jpg"],
@@ -1060,19 +1060,7 @@
   image: "fehling_A.jpg",
   fds: "FicheTox_XXX.pdf",
   dangers: ["H411", "P273"]
-  },
- {
-  cas: "1310-73-2",
-  nom: "Réactif de Fehling B (Hydroxyde de sodium et tartrate double de sodium et de potassium, sel de Rochelle)",
-  formule: "NaOH + KNaC₄H₄O₆",
-  categorie: "Solution alcaline de tartrate double de sodium et potassium",
-  localisation: "Salle B27 / étagère B2",
-  pictogramme: ["SGH05_Corrosion.jpg"],
-  obligation: ["LUNETTES", "GANTS", "BLOUSE"],
-  image: "fehling_B.jpg",
-  fds: "FicheTox_FehlingB.pdf",
-  dangers: ["H314", "P260", "P264", "P280", "P301+P330", "P331", "P303+P361+P353"] 
-},  
+  }, 
   {
     cas: "7783-33-7",
     nom: "réactif de Nessler (tétraiodomercurate(II) de dipotassium)",
