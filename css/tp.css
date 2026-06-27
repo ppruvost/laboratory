@@ -612,17 +612,28 @@ font-weight:bold;
 
 }
 
-/* ── Cases à cocher matériel (verrerie / équipements) ───────── */
+/* ════════════════════════════════════════════════════════════════
+   Cases à cocher matériel — verrerie & équipements
+   (généré dynamiquement par initMateriel() dans tp01-solutions.js)
+   ════════════════════════════════════════════════════════════════ */
+
+/* Survol et état coché de la carte */
 
 .item-materiel {
   cursor: pointer;
   transition: background .15s, border-color .15s;
 }
 
+.item-materiel:hover {
+  background: #f0f7ff;
+}
+
 .item-materiel:has(input:checked) {
   background: #EAF6FF;
   border-color: var(--bleu-cuivre);
 }
+
+/* Case à cocher */
 
 .materiel-check-input {
   flex-shrink: 0;
@@ -631,6 +642,8 @@ font-weight:bold;
   accent-color: var(--bleu-cuivre);
   cursor: pointer;
 }
+
+/* Bloc texte (nom + contenance + lieu) */
 
 .materiel-info {
   display: flex;
@@ -642,10 +655,23 @@ font-weight:bold;
 .materiel-detail {
   font-size: .75rem;
   color: var(--gris-moyen);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .materiel-detail.lieu {
   font-style: italic;
   font-size: .7rem;
   opacity: .8;
+}
+
+/* Image verrerie / équipement */
+
+.item-materiel img {
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+  border-radius: 4px;
+  flex-shrink: 0;
 }
