@@ -5,6 +5,7 @@ const laboratoryEquipment = [
         nom: "Générateur de tension continue (0-30V)",
         description: "Alimentation stabilisée pour circuits électriques",
         lieu: "Salle B27 / étagère A1",
+        image:"",
         noticeUtilisation: "assets/notice/alimentation_continue.pdf"
     },
     {
@@ -12,6 +13,7 @@ const laboratoryEquipment = [
         nom: "Générateur de tension alternative (0-12V, 50Hz)",
         description: "Alimentation pour circuits alternatifs",
         lieu: "Salle B27 / étagère A1",
+        image:"",
         noticeUtilisation: "assets/notice/alimentation_alternative.pdf"
     },
     {
@@ -19,6 +21,7 @@ const laboratoryEquipment = [
         nom: "Multimètre numérique",
         description: "Mesure de tension, courant, résistance",
         lieu: "Salle B27 / étagère A1",
+        image:"",
         noticeUtilisation: "assets/notice/multimetre.pdf"
     },
     {
@@ -26,6 +29,7 @@ const laboratoryEquipment = [
         nom: "Oscilloscope numérique",
         description: "Visualisation de signaux électriques",
         lieu: "Salle B27 / étagère A1",
+        image:"",
         noticeUtilisation: "assets/notice/oscilloscope.pdf"
     },
     {
@@ -33,6 +37,7 @@ const laboratoryEquipment = [
         nom: "Wattmètre",
         description: "Mesure de puissance électrique",
         lieu: "Salle B27 / étagère A1",
+        image:"",
         noticeUtilisation: "assets/notice/wattmetre.pdf"
     },
     {
@@ -40,6 +45,7 @@ const laboratoryEquipment = [
         nom: "Transformateur (abaisseur/élévateur)",
         description: "Transformation de tension",
         lieu: "Salle B27 / étagère A1",
+        image:"",
         noticeUtilisation: "assets/notice/transformateur.pdf"
     },
     {
@@ -47,6 +53,7 @@ const laboratoryEquipment = [
         nom: "Diode et pont de diodes",
         description: "Redressement de courant",
         lieu: "Salle B27 / étagère A2",
+        image:"",
         noticeUtilisation: "assets/notice/diode.pdf"
     },
     {
@@ -54,6 +61,7 @@ const laboratoryEquipment = [
         nom: "Condensateurs (diverses capacités)",
         description: "Filtrage et stockage d'énergie",
         lieu: "Salle B27 / étagère A2",
+        image:"",
         noticeUtilisation: "assets/notice/condensateur.pdf"
     },
     {
@@ -61,48 +69,55 @@ const laboratoryEquipment = [
         nom: "Moteur électrique (CC et CA)",
         description: "Conversion énergie électrique/mécanique",
         lieu: "Salle B23 / étagère B1",
+        image:"",
         noticeUtilisation: "assets/notice/moteur_electrique.pdf"
     },
     {
         domaine: "Électricité",
         nom: "Capteurs (température, lumière, pression)",
         description: "Acquisition de données expérimentales",
-        lieuStockage: "",
+        lieu: "",
+        image:"",
         noticeUtilisation: "assets/notice/capteurs.pdf"
     },
     {
         domaine: "Électricité",
         nom: "Carte d'acquisition (ExAO)",
         description: "Interface pour expériences assistées par ordinateur",
-        lieuStockage: "",
+        lieu: "",
+        image:"",
         noticeUtilisation: "assets/notice/exao.pdf"
     },
     {
         domaine: "Électricité",
         nom: "Résistances (diverses valeurs)",
         description: "Composants pour circuits électriques",
-        lieuStockage: "",
+        lieu: "",
+        image:"",
         noticeUtilisation: "assets/notice/resistances.pdf"
     },
     {
         domaine: "Électricité",
         nom: "Fils de connexion et câbles",
         description: "Connexion de circuits",
-        lieuStockage: "",
+        lieu: "",
+        image:"",
         noticeUtilisation: "assets/notice/fils_connexion.pdf"
     },
     {
         domaine: "Électricité",
         nom: "Interrupteurs et boutons poussoirs",
         description: "Contrôle de circuits",
-        lieuStockage: "",
+        lieu: "",
+        image:"",
         noticeUtilisation: "assets/notice/interrupteurs.pdf"
     },
     {
         domaine: "Électricité",
         nom: "Disjoncteur différentiel",
         description: "Protection des circuits",
-        lieuStockage: "",
+        lieu: "",
+        image:"",
         noticeUtilisation: "assets/notice/disjoncteur.pdf"
     },
 
@@ -111,7 +126,8 @@ const laboratoryEquipment = [
         domaine: "Optique",
         nom: "Lentilles convergentes et divergentes",
         description: "Étude des systèmes optiques",
-        lieuStockage: "",
+        lieu: "Salle B23 Etagère A1",
+        image:"",
         noticeUtilisation: "assets/notice/lentilles.pdf"
     },
     {
