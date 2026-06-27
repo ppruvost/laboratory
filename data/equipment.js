@@ -84,7 +84,7 @@ const laboratoryEquipment = [
         domaine: "Électricité",
         nom: "Carte d'acquisition (ExAO)",
         description: "Interface pour expériences assistées par ordinateur",
-        lieu: "",
+        lieu: "Salle B25 / étagère A1",
         image:"",
         noticeUtilisation: "assets/notice/exao.pdf"
     },
@@ -92,7 +92,7 @@ const laboratoryEquipment = [
         domaine: "Électricité",
         nom: "Résistances (diverses valeurs)",
         description: "Composants pour circuits électriques",
-        lieu: "",
+        lieu: "Salle B27 / A2",
         image:"",
         noticeUtilisation: "assets/notice/resistances.pdf"
     },
@@ -100,7 +100,7 @@ const laboratoryEquipment = [
         domaine: "Électricité",
         nom: "Fils de connexion et câbles",
         description: "Connexion de circuits",
-        lieu: "",
+        lieu: "Salle B29 B25 / Support de cordons",
         image:"",
         noticeUtilisation: "assets/notice/fils_connexion.pdf"
     },
@@ -108,7 +108,7 @@ const laboratoryEquipment = [
         domaine: "Électricité",
         nom: "Interrupteurs et boutons poussoirs",
         description: "Contrôle de circuits",
-        lieu: "",
+        lieu: "Salle B27 / étagère A2",
         image:"",
         noticeUtilisation: "assets/notice/interrupteurs.pdf"
     },
@@ -126,7 +126,7 @@ const laboratoryEquipment = [
         domaine: "Optique",
         nom: "Lentilles convergentes et divergentes",
         description: "Étude des systèmes optiques",
-        lieu: "Salle B23 Etagère A1",
+        lieu: "Salle B23 / étagère A1",
         image:"",
         noticeUtilisation: "assets/notice/lentilles.pdf"
     },
@@ -134,63 +134,72 @@ const laboratoryEquipment = [
         domaine: "Optique",
         nom: "Banc d'optique",
         description: "Support pour expériences optiques",
-        lieuStockage: "",
+        lieu: "",
+        image:"",
         noticeUtilisation: "assets/notice/banc_optique.pdf"
     },
     {
         domaine: "Optique",
         nom: "Source lumineuse blanche",
         description: "Éclairage pour expériences optiques",
-        lieuStockage: "",
+        lieu: "Salle B23 / étagère A2",
+        image:"",
         noticeUtilisation: "assets/notice/source_lumineuse.pdf"
     },
     {
         domaine: "Optique",
         nom: "Laser (classe II)",
         description: "Source de lumière cohérente",
-        lieuStockage: "",
+        lieu: "Salle B23 / étagère A2",
+        image:"",
         noticeUtilisation: "assets/notice/laser.pdf"
     },
     {
         domaine: "Optique",
         nom: "Écran blanc",
         description: "Visualisation des images",
-        lieuStockage: "",
+        lieu: "",
+        image:"",
         noticeUtilisation: "assets/notice/ecran_blanc.pdf"
     },
     {
         domaine: "Optique",
         nom: "Prismes",
         description: "Décomposition de la lumière",
-        lieuStockage: "",
+        lieu: "Salle B23 / étagère A2",
+        image:"",
         noticeUtilisation: "assets/notice/prismes.pdf"
     },
     {
         domaine: "Optique",
         nom: "Fibre optique",
         description: "Transmission de la lumière",
-        lieuStockage: "",
+        lieu: "",
+        image:"",
         noticeUtilisation: "assets/notice/fibre_optique.pdf"
     },
     {
         domaine: "Optique",
         nom: "Luxmètre",
         description: "Mesure de l'éclairement lumineux",
-        lieuStockage: "",
+        lieu: "",
+        image:"",
         noticeUtilisation: "assets/notice/luxmetre.pdf"
     },
     {
         domaine: "Optique",
         nom: "Spectroscope",
         description: "Analyse spectrale de la lumière",
-        lieuStockage: "",
+        lieu: "",
+        image:"",
         noticeUtilisation: "assets/notice/spectroscope.pdf"
     },
     {
         domaine: "Optique",
         nom: "Filtres colorés",
         description: "Sélection de longueurs d'onde",
-        lieuStockage: "",
+        lieu: "",
+        image:"",
         noticeUtilisation: "assets/notice/filtres_colorés.pdf"
     },
 
@@ -199,49 +208,56 @@ const laboratoryEquipment = [
         domaine: "Mécanique",
         nom: "Chronomètre numérique",
         description: "Mesure de temps et de vitesses",
-        lieuStockage: "",
+        lieu: "",
+        image:"",
         noticeUtilisation: "assets/notice/chronometre.pdf"
     },
     {
         domaine: "Mécanique",
         nom: "Dynamomètre",
         description: "Mesure de forces",
-        lieuStockage: "",
+        lieu: "",
+        image:"",
         noticeUtilisation: "assets/notice/dynamometre.pdf"
     },
     {
         domaine: "Mécanique",
         nom: "Poulies et masses marquées",
         description: "Étude des forces et mouvements",
-        lieuStockage: "",
+        lieu: "",
+        image:"",
         noticeUtilisation: "assets/notice/poulies_masses.pdf"
     },
     {
         domaine: "Mécanique",
         nom: "Plan incliné",
         description: "Étude des forces et de l'équilibre",
-        lieuStockage: "",
+        lieu: "",
+        image:"",
         noticeUtilisation: "assets/notice/plan_incline.pdf"
     },
     {
         domaine: "Mécanique",
         nom: "Vérin hydraulique",
         description: "Étude de la pression et de la force pressante",
-        lieuStockage: "",
+        lieu: "",
+        image:"",
         noticeUtilisation: "assets/notice/verin_hydraulique.pdf"
     },
     {
         domaine: "Mécanique",
         nom: "Manomètre",
         description: "Mesure de pression",
-        lieuStockage: "",
+        lieu: "",
+        image:"",
         noticeUtilisation: "assets/notice/manometre.pdf"
     },
     {
         domaine: "Mécanique",
         nom: "Capteur de pression",
         description: "Mesure de pression dans les fluides",
-        lieuStockage: "",
+        lieu: "",
+        image:"",
         noticeUtilisation: "assets/notice/capteur_pression.pdf"
     },
 
@@ -252,6 +268,7 @@ const laboratoryEquipment = [
         nom: "Pipettes",
         description: "Transfert précis de liquides",
         lieu: "Salle B27 / étagère E2",
+        image:"",
         categorie: "Dissolution", 
         noticeUtilisation: "assets/notice/pipettes.pdf"
     },
@@ -260,6 +277,7 @@ const laboratoryEquipment = [
         nom: "Propipettes",
         description: "Transfert précis de liquides",
         lieu: "Salle B27 / étagère D4",
+        image:"",
         categorie: "Dissolution", 
         noticeUtilisation: "assets/notice/propipettes.pdf"
     },
@@ -268,6 +286,7 @@ const laboratoryEquipment = [
         nom: "Burette",
         description: "Titrage et dosage",
         lieu: "Salle B27 / étagère E2",
+        image:"",
         categorie: "Dissolution",        
         noticeUtilisation: "assets/notice/burette.pdf"
     },
@@ -276,6 +295,7 @@ const laboratoryEquipment = [
         nom: "pH-mètre",
         description: "Mesure du pH des solutions",
         lieu: "Salle B27 / étagère D4",
+        image:"",
         categorie: "Dissolution", 
         noticeUtilisation: "assets/notice/phmetre.pdf"
     },
@@ -283,7 +303,8 @@ const laboratoryEquipment = [
         domaine: "Chimie",
         nom: "Conductimètre",
         description: "Mesure de la conductivité",
-        lieuStockage: "",
+        lieu: "",
+        image:"",
         noticeUtilisation: "assets/notice/conductimetre.pdf"
     },
     {
@@ -291,6 +312,7 @@ const laboratoryEquipment = [
         nom: "Agitateurs magnétiques",
         description: "Agitation des solutions",
         lieu: "Salle B27 / étagère D4",
+        image:"",
         categorie: "Dissolution", 
         noticeUtilisation: "assets/notice/agitateur_magnetique.pdf"
     },
@@ -299,6 +321,7 @@ const laboratoryEquipment = [
         nom: "Chauffe-ballon",
         description: "Chauffage de solutions",
         lieu: "Salle B27 / étagère C1",
+        image:"",
         categorie: "Dissolution", 
         noticeUtilisation: "assets/notice/chauffe_ballon.pdf"
     },
@@ -307,6 +330,7 @@ const laboratoryEquipment = [
         nom: "Balance Jeulin 701 277",
         description: "capacité 2 000 g max",
         lieu: "Salle B27 / étagère C2",
+        image:"",
         categorie: "Dissolution",
         description: "Précision ± 1 g",
         noticeUtilisation: "assets/notice/balance_jeulin.pdf"
@@ -316,6 +340,7 @@ const laboratoryEquipment = [
         nom: "Balance METTLER TOLEDO PB602",
         description: "capacité 610 g max - 0,5 g min",
         lieu: "Salle B27 / pallasse E2",
+        image:"",
         categorie: "Dissolution",
         description: "Précision ± 0,1 g",
         noticeUtilisation: "assets/notice/balance_mettler.pdf"
@@ -325,13 +350,15 @@ const laboratoryEquipment = [
         nom: "Indicateurs colorés",
         description: "Repérage des équivalences en titrage",
         lieu: "Salle B27 / étagère D4",
+        image:"",
         noticeUtilisation: "assets/notice/indicateurs_colorés.pdf"
     },
     {
         domaine: "Chimie",
         nom: "Spectrophotomètre",
         description: "Analyse spectrale des solutions",
-        lieuStockage: "",
+        lieu: "",
+        image:"",
         noticeUtilisation: "assets/notice/spectrophotometre.pdf"
     },
 
@@ -340,7 +367,8 @@ const laboratoryEquipment = [
         domaine: "Thermique",
         nom: "Thermomètre numérique",
         description: "Mesure de température",
-        lieuStockage: "",
+        lieu: "",
+        image:"",
         categorie: "Dissolution", 
         noticeUtilisation: "assets/notice/thermometre.pdf"
     },
@@ -348,28 +376,32 @@ const laboratoryEquipment = [
         domaine: "Thermique",
         nom: "Thermocouple",
         description: "Mesure de température en temps réel",
-        lieuStockage: "",
+        lieu: "",
+        image:"",
         noticeUtilisation: "assets/notice/thermocouple.pdf"
     },
     {
         domaine: "Thermique",
         nom: "Calorimètre",
         description: "Mesure des échanges thermiques",
-        lieuStockage: "",
+        lieu: "",
+        image:"",
         noticeUtilisation: "assets/notice/calorimetre.pdf"
     },
     {
         domaine: "Thermique",
         nom: "Caméra thermique",
         description: "Visualisation des transferts thermiques",
-        lieuStockage: "",
+        lieu: "",
+        image:"",
         noticeUtilisation: "assets/notice/camera_thermique.pdf"
     },
     {
         domaine: "Thermique",
         nom: "Matériaux isolants (laine de verre, polystyrène)",
         description: "Étude de l'isolation thermique",
-        lieuStockage: "",
+        lieu: "",
+        image:"",
         noticeUtilisation: "assets/notice/materiaux_isolants.pdf"
     },
 
@@ -378,35 +410,40 @@ const laboratoryEquipment = [
         domaine: "Signaux",
         nom: "Générateur de fonctions",
         description: "Production de signaux sonores et électriques",
-        lieuStockage: "",
+        lieu: "",
+        image:"",
         noticeUtilisation: "assets/notice/generateur_fonctions.pdf"
     },
     {
         domaine: "Signaux",
         nom: "Microphone et haut-parleur",
         description: "Émission et réception de signaux sonores",
-        lieuStockage: "",
+        lieu: "",
+        image:"",
         noticeUtilisation: "assets/notice/micro_hautparleur.pdf"
     },
     {
         domaine: "Signaux",
         nom: "Oscilloscope (pour signaux sonores)",
         description: "Visualisation des signaux sonores",
-        lieuStockage: "",
+        lieu: "",
+        image:"",
         noticeUtilisation: "assets/notice/oscilloscope_son.pdf"
     },
     {
         domaine: "Signaux",
         nom: "Sonomètre",
         description: "Mesure du niveau sonore",
-        lieuStockage: "",
+        lieu: "",
+        image:"",
         noticeUtilisation: "assets/notice/sonometre.pdf"
     },
     {
         domaine: "Signaux",
         nom: "Fibre optique et émetteur/récepteur",
         description: "Transmission de signaux lumineux",
-        lieuStockage: "",
+        lieu: "",
+        image:"",
         noticeUtilisation: "assets/notice/fibre_optique_signal.pdf"
     },
 
