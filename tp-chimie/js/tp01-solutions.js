@@ -429,9 +429,9 @@ function initMateriel() {
             <input type="checkbox" class="materiel-check-input">
             <span class="icone-materiel">
                 ${e.image
-                    ? `<img src="/${eq.image}" alt="${eq.nom}"
-                            style="width:48px;height:48px;object-fit:contain;border-radius:4px;">`
-                    : "🔬"}
+    ? `<img src="/${e.image}" alt="${e.nom}"
+            style="width:48px;height:48px;object-fit:contain;border-radius:4px;">`
+    : "🔬"}
             </span>
             <span class="materiel-info">
                 <strong>${e.nom}</strong>
