@@ -408,8 +408,7 @@ function initMateriel() {
             <input type="checkbox" class="materiel-check-input">
             <span class="icone-materiel">
                 ${v.image
-                    ? `<img src="../../${v.image}"
-                            alt="${v.nom}"
+                    ? `<img src="${v.image}" alt="${v.nom}"
                             style="width:48px;height:48px;object-fit:contain;border-radius:4px;">`
                     : "🧪"}
             </span>
