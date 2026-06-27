@@ -394,39 +394,54 @@ function changerReactif() {
 
 function initMateriel() {
 
-    const verrerie =
-        $("materiel-verrerie");
-
-    const equipements =
-        $("materiel-equipements");
+    const verrerie   = $("materiel-verrerie");
+    const equipements = $("materiel-equipements");
 
     if (!verrerie || !equipements) return;
 
-    verrerie.innerHTML = "";
+    // ── Verrerie filtrée "Dissolution" ───────────────────────
+    const verresDissolution =
+        glassware.filter(v => v.categorie === "Dissolution");
 
-    equipements.innerHTML = "";
+    verrerie.innerHTML = verresDissolution.map(v => `
+        <label class="item-materiel">
+            <input type="checkbox" class="materiel-check-input">
+            <span class="icone-materiel">
+                ${v.image
+                    ? `<img src="../../${v.image}"
+                            alt="${v.nom}"
+                            style="width:48px;height:48px;object-fit:contain;border-radius:4px;">`
+                    : "🧪"}
+            </span>
+            <span class="materiel-info">
+                <strong>${v.nom}</strong>
+                <span class="materiel-detail">${v.contenance_ml ? v.contenance_ml + " mL" : ""}</span>
+                <span class="materiel-detail lieu">${v.lieu ?? ""}</span>
+            </span>
+        </label>
+    `).join("");
 
-    glassware.forEach(v => {
+    // ── Équipements filtrés "Dissolution" ────────────────────
+    const equipsDissolution =
+        laboratoryEquipment.filter(e => e.categorie === "Dissolution");
 
-        verrerie.innerHTML += `
-        <div class="carte-materiel">
-            <strong>${v.nom}</strong>
-            ${v.contenance_ml ? `${v.contenance_ml} mL` : ""}
-        </div>
-        `;
-
-    });
-
-    laboratoryEquipment.forEach(e => {
-
-        equipements.innerHTML += `
-        <div class="carte-materiel">
-            <strong>${e.nom}</strong>
-            ${e.description ?? ""}
-        </div>
-        `;
-
-    });
+    equipements.innerHTML = equipsDissolution.map(e => `
+        <label class="item-materiel">
+            <input type="checkbox" class="materiel-check-input">
+            <span class="icone-materiel">
+                ${e.image
+                    ? `<img src="../../${e.image}"
+                            alt="${e.nom}"
+                            style="width:48px;height:48px;object-fit:contain;border-radius:4px;">`
+                    : "🔬"}
+            </span>
+            <span class="materiel-info">
+                <strong>${e.nom}</strong>
+                <span class="materiel-detail">${e.description ?? ""}</span>
+                <span class="materiel-detail lieu">${e.lieu ?? ""}</span>
+            </span>
+        </label>
+    `).join("");
 
 }
 
