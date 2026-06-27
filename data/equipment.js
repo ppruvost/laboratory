@@ -452,49 +452,56 @@ const laboratoryEquipment = [
         domaine: "Sécurité",
         nom: "Blouse de laboratoire",
         description: "Protection des vêtements",
-        lieuStockage: "",
+        lieu: "",
+        image:"",
         noticeUtilisation: "assets/notice/blouse_laboratoire.pdf"
     },
     {
         domaine: "Sécurité",
         nom: "Lunettes de protection",
         description: "Protection des yeux",
-        lieuStockage: "",
+        lieu: "",
+        image:"",
         noticeUtilisation: "assets/notice/lunettes_protection.pdf"
     },
     {
         domaine: "Sécurité",
         nom: "Gants de protection",
         description: "Protection des mains",
-        lieuStockage: "",
+        lieu: "",
+        image:"",
         noticeUtilisation: "assets/notice/gants_protection.pdf"
     },
     {
         domaine: "Sécurité",
         nom: "Extincteur (CO2)",
         description: "Sécurité incendie",
-        lieuStockage: "",
+        lieu: "",
+        image:"",
         noticeUtilisation: "assets/notice/extincteur.pdf"
     },
     {
         domaine: "Sécurité",
         nom: "Tapis anti-fatigue",
         description: "Confort et sécurité au poste de travail",
-        lieuStockage: "",
+        lieu: "",
+        image:"",
         noticeUtilisation: "assets/notice/tapis_antifatigue.pdf"
     },
     {
         domaine: "Sécurité",
         nom: "Douche oculaire",
         description: "Urgence en cas de projection",
-        lieuStockage: "",
+        lieu: "",
+        image:"",
         noticeUtilisation: "assets/notice/douche_oculaire.pdf"
     },
     {
         domaine: "Sécurité",
         nom: "Armoire de sécurité pour produits chimiques",
         description: "Stockage sécurisé des réactifs",
-        lieuStockage: "",
+        lieu: "",
+        image:"",
         noticeUtilisation: "assets/notice/armoire_securite.pdf"
     }
 ];
