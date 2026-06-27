@@ -611,3 +611,41 @@ color:#721c24;
 font-weight:bold;
 
 }
+
+/* ── Cases à cocher matériel (verrerie / équipements) ───────── */
+
+.item-materiel {
+  cursor: pointer;
+  transition: background .15s, border-color .15s;
+}
+
+.item-materiel:has(input:checked) {
+  background: #EAF6FF;
+  border-color: var(--bleu-cuivre);
+}
+
+.materiel-check-input {
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+  accent-color: var(--bleu-cuivre);
+  cursor: pointer;
+}
+
+.materiel-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.materiel-detail {
+  font-size: .75rem;
+  color: var(--gris-moyen);
+}
+
+.materiel-detail.lieu {
+  font-style: italic;
+  font-size: .7rem;
+  opacity: .8;
+}
