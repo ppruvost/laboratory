@@ -513,15 +513,35 @@ function calculDissolution() {
 
     const masse = C * (V / 1000) * M;
 
-    $("res-dissolution").innerHTML = `
-    <div class="resultat">
+    // Arrondi à 0,1 g (balance de précision courante)
+const masseArrondie01 = Math.round(masse * 10) / 10;
+// Arrondi à 1 g (balance grossière)
+const masseArrondie1  = Math.round(masse);
+
+$("res-dissolution").innerHTML = `
+<div class="resultat" style="display:flex; gap:1.5rem; align-items:flex-start; flex-wrap:wrap;">
+
+    <div>
         <h3>Masse à peser</h3>
         <div class="valeur">${arrondir(masse, 3)} g</div>
         <p style="font-size:.85rem;color:var(--gris-moyen);margin-top:.4rem;">
             m = C × V × M = ${C} × ${V / 1000} × ${M}
         </p>
     </div>
-    `;
+
+    <div style="display:flex; flex-direction:column; gap:.5rem; justify-content:center; padding-top:.3rem;">
+        <div class="capsule-arrondi">
+            <span class="arrondi-label">Balance ± 0,1 g</span>
+            <span class="arrondi-val">${masseArrondie01.toFixed(1)} g</span>
+        </div>
+        <div class="capsule-arrondi">
+            <span class="arrondi-label">Balance ± 1 g</span>
+            <span class="arrondi-val">${masseArrondie1} g</span>
+        </div>
+    </div>
+
+</div>
+`;
 
     /* ---- Mise à jour protocole ---- */
 
