@@ -305,7 +305,7 @@ function afficherSecurite() {
 
             if (h) {
 
-                html += `<li><strong>${code}</strong> : ${h.texte}</li>`;
+                html += `<li><strong>${code}</strong> : ${h.text}</li>`;
 
             }
 
@@ -330,7 +330,7 @@ function afficherSecurite() {
 
             if (p) {
 
-                html += `<li><strong>${code}</strong> : ${p.texte}</li>`;
+                html += `<li><strong>${code}</strong> : ${p.text}</li>`;
 
             }
 
