@@ -276,6 +276,214 @@ Dilution
     </div>
 
 </div>
+
+
+<!-- ═══════════════════════════════════════════════════════════
+     Erreurs de pesée     
+     ═══════════════════════════════════════════════════════════ -->
+
+<div class="section" data-type="resultats" id="section-erreurs-pesee">
+  <div class="section-titre">
+    <div class="picto-section">⚖️</div>
+    <h2>Analyse des erreurs de pesée</h2>
+    <span class="chevron">▼</span>
+  </div>
+  <div class="section-corps">
+
+    <!-- ── Introduction ────────────────────────────────────── -->
+    <div class="balance-intro">
+      <p>
+        Toute mesure est entachée d'une incertitude liée à la résolution de
+        l'instrument. Saisir la <strong>masse théorique</strong> et les
+        <strong>masses lues</strong> sur chaque balance pour calculer
+        automatiquement les erreurs absolues et relatives.
+      </p>
+    </div>
+
+    <!-- ── Saisie masse théorique ───────────────────────────── -->
+    <div class="balance-params">
+
+      <div class="balance-param-group">
+        <label for="pe-masse-theo">Masse théorique à peser <em>(g)</em></label>
+        <div class="balance-input-row">
+          <input type="number" id="pe-masse-theo"
+                 placeholder="ex : 2.940" step="0.001" min="0">
+          <span class="balance-unit">g</span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ── Deux balances côte à côte ────────────────────────── -->
+    <div class="balances-grid">
+
+      <!-- Balance 0,1 g -->
+      <div class="balance-card" id="card-01">
+        <div class="balance-card-header balance-header-01">
+          <div class="balance-icon">⚖️</div>
+          <div>
+            <div class="balance-card-title">Balance de précision</div>
+            <div class="balance-resolution">Résolution : <strong>0,1 g</strong></div>
+          </div>
+          <div class="balance-incert-badge">± 0,05 g</div>
+        </div>
+
+        <div class="balance-card-body">
+
+          <div class="balance-field">
+            <label for="pe-lue-01">Masse lue <em>(g)</em></label>
+            <div class="balance-input-row">
+              <input type="number" id="pe-lue-01"
+                     placeholder="ex : 2.9" step="0.1" min="0">
+              <span class="balance-unit">g</span>
+            </div>
+            <div class="balance-hint">Arrondi au 0,1 g le plus proche</div>
+          </div>
+
+          <div class="balance-results" id="res-01">
+            <div class="balance-placeholder">
+              Saisir les deux masses pour calculer
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Balance 1 g -->
+      <div class="balance-card" id="card-1g">
+        <div class="balance-card-header balance-header-1g">
+          <div class="balance-icon">⚖️</div>
+          <div>
+            <div class="balance-card-title">Balance de cuisine</div>
+            <div class="balance-resolution">Résolution : <strong>1 g</strong></div>
+          </div>
+          <div class="balance-incert-badge">± 0,5 g</div>
+        </div>
+
+        <div class="balance-card-body">
+
+          <div class="balance-field">
+            <label for="pe-lue-1g">Masse lue <em>(g)</em></label>
+            <div class="balance-input-row">
+              <input type="number" id="pe-lue-1g"
+                     placeholder="ex : 3" step="1" min="0">
+              <span class="balance-unit">g</span>
+            </div>
+            <div class="balance-hint">Arrondi au gramme le plus proche</div>
+          </div>
+
+          <div class="balance-results" id="res-1g">
+            <div class="balance-placeholder">
+              Saisir les deux masses pour calculer
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+    <!-- fin .balances-grid -->
+
+    <!-- ── Comparaison synthèse ──────────────────────────────── -->
+    <div class="balance-synthese" id="synthese-balances" style="display:none;">
+
+      <div class="synthese-titre">
+        <span>📊</span> Comparaison des deux instruments
+      </div>
+
+      <table class="tableau-comparaison">
+        <thead>
+          <tr>
+            <th>Critère</th>
+            <th>Balance 0,1 g</th>
+            <th>Balance 1 g</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Masse lue</td>
+            <td id="syn-lue-01">—</td>
+            <td id="syn-lue-1g">—</td>
+          </tr>
+          <tr>
+            <td>Erreur absolue</td>
+            <td id="syn-abs-01">—</td>
+            <td id="syn-abs-1g">—</td>
+          </tr>
+          <tr>
+            <td>Erreur relative</td>
+            <td id="syn-rel-01">—</td>
+            <td id="syn-rel-1g">—</td>
+          </tr>
+          <tr>
+            <td>Qualité</td>
+            <td id="syn-qual-01">—</td>
+            <td id="syn-qual-1g">—</td>
+          </tr>
+          <tr class="synthese-conclusion-row">
+            <td colspan="3" id="synthese-conclusion"></td>
+          </tr>
+        </tbody>
+      </table>
+
+    </div>
+
+    <!-- ── Rappel théorique ──────────────────────────────────── -->
+    <details class="balance-theorie">
+      <summary>📐 Rappel — Définitions des erreurs de mesure</summary>
+      <div class="balance-theorie-corps">
+
+        <div class="formule-bloc">
+          Erreur absolue : Δm = |m<sub>lue</sub> − m<sub>théorique</sub>|
+        </div>
+        <p>
+          L'erreur absolue exprime l'écart en grammes entre la valeur lue et
+          la valeur cible. Elle a la même unité que la grandeur mesurée.
+          Elle est <strong>bornée</strong> par la demi-résolution de l'instrument :
+          Δm ≤ résolution / 2.
+        </p>
+
+        <div class="formule-bloc" style="margin-top:var(--gap-sm);">
+          Erreur relative : εᵣ = Δm / m<sub>théorique</sub> × 100 (%)
+        </div>
+        <p>
+          L'erreur relative permet de <strong>comparer</strong> la précision
+          indépendamment de l'ordre de grandeur de la masse. Plus elle est
+          faible, plus la pesée est précise.
+        </p>
+
+        <table class="tableau-resultats" style="margin-top:var(--gap-sm);">
+          <thead>
+            <tr>
+              <th>Balance</th>
+              <th>Résolution</th>
+              <th>Incertitude max</th>
+              <th>Usage recommandé</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Précision 0,1 g</td>
+              <td>0,1 g</td>
+              <td>± 0,05 g</td>
+              <td>TP courant, pesées > 1 g</td>
+            </tr>
+            <tr>
+              <td>Cuisine 1 g</td>
+              <td>1 g</td>
+              <td>± 0,5 g</td>
+              <td>Pesées grossières uniquement</td>
+            </tr>
+          </tbody>
+        </table>
+
+      </div>
+    </details>
+
+  </div>
+</div>      
+
+      
 <!-- ======================================= -->
 <!-- DILUTION -->
 <!-- ======================================= -->
