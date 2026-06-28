@@ -3,10 +3,10 @@
    tp-chimie/js/tp01-solutions.js
    ========================================================== */
 
-import products          from "../../data/products.js";
-import dangerDB          from "../../data/dangerDB.js";
-import pictogrammes      from "../../data/pictogrammes.js";
-import glassware         from "../../data/glassware.js";
+import products            from "../../data/products.js";
+import dangerDB            from "../../data/dangerDB.js";
+import pictogrammes        from "../../data/pictogrammes.js";
+import glassware           from "../../data/glassware.js";
 import laboratoryEquipment from "../../data/equipment.js";
 import { initBalanceErreurs } from "../../js/balance-erreurs.js";
 
@@ -25,7 +25,8 @@ function $(id) {
 }
 
 /* ==========================================================
-   INITIALISATION
+   INITIALISATION — exportée pour navigation.js
+   ET appelée immédiatement si chargée en standalone
    ========================================================== */
 
 export function init() {
@@ -38,7 +39,15 @@ export function init() {
     initMateriel();
     initCalculs();
     initResultats();
-    initBalanceErreurs();   // module erreurs de pesée
+    initBalanceErreurs();
+}
+
+/* Appel automatique quand le script est chargé directement
+   (cas du HTML standalone avec <script type="module">)    */
+if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", init);
+} else {
+    init();
 }
 
 /* ==========================================================
@@ -114,27 +123,18 @@ function message(id, texte) {
 }
 
 /* ==========================================================
-   CHEMIN D'IMAGE — résolution depuis tp-chimie/
-   Les fichiers glassware et equipment ont leurs images dans :
-     ../../assets/img/verrerie/   (glassware)
-     ../../assets/img/equipment/  (equipment)
-   Si le champ image contient déjà un chemin absolu ou relatif
-   complet, on l'utilise tel quel ; sinon on préfixe.
+   CHEMIN IMAGE
+   Préfixe le dossier si le champ contient juste un nom de fichier
    ========================================================== */
 
 function imgSrc(chemin, dossier) {
-
     if (!chemin) return "";
-
-    // Déjà un chemin relatif ou absolu complet
-    if (chemin.startsWith("http") ||
+    if (
+        chemin.startsWith("http") ||
         chemin.startsWith("/")    ||
         chemin.startsWith("../")  ||
-        chemin.startsWith("./")) {
-        return chemin;
-    }
-
-    // Nom de fichier seul → on préfixe le dossier
+        chemin.startsWith("./")
+    ) return chemin;
     return `../../assets/img/${dossier}/${chemin}`;
 }
 
@@ -154,11 +154,13 @@ function initReactifs() {
 
     products.forEach(p => {
 
+        /* Liste sécurité — tous les produits */
         const o1 = document.createElement("option");
         o1.value = p.cas;
         o1.textContent = p.nom;
         selectSec.appendChild(o1);
 
+        /* Liste dissolution — sels uniquement */
         if (p.categorie === "Sel") {
             const o2 = document.createElement("option");
             o2.value = p.cas;
@@ -193,6 +195,7 @@ function afficherSecurite() {
     reactifCourant = produit;
 
     let html = `<h3 style="margin-bottom:.5rem;">${produit.nom}</h3>`;
+
     html += `<p style="margin-bottom:.5rem;">
         <strong>Formule :</strong>
         <span style="font-family:var(--font-code);color:var(--bleu-cuivre);">
@@ -200,7 +203,7 @@ function afficherSecurite() {
         </span>
     </p>`;
 
-    /* Pictogrammes */
+    /* ---- Pictogrammes GHS ---- */
     if (produit.dangers?.length) {
 
         html += `<div class="pictos-clp">`;
@@ -217,27 +220,32 @@ function afficherSecurite() {
         html += `</div>`;
     }
 
-    /* Mentions H */
+    /* ---- Mentions H ---- */
     if (produit.dangers?.length) {
 
         html += `<div class="danger-bloc"><h4>⚠️ Mentions de danger (H)</h4><ul>`;
 
         produit.dangers.forEach(code => {
             const h = dangerDB.find(d => d.code === code);
-            if (h) html += `<li><strong>${code}</strong> : ${h.text ?? h.texte ?? ""}</li>`;
+            if (h) {
+                /* Compatibilité : certaines versions utilisent .text, d'autres .texte */
+                html += `<li><strong>${code}</strong> : ${h.text ?? h.texte ?? ""}</li>`;
+            }
         });
 
         html += `</ul></div>`;
     }
 
-    /* Mentions P */
+    /* ---- Mentions P ---- */
     if (produit.prevention?.length) {
 
         html += `<div class="prevention-bloc"><h4>🛡️ Conseils de prudence (P)</h4><ul>`;
 
         produit.prevention.forEach(code => {
             const p = dangerDB.find(d => d.code === code);
-            if (p) html += `<li><strong>${code}</strong> : ${p.text ?? p.texte ?? ""}</li>`;
+            if (p) {
+                html += `<li><strong>${code}</strong> : ${p.text ?? p.texte ?? ""}</li>`;
+            }
         });
 
         html += `</ul></div>`;
@@ -247,97 +255,90 @@ function afficherSecurite() {
 }
 
 /* ==========================================================
-   CHANGEMENT DE REACTIF
+   CHANGEMENT DE REACTIF (dissolution)
    ========================================================== */
 
 function changerReactif() {
 
-    const cas    = $("reactif-dissolution").value;
+    const cas     = $("reactif-dissolution").value;
     const produit = products.find(p => p.cas === cas);
 
     if (!produit) return;
 
     reactifCourant = produit;
 
-    if ($("nom-reactif"))       $("nom-reactif").textContent       = produit.nom;
-    if ($("formule-dissolution"))$("formule-dissolution").textContent = produit.formule;
-    if ($("masse-dissolution"))  $("masse-dissolution").textContent  = arrondir(produit.masseMolaire);
-    if ($("m-dissolution"))      $("m-dissolution").value           = arrondir(produit.masseMolaire);
-    if ($("nom-sel-table"))      $("nom-sel-table").textContent     = produit.nom;
+    if ($("nom-reactif"))        $("nom-reactif").textContent        = produit.nom;
+    if ($("formule-dissolution")) $("formule-dissolution").textContent = produit.formule;
+    if ($("masse-dissolution"))   $("masse-dissolution").textContent   = arrondir(produit.masseMolaire);
+    if ($("m-dissolution"))       $("m-dissolution").value            = arrondir(produit.masseMolaire);
+    if ($("nom-sel-table"))       $("nom-sel-table").textContent      = produit.nom;
 
     calculDissolution();
 }
 
 /* ==========================================================
-   MATERIEL
-   Chemins images :
-     glassware   → ../../assets/img/verrerie/<fichier>
-     equipment   → ../../assets/img/equipment/<fichier>
+   MATERIEL — cases à cocher verrerie + équipements
    ========================================================== */
 
 function initMateriel() {
 
-    const divVerrerie   = $("materiel-verrerie");
+    const divVerrerie    = $("materiel-verrerie");
     const divEquipements = $("materiel-equipements");
 
     if (!divVerrerie || !divEquipements) return;
 
-    /* ── Verrerie filtrée "Dissolution" ─────────────────────── */
-    const verresDissolution =
-        glassware.filter(v =>
-            !v.categorie || v.categorie === "Dissolution"
-        );
+    /* ── Verrerie ───────────────────────────────────────────── */
 
-    divVerrerie.innerHTML = (
-        verresDissolution.length ? verresDissolution : glassware
-    ).map(v => {
+    /* Si le champ categorie est renseigné, on filtre sur Dissolution ;
+       sinon on affiche tout (sécurité si la donnée est absente)       */
+    const verresAffiches = glassware.some(v => v.categorie)
+        ? glassware.filter(v => v.categorie === "Dissolution")
+        : glassware;
+
+    divVerrerie.innerHTML = verresAffiches.map(v => {
 
         const src = imgSrc(v.image, "verrerie");
-
-        const imgTag = src
-            ? `<img src="${src}" alt="${v.nom}"
-                    onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">`
-            : "";
 
         return `
         <label class="item-materiel">
           <input type="checkbox" class="materiel-check-input">
           <span class="icone-materiel">
-            ${imgTag}
-            <span style="display:${src ? "none" : "flex"}">🧪</span>
+            ${src
+                ? `<img src="${src}" alt="${v.nom}"
+                        onerror="this.style.display='none'">`
+                : `🧪`
+            }
           </span>
           <span class="materiel-info">
             <strong>${v.nom}</strong>
-            <span class="materiel-detail">${v.contenance_ml ? v.contenance_ml + " mL" : ""}</span>
+            <span class="materiel-detail">
+              ${v.contenance_ml ? v.contenance_ml + " mL" : ""}
+            </span>
             <span class="materiel-detail lieu">${v.lieu ?? ""}</span>
           </span>
         </label>`;
 
     }).join("");
 
-    /* ── Équipements filtrés "Dissolution" ──────────────────── */
-    const equipsDissolution =
-        laboratoryEquipment.filter(e =>
-            !e.categorie || e.categorie === "Dissolution"
-        );
+    /* ── Équipements ────────────────────────────────────────── */
 
-    divEquipements.innerHTML = (
-        equipsDissolution.length ? equipsDissolution : laboratoryEquipment
-    ).map(e => {
+    const equipsAffiches = laboratoryEquipment.some(e => e.categorie)
+        ? laboratoryEquipment.filter(e => e.categorie === "Dissolution")
+        : laboratoryEquipment;
+
+    divEquipements.innerHTML = equipsAffiches.map(e => {
 
         const src = imgSrc(e.image, "equipment");
-
-        const imgTag = src
-            ? `<img src="${src}" alt="${e.nom}"
-                    onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">`
-            : "";
 
         return `
         <label class="item-materiel">
           <input type="checkbox" class="materiel-check-input">
           <span class="icone-materiel">
-            ${imgTag}
-            <span style="display:${src ? "none" : "flex"}">🔬</span>
+            ${src
+                ? `<img src="${src}" alt="${e.nom}"
+                        onerror="this.style.display='none'">`
+                : `🔬`
+            }
           </span>
           <span class="materiel-info">
             <strong>${e.nom}</strong>
@@ -350,7 +351,7 @@ function initMateriel() {
 }
 
 /* ==========================================================
-   INIT CALCULS
+   INIT CALCULS — pose les listeners
    ========================================================== */
 
 function initCalculs() {
@@ -380,13 +381,13 @@ function calculDissolution() {
         return;
     }
 
-    const masse = C * (V / 1000) * M;
-
+    const masse           = C * (V / 1000) * M;
     const masseArrondie01 = Math.round(masse * 10) / 10;
     const masseArrondie1  = Math.round(masse);
 
     $("res-dissolution").innerHTML = `
-    <div class="resultat" style="display:flex;gap:1.5rem;align-items:flex-start;flex-wrap:wrap;">
+    <div class="resultat"
+         style="display:flex;gap:1.5rem;align-items:flex-start;flex-wrap:wrap;">
 
       <div>
         <h3>Masse à peser</h3>
@@ -396,7 +397,8 @@ function calculDissolution() {
         </p>
       </div>
 
-      <div style="display:flex;flex-direction:column;gap:.5rem;justify-content:center;padding-top:.3rem;">
+      <div style="display:flex;flex-direction:column;
+                  gap:.5rem;justify-content:center;padding-top:.3rem;">
         <div class="capsule-arrondi">
           <span class="arrondi-label">Balance ± 0,1 g</span>
           <span class="arrondi-val">${masseArrondie01.toFixed(1)} g</span>
@@ -409,7 +411,7 @@ function calculDissolution() {
 
     </div>`;
 
-    /* ---- Mise à jour tableau résultats ---- */
+    /* ---- Tableau de résultats ---- */
     if ($("table-masse-dissolution"))
         $("table-masse-dissolution").textContent = arrondir(masse, 3);
     if ($("table-volume-dissolution"))
@@ -419,7 +421,8 @@ function calculDissolution() {
     if ($("table-theo-dissolution"))
         $("table-theo-dissolution").textContent = arrondir(C);
 
-    /* ---- Synchroniser le champ masse-theo de la balance ---- */
+    /* ---- Pré-remplir le champ masse-theo de la section balance
+            seulement si l'élève n'a pas encore saisi de valeur     ---- */
     const peTheo = $("pe-masse-theo");
     if (peTheo && !peTheo.value) {
         peTheo.value = arrondir(masse, 3);
@@ -447,13 +450,14 @@ function calculDilution() {
     if (C2 >= C1) {
         $("res-hcl").innerHTML = `
         <div class="erreur">
-          C₂ (${C2} mol·L⁻¹) doit être inférieure à C₁ (${C1} mol·L⁻¹).
+          La concentration de la solution fille (C₂ = ${C2} mol·L⁻¹)
+          doit être inférieure à celle de la solution mère (C₁ = ${C1} mol·L⁻¹).
         </div>`;
         return;
     }
 
-    const V1     = (C2 * V2) / C1;
-    const eau    = V2 - V1;
+    const V1      = (C2 * V2) / C1;
+    const eau     = V2 - V1;
     const facteur = arrondir(C1 / C2, 0);
 
     $("res-hcl").innerHTML = `
@@ -472,7 +476,7 @@ function calculDilution() {
 }
 
 /* ==========================================================
-   RESULTATS — init
+   RESULTATS — init listener masse expérimentale
    ========================================================== */
 
 function initResultats() {
@@ -528,12 +532,12 @@ function calculEcart() {
           <p style="margin-top:.5rem;">${appreciation}</p>
           ${ecartSigne > 0
             ? `<p style="font-size:.85rem;color:var(--gris-moyen);">
-                La concentration réelle est <strong>supérieure</strong> à la concentration nominale.
-               </p>`
+                La concentration réelle est <strong>supérieure</strong>
+                à la concentration nominale.</p>`
             : ecartSigne < 0
             ? `<p style="font-size:.85rem;color:var(--gris-moyen);">
-                La concentration réelle est <strong>inférieure</strong> à la concentration nominale.
-               </p>`
+                La concentration réelle est <strong>inférieure</strong>
+                à la concentration nominale.</p>`
             : ""
           }
         </div>`;
