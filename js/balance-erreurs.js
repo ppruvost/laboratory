@@ -1,270 +1,452 @@
 /* ════════════════════════════════════════════════════════════════
-   balance-erreurs.js
-   Calculateur d'erreurs absolue et relative pour deux balances
-   Résolution 0,1 g  |  Résolution 1 g
-
-   Usage :
-     import { initBalanceErreurs } from "./balance-erreurs.js";
-     initBalanceErreurs();          // appelé depuis init() du module TP
-
-   Ou intégration directe dans tp01-solutions.js :
-     import { initBalanceErreurs } from "../../js/balance-erreurs.js";
+   balance-erreurs.css
+   Styles du module calculateur d'erreurs de pesée
+   Dépend de : global.css (tokens CSS)
    ════════════════════════════════════════════════════════════════ */
 
-/* ── Configuration des deux instruments ────────────────────── */
+/* ── Introduction ───────────────────────────────────────────── */
 
-const BALANCES = [
-  {
-    id:          "01",           // suffixe des IDs HTML
-    resolution:  0.1,            // g
-    incertitude: 0.05,           // demi-résolution
-    label:       "Balance 0,1 g"
-  },
-  {
-    id:          "1g",
-    resolution:  1,
-    incertitude: 0.5,
-    label:       "Balance 1 g"
+.balance-intro {
+  background: #eff6ff;
+  border-left: 4px solid var(--bleu-cuivre);
+  border-radius: 0 var(--r-md) var(--r-md) 0;
+  padding: var(--gap-sm) var(--gap-md);
+  margin-bottom: var(--gap-md);
+  font-size: .92rem;
+  color: var(--gris-ardoise);
+}
+
+/* ── Saisie masse théorique ─────────────────────────────────── */
+
+.balance-params {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--gap-md);
+  margin-bottom: var(--gap-md);
+  padding: var(--gap-md);
+  background: var(--blanc-paillasse);
+  border: 1px solid var(--gris-clair);
+  border-radius: var(--r-md);
+}
+
+.balance-param-group {
+  display: flex;
+  flex-direction: column;
+  gap: .4rem;
+}
+
+.balance-param-group label {
+  font-family: var(--font-titre);
+  font-size: .82rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  color: var(--gris-moyen);
+}
+
+.balance-param-group label em {
+  font-weight: 400;
+  font-style: normal;
+  color: var(--gris-moyen);
+}
+
+.balance-input-row {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+}
+
+.balance-input-row input[type="number"] {
+  width: 160px;
+  max-width: 100%;
+  font-family: var(--font-code);
+  font-size: 1.1rem;
+  font-weight: 600;
+  padding: .5rem .8rem;
+  border: 2px solid var(--gris-clair);
+  border-radius: var(--r-sm);
+  transition: border-color .2s;
+  background: #fff;
+}
+
+.balance-input-row input[type="number"]:focus {
+  outline: none;
+  border-color: var(--bleu-cuivre);
+  box-shadow: 0 0 0 3px rgba(27, 108, 168, .12);
+}
+
+.balance-unit {
+  font-family: var(--font-code);
+  font-size: .95rem;
+  color: var(--gris-moyen);
+  font-weight: 600;
+}
+
+/* ── Grille deux balances ───────────────────────────────────── */
+
+.balances-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--gap-md);
+  margin-bottom: var(--gap-md);
+}
+
+@media (max-width: 760px) {
+  .balances-grid {
+    grid-template-columns: 1fr;
   }
-];
-
-/* ── Seuils qualitatifs (erreur relative en %) ──────────────── */
-
-const SEUILS = [
-  { max: 2,   classe: "qualite-excellent", texte: "✅ Excellent  (< 2 %)"   },
-  { max: 5,   classe: "qualite-correct",   texte: "⚠️ Acceptable (2 – 5 %)" },
-  { max: 100, classe: "qualite-erreur",    texte: "❌ Insuffisant (> 5 %)"  }
-];
-
-/* ══════════════════════════════════════════════════════════════
-   POINT D'ENTRÉE
-   ══════════════════════════════════════════════════════════════ */
-
-export function initBalanceErreurs() {
-
-  const inputTheo = document.getElementById("pe-masse-theo");
-  if (!inputTheo) return;   // fragment HTML absent de la page courante
-
-  /* ── Listeners ──────────────────────────────────────────── */
-
-  inputTheo.addEventListener("input", recalculerTout);
-
-  BALANCES.forEach(b => {
-    const input = document.getElementById(`pe-lue-${b.id}`);
-    if (input) input.addEventListener("input", recalculerTout);
-  });
-
-  recalculerTout();   // calcul initial (champs vides → état placeholder)
 }
 
-/* ══════════════════════════════════════════════════════════════
-   RECALCUL GLOBAL
-   ══════════════════════════════════════════════════════════════ */
+/* ── Carte balance ──────────────────────────────────────────── */
 
-function recalculerTout() {
+.balance-card {
+  border: 1px solid var(--gris-clair);
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  background: #fff;
+  box-shadow: var(--ombre-carte);
+  display: flex;
+  flex-direction: column;
+}
 
-  const mTheo = lireNombre("pe-masse-theo");
+/* En-têtes colorés différenciés */
 
-  const resultats = BALANCES.map(b => {
+.balance-card-header {
+  display: flex;
+  align-items: center;
+  gap: var(--gap-sm);
+  padding: var(--gap-sm) var(--gap-md);
+  color: #fff;
+}
 
-    const mLue = lireNombre(`pe-lue-${b.id}`);
-    const res   = calculerErreurs(mTheo, mLue, b);
+.balance-header-01 {
+  background: linear-gradient(135deg, var(--bleu-cuivre) 0%, #0D4F8A 100%);
+}
 
-    afficherResultatBalance(b, mLue, mTheo, res);
+.balance-header-1g {
+  background: linear-gradient(135deg, #64748b 0%, #475569 100%);
+}
 
-    return { b, mLue, res };
-  });
+.balance-icon {
+  font-size: 1.6rem;
+  flex-shrink: 0;
+}
 
-  /* ── Synthèse comparative ───────────────────────────────── */
+.balance-card-title {
+  font-family: var(--font-titre);
+  font-weight: 700;
+  font-size: .95rem;
+  line-height: 1.2;
+}
 
-  const toutRempli =
-    mTheo > 0 &&
-    resultats.every(r => r.mLue > 0);
+.balance-resolution {
+  font-size: .78rem;
+  opacity: .85;
+  margin-top: .1rem;
+}
 
-  const synthese = document.getElementById("synthese-balances");
-  if (!synthese) return;
+.balance-incert-badge {
+  margin-left: auto;
+  background: rgba(255, 255, 255, .2);
+  border: 1px solid rgba(255, 255, 255, .35);
+  border-radius: 20px;
+  padding: .2rem .7rem;
+  font-family: var(--font-code);
+  font-size: .78rem;
+  font-weight: 700;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
 
-  synthese.style.display = toutRempli ? "block" : "none";
+/* Corps carte */
 
-  if (toutRempli) {
-    afficherSynthese(mTheo, resultats);
+.balance-card-body {
+  padding: var(--gap-md);
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-sm);
+}
+
+.balance-field {
+  display: flex;
+  flex-direction: column;
+  gap: .35rem;
+}
+
+.balance-field label {
+  font-family: var(--font-titre);
+  font-size: .82rem;
+  font-weight: 600;
+  color: var(--gris-ardoise);
+}
+
+.balance-field label em {
+  font-style: normal;
+  color: var(--gris-moyen);
+  font-weight: 400;
+}
+
+.balance-hint {
+  font-size: .75rem;
+  color: var(--gris-moyen);
+  font-style: italic;
+}
+
+/* Placeholder état vide */
+
+.balance-placeholder {
+  text-align: center;
+  padding: var(--gap-md);
+  color: var(--gris-moyen);
+  font-size: .85rem;
+  font-style: italic;
+  border: 2px dashed var(--gris-clair);
+  border-radius: var(--r-md);
+  margin-top: var(--gap-sm);
+}
+
+/* ── Grille de métriques dans chaque carte ──────────────────── */
+
+.balance-metric-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--gap-sm);
+  margin-top: var(--gap-sm);
+}
+
+@media (max-width: 500px) {
+  .balance-metric-grid {
+    grid-template-columns: 1fr;
   }
 }
 
-/* ══════════════════════════════════════════════════════════════
-   CALCUL
-   ══════════════════════════════════════════════════════════════ */
-
-function calculerErreurs(mTheo, mLue, balance) {
-
-  if (mTheo <= 0 || mLue <= 0) return null;
-
-  /* Erreur absolue constatée (écart réel) */
-  const errAbs = Math.abs(mLue - mTheo);
-
-  /* Erreur relative constatée (%) */
-  const errRel = (errAbs / mTheo) * 100;
-
-  /* Erreur relative maximale théorique due à l'instrument seul */
-  const errRelMax = (balance.incertitude / mTheo) * 100;
-
-  /* Dépassement : l'erreur réelle dépasse l'incertitude instrumentale ? */
-  const depasse = errAbs > balance.incertitude;
-
-  /* Qualité */
-  const qualite = classerErreur(errRel);
-
-  return { errAbs, errRel, errRelMax, depasse, qualite };
+.balance-metric {
+  background: var(--blanc-paillasse);
+  border: 1px solid var(--gris-clair);
+  border-radius: var(--r-md);
+  padding: var(--gap-sm);
+  display: flex;
+  flex-direction: column;
+  gap: .3rem;
 }
 
-/* ── Classement qualitatif ──────────────────────────────────── */
-
-function classerErreur(errRel) {
-  return SEUILS.find(s => errRel <= s.max) ?? SEUILS[SEUILS.length - 1];
+.balance-metric-label {
+  font-family: var(--font-titre);
+  font-size: .72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .07em;
+  color: var(--gris-moyen);
 }
 
-/* ══════════════════════════════════════════════════════════════
-   AFFICHAGE — Carte balance
-   ══════════════════════════════════════════════════════════════ */
-
-function afficherResultatBalance(balance, mLue, mTheo, res) {
-
-  const zone = document.getElementById(`res-${balance.id}`);
-  if (!zone) return;
-
-  if (!res) {
-    zone.innerHTML = `
-      <div class="balance-placeholder">
-        Saisir les deux masses pour calculer
-      </div>`;
-    return;
-  }
-
-  const { errAbs, errRel, errRelMax, depasse, qualite } = res;
-
-  zone.innerHTML = `
-
-    <div class="balance-metric-grid">
-
-      <!-- Erreur absolue -->
-      <div class="balance-metric">
-        <div class="balance-metric-label">Erreur absolue</div>
-        <div class="balance-metric-value">
-          ${fmt(errAbs, 2)} <span class="balance-metric-unit">g</span>
-        </div>
-        <div class="balance-metric-sub">
-          Incertitude instrument : ± ${fmt(balance.incertitude, 2)} g
-        </div>
-        ${depasse
-          ? `<div class="balance-depassement">
-               ⚠️ Écart > incertitude instrumentale
-             </div>`
-          : `<div class="balance-ok">
-               ✔ Dans l'incertitude instrumentale
-             </div>`
-        }
-      </div>
-
-      <!-- Erreur relative -->
-      <div class="balance-metric">
-        <div class="balance-metric-label">Erreur relative</div>
-        <div class="balance-metric-value ${qualite.classe}">
-          ${fmt(errRel, 2)} <span class="balance-metric-unit">%</span>
-        </div>
-        <div class="balance-metric-sub">
-          Max instrument : ${fmt(errRelMax, 2)} %
-        </div>
-        <div class="${qualite.classe} balance-qualite-badge">
-          ${qualite.texte}
-        </div>
-      </div>
-
-    </div>
-
-    <!-- Formule détaillée -->
-    <div class="balance-detail">
-      <div class="balance-detail-ligne">
-        <span class="balance-detail-label">Δm</span>
-        <span class="balance-detail-calc">
-          |${fmt(mLue, 1)} − ${fmt(mTheo, 3)}| = <strong>${fmt(errAbs, 3)} g</strong>
-        </span>
-      </div>
-      <div class="balance-detail-ligne">
-        <span class="balance-detail-label">εᵣ</span>
-        <span class="balance-detail-calc">
-          ${fmt(errAbs, 3)} / ${fmt(mTheo, 3)} × 100 = <strong>${fmt(errRel, 2)} %</strong>
-        </span>
-      </div>
-    </div>
-
-  `;
+.balance-metric-value {
+  font-family: var(--font-code);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--gris-ardoise);
+  line-height: 1.1;
 }
 
-/* ══════════════════════════════════════════════════════════════
-   AFFICHAGE — Synthèse comparative
-   ══════════════════════════════════════════════════════════════ */
-
-function afficherSynthese(mTheo, resultats) {
-
-  resultats.forEach(({ b, mLue, res }) => {
-
-    const sid = b.id;
-
-    setText(`syn-lue-${sid}`,  `${fmt(mLue, 1)} g`);
-    setText(`syn-abs-${sid}`,  `${fmt(res.errAbs, 3)} g`);
-    setText(`syn-rel-${sid}`,  `${fmt(res.errRel, 2)} %`);
-
-    const qualEl = document.getElementById(`syn-qual-${sid}`);
-    if (qualEl) {
-      qualEl.textContent  = res.qualite.texte;
-      qualEl.className    = res.qualite.classe;
-    }
-  });
-
-  /* ── Conclusion ─────────────────────────────────────────── */
-
-  const [r01, r1g] = resultats.map(r => r.res);
-  const conclusion  = document.getElementById("synthese-conclusion");
-  if (!conclusion) return;
-
-  let texte = "";
-
-  if (r01.errRel < r1g.errRel) {
-    const gain = fmt(r1g.errRel - r01.errRel, 2);
-    texte = `
-      🏆 La balance 0,1 g est <strong>${fmt(r1g.errRel / Math.max(r01.errRel, 0.01), 1)}×
-      plus précise</strong> que la balance 1 g
-      (gain de ${gain} % d'erreur relative).
-      Pour une masse de ${fmt(mTheo, 3)} g, privilégier la balance 0,1 g.
-    `;
-  } else if (r01.errRel === r1g.errRel) {
-    texte = `Les deux instruments donnent la même précision relative pour cette pesée.`;
-  } else {
-    texte = `
-      Résultat inhabituel : vérifier les valeurs saisies.
-      L'erreur relative de la balance 1 g est inférieure à celle de la balance 0,1 g.
-    `;
-  }
-
-  conclusion.innerHTML = texte;
+.balance-metric-unit {
+  font-size: .9rem;
+  color: var(--gris-moyen);
+  font-weight: 400;
 }
 
-/* ══════════════════════════════════════════════════════════════
-   UTILITAIRES
-   ══════════════════════════════════════════════════════════════ */
-
-function lireNombre(id) {
-  const el = document.getElementById(id);
-  if (!el) return 0;
-  const v = parseFloat(el.value);
-  return isNaN(v) || v < 0 ? 0 : v;
+.balance-metric-sub {
+  font-size: .72rem;
+  color: var(--gris-moyen);
+  font-family: var(--font-code);
 }
 
-function fmt(v, decimales = 2) {
-  return Number(v).toFixed(decimales);
+/* Badges qualitatifs */
+
+.balance-qualite-badge {
+  font-size: .75rem;
+  font-weight: 600;
+  padding: .2rem .5rem;
+  border-radius: var(--r-sm);
+  margin-top: .2rem;
+  display: inline-block;
 }
 
-function setText(id, texte) {
-  const el = document.getElementById(id);
-  if (el) el.textContent = texte;
+.qualite-excellent {
+  color: #065f46;
+  background: #d1fae5;
+}
+
+.qualite-correct {
+  color: #92400e;
+  background: #fef3c7;
+}
+
+.qualite-erreur {
+  color: #991b1b;
+  background: #fee2e2;
+}
+
+/* Messages dépassement / OK */
+
+.balance-depassement {
+  font-size: .73rem;
+  color: #b45309;
+  background: #fef3c7;
+  padding: .2rem .5rem;
+  border-radius: var(--r-sm);
+  margin-top: .2rem;
+}
+
+.balance-ok {
+  font-size: .73rem;
+  color: #065f46;
+  background: #d1fae5;
+  padding: .2rem .5rem;
+  border-radius: var(--r-sm);
+  margin-top: .2rem;
+}
+
+/* ── Détail formule ─────────────────────────────────────────── */
+
+.balance-detail {
+  margin-top: var(--gap-sm);
+  padding: var(--gap-sm);
+  background: #f8fafc;
+  border-radius: var(--r-sm);
+  border: 1px solid var(--gris-clair);
+  display: flex;
+  flex-direction: column;
+  gap: .3rem;
+}
+
+.balance-detail-ligne {
+  display: flex;
+  align-items: baseline;
+  gap: .6rem;
+  font-size: .82rem;
+  font-family: var(--font-code);
+}
+
+.balance-detail-label {
+  width: 1.8rem;
+  font-weight: 700;
+  color: var(--bleu-cuivre);
+  flex-shrink: 0;
+}
+
+.balance-detail-calc {
+  color: var(--gris-ardoise);
+}
+
+/* ── Synthèse comparative ───────────────────────────────────── */
+
+.balance-synthese {
+  background: #fff;
+  border: 1px solid var(--gris-clair);
+  border-radius: var(--r-md);
+  overflow: hidden;
+  margin-bottom: var(--gap-md);
+  box-shadow: var(--ombre-carte);
+}
+
+.synthese-titre {
+  display: flex;
+  align-items: center;
+  gap: var(--gap-sm);
+  padding: var(--gap-sm) var(--gap-md);
+  background: var(--gris-ardoise);
+  color: #fff;
+  font-family: var(--font-titre);
+  font-weight: 700;
+  font-size: .92rem;
+}
+
+.tableau-comparaison {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: .88rem;
+}
+
+.tableau-comparaison th {
+  background: var(--blanc-paillasse);
+  font-family: var(--font-titre);
+  font-size: .78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .05em;
+  color: var(--gris-moyen);
+  padding: .6rem var(--gap-md);
+  border-bottom: 2px solid var(--gris-clair);
+  text-align: left;
+}
+
+.tableau-comparaison td {
+  padding: .55rem var(--gap-md);
+  border-bottom: 1px solid var(--gris-clair);
+  font-family: var(--font-code);
+  font-size: .85rem;
+}
+
+.tableau-comparaison tr:last-child td {
+  border-bottom: none;
+}
+
+.tableau-comparaison td:first-child {
+  font-family: var(--font-corps);
+  font-weight: 600;
+  color: var(--gris-ardoise);
+}
+
+.synthese-conclusion-row td {
+  padding: var(--gap-sm) var(--gap-md) !important;
+  background: #eff6ff;
+  font-family: var(--font-corps) !important;
+  font-size: .88rem !important;
+  color: var(--gris-ardoise);
+  line-height: 1.5;
+  border-top: 2px solid #bfdbfe !important;
+}
+
+/* ── Théorie dépliable ──────────────────────────────────────── */
+
+.balance-theorie {
+  border: 1px solid var(--gris-clair);
+  border-radius: var(--r-md);
+  overflow: hidden;
+  background: #fff;
+}
+
+.balance-theorie summary {
+  padding: var(--gap-sm) var(--gap-md);
+  font-family: var(--font-titre);
+  font-weight: 600;
+  font-size: .88rem;
+  cursor: pointer;
+  user-select: none;
+  color: var(--gris-ardoise);
+  background: var(--blanc-paillasse);
+  border-bottom: 1px solid transparent;
+  transition: background .2s;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+}
+
+.balance-theorie[open] summary {
+  border-bottom-color: var(--gris-clair);
+}
+
+.balance-theorie summary:hover {
+  background: #e8f0fb;
+}
+
+.balance-theorie-corps {
+  padding: var(--gap-md);
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-sm);
+  font-size: .88rem;
+  line-height: 1.6;
+  color: var(--gris-ardoise);
 }
