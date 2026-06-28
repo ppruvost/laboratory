@@ -1,5 +1,6 @@
 /* ════════════════════════════════════════════════════════════════
    tp.css  —  Styles spécifiques aux fiches TP
+   Dépend de global.css pour les tokens CSS
    ════════════════════════════════════════════════════════════════ */
 
 /* ── Indicateur de pH visuel ─────────────────────────────────── */
@@ -45,54 +46,233 @@
   margin-top: .25rem;
 }
 
-/* ==========================================
-   Titre + Logo
-========================================== */
-.tp-numero{
-    display:flex;
-    align-items:center;
-    gap:12px;
-    font-size:1.4rem;
-    font-weight:700;
+/* ════════════════════════════════════════════════════════════════
+   HEADER TP — layout 3 colonnes compact (1 seule ligne)
+   [logo]  [titre + tags]  [TP01]
+   ════════════════════════════════════════════════════════════════ */
 
-    /* ⚠️ si TP01 est opacifié ailleurs, ça ne doit pas toucher le logo */
-    opacity:1;
-    filter:none;
-    color:#000;
+.tp-header {
+  background: linear-gradient(135deg, var(--bleu-cuivre) 0%, #0D4F8A 100%);
+  color: #fff;
+  border-radius: var(--r-lg);
+  padding: var(--gap-sm) var(--gap-md);   /* padding réduit vs gap-lg */
+  margin-bottom: var(--gap-md);           /* marge réduite sous le header */
+
+  display: grid;
+  grid-template-columns: auto 1fr auto;   /* logo | centre | numéro */
+  gap: var(--gap-md);
+  align-items: center;
 }
 
-/* ==========================================
-   Logo SciLab
-========================================== */
-.logo{
-    display:inline-flex;
-    align-items:center;
+/* ── Colonne gauche : logo SciLab ───────────────────────────── */
 
-    background:#000;        /* fond noir réel */
-    padding:4px 10px;
-    border-radius:6px;
-
-    font-family:Arial, Helvetica, sans-serif;
-    font-weight:700;
-    font-size:0.95rem;
-
-    letter-spacing:0.5px;
-
-    /* 🔥 CRUCIAL : empêche l'héritage visuel d'atténuation */
-    opacity:1 !important;
-    filter:none !important;
-    mix-blend-mode:normal;
+.tp-header-logo {
+  flex-shrink: 0;
 }
 
-/* Sci en blanc */
-.logo .sci{
-    color:#ffffff !important;
+.logo {
+  display: inline-flex;
+  align-items: center;
+  background: #000;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: 700;
+  font-size: 0.95rem;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+  /* Blinde l'opacité pour éviter tout héritage du parent */
+  opacity: 1 !important;
+  filter: none !important;
+  mix-blend-mode: normal;
 }
 
-/* Lab en rouge */
-.logo .Lab{
-    color:#d40000 !important;
+.logo .sci { color: #ffffff !important; }
+.logo .Lab { color: #d40000 !important; }
+
+/* ── Colonne centre : titre + tags ──────────────────────────── */
+
+.tp-header-centre {
+  min-width: 0;   /* permet le retour à la ligne si nécessaire */
 }
+
+.tp-header-centre h1 {
+  font-family: var(--font-titre);
+  font-size: clamp(.95rem, 1.6vw, 1.25rem);
+  font-weight: 700;
+  line-height: 1.25;
+  margin-bottom: .35rem;
+  color: #fff;
+}
+
+.tp-meta {
+  display: flex;
+  flex-direction: column;
+  gap: .25rem;
+}
+
+.tp-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .35rem;
+}
+
+.tp-header .tag {
+  background: rgba(255,255,255,.18);
+  border: 1px solid rgba(255,255,255,.3);
+  border-radius: 20px;
+  padding: .15rem .65rem;
+  font-size: .7rem;
+  font-weight: 600;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  color: #fff;
+  white-space: nowrap;
+}
+
+/* ── Colonne droite : numéro TP ─────────────────────────────── */
+
+.tp-header-numero {
+  flex-shrink: 0;
+  text-align: right;
+}
+
+.tp-numero-txt {
+  font-family: var(--font-code);
+  font-size: clamp(1.4rem, 2.5vw, 2.2rem);
+  font-weight: 700;
+  opacity: .35;
+  color: #fff;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+/* Responsive : empiler sur mobile */
+@media (max-width: 600px) {
+  .tp-header {
+    grid-template-columns: 1fr auto;
+    grid-template-rows: auto auto;
+  }
+  .tp-header-logo   { grid-column: 1; grid-row: 1; }
+  .tp-header-numero { grid-column: 2; grid-row: 1; }
+  .tp-header-centre { grid-column: 1 / -1; grid-row: 2; }
+}
+
+/* ════════════════════════════════════════════════════════════════
+   SECTIONS
+   ════════════════════════════════════════════════════════════════ */
+
+.section {
+  background: #fff;
+  border-radius: var(--r-md);
+  border: 1px solid var(--gris-clair);
+  margin-bottom: var(--gap-md);
+  overflow: hidden;
+  box-shadow: var(--ombre-carte);
+}
+.section-titre {
+  display: flex;
+  align-items: center;
+  gap: var(--gap-sm);
+  padding: var(--gap-sm) var(--gap-md);
+  background: var(--blanc-paillasse);
+  border-bottom: 2px solid var(--gris-clair);
+  cursor: pointer;
+  user-select: none;
+}
+.section-titre h2 {
+  font-family: var(--font-titre);
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--gris-ardoise);
+  flex: 1;
+  margin: 0;
+}
+.section-titre .picto-section {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--r-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  flex-shrink: 0;
+}
+.section-titre .chevron {
+  font-size: .8rem;
+  transition: transform .25s;
+  color: var(--gris-moyen);
+}
+.section.fermee .chevron { transform: rotate(-90deg); }
+.section.fermee .section-corps { display: none; }
+
+.section-corps {
+  padding: var(--gap-md);
+}
+
+.section-corps > *:not(.etapes) {
+  width: 100%;
+  max-width: 1000px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Couleurs de section par type */
+.section[data-type="securite"]  .picto-section { background: #FDEDEC; color: var(--clp-rouge); }
+.section[data-type="objectif"]  .picto-section { background: #EBF5FB; color: var(--bleu-cuivre); }
+.section[data-type="materiel"]  .picto-section { background: #FDFEFE; color: var(--gris-moyen); }
+.section[data-type="reactifs"]  .picto-section { background: #FEF9E7; color: var(--ambre-fer); }
+.section[data-type="protocole"] .picto-section { background: #EAFAF1; color: var(--vert-acide); }
+.section[data-type="resultats"] .picto-section { background: #F5EEF8; color: var(--violet-kmno4); }
+.section[data-type="bilan"]     .picto-section { background: #EBF5FB; color: var(--bleu-cuivre); }
+
+/* ── Alerte sécurité ─────────────────────────────────────────── */
+.alerte-securite {
+  background: #FDEDEC;
+  border-left: 4px solid var(--clp-rouge);
+  border-radius: 0 var(--r-md) var(--r-md) 0;
+  padding: var(--gap-sm) var(--gap-md);
+  margin-bottom: var(--gap-sm);
+}
+.alerte-securite strong { color: var(--clp-rouge); display: block; margin-bottom: .3rem; }
+
+/* ── Blocs danger / prévention ───────────────────────────────── */
+.danger-bloc {
+  margin-top: 15px;
+  padding: 12px;
+  border-left: 4px solid #d9534f;
+  background: #fff5f5;
+  border-radius: 6px;
+}
+.prevention-bloc {
+  margin-top: 15px;
+  padding: 12px;
+  border-left: 4px solid #0d6efd;
+  background: #f4f8ff;
+  border-radius: 6px;
+}
+.danger-bloc h4    { color: #b02a37; margin-bottom: 8px; }
+.prevention-bloc h4{ color: #0d6efd; margin-bottom: 8px; }
+.danger-bloc ul,
+.prevention-bloc ul { margin: 0; padding-left: 20px; }
+
+/* ── Pictogrammes CLP ────────────────────────────────────────── */
+.pictos-clp {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: var(--gap-sm) 0;
+}
+.picto-clp {
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+  border: 1px solid var(--gris-clair);
+  border-radius: var(--r-sm);
+  background: #fff;
+  padding: 2px;
+}
+
 /* ── Schéma de titrage ───────────────────────────────────────── */
 .schema-titrage {
   border: 2px solid var(--gris-clair);
@@ -101,10 +281,7 @@
   background: var(--blanc-paillasse);
   text-align: center;
 }
-.schema-titrage canvas {
-  max-width: 100%;
-  border-radius: var(--r-sm);
-}
+.schema-titrage canvas { max-width: 100%; border-radius: var(--r-sm); }
 .schema-titrage .legende {
   font-size: .8rem;
   color: var(--gris-moyen);
@@ -127,9 +304,23 @@
   gap: .6rem;
   background: #fff;
   font-size: .88rem;
+  cursor: pointer;
+  transition: background .15s, border-color .15s;
+}
+.item-materiel:hover { background: #f0f7ff; }
+.item-materiel:has(input:checked) {
+  background: #EAF6FF;
+  border-color: var(--bleu-cuivre);
 }
 .item-materiel .icone-materiel {
   font-size: 1.4rem;
+  flex-shrink: 0;
+}
+.item-materiel img {
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+  border-radius: 4px;
   flex-shrink: 0;
 }
 .item-materiel .qte {
@@ -141,6 +332,33 @@
   border-radius: 20px;
   margin-left: auto;
   white-space: nowrap;
+}
+
+/* Case à cocher matériel */
+.materiel-check-input {
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+  accent-color: var(--bleu-cuivre);
+  cursor: pointer;
+}
+.materiel-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+.materiel-detail {
+  font-size: .75rem;
+  color: var(--gris-moyen);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.materiel-detail.lieu {
+  font-style: italic;
+  font-size: .7rem;
+  opacity: .8;
 }
 
 /* ── Bloc observation ────────────────────────────────────────── */
@@ -188,7 +406,7 @@
   color: #D7DBDD;
 }
 
-/* ── Bilan électronique (oxydoréduction) ─────────────────────── */
+/* ── Bilan redox ─────────────────────────────────────────────── */
 .bilan-redox {
   display: grid;
   grid-template-columns: 1fr auto 1fr;
@@ -220,6 +438,7 @@
   border-radius: var(--r-md);
   padding: var(--gap-md);
   margin-top: var(--gap-sm);
+  margin-bottom: var(--gap-sm);
 }
 .zone-eleve h4 {
   font-size: .8rem;
@@ -246,7 +465,7 @@
   box-shadow: 0 0 0 3px rgba(27,108,168,.15);
 }
 
-/* ── Chronomètre visuel ──────────────────────────────────────── */
+/* ── Chronomètre ─────────────────────────────────────────────── */
 .chrono-bloc {
   display: inline-flex;
   align-items: center;
@@ -276,7 +495,31 @@
   font-weight: 600;
 }
 
-/* ── Indicateurs colorés virage ──────────────────────────────── */
+/* ── Capsules arrondi balance ────────────────────────────────── */
+.capsule-arrondi {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  background: #f0f9f6;
+  border: 1px solid #a8ddd0;
+  border-radius: var(--r-sm);
+  padding: .35rem .8rem;
+  font-size: .85rem;
+}
+.arrondi-label {
+  color: var(--gris-moyen);
+  font-size: .78rem;
+  white-space: nowrap;
+}
+.arrondi-val {
+  font-family: var(--font-code);
+  font-weight: 700;
+  color: var(--bleu-cuivre);
+  white-space: nowrap;
+}
+
+/* ── Indicateurs virage ──────────────────────────────────────── */
 .virage-indicateur {
   display: grid;
   grid-template-columns: 1fr auto 1fr;
@@ -304,11 +547,10 @@
   color: var(--gris-moyen);
 }
 
-/* ── Tabs (onglets) ──────────────────────────────────────────── */
+/* ── Onglets ─────────────────────────────────────────────────── */
 .tabs-header {
   display: flex;
   border-bottom: 2px solid var(--gris-clair);
-  gap: 0;
   margin-bottom: var(--gap-md);
   overflow-x: auto;
 }
@@ -337,7 +579,6 @@
 /* ── Progression pédagogique ─────────────────────────────────── */
 .progression-niveaux {
   display: flex;
-  gap: 0;
   border-radius: var(--r-md);
   overflow: hidden;
   border: 1px solid var(--gris-clair);
@@ -355,12 +596,12 @@
   cursor: pointer;
   transition: background .2s;
 }
-.niveau-badge.seconde  { background: #D5F5E3; color: #1E8449; }
-.niveau-badge.premiere { background: #D6EAF8; color: #1A5276; }
-.niveau-badge.terminale{ background: #E8DAEF; color: #6C3483; }
-.niveau-badge.actif    { filter: brightness(0.85); }
+.niveau-badge.seconde   { background: #D5F5E3; color: #1E8449; }
+.niveau-badge.premiere  { background: #D6EAF8; color: #1A5276; }
+.niveau-badge.terminale { background: #E8DAEF; color: #6C3483; }
+.niveau-badge.actif     { filter: brightness(0.85); }
 
-/* ── Barre latérale résumé ───────────────────────────────────── */
+/* ── Sidebar résumé ──────────────────────────────────────────── */
 .sidebar-resume {
   background: var(--blanc-paillasse);
   border: 1px solid var(--gris-clair);
@@ -378,9 +619,7 @@
   color: var(--gris-moyen);
   margin-bottom: var(--gap-sm);
 }
-.sidebar-resume ul {
-  list-style: none;
-}
+.sidebar-resume ul { list-style: none; }
 .sidebar-resume ul li {
   font-size: .85rem;
   padding: .3rem 0;
@@ -389,9 +628,13 @@
   justify-content: space-between;
 }
 .sidebar-resume ul li:last-child { border-bottom: none; }
-.sidebar-resume .valeur { font-family: var(--font-code); font-weight: 600; color: var(--bleu-cuivre); }
+.sidebar-resume .valeur {
+  font-family: var(--font-code);
+  font-weight: 600;
+  color: var(--bleu-cuivre);
+}
 
-/* ── Layout deux colonnes pour TP avancés ────────────────────── */
+/* ── Layout deux colonnes ────────────────────────────────────── */
 .layout-tp {
   display: grid;
   grid-template-columns: 1fr 300px;
@@ -403,7 +646,7 @@
   .sidebar-resume { position: static; }
 }
 
-/* ── Indicateur de danger combiné ────────────────────────────── */
+/* ── Danger strip ────────────────────────────────────────────── */
 .danger-strip {
   display: flex;
   align-items: center;
@@ -455,249 +698,232 @@
 .section:nth-child(5) { animation-delay: .20s; }
 .section:nth-child(6) { animation-delay: .25s; }
 
-/* ── Section ─────────────────────────────────────────── */
-
-.section-corps {
-    padding: var(--gap-md);
-}
-
-.section-corps > *:not(.etapes){
-    width:100%;
-    max-width:1000px;
-    margin-left:auto;
-    margin-right:auto;
-}
-
-/* ── Étapes ─────────────────────────────────────────── */
-
+/* ── Étapes numérotées ───────────────────────────────────────── */
 .etapes {
-    width: 100%;
-    list-style: none;
-    padding-left: 0;
-    margin: 0;
+  list-style: none;
+  counter-reset: etape;
+  padding: 0;
+  margin: 0;
+  width: 100%;
 }
-
 .etapes li {
-    width: 100%;
-    display: grid;
-    grid-template-columns: 2.5rem 1fr;
-    gap: var(--gap-sm);
-    align-items: start;
-}
-
-/* Empêche les retours à la ligne parasites */
-
-.etapes li strong,
-.etapes li em,
-.etapes li span {
-    display: inline;
-    width: auto;
-    max-width: none;
-}
-
-
-/* matériel pour TP chimie */
-
-#listeMateriel{
-
-display:grid;
-
-grid-template-columns:
-repeat(
-auto-fit,
-minmax(220px,1fr)
-);
-
-gap:8px;
-
-margin:15px 0;
-}
-
-.materiel-check{
-
-display:flex;
-
-align-items:center;
-
-gap:8px;
-
-padding:8px;
-
-background:#f5f7fa;
-
-border-radius:8px;
-
-cursor:pointer;
-}
-
-.materiel-check:hover{
-
-background:#e8eef5;
-}
-
-#materielSelectionne{
-
-margin-top:20px;
-}
-
-.fiche-materiel{
-
-display:flex;
-
-gap:15px;
-
-align-items:center;
-
-padding:10px;
-
-margin-bottom:10px;
-
-background:white;
-
-border-radius:10px;
-
-border:1px solid #ddd;
-}
-
-.fiche-materiel img{
-
-width:90px;
-
-height:90px;
-
-object-fit:cover;
-
-border-radius:8px;
-
-border:1px solid #ddd;
-}
-
-.fiche-materiel h4{
-
-margin:0 0 5px 0;
-}
-
-.fiche-materiel p{
-
-margin:2px 0;
-}
-
-.ecart.excellent{
-
-background:#d4edda;
-
-color:#155724;
-
-font-weight:bold;
-
-}
-
-.ecart.correct{
-
-background:#fff3cd;
-
-color:#856404;
-
-font-weight:bold;
-
-}
-
-.ecart.erreur{
-
-background:#f8d7da;
-
-color:#721c24;
-
-font-weight:bold;
-
-}
-
-/* ════════════════════════════════════════════════════════════════
-   Cases à cocher matériel — verrerie & équipements
-   (généré dynamiquement par initMateriel() dans tp01-solutions.js)
-   ════════════════════════════════════════════════════════════════ */
-
-/* Survol et état coché de la carte */
-
-.item-materiel {
-  cursor: pointer;
-  transition: background .15s, border-color .15s;
-}
-
-.item-materiel:hover {
-  background: #f0f7ff;
-}
-
-.item-materiel:has(input:checked) {
-  background: #EAF6FF;
-  border-color: var(--bleu-cuivre);
-}
-
-/* Case à cocher */
-
-.materiel-check-input {
-  flex-shrink: 0;
-  width: 18px;
-  height: 18px;
-  accent-color: var(--bleu-cuivre);
-  cursor: pointer;
-}
-
-/* Bloc texte (nom + contenance + lieu) */
-
-.materiel-info {
+  counter-increment: etape;
   display: flex;
-  flex-direction: column;
-  gap: 2px;
-  min-width: 0;
+  align-items: flex-start;
+  gap: 1rem;
+  width: 100%;
+  margin-bottom: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px dashed var(--gris-clair);
 }
-
-.materiel-detail {
-  font-size: .75rem;
-  color: var(--gris-moyen);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+.etapes li:last-child {
+  margin-bottom: 0;
+  padding-bottom: 0;
+  border-bottom: none;
 }
-
-.materiel-detail.lieu {
-  font-style: italic;
-  font-size: .7rem;
-  opacity: .8;
-}
-
-/* Image verrerie / équipement */
-
-.item-materiel img {
-  width: 48px;
-  height: 48px;
-  object-fit: contain;
-  border-radius: 4px;
-  flex-shrink: 0;
-}
-/* ── Capsules arrondi balance ────────────────────────────────── */
-
-.capsule-arrondi {
+.etapes li::before {
+  content: counter(etape);
+  width: 40px;
+  height: 40px;
+  min-width: 40px;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-  background: #f0f9f6;
-  border: 1px solid #a8ddd0;
-  border-radius: var(--r-sm);
-  padding: .35rem .8rem;
-  font-size: .85rem;
-}
-
-.arrondi-label {
-  color: var(--gris-moyen);
-  font-size: .78rem;
-  white-space: nowrap;
-}
-
-.arrondi-val {
-  font-family: var(--font-code);
+  justify-content: center;
+  border-radius: 50%;
+  background: var(--bleu-cuivre);
+  color: #fff;
+  font-family: var(--font-titre);
   font-weight: 700;
+  font-size: .95rem;
+  flex-shrink: 0;
+}
+.etapes li > * { flex: 1; min-width: 0; }
+.etapes li .attention { color: var(--clp-rouge); font-weight: 600; }
+.etapes li strong,
+.etapes li em,
+.etapes li span,
+.etapes li p { display: inline; width: auto; max-width: none; }
+
+/* ── Tableau de résultats ────────────────────────────────────── */
+.tableau-resultats {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: .9rem;
+}
+.tableau-resultats th {
+  background: var(--gris-ardoise);
+  color: #fff;
+  padding: .6rem 1rem;
+  text-align: left;
+  font-family: var(--font-titre);
+  font-weight: 600;
+  font-size: .8rem;
+  letter-spacing: .04em;
+}
+.tableau-resultats td {
+  padding: .6rem 1rem;
+  border-bottom: 1px solid var(--gris-clair);
+}
+.tableau-resultats tr:nth-child(even) td { background: var(--blanc-paillasse); }
+.tableau-resultats td.saisie {
+  background: #FFF9C4;
+  border: 1px dashed #F0C040;
+  min-width: 120px;
+}
+
+/* ── Écart qualité ───────────────────────────────────────────── */
+.ecart.excellent { background: #d4edda; color: #155724; font-weight: bold; }
+.ecart.correct   { background: #fff3cd; color: #856404; font-weight: bold; }
+.ecart.erreur    { background: #f8d7da; color: #721c24; font-weight: bold; }
+
+/* ── Formule highlight ───────────────────────────────────────── */
+.formule-bloc {
+  font-family: var(--font-code);
+  background: var(--gris-ardoise);
+  color: #7EC8E3;
+  padding: var(--gap-sm) var(--gap-md);
+  border-radius: var(--r-md);
+  font-size: 1.05rem;
+  margin: var(--gap-sm) 0;
+  overflow-x: auto;
+}
+
+/* ── Calcul guidé ────────────────────────────────────────────── */
+.calcul-guide {
+  background: #F0FFF4;
+  border: 1px solid #A9DFBF;
+  border-radius: var(--r-md);
+  padding: var(--gap-md);
+  margin: var(--gap-sm) 0;
+}
+.calcul-guide h4 {
+  font-family: var(--font-titre);
+  font-size: .85rem;
+  font-weight: 700;
+  color: var(--vert-acide);
+  margin-bottom: var(--gap-sm);
+  text-transform: uppercase;
+  letter-spacing: .08em;
+}
+.calcul-guide .formule {
+  font-family: var(--font-code);
+  font-size: 1.1rem;
+  color: var(--gris-ardoise);
+  background: rgba(255,255,255,.7);
+  padding: .4rem .8rem;
+  border-radius: var(--r-sm);
+  display: inline-block;
+  margin-bottom: .5rem;
+}
+.calcul-guide input[type="number"],
+.calcul-guide input[type="text"],
+.calcul-guide select {
+  border: 2px solid var(--vert-acide);
+  border-radius: var(--r-sm);
+  padding: .4rem .7rem;
+  font-family: var(--font-code);
+  font-size: 1rem;
+  max-width: 340px;
+  outline: none;
+  background: #fff;
+  display: block;
+  margin: .4rem 0 .8rem;
+}
+.calcul-guide input:focus,
+.calcul-guide select:focus { box-shadow: 0 0 0 3px rgba(0,135,90,.2); }
+.resultat-calcul {
+  font-family: var(--font-code);
+  font-size: 1rem;
+  color: var(--vert-acide);
+  margin-top: var(--gap-sm);
+  padding: var(--gap-sm);
+  background: rgba(255,255,255,.6);
+  border-radius: var(--r-sm);
+  min-height: 2rem;
+}
+
+/* ── Résultat ────────────────────────────────────────────────── */
+.resultat {
+  background: #ecfdf5;
+  border: 1px solid #6ee7b7;
+  border-left: 4px solid #10b981;
+  border-radius: var(--r-md);
+  padding: var(--gap-md);
+  margin-top: var(--gap-sm);
+}
+.resultat h3 {
+  font-family: var(--font-titre);
+  font-size: .85rem;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  color: #059669;
+  margin-bottom: .5rem;
+}
+.resultat .valeur {
+  font-family: var(--font-code);
+  font-size: 2rem;
+  font-weight: 700;
+  color: #065f46;
+}
+.erreur {
+  background: #fef2f2;
+  border-left: 4px solid var(--clp-rouge);
+  border-radius: 0 var(--r-md) var(--r-md) 0;
+  padding: var(--gap-sm) var(--gap-md);
+  color: var(--clp-rouge);
+  font-weight: 600;
+  margin-top: var(--gap-sm);
+}
+.info {
+  background: #eff6ff;
+  border-left: 4px solid var(--bleu-cuivre);
+  border-radius: 0 var(--r-md) var(--r-md) 0;
+  padding: var(--gap-sm) var(--gap-md);
   color: var(--bleu-cuivre);
-  white-space: nowrap;
+  margin-top: var(--gap-sm);
+}
+
+/* ── Boutons ─────────────────────────────────────────────────── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: .4rem;
+  padding: .55rem 1.2rem;
+  border-radius: var(--r-sm);
+  font-family: var(--font-titre);
+  font-weight: 600;
+  font-size: .9rem;
+  cursor: pointer;
+  border: none;
+  transition: all .2s;
+  text-decoration: none;
+}
+.btn-primaire    { background: var(--bleu-cuivre); color: #fff; }
+.btn-primaire:hover   { background: #1557A0; color: #fff; text-decoration: none; }
+.btn-secondaire  { background: transparent; color: var(--gris-ardoise); border: 2px solid var(--gris-clair); }
+.btn-secondaire:hover { border-color: var(--gris-ardoise); text-decoration: none; }
+.btn-danger  { background: var(--clp-rouge); color: #fff; }
+.btn-imprimer { background: var(--gris-ardoise); color: #fff; }
+
+/* ── Navigation inter-TP ─────────────────────────────────────── */
+.nav-tp {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: var(--gap-lg);
+  padding-top: var(--gap-md);
+  border-top: 2px solid var(--gris-clair);
+}
+
+/* ── Impression ──────────────────────────────────────────────── */
+@media print {
+  .site-header, .btn, .nav-tp { display: none !important; }
+  .section.fermee .section-corps { display: block !important; }
+  .section { box-shadow: none; border: 1px solid #ccc; break-inside: avoid; }
+  body { font-size: 11pt; }
+}
+
+/* ── Motion réduit ───────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition: none !important; animation: none !important; }
 }
