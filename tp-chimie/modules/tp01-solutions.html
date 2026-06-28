@@ -8,279 +8,204 @@
 
 <link rel="stylesheet" href="../css/global.css">
 <link rel="stylesheet" href="../css/tp.css">
+<link rel="stylesheet" href="../css/balance-erreurs.css">
 </head>
 
 <body>
 
 <div class="page-wrapper">
 
+<!-- ====================================================== -->
+<!-- HEADER COMPACT — une seule ligne                        -->
+<!-- ====================================================== -->
+
 <header class="tp-header">
 
-<div>
-<h1>Préparation de solutions par dissolution et dilution</h1>
-      <div class="logo">
-        <span class="sci">Sci</span><span class="Lab">Lab</span>
+  <div class="tp-header-logo">
+    <div class="logo">
+      <span class="sci">Sci</span><span class="Lab">Lab</span>
     </div>
-<div class="tp-meta"> 
-
-  <div class="tp-row">
-    <span class="tag">2nde</span>
-    <span class="tag">Chimie</span>
-    <span class="tag">Dissolution</span>
   </div>
 
-  <div class="tp-row">
-    <span class="tag">1ere</span>
-    <span class="tag">Chimie</span>
-    <span class="tag">Dissolution</span>
-    <span class="tag">Dilution</span>
+  <div class="tp-header-centre">
+    <h1>Préparation de solutions par dissolution et dilution</h1>
+    <div class="tp-meta">
+      <div class="tp-row">
+        <span class="tag">2nde</span>
+        <span class="tag">Chimie</span>
+        <span class="tag">Dissolution</span>
+      </div>
+      <div class="tp-row">
+        <span class="tag">1ère</span>
+        <span class="tag">Chimie</span>
+        <span class="tag">Dissolution</span>
+        <span class="tag">Dilution</span>
+      </div>
+    </div>
   </div>
 
-</div>
-
-<div class="tp-numero">
-    <span class="tp-text">TP01</span>
-</div>
+  <div class="tp-header-numero">
+    <span class="tp-numero-txt">TP01</span>
+  </div>
 
 </header>
 
 <!-- ====================================================== -->
-<!-- OBJECTIFS -->
+<!-- OBJECTIFS                                               -->
 <!-- ====================================================== -->
 
 <div class="section" data-type="objectif">
-
-<div class="section-titre">
-<div class="picto-section">🎯</div>
-<h2>Objectifs</h2>
-<span class="chevron">▼</span>
-</div>
-
-<div class="section-corps">
-
-<ul>
-<li>Définir soluté, solvant et solution.</li>
-<li>Calculer une quantité de matière.</li>
-<li>Utiliser la relation n = m / M.</li>
-<li>Préparer une solution par dissolution.</li>
-<li>Préparer une solution par dilution.</li>
-<li>Utiliser correctement la verrerie volumétrique.</li>
-</ul>
-
-</div>
+  <div class="section-titre">
+    <div class="picto-section">🎯</div>
+    <h2>Objectifs</h2>
+    <span class="chevron">▼</span>
+  </div>
+  <div class="section-corps">
+    <ul>
+      <li>Définir soluté, solvant et solution.</li>
+      <li>Calculer une quantité de matière.</li>
+      <li>Utiliser la relation n = m / M.</li>
+      <li>Préparer une solution par dissolution.</li>
+      <li>Préparer une solution par dilution.</li>
+      <li>Utiliser correctement la verrerie volumétrique.</li>
+    </ul>
+  </div>
 </div>
 
 <!-- ====================================================== -->
-<!-- SECURITE -->
+<!-- SECURITE                                                -->
 <!-- ====================================================== -->
 
 <div class="section" data-type="securite">
-
-    <div class="section-titre">
-        <div class="picto-section">⚠️</div>
-        <h2>Sécurité - Produits utilisés</h2>
-        <span class="chevron">▼</span>
+  <div class="section-titre">
+    <div class="picto-section">⚠️</div>
+    <h2>Sécurité - Produits utilisés</h2>
+    <span class="chevron">▼</span>
+  </div>
+  <div class="section-corps">
+    <div class="form-group">
+      <label for="reactif">Choisir un réactif :</label>
+      <select id="reactif">
+        <option value="">-- Sélectionner --</option>
+      </select>
     </div>
-
-    <div class="section-corps">
-
-        <div class="form-group">
-
-            <label for="reactif">
-                Choisir un réactif :
-            </label>
-
-            <select id="reactif">
-
-                <option value="">
-                    -- Sélectionner --
-                </option>
-
-            </select>
-
-        </div>
-
-        <div id="securite-bloc">
-
-            <div class="info">
-                Sélectionner un réactif.
-            </div>
-
-        </div>
-
+    <div id="securite-bloc">
+      <div class="info">Sélectionner un réactif.</div>
     </div>
-
+  </div>
 </div>
+
 <!-- ====================================================== -->
-<!-- MATERIEL -->
+<!-- MATERIEL                                                -->
 <!-- ====================================================== -->
 
 <div class="section" data-type="materiel">
-
-<div class="section-titre">
-<div class="picto-section">🧪</div>
-<h2>Matériel nécessaire</h2>
-<span class="chevron">▼</span>
-</div>
-
-<div class="section-corps">
-
-<h3>Verrerie</h3>
-
-<div id="materiel-verrerie" class="grille-materiel">
-  <!-- Rempli dynamiquement par tp01-solutions.js -->
-</div>
-
-<br>
-
-<h3>Équipements</h3>
-
-<div id="materiel-equipements" class="grille-materiel">
-  <!-- Rempli dynamiquement par tp01-solutions.js -->
-</div>
-
-</div>
+  <div class="section-titre">
+    <div class="picto-section">🧪</div>
+    <h2>Matériel nécessaire</h2>
+    <span class="chevron">▼</span>
+  </div>
+  <div class="section-corps">
+    <h3>Verrerie</h3>
+    <div id="materiel-verrerie" class="grille-materiel"></div>
+    <br>
+    <h3>Équipements</h3>
+    <div id="materiel-equipements" class="grille-materiel"></div>
+  </div>
 </div>
 
 <!-- ====================================================== -->
-<!-- PREPARATION -->
+<!-- PREPARATION — TABS dissolution / dilution              -->
 <!-- ====================================================== -->
 
 <div class="section" data-type="reactifs">
+  <div class="section-titre">
+    <div class="picto-section">⚗️</div>
+    <h2>Préparation des réactifs</h2>
+    <span class="chevron">▼</span>
+  </div>
+  <div class="section-corps">
 
-<div class="section-titre">
-<div class="picto-section">⚗️</div>
-<h2>Préparation des réactifs</h2>
-<span class="chevron">▼</span>
-</div>
+    <div class="tabs-container">
 
-<div class="section-corps">
+      <div class="tabs-header">
+        <button class="tab-btn actif" data-tab="dissolution">Dissolution</button>
+        <button class="tab-btn"       data-tab="dilution">Dilution</button>
+      </div>
 
-<div class="tabs-container">
+      <!-- ── DISSOLUTION ─────────────────────────────────── -->
+      <div class="tab-panel actif" id="dissolution">
 
-<div class="tabs-header">
+        <h3>Préparation par dissolution</h3>
 
-<button class="tab-btn actif"
-data-tab="dissolution">
-Dissolution
-</button>
+        <div class="calcul-guide">
 
-<button class="tab-btn"
-data-tab="dilution">
-Dilution
-</button>
+          <label for="reactif-dissolution">Réactif</label>
+          <select id="reactif-dissolution">
+            <option value="">-- Sélectionner un sel --</option>
+          </select>
 
-</div>
+          <br><br>
 
-<!-- ======================================= -->
-<!-- DISSOLUTION -->
-<!-- ======================================= -->
+          <div class="info-reactif">
+            <p><strong>Nom :</strong> <span id="nom-reactif">-</span></p>
+            <p><strong>Formule :</strong> <span id="formule-dissolution">-</span></p>
+            <p><strong>Masse molaire :</strong> <span id="masse-dissolution">-</span> g/mol</p>
+          </div>
 
-<div class="tab-panel actif" id="dissolution">
+          <hr>
 
-    <h3>Préparation par dissolution</h3>
+          <h4>Calcul de la masse à peser</h4>
+          <div class="formule">m = C × V × M</div>
+          <br>
 
-    <div class="calcul-guide">
+          <label for="c-dissolution">C (mol/L)</label>
+          <input id="c-dissolution" type="number" value="0.10" step="0.01" min="0">
 
-        <label for="reactif-dissolution">
-            Réactif
-        </label>
+          <label for="v-dissolution">V (mL)</label>
+          <input id="v-dissolution" type="number" value="100" min="1">
 
-        <select id="reactif-dissolution">
-            <option value="">
-                -- Sélectionner un sel --
-            </option>
-        </select>
+          <label for="m-dissolution">M (g/mol)</label>
+          <input id="m-dissolution" type="number" readonly>
 
-        <br><br>
-
-        <!-- Informations récupérées automatiquement -->
-
-        <div class="info-reactif">
-
-            <p>
-                <strong>Nom :</strong>
-                <span id="nom-reactif">
-                    -
-                </span>
-            </p>
-
-            <p>
-                <strong>Formule :</strong>
-                <span id="formule-dissolution">
-                    -
-                </span>
-            </p>
-
-            <p>
-                <strong>Masse molaire :</strong>
-                <span id="masse-dissolution">
-                    -
-                </span>
-                g/mol
-            </p>
-
-        </div>
-
-        <hr>
-
-        <h4>Calcul de la masse à peser</h4>
-
-        <div class="formule">
-            m = C × V × M
-        </div>
-
-        <br>
-
-        <label for="c-dissolution">
-            C (mol/L)
-        </label>
-
-        <input
-            id="c-dissolution"
-            type="number"
-            value="0.10"
-            step="0.01"
-            min="0"
-        >
-
-        <label for="v-dissolution">
-            V (mL)
-        </label>
-
-        <input
-            id="v-dissolution"
-            type="number"
-            value="100"
-            min="1"
-        >
-
-        <label for="m-dissolution">
-            M (g/mol)
-        </label>
-
-        <input
-            id="m-dissolution"
-            type="number"
-            readonly
-        >
-
-        <div
-            id="res-dissolution"
-            class="resultat-calcul">
-
+          <div id="res-dissolution" class="resultat-calcul">
             Sélectionner un réactif.
+          </div>
 
         </div>
+
+      </div>
+      <!-- fin #dissolution -->
+
+      <!-- ── DILUTION ────────────────────────────────────── -->
+      <div class="tab-panel" id="dilution">
+
+        <h3>Dilution HCl</h3>
+
+        <div class="calcul-guide">
+          <div class="formule">C₁V₁ = C₂V₂</div>
+          <br>
+          <label>C₁</label>
+          <input id="c1-hcl" type="number" value="1">
+          <label>C₂</label>
+          <input id="c2-hcl" type="number" value="0.10">
+          <label>V₂ (mL)</label>
+          <input id="v2-hcl" type="number" value="100">
+          <div id="res-hcl" class="resultat-calcul"></div>
+        </div>
+
+      </div>
+      <!-- fin #dilution -->
 
     </div>
+    <!-- fin .tabs-container -->
 
+  </div>
 </div>
 
-
-<!-- ═══════════════════════════════════════════════════════════
-     Erreurs de pesée     
-     ═══════════════════════════════════════════════════════════ -->
+<!-- ====================================================== -->
+<!-- ERREURS DE PESÉE — section indépendante, hors tabs     -->
+<!-- ====================================================== -->
 
 <div class="section" data-type="resultats" id="section-erreurs-pesee">
   <div class="section-titre">
@@ -290,7 +215,6 @@ Dilution
   </div>
   <div class="section-corps">
 
-    <!-- ── Introduction ────────────────────────────────────── -->
     <div class="balance-intro">
       <p>
         Toute mesure est entachée d'une incertitude liée à la résolution de
@@ -300,9 +224,8 @@ Dilution
       </p>
     </div>
 
-    <!-- ── Saisie masse théorique ───────────────────────────── -->
+    <!-- Masse théorique -->
     <div class="balance-params">
-
       <div class="balance-param-group">
         <label for="pe-masse-theo">Masse théorique à peser <em>(g)</em></label>
         <div class="balance-input-row">
@@ -311,13 +234,11 @@ Dilution
           <span class="balance-unit">g</span>
         </div>
       </div>
-
     </div>
 
-    <!-- ── Deux balances côte à côte ────────────────────────── -->
+    <!-- Deux balances -->
     <div class="balances-grid">
 
-      <!-- Balance 0,1 g -->
       <div class="balance-card" id="card-01">
         <div class="balance-card-header balance-header-01">
           <div class="balance-icon">⚖️</div>
@@ -327,9 +248,7 @@ Dilution
           </div>
           <div class="balance-incert-badge">± 0,05 g</div>
         </div>
-
         <div class="balance-card-body">
-
           <div class="balance-field">
             <label for="pe-lue-01">Masse lue <em>(g)</em></label>
             <div class="balance-input-row">
@@ -339,17 +258,12 @@ Dilution
             </div>
             <div class="balance-hint">Arrondi au 0,1 g le plus proche</div>
           </div>
-
           <div class="balance-results" id="res-01">
-            <div class="balance-placeholder">
-              Saisir les deux masses pour calculer
-            </div>
+            <div class="balance-placeholder">Saisir les deux masses pour calculer</div>
           </div>
-
         </div>
       </div>
 
-      <!-- Balance 1 g -->
       <div class="balance-card" id="card-1g">
         <div class="balance-card-header balance-header-1g">
           <div class="balance-icon">⚖️</div>
@@ -359,9 +273,7 @@ Dilution
           </div>
           <div class="balance-incert-badge">± 0,5 g</div>
         </div>
-
         <div class="balance-card-body">
-
           <div class="balance-field">
             <label for="pe-lue-1g">Masse lue <em>(g)</em></label>
             <div class="balance-input-row">
@@ -371,64 +283,34 @@ Dilution
             </div>
             <div class="balance-hint">Arrondi au gramme le plus proche</div>
           </div>
-
           <div class="balance-results" id="res-1g">
-            <div class="balance-placeholder">
-              Saisir les deux masses pour calculer
-            </div>
+            <div class="balance-placeholder">Saisir les deux masses pour calculer</div>
           </div>
-
         </div>
       </div>
 
     </div>
-    <!-- fin .balances-grid -->
 
-    <!-- ── Comparaison synthèse ──────────────────────────────── -->
+    <!-- Synthèse -->
     <div class="balance-synthese" id="synthese-balances" style="display:none;">
-
-      <div class="synthese-titre">
-        <span>📊</span> Comparaison des deux instruments
-      </div>
-
+      <div class="synthese-titre"><span>📊</span> Comparaison des deux instruments</div>
       <table class="tableau-comparaison">
         <thead>
-          <tr>
-            <th>Critère</th>
-            <th>Balance 0,1 g</th>
-            <th>Balance 1 g</th>
-          </tr>
+          <tr><th>Critère</th><th>Balance 0,1 g</th><th>Balance 1 g</th></tr>
         </thead>
         <tbody>
-          <tr>
-            <td>Masse lue</td>
-            <td id="syn-lue-01">—</td>
-            <td id="syn-lue-1g">—</td>
-          </tr>
-          <tr>
-            <td>Erreur absolue</td>
-            <td id="syn-abs-01">—</td>
-            <td id="syn-abs-1g">—</td>
-          </tr>
-          <tr>
-            <td>Erreur relative</td>
-            <td id="syn-rel-01">—</td>
-            <td id="syn-rel-1g">—</td>
-          </tr>
-          <tr>
-            <td>Qualité</td>
-            <td id="syn-qual-01">—</td>
-            <td id="syn-qual-1g">—</td>
-          </tr>
+          <tr><td>Masse lue</td>       <td id="syn-lue-01">—</td><td id="syn-lue-1g">—</td></tr>
+          <tr><td>Erreur absolue</td>  <td id="syn-abs-01">—</td><td id="syn-abs-1g">—</td></tr>
+          <tr><td>Erreur relative</td> <td id="syn-rel-01">—</td><td id="syn-rel-1g">—</td></tr>
+          <tr><td>Qualité</td>         <td id="syn-qual-01">—</td><td id="syn-qual-1g">—</td></tr>
           <tr class="synthese-conclusion-row">
             <td colspan="3" id="synthese-conclusion"></td>
           </tr>
         </tbody>
       </table>
-
     </div>
 
-    <!-- ── Rappel théorique ──────────────────────────────────── -->
+    <!-- Rappel théorique -->
     <details class="balance-theorie">
       <summary>📐 Rappel — Définitions des erreurs de mesure</summary>
       <div class="balance-theorie-corps">
@@ -438,9 +320,8 @@ Dilution
         </div>
         <p>
           L'erreur absolue exprime l'écart en grammes entre la valeur lue et
-          la valeur cible. Elle a la même unité que la grandeur mesurée.
-          Elle est <strong>bornée</strong> par la demi-résolution de l'instrument :
-          Δm ≤ résolution / 2.
+          la valeur cible. Elle est <strong>bornée</strong> par la demi-résolution
+          de l'instrument : Δm ≤ résolution / 2.
         </p>
 
         <div class="formule-bloc" style="margin-top:var(--gap-sm);">
@@ -448,31 +329,24 @@ Dilution
         </div>
         <p>
           L'erreur relative permet de <strong>comparer</strong> la précision
-          indépendamment de l'ordre de grandeur de la masse. Plus elle est
-          faible, plus la pesée est précise.
+          indépendamment de l'ordre de grandeur de la masse.
         </p>
 
         <table class="tableau-resultats" style="margin-top:var(--gap-sm);">
           <thead>
             <tr>
-              <th>Balance</th>
-              <th>Résolution</th>
-              <th>Incertitude max</th>
-              <th>Usage recommandé</th>
+              <th>Balance</th><th>Résolution</th>
+              <th>Incertitude max</th><th>Usage recommandé</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td>Précision 0,1 g</td>
-              <td>0,1 g</td>
-              <td>± 0,05 g</td>
-              <td>TP courant, pesées > 1 g</td>
+              <td>Précision 0,1 g</td><td>0,1 g</td>
+              <td>± 0,05 g</td><td>TP courant, pesées > 1 g</td>
             </tr>
             <tr>
-              <td>Cuisine 1 g</td>
-              <td>1 g</td>
-              <td>± 0,5 g</td>
-              <td>Pesées grossières uniquement</td>
+              <td>Cuisine 1 g</td><td>1 g</td>
+              <td>± 0,5 g</td><td>Pesées grossières uniquement</td>
             </tr>
           </tbody>
         </table>
@@ -481,234 +355,127 @@ Dilution
     </details>
 
   </div>
-</div>      
-
-      
-<!-- ======================================= -->
-<!-- DILUTION -->
-<!-- ======================================= -->
-
-<div class="tab-panel"
-id="dilution">
-
-<h3>Dilution HCl</h3>
-
-<div class="calcul-guide">
-
-<div class="formule">
-C₁V₁ = C₂V₂
-</div>
-
-<br>
-
-<label>C₁</label>
-<input id="c1-hcl" type="number" value="1">
-
-<label>C₂</label>
-<input id="c2-hcl" type="number" value="0.10">
-
-<label>V₂ (mL)</label>
-<input id="v2-hcl" type="number" value="100">
-
-<div id="res-hcl"
-class="resultat-calcul">
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
 </div>
 
 <!-- ====================================================== -->
-<!-- PROTOCOLE -->
+<!-- PROTOCOLE                                               -->
 <!-- ====================================================== -->
 
 <div class="section" data-type="protocole">
-
-<div class="section-titre">
-<div class="picto-section">📋</div>
-<h2>Protocole expérimental</h2>
-<span class="chevron">▼</span>
-</div>
-
-<div class="section-corps">
-
-<ul class="etapes">
-
-<li>
-Peser la masse du sel sélectionné.
-</li>
-
-<li>
-Introduire le solide dans une fiole jaugée de 100 mL.
-</li>
-
-<li>
-Ajouter un peu d'eau distillée et dissoudre.
-</li>
-
-<li>
-Compléter jusqu'au trait de jauge.
-</li>
-
-<li>
-Boucher puis homogénéiser.
-</li>  
-
-</ul>
-
-</div>
+  <div class="section-titre">
+    <div class="picto-section">📋</div>
+    <h2>Protocole expérimental</h2>
+    <span class="chevron">▼</span>
+  </div>
+  <div class="section-corps">
+    <ul class="etapes">
+      <li>Peser la masse du sel sélectionné.</li>
+      <li>Introduire le solide dans une fiole jaugée de 100 mL.</li>
+      <li>Ajouter un peu d'eau distillée et dissoudre.</li>
+      <li>Compléter jusqu'au trait de jauge.</li>
+      <li>Boucher puis homogénéiser.</li>
+    </ul>
+  </div>
 </div>
 
 <!-- ====================================================== -->
-<!-- RESULTATS -->
+<!-- RESULTATS                                               -->
 <!-- ====================================================== -->
 
 <div class="section" data-type="resultats">
-
-<div class="section-titre">
-<div class="picto-section">📊</div>
-<h2>Tableau de résultats</h2>
-<span class="chevron">▼</span>
-</div>
-
-<div class="section-corps">
-
-<table class="tableau-resultats">
-
-<thead>
-
-<tr>
-<th>Préparation</th>
-<th>Masse (g)</th>
-<th>Volume (mL)</th>
-<th>C calculée</th>
-<th>C visée</th>
-<th>C expérimentale</th>
-<th>Écart %</th>
-</tr>
-
-</thead>
-
-<tbody>
-
-<tr data-theo="0.10">
-
-<td id="nom-sel-table">
-Sel sélectionné
-</td>
-
-<td id="table-masse-dissolution"></td>
-
-<td id="table-volume-dissolution">
-100
-</td>
-
-<td id="table-calc-dissolution"></td>
-
-<td id="table-theo-dissolution">
-0.10
-</td>
-
-<td>
-<input class="c-exp">
-</td>
-
-<td class="ecart"></td>
-
-</tr>
-
-</tbody>
-
-</table>
-
-</div>
+  <div class="section-titre">
+    <div class="picto-section">📊</div>
+    <h2>Tableau de résultats</h2>
+    <span class="chevron">▼</span>
+  </div>
+  <div class="section-corps">
+    <table class="tableau-resultats">
+      <thead>
+        <tr>
+          <th>Préparation</th>
+          <th>Masse (g)</th>
+          <th>Volume (mL)</th>
+          <th>C calculée</th>
+          <th>C visée</th>
+          <th>C expérimentale</th>
+          <th>Écart %</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr data-theo="0.10">
+          <td id="nom-sel-table">Sel sélectionné</td>
+          <td id="table-masse-dissolution"></td>
+          <td id="table-volume-dissolution">100</td>
+          <td id="table-calc-dissolution"></td>
+          <td id="table-theo-dissolution">0.10</td>
+          <td><input class="c-exp" id="masse-exp"></td>
+          <td class="ecart" id="table-ecart">—</td>
+        </tr>
+      </tbody>
+    </table>
+    <div id="res-ecart" style="margin-top:var(--gap-sm);"></div>
+  </div>
 </div>
 
 <!-- ====================================================== -->
-<!-- RAPPORT -->
+<!-- RAPPORT                                                 -->
 <!-- ====================================================== -->
 
 <div class="section" data-type="bilan">
+  <div class="section-titre">
+    <div class="picto-section">📝</div>
+    <h2>Compte rendu</h2>
+    <span class="chevron">▼</span>
+  </div>
+  <div class="section-corps">
 
-<div class="section-titre">
-<div class="picto-section">📝</div>
-<h2>Compte rendu</h2>
-<span class="chevron">▼</span>
-</div>
+    <h3>Identification</h3>
+    <div class="grille-materiel">
+      <input placeholder="Nom">
+      <input placeholder="Prénom">
+      <input placeholder="Classe">
+      <input type="date">
+    </div>
 
-<div class="section-corps">
+    <br>
 
-<h3>Identification</h3>
+    <h3>Résumé du TP</h3>
+    <div class="zone-eleve"><textarea rows="6"></textarea></div>
 
-<div class="grille-materiel">
+    <h3>Questions</h3>
+    <ol>
+      <li>Différence entre dissolution et dilution ?
+        <div class="zone-eleve"><textarea rows="4"></textarea></div>
+      </li>
+      <li>Pourquoi verser l'acide dans l'eau ?
+        <div class="zone-eleve"><textarea rows="4"></textarea></div>
+      </li>
+      <li>Calculer n(réactif sélectionné).
+        <div class="zone-eleve"><textarea rows="4"></textarea></div>
+      </li>
+      <li>Calculer Cm(réactif sélectionné).
+        <div class="zone-eleve"><textarea rows="4"></textarea></div>
+      </li>
+      <li>Identifier les erreurs expérimentales possibles.
+        <div class="zone-eleve"><textarea rows="4"></textarea></div>
+      </li>
+    </ol>
 
-<input placeholder="Nom">
-<input placeholder="Prénom">
-<input placeholder="Classe">
-<input type="date">
-
-</div>
-
-<br>
-
-<h3>Résumé du TP</h3>
-
-<div class="zone-eleve">
-<textarea rows="10"></textarea>
-</div>
-
-<h3>Questions</h3>
-
-<ol>
-
-<li>Différence entre dissolution et dilution ?</li>
-      <div class="zone-eleve"><textarea rows="10"></textarea></div>
-
-<li>Pourquoi verser l'acide dans l'eau ?</li>
-      <div class="zone-eleve"><textarea rows="10"></textarea></div>
-      
-<li>Calculer n(réactif sélectionné).</li>
-      <div class="zone-eleve"><textarea rows="10"></textarea></div>
-      
-<li>Calculer Cm(réactif sélectionné).</li>
-      <div class="zone-eleve"><textarea rows="10"></textarea></div>
-      
-<li>Identifier les erreurs expérimentales possibles.</li>
-      <div class="zone-eleve"><textarea rows="10"></textarea></div>
-      
-</ol>
-
-</div>
+  </div>
 </div>
 
 <!-- ====================================================== -->
+<!-- NAVIGATION                                              -->
+<!-- ====================================================== -->
 
 <div class="nav-tp">
-
-<a href="../index.html"
-class="btn btn-secondaire">
-← Accueil
-</a>
-
-<button
-onclick="window.print()"
-class="btn btn-imprimer">
-🖨️ Imprimer
-</button>
-
-<a href="tp02-ph-indicateurs.html"
-class="btn btn-primaire">
-TP02 →
-</a>
-
+  <a href="../index.html" class="btn btn-secondaire">← Accueil</a>
+  <button onclick="window.print()" class="btn btn-imprimer">🖨️ Imprimer</button>
+  <a href="tp02-ph-indicateurs.html" class="btn btn-primaire">TP02 →</a>
 </div>
 
 </div>
+<!-- fin .page-wrapper -->
 
 <script type="module" src="../js/tp01-solutions.js"></script>
 
