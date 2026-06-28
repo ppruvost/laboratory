@@ -8,6 +8,7 @@ import dangerDB from "../../data/dangerDB.js";
 import pictogrammes from "../../data/pictogrammes.js";
 import glassware from "../../data/glassware.js";
 import laboratoryEquipment from "../../data/equipment.js";
+import { initBalanceErreurs } from "../../js/balance-erreurs.js";
 
 /* ==========================================================
    VARIABLES
