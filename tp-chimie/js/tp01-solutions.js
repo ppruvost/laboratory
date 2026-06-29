@@ -275,7 +275,8 @@ function changerReactif() {
 
     reactifCourant = produit;
 
-    if ($("nom-reactif"))        $("nom-reactif").textContent        = produit.nom;
+    if ($("nom-reactif"))         $("nom-reactif").textContent        = produit.nom;
+    if ($("nom-sel-protocole"))   $("nom-sel-protocole").textContent = produit.nom;
     if ($("formule-dissolution")) $("formule-dissolution").textContent = produit.formule;
     if ($("masse-dissolution"))   $("masse-dissolution").textContent   = arrondir(produit.masseMolaire);
     if ($("m-dissolution"))       $("m-dissolution").value            = arrondir(produit.masseMolaire);
