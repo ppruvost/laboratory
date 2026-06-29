@@ -12,9 +12,9 @@ const glassware = [
   { nom: "Ballon à col long", contenance_ml: "100 / 250 / 500", lieu: "Salle B27 / étagère D3", categorie: "Dissolution", "assets/img/glassware/ballon_col_long.png" },
 
   // Mesure précise
-  { nom: "Burette", contenance_ml: "25 / 50", lieu: "Salle B27 / pallasse E2", image: "assets/img/glassware/burette.png" },
-  { nom: "Pipette graduée", contenance_ml: "1 / 2 / 5 / 10 / 20", lieu: "Salle B27 / pallasse E2", categorie: "Dissolution", image: "assets/img/glassware/pipette_graduee.png" },
-  { nom: "Pipette jaugée", contenance_ml: "5 / 10 / 20 / 25", lieu: "Salle B27 / pallasse E2", categorie: "Dissolution", image: "assets/img/glassware/pipette_jaugee.png" },
+  { nom: "Burette", contenance_ml: "25 / 50", lieu: "Salle B27 / paillasse E2", image: "assets/img/glassware/burette.png" },
+  { nom: "Pipette graduée", contenance_ml: "1 / 2 / 5 / 10 / 20", lieu: "Salle B27 / paillasse E2", categorie: "Dissolution", image: "assets/img/glassware/pipette_graduee.png" },
+  { nom: "Pipette jaugée", contenance_ml: "5 / 10 / 20 / 25", lieu: "Salle B27 / paillasse E2", categorie: "Dissolution", image: "assets/img/glassware/pipette_jaugee.png" },
   
   // Transfert / séparation
   { nom: "Ampoule à décanter", contenance_ml: "100 / 250 / 500 / 1000", lieu: "Salle B27 / étagère D4", image: "assets/img/glassware/ampoule_decanter.png" },
@@ -22,13 +22,13 @@ const glassware = [
   { nom: "Fiole à vide", contenance_ml: "250 / 500 / 1000", lieu: "Salle B27 / étagère D3", image: "assets/img/glassware/fiole_vide.png" },
 
   // Chauffage / réaction
-  { nom: "Tube à essai gradué", contenance_ml: "10 / 20", lieu: "", image: "assets/img/glassware/tube_gradue.png" },
+  { nom: "Tube à essai gradué", contenance_ml: "10 / 20", lieu: "Salle B27 / étagère D1", image: "assets/img/glassware/tube_gradue.png" },
 
-  { nom: "Tube de culture", contenance_ml: "5 / 10", lieu: "", image: "assets/img/glassware/tube_culture.png" },
+  { nom: "Tube de culture", contenance_ml: "5 / 10", lieu: "Salle B27 / étagère D1", image: "assets/img/glassware/tube_culture.png" },
 
   // Distillation
-  { nom: "Réfrigérant droit (Liebig)", contenance_ml: "N/A", lieu: "", image: "assets/img/glassware/refrigerant_droit.png" },
-  { nom: "Réfrigérant à boules (Allihn)", contenance_ml: "N/A", lieu: "", image: "assets/img/glassware/refrigerant_a_boule.png" },
+  { nom: "Réfrigérant droit (Liebig)", contenance_ml: "N/A", lieu: "Salle B27 / étagère D4", image: "assets/img/glassware/refrigerant_droit.png" },
+  { nom: "Réfrigérant à boules (Allihn)", contenance_ml: "N/A", lieu: "Salle B27 / étagère D4", image: "assets/img/glassware/refrigerant_a_boule.png" },
   
   // Divers
   { nom: "Cristallisoir", contenance_ml: "100 / 250 / 500", lieu: "Salle B27 / étagère D1", categorie: "Dissolution", image: "assets/img/glassware/cristallisoir.png" },
@@ -41,9 +41,9 @@ const glassware = [
   // Verrerie spécialisée
   { nom: "Dessiccateur", contenance_ml: "N/A", lieu: "", image: "assets/img/glassware/dessicateur.png" },
 
-  { nom: "Ampoule de coulée", contenance_ml: "100 / 250", lieu: "", image: "assets/img/glassware/ampoule_coulee.png" },
+  { nom: "Ampoule de coulée", contenance_ml: "100 / 250", lieu: "Salle B27 / étagère D4", image: "assets/img/glassware/ampoule_coulee.png" },
 
-  { nom: "Tube de Thiele", contenance_ml: "N/A", lieu: "", image: "assets/img/glassware/thiele.png" }
+  { nom: "Tube de Thiele", contenance_ml: "N/A", lieu: "Salle B27 / étagère D4", image: "assets/img/glassware/thiele.png" }
 ];
 
 export default glassware;
