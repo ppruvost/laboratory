@@ -418,52 +418,155 @@
 </div>
 
 <!-- ====================================================== -->
-<!-- RAPPORT                                                 -->
+<!-- COMPTE RENDU                                            -->
 <!-- ====================================================== -->
 
 <div class="section" data-type="bilan">
+
   <div class="section-titre">
     <div class="picto-section">📝</div>
     <h2>Compte rendu</h2>
     <span class="chevron">▼</span>
   </div>
+
   <div class="section-corps">
 
+    <!-- ============================================ -->
+    <!-- Identification                               -->
+    <!-- ============================================ -->
+
     <h3>Identification</h3>
+
     <div class="grille-materiel">
-      <input placeholder="Nom">
-      <input placeholder="Prénom">
-      <input placeholder="Classe">
-      <input type="date">
+
+      <div class="form-group">
+        <label for="nom-eleve">Nom</label>
+        <input
+          id="nom-eleve"
+          type="text"
+          placeholder="Nom">
+      </div>
+
+      <div class="form-group">
+        <label for="prenom-eleve">Prénom</label>
+        <input
+          id="prenom-eleve"
+          type="text"
+          placeholder="Prénom">
+      </div>
+
+      <div class="form-group">
+        <label for="classe-eleve">Classe</label>
+        <input
+          id="classe-eleve"
+          type="text"
+          placeholder="Classe">
+      </div>
+
+      <div class="form-group">
+        <label for="date-eleve">Date</label>
+        <input
+          id="date-eleve"
+          type="date">
+      </div>
+
     </div>
 
     <br>
 
+    <!-- ============================================ -->
+    <!-- Résumé                                       -->
+    <!-- ============================================ -->
+
     <h3>Résumé du TP</h3>
-    <div class="zone-eleve"><textarea rows="6"></textarea></div>
+
+    <div class="zone-eleve">
+      <textarea
+        id="resume-tp"
+        rows="6"
+        placeholder="Résumer le déroulement du TP..."></textarea>
+    </div>
+
+    <br>
+
+    <!-- ============================================ -->
+    <!-- Questions                                    -->
+    <!-- ============================================ -->
 
     <h3>Questions</h3>
-    <ol>
-      <li>Différence entre dissolution et dilution ?
-        <div class="zone-eleve"><textarea rows="4"></textarea></div>
+
+    <ol class="questions-tp">
+
+      <li>
+
+        <strong>Différence entre dissolution et dilution ?</strong>
+
+        <div class="zone-eleve">
+          <textarea
+            id="question1"
+            rows="3"
+            placeholder="Votre réponse..."></textarea>
+        </div>
+
       </li>
-      <li>Pourquoi verser l'acide dans l'eau ?
-        <div class="zone-eleve"><textarea rows="4"></textarea></div>
+
+      <li>
+
+        <strong>Pourquoi faut-il toujours verser l'acide dans l'eau et jamais l'inverse ?</strong>
+
+        <div class="zone-eleve">
+          <textarea
+            id="question2"
+            rows="3"
+            placeholder="Votre réponse..."></textarea>
+        </div>
+
       </li>
-      <li>Calculer n(réactif sélectionné).
-        <div class="zone-eleve"><textarea rows="4"></textarea></div>
+
+      <li>
+
+        <strong>Calculer la quantité de matière n du réactif sélectionné.</strong>
+
+        <div class="zone-eleve">
+          <textarea
+            id="question3"
+            rows="3"
+            placeholder="Calcul et réponse..."></textarea>
+        </div>
+
       </li>
-      <li>Calculer Cm(réactif sélectionné).
-        <div class="zone-eleve"><textarea rows="4"></textarea></div>
+
+      <li>
+
+        <strong>Calculer la concentration massique Cm du réactif sélectionné.</strong>
+
+        <div class="zone-eleve">
+          <textarea
+            id="question4"
+            rows="3"
+            placeholder="Calcul et réponse..."></textarea>
+        </div>
+
       </li>
-      <li>Identifier les erreurs expérimentales possibles.
-        <div class="zone-eleve"><textarea rows="4"></textarea></div>
+
+      <li>
+
+        <strong>Identifier les principales sources d'erreurs expérimentales lors de la préparation de la solution.</strong>
+
+        <div class="zone-eleve">
+          <textarea
+            id="question5"
+            rows="4"
+            placeholder="Votre analyse..."></textarea>
+        </div>
+
       </li>
+
     </ol>
 
   </div>
-</div>
 
+</div>
 <!-- ====================================================== -->
 <!-- NAVIGATION                                              -->
 <!-- ====================================================== -->
