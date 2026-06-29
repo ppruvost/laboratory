@@ -1,20 +1,20 @@
 const glassware = [
   // Verrerie de base
-  { nom: "Bécher", contenance_ml: "50 / 100 / 250 / 500 / 1000", lieu: "Salle B27 / étagère D3", categorie: "Dissolution", image: "../assets/img/glassware/becher.png" },
-  { nom: "Erlenmeyer", contenance_ml: "50 / 100 / 250 / 500 / 1000", lieu: "Salle B27 / étagère D3", image: "../assets/img/glassware/erlenmeyer.png" },
-  { nom: "Fiole jaugée", contenance_ml: "50 / 100 / 200 / 250 / 500 / 1000", lieu: "Salle B27 / étagère D3", categorie: "Dissolution", image: "../assets/img/glassware/fiole_jaugee.png" },
-  { nom: "Éprouvette graduée", contenance_ml: "10 / 25 / 50 / 100 / 250 / 500 / 1000", lieu: "Salle B27 / étagère D1", image: "../assets/img/glassware/eprouvette_graduee.png" },
-  { nom: "Tube à essai", contenance_ml: "5 / 10 / 20", lieu: "Salle B27 / étagère D1", image: "../assets/img/glassware/tube_essai.png" },
+  { nom: "Bécher", contenance_ml: "50 / 100 / 250 / 500 / 1000", lieu: "Salle B27 / étagère D3", categorie: "Dissolution", image: "assets/img/glassware/becher.png" },
+  { nom: "Erlenmeyer", contenance_ml: "50 / 100 / 250 / 500 / 1000", lieu: "Salle B27 / étagère D3", image: "assets/img/glassware/erlenmeyer.png" },
+  { nom: "Fiole jaugée", contenance_ml: "50 / 100 / 200 / 250 / 500 / 1000", lieu: "Salle B27 / étagère D3", categorie: "Dissolution", image: "assets/img/glassware/fiole_jaugee.png" },
+  { nom: "Éprouvette graduée", contenance_ml: "10 / 25 / 50 / 100 / 250 / 500 / 1000", lieu: "Salle B27 / étagère D1", image: "assets/img/glassware/eprouvette_graduee.png" },
+  { nom: "Tube à essai", contenance_ml: "5 / 10 / 20", lieu: "Salle B27 / étagère D1", image: "assets/img/glassware/tube_essai.png" },
 
   // Ballons
-  { nom: "Ballon fond rond", contenance_ml: "50 / 100 / 250 / 500 / 1000", lieu: "Salle B27 / étagère D3", categorie: "Dissolution", image: "../assets/img/glassware/ballon_fond_rond.png" },
-  { nom: "Ballon fond plat", contenance_ml: "100 / 250 / 500 / 1000", lieu: "Salle B27 / étagère D3", categorie: "Dissolution", image: "../assets/img/glassware/ballon_fond_plat.png" },
-  { nom: "Ballon à col long", contenance_ml: "100 / 250 / 500", lieu: "Salle B27 / étagère D3", categorie: "Dissolution", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7d/Round-bottom_flask.jpg/320px-Round-bottom_flask.jpg" },
+  { nom: "Ballon fond rond", contenance_ml: "50 / 100 / 250 / 500 / 1000", lieu: "Salle B27 / étagère D3", categorie: "Dissolution", image: "assets/img/glassware/ballon_fond_rond.png" },
+  { nom: "Ballon fond plat", contenance_ml: "100 / 250 / 500 / 1000", lieu: "Salle B27 / étagère D3", categorie: "Dissolution", image: "assets/img/glassware/ballon_fond_plat.png" },
+  { nom: "Ballon à col long", contenance_ml: "100 / 250 / 500", lieu: "Salle B27 / étagère D3", categorie: "Dissolution", "assets/img/glassware/ballon_col_long.png" },
 
   // Mesure précise
   { nom: "Burette", contenance_ml: "25 / 50", lieu: "Salle B27 / pallasse E2", image: "assets/img/glassware/burette.png" },
-  { nom: "Pipette graduée", contenance_ml: "1 / 2 / 5 / 10 / 20", lieu: "Salle B27 / pallasse E2", categorie: "Dissolution", image: "../assets/img/glassware/pipette_graduee.png" },
-  { nom: "Pipette jaugée", contenance_ml: "5 / 10 / 20 / 25", lieu: "Salle B27 / pallasse E2", categorie: "Dissolution", image: "../assets/img/glassware/pipette_jaugee.png" },
+  { nom: "Pipette graduée", contenance_ml: "1 / 2 / 5 / 10 / 20", lieu: "Salle B27 / pallasse E2", categorie: "Dissolution", image: "assets/img/glassware/pipette_graduee.png" },
+  { nom: "Pipette jaugée", contenance_ml: "5 / 10 / 20 / 25", lieu: "Salle B27 / pallasse E2", categorie: "Dissolution", image: "assets/img/glassware/pipette_jaugee.png" },
   
   // Transfert / séparation
   { nom: "Ampoule à décanter", contenance_ml: "100 / 250 / 500 / 1000", lieu: "Salle B27 / étagère D4", image: "../assets/img/glassware/ampoule_decanter.png" },
