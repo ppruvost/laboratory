@@ -9,7 +9,7 @@ const glassware = [
   // Ballons
   { nom: "Ballon fond rond", contenance_ml: "50 / 100 / 250 / 500 / 1000", lieu: "Salle B27 / étagère D3", categorie: "Dissolution", image: "assets/img/glassware/ballon_fond_rond.png" },
   { nom: "Ballon fond plat", contenance_ml: "100 / 250 / 500 / 1000", lieu: "Salle B27 / étagère D3", categorie: "Dissolution", image: "assets/img/glassware/ballon_fond_plat.png" },
-  { nom: "Ballon à col long", contenance_ml: "100 / 250 / 500", lieu: "Salle B27 / étagère D3", categorie: "Dissolution", "assets/img/glassware/ballon_col_long.png" },
+  { nom: "Ballon à col long", contenance_ml: "100 / 250 / 500", lieu: "Salle B27 / étagère D3", categorie: "Dissolution", image: "assets/img/glassware/ballon_col_long.png" },
 
   // Mesure précise
   { nom: "Burette", contenance_ml: "25 / 50", lieu: "Salle B27 / paillasse E2", image: "assets/img/glassware/burette.png" },
