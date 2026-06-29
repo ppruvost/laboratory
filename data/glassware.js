@@ -17,14 +17,14 @@ const glassware = [
   { nom: "Pipette jaugée", contenance_ml: "5 / 10 / 20 / 25", lieu: "Salle B27 / pallasse E2", categorie: "Dissolution", image: "assets/img/glassware/pipette_jaugee.png" },
   
   // Transfert / séparation
-  { nom: "Ampoule à décanter", contenance_ml: "100 / 250 / 500 / 1000", lieu: "Salle B27 / étagère D4", image: "../assets/img/glassware/ampoule_decanter.png" },
-  { nom: "Entonnoir", contenance_ml: "50 / 100 / 150", lieu: "Salle B27 / étagère D3", image: "../assets/img/glassware/entonnoir.png" },
-  { nom: "Fiole à vide", contenance_ml: "250 / 500 / 1000", lieu: "Salle B27 / étagère D3", image: "../assets/img/glassware/fiole_vide.png" },
+  { nom: "Ampoule à décanter", contenance_ml: "100 / 250 / 500 / 1000", lieu: "Salle B27 / étagère D4", image: "assets/img/glassware/ampoule_decanter.png" },
+  { nom: "Entonnoir", contenance_ml: "50 / 100 / 150", lieu: "Salle B27 / étagère D3", image: "assets/img/glassware/entonnoir.png" },
+  { nom: "Fiole à vide", contenance_ml: "250 / 500 / 1000", lieu: "Salle B27 / étagère D3", image: "assets/img/glassware/fiole_vide.png" },
 
   // Chauffage / réaction
-  { nom: "Tube à essai gradué", contenance_ml: "10 / 20", lieu: "", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Test_tubes.jpg/320px-Test_tubes.jpg" },
+  { nom: "Tube à essai gradué", contenance_ml: "10 / 20", lieu: "", image: "assets/img/glassware/tube_gradue.png" },
 
-  { nom: "Tube de culture", contenance_ml: "5 / 10", lieu: "", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Test_tubes.jpg/320px-Test_tubes.jpg" },
+  { nom: "Tube de culture", contenance_ml: "5 / 10", lieu: "", image: "assets/img/glassware/tube_culture.png" },
 
   // Distillation
   { nom: "Réfrigérant droit (Liebig)", contenance_ml: "N/A", lieu: "", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3b/Liebig_condenser.jpg/320px-Liebig_condenser.jpg" },
