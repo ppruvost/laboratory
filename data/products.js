@@ -1212,7 +1212,7 @@
     cas: "1310-73-2",
     nom: "sodium hydroxyde (soude)",
     formule: "NaOH",
-    categorie: ["Liquide", "Solide"],
+    categorie: ["Liquide", "Solide", "Sel"],
     localisation: "Salle B27 / étagère B2 + D2",
     pictogramme: ["SGH05_Corrosion.jpg"],
     obligation: ["LUNETTES", "GANTS", "BLOUSE"],
