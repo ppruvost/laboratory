@@ -1,0 +1,68 @@
+@page {
+  size: A4;
+  margin: 10mm;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  color: #000;
+}
+
+.page {
+  max-height: 277mm;
+  overflow: hidden;
+}
+
+/* blocs compacts */
+.bloc {
+  margin-bottom: 6px;
+  padding-bottom: 4px;
+  border-bottom: 1px solid #ccc;
+}
+
+/* sections en petit texte (ta demande 10px) */
+.small {
+  font-size: 10px;
+}
+
+/* titres compacts */
+h2 {
+  font-size: 14px;
+  margin: 0 0 5px 0;
+}
+
+h3 {
+  font-size: 12px;
+  margin: 4px 0;
+}
+
+h4 {
+  font-size: 11px;
+  margin: 3px 0;
+}
+
+/* listes compactes */
+ul {
+  margin: 0;
+  padding-left: 14px;
+}
+
+li {
+  margin: 0;
+  padding: 0;
+  line-height: 1.2;
+}
+
+/* forcer évitement des sauts inutiles */
+section {
+  page-break-inside: avoid;
+}
+
+/* réduction globale pour tenir 2 pages */
+@media print {
+  body {
+    transform: scale(0.98);
+    transform-origin: top left;
+  }
+}
