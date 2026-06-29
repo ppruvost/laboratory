@@ -27,24 +27,23 @@ const glassware = [
   { nom: "Tube de culture", contenance_ml: "5 / 10", lieu: "", image: "assets/img/glassware/tube_culture.png" },
 
   // Distillation
-  { nom: "Réfrigérant droit (Liebig)", contenance_ml: "N/A", lieu: "", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3b/Liebig_condenser.jpg/320px-Liebig_condenser.jpg" },
-  { nom: "Réfrigérant à boules (Allihn)", contenance_ml: "N/A", lieu: "", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Allihn_condenser.jpg/320px-Allihn_condenser.jpg" },
-  { nom: "Colonne de distillation", contenance_ml: "N/A", lieu: "", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/Fractionating_column.jpg/320px-Fractionating_column.jpg" },
-
+  { nom: "Réfrigérant droit (Liebig)", contenance_ml: "N/A", lieu: "", image: "assets/img/glassware/refrigerant_droit.png" },
+  { nom: "Réfrigérant à boules (Allihn)", contenance_ml: "N/A", lieu: "", image: "assets/img/glassware/refrigerant_a_boule.png" },
+  
   // Divers
-  { nom: "Cristallisoir", contenance_ml: "100 / 250 / 500", lieu: "Salle B27 / étagère D1", categorie: "Dissolution", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/Crystallizing_dish.jpg/320px-Crystallizing_dish.jpg" },
+  { nom: "Cristallisoir", contenance_ml: "100 / 250 / 500", lieu: "Salle B27 / étagère D1", categorie: "Dissolution", image: "assets/img/glassware/cristallisoir.png" },
 
-  { nom: "Verre de montre", contenance_ml: "50 / 100", lieu: "Salle B27 / étagère D3", categorie: "Dissolution", image: "../assets/img/glassware/verre_montre.png" },
-  { nom: "Flacon réactif", contenance_ml: "100 / 250 / 500 / 1000", lieu: "Salle B27 / étagère D3", image: "../assets/img/glassware/flacon_reactif.png" },
-  { nom: "Flacon compte-gouttes", contenance_ml: "10 / 20 / 50", lieu: "Salle B27 / étagère D3", image: "../assets/img/glassware/flacon_compte_goutte.png" },
-  { nom: "Pissette", contenance_ml: "250 / 500", lieu: "Salle B27 / étagère D3", categorie: "Dissolution", image: "../assets/img/glassware/pissette.png" },
+  { nom: "Verre de montre", contenance_ml: "50 / 100", lieu: "Salle B27 / étagère D3", categorie: "Dissolution", image: "assets/img/glassware/verre_montre.png" },
+  { nom: "Flacon réactif", contenance_ml: "100 / 250 / 500 / 1000", lieu: "Salle B27 / étagère D3", image: "assets/img/glassware/flacon_reactif.png" },
+  { nom: "Flacon compte-gouttes", contenance_ml: "10 / 20 / 50", lieu: "Salle B27 / étagère D3", image: "assets/img/glassware/flacon_compte_goutte.png" },
+  { nom: "Pissette", contenance_ml: "250 / 500", lieu: "Salle B27 / étagère D3", categorie: "Dissolution", image: "assets/img/glassware/pissette.png" },
 
   // Verrerie spécialisée
-  { nom: "Dessiccateur", contenance_ml: "N/A", lieu: "", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/Desiccator.jpg/320px-Desiccator.jpg" },
+  { nom: "Dessiccateur", contenance_ml: "N/A", lieu: "", image: "assets/img/glassware/dessicateur.png" },
 
-  { nom: "Ampoule de coulée", contenance_ml: "100 / 250", lieu: "", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/Separatory_funnel.jpg/320px-Separatory_funnel.jpg" },
+  { nom: "Ampoule de coulée", contenance_ml: "100 / 250", lieu: "", image: "assets/img/glassware/ampoule_coulee.png" },
 
-  { nom: "Tube de Thiele", contenance_ml: "N/A", lieu: "", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Thiele_tube.jpg/320px-Thiele_tube.jpg" }
+  { nom: "Tube de Thiele", contenance_ml: "N/A", lieu: "", image: "assets/img/glassware/thiele.png" }
 ];
 
 export default glassware;
