@@ -9,7 +9,7 @@ import pictogrammes        from "../../data/pictogrammes.js";
 import glassware           from "../../data/glassware.js";
 import laboratoryEquipment from "../../data/equipment.js";
 import { initBalanceErreurs } from "../../js/balance-erreurs.js";
-import { imprimerCompteRendu } from "./print-tp01.js";
+import { imprimerCompteRendu } from "../../js/print-tp01.js";
 
 /* ==========================================================
    VARIABLES
