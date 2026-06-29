@@ -552,3 +552,34 @@ function calculEcart() {
         </div>`;
     }
 }
+
+/* ==========================================================
+   IMPRESSION RAPPORT ELEVE
+   ========================================================== */
+function initBoutonImpressionCR() {
+ 
+    /* Cherche le bouton "🖨️ Imprimer" existant dans .nav-tp
+       et insère juste avant lui un bouton dédié au CR.       */
+ 
+    const navTp = document.querySelector(".nav-tp");
+    if (!navTp) return;
+ 
+    const btnExistant = navTp.querySelector("button[onclick]");
+ 
+    const btn = document.createElement("button");
+    btn.className   = "btn btn-primaire";
+    btn.textContent = "📄 Imprimer CR";
+    btn.title       = "Générer et imprimer le compte rendu complet";
+ 
+    btn.addEventListener("click", () => {
+        imprimerCompteRendu({ products, dangerDB, pictogrammes });
+    });
+ 
+    /* Insérer avant le bouton print natif, ou à la fin */
+    if (btnExistant) {
+        navTp.insertBefore(btn, btnExistant);
+    } else {
+        navTp.appendChild(btn);
+    }
+}
+ 
