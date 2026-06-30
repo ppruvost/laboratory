@@ -1,58 +1,125 @@
-import products from "../data/products.js";
+import products            from "../data/products.js";
 import laboratoryEquipment from "../data/equipment.js";
-import glassware from "../data/glassware.js";
-import dangerDB from "../data/dangerDB.js";
+import glassware           from "../data/glassware.js";
+import dangerDB            from "../data/dangerDB.js";
+import pictogrammes        from "../data/pictogrammes.js";
 
 import { initPrintLabels } from "../data/print-labels.js";
-import { renderTable, showSection } from "../modules/ui.js";
-
+import { showSection }     from "../modules/ui.js";
 
 // =====================================================
 // GLOBAL ACCESS (UI uniquement)
 // =====================================================
-window.products = products;
+window.products   = products;
 window.showSection = showSection;
 
-
 // =====================================================
-// ETIQUETTES (IMPORTANT : on passe products)
+// ÉTIQUETTES
 // =====================================================
 initPrintLabels(dangerDB, products);
-
 
 // =====================================================
 // NAVIGATION
 // =====================================================
 window.setActive = function (el) {
-
     document.querySelectorAll(".menu-item")
         .forEach(i => i.classList.remove("active"));
-
     if (el) el.classList.add("active");
 };
 
 window.loadInFrame = function (url, element = null) {
-
     document.querySelectorAll(".section")
         .forEach(sec => sec.classList.remove("active"));
-
     document.getElementById("external-content")?.classList.add("active");
-
     const frame = document.getElementById("external-frame");
     if (frame) frame.src = url;
-
     if (element) window.setActive(element);
 };
 
+// =====================================================
+// PRODUITS — rendu correct colonne par colonne
+// CAS | Nom | Formule | Localisation | Pictogrammes
+//     | Dangers | Prévention | Visuel
+// =====================================================
+function renderProductTable(data) {
+
+    const tbody = document.getElementById("table-body");
+    if (!tbody) return;
+
+    tbody.innerHTML = "";
+
+    data.forEach(p => {
+
+        const tr = document.createElement("tr");
+
+        // ── Pictogrammes GHS : images depuis pictogrammes.js ──
+        const pictoHTML = (p.pictogrammes || p.dangers || [])
+            .filter(code => /^GHS/i.test(code))          // ne garder que les codes GHS
+            .map(code => {
+                const picto = pictogrammes.find(px => px.code === code);
+                if (!picto) return `<span title="${code}">⚠️</span>`;
+                return `<img src="assets/picto/${picto.image}"
+                             alt="${code}" title="${code}"
+                             style="width:32px;height:32px;object-fit:contain;"
+                             onerror="this.style.display='none'">`;
+            })
+            .join(" ");
+
+        // ── Codes H (dangers) ──
+        const dangersHTML = (p.dangers || [])
+            .filter(code => /^H/i.test(code))
+            .map(code => {
+                const info = dangerDB.find(d => d.code === code);
+                const label = info ? (info.text ?? info.texte ?? "") : "";
+                return `<span class="badge-h" title="${label}"
+                              style="color:#c0392b;font-weight:600;display:block;">
+                            ${code}
+                        </span>`;
+            })
+            .join("");
+
+        // ── Codes P (prévention) ──
+        const preventionHTML = (p.prevention || [])
+            .filter(code => /^P/i.test(code))
+            .map(code => {
+                const info = dangerDB.find(d => d.code === code);
+                const label = info ? (info.text ?? info.texte ?? "") : "";
+                return `<span class="badge-p" title="${label}"
+                              style="color:#1B6CA8;font-weight:600;display:block;">
+                            ${code}
+                        </span>`;
+            })
+            .join("");
+
+        // ── Visuel produit ──
+        const visuelHTML = p.image
+            ? `<img src="${p.image}" alt="${p.nom}"
+                    style="width:48px;height:48px;object-fit:contain;border-radius:4px;"
+                    onerror="this.style.display='none'">`
+            : "";
+
+        // ── Localisation (emplacement en salle) ──
+        const localisation = p.localisation || "—";
+
+        tr.innerHTML = `
+            <td style="white-space:nowrap;">${p.cas || "—"}</td>
+            <td>${p.nom || "—"}</td>
+            <td style="font-family:monospace;">${p.formule || "—"}</td>
+            <td>${localisation}</td>
+            <td style="display:flex;flex-wrap:wrap;gap:4px;align-items:center;">
+                ${pictoHTML || "—"}
+            </td>
+            <td>${dangersHTML || "—"}</td>
+            <td>${preventionHTML || "—"}</td>
+            <td style="text-align:center;">${visuelHTML}</td>
+        `;
+
+        tbody.appendChild(tr);
+    });
+}
 
 // =====================================================
-// PRODUITS
-// =====================================================
-renderTable(products, () => {});
-
-
-// =====================================================
-// EQUIPEMENTS
+// ÉQUIPEMENTS
 // =====================================================
 function renderEquipmentTable(data) {
 
@@ -66,21 +133,20 @@ function renderEquipmentTable(data) {
         const tr = document.createElement("tr");
 
         tr.innerHTML = `
-            <td>${eq.domaine || "-"}</td>
-            <td>${eq.nom || "-"}</td>
-            <td>${eq.description || "-"}</td>
-            <td>${eq.lieu || "-"}</td>
+            <td>${eq.domaine || "—"}</td>
+            <td>${eq.nom || "—"}</td>
+            <td>${eq.description || "—"}</td>
+            <td>${eq.lieu || "—"}</td>
             <td>
                 ${eq.noticeUtilisation
                     ? `<a href="${eq.noticeUtilisation}" target="_blank">📄</a>`
-                    : "-"}
+                    : "—"}
             </td>
         `;
 
         tbody.appendChild(tr);
     });
 }
-
 
 // =====================================================
 // VERRERIE
@@ -97,11 +163,13 @@ function renderGlasswareTable(data) {
         const tr = document.createElement("tr");
 
         tr.innerHTML = `
-            <td>${g.nom || "-"}</td>
-            <td>${g.contenance_ml || "-"}</td>
-            <td>${g.lieu || "-"}</td>
+            <td>${g.nom || "—"}</td>
+            <td>${g.contenance_ml ? g.contenance_ml + " mL" : "—"}</td>
+            <td>${g.lieu || "—"}</td>
             <td>
-                <img src="${g.image}" alt="${g.nom || "verrerie"}" class="table-image">
+                <img src="${g.image}" alt="${g.nom || "verrerie"}"
+                     style="height:48px;object-fit:contain;"
+                     onerror="this.style.display='none'">
             </td>
         `;
 
@@ -109,57 +177,37 @@ function renderGlasswareTable(data) {
     });
 }
 
-
 // =====================================================
 // INIT TABLES
 // =====================================================
+renderProductTable(products);
 renderEquipmentTable(laboratoryEquipment);
 renderGlasswareTable(glassware);
-
 
 // =====================================================
 // TP VIEWER
 // =====================================================
-const tpViewer = document.getElementById("tpViewer");
-const tpFrame = document.getElementById("tpFrame");
+const tpViewer    = document.getElementById("tpViewer");
+const tpFrame     = document.getElementById("tpFrame");
 const closeViewer = document.getElementById("closeViewer");
 
 function openTP(url) {
-
     if (!tpViewer || !tpFrame) return;
-
     tpViewer.classList.remove("hidden");
     tpFrame.src = url;
 }
 
 closeViewer?.addEventListener("click", () => {
-
     tpViewer.classList.add("hidden");
     tpFrame.src = "";
 });
 
-
-// =====================================================
-// TP BUTTONS
-// =====================================================
-document.getElementById("openChimie")
-?.addEventListener("click", () => openTP("tp-chimie/index.html"));
-
-document.getElementById("openAcoustique")
-?.addEventListener("click", () => openTP("tp-acoustique/index.html"));
-
-document.getElementById("openOptique")
-?.addEventListener("click", () => openTP("tp-lumiere/index.html"));
-
-document.getElementById("openElectricite")
-?.addEventListener("click", () => openTP("tp-electricite/index.html"));
-
-document.getElementById("openMecanique")
-?.addEventListener("click", () => openTP("tp-mecanique/index.html"));
-
-document.getElementById("openThermique")
-?.addEventListener("click", () => openTP("tp-thermique/index.html"));
-
+document.getElementById("openChimie")    ?.addEventListener("click", () => openTP("tp-chimie/index.html"));
+document.getElementById("openAcoustique") ?.addEventListener("click", () => openTP("tp-acoustique/index.html"));
+document.getElementById("openOptique")    ?.addEventListener("click", () => openTP("tp-lumiere/index.html"));
+document.getElementById("openElectricite")?.addEventListener("click", () => openTP("tp-electricite/index.html"));
+document.getElementById("openMecanique")  ?.addEventListener("click", () => openTP("tp-mecanique/index.html"));
+document.getElementById("openThermique")  ?.addEventListener("click", () => openTP("tp-thermique/index.html"));
 
 // =====================================================
 // PROGRESS BAR
@@ -167,16 +215,10 @@ document.getElementById("openThermique")
 let progress = 10;
 
 window.updateProgress = function () {
-
     progress += 10;
     if (progress > 100) progress = 100;
-
     const bar = document.getElementById("bar");
     if (bar) bar.style.width = progress + "%";
 };
 
-
-// =====================================================
-// DEBUG
-// =====================================================
 console.log("Laboratory chargé avec succès");
