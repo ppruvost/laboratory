@@ -74,33 +74,40 @@ function _identitePrecedente() {
 }
 
 function _ouvrirModalIdentification() {
-  // Évite les doublons si l'élève clique plusieurs fois
   document.getElementById('cr-modal-overlay')?.remove();
 
+  // Priorité : config.identiteDefaut (champs HTML du TP) > localStorage > vide
   const precedent = _identitePrecedente();
+  const defaut = _config.identiteDefaut || {};
   const aujourdHui = new Date().toISOString().slice(0, 10);
+
+  const val = (champ) => _echapper(defaut[champ] || precedent[champ] || '');
+  const valDate = () => {
+    const d = defaut.date || precedent.date;
+    return d && _dateValide(d) ? d : aujourdHui;
+  };
 
   const overlay = document.createElement('div');
   overlay.id = 'cr-modal-overlay';
   overlay.innerHTML = `
     <div id="cr-modal">
       <h2>Compte-rendu — ${_config.titre}</h2>
-      <p class="cr-soustitre">Renseigne ton identification avant de générer le PDF.</p>
+      <p class="cr-soustitre">Vérifie ton identification avant de générer le PDF.</p>
 
       <label for="cr-nom">Nom</label>
-      <input type="text" id="cr-nom" value="${_echapper(precedent.nom || '')}" autocomplete="family-name">
+      <input type="text" id="cr-nom" value="${val('nom')}" autocomplete="family-name">
       <div class="cr-erreur-champ" id="err-nom">Le nom est requis.</div>
 
       <label for="cr-prenom">Prénom</label>
-      <input type="text" id="cr-prenom" value="${_echapper(precedent.prenom || '')}" autocomplete="given-name">
+      <input type="text" id="cr-prenom" value="${val('prenom')}" autocomplete="given-name">
       <div class="cr-erreur-champ" id="err-prenom">Le prénom est requis.</div>
 
       <label for="cr-classe">Classe</label>
-      <input type="text" id="cr-classe" value="${_echapper(precedent.classe || '')}" placeholder="ex. 1 Bac Pro MELEC">
+      <input type="text" id="cr-classe" value="${val('classe')}" placeholder="ex. 1 Bac Pro MELEC">
       <div class="cr-erreur-champ" id="err-classe">La classe est requise.</div>
 
       <label for="cr-date">Date du TP</label>
-      <input type="date" id="cr-date" value="${precedent.date && _dateValide(precedent.date) ? precedent.date : aujourdHui}">
+      <input type="date" id="cr-date" value="${valDate()}">
 
       <div class="cr-modal-actions">
         <button id="cr-btn-annuler" type="button">Annuler</button>
