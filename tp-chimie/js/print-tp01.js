@@ -1,249 +1,268 @@
 /* ==========================================================
-   TP01 — IMPRESSION DU COMPTE RENDU
-   tp-chimie/js/print-tp01.js
+   TP01 — STYLE D'IMPRESSION DU COMPTE RENDU
+   tp-chimie/css/print-tp01.css
    ========================================================== */
 
-export function imprimerCompteRendu({ products, dangerDB, pictogrammes }) {
-
-    const $ = id => document.getElementById(id);
-    const val   = id => ($( id )?.value        ?? "").trim();
-    const texte = id => ($( id )?.textContent  ?? "").trim();
-
-    /* ── Identité élève ── */
-    const identite = {
-        nom:     val("nom-eleve")    || "—",
-        prenom:  val("prenom-eleve") || "—",
-        classe:  val("classe-eleve") || "—",
-        date:    val("date-eleve")   || "—",
-    };
-
-    /* ── Produit ── */
-    const cas     = $("reactif-dissolution")?.value ?? "";
-    const produit = products.find(p => p.cas === cas) ?? { nom: "—", formule: "—" };
-
-    /* ── Dangers H + P ── */
-    const dangers = [];
-    (produit.dangers   ?? []).forEach(code => {
-        const d = dangerDB.find(x => x.code === code);
-        if (d) dangers.push(`${code} : ${d.text ?? d.texte ?? ""}`);
-    });
-    (produit.prevention ?? []).forEach(code => {
-        const d = dangerDB.find(x => x.code === code);
-        if (d) dangers.push(`${code} : ${d.text ?? d.texte ?? ""}`);
-    });
-
-    /* ── Matériel coché ── */
-    const materiel = [];
-    document.querySelectorAll("#materiel-verrerie .item-materiel").forEach(lbl => {
-        const checked = lbl.querySelector("input[type=checkbox]")?.checked ?? false;
-        const nom     = lbl.querySelector("strong")?.textContent.trim() ?? "";
-        if (nom) materiel.push({ checked, nom });
-    });
-
-    const equipements = [];
-    document.querySelectorAll("#materiel-equipements .item-materiel").forEach(lbl => {
-        const checked = lbl.querySelector("input[type=checkbox]")?.checked ?? false;
-        const nom     = lbl.querySelector("strong")?.textContent.trim() ?? "";
-        if (nom) equipements.push({ checked, nom });
-    });
-
-    /* ── Solution ── */
-    const masseTheo = texte("table-masse-dissolution") || val("pe-masse-theo") || "—";
-    const solution  = {
-        C:              val("c-dissolution")   || "—",
-        V:              val("v-dissolution")   || "—",
-        M:              val("m-dissolution")   || "—",
-        masseTheorique: masseTheo,
-    };
-
-    /* ── Balance : prend la première balance renseignée ── */
-    const masseLue = val("pe-lue-01") || val("pe-lue-1g") || null;
-    let balance = { masse: "—", erreurAbs: "—", erreurRel: "—", conclusion: "—", analyse: "—" };
-
-    if (masseLue && masseTheo !== "—") {
-        const l = parseFloat(masseLue);
-        const t = parseFloat(masseTheo);
-        if (!isNaN(l) && !isNaN(t) && t > 0) {
-            const abs = Math.abs(l - t);
-            const rel = (abs / t) * 100;
-            const signe = ((l - t) / t * 100).toFixed(2);
-            let conclusion;
-            if      (rel < 2) { conclusion = "Excellent (< 2 %)";   }
-            else if (rel < 5) { conclusion = "Acceptable (2–5 %)";  }
-            else              { conclusion = "Insuffisant (> 5 %)"; }
-            balance = {
-                masse:      l.toFixed(2),
-                erreurAbs:  abs.toFixed(3),
-                erreurRel:  rel.toFixed(2),
-                conclusion,
-                analyse: `Écart relatif : ${signe} % — ${conclusion}`,
-            };
-        }
-    }
-
-    /* ── Questions 1A à 10A avec cartouches de compétences ── */
-    const questions = [
-        { num: "1A",  comp: "APP",     texte: "Qu'est-ce qu'une dissolution ? Qu'est-ce qu'une dilution ? Expliquer la différence." },
-        { num: "2A",  comp: "APP",     texte: "Pourquoi faut-il toujours verser l'acide dans l'eau et jamais l'inverse ?" },
-        { num: "3A",  comp: "REA",     texte: "Convertir le volume V utilisé pour la dissolution de mL en L, puis de L en mL si une autre valeur est donnée en L." },
-        { num: "4A",  comp: "REA",     texte: "Calculer la quantité de matière n (en mol) du réactif sélectionné à partir de la masse théorique et de la masse molaire M." },
-        { num: "5A",  comp: "REA",     texte: "Convertir la masse théorique calculée de g en mg." },
-        { num: "6A",  comp: "REA",     texte: "Calculer la concentration massique Cm (en g/L) de la solution préparée à partir de la masse théorique et du volume V." },
-        { num: "7A",  comp: "ANA RAI", texte: "Calculer l'erreur absolue Δm entre la masse théorique et la masse réellement pesée." },
-        { num: "8A",  comp: "ANA RAI", texte: "Calculer l'erreur relative (en %) associée à cette pesée. Cette erreur est-elle acceptable au regard du seuil de 2 % ?" },
-        { num: "9A",  comp: "VAL",     texte: "Identifier les principales sources d'erreurs expérimentales et proposer une amélioration du protocole." },
-        { num: "10A", comp: "COM",     texte: "Rédiger une conclusion synthétique présentant la solution préparée et la qualité de la pesée, avec un vocabulaire scientifique précis." },
-    ];
-    const reponses = questions.map((q, i) => val(`question${i + 1}`));
-
-    genererPageImpression({ identite, produit, dangers, materiel, equipements, solution, balance, questions, reponses });
+@page {
+  size: A4;
+  margin: 14mm 12mm;
 }
 
-/* ==========================================================
-   GENERATEUR HTML — rapport de labo structuré
-   ========================================================== */
+* {
+  box-sizing: border-box;
+}
 
-function genererPageImpression(data) {
-    const {
-        identite,
-        produit,
-        dangers      = [],
-        materiel     = [],
-        equipements  = [],
-        solution,
-        balance,
-        questions    = [],
-        reponses     = [],
-    } = data;
+body {
+  font-family: "Georgia", "Times New Roman", serif;
+  font-size: 10.5px;
+  color: #1a1a1a;
+  line-height: 1.4;
+  margin: 0;
+  padding: 0;
+}
 
-    const materielListe = materiel
-        .filter(m => m.checked)
-        .map(m => `<li>${m.nom}</li>`)
-        .join("") || `<li class="vide">Aucun élément coché</li>`;
+.page {
+  max-width: 100%;
+}
 
-    const equipementsListe = equipements
-        .filter(e => e.checked)
-        .map(e => `<li>${e.nom}</li>`)
-        .join("") || `<li class="vide">Aucun élément coché</li>`;
+/* ── En-tête ── */
+.cr-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+  border-bottom: 3px solid #1B6CA8;
+  padding-bottom: 10px;
+  margin-bottom: 14px;
+}
 
-    const dangersListe = dangers.length
-        ? dangers.map(d => `<li>${d}</li>`).join("")
-        : `<li class="vide">Aucune mention renseignée</li>`;
+.cr-header-titre {
+  flex: 1;
+}
 
-    const dateAffichee = identite.date !== "—"
-        ? new Date(identite.date).toLocaleDateString("fr-FR", { day: "2-digit", month: "long", year: "numeric" })
-        : "—";
+.cr-logo {
+  font-family: "Arial", sans-serif;
+  font-weight: 800;
+  font-size: 13px;
+  letter-spacing: .08em;
+  color: #1B6CA8;
+  margin-bottom: 4px;
+}
 
-    const questionsHtml = questions.map((q, i) => `
-      <div class="qr-bloc">
-        <div class="qr-entete">
-          <span class="qr-num">${q.num}</span>
-          <span class="qr-texte">${q.texte}</span>
-          <span class="qr-comp comp-${q.comp.replace(/\s+/g, "-")}">${q.comp}</span>
-        </div>
-        <div class="qr-reponse">${reponses[i] ? reponses[i].replace(/\n/g, "<br>") : "<em>Sans réponse</em>"}</div>
-      </div>
-    `).join("");
+.cr-header-titre h1 {
+  font-size: 17px;
+  margin: 0;
+  color: #0D4F8A;
+}
 
-    const html = `
-<html>
-<head>
-  <title>TP01 — Compte rendu — ${identite.nom} ${identite.prenom}</title>
-  <link rel="stylesheet" href="../css/print-tp01.css">
-</head>
-<body>
-<div class="page">
+.cr-header-titre h1 span {
+  display: block;
+  font-size: 12px;
+  font-weight: 400;
+  color: #4a4a4a;
+  font-family: "Arial", sans-serif;
+  margin-top: 2px;
+}
 
-  <header class="cr-header">
-    <div class="cr-header-titre">
-      <div class="cr-logo">SciLab</div>
-      <h1>Compte rendu — TP01<br><span>Préparation de solutions</span></h1>
-    </div>
-    <table class="cr-identite">
-      <tbody>
-        <tr><th>Nom</th><td>${identite.nom}</td></tr>
-        <tr><th>Prénom</th><td>${identite.prenom}</td></tr>
-        <tr><th>Classe</th><td>${identite.classe}</td></tr>
-        <tr><th>Date</th><td>${dateAffichee}</td></tr>
-      </tbody>
-    </table>
-  </header>
+.cr-identite {
+  border-collapse: collapse;
+  font-family: "Arial", sans-serif;
+  font-size: 10px;
+}
 
-  <section class="cr-section">
-    <h2><span class="cr-puce">1</span> Sécurité — Produit utilisé</h2>
-    <p class="cr-produit-nom">${produit.nom} <span class="cr-formule">(${produit.formule})</span></p>
-    <ul class="cr-liste-dangers">${dangersListe}</ul>
-  </section>
+.cr-identite th,
+.cr-identite td {
+  border: 1px solid #c7d8e6;
+  padding: 3px 10px;
+  text-align: left;
+}
 
-  <section class="cr-section cr-grid-2">
-    <div>
-      <h2><span class="cr-puce">2</span> Verrerie</h2>
-      <ul class="cr-liste-materiel">${materielListe}</ul>
-    </div>
-    <div>
-      <h2><span class="cr-puce">3</span> Équipements</h2>
-      <ul class="cr-liste-materiel">${equipementsListe}</ul>
-    </div>
-  </section>
+.cr-identite th {
+  background: #EAF2F8;
+  color: #0D4F8A;
+  font-weight: 700;
+  white-space: nowrap;
+}
 
-  <section class="cr-section">
-    <h2><span class="cr-puce">4</span> Préparation par dissolution</h2>
-    <table class="cr-tableau-donnees">
-      <thead>
-        <tr><th>C (mol/L)</th><th>V (mL)</th><th>M (g/mol)</th><th>Masse théorique (g)</th></tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>${solution.C}</td>
-          <td>${solution.V}</td>
-          <td>${solution.M}</td>
-          <td><strong>${solution.masseTheorique}</strong></td>
-        </tr>
-      </tbody>
-    </table>
-  </section>
+/* ── Sections ── */
+.cr-section {
+  margin-bottom: 12px;
+  page-break-inside: avoid;
+}
 
-  <section class="cr-section">
-    <h2><span class="cr-puce">5</span> Analyse de la pesée</h2>
-    <table class="cr-tableau-donnees">
-      <thead>
-        <tr>
-          <th>Masse théorique (g)</th>
-          <th>Masse lue (g)</th>
-          <th>Erreur absolue Δm (g)</th>
-          <th>Erreur relative (%)</th>
-          <th>Conclusion</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>${solution.masseTheorique}</td>
-          <td>${balance.masse}</td>
-          <td>${balance.erreurAbs}</td>
-          <td>${balance.erreurRel}</td>
-          <td class="cr-conclusion">${balance.conclusion}</td>
-        </tr>
-      </tbody>
-    </table>
-    <p class="cr-analyse-texte">${balance.analyse}</p>
-  </section>
+.cr-section h2 {
+  font-family: "Arial", sans-serif;
+  font-size: 12px;
+  color: #0D4F8A;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 6px 0;
+  border-bottom: 1px solid #c7d8e6;
+  padding-bottom: 3px;
+}
 
-  <section class="cr-section cr-questions">
-    <h2><span class="cr-puce">6</span> Questions — Évaluation des compétences</h2>
-    ${questionsHtml}
-  </section>
+.cr-puce {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  background: #1B6CA8;
+  color: #fff;
+  border-radius: 3px;
+  font-size: 9px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
 
-  <footer class="cr-footer">
-    Document généré le ${new Date().toLocaleDateString("fr-FR")} — SciLab TP Chimie
-  </footer>
+.cr-grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
 
-</div>
-</body>
-</html>`;
+/* ── Produit / dangers ── */
+.cr-produit-nom {
+  font-weight: 700;
+  font-size: 11px;
+  margin: 0 0 4px 0;
+}
 
-    const win = window.open("", "_blank");
-    win.document.write(html);
-    win.document.close();
-    win.focus();
-    win.print();
+.cr-formule {
+  font-family: "Courier New", monospace;
+  font-weight: 400;
+  color: #555;
+}
+
+.cr-liste-dangers,
+.cr-liste-materiel {
+  margin: 0;
+  padding-left: 16px;
+  font-family: "Arial", sans-serif;
+  font-size: 9.5px;
+}
+
+.cr-liste-dangers li,
+.cr-liste-materiel li {
+  margin-bottom: 2px;
+}
+
+.vide {
+  color: #999;
+  font-style: italic;
+}
+
+/* ── Tableaux de données ── */
+.cr-tableau-donnees {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: "Arial", sans-serif;
+  font-size: 9.5px;
+}
+
+.cr-tableau-donnees th,
+.cr-tableau-donnees td {
+  border: 1px solid #c7d8e6;
+  padding: 5px 8px;
+  text-align: center;
+}
+
+.cr-tableau-donnees th {
+  background: #1B6CA8;
+  color: #fff;
+  font-weight: 700;
+}
+
+.cr-tableau-donnees td strong {
+  color: #0D4F8A;
+}
+
+.cr-conclusion {
+  font-weight: 700;
+  color: #0D4F8A;
+}
+
+.cr-analyse-texte {
+  font-family: "Arial", sans-serif;
+  font-size: 9.5px;
+  margin-top: 5px;
+  color: #444;
+}
+
+/* ── Questions / cartouches compétences ── */
+.cr-questions {
+  page-break-before: auto;
+}
+
+.qr-bloc {
+  border: 1px solid #d8e3ec;
+  border-left: 4px solid #1B6CA8;
+  border-radius: 3px;
+  padding: 6px 10px;
+  margin-bottom: 7px;
+  page-break-inside: avoid;
+}
+
+.qr-entete {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-family: "Arial", sans-serif;
+}
+
+.qr-num {
+  font-weight: 800;
+  color: #1B6CA8;
+  font-size: 10.5px;
+  flex-shrink: 0;
+}
+
+.qr-texte {
+  flex: 1;
+  font-weight: 600;
+  font-size: 9.5px;
+}
+
+.qr-comp {
+  flex-shrink: 0;
+  font-size: 7.5px;
+  font-weight: 800;
+  letter-spacing: .03em;
+  padding: 2px 6px;
+  border-radius: 8px;
+  white-space: nowrap;
+  background: #EAF2F8;
+  color: #0D4F8A;
+  border: 1px solid #1B6CA8;
+}
+
+.qr-reponse {
+  margin-top: 4px;
+  padding-top: 4px;
+  border-top: 1px dashed #d8e3ec;
+  font-size: 9.5px;
+  color: #2a2a2a;
+}
+
+.qr-reponse em {
+  color: #999;
+}
+
+/* ── Pied de page ── */
+.cr-footer {
+  margin-top: 16px;
+  padding-top: 6px;
+  border-top: 1px solid #c7d8e6;
+  font-family: "Arial", sans-serif;
+  font-size: 8px;
+  color: #999;
+  text-align: right;
+}
+
+@media print {
+  body {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
 }
