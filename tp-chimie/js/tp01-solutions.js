@@ -28,7 +28,15 @@ function $(id) {
    INITIALISATION — exportée pour navigation.js   
    ========================================================== */
 
+let dejaInitialise = false;
+
 export function init() {
+
+    if (dejaInitialise) {
+        console.log("TP01 déjà initialisé, appel ignoré");
+        return;
+    }
+    dejaInitialise = true;
 
     console.log("TP01 Solutions initialisé");
 
