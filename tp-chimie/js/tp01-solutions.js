@@ -371,9 +371,7 @@ function initCalculs() {
 /* ==========================================================
    DISSOLUTION
    ========================================================== */
-
 function calculDissolution() {
-
     const C = nombre($("c-dissolution")?.value);
     const V = nombre($("v-dissolution")?.value);
     const M = nombre($("m-dissolution")?.value);
@@ -390,7 +388,6 @@ function calculDissolution() {
     $("res-dissolution").innerHTML = `
     <div class="resultat"
          style="display:flex;gap:1.5rem;align-items:flex-start;flex-wrap:wrap;">
-
       <div>
         <h3>Masse à peser</h3>
         <div class="valeur">${arrondir(masse, 3)} g</div>
@@ -398,7 +395,6 @@ function calculDissolution() {
           m = C × V × M = ${C} × ${V / 1000} × ${M}
         </p>
       </div>
-
       <div style="display:flex;flex-direction:column;
                   gap:.5rem;justify-content:center;padding-top:.3rem;">
         <div class="capsule-arrondi">
@@ -410,7 +406,6 @@ function calculDissolution() {
           <span class="arrondi-val">${masseArrondie1} g</span>
         </div>
       </div>
-
     </div>`;
 
     /* ---- Tableau de résultats ---- */
@@ -430,8 +425,6 @@ function calculDissolution() {
         peTheo.value = arrondir(masse, 3);
         peTheo.dispatchEvent(new Event("input"));
     }
-
-    calculEcart();
 }
 
 /* ==========================================================
@@ -482,28 +475,25 @@ function calculDilution() {
    ========================================================== */
 
 function initResultats() {
-
-    const input = $("masse-exp");
-    if (!input) return;
-    input.addEventListener("input", calculEcart);
+    // Écouter la masse PESÉE (nouvelle colonne)
+    const inputMasse = document.getElementById("masse-exp-pesee");
+    if (inputMasse) inputMasse.addEventListener("input", calculEcart);
 }
-
 /* ==========================================================
    ECART RELATIF
    ========================================================== */
 
 function calculEcart() {
+    const inputMasse = document.getElementById("masse-exp-pesee");
+    const zoneEcart  = document.getElementById("table-ecart");
+    const zoneRes    = document.getElementById("res-ecart");
 
-    const input     = $("masse-exp");
-    const zoneEcart = $("table-ecart");
-    const zoneRes   = $("res-ecart");
+    if (!inputMasse || !zoneEcart) return;
 
-    if (!input || !zoneEcart) return;
-
-    const masseExp = nombre(input.value);
-    const C = nombre($("c-dissolution")?.value);
-    const V = nombre($("v-dissolution")?.value);
-    const M = nombre($("m-dissolution")?.value);
+    const masseExp = nombre(inputMasse.value);
+    const C = nombre(document.getElementById("c-dissolution")?.value);
+    const V = nombre(document.getElementById("v-dissolution")?.value);
+    const M = nombre(document.getElementById("m-dissolution")?.value);
 
     if (masseExp <= 0 || C <= 0 || V <= 0 || M <= 0) {
         zoneEcart.textContent = "—";
@@ -513,7 +503,7 @@ function calculEcart() {
 
     const masseTheo  = C * (V / 1000) * M;
     const ecart      = Math.abs((masseExp - masseTheo) / masseTheo) * 100;
-    const ecartSigne = (masseExp - masseTheo) / masseTheo * 100;
+    const ecartSigne = ((masseExp - masseTheo) / masseTheo) * 100;
 
     let classe = "", appreciation = "";
     if      (ecart < 2) { classe = "ecart excellent"; appreciation = "✅ Excellent — écart < 2 %"; }
@@ -526,22 +516,17 @@ function calculEcart() {
         zoneRes.innerHTML = `
         <div class="resultat">
           <h3>Analyse de l'écart</h3>
-          <p>
-            Masse théorique : <strong>${arrondir(masseTheo, 3)} g</strong> |
-            Masse expérimentale : <strong>${arrondir(masseExp, 3)} g</strong>
-          </p>
+          <p>Masse théorique : <strong>${arrondir(masseTheo, 3)} g</strong> |
+             Masse pesée : <strong>${arrondir(masseExp, 3)} g</strong></p>
           <p>Écart relatif = <strong>${arrondir(ecartSigne, 2)} %</strong></p>
           <p style="margin-top:.5rem;">${appreciation}</p>
           ${ecartSigne > 0
             ? `<p style="font-size:.85rem;color:var(--gris-moyen);">
-                La concentration réelle est <strong>supérieure</strong>
-                à la concentration nominale.</p>`
+               La concentration réelle est <strong>supérieure</strong> à la valeur nominale.</p>`
             : ecartSigne < 0
             ? `<p style="font-size:.85rem;color:var(--gris-moyen);">
-                La concentration réelle est <strong>inférieure</strong>
-                à la concentration nominale.</p>`
-            : ""
-          }
+               La concentration réelle est <strong>inférieure</strong> à la valeur nominale.</p>`
+            : ""}
         </div>`;
     }
 }
