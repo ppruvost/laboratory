@@ -41,6 +41,7 @@ export function init() {
     initCalculs();
     initResultats();
     initBalanceErreurs();
+    initBoutonImpressionCR();
 }
 
 /* Appel automatique quand le script est chargé directement
@@ -51,17 +52,6 @@ if (document.readyState === "loading") {
     init();
 }
 
-export function init() {
-    console.log("TP01 Solutions initialisé");
-    initSections();
-    initTabs();
-    initReactifs();
-    initMateriel();
-    initCalculs();
-    initResultats();
-    initBalanceErreurs();
-    initBoutonImpressionCR(); // ← AJOUTER cette ligne
-}
 /* ==========================================================
    ACCORDEONS
    ========================================================== */
