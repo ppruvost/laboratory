@@ -1,15 +1,24 @@
+/* ==========================================================
+   TP01 — STYLE D'IMPRESSION DU COMPTE RENDU
+   tp-chimie/css/print-tp01.css
+   ========================================================== */
+
 @page {
   size: A4;
   margin: 14mm 12mm;
 }
 
-* { box-sizing: border-box; }
+* {
+  box-sizing: border-box;
+}
 
 body {
   font-family: "Georgia", "Times New Roman", serif;
   font-size: 10.5px;
   color: #1a1a1a;
   line-height: 1.4;
+  margin: 0;
+  padding: 0;
 }
 
 .page {
@@ -26,7 +35,11 @@ body {
   padding-bottom: 10px;
   margin-bottom: 14px;
 }
-.cr-header-titre { flex: 1; }
+
+.cr-header-titre {
+  flex: 1;
+}
+
 .cr-logo {
   font-family: "Arial", sans-serif;
   font-weight: 800;
@@ -35,11 +48,13 @@ body {
   color: #1B6CA8;
   margin-bottom: 4px;
 }
+
 .cr-header-titre h1 {
   font-size: 17px;
   margin: 0;
   color: #0D4F8A;
 }
+
 .cr-header-titre h1 span {
   display: block;
   font-size: 12px;
@@ -48,16 +63,20 @@ body {
   font-family: "Arial", sans-serif;
   margin-top: 2px;
 }
+
 .cr-identite {
   border-collapse: collapse;
   font-family: "Arial", sans-serif;
   font-size: 10px;
 }
-.cr-identite th, .cr-identite td {
+
+.cr-identite th,
+.cr-identite td {
   border: 1px solid #c7d8e6;
   padding: 3px 10px;
   text-align: left;
 }
+
 .cr-identite th {
   background: #EAF2F8;
   color: #0D4F8A;
@@ -70,6 +89,7 @@ body {
   margin-bottom: 12px;
   page-break-inside: avoid;
 }
+
 .cr-section h2 {
   font-family: "Arial", sans-serif;
   font-size: 12px;
@@ -81,6 +101,7 @@ body {
   border-bottom: 1px solid #c7d8e6;
   padding-bottom: 3px;
 }
+
 .cr-puce {
   display: inline-flex;
   align-items: center;
@@ -92,7 +113,9 @@ body {
   border-radius: 3px;
   font-size: 9px;
   font-weight: 700;
+  flex-shrink: 0;
 }
+
 .cr-grid-2 {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -100,13 +123,35 @@ body {
 }
 
 /* ── Produit / dangers ── */
-.cr-produit-nom { font-weight: 700; font-size: 11px; margin: 0 0 4px 0; }
-.cr-formule { font-family: "Courier New", monospace; font-weight: 400; color: #555; }
-.cr-liste-dangers, .cr-liste-materiel {
-  margin: 0; padding-left: 16px; font-family: "Arial", sans-serif; font-size: 9.5px;
+.cr-produit-nom {
+  font-weight: 700;
+  font-size: 11px;
+  margin: 0 0 4px 0;
 }
-.cr-liste-dangers li, .cr-liste-materiel li { margin-bottom: 2px; }
-.vide { color: #999; font-style: italic; }
+
+.cr-formule {
+  font-family: "Courier New", monospace;
+  font-weight: 400;
+  color: #555;
+}
+
+.cr-liste-dangers,
+.cr-liste-materiel {
+  margin: 0;
+  padding-left: 16px;
+  font-family: "Arial", sans-serif;
+  font-size: 9.5px;
+}
+
+.cr-liste-dangers li,
+.cr-liste-materiel li {
+  margin-bottom: 2px;
+}
+
+.vide {
+  color: #999;
+  font-style: italic;
+}
 
 /* ── Tableaux de données ── */
 .cr-tableau-donnees {
@@ -115,18 +160,29 @@ body {
   font-family: "Arial", sans-serif;
   font-size: 9.5px;
 }
-.cr-tableau-donnees th, .cr-tableau-donnees td {
+
+.cr-tableau-donnees th,
+.cr-tableau-donnees td {
   border: 1px solid #c7d8e6;
   padding: 5px 8px;
   text-align: center;
 }
+
 .cr-tableau-donnees th {
   background: #1B6CA8;
   color: #fff;
   font-weight: 700;
 }
-.cr-tableau-donnees td strong { color: #0D4F8A; }
-.cr-conclusion { font-weight: 700; color: #0D4F8A; }
+
+.cr-tableau-donnees td strong {
+  color: #0D4F8A;
+}
+
+.cr-conclusion {
+  font-weight: 700;
+  color: #0D4F8A;
+}
+
 .cr-analyse-texte {
   font-family: "Arial", sans-serif;
   font-size: 9.5px;
@@ -135,7 +191,10 @@ body {
 }
 
 /* ── Questions / cartouches compétences ── */
-.cr-questions { page-break-before: auto; }
+.cr-questions {
+  page-break-before: auto;
+}
+
 .qr-bloc {
   border: 1px solid #d8e3ec;
   border-left: 4px solid #1B6CA8;
@@ -144,23 +203,27 @@ body {
   margin-bottom: 7px;
   page-break-inside: avoid;
 }
+
 .qr-entete {
   display: flex;
   align-items: flex-start;
   gap: 8px;
   font-family: "Arial", sans-serif;
 }
+
 .qr-num {
   font-weight: 800;
   color: #1B6CA8;
   font-size: 10.5px;
   flex-shrink: 0;
 }
+
 .qr-texte {
   flex: 1;
   font-weight: 600;
   font-size: 9.5px;
 }
+
 .qr-comp {
   flex-shrink: 0;
   font-size: 7.5px;
@@ -173,6 +236,7 @@ body {
   color: #0D4F8A;
   border: 1px solid #1B6CA8;
 }
+
 .qr-reponse {
   margin-top: 4px;
   padding-top: 4px;
@@ -180,7 +244,10 @@ body {
   font-size: 9.5px;
   color: #2a2a2a;
 }
-.qr-reponse em { color: #999; }
+
+.qr-reponse em {
+  color: #999;
+}
 
 /* ── Pied de page ── */
 .cr-footer {
@@ -194,5 +261,8 @@ body {
 }
 
 @media print {
-  body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  body {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
 }
