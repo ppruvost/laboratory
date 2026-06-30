@@ -1,268 +1,386 @@
 /* ==========================================================
-   TP01 — STYLE D'IMPRESSION DU COMPTE RENDU
-   tp-chimie/css/print-tp01.css
+   TP01 - PREPARATION DE SOLUTIONS
+   tp-chimie/js/tp01-solutions.js
    ========================================================== */
 
-@page {
-  size: A4;
-  margin: 14mm 12mm;
+import products            from "../../data/products.js";
+import dangerDB            from "../../data/dangerDB.js";
+import pictogrammes        from "../../data/pictogrammes.js";
+import glassware           from "../../data/glassware.js";
+import laboratoryEquipment from "../../data/equipment.js";
+import { initBalanceErreurs } from "../../js/balance-erreurs.js";
+import { imprimerCompteRendu } from "../js/print-tp01.js";
+
+/* ==========================================================
+   VARIABLES
+   ========================================================== */
+
+let reactifCourant = null;
+
+/* ==========================================================
+   RACCOURCI DOM
+   ========================================================== */
+
+function $(id) {
+    return document.getElementById(id);
 }
 
-* {
-  box-sizing: border-box;
+/* ==========================================================
+   INITIALISATION — exportée pour navigation.js
+   ET appelée immédiatement si chargée en standalone
+   ========================================================== */
+
+export function init() {
+
+    console.log("TP01 Solutions initialisé");
+
+    initSections();
+    initTabs();
+    initReactifs();
+    initMateriel();
+    initCalculs();
+    initResultats();
+    initBalanceErreurs();
+    initBoutonImpressionCR();
 }
 
-body {
-  font-family: "Georgia", "Times New Roman", serif;
-  font-size: 10.5px;
-  color: #1a1a1a;
-  line-height: 1.4;
-  margin: 0;
-  padding: 0;
+/* Appel automatique quand le script est chargé directement
+   (cas du HTML standalone avec <script type="module">)    */
+if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", init);
+} else {
+    init();
 }
 
-.page {
-  max-width: 100%;
+/* ==========================================================
+   ACCORDEONS
+   ========================================================== */
+
+function initSections() {
+
+    document.querySelectorAll(".section").forEach(section => {
+
+        const titre = section.querySelector(".section-titre");
+        const corps = section.querySelector(".section-corps");
+
+        if (!titre || !corps) return;
+
+        corps.style.display = "block";
+
+        titre.addEventListener("click", () => {
+
+            const ouvert = corps.style.display !== "none";
+            corps.style.display = ouvert ? "none" : "block";
+
+            const chevron = titre.querySelector(".chevron");
+            if (chevron) chevron.textContent = ouvert ? "►" : "▼";
+        });
+    });
 }
 
-/* ── En-tête ── */
-.cr-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  gap: 16px;
-  border-bottom: 3px solid #1B6CA8;
-  padding-bottom: 10px;
-  margin-bottom: 14px;
+/* ==========================================================
+   ONGLETS
+   ========================================================== */
+
+function initTabs() {
+
+    document.querySelectorAll(".tabs-container").forEach(container => {
+
+        const boutons  = container.querySelectorAll(".tab-btn");
+        const panneaux = container.querySelectorAll(".tab-panel");
+
+        boutons.forEach(btn => {
+
+            btn.addEventListener("click", () => {
+
+                boutons.forEach(b  => b.classList.remove("actif"));
+                panneaux.forEach(p => p.classList.remove("actif"));
+
+                btn.classList.add("actif");
+
+                const cible = container.querySelector("#" + btn.dataset.tab);
+                if (cible) cible.classList.add("actif");
+            });
+        });
+    });
 }
 
-.cr-header-titre {
-  flex: 1;
+/* ==========================================================
+   OUTILS
+   ========================================================== */
+
+function nombre(v) {
+    const n = parseFloat(v);
+    return isNaN(n) ? 0 : n;
 }
 
-.cr-logo {
-  font-family: "Arial", sans-serif;
-  font-weight: 800;
-  font-size: 13px;
-  letter-spacing: .08em;
-  color: #1B6CA8;
-  margin-bottom: 4px;
+function arrondir(v, d = 2) {
+    return Number(v).toFixed(d);
 }
 
-.cr-header-titre h1 {
-  font-size: 17px;
-  margin: 0;
-  color: #0D4F8A;
+function message(id, texte) {
+    const zone = $(id);
+    if (!zone) return;
+    zone.innerHTML = `<div class="info">${texte}</div>`;
 }
 
-.cr-header-titre h1 span {
-  display: block;
-  font-size: 12px;
-  font-weight: 400;
-  color: #4a4a4a;
-  font-family: "Arial", sans-serif;
-  margin-top: 2px;
+/* ==========================================================
+   CHEMIN IMAGE
+   Préfixe le dossier si le champ contient juste un nom de fichier
+   ========================================================== */
+
+function imgSrc(chemin, dossier) {
+
+    if (!chemin) return "";
+
+    // chemin déjà complet
+    if (
+        chemin.startsWith("http") ||
+        chemin.startsWith("/") ||
+        chemin.startsWith("../") ||
+        chemin.startsWith("./") ||
+        chemin.startsWith("assets/")
+    ) {
+        return chemin;
+    }
+
+    // uniquement si on reçoit un simple nom de fichier
+    return `../assets/img/${dossier}/${chemin}`;
 }
 
-.cr-identite {
-  border-collapse: collapse;
-  font-family: "Arial", sans-serif;
-  font-size: 10px;
+/* ==========================================================
+   REACTIFS
+   ========================================================== */
+
+function initReactifs() {
+
+    const selectSec = $("reactif");
+    const selectDis = $("reactif-dissolution");
+
+    if (!selectSec || !selectDis) return;
+
+    selectSec.innerHTML = '<option value="">-- Sélectionner --</option>';
+    selectDis.innerHTML = '<option value="">-- Sélectionner un sel --</option>';
+
+    products.forEach(p => {
+
+        /* Liste sécurité — tous les produits */
+        const o1 = document.createElement("option");
+        o1.value = p.cas;
+        o1.textContent = p.nom;
+        selectSec.appendChild(o1);
+
+        /* Liste dissolution — sels uniquement */
+        if (p.categorie === "Sel") {
+            const o2 = document.createElement("option");
+            o2.value = p.cas;
+            o2.textContent = p.nom;
+            selectDis.appendChild(o2);
+        }
+    });
+
+    selectSec.addEventListener("change", afficherSecurite);
+    selectDis.addEventListener("change", changerReactif);
 }
 
-.cr-identite th,
-.cr-identite td {
-  border: 1px solid #c7d8e6;
-  padding: 3px 10px;
-  text-align: left;
+/* ==========================================================
+   SECURITE
+   ========================================================== */
+
+function afficherSecurite() {
+
+    const select = $("reactif");
+    const zone   = $("securite-bloc");
+
+    if (!select || !zone) return;
+
+    if (!select.value) {
+        message("securite-bloc", "Sélectionner un réactif.");
+        return;
+    }
+
+    const produit = products.find(p => p.cas === select.value);
+    if (!produit) return;
+
+    reactifCourant = produit;
+
+    let html = `<h3 style="margin-bottom:.5rem;">${produit.nom}</h3>`;
+
+    html += `<p style="margin-bottom:.5rem;">
+        <strong>Formule :</strong>
+        <span style="font-family:var(--font-code);color:var(--bleu-cuivre);">
+            ${produit.formule}
+        </span>
+    </p>`;
+
+    /* ---- Pictogrammes GHS ---- */
+    if (produit.dangers?.length) {
+
+        html += `<div class="pictos-clp">`;
+
+        produit.dangers.forEach(code => {
+            const picto = pictogrammes.find(p => p.code === code);
+            if (picto) {
+                html += `<img class="picto-clp"
+                    src="../../assets/picto/${picto.image}"
+                    alt="${code}" title="${code}">`;
+            }
+        });
+
+        html += `</div>`;
+    }
+
+    /* ---- Mentions H ---- */
+    if (produit.dangers?.length) {
+
+        html += `<div class="danger-bloc"><h4>⚠️ Mentions de danger (H)</h4><ul>`;
+
+        produit.dangers.forEach(code => {
+            const h = dangerDB.find(d => d.code === code);
+            if (h) {
+                /* Compatibilité : certaines versions utilisent .text, d'autres .texte */
+                html += `<li><strong>${code}</strong> : ${h.text ?? h.texte ?? ""}</li>`;
+            }
+        });
+
+        html += `</ul></div>`;
+    }
+
+    /* ---- Mentions P ---- */
+    if (produit.prevention?.length) {
+
+        html += `<div class="prevention-bloc"><h4>🛡️ Conseils de prudence (P)</h4><ul>`;
+
+        produit.prevention.forEach(code => {
+            const p = dangerDB.find(d => d.code === code);
+            if (p) {
+                html += `<li><strong>${code}</strong> : ${p.text ?? p.texte ?? ""}</li>`;
+            }
+        });
+
+        html += `</ul></div>`;
+    }
+
+    zone.innerHTML = html;
 }
 
-.cr-identite th {
-  background: #EAF2F8;
-  color: #0D4F8A;
-  font-weight: 700;
-  white-space: nowrap;
+/* ==========================================================
+   CHANGEMENT DE REACTIF (dissolution)
+   ========================================================== */
+
+function changerReactif() {
+
+    const cas     = $("reactif-dissolution").value;
+    const produit = products.find(p => p.cas === cas);
+
+    if (!produit) return;
+
+    reactifCourant = produit;
+
+    if ($("nom-reactif"))         $("nom-reactif").textContent        = produit.nom;
+    if ($("nom-sel-protocole"))   $("nom-sel-protocole").textContent = produit.nom;
+    if ($("formule-dissolution")) $("formule-dissolution").textContent = produit.formule;
+    if ($("masse-dissolution"))   $("masse-dissolution").textContent   = arrondir(produit.masseMolaire);
+    if ($("m-dissolution"))       $("m-dissolution").value            = arrondir(produit.masseMolaire);
+    if ($("nom-sel-table"))       $("nom-sel-table").textContent      = produit.nom;
+
+    calculDissolution();
 }
 
-/* ── Sections ── */
-.cr-section {
-  margin-bottom: 12px;
-  page-break-inside: avoid;
+/* ==========================================================
+   MATERIEL — cases à cocher verrerie + équipements
+   ========================================================== */
+
+function initMateriel() {
+
+    const divVerrerie    = $("materiel-verrerie");
+    const divEquipements = $("materiel-equipements");
+
+    if (!divVerrerie || !divEquipements) return;
+
+    /* ── Verrerie ───────────────────────────────────────────── */
+
+    /* Si le champ categorie est renseigné, on filtre sur Dissolution ;
+       sinon on affiche tout (sécurité si la donnée est absente)       */
+    const verresAffiches = glassware.some(v => v.categorie)
+        ? glassware.filter(v => v.categorie === "Dissolution")
+        : glassware;
+
+    divVerrerie.innerHTML = verresAffiches.map(v => {
+
+        const src = imgSrc(v.image, "glassware");
+
+        return `
+        <label class="item-materiel">
+          <input type="checkbox" class="materiel-check-input">
+          <span class="icone-materiel">
+            ${src
+                ? `<img src="${src}" alt="${v.nom}"
+                        onerror="this.style.display='none'">`
+                : `🧪`
+            }
+          </span>
+          <span class="materiel-info">
+            <strong>${v.nom}</strong>
+            <span class="materiel-detail">
+              ${v.contenance_ml ? v.contenance_ml + " mL" : ""}
+            </span>
+            <span class="materiel-detail lieu">${v.lieu ?? ""}</span>
+          </span>
+        </label>`;
+
+    }).join("");
+
+    /* ── Équipements ────────────────────────────────────────── */
+
+    const equipsAffiches = laboratoryEquipment.some(e => e.categorie)
+        ? laboratoryEquipment.filter(e => e.categorie === "Dissolution")
+        : laboratoryEquipment;
+
+    divEquipements.innerHTML = equipsAffiches.map(e => {
+
+        const src = imgSrc(e.image, "equipment");
+
+        return `
+        <label class="item-materiel">
+          <input type="checkbox" class="materiel-check-input">
+          <span class="icone-materiel">
+            ${src
+                ? `<img src="${src}" alt="${e.nom}"
+                        onerror="this.style.display='none'">`
+                : `🔬`
+            }
+          </span>
+          <span class="materiel-info">
+            <strong>${e.nom}</strong>
+            <span class="materiel-detail">${e.description ?? ""}</span>
+            <span class="materiel-detail lieu">${e.lieu ?? ""}</span>
+          </span>
+        </label>`;
+
+    }).join("");
 }
 
-.cr-section h2 {
-  font-family: "Arial", sans-serif;
-  font-size: 12px;
-  color: #0D4F8A;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin: 0 0 6px 0;
-  border-bottom: 1px solid #c7d8e6;
-  padding-bottom: 3px;
+/* ==========================================================
+   INIT CALCULS — pose les listeners
+   ========================================================== */
+
+function initCalculs() {
+
+    ["c-dissolution", "v-dissolution", "m-dissolution"]
+        .forEach(id => $(id)?.addEventListener("input", calculDissolution));
+
+    ["c1-hcl", "c2-hcl", "v2-hcl"]
+        .forEach(id => $(id)?.addEventListener("input", calculDilution));
+
+    calculDissolution();
+    calculDilution();
 }
 
-.cr-puce {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 16px;
-  height: 16px;
-  background: #1B6CA8;
-  color: #fff;
-  border-radius: 3px;
-  font-size: 9px;
-  font-weight: 700;
-  flex-shrink: 0;
-}
+/* ==========================================================
+   DISSOLUTION
+   ========================================================== */
 
-.cr-grid-2 {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 20px;
-}
+function calculDissolution() {
 
-/* ── Produit / dangers ── */
-.cr-produit-nom {
-  font-weight: 700;
-  font-size: 11px;
-  margin: 0 0 4px 0;
-}
-
-.cr-formule {
-  font-family: "Courier New", monospace;
-  font-weight: 400;
-  color: #555;
-}
-
-.cr-liste-dangers,
-.cr-liste-materiel {
-  margin: 0;
-  padding-left: 16px;
-  font-family: "Arial", sans-serif;
-  font-size: 9.5px;
-}
-
-.cr-liste-dangers li,
-.cr-liste-materiel li {
-  margin-bottom: 2px;
-}
-
-.vide {
-  color: #999;
-  font-style: italic;
-}
-
-/* ── Tableaux de données ── */
-.cr-tableau-donnees {
-  width: 100%;
-  border-collapse: collapse;
-  font-family: "Arial", sans-serif;
-  font-size: 9.5px;
-}
-
-.cr-tableau-donnees th,
-.cr-tableau-donnees td {
-  border: 1px solid #c7d8e6;
-  padding: 5px 8px;
-  text-align: center;
-}
-
-.cr-tableau-donnees th {
-  background: #1B6CA8;
-  color: #fff;
-  font-weight: 700;
-}
-
-.cr-tableau-donnees td strong {
-  color: #0D4F8A;
-}
-
-.cr-conclusion {
-  font-weight: 700;
-  color: #0D4F8A;
-}
-
-.cr-analyse-texte {
-  font-family: "Arial", sans-serif;
-  font-size: 9.5px;
-  margin-top: 5px;
-  color: #444;
-}
-
-/* ── Questions / cartouches compétences ── */
-.cr-questions {
-  page-break-before: auto;
-}
-
-.qr-bloc {
-  border: 1px solid #d8e3ec;
-  border-left: 4px solid #1B6CA8;
-  border-radius: 3px;
-  padding: 6px 10px;
-  margin-bottom: 7px;
-  page-break-inside: avoid;
-}
-
-.qr-entete {
-  display: flex;
-  align-items: flex-start;
-  gap: 8px;
-  font-family: "Arial", sans-serif;
-}
-
-.qr-num {
-  font-weight: 800;
-  color: #1B6CA8;
-  font-size: 10.5px;
-  flex-shrink: 0;
-}
-
-.qr-texte {
-  flex: 1;
-  font-weight: 600;
-  font-size: 9.5px;
-}
-
-.qr-comp {
-  flex-shrink: 0;
-  font-size: 7.5px;
-  font-weight: 800;
-  letter-spacing: .03em;
-  padding: 2px 6px;
-  border-radius: 8px;
-  white-space: nowrap;
-  background: #EAF2F8;
-  color: #0D4F8A;
-  border: 1px solid #1B6CA8;
-}
-
-.qr-reponse {
-  margin-top: 4px;
-  padding-top: 4px;
-  border-top: 1px dashed #d8e3ec;
-  font-size: 9.5px;
-  color: #2a2a2a;
-}
-
-.qr-reponse em {
-  color: #999;
-}
-
-/* ── Pied de page ── */
-.cr-footer {
-  margin-top: 16px;
-  padding-top: 6px;
-  border-top: 1px solid #c7d8e6;
-  font-family: "Arial", sans-serif;
-  font-size: 8px;
-  color: #999;
-  text-align: right;
-}
-
-@media print {
-  body {
-    -webkit-print-color-adjust: exact;
-    print-color-adjust: exact;
-  }
-}
+    const C =
