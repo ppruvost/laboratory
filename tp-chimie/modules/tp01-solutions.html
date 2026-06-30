@@ -341,11 +341,11 @@
           </thead>
           <tbody>
             <tr>
-              <td>Précision 0,1 g</td><td>0,1 g</td>
+              <td>Balance METTLER TOLEDO 0,1 g</td><td>0,1 g</td>
               <td>± 0,05 g</td><td>TP courant, pesées > 1 g</td>
             </tr>
             <tr>
-              <td>Cuisine 1 g</td><td>1 g</td>
+              <td>Balance JEULIN 1 g</td><td>1 g</td>
               <td>± 0,5 g</td><td>Pesées grossières uniquement</td>
             </tr>
           </tbody>
@@ -393,10 +393,11 @@
       <thead>
         <tr>
           <th>Préparation</th>
-          <th>Masse (g)</th>
-          <th>Volume (mL)</th>
+          <th>Masse théorique(g)</th>
+          <th>Volume expérimental(mL)</th>
           <th>C calculée</th>
-          <th>C visée</th>
+          <th> C visé</th>th>          
+          <th>Masse pesée (g)</th>          
           <th>C expérimentale</th>
           <th>Écart %</th>
         </tr>
@@ -408,7 +409,9 @@
           <td id="table-volume-dissolution">100</td>
           <td id="table-calc-dissolution"></td>
           <td id="table-theo-dissolution">0.10</td>
-          <td><input class="c-exp" id="masse-exp"></td>
+          <!-- APRÈS — deux cellules distinctes -->
+          <td><input class="c-exp" id="masse-exp-pesee" type="number" step="0.001" placeholder="masse g"></td>
+          <td><input class="c-exp" id="c-exp-saisie" type="number" step="0.001" placeholder="mol/L"></td>
           <td class="ecart" id="table-ecart">—</td>
         </tr>
       </tbody>
