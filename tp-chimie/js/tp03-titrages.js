@@ -3,8 +3,8 @@
  * Simulation pH-métrique, dérivée, conductimétrie, CA, export CSV
  */
 
-import { PRODUITS } from '../produits.js';
-import { renderBlocSecurite, initSections, initTabs } from '../utils.js';
+import { PRODUITS } from '../../data/products.js';
+import { renderBlocSecurite, initSections, initTabs } from './utils.js';
 
 // ── Constantes ────────────────────────────────────────────────
 const Ke = 1e-14;
