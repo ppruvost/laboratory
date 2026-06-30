@@ -1,6 +1,5 @@
 /* ==========================================================
-   TP01 - PREPARATION DE SOLUTIONS
-   tp-chimie/js/tp01-solutions.js
+   TP01 - PREPARATION DE SOLUTIONS   
    ========================================================== */
 
 import products            from "../../data/products.js";
@@ -26,8 +25,7 @@ function $(id) {
 }
 
 /* ==========================================================
-   INITIALISATION — exportée pour navigation.js
-   ET appelée immédiatement si chargée en standalone
+   INITIALISATION — exportée pour navigation.js   
    ========================================================== */
 
 export function init() {
@@ -44,8 +42,6 @@ export function init() {
     initBoutonImpressionCR();
 }
 
-/* Appel automatique quand le script est chargé directement
-   (cas du HTML standalone avec <script type="module">)    */
 if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", init);
 } else {
@@ -143,9 +139,6 @@ function imgSrc(chemin, dossier) {
     ) {
         return chemin;
     }
-
-    // uniquement si on reçoit un simple nom de fichier
-    return `assets/img/${dossier}/${chemin}`;
 }
 
 /* ==========================================================
