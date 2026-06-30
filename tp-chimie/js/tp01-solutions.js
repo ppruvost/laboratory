@@ -1,5 +1,7 @@
 /* ==========================================================
-   TP01 - PREPARATION DE SOLUTIONS   
+   TP01 — PREPARATION DE SOLUTIONS
+   Adapté pour utiliser le module commun compte-rendu.js
+   (remplace l'ancien print-tp01.js)
    ========================================================== */
 
 import products            from "../../data/products.js";
@@ -8,7 +10,7 @@ import pictogrammes        from "../../data/pictogrammes.js";
 import glassware           from "../../data/glassware.js";
 import laboratoryEquipment from "../../data/equipment.js";
 import { initBalanceErreurs } from "../../js/balance-erreurs.js";
-import { imprimerCompteRendu } from "../js/print-tp01.js";
+import { genererCompteRendu } from "../../js/compte-rendu.js";
 
 /* ==========================================================
    VARIABLES
@@ -25,7 +27,7 @@ function $(id) {
 }
 
 /* ==========================================================
-   INITIALISATION — exportée pour navigation.js   
+   INITIALISATION — exportée pour navigation.js
    ========================================================== */
 
 let dejaInitialise = false;
@@ -128,11 +130,6 @@ function message(id, texte) {
     zone.innerHTML = `<div class="info">${texte}</div>`;
 }
 
-/* ==========================================================
-   CHEMIN IMAGE
-   Préfixe le dossier si le champ contient juste un nom de fichier
-   ========================================================== */
-
 function imgSrc(chemin, dossier) {
     if (!chemin) return "";
     if (
@@ -145,6 +142,10 @@ function imgSrc(chemin, dossier) {
         return chemin;
     }
     return `../../assets/img/${dossier}/${chemin}`;
+}
+
+function lireTexte(id) {
+    return ($(id)?.value || '').trim();
 }
 
 /* ==========================================================
@@ -163,13 +164,11 @@ function initReactifs() {
 
     products.forEach(p => {
 
-        /* Liste sécurité — tous les produits */
         const o1 = document.createElement("option");
         o1.value = p.cas;
         o1.textContent = p.nom;
         selectSec.appendChild(o1);
 
-        /* Liste dissolution — sels uniquement */
         if (p.categorie === "Sel") {
             const o2 = document.createElement("option");
             o2.value = p.cas;
@@ -212,11 +211,8 @@ function afficherSecurite() {
         </span>
     </p>`;
 
-    /* ---- Pictogrammes GHS ---- */
     if (produit.dangers?.length) {
-
         html += `<div class="pictos-clp">`;
-
         produit.dangers.forEach(code => {
             const picto = pictogrammes.find(p => p.code === code);
             if (picto) {
@@ -225,38 +221,24 @@ function afficherSecurite() {
                     alt="${code}" title="${code}">`;
             }
         });
-
         html += `</div>`;
     }
 
-    /* ---- Mentions H ---- */
     if (produit.dangers?.length) {
-
         html += `<div class="danger-bloc"><h4>⚠️ Mentions de danger (H)</h4><ul>`;
-
         produit.dangers.forEach(code => {
             const h = dangerDB.find(d => d.code === code);
-            if (h) {
-                /* Compatibilité : certaines versions utilisent .text, d'autres .texte */
-                html += `<li><strong>${code}</strong> : ${h.text ?? h.texte ?? ""}</li>`;
-            }
+            if (h) html += `<li><strong>${code}</strong> : ${h.text ?? h.texte ?? ""}</li>`;
         });
-
         html += `</ul></div>`;
     }
 
-    /* ---- Mentions P ---- */
     if (produit.prevention?.length) {
-
         html += `<div class="prevention-bloc"><h4>🛡️ Conseils de prudence (P)</h4><ul>`;
-
         produit.prevention.forEach(code => {
             const p = dangerDB.find(d => d.code === code);
-            if (p) {
-                html += `<li><strong>${code}</strong> : ${p.text ?? p.texte ?? ""}</li>`;
-            }
+            if (p) html += `<li><strong>${code}</strong> : ${p.text ?? p.texte ?? ""}</li>`;
         });
-
         html += `</ul></div>`;
     }
 
@@ -277,7 +259,7 @@ function changerReactif() {
     reactifCourant = produit;
 
     if ($("nom-reactif"))         $("nom-reactif").textContent        = produit.nom;
-    if ($("nom-sel-protocole"))   $("nom-sel-protocole").textContent = produit.nom;
+    if ($("nom-sel-protocole"))   $("nom-sel-protocole").textContent  = produit.nom;
     if ($("formule-dissolution")) $("formule-dissolution").textContent = produit.formule;
     if ($("masse-dissolution"))   $("masse-dissolution").textContent   = arrondir(produit.masseMolaire);
     if ($("m-dissolution"))       $("m-dissolution").value            = arrondir(produit.masseMolaire);
@@ -287,7 +269,7 @@ function changerReactif() {
 }
 
 /* ==========================================================
-   MATERIEL — cases à cocher verrerie + équipements
+   MATERIEL
    ========================================================== */
 
 function initMateriel() {
@@ -297,58 +279,37 @@ function initMateriel() {
 
     if (!divVerrerie || !divEquipements) return;
 
-    /* ── Verrerie ───────────────────────────────────────────── */
-
-    /* Si le champ categorie est renseigné, on filtre sur Dissolution ;
-       sinon on affiche tout (sécurité si la donnée est absente)       */
     const verresAffiches = glassware.some(v => v.categorie)
         ? glassware.filter(v => v.categorie === "Dissolution")
         : glassware;
 
     divVerrerie.innerHTML = verresAffiches.map(v => {
-
         const src = imgSrc(v.image, "glassware");
-
         return `
         <label class="item-materiel">
           <input type="checkbox" class="materiel-check-input">
           <span class="icone-materiel">
-            ${src
-                ? `<img src="${src}" alt="${v.nom}"
-                        onerror="this.style.display='none'">`
-                : `🧪`
-            }
+            ${src ? `<img src="${src}" alt="${v.nom}" onerror="this.style.display='none'">` : `🧪`}
           </span>
           <span class="materiel-info">
             <strong>${v.nom}</strong>
-            <span class="materiel-detail">
-              ${v.contenance_ml ? v.contenance_ml + " mL" : ""}
-            </span>
+            <span class="materiel-detail">${v.contenance_ml ? v.contenance_ml + " mL" : ""}</span>
             <span class="materiel-detail lieu">${v.lieu ?? ""}</span>
           </span>
         </label>`;
-
     }).join("");
-
-    /* ── Équipements ────────────────────────────────────────── */
 
     const equipsAffiches = laboratoryEquipment.some(e => e.categorie)
         ? laboratoryEquipment.filter(e => e.categorie === "Dissolution")
         : laboratoryEquipment;
 
     divEquipements.innerHTML = equipsAffiches.map(e => {
-
         const src = imgSrc(e.image, "equipment");
-
         return `
         <label class="item-materiel">
           <input type="checkbox" class="materiel-check-input">
           <span class="icone-materiel">
-            ${src
-                ? `<img src="${src}" alt="${e.nom}"
-                        onerror="this.style.display='none'">`
-                : `🔬`
-            }
+            ${src ? `<img src="${src}" alt="${e.nom}" onerror="this.style.display='none'">` : `🔬`}
           </span>
           <span class="materiel-info">
             <strong>${e.nom}</strong>
@@ -356,12 +317,11 @@ function initMateriel() {
             <span class="materiel-detail lieu">${e.lieu ?? ""}</span>
           </span>
         </label>`;
-
     }).join("");
 }
 
 /* ==========================================================
-   INIT CALCULS — pose les listeners
+   INIT CALCULS
    ========================================================== */
 
 function initCalculs() {
@@ -379,7 +339,9 @@ function initCalculs() {
 /* ==========================================================
    DISSOLUTION
    ========================================================== */
+
 function calculDissolution() {
+
     const C = nombre($("c-dissolution")?.value);
     const V = nombre($("v-dissolution")?.value);
     const M = nombre($("m-dissolution")?.value);
@@ -403,8 +365,7 @@ function calculDissolution() {
           m = C × V × M = ${C} × ${V / 1000} × ${M}
         </p>
       </div>
-      <div style="display:flex;flex-direction:column;
-                  gap:.5rem;justify-content:center;padding-top:.3rem;">
+      <div style="display:flex;flex-direction:column;gap:.5rem;justify-content:center;padding-top:.3rem;">
         <div class="capsule-arrondi">
           <span class="arrondi-label">Balance ± 0,1 g</span>
           <span class="arrondi-val">${masseArrondie01.toFixed(1)} g</span>
@@ -416,18 +377,11 @@ function calculDissolution() {
       </div>
     </div>`;
 
-    /* ---- Tableau de résultats ---- */
-    if ($("table-masse-dissolution"))
-        $("table-masse-dissolution").textContent = arrondir(masse, 3);
-    if ($("table-volume-dissolution"))
-        $("table-volume-dissolution").textContent = V;
-    if ($("table-calc-dissolution"))
-        $("table-calc-dissolution").textContent = arrondir(C);
-    if ($("table-theo-dissolution"))
-        $("table-theo-dissolution").textContent = arrondir(C);
+    if ($("table-masse-dissolution")) $("table-masse-dissolution").textContent = arrondir(masse, 3);
+    if ($("table-volume-dissolution")) $("table-volume-dissolution").textContent = V;
+    if ($("table-calc-dissolution")) $("table-calc-dissolution").textContent = arrondir(C);
+    if ($("table-theo-dissolution")) $("table-theo-dissolution").textContent = arrondir(C);
 
-    /* ---- Pré-remplir le champ masse-theo de la section balance
-            seulement si l'élève n'a pas encore saisi de valeur     ---- */
     const peTheo = $("pe-masse-theo");
     if (peTheo && !peTheo.value) {
         peTheo.value = arrondir(masse, 3);
@@ -479,29 +433,26 @@ function calculDilution() {
 }
 
 /* ==========================================================
-   RESULTATS — init listener masse expérimentale
+   RESULTATS
    ========================================================== */
 
 function initResultats() {
-    // Écouter la masse PESÉE (nouvelle colonne)
-    const inputMasse = document.getElementById("masse-exp-pesee");
+    const inputMasse = $("masse-exp-pesee");
     if (inputMasse) inputMasse.addEventListener("input", calculEcart);
 }
-/* ==========================================================
-   ECART RELATIF
-   ========================================================== */
 
 function calculEcart() {
-    const inputMasse = document.getElementById("masse-exp-pesee");
-    const zoneEcart  = document.getElementById("table-ecart");
-    const zoneRes    = document.getElementById("res-ecart");
+
+    const inputMasse = $("masse-exp-pesee");
+    const zoneEcart  = $("table-ecart");
+    const zoneRes    = $("res-ecart");
 
     if (!inputMasse || !zoneEcart) return;
 
     const masseExp = nombre(inputMasse.value);
-    const C = nombre(document.getElementById("c-dissolution")?.value);
-    const V = nombre(document.getElementById("v-dissolution")?.value);
-    const M = nombre(document.getElementById("m-dissolution")?.value);
+    const C = nombre($("c-dissolution")?.value);
+    const V = nombre($("v-dissolution")?.value);
+    const M = nombre($("m-dissolution")?.value);
 
     if (masseExp <= 0 || C <= 0 || V <= 0 || M <= 0) {
         zoneEcart.textContent = "—";
@@ -540,33 +491,118 @@ function calculEcart() {
 }
 
 /* ==========================================================
-   IMPRESSION RAPPORT ELEVE
+   BOUTON IMPRESSION — branché sur compte-rendu.js commun
    ========================================================== */
+
 function initBoutonImpressionCR() {
 
     const navTp = document.querySelector(".nav-tp");
     if (!navTp) return;
 
-    /* Garde anti-doublon : si le bouton existe déjà, ne pas en recréer un */
     if (navTp.querySelector("#btn-imprimer-cr")) return;
-
-    const btnExistant = navTp.querySelector("a.btn-primaire");
 
     const btn = document.createElement("button");
     btn.id          = "btn-imprimer-cr";
     btn.type        = "button";
     btn.className   = "btn btn-primaire";
-    btn.textContent = "📄 Imprimer le compte rendu";
-    btn.title       = "Générer et imprimer le compte rendu complet";
+    btn.textContent = "📄 Imprimer le compte-rendu";
+    btn.title       = "Générer et imprimer le compte-rendu au format PDF";
 
-    btn.addEventListener("click", () => {
-        imprimerCompteRendu({ products, dangerDB, pictogrammes });
-    });
+    btn.addEventListener("click", _lancerCompteRendu);
 
-    if (btnExistant) {
-        navTp.insertBefore(btn, btnExistant);
-    } else {
-        navTp.appendChild(btn);
-    }
+    const btnExistant = navTp.querySelector("a.btn-primaire");
+    if (btnExistant) navTp.insertBefore(btn, btnExistant);
+    else navTp.appendChild(btn);
 }
- 
+
+/* ==========================================================
+   COLLECTE DES DONNÉES ET APPEL compte-rendu.js
+   ========================================================== */
+
+function _lancerCompteRendu() {
+
+    // ── 1. Identité pré-remplie depuis les champs HTML du TP ──
+    const identiteDefaut = {
+        nom:    lireTexte("nom-eleve"),
+        prenom: lireTexte("prenom-eleve"),
+        classe: lireTexte("classe-eleve"),
+        date:   $("date-eleve")?.value || "",
+    };
+
+    // ── 2. Paramètres de dissolution ──
+    const nomReactif  = reactifCourant?.nom || $("nom-sel-table")?.textContent || "—";
+    const formule     = reactifCourant?.formule || $("formule-dissolution")?.textContent || "—";
+    const masseMol    = $("m-dissolution")?.value || "—";
+    const C           = $("c-dissolution")?.value || "—";
+    const V           = $("v-dissolution")?.value || "—";
+    const masseTheo   = $("table-masse-dissolution")?.textContent || "—";
+    const masseExp    = $("masse-exp-pesee")?.value || "—";
+    const ecartTxt    = $("table-ecart")?.textContent?.replace(/\s/g, "") || "—";
+
+    // ── 3. Paramètres de dilution ──
+    const C1 = $("c1-hcl")?.value || "—";
+    const C2 = $("c2-hcl")?.value || "—";
+    const V2 = $("v2-hcl")?.value || "—";
+    const V1calc = (nombre(C2) > 0 && nombre(C1) > 0)
+        ? arrondir((nombre(C2) * nombre(V2)) / nombre(C1), 2)
+        : "—";
+
+    // ── 4. Questions (texte libre saisi par l'élève) ──
+    const QUESTIONS = [
+        { id: "question1",  libelle: "1A — Dissolution vs dilution" },
+        { id: "question2",  libelle: "2A — Acide dans l'eau" },
+        { id: "question3",  libelle: "3A — Conversion de volume" },
+        { id: "question4",  libelle: "4A — Quantité de matière n" },
+        { id: "question5",  libelle: "5A — Conversion g → mg" },
+        { id: "question6",  libelle: "6A — Concentration massique Cm" },
+        { id: "question7",  libelle: "7A — Erreur absolue Δm" },
+        { id: "question8",  libelle: "8A — Erreur relative et acceptabilité" },
+        { id: "question9",  libelle: "9A — Sources d'erreurs et améliorations" },
+        { id: "question10", libelle: "10A — Conclusion synthétique" },
+    ];
+
+    const sectionQuestions = QUESTIONS.map(q => ({
+        titre: q.libelle,
+        texte: lireTexte(q.id) || "(pas de réponse saisie)",
+    }));
+
+    // ── 5. Résumé du TP ──
+    const resume = lireTexte("resume-tp");
+
+    // ── 6. Construction des sections ──
+    const sections = [
+        {
+            titre: "Préparation par dissolution",
+            items: [
+                { label: "Réactif",             valeur: `${nomReactif} (${formule})` },
+                { label: "Masse molaire M",      valeur: `${masseMol} g/mol` },
+                { label: "Concentration C",      valeur: `${C} mol/L` },
+                { label: "Volume V",             valeur: `${V} mL` },
+                { label: "Masse théorique m",    valeur: `${masseTheo} g` },
+                { label: "Masse pesée",          valeur: masseExp !== "—" ? `${masseExp} g` : "non renseignée" },
+                { label: "Écart relatif",        valeur: ecartTxt },
+            ],
+        },
+        {
+            titre: "Dilution HCl (C₁V₁ = C₂V₂)",
+            items: [
+                { label: "Concentration mère C₁",   valeur: `${C1} mol/L` },
+                { label: "Concentration fille C₂",  valeur: `${C2} mol/L` },
+                { label: "Volume final V₂",          valeur: `${V2} mL` },
+                { label: "Volume à prélever V₁",     valeur: `${V1calc} mL` },
+            ],
+        },
+        ...(resume ? [{ titre: "Résumé du TP", texte: resume }] : []),
+        ...sectionQuestions,
+    ];
+
+    // ── 7. Appel du module commun ──
+    genererCompteRendu({
+        domaine: "Chimie",
+        tp: "TP01",
+        titre: "Préparation de solutions par dissolution et dilution",
+        sections,
+        identiteDefaut,
+        // Pas de canvas pour ce TP (pas de graphe)
+    });
+}
