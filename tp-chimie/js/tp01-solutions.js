@@ -535,25 +535,26 @@ function calculEcart() {
    IMPRESSION RAPPORT ELEVE
    ========================================================== */
 function initBoutonImpressionCR() {
- 
-    /* Cherche le bouton "🖨️ Imprimer" existant dans .nav-tp
-       et insère juste avant lui un bouton dédié au CR.       */
- 
+
     const navTp = document.querySelector(".nav-tp");
     if (!navTp) return;
- 
-    const btnExistant = navTp.querySelector("button[onclick]");
- 
+
+    /* Garde anti-doublon : si le bouton existe déjà, ne pas en recréer un */
+    if (navTp.querySelector("#btn-imprimer-cr")) return;
+
+    const btnExistant = navTp.querySelector("a.btn-primaire");
+
     const btn = document.createElement("button");
+    btn.id          = "btn-imprimer-cr";
+    btn.type        = "button";
     btn.className   = "btn btn-primaire";
-    btn.textContent = "📄 Imprimer CR";
+    btn.textContent = "📄 Imprimer le compte rendu";
     btn.title       = "Générer et imprimer le compte rendu complet";
- 
+
     btn.addEventListener("click", () => {
         imprimerCompteRendu({ products, dangerDB, pictogrammes });
     });
- 
-    /* Insérer avant le bouton print natif, ou à la fin */
+
     if (btnExistant) {
         navTp.insertBefore(btn, btnExistant);
     } else {
