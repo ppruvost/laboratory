@@ -1,386 +1,233 @@
 /* ==========================================================
-   TP01 - PREPARATION DE SOLUTIONS
-   tp-chimie/js/tp01-solutions.js
+   TP01 — IMPRESSION DU COMPTE RENDU
+   tp-chimie/js/print-tp01.js
    ========================================================== */
 
-import products            from "../../data/products.js";
-import dangerDB            from "../../data/dangerDB.js";
-import pictogrammes        from "../../data/pictogrammes.js";
-import glassware           from "../../data/glassware.js";
-import laboratoryEquipment from "../../data/equipment.js";
-import { initBalanceErreurs } from "../../js/balance-erreurs.js";
-import { imprimerCompteRendu } from "../js/print-tp01.js";
+export function imprimerCompteRendu({ products, dangerDB, pictogrammes }) {
 
-/* ==========================================================
-   VARIABLES
-   ========================================================== */
+    const $ = id => document.getElementById(id);
+    const val   = id => ($( id )?.value        ?? "").trim();
+    const texte = id => ($( id )?.textContent  ?? "").trim();
 
-let reactifCourant = null;
+    const identite = {
+        nom:     val("nom-eleve")    || "—",
+        prenom:  val("prenom-eleve") || "—",
+        classe:  val("classe-eleve") || "—",
+        date:    val("date-eleve")   || "—",
+    };
 
-/* ==========================================================
-   RACCOURCI DOM
-   ========================================================== */
+    const cas     = $("reactif-dissolution")?.value ?? "";
+    const produit = products.find(p => p.cas === cas) ?? { nom: "—", formule: "—" };
 
-function $(id) {
-    return document.getElementById(id);
-}
-
-/* ==========================================================
-   INITIALISATION — exportée pour navigation.js
-   ET appelée immédiatement si chargée en standalone
-   ========================================================== */
-
-export function init() {
-
-    console.log("TP01 Solutions initialisé");
-
-    initSections();
-    initTabs();
-    initReactifs();
-    initMateriel();
-    initCalculs();
-    initResultats();
-    initBalanceErreurs();
-    initBoutonImpressionCR();
-}
-
-/* Appel automatique quand le script est chargé directement
-   (cas du HTML standalone avec <script type="module">)    */
-if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", init);
-} else {
-    init();
-}
-
-/* ==========================================================
-   ACCORDEONS
-   ========================================================== */
-
-function initSections() {
-
-    document.querySelectorAll(".section").forEach(section => {
-
-        const titre = section.querySelector(".section-titre");
-        const corps = section.querySelector(".section-corps");
-
-        if (!titre || !corps) return;
-
-        corps.style.display = "block";
-
-        titre.addEventListener("click", () => {
-
-            const ouvert = corps.style.display !== "none";
-            corps.style.display = ouvert ? "none" : "block";
-
-            const chevron = titre.querySelector(".chevron");
-            if (chevron) chevron.textContent = ouvert ? "►" : "▼";
-        });
+    const dangers = [];
+    (produit.dangers   ?? []).forEach(code => {
+        const d = dangerDB.find(x => x.code === code);
+        if (d) dangers.push(`${code} : ${d.text ?? d.texte ?? ""}`);
     });
-}
-
-/* ==========================================================
-   ONGLETS
-   ========================================================== */
-
-function initTabs() {
-
-    document.querySelectorAll(".tabs-container").forEach(container => {
-
-        const boutons  = container.querySelectorAll(".tab-btn");
-        const panneaux = container.querySelectorAll(".tab-panel");
-
-        boutons.forEach(btn => {
-
-            btn.addEventListener("click", () => {
-
-                boutons.forEach(b  => b.classList.remove("actif"));
-                panneaux.forEach(p => p.classList.remove("actif"));
-
-                btn.classList.add("actif");
-
-                const cible = container.querySelector("#" + btn.dataset.tab);
-                if (cible) cible.classList.add("actif");
-            });
-        });
+    (produit.prevention ?? []).forEach(code => {
+        const d = dangerDB.find(x => x.code === code);
+        if (d) dangers.push(`${code} : ${d.text ?? d.texte ?? ""}`);
     });
-}
 
-/* ==========================================================
-   OUTILS
-   ========================================================== */
+    const materiel = [];
+    document.querySelectorAll("#materiel-verrerie .item-materiel").forEach(lbl => {
+        const checked = lbl.querySelector("input[type=checkbox]")?.checked ?? false;
+        const nom     = lbl.querySelector("strong")?.textContent.trim() ?? "";
+        if (nom) materiel.push({ checked, nom });
+    });
 
-function nombre(v) {
-    const n = parseFloat(v);
-    return isNaN(n) ? 0 : n;
-}
+    const equipements = [];
+    document.querySelectorAll("#materiel-equipements .item-materiel").forEach(lbl => {
+        const checked = lbl.querySelector("input[type=checkbox]")?.checked ?? false;
+        const nom     = lbl.querySelector("strong")?.textContent.trim() ?? "";
+        if (nom) equipements.push({ checked, nom });
+    });
 
-function arrondir(v, d = 2) {
-    return Number(v).toFixed(d);
-}
+    const masseTheo = texte("table-masse-dissolution") || val("pe-masse-theo") || "—";
+    const solution  = {
+        C:              val("c-dissolution")   || "—",
+        V:              val("v-dissolution")   || "—",
+        M:              val("m-dissolution")   || "—",
+        masseTheorique: masseTheo,
+    };
 
-function message(id, texte) {
-    const zone = $(id);
-    if (!zone) return;
-    zone.innerHTML = `<div class="info">${texte}</div>`;
-}
+    const masseLue = val("pe-lue-01") || val("pe-lue-1g") || null;
+    let balance = { masse: "—", erreurAbs: "—", erreurRel: "—", conclusion: "—", analyse: "—" };
 
-/* ==========================================================
-   CHEMIN IMAGE
-   Préfixe le dossier si le champ contient juste un nom de fichier
-   ========================================================== */
-
-function imgSrc(chemin, dossier) {
-
-    if (!chemin) return "";
-
-    // chemin déjà complet
-    if (
-        chemin.startsWith("http") ||
-        chemin.startsWith("/") ||
-        chemin.startsWith("../") ||
-        chemin.startsWith("./") ||
-        chemin.startsWith("assets/")
-    ) {
-        return chemin;
-    }
-
-    // uniquement si on reçoit un simple nom de fichier
-    return `../assets/img/${dossier}/${chemin}`;
-}
-
-/* ==========================================================
-   REACTIFS
-   ========================================================== */
-
-function initReactifs() {
-
-    const selectSec = $("reactif");
-    const selectDis = $("reactif-dissolution");
-
-    if (!selectSec || !selectDis) return;
-
-    selectSec.innerHTML = '<option value="">-- Sélectionner --</option>';
-    selectDis.innerHTML = '<option value="">-- Sélectionner un sel --</option>';
-
-    products.forEach(p => {
-
-        /* Liste sécurité — tous les produits */
-        const o1 = document.createElement("option");
-        o1.value = p.cas;
-        o1.textContent = p.nom;
-        selectSec.appendChild(o1);
-
-        /* Liste dissolution — sels uniquement */
-        if (p.categorie === "Sel") {
-            const o2 = document.createElement("option");
-            o2.value = p.cas;
-            o2.textContent = p.nom;
-            selectDis.appendChild(o2);
+    if (masseLue && masseTheo !== "—") {
+        const l = parseFloat(masseLue);
+        const t = parseFloat(masseTheo);
+        if (!isNaN(l) && !isNaN(t) && t > 0) {
+            const abs = Math.abs(l - t);
+            const rel = (abs / t) * 100;
+            const signe = ((l - t) / t * 100).toFixed(2);
+            let conclusion;
+            if      (rel < 2) { conclusion = "Excellent (< 2 %)";   }
+            else if (rel < 5) { conclusion = "Acceptable (2–5 %)";  }
+            else              { conclusion = "Insuffisant (> 5 %)"; }
+            balance = {
+                masse:      l.toFixed(2),
+                erreurAbs:  abs.toFixed(3),
+                erreurRel:  rel.toFixed(2),
+                conclusion,
+                analyse: `Écart relatif : ${signe} % — ${conclusion}`,
+            };
         }
-    });
-
-    selectSec.addEventListener("change", afficherSecurite);
-    selectDis.addEventListener("change", changerReactif);
-}
-
-/* ==========================================================
-   SECURITE
-   ========================================================== */
-
-function afficherSecurite() {
-
-    const select = $("reactif");
-    const zone   = $("securite-bloc");
-
-    if (!select || !zone) return;
-
-    if (!select.value) {
-        message("securite-bloc", "Sélectionner un réactif.");
-        return;
     }
 
-    const produit = products.find(p => p.cas === select.value);
-    if (!produit) return;
+    const questions = [
+        { num: "1A",  comp: "APP",     texte: "Qu'est-ce qu'une dissolution ? Qu'est-ce qu'une dilution ? Expliquer la différence." },
+        { num: "2A",  comp: "APP",     texte: "Pourquoi faut-il toujours verser l'acide dans l'eau et jamais l'inverse ?" },
+        { num: "3A",  comp: "REA",     texte: "Convertir le volume V utilisé pour la dissolution de mL en L, puis de L en mL si une autre valeur est donnée en L." },
+        { num: "4A",  comp: "REA",     texte: "Calculer la quantité de matière n (en mol) du réactif sélectionné à partir de la masse théorique et de la masse molaire M." },
+        { num: "5A",  comp: "REA",     texte: "Convertir la masse théorique calculée de g en mg." },
+        { num: "6A",  comp: "REA",     texte: "Calculer la concentration massique Cm (en g/L) de la solution préparée à partir de la masse théorique et du volume V." },
+        { num: "7A",  comp: "ANA RAI", texte: "Calculer l'erreur absolue Δm entre la masse théorique et la masse réellement pesée." },
+        { num: "8A",  comp: "ANA RAI", texte: "Calculer l'erreur relative (en %) associée à cette pesée. Cette erreur est-elle acceptable au regard du seuil de 2 % ?" },
+        { num: "9A",  comp: "VAL",     texte: "Identifier les principales sources d'erreurs expérimentales et proposer une amélioration du protocole." },
+        { num: "10A", comp: "COM",     texte: "Rédiger une conclusion synthétique présentant la solution préparée et la qualité de la pesée, avec un vocabulaire scientifique précis." },
+    ];
+    const reponses = questions.map((q, i) => val(`question${i + 1}`));
 
-    reactifCourant = produit;
-
-    let html = `<h3 style="margin-bottom:.5rem;">${produit.nom}</h3>`;
-
-    html += `<p style="margin-bottom:.5rem;">
-        <strong>Formule :</strong>
-        <span style="font-family:var(--font-code);color:var(--bleu-cuivre);">
-            ${produit.formule}
-        </span>
-    </p>`;
-
-    /* ---- Pictogrammes GHS ---- */
-    if (produit.dangers?.length) {
-
-        html += `<div class="pictos-clp">`;
-
-        produit.dangers.forEach(code => {
-            const picto = pictogrammes.find(p => p.code === code);
-            if (picto) {
-                html += `<img class="picto-clp"
-                    src="../../assets/picto/${picto.image}"
-                    alt="${code}" title="${code}">`;
-            }
-        });
-
-        html += `</div>`;
-    }
-
-    /* ---- Mentions H ---- */
-    if (produit.dangers?.length) {
-
-        html += `<div class="danger-bloc"><h4>⚠️ Mentions de danger (H)</h4><ul>`;
-
-        produit.dangers.forEach(code => {
-            const h = dangerDB.find(d => d.code === code);
-            if (h) {
-                /* Compatibilité : certaines versions utilisent .text, d'autres .texte */
-                html += `<li><strong>${code}</strong> : ${h.text ?? h.texte ?? ""}</li>`;
-            }
-        });
-
-        html += `</ul></div>`;
-    }
-
-    /* ---- Mentions P ---- */
-    if (produit.prevention?.length) {
-
-        html += `<div class="prevention-bloc"><h4>🛡️ Conseils de prudence (P)</h4><ul>`;
-
-        produit.prevention.forEach(code => {
-            const p = dangerDB.find(d => d.code === code);
-            if (p) {
-                html += `<li><strong>${code}</strong> : ${p.text ?? p.texte ?? ""}</li>`;
-            }
-        });
-
-        html += `</ul></div>`;
-    }
-
-    zone.innerHTML = html;
+    genererPageImpression({ identite, produit, dangers, materiel, equipements, solution, balance, questions, reponses });
 }
 
-/* ==========================================================
-   CHANGEMENT DE REACTIF (dissolution)
-   ========================================================== */
+function genererPageImpression(data) {
+    const {
+        identite, produit, dangers = [], materiel = [], equipements = [],
+        solution, balance, questions = [], reponses = [],
+    } = data;
 
-function changerReactif() {
+    const cssUrl = new URL("../css/print-tp01.css", window.location.href).href;
 
-    const cas     = $("reactif-dissolution").value;
-    const produit = products.find(p => p.cas === cas);
+    const materielListe = materiel
+        .filter(m => m.checked)
+        .map(m => `<li>${m.nom}</li>`)
+        .join("") || `<li class="vide">Aucun élément coché</li>`;
 
-    if (!produit) return;
+    const equipementsListe = equipements
+        .filter(e => e.checked)
+        .map(e => `<li>${e.nom}</li>`)
+        .join("") || `<li class="vide">Aucun élément coché</li>`;
 
-    reactifCourant = produit;
+    const dangersListe = dangers.length
+        ? dangers.map(d => `<li>${d}</li>`).join("")
+        : `<li class="vide">Aucune mention renseignée</li>`;
 
-    if ($("nom-reactif"))         $("nom-reactif").textContent        = produit.nom;
-    if ($("nom-sel-protocole"))   $("nom-sel-protocole").textContent = produit.nom;
-    if ($("formule-dissolution")) $("formule-dissolution").textContent = produit.formule;
-    if ($("masse-dissolution"))   $("masse-dissolution").textContent   = arrondir(produit.masseMolaire);
-    if ($("m-dissolution"))       $("m-dissolution").value            = arrondir(produit.masseMolaire);
-    if ($("nom-sel-table"))       $("nom-sel-table").textContent      = produit.nom;
+    const dateAffichee = identite.date !== "—"
+        ? new Date(identite.date).toLocaleDateString("fr-FR", { day: "2-digit", month: "long", year: "numeric" })
+        : "—";
 
-    calculDissolution();
+    const questionsHtml = questions.map((q, i) => `
+      <div class="qr-bloc">
+        <div class="qr-entete">
+          <span class="qr-num">${q.num}</span>
+          <span class="qr-texte">${q.texte}</span>
+          <span class="qr-comp comp-${q.comp.replace(/\s+/g, "-")}">${q.comp}</span>
+        </div>
+        <div class="qr-reponse">${reponses[i] ? reponses[i].replace(/\n/g, "<br>") : "<em>Sans réponse</em>"}</div>
+      </div>
+    `).join("");
+
+    const html = `
+<html>
+<head>
+  <title>TP01 — Compte rendu — ${identite.nom} ${identite.prenom}</title>
+  <link rel="stylesheet" href="${cssUrl}">
+</head>
+<body>
+<div class="page">
+
+  <header class="cr-header">
+    <div class="cr-header-titre">
+      <div class="cr-logo">SciLab</div>
+      <h1>Compte rendu — TP01<br><span>Préparation de solutions</span></h1>
+    </div>
+    <table class="cr-identite">
+      <tbody>
+        <tr><th>Nom</th><td>${identite.nom}</td></tr>
+        <tr><th>Prénom</th><td>${identite.prenom}</td></tr>
+        <tr><th>Classe</th><td>${identite.classe}</td></tr>
+        <tr><th>Date</th><td>${dateAffichee}</td></tr>
+      </tbody>
+    </table>
+  </header>
+
+  <section class="cr-section">
+    <h2><span class="cr-puce">1</span> Sécurité — Produit utilisé</h2>
+    <p class="cr-produit-nom">${produit.nom} <span class="cr-formule">(${produit.formule})</span></p>
+    <ul class="cr-liste-dangers">${dangersListe}</ul>
+  </section>
+
+  <section class="cr-section cr-grid-2">
+    <div>
+      <h2><span class="cr-puce">2</span> Verrerie</h2>
+      <ul class="cr-liste-materiel">${materielListe}</ul>
+    </div>
+    <div>
+      <h2><span class="cr-puce">3</span> Équipements</h2>
+      <ul class="cr-liste-materiel">${equipementsListe}</ul>
+    </div>
+  </section>
+
+  <section class="cr-section">
+    <h2><span class="cr-puce">4</span> Préparation par dissolution</h2>
+    <table class="cr-tableau-donnees">
+      <thead>
+        <tr><th>C (mol/L)</th><th>V (mL)</th><th>M (g/mol)</th><th>Masse théorique (g)</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>${solution.C}</td>
+          <td>${solution.V}</td>
+          <td>${solution.M}</td>
+          <td><strong>${solution.masseTheorique}</strong></td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="cr-section">
+    <h2><span class="cr-puce">5</span> Analyse de la pesée</h2>
+    <table class="cr-tableau-donnees">
+      <thead>
+        <tr>
+          <th>Masse théorique (g)</th>
+          <th>Masse lue (g)</th>
+          <th>Erreur absolue Δm (g)</th>
+          <th>Erreur relative (%)</th>
+          <th>Conclusion</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>${solution.masseTheorique}</td>
+          <td>${balance.masse}</td>
+          <td>${balance.erreurAbs}</td>
+          <td>${balance.erreurRel}</td>
+          <td class="cr-conclusion">${balance.conclusion}</td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="cr-analyse-texte">${balance.analyse}</p>
+  </section>
+
+  <section class="cr-section cr-questions">
+    <h2><span class="cr-puce">6</span> Questions — Évaluation des compétences</h2>
+    ${questionsHtml}
+  </section>
+
+  <footer class="cr-footer">
+    Document généré le ${new Date().toLocaleDateString("fr-FR")} — SciLab TP Chimie
+  </footer>
+
+</div>
+</body>
+</html>`;
+
+    const win = window.open("", "_blank");
+    win.document.write(html);
+    win.document.close();
+    win.focus();
+    win.print();
 }
-
-/* ==========================================================
-   MATERIEL — cases à cocher verrerie + équipements
-   ========================================================== */
-
-function initMateriel() {
-
-    const divVerrerie    = $("materiel-verrerie");
-    const divEquipements = $("materiel-equipements");
-
-    if (!divVerrerie || !divEquipements) return;
-
-    /* ── Verrerie ───────────────────────────────────────────── */
-
-    /* Si le champ categorie est renseigné, on filtre sur Dissolution ;
-       sinon on affiche tout (sécurité si la donnée est absente)       */
-    const verresAffiches = glassware.some(v => v.categorie)
-        ? glassware.filter(v => v.categorie === "Dissolution")
-        : glassware;
-
-    divVerrerie.innerHTML = verresAffiches.map(v => {
-
-        const src = imgSrc(v.image, "glassware");
-
-        return `
-        <label class="item-materiel">
-          <input type="checkbox" class="materiel-check-input">
-          <span class="icone-materiel">
-            ${src
-                ? `<img src="${src}" alt="${v.nom}"
-                        onerror="this.style.display='none'">`
-                : `🧪`
-            }
-          </span>
-          <span class="materiel-info">
-            <strong>${v.nom}</strong>
-            <span class="materiel-detail">
-              ${v.contenance_ml ? v.contenance_ml + " mL" : ""}
-            </span>
-            <span class="materiel-detail lieu">${v.lieu ?? ""}</span>
-          </span>
-        </label>`;
-
-    }).join("");
-
-    /* ── Équipements ────────────────────────────────────────── */
-
-    const equipsAffiches = laboratoryEquipment.some(e => e.categorie)
-        ? laboratoryEquipment.filter(e => e.categorie === "Dissolution")
-        : laboratoryEquipment;
-
-    divEquipements.innerHTML = equipsAffiches.map(e => {
-
-        const src = imgSrc(e.image, "equipment");
-
-        return `
-        <label class="item-materiel">
-          <input type="checkbox" class="materiel-check-input">
-          <span class="icone-materiel">
-            ${src
-                ? `<img src="${src}" alt="${e.nom}"
-                        onerror="this.style.display='none'">`
-                : `🔬`
-            }
-          </span>
-          <span class="materiel-info">
-            <strong>${e.nom}</strong>
-            <span class="materiel-detail">${e.description ?? ""}</span>
-            <span class="materiel-detail lieu">${e.lieu ?? ""}</span>
-          </span>
-        </label>`;
-
-    }).join("");
-}
-
-/* ==========================================================
-   INIT CALCULS — pose les listeners
-   ========================================================== */
-
-function initCalculs() {
-
-    ["c-dissolution", "v-dissolution", "m-dissolution"]
-        .forEach(id => $(id)?.addEventListener("input", calculDissolution));
-
-    ["c1-hcl", "c2-hcl", "v2-hcl"]
-        .forEach(id => $(id)?.addEventListener("input", calculDilution));
-
-    calculDissolution();
-    calculDilution();
-}
-
-/* ==========================================================
-   DISSOLUTION
-   ========================================================== */
-
-function calculDissolution() {
-
-    const C =
