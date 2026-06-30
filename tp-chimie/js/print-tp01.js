@@ -92,6 +92,10 @@ export function imprimerCompteRendu({ products, dangerDB, pictogrammes }) {
     genererPageImpression({ identite, produit, dangers, materiel, equipements, solution, balance, questions, reponses });
 }
 
+/* ==========================================================
+   GENERATEUR HTML — rapport académique
+   ========================================================== */
+
 function genererPageImpression(data) {
     const {
         identite, produit, dangers = [], materiel = [], equipements = [],
@@ -118,12 +122,22 @@ function genererPageImpression(data) {
         ? new Date(identite.date).toLocaleDateString("fr-FR", { day: "2-digit", month: "long", year: "numeric" })
         : "—";
 
+    /* Cartouche de compétence alignée à droite, avec grille de cotation 0 / 1 / 2 */
     const questionsHtml = questions.map((q, i) => `
       <div class="qr-bloc">
         <div class="qr-entete">
-          <span class="qr-num">${q.num}</span>
-          <span class="qr-texte">${q.texte}</span>
-          <span class="qr-comp comp-${q.comp.replace(/\s+/g, "-")}">${q.comp}</span>
+          <div class="qr-entete-texte">
+            <span class="qr-num">${q.num}.</span>
+            <span class="qr-texte">${q.texte}</span>
+          </div>
+          <div class="qr-comp-bloc">
+            <div class="qr-comp-label">${q.comp}</div>
+            <div class="qr-comp-cotation">
+              <div class="qr-comp-case">0</div>
+              <div class="qr-comp-case">1</div>
+              <div class="qr-comp-case">2</div>
+            </div>
+          </div>
         </div>
         <div class="qr-reponse">${reponses[i] ? reponses[i].replace(/\n/g, "<br>") : "<em>Sans réponse</em>"}</div>
       </div>
@@ -154,24 +168,24 @@ function genererPageImpression(data) {
   </header>
 
   <section class="cr-section">
-    <h2><span class="cr-puce">1</span> Sécurité — Produit utilisé</h2>
+    <h2>1. Sécurité — Produit utilisé</h2>
     <p class="cr-produit-nom">${produit.nom} <span class="cr-formule">(${produit.formule})</span></p>
     <ul class="cr-liste-dangers">${dangersListe}</ul>
   </section>
 
   <section class="cr-section cr-grid-2">
     <div>
-      <h2><span class="cr-puce">2</span> Verrerie</h2>
+      <h2>2. Verrerie</h2>
       <ul class="cr-liste-materiel">${materielListe}</ul>
     </div>
     <div>
-      <h2><span class="cr-puce">3</span> Équipements</h2>
+      <h2>3. Équipements</h2>
       <ul class="cr-liste-materiel">${equipementsListe}</ul>
     </div>
   </section>
 
   <section class="cr-section">
-    <h2><span class="cr-puce">4</span> Préparation par dissolution</h2>
+    <h2>4. Préparation par dissolution</h2>
     <table class="cr-tableau-donnees">
       <thead>
         <tr><th>C (mol/L)</th><th>V (mL)</th><th>M (g/mol)</th><th>Masse théorique (g)</th></tr>
@@ -188,7 +202,7 @@ function genererPageImpression(data) {
   </section>
 
   <section class="cr-section">
-    <h2><span class="cr-puce">5</span> Analyse de la pesée</h2>
+    <h2>5. Analyse de la pesée</h2>
     <table class="cr-tableau-donnees">
       <thead>
         <tr>
@@ -213,7 +227,7 @@ function genererPageImpression(data) {
   </section>
 
   <section class="cr-section cr-questions">
-    <h2><span class="cr-puce">6</span> Questions — Évaluation des compétences</h2>
+    <h2>6. Questions — Évaluation des compétences</h2>
     ${questionsHtml}
   </section>
 
