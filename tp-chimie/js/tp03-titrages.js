@@ -3,7 +3,7 @@
  * Simulation pH-métrique, dérivée, conductimétrie, CA, export CSV
  */
 
-import { PRODUITS } from '../../data/products.js';
+import products from "../../data/products.js";
 import { renderBlocSecurite, initSections, initTabs } from './utils.js';
 
 // ── Constantes ────────────────────────────────────────────────
