@@ -1,68 +1,198 @@
 @page {
   size: A4;
-  margin: 10mm;
+  margin: 14mm 12mm;
 }
 
+* { box-sizing: border-box; }
+
 body {
-  font-family: Arial, sans-serif;
-  font-size: 11px;
-  color: #000;
+  font-family: "Georgia", "Times New Roman", serif;
+  font-size: 10.5px;
+  color: #1a1a1a;
+  line-height: 1.4;
 }
 
 .page {
-  max-height: 277mm;
-  overflow: hidden;
+  max-width: 100%;
 }
 
-/* blocs compacts */
-.bloc {
-  margin-bottom: 6px;
-  padding-bottom: 4px;
-  border-bottom: 1px solid #ccc;
+/* ── En-tête ── */
+.cr-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+  border-bottom: 3px solid #1B6CA8;
+  padding-bottom: 10px;
+  margin-bottom: 14px;
 }
-
-/* sections en petit texte (ta demande 10px) */
-.small {
+.cr-header-titre { flex: 1; }
+.cr-logo {
+  font-family: "Arial", sans-serif;
+  font-weight: 800;
+  font-size: 13px;
+  letter-spacing: .08em;
+  color: #1B6CA8;
+  margin-bottom: 4px;
+}
+.cr-header-titre h1 {
+  font-size: 17px;
+  margin: 0;
+  color: #0D4F8A;
+}
+.cr-header-titre h1 span {
+  display: block;
+  font-size: 12px;
+  font-weight: 400;
+  color: #4a4a4a;
+  font-family: "Arial", sans-serif;
+  margin-top: 2px;
+}
+.cr-identite {
+  border-collapse: collapse;
+  font-family: "Arial", sans-serif;
   font-size: 10px;
 }
-
-/* titres compacts */
-h2 {
-  font-size: 14px;
-  margin: 0 0 5px 0;
+.cr-identite th, .cr-identite td {
+  border: 1px solid #c7d8e6;
+  padding: 3px 10px;
+  text-align: left;
+}
+.cr-identite th {
+  background: #EAF2F8;
+  color: #0D4F8A;
+  font-weight: 700;
+  white-space: nowrap;
 }
 
-h3 {
-  font-size: 12px;
-  margin: 4px 0;
-}
-
-h4 {
-  font-size: 11px;
-  margin: 3px 0;
-}
-
-/* listes compactes */
-ul {
-  margin: 0;
-  padding-left: 14px;
-}
-
-li {
-  margin: 0;
-  padding: 0;
-  line-height: 1.2;
-}
-
-/* forcer évitement des sauts inutiles */
-section {
+/* ── Sections ── */
+.cr-section {
+  margin-bottom: 12px;
   page-break-inside: avoid;
 }
+.cr-section h2 {
+  font-family: "Arial", sans-serif;
+  font-size: 12px;
+  color: #0D4F8A;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 6px 0;
+  border-bottom: 1px solid #c7d8e6;
+  padding-bottom: 3px;
+}
+.cr-puce {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  background: #1B6CA8;
+  color: #fff;
+  border-radius: 3px;
+  font-size: 9px;
+  font-weight: 700;
+}
+.cr-grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
 
-/* réduction globale pour tenir 2 pages */
+/* ── Produit / dangers ── */
+.cr-produit-nom { font-weight: 700; font-size: 11px; margin: 0 0 4px 0; }
+.cr-formule { font-family: "Courier New", monospace; font-weight: 400; color: #555; }
+.cr-liste-dangers, .cr-liste-materiel {
+  margin: 0; padding-left: 16px; font-family: "Arial", sans-serif; font-size: 9.5px;
+}
+.cr-liste-dangers li, .cr-liste-materiel li { margin-bottom: 2px; }
+.vide { color: #999; font-style: italic; }
+
+/* ── Tableaux de données ── */
+.cr-tableau-donnees {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: "Arial", sans-serif;
+  font-size: 9.5px;
+}
+.cr-tableau-donnees th, .cr-tableau-donnees td {
+  border: 1px solid #c7d8e6;
+  padding: 5px 8px;
+  text-align: center;
+}
+.cr-tableau-donnees th {
+  background: #1B6CA8;
+  color: #fff;
+  font-weight: 700;
+}
+.cr-tableau-donnees td strong { color: #0D4F8A; }
+.cr-conclusion { font-weight: 700; color: #0D4F8A; }
+.cr-analyse-texte {
+  font-family: "Arial", sans-serif;
+  font-size: 9.5px;
+  margin-top: 5px;
+  color: #444;
+}
+
+/* ── Questions / cartouches compétences ── */
+.cr-questions { page-break-before: auto; }
+.qr-bloc {
+  border: 1px solid #d8e3ec;
+  border-left: 4px solid #1B6CA8;
+  border-radius: 3px;
+  padding: 6px 10px;
+  margin-bottom: 7px;
+  page-break-inside: avoid;
+}
+.qr-entete {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-family: "Arial", sans-serif;
+}
+.qr-num {
+  font-weight: 800;
+  color: #1B6CA8;
+  font-size: 10.5px;
+  flex-shrink: 0;
+}
+.qr-texte {
+  flex: 1;
+  font-weight: 600;
+  font-size: 9.5px;
+}
+.qr-comp {
+  flex-shrink: 0;
+  font-size: 7.5px;
+  font-weight: 800;
+  letter-spacing: .03em;
+  padding: 2px 6px;
+  border-radius: 8px;
+  white-space: nowrap;
+  background: #EAF2F8;
+  color: #0D4F8A;
+  border: 1px solid #1B6CA8;
+}
+.qr-reponse {
+  margin-top: 4px;
+  padding-top: 4px;
+  border-top: 1px dashed #d8e3ec;
+  font-size: 9.5px;
+  color: #2a2a2a;
+}
+.qr-reponse em { color: #999; }
+
+/* ── Pied de page ── */
+.cr-footer {
+  margin-top: 16px;
+  padding-top: 6px;
+  border-top: 1px solid #c7d8e6;
+  font-family: "Arial", sans-serif;
+  font-size: 8px;
+  color: #999;
+  text-align: right;
+}
+
 @media print {
-  body {
-    transform: scale(0.98);
-    transform-origin: top left;
-  }
+  body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
 }
