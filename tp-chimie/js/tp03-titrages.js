@@ -6,6 +6,7 @@
  */
 import products from "../../data/products.js";
 import { renderBlocSecurite, initSections, initTabs, initImprimer } from './utils.js';
+import { genererCompteRendu } from '../../js/compte-rendu.js';
 
 // ── Constantes chimiques ────────────────────────────────────────
 const Ke = 1e-14;
@@ -76,6 +77,8 @@ export function init() {
   _initCheckboxes();
   _initCanvasInteractions();
   _initBoutonGenererTheorique();
+  _initCorrectionErreurs();
+  _initExportEtCompteRendu();
 
   _dessinerGraphe();
 }
@@ -729,6 +732,292 @@ function _interpoler(courbe, v) {
     }
   }
   return null;
+}
+
+// ══════════════════════════════════════════════════════════════
+// BLOC 5 — CORRECTION DES ERREURS DE MESURE
+// ══════════════════════════════════════════════════════════════
+let _pointsSuspects = []; // indices dans _mesures actuellement signalés
+
+function _initCorrectionErreurs() {
+  const btnToggle = document.getElementById('btn-correction-erreurs');
+  const panneau = document.getElementById('panneau-correction');
+  if (btnToggle && panneau) {
+    btnToggle.addEventListener('click', () => {
+      panneau.style.display = panneau.style.display === 'none' ? 'block' : 'none';
+    });
+  }
+
+  document.getElementById('btn-appliquer-offset')?.addEventListener('click', () => {
+    const offset = parseFloat(document.getElementById('offset-ph')?.value) || 0;
+    if (!offset) return;
+    _mesures.forEach(m => { if (m.ph !== null && !isNaN(m.ph)) m.ph = +(m.ph + offset).toFixed(3); });
+    document.getElementById('offset-ph').value = 0;
+    _majTableau();
+    _dessinerGraphe();
+  });
+
+  document.getElementById('btn-lissage')?.addEventListener('click', () => {
+    _lisserMoyenneGlissante();
+    _majTableau();
+    _dessinerGraphe();
+  });
+
+  document.getElementById('btn-savgol')?.addEventListener('click', () => {
+    _lisserSavitzkyGolay();
+    _majTableau();
+    _dessinerGraphe();
+  });
+
+  document.getElementById('btn-detecter-aberrants')?.addEventListener('click', () => {
+    _detecterPointsAberrants();
+  });
+}
+
+// ── Décalage de calibration : déjà géré ci-dessus (offset global) ──
+
+// ── Lissage par moyenne glissante (fenêtre 3) ──────────────────
+function _lisserMoyenneGlissante() {
+  const valides = _mesures
+    .map((m, i) => ({ ...m, i }))
+    .filter(m => m.ph !== null && !isNaN(m.ph))
+    .sort((a, b) => a.v - b.v);
+  if (valides.length < 3) return;
+
+  const lisses = valides.map((p, idx) => {
+    if (idx === 0 || idx === valides.length - 1) return p.ph;
+    return +((valides[idx - 1].ph + p.ph + valides[idx + 1].ph) / 3).toFixed(3);
+  });
+
+  valides.forEach((p, idx) => { _mesures[p.i].ph = lisses[idx]; });
+}
+
+// ── Lissage Savitzky-Golay (fenêtre 5, polynôme degré 2) ───────
+// Coefficients classiques pour fenêtre 5 : [-3, 12, 17, 12, -3] / 35
+function _lisserSavitzkyGolay() {
+  const coeffs = [-3, 12, 17, 12, -3];
+  const norm = 35;
+  const valides = _mesures
+    .map((m, i) => ({ ...m, i }))
+    .filter(m => m.ph !== null && !isNaN(m.ph))
+    .sort((a, b) => a.v - b.v);
+  if (valides.length < 5) {
+    // dataset trop court : on retombe sur la moyenne glissante simple
+    _lisserMoyenneGlissante();
+    return;
+  }
+
+  const phs = valides.map(p => p.ph);
+  const lisses = phs.map((ph, idx) => {
+    if (idx < 2 || idx > phs.length - 3) return ph; // bords non lissés
+    let somme = 0;
+    for (let k = -2; k <= 2; k++) somme += coeffs[k + 2] * phs[idx + k];
+    return +(somme / norm).toFixed(3);
+  });
+
+  valides.forEach((p, idx) => { _mesures[p.i].ph = lisses[idx]; });
+}
+
+// ── Détection des points aberrants (écart > 3σ au résidu local) ─
+function _detecterPointsAberrants() {
+  const valides = _mesures
+    .map((m, i) => ({ ...m, i }))
+    .filter(m => m.ph !== null && !isNaN(m.ph))
+    .sort((a, b) => a.v - b.v);
+
+  if (valides.length < 4) {
+    document.getElementById('liste-points-suspects').innerHTML =
+      '<p class="info">Pas assez de mesures pour détecter des points aberrants.</p>';
+    return;
+  }
+
+  // résidu = écart entre le point et la moyenne glissante locale (fenêtre 3)
+  const residus = valides.map((p, idx) => {
+    if (idx === 0 || idx === valides.length - 1) return 0;
+    const moyenneLocale = (valides[idx - 1].ph + valides[idx + 1].ph) / 2;
+    return p.ph - moyenneLocale;
+  });
+
+  const moyenneResidu = residus.reduce((a, b) => a + b, 0) / residus.length;
+  const variance = residus.reduce((a, b) => a + (b - moyenneResidu) ** 2, 0) / residus.length;
+  const sigma = Math.sqrt(variance) || 0.01;
+
+  _pointsSuspects = [];
+  valides.forEach((p, idx) => {
+    if (Math.abs(residus[idx] - moyenneResidu) > 3 * sigma) _pointsSuspects.push(p);
+  });
+
+  const conteneur = document.getElementById('liste-points-suspects');
+  if (!_pointsSuspects.length) {
+    conteneur.innerHTML = '<p class="info">Aucun point suspect détecté (seuil 3σ).</p>';
+    return;
+  }
+
+  conteneur.innerHTML = '';
+  _pointsSuspects.forEach(p => {
+    const div = document.createElement('div');
+    div.className = 'erreur';
+    div.style.display = 'flex';
+    div.style.alignItems = 'center';
+    div.style.gap = '10px';
+    div.innerHTML = `<span>Point suspect : V = ${p.v} mL, pH = ${p.ph} — le conserver ?</span>`;
+
+    const btnOui = document.createElement('button');
+    btnOui.textContent = 'Conserver';
+    btnOui.addEventListener('click', () => { div.remove(); });
+
+    const btnNon = document.createElement('button');
+    btnNon.textContent = 'Supprimer';
+    btnNon.style.background = 'var(--clp-rouge, #c0392b)';
+    btnNon.addEventListener('click', () => {
+      const idx = _mesures.findIndex(m => m === _mesures[p.i]);
+      if (idx !== -1) _mesures.splice(idx, 1);
+      div.remove();
+      _majTableau();
+      _dessinerGraphe();
+    });
+
+    div.append(btnOui, btnNon);
+    conteneur.appendChild(div);
+  });
+}
+
+// ══════════════════════════════════════════════════════════════
+// BLOC 6 — EXPORT CSV / PNG / PDF + COMPTE-RENDU
+// ══════════════════════════════════════════════════════════════
+function _initExportEtCompteRendu() {
+  document.getElementById('btn-export-csv')?.addEventListener('click', _exporterCSV);
+  document.getElementById('btn-export-png')?.addEventListener('click', _exporterPNG);
+  document.getElementById('btn-export-pdf')?.addEventListener('click', _exporterPDF);
+  document.getElementById('btn-inserer-cr')?.addEventListener('click', _insererCompteRendu);
+}
+
+function _telecharger(blob, nomFichier) {
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = nomFichier;
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  URL.revokeObjectURL(url);
+}
+
+function _exporterCSV() {
+  const lignes = ['Volume ajouté (mL);pH mesuré'];
+  _pointsExperimentaux().forEach(p => lignes.push(`${p.v};${p.ph}`));
+
+  if (_resultatTangentes || _resultatDerivee) {
+    lignes.push('');
+    lignes.push('Résultats;');
+    if (_resultatTangentes) lignes.push(`Ve (tangentes);${_resultatTangentes.Ve.toFixed(2)}`);
+    if (_resultatTangentes) lignes.push(`CA (tangentes);${_resultatTangentes.Ce.toFixed(4)}`);
+    if (_resultatDerivee) lignes.push(`Ve (dérivée);${_resultatDerivee.Ve.toFixed(2)}`);
+    if (_resultatDerivee) lignes.push(`CA (dérivée);${_resultatDerivee.Ce.toFixed(4)}`);
+  }
+
+  const csv = '\uFEFF' + lignes.join('\n'); // BOM pour Excel/accents
+  _telecharger(new Blob([csv], { type: 'text/csv;charset=utf-8;' }), 'tp03-titrage-mesures.csv');
+}
+
+function _exporterPNG() {
+  const canvas = document.getElementById('canvas-titrage');
+  if (!canvas) return;
+  canvas.toBlob(blob => {
+    if (blob) _telecharger(blob, 'tp03-titrage-courbe.png');
+  }, 'image/png');
+}
+
+function _exporterPDF() {
+  // Réutilise la trame standardisée du compte-rendu (logo + identification)
+  // plutôt qu'une impression brute de la page : le PDF obtenu est ainsi cohérent
+  // avec celui généré par "Insérer dans le compte-rendu".
+  _insererCompteRendu();
+}
+
+function _resumeResultats() {
+  const exp = _pointsExperimentaux();
+  const meilleurVe = _resultatTangentes?.Ve ?? _resultatDerivee?.Ve ?? null;
+  const meilleurCe = _resultatTangentes?.Ce ?? _resultatDerivee?.Ce ?? null;
+  const erreurPct = (meilleurCe !== null && _params.Ca)
+    ? Math.abs((meilleurCe - _params.Ca) / _params.Ca * 100)
+    : null;
+
+  return {
+    nbMesures: exp.length,
+    veTangentes: _resultatTangentes?.Ve ?? null,
+    ceTangentes: _resultatTangentes?.Ce ?? null,
+    veDerivee: _resultatDerivee?.Ve ?? null,
+    ceDerivee: _resultatDerivee?.Ce ?? null,
+    methode: _resultatTangentes ? 'Tangentes' : (_resultatDerivee ? 'Dérivée' : '—'),
+    Ve: meilleurVe,
+    Ce: meilleurCe,
+    erreurPct,
+  };
+}
+
+function _insererCompteRendu() {
+  const resume = _resumeResultats();
+
+  if (resume.Ve === null) {
+    alert('Aucun résultat disponible : activez la méthode des tangentes ou des dérivées avant de générer le compte-rendu.');
+    return;
+  }
+
+  const sections = [
+    {
+      titre: 'Paramètres du titrage',
+      items: [
+        { label: 'Volume initial Va', valeur: `${_params.Va} mL` },
+        { label: 'Concentration Cb (burette)', valeur: `${_params.Cb} mol/L` },
+        { label: 'Nature acide / base', valeur: `${_params.typeAcide} / ${_params.typeBase}` },
+        { label: 'Ve théorique', valeur: `${_params.Ve.toFixed(2)} mL` },
+      ],
+    },
+    {
+      titre: 'Mesures expérimentales',
+      items: [
+        { label: 'Nombre de points mesurés', valeur: resume.nbMesures },
+      ],
+    },
+  ];
+
+  if (resume.veTangentes !== null) {
+    sections.push({
+      titre: 'Méthode des tangentes',
+      items: [
+        { label: 'Ve', valeur: `${resume.veTangentes.toFixed(2)} mL` },
+        { label: 'CA calculée', valeur: `${resume.ceTangentes.toFixed(4)} mol/L` },
+      ],
+    });
+  }
+
+  if (resume.veDerivee !== null) {
+    sections.push({
+      titre: 'Méthode des dérivées',
+      items: [
+        { label: 'Ve', valeur: `${resume.veDerivee.toFixed(2)} mL` },
+        { label: 'CA calculée', valeur: `${resume.ceDerivee.toFixed(4)} mol/L` },
+      ],
+    });
+  }
+
+  sections.push({
+    titre: 'Conclusion',
+    items: [
+      { label: 'Méthode retenue', valeur: resume.methode },
+      { label: 'CA retenue', valeur: resume.Ce !== null ? `${resume.Ce.toFixed(4)} mol/L` : '—' },
+      { label: 'Erreur relative / valeur attendue', valeur: resume.erreurPct !== null ? `${resume.erreurPct.toFixed(2)} %` : '—' },
+    ],
+  });
+
+  genererCompteRendu({
+    domaine: 'Chimie',
+    tp: 'TP03',
+    titre: 'Titrage acido-basique (pH-métrie)',
+    sections,
+    canvas: document.getElementById('canvas-titrage'),
+  });
 }
 
 // init() appelée par navigation.js au chargement du module
