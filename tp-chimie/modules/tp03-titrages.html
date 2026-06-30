@@ -1,421 +1,189 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TP 03 — Titrages acido-basiques | Labo B27</title>
-  <link rel="stylesheet" href="../css/global.css">
-  <link rel="stylesheet" href="../css/tp.css">
-  <style>
-    .titrage-config { display:grid; grid-template-columns:1fr 1fr; gap:var(--gap-md); margin-bottom:var(--gap-md); }
-    @media(max-width:700px){ .titrage-config{grid-template-columns:1fr;} }
-    .param-groupe { background:var(--blanc-paillasse); border:1px solid var(--gris-clair); border-radius:var(--r-md); padding:var(--gap-md); }
-    .param-groupe h4 { font-family:var(--font-titre); font-size:.85rem; font-weight:700; text-transform:uppercase; letter-spacing:.08em; color:var(--gris-moyen); margin-bottom:var(--gap-sm); }
-    .param-ligne { display:flex; align-items:center; justify-content:space-between; margin-bottom:.5rem; font-size:.88rem; }
-    .param-ligne label { flex:1; }
-    .param-ligne input { width:90px; border:1px solid var(--gris-clair); border-radius:var(--r-sm); padding:.3rem .5rem; font-family:var(--font-code); font-size:.88rem; text-align:right; }
-    canvas#courbe { width:100%; border-radius:var(--r-md); background:#fff; }
-    .info-equiv { background:#EBF5FB; border:2px solid var(--bleu-cuivre); border-radius:var(--r-md); padding:var(--gap-sm) var(--gap-md); display:flex; gap:var(--gap-md); flex-wrap:wrap; }
-    .info-equiv .val { font-family:var(--font-code); font-size:1.2rem; font-weight:700; color:var(--bleu-cuivre); }
-    .info-equiv .lbl { font-size:.75rem; color:var(--gris-moyen); }
-  </style>
+<meta charset="UTF-8">
+<title>TP03 — Titrages acido-basiques</title>
+<link rel="stylesheet" href="../css/style.css">
 </head>
 <body>
 
-<header class="site-header">
-  <div class="logo">Sci<span>Lab</span></div>
-  <nav>
-    <a href="../index.html">← Accueil</a>
-    <a href="tp01-solutions.html">TP 01</a>
-    <a href="tp02-ph-indicateurs.html">TP 02</a>
-    <a href="tp03-titrages.html" class="actif">TP 03</a>
-    <a href="tp04-oxydoreduction.html">TP 04</a>
-    <a href="tp05-chimie-organique.html">TP 05</a>
-    <a href="tp06-securite-clp.html">TP 06</a>
-  </nav>
-  <span class="badge-niveau">1ère · Tle</span>
+<header>
+  <h1>TP03 — Titrages acido-basiques (pH-métrie / conductimétrie)</h1>
+  <div class="progress"><div id="bar"></div></div>
 </header>
 
-<div class="page-wrapper">
+<main id="content">
 
-  <div class="tp-header">
-    <div>
-      <h1>Titrages acido-basiques</h1>
-      <div class="tp-meta">
-        <span class="tag">TP 03</span>
-        <span class="tag">Première Pro</span>
-        <span class="tag">Terminale</span>
-        <span class="tag">⏱ 3h</span>
-        <span class="tag">pH-métrique · Conductimétrique · Courbe de titrage</span>
+  <!-- ════════════ SÉCURITÉ ════════════ -->
+  <section class="card">
+    <h2>Sécurité</h2>
+    <div id="securite-bloc"></div>
+  </section>
+
+  <!-- ════════════ PARAMÈTRES DU TITRAGE ════════════ -->
+  <section class="card">
+    <h2>1. Paramètres du titrage</h2>
+    <div class="controls">
+      <div>
+        <label for="va">Volume initial Va (mL)</label>
+        <input type="number" id="va" value="20" step="0.1">
+      </div>
+      <div>
+        <label for="ca">Concentration Ca théorique (mol/L)</label>
+        <input type="number" id="ca" value="0.1" step="0.001">
+      </div>
+      <div>
+        <label for="cb">Concentration Cb burette (mol/L)</label>
+        <input type="number" id="cb" value="0.1" step="0.001">
+      </div>
+      <div>
+        <label for="sel-acide">Nature de l'acide</label>
+        <select id="sel-acide">
+          <option value="fort">Acide fort</option>
+          <option value="faible">Acide faible</option>
+        </select>
+      </div>
+      <div>
+        <label for="sel-base">Nature de la base</label>
+        <select id="sel-base">
+          <option value="fort">Base forte</option>
+          <option value="faible">Base faible</option>
+        </select>
+      </div>
+      <div>
+        <label for="pka-select">Couple acide/base (si faible)</label>
+        <select id="pka-select">
+          <option value="CH3COOH">CH3COOH / CH3COO⁻</option>
+          <option value="NH4+">NH4⁺ / NH3</option>
+          <option value="HF">HF / F⁻</option>
+          <option value="HNO2">HNO2 / NO2⁻</option>
+        </select>
       </div>
     </div>
-    <div class="tp-numero">03</div>
-  </div>
-
-  <!-- Objectifs -->
-  <div class="section" data-type="objectif">
-    <div class="section-titre"><div class="picto-section">🎯</div><h2>Objectifs pédagogiques</h2><span class="chevron">▼</span></div>
-    <div class="section-corps">
-      <ul style="padding-left:1.5rem;line-height:2">
-        <li>Réaliser un titrage pH-métrique de HCl par NaOH et tracer la courbe pH = f(V)</li>
-        <li>Déterminer le point d'équivalence (méthode des tangentes, dérivée)</li>
-        <li>Choisir l'indicateur coloré approprié selon le saut de pH</li>
-        <li>Calculer la concentration inconnue de la solution titrée</li>
-        <li>Comparer titrage pH-métrique et conductimétrique</li>
-      </ul>
-      <div class="formule-bloc">À l'équivalence : n(acide) = n(base)&nbsp;&nbsp;|&nbsp;&nbsp;C<sub>A</sub>×V<sub>A</sub> = C<sub>B</sub>×V<sub>BE</sub>&nbsp;&nbsp;|&nbsp;&nbsp;C<sub>inconnue</sub> = C<sub>B</sub>×V<sub>BE</sub>/V<sub>A</sub></div>
+    <div class="resultat">
+      <h3>Volume équivalence théorique</h3>
+      <div class="valeur" id="ve-theo">— mL</div>
     </div>
-  </div>
+  </section>
 
-  <!-- Simulateur de courbe de titrage -->
-  <div class="section" data-type="protocole">
-    <div class="section-titre"><div class="picto-section">📈</div><h2>Simulateur — Courbe de titrage pH-métrique</h2><span class="chevron">▼</span></div>
-    <div class="section-corps">
-      <div class="titrage-config">
-        <div class="param-groupe">
-          <h4>Solution titrée (dans la cuve)</h4>
-          <div class="param-ligne"><label>Acide :</label>
-            <select id="sel-acide" style="border:1px solid var(--gris-clair);border-radius:var(--r-sm);padding:.3rem .5rem;font-size:.85rem">
-              <option value="fort">HCl (fort)</option>
-              <option value="faible">CH₃COOH (faible)</option>
-            </select>
-          </div>
-          <div class="param-ligne"><label>Volume V<sub>A</sub> (mL) :</label><input type="number" id="va" value="20" min="5" max="50"></div>
-          <div class="param-ligne"><label>Concentration C<sub>A</sub> (mol/L) :</label><input type="number" id="ca" value="0.100" step="0.001"></div>
+  <!-- ════════════ TABLEAU DE MESURES DYNAMIQUE ════════════ -->
+  <section class="card">
+    <h2>2. Tableau de mesures expérimentales</h2>
+    <div class="controls">
+      <button id="btn-ajouter-mesure">➕ Ajouter une mesure</button>
+      <div>
+        <label for="pas-rapide">Pas rapide</label>
+        <select id="pas-rapide">
+          <option value="0.2">0,2 mL</option>
+          <option value="0.5" selected>0,5 mL</option>
+          <option value="1">1 mL</option>
+        </select>
+      </div>
+      <button id="btn-generer-theorique">Générer courbe théorique (simulation)</button>
+      <button id="btn-vider-mesures">🗑 Vider le tableau</button>
+    </div>
+
+    <table id="table-mesures">
+      <thead>
+        <tr>
+          <th>Volume ajouté (mL)</th>
+          <th>pH mesuré</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody id="tbody-mesures">
+        <!-- lignes générées dynamiquement par tp03-titrages.js -->
+      </tbody>
+    </table>
+  </section>
+
+  <!-- ════════════ GRAPHE ════════════ -->
+  <section class="card">
+    <h2>3. Courbe de titrage</h2>
+
+    <div class="controls">
+      <label><input type="checkbox" id="chk-experimentale" checked> Courbe expérimentale</label>
+      <label><input type="checkbox" id="chk-theorique" checked> Courbe théorique</label>
+      <label><input type="checkbox" id="chk-conductimetrie"> Conductimétrie</label>
+    </div>
+
+    <div class="controls">
+      <label><input type="checkbox" id="chk-tangentes"> Méthode des tangentes</label>
+      <label><input type="checkbox" id="chk-derivee"> Méthode des dérivées</label>
+    </div>
+
+    <div style="position:relative;">
+      <canvas id="canvas-titrage" height="400"></canvas>
+      <div id="curseur-info" class="info" style="display:none; position:absolute; pointer-events:none;"></div>
+    </div>
+
+    <canvas id="canvas-derivee" height="180" style="display:none;"></canvas>
+
+    <div class="controls">
+      <button id="btn-zoom-reset">Réinitialiser le zoom</button>
+      <span style="font-size:.85rem;color:var(--gris-moyen);">Astuce : cliquer-glisser sur le graphe pour zoomer sur la zone d'équivalence.</span>
+    </div>
+  </section>
+
+  <!-- ════════════ RÉSULTATS ════════════ -->
+  <section class="card">
+    <h2>4. Résultats automatiques</h2>
+    <div class="controls">
+      <div class="resultat" id="resultat-tangentes" style="display:none;">
+        <h3>Méthode des tangentes</h3>
+        <div>Ve = <span class="valeur" id="ve-tangentes">—</span> mL</div>
+        <div>CA = <span id="ca-tangentes">—</span> mol/L</div>
+      </div>
+      <div class="resultat" id="resultat-derivee" style="display:none;">
+        <h3>Méthode des dérivées</h3>
+        <div>Ve = <span class="valeur" id="ve-derivee">—</span> mL</div>
+        <div>CA = <span id="ca-derivee">—</span> mol/L</div>
+      </div>
+      <div class="resultat" id="resultat-comparaison" style="display:none;">
+        <h3>Comparaison</h3>
+        <div>Écart Ve = <span id="ecart-ve">—</span> mL</div>
+        <div>Erreur relative = <span id="erreur-relative">—</span> %</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════ CORRECTION DES ERREURS DE MESURE ════════════ -->
+  <section class="card">
+    <h2>5. Correction des erreurs de mesure</h2>
+    <div class="controls">
+      <button id="btn-correction-erreurs">Correction erreurs mesures</button>
+    </div>
+    <div id="panneau-correction" style="display:none;">
+      <div class="controls">
+        <div>
+          <label for="offset-ph">Décalage de calibration (ΔpH)</label>
+          <input type="number" id="offset-ph" value="0" step="0.01">
         </div>
-        <div class="param-groupe">
-          <h4>Solution titrante (burette)</h4>
-          <div class="param-ligne"><label>Base :</label>
-            <select id="sel-base" style="border:1px solid var(--gris-clair);border-radius:var(--r-sm);padding:.3rem .5rem;font-size:.85rem">
-              <option value="fort">NaOH (forte)</option>
-              <option value="faible">NH₃ (faible)</option>
-            </select>
-          </div>
-          <div class="param-ligne"><label>Concentration C<sub>B</sub> (mol/L) :</label><input type="number" id="cb" value="0.100" step="0.001"></div>
-          <div class="param-ligne"><label>Pas (mL) :</label>
-            <select id="pas" style="border:1px solid var(--gris-clair);border-radius:var(--r-sm);padding:.3rem .5rem;font-size:.85rem">
-              <option value="0.5">0,5 mL (précis)</option>
-              <option value="1" selected>1 mL</option>
-              <option value="2">2 mL (rapide)</option>
-            </select>
-          </div>
-        </div>
+        <button id="btn-appliquer-offset">Appliquer le décalage</button>
       </div>
-      <button class="btn btn-primaire" id="btn-tracer" style="margin-bottom:var(--gap-md)">📈 Tracer la courbe</button>
-
-      <div class="info-equiv" id="info-equiv" style="margin-bottom:var(--gap-md);display:none">
-        <div><div class="val" id="ve-val">—</div><div class="lbl">V<sub>E</sub> (mL)</div></div>
-        <div><div class="val" id="phe-val">—</div><div class="lbl">pH à l'équivalence</div></div>
-        <div><div class="val" id="cinc-val">—</div><div class="lbl">C<sub>A</sub> calculée (mol/L)</div></div>
-        <div><div class="val" id="ind-val">—</div><div class="lbl">Indicateur conseillé</div></div>
+      <div class="controls">
+        <button id="btn-lissage">Lisser la courbe (moyenne glissante)</button>
+        <button id="btn-savgol">Lisser la courbe (Savitzky-Golay)</button>
+        <button id="btn-detecter-aberrants">Détecter les points aberrants</button>
       </div>
-
-      <canvas id="courbe" height="350"></canvas>
+      <div id="liste-points-suspects"></div>
     </div>
-  </div>
+  </section>
 
-  <!-- Sécurité -->
-  <div class="section" data-type="securite">
-    <div class="section-titre"><div class="picto-section">🛡️</div><h2>Sécurité</h2><span class="chevron">▼</span></div>
-    <div class="section-corps" id="securite-bloc"></div>
-  </div>
-
-  <!-- Matériel -->
-  <div class="section" data-type="materiel">
-    <div class="section-titre"><div class="picto-section">🔬</div><h2>Matériel</h2><span class="chevron">▼</span></div>
-    <div class="section-corps">
-      <div class="grille-materiel">
-        <div class="item-materiel"><span class="icone-materiel">📊</span> Burette graduée 50 mL <span class="qte">×1</span></div>
-        <div class="item-materiel"><span class="icone-materiel">📱</span> pH-mètre + électrode <span class="qte">×1</span></div>
-        <div class="item-materiel"><span class="icone-materiel">⚗️</span> Bécher 250 mL <span class="qte">×2</span></div>
-        <div class="item-materiel"><span class="icone-materiel">🧪</span> Pipette jaugée 20 mL <span class="qte">×1</span></div>
-        <div class="item-materiel"><span class="icone-materiel">🌀</span> Agitateur magnétique + barreau <span class="qte">×1</span></div>
-        <div class="item-materiel"><span class="icone-materiel">🗂️</span> Support burette + pince <span class="qte">×1</span></div>
-        <div class="item-materiel"><span class="icone-materiel">📋</span> Papier millimétré ou logiciel <span class="qte">×1</span></div>
-        <div class="item-materiel"><span class="icone-materiel">🧤</span> Gants + lunettes <span class="qte">obligatoires</span></div>
-      </div>
+  <!-- ════════════ EXPORT & COMPTE-RENDU ════════════ -->
+  <section class="card">
+    <h2>6. Export et compte-rendu</h2>
+    <div class="controls">
+      <button id="btn-export-csv">Exporter CSV</button>
+      <button id="btn-export-png">Exporter PNG</button>
+      <button id="btn-export-pdf">Exporter PDF</button>
+      <button id="btn-imprimer">Imprimer</button>
+      <button id="btn-inserer-cr">Insérer dans le compte-rendu</button>
     </div>
-  </div>
+  </section>
 
-  <!-- Préparation réactifs -->
-  <div class="section" data-type="reactifs">
-    <div class="section-titre"><div class="picto-section">🧂</div><h2>Préparation des réactifs</h2><span class="chevron">▼</span></div>
-    <div class="section-corps">
-      <div class="calcul-guide">
-        <h4>📐 Calcul de la masse de NaOH pour 500 mL à 0,100 mol/L</h4>
-        <div class="formule">m = C × V × M = 0,100 × 0,500 × 40,0 = <strong>2,00 g</strong></div>
-        <p style="font-size:.85rem;margin-top:.5rem">⚠️ NaOH est hygroscopique : peser rapidement, dissoudre immédiatement. La dissolution est exothermique — laisser refroidir avant de jauger.</p>
-      </div>
-      <div class="calcul-guide" style="margin-top:var(--gap-sm)">
-        <h4>📐 Préparation de HCl à concentration inconnue C<sub>A</sub></h4>
-        <p style="font-size:.88rem">Diluer la solution mère HCl (1,00 mol/L) par un facteur 10 pour obtenir ~0,10 mol/L :<br>
-        Prélever <strong>10,0 mL</strong> de solution mère → fiole jaugée 100 mL → compléter à l'eau distillée.<br>
-        La concentration exacte sera déterminée par le titrage.</p>
-      </div>
-    </div>
-  </div>
+</main>
 
-  <!-- Protocole -->
-  <div class="section" data-type="protocole">
-    <div class="section-titre"><div class="picto-section">🔬</div><h2>Protocole de titrage</h2><span class="chevron">▼</span></div>
-    <div class="section-corps">
-      <ol class="etapes">
-        <li>Rincer la burette avec quelques mL de solution de NaOH (C<sub>B</sub> = 0,100 mol/L connue), puis remplir jusqu'au zéro</li>
-        <li>Prélever à la pipette jaugée <strong>V<sub>A</sub> = 20,0 mL</strong> de solution HCl de concentration inconnue, verser dans un bécher de 250 mL</li>
-        <li>Ajouter quelques gouttes de phénolphtaléine (ou brancher le pH-mètre)</li>
-        <li>Placer sur agitateur magnétique. Lire et noter le pH initial</li>
-        <li><strong>Titrage rapide</strong> : ajouter NaOH par volumes de 2 mL jusqu'à pH ≈ 8</li>
-        <li><strong>Titrage précis</strong> : ajouter par volumes de 0,5 mL puis 0,2 mL au voisinage de l'équivalence</li>
-        <li>Après pH ≈ 12, revenir à des ajouts de 2 mL</li>
-        <li>Pour chaque ajout : noter V<sub>NaOH</sub> versé et pH mesuré → reporter dans le tableau</li>
-      </ol>
-    </div>
-  </div>
-
-  <!-- Résultats -->
-  <div class="section" data-type="resultats">
-    <div class="section-titre"><div class="picto-section">📊</div><h2>Relevé expérimental</h2><span class="chevron">▼</span></div>
-    <div class="section-corps">
-      <div style="overflow-x:auto">
-        <table class="tableau-resultats" id="tableau-titrage">
-          <thead>
-            <tr>
-              <th>V<sub>NaOH</sub> versé (mL)</th>
-              <th>0</th><th>1</th><th>2</th><th>4</th><th>6</th><th>8</th><th>10</th>
-              <th>12</th><th>14</th><th>16</th><th>18</th><th>19</th><th>19,5</th>
-              <th>20</th><th>20,5</th><th>21</th><th>22</th><th>25</th><th>30</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><strong>pH mesuré</strong></td>
-              <td class="saisie" contenteditable="true"></td>
-              <td class="saisie" contenteditable="true"></td>
-              <td class="saisie" contenteditable="true"></td>
-              <td class="saisie" contenteditable="true"></td>
-              <td class="saisie" contenteditable="true"></td>
-              <td class="saisie" contenteditable="true"></td>
-              <td class="saisie" contenteditable="true"></td>
-              <td class="saisie" contenteditable="true"></td>
-              <td class="saisie" contenteditable="true"></td>
-              <td class="saisie" contenteditable="true"></td>
-              <td class="saisie" contenteditable="true"></td>
-              <td class="saisie" contenteditable="true"></td>
-              <td class="saisie" contenteditable="true"></td>
-              <td class="saisie" contenteditable="true"></td>
-              <td class="saisie" contenteditable="true"></td>
-              <td class="saisie" contenteditable="true"></td>
-              <td class="saisie" contenteditable="true"></td>
-              <td class="saisie" contenteditable="true"></td>
-              <td class="saisie" contenteditable="true"></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <div style="margin-top:var(--gap-md)">
-        <p style="font-size:.88rem;font-weight:600">Valeur lue sur la courbe :</p>
-        <div style="display:flex;gap:var(--gap-md);flex-wrap:wrap;margin-top:.5rem">
-          <label style="font-size:.88rem">V<sub>E</sub> (mL) : <input type="number" step="0.1" style="width:80px;border:1px solid var(--gris-clair);border-radius:var(--r-sm);padding:.3rem .5rem;font-family:var(--font-code)" id="ve-exp"></label>
-          <label style="font-size:.88rem">pH<sub>E</sub> : <input type="number" step="0.1" style="width:70px;border:1px solid var(--gris-clair);border-radius:var(--r-sm);padding:.3rem .5rem;font-family:var(--font-code)" id="phe-exp"></label>
-        </div>
-        <div style="margin-top:.6rem" id="calcul-ca-exp"></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Bilan -->
-  <div class="section" data-type="bilan">
-    <div class="section-titre"><div class="picto-section">📝</div><h2>Exploitation et bilan</h2><span class="chevron">▼</span></div>
-    <div class="section-corps">
-      <ol style="padding-left:1.5rem;line-height:2.2;font-size:.92rem">
-        <li>Tracer la courbe pH = f(V<sub>NaOH</sub>) sur papier millimétré. Déterminer V<sub>E</sub> par la méthode des tangentes.</li>
-        <li>Écrire l'équation de la réaction de neutralisation HCl + NaOH.</li>
-        <li>Calculer la concentration C<sub>A</sub> de la solution d'HCl titrée.</li>
-        <li>Tracer la courbe dérivée ΔpH/ΔV pour localiser précisément l'équivalence.</li>
-        <li>Quel indicateur coloré aurait permis de repérer l'équivalence visuellement ? Justifier.</li>
-        <li>Comparer titrage acide fort/base forte et acide faible/base forte : différences de courbe ?</li>
-      </ol>
-      <div class="zone-eleve" style="margin-top:var(--gap-md)">
-        <h4>✏️ Réponses de l'élève</h4>
-        <textarea placeholder="Rédiger vos réponses ici…" rows="8"></textarea>
-      </div>
-    </div>
-  </div>
-
-  <div class="nav-tp">
-    <a href="tp02-ph-indicateurs.html" class="btn btn-secondaire">← TP 02</a>
-    <button onclick="window.print()" class="btn btn-imprimer">🖨️ Imprimer</button>
-    <a href="tp04-oxydoreduction.html" class="btn btn-primaire">TP 04 →</a>
-  </div>
-
-</div>
-
-<script type="module">
-import { PRODUITS } from '../js/produits.js';
-import { renderBlocSecurite, initSections, initTabs } from '../js/utils.js';
-
-const cas = ['7647-01-0','1310-73-2','64-19-7'];
-const produits = cas.map(c => PRODUITS.find(p => p.cas === c)).filter(Boolean);
-document.getElementById('securite-bloc').innerHTML = renderBlocSecurite(produits);
-initSections();
-initTabs();
-
-// ── Simulateur de courbe ───────────────────────────────────────
-function calcPH(V, va, ca, cb, typeAcide, typeBase) {
-  const na = ca * va / 1000; // moles acide
-  const nb = cb * V  / 1000; // moles base ajoutées
-  const Vt = (va + V) / 1000; // volume total en L
-  const pKaAcide = typeAcide === 'faible' ? 4.76 : null; // pKa acide acétique
-  const Ke = 1e-14;
-
-  if (typeAcide === 'fort' && typeBase === 'fort') {
-    if (nb < na) {
-      const excess = (na - nb) / Vt;
-      return -Math.log10(excess);
-    } else if (nb > na) {
-      const excess = (nb - na) / Vt;
-      return 14 + Math.log10(excess);
-    } else return 7;
-  }
-
-  if (typeAcide === 'faible' && typeBase === 'fort') {
-    const Ka = Math.pow(10, -pKaAcide);
-    if (nb === 0) {
-      const h = Math.sqrt(Ka * ca);
-      return -Math.log10(h);
-    } else if (nb < na) {
-      const nacide = na - nb;
-      const nsel   = nb;
-      return pKaAcide + Math.log10(nsel / nacide);
-    } else if (nb > na) {
-      const excess = (nb - na) / Vt;
-      return 14 + Math.log10(excess);
-    } else {
-      const h = Math.sqrt(Ka * Ke);
-      return -Math.log10(Math.pow(10, -pKaAcide/2) * Math.pow(10, -7));
-    }
-  }
-  return 7;
-}
-
-document.getElementById('btn-tracer').addEventListener('click', () => {
-  const va = parseFloat(document.getElementById('va').value);
-  const ca = parseFloat(document.getElementById('ca').value);
-  const cb = parseFloat(document.getElementById('cb').value);
-  const pas = parseFloat(document.getElementById('pas').value);
-  const typeAcide = document.getElementById('sel-acide').value;
-  const typeBase  = document.getElementById('sel-base').value;
-
-  const ve = ca * va / cb;
-  const phe = calcPH(ve, va, ca, cb, typeAcide, typeBase);
-
-  const vols = [], phs = [];
-  for (let v = 0; v <= ve * 1.8; v += pas) {
-    vols.push(parseFloat(v.toFixed(2)));
-    phs.push(parseFloat(calcPH(v, va, ca, cb, typeAcide, typeBase).toFixed(2)));
-  }
-
-  // Indicateur
-  let indicateur = '—';
-  if (phe > 8) indicateur = 'Phénolphtaléine';
-  else if (phe > 6) indicateur = 'BBT';
-  else indicateur = 'Hélianthine';
-
-  document.getElementById('info-equiv').style.display = 'flex';
-  document.getElementById('ve-val').textContent  = ve.toFixed(1) + ' mL';
-  document.getElementById('phe-val').textContent = phe.toFixed(1);
-  document.getElementById('cinc-val').textContent = (cb * ve / va).toFixed(4) + ' mol/L';
-  document.getElementById('ind-val').textContent = indicateur;
-
-  dessinerCourbe(vols, phs, ve, phe);
-});
-
-function dessinerCourbe(vols, phs, ve, phe) {
-  const canvas = document.getElementById('courbe');
-  const dpr = window.devicePixelRatio || 1;
-  const W = canvas.offsetWidth || 700;
-  canvas.width  = W * dpr;
-  canvas.height = 350 * dpr;
-  canvas.style.height = '350px';
-  const ctx = canvas.getContext('2d');
-  ctx.scale(dpr, dpr);
-  const w = W, h = 350;
-  const pad = { top:30, right:30, bottom:50, left:55 };
-  const cw = w - pad.left - pad.right;
-  const ch = h - pad.top  - pad.bottom;
-
-  ctx.clearRect(0,0,w,h);
-  ctx.fillStyle = '#fff';
-  ctx.fillRect(0,0,w,h);
-
-  const maxV = Math.max(...vols);
-  const xScale = v => pad.left + (v / maxV) * cw;
-  const yScale = p => pad.top  + (1 - (p / 14)) * ch;
-
-  // Grille
-  ctx.strokeStyle = '#e0e0e0'; ctx.lineWidth = .5;
-  for (let i=0; i<=14; i+=2) {
-    ctx.beginPath(); ctx.moveTo(pad.left, yScale(i)); ctx.lineTo(pad.left+cw, yScale(i)); ctx.stroke();
-  }
-  for (let v=0; v<=maxV; v+=5) {
-    ctx.beginPath(); ctx.moveTo(xScale(v), pad.top); ctx.lineTo(xScale(v), pad.top+ch); ctx.stroke();
-  }
-
-  // Axe Y
-  ctx.fillStyle = '#333'; ctx.font = '11px monospace'; ctx.textAlign = 'right';
-  for (let i=0; i<=14; i+=2) {
-    ctx.fillText(i, pad.left-6, yScale(i)+4);
-  }
-  ctx.save(); ctx.translate(14, h/2); ctx.rotate(-Math.PI/2);
-  ctx.textAlign = 'center'; ctx.font = '12px sans-serif'; ctx.fillText('pH', 0, 0);
-  ctx.restore();
-
-  // Axe X
-  ctx.textAlign = 'center'; ctx.font = '11px monospace';
-  for (let v=0; v<=maxV; v+=5) {
-    ctx.fillText(v, xScale(v), h-pad.bottom+16);
-  }
-  ctx.font = '12px sans-serif';
-  ctx.fillText('Volume NaOH versé (mL)', pad.left + cw/2, h-6);
-
-  // Ligne pH=7
-  ctx.strokeStyle = '#aaa'; ctx.lineWidth = 1; ctx.setLineDash([4,4]);
-  ctx.beginPath(); ctx.moveTo(pad.left, yScale(7)); ctx.lineTo(pad.left+cw, yScale(7)); ctx.stroke();
-  ctx.setLineDash([]);
-
-  // Ligne verticale équivalence
-  ctx.strokeStyle = '#E74C3C'; ctx.lineWidth = 1; ctx.setLineDash([6,3]);
-  ctx.beginPath(); ctx.moveTo(xScale(ve), pad.top); ctx.lineTo(xScale(ve), pad.top+ch); ctx.stroke();
-  ctx.setLineDash([]);
-  ctx.fillStyle = '#E74C3C'; ctx.font = 'bold 11px sans-serif'; ctx.textAlign = 'center';
-  ctx.fillText(`VE = ${ve.toFixed(1)} mL`, xScale(ve), pad.top-8);
-
-  // Point équivalence
-  ctx.fillStyle = '#E74C3C';
-  ctx.beginPath(); ctx.arc(xScale(ve), yScale(phe), 6, 0, Math.PI*2); ctx.fill();
-
-  // Courbe pH
-  ctx.beginPath(); ctx.strokeStyle = '#1B6CA8'; ctx.lineWidth = 2.5; ctx.lineJoin = 'round';
-  vols.forEach((v,i) => { i===0 ? ctx.moveTo(xScale(v), yScale(phs[i])) : ctx.lineTo(xScale(v), yScale(phs[i])); });
-  ctx.stroke();
-
-  // Légende
-  ctx.fillStyle = '#1B6CA8'; ctx.font = 'bold 12px sans-serif'; ctx.textAlign = 'left';
-  ctx.fillText('Courbe pH = f(V)', pad.left+8, pad.top+16);
-}
-
-// Calcul CA depuis résultats élève
-document.getElementById('ve-exp').addEventListener('input', majCalcCA);
-document.getElementById('phe-exp').addEventListener('input', majCalcCA);
-function majCalcCA() {
-  const ve = parseFloat(document.getElementById('ve-exp').value);
-  const cb = parseFloat(document.getElementById('cb').value) || 0.1;
-  const va = parseFloat(document.getElementById('va').value) || 20;
-  if (isNaN(ve) || ve === 0) { document.getElementById('calcul-ca-exp').innerHTML=''; return; }
-  const ca = (cb * ve / va).toFixed(4);
-  document.getElementById('calcul-ca-exp').innerHTML =
-    `<div class="formule-bloc">C<sub>A</sub> = C<sub>B</sub> × V<sub>E</sub> / V<sub>A</sub> = ${cb} × ${ve} / ${va} = <strong>${ca} mol/L</strong></div>`;
-}
-</script>
+<script type="module" src="../js/tp03-titrages.js"></script>
 </body>
 </html>
