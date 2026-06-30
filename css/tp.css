@@ -915,6 +915,27 @@
   border-top: 2px solid var(--gris-clair);
 }
 
+
+/* ── Questions fin TP ──────────────────────────────────────────────── */
+.question-entete {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: .75rem;
+}
+.cartouche {
+  flex-shrink: 0;
+  font-size: .7rem;
+  font-weight: 700;
+  letter-spacing: .03em;
+  padding: .15rem .5rem;
+  border-radius: 999px;
+  background: #E8F0F7;
+  color: var(--bleu-cuivre, #1B6CA8);
+  border: 1px solid var(--bleu-cuivre, #1B6CA8);
+  white-space: nowrap;
+}
+
 /* ── Impression ──────────────────────────────────────────────── */
 @media print {
   .site-header, .btn, .nav-tp { display: none !important; }
