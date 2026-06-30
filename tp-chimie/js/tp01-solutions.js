@@ -136,7 +136,7 @@ function imgSrc(chemin, dossier) {
     ) {
         return chemin;
     }
-    return `../assets/img/${dossier}/${chemin}`;
+    return `../../assets/img/${dossier}/${chemin}`;
 }
 
 /* ==========================================================
