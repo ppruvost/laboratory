@@ -1,8 +1,11 @@
 /**
  * tp03-titrages.js — Titrages acido-basiques
- * Tableau de mesures dynamique + tracé temps réel + zoom + curseur
- * Méthode des tangentes + Méthode des dérivées
- * (Bloc 5 : correction des erreurs, Bloc 6 : export — viendront ensuite)
+ Fonctionnalités :
+ *   Bloc 2 — Tableau de mesures dynamique, tracé temps réel, zoom, curseur
+ *   Bloc 3 — Méthode des tangentes (calcul et tracé graphique de Ve)
+ *   Bloc 4 — Méthode des dérivées (ΔpH/ΔV, pic, comparaison)
+ *   Bloc 5 — Correction des erreurs de mesure (offset, lissage, Savitzky-Golay, aberrants)
+ *   Bloc 6 — Export CSV / PNG / PDF + compte-rendu standardisé (compte-rendu.js)
  */
 import products from "../../data/products.js";
 import { renderBlocSecurite, initSections, initTabs, initImprimer } from './utils.js';
