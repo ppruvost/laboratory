@@ -15,47 +15,66 @@ const PRODUITS =
 
 const INDICATEURS_B27 = [
   {
-    nom: 'Hélianthine (orange de méthyle)',
-    formule: 'C₁₄H₁₄N₃NaO₃S',
-    cas: '547-58-0',
-    plageMin: 3.1, plageMax: 4.4,
-    couleurAcide: '#D32F2F', nomAcide: 'rouge',
-    couleurBasique: '#F57F17', nomBasique: 'jaune-orangé',
-    couleurVirage: '#E65100',
-    localisation: 'Étagère D4',
+    nom: "Hélianthine (orange de méthyle)",
+    formule: "C₁₄H₁₄N₃NaO₃S",
+    cas: "547-58-0",
+    plageMin: 3.1,
+    plageMax: 4.4,
+    pHVirage: 3.7,
+    couleurAcide: "#D32F2F",
+    nomAcide: "rouge",
+    couleurBasique: "#FBC02D",
+    nomBasique: "jaune",
+    couleurVirage: "#F57C00",
+    localisation: "Étagère D4"
   },
-  {
-    nom: 'Rouge de méthyle',
-    formule: 'C₁₅H₁₅N₃O₂',
-    cas: '493-52-7',
-    plageMin: 4.4, plageMax: 6.2,
-    couleurAcide: '#B71C1C', nomAcide: 'rouge',
-    couleurBasique: '#F9A825', nomBasique: 'jaune',
-    couleurVirage: '#BF360C',
-    localisation: 'Étagère D4',
-  },
-  {
-    nom: 'Bleu de bromothymol (BBT)',
-    formule: 'C₂₇H₂₈Br₂O₅S',
-    cas: '76-59-5',
-    plageMin: 6.0, plageMax: 7.6,
-    couleurAcide: '#F57F17', nomAcide: 'jaune',
-    couleurBasique: '#1565C0', nomBasique: 'bleu',
-    couleurVirage: '#388E3C',
-    localisation: 'Étagère D4',
-  },
-  {
-    nom: 'Phénolphtaléine',
-    formule: 'C₂₀H₁₄O₄',
-    cas: '77-09-8',
-    plageMin: 8.2, plageMax: 10.0,
-    couleurAcide: '#ECEFF1', nomAcide: 'incolore',
-    couleurBasique: '#AD1457', nomBasique: 'rose-fuchsia',
-    couleurVirage: '#E91E63',
-    localisation: 'Étagère B2',
-  },
-];
 
+  {
+    nom: "Rouge de méthyle",
+    formule: "C₁₅H₁₅N₃O₂",
+    cas: "493-52-7",
+    plageMin: 4.4,
+    plageMax: 6.2,
+    pHVirage: 5.3,
+    couleurAcide: "#C62828",
+    nomAcide: "rouge",
+    couleurBasique: "#FDD835",
+    nomBasique: "jaune",
+    couleurVirage: "#F57F17",
+    localisation: "Étagère D4"
+  },
+
+  {
+    nom: "Bleu de bromothymol (BBT)",
+    formule: "C₂₇H₂₈Br₂O₅S",
+    cas: "76-59-5",
+    plageMin: 6.0,
+    plageMax: 7.6,
+    pHVirage: 6.8,
+    couleurAcide: "#FDD835",
+    nomAcide: "jaune",
+    couleurBasique: "#1565C0",
+    nomBasique: "bleu",
+    couleurVirage: "#43A047",
+    nomVirage: "vert",
+    localisation: "Étagère D4"
+  },
+
+  {
+    nom: "Phénolphtaléine",
+    formule: "C₂₀H₁₄O₄",
+    cas: "77-09-8",
+    plageMin: 8.2,
+    plageMax: 10.0,
+    pHVirage: 9.1,
+    couleurAcide: "#FFFFFF",
+    nomAcide: "incolore",
+    couleurBasique: "#D81B60",
+    nomBasique: "rose fuchsia",
+    couleurVirage: "#F48FB1",
+    localisation: "Étagère B2"
+  }
+];
 // =====================================================
 // INIT (OBLIGATOIRE POUR navigation.js)
 // =====================================================
