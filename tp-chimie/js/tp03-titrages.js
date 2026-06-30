@@ -7,16 +7,50 @@ import products from "../../data/products.js";
 import { renderBlocSecurite, initSections, initTabs } from './utils.js';
 
 // ── Constantes ────────────────────────────────────────────────
+// ── Constantes ────────────────────────────────────────────────
 const Ke = 1e-14;
 
+// pKa à 25 °C
 const PKA = {
-  'CH3COOH': 4.76,
-  'NH4+': 9.25,
-  'H3PO4': 2.12,
-  'H2PO4-': 7.21,
-  'HPO42-': 12.67,
-  'HF': 3.17,
-  'HNO2': 3.37,
+
+  // Acides faibles
+  "CH3COOH": 4.76,          // acide acétique
+  "CH3CH2COOH": 4.87,       // acide propionique
+  "CH3CH2CH2COOH": 4.82,    // acide butyrique
+  "HF": 3.17,
+  "HNO2": 3.37,
+
+  // Ammoniac / ammonium
+  "NH4+": 9.25,
+
+  // Acide phosphorique
+  "H3PO4": 2.15,
+  "H2PO4-": 7.20,
+  "HPO4^2-": 12.35,
+
+  // Acide carbonique
+  "H2CO3": 6.35,
+  "HCO3-": 10.33,
+
+  // Acide borique (borax)
+  "H3BO3": 9.24,
+
+  // Acide oxalique
+  "H2C2O4": 1.25,
+  "HC2O4-": 4.27,
+
+  // EDTA
+  "H4EDTA": 2.00,
+  "H3EDTA-": 2.67,
+  "H2EDTA2-": 6.16,
+  "HEDTA3-": 10.26,
+
+  // Sulfure d'hydrogène (utile avec FeS)
+  "H2S": 7.02,
+  "HS-": 12.90,
+
+  // Eau oxygénée
+  "H2O2": 11.7
 };
 
 // ══════════════════════════════════════════════════════════════
