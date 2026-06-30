@@ -301,7 +301,7 @@ function initMateriel() {
 
     divVerrerie.innerHTML = verresAffiches.map(v => {
 
-        const src = imgSrc(v.image, "verrerie");
+        const src = imgSrc(v.image, "glassware");
 
         return `
         <label class="item-materiel">
