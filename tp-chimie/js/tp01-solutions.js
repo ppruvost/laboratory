@@ -126,19 +126,17 @@ function message(id, texte) {
    ========================================================== */
 
 function imgSrc(chemin, dossier) {
-
     if (!chemin) return "";
-
-    // chemin déjà complet
     if (
         chemin.startsWith("http") ||
-        chemin.startsWith("/") ||
+        chemin.startsWith("/")    ||
         chemin.startsWith("../") ||
-        chemin.startsWith("./") ||
+        chemin.startsWith("./")  ||
         chemin.startsWith("assets/")
     ) {
         return chemin;
     }
+    return `../assets/img/${dossier}/${chemin}`;
 }
 
 /* ==========================================================
