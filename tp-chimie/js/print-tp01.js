@@ -226,8 +226,16 @@ function genererPageImpression(data) {
 </html>`;
 
     const win = window.open("", "_blank");
+    if (!win) {
+        alert("La fenêtre d'impression a été bloquée par le navigateur. Autorisez les popups pour ce site puis réessayez.");
+        return;
+    }
     win.document.write(html);
     win.document.close();
     win.focus();
-    win.print();
+
+    /* Laisser le temps au navigateur de charger le CSS avant d'imprimer */
+    win.onload = () => {
+        win.print();
+    };
 }
