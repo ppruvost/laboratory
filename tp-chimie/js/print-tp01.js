@@ -9,6 +9,14 @@ export function imprimerCompteRendu({ products, dangerDB, pictogrammes }) {
     const val   = id => ($( id )?.value        ?? "").trim();
     const texte = id => ($( id )?.textContent  ?? "").trim();
 
+    /* ── Identité élève ── */
+    const identite = {
+        nom:     val("nom-eleve")    || "—",
+        prenom:  val("prenom-eleve") || "—",
+        classe:  val("classe-eleve") || "—",
+        date:    val("date-eleve")   || "—",
+    };
+
     /* ── Produit ── */
     const cas     = $("reactif-dissolution")?.value ?? "";
     const produit = products.find(p => p.cas === cas) ?? { nom: "—", formule: "—" };
@@ -59,43 +67,45 @@ export function imprimerCompteRendu({ products, dangerDB, pictogrammes }) {
             const abs = Math.abs(l - t);
             const rel = (abs / t) * 100;
             const signe = ((l - t) / t * 100).toFixed(2);
-            let conclusion, analyse;
+            let conclusion;
             if      (rel < 2) { conclusion = "Excellent (< 2 %)";   }
             else if (rel < 5) { conclusion = "Acceptable (2–5 %)";  }
-            else              { conclusion = "Insuffisant (> 5 %)";  }
-            analyse = `Écart relatif : ${signe} % — ${conclusion}`;
+            else              { conclusion = "Insuffisant (> 5 %)"; }
             balance = {
                 masse:      l.toFixed(2),
                 erreurAbs:  abs.toFixed(3),
                 erreurRel:  rel.toFixed(2),
                 conclusion,
-                analyse,
+                analyse: `Écart relatif : ${signe} % — ${conclusion}`,
             };
         }
     }
 
-    /* ── Questions ── */
+    /* ── Questions 1A à 10A avec cartouches de compétences ── */
     const questions = [
-        "Différence entre dissolution et dilution ?",
-        "Pourquoi faut-il toujours verser l'acide dans l'eau et jamais l'inverse ?",
-        "Calculer la quantité de matière n du réactif sélectionné.",
-        "Calculer la concentration massique Cm du réactif sélectionné.",
-        "Identifier les principales sources d'erreurs expérimentales.",
+        { num: "1A",  comp: "APP",     texte: "Qu'est-ce qu'une dissolution ? Qu'est-ce qu'une dilution ? Expliquer la différence." },
+        { num: "2A",  comp: "APP",     texte: "Pourquoi faut-il toujours verser l'acide dans l'eau et jamais l'inverse ?" },
+        { num: "3A",  comp: "REA",     texte: "Convertir le volume V utilisé pour la dissolution de mL en L, puis de L en mL si une autre valeur est donnée en L." },
+        { num: "4A",  comp: "REA",     texte: "Calculer la quantité de matière n (en mol) du réactif sélectionné à partir de la masse théorique et de la masse molaire M." },
+        { num: "5A",  comp: "REA",     texte: "Convertir la masse théorique calculée de g en mg." },
+        { num: "6A",  comp: "REA",     texte: "Calculer la concentration massique Cm (en g/L) de la solution préparée à partir de la masse théorique et du volume V." },
+        { num: "7A",  comp: "ANA RAI", texte: "Calculer l'erreur absolue Δm entre la masse théorique et la masse réellement pesée." },
+        { num: "8A",  comp: "ANA RAI", texte: "Calculer l'erreur relative (en %) associée à cette pesée. Cette erreur est-elle acceptable au regard du seuil de 2 % ?" },
+        { num: "9A",  comp: "VAL",     texte: "Identifier les principales sources d'erreurs expérimentales et proposer une amélioration du protocole." },
+        { num: "10A", comp: "COM",     texte: "Rédiger une conclusion synthétique présentant la solution préparée et la qualité de la pesée, avec un vocabulaire scientifique précis." },
     ];
-    const reponses = [
-        val("question1"), val("question2"), val("question3"),
-        val("question4"), val("question5"),
-    ];
+    const reponses = questions.map((q, i) => val(`question${i + 1}`));
 
-    genererPageImpression({ produit, dangers, materiel, equipements, solution, balance, questions, reponses });
+    genererPageImpression({ identite, produit, dangers, materiel, equipements, solution, balance, questions, reponses });
 }
 
 /* ==========================================================
-   GENERATEUR HTML — inchangé par rapport à l'original
+   GENERATEUR HTML — rapport de labo structuré
    ========================================================== */
 
 function genererPageImpression(data) {
     const {
+        identite,
         produit,
         dangers      = [],
         materiel     = [],
@@ -109,66 +119,124 @@ function genererPageImpression(data) {
     const materielListe = materiel
         .filter(m => m.checked)
         .map(m => `<li>${m.nom}</li>`)
-        .join("");
+        .join("") || `<li class="vide">Aucun élément coché</li>`;
 
     const equipementsListe = equipements
         .filter(e => e.checked)
         .map(e => `<li>${e.nom}</li>`)
-        .join("");
+        .join("") || `<li class="vide">Aucun élément coché</li>`;
+
+    const dangersListe = dangers.length
+        ? dangers.map(d => `<li>${d}</li>`).join("")
+        : `<li class="vide">Aucune mention renseignée</li>`;
+
+    const dateAffichee = identite.date !== "—"
+        ? new Date(identite.date).toLocaleDateString("fr-FR", { day: "2-digit", month: "long", year: "numeric" })
+        : "—";
+
+    const questionsHtml = questions.map((q, i) => `
+      <div class="qr-bloc">
+        <div class="qr-entete">
+          <span class="qr-num">${q.num}</span>
+          <span class="qr-texte">${q.texte}</span>
+          <span class="qr-comp comp-${q.comp.replace(/\s+/g, "-")}">${q.comp}</span>
+        </div>
+        <div class="qr-reponse">${reponses[i] ? reponses[i].replace(/\n/g, "<br>") : "<em>Sans réponse</em>"}</div>
+      </div>
+    `).join("");
 
     const html = `
 <html>
 <head>
-  <title>TP01 Impression</title>
-  <link rel="stylesheet" href="print.css">
+  <title>TP01 — Compte rendu — ${identite.nom} ${identite.prenom}</title>
+  <link rel="stylesheet" href="../css/print-tp01.css">
 </head>
 <body>
 <div class="page">
-  <h2>TP01 - Préparation de solutions</h2>
 
-  <section class="bloc">
-    <h3>Sécurité - Produits utilisés</h3>
-    <p><strong>${produit.nom}</strong></p>
-    <div class="small">
-      <h4>Danger et prévention</h4>
-      <ul>${dangers.map(d => `<li>${d}</li>`).join("")}</ul>
+  <header class="cr-header">
+    <div class="cr-header-titre">
+      <div class="cr-logo">SciLab</div>
+      <h1>Compte rendu — TP01<br><span>Préparation de solutions</span></h1>
+    </div>
+    <table class="cr-identite">
+      <tbody>
+        <tr><th>Nom</th><td>${identite.nom}</td></tr>
+        <tr><th>Prénom</th><td>${identite.prenom}</td></tr>
+        <tr><th>Classe</th><td>${identite.classe}</td></tr>
+        <tr><th>Date</th><td>${dateAffichee}</td></tr>
+      </tbody>
+    </table>
+  </header>
+
+  <section class="cr-section">
+    <h2><span class="cr-puce">1</span> Sécurité — Produit utilisé</h2>
+    <p class="cr-produit-nom">${produit.nom} <span class="cr-formule">(${produit.formule})</span></p>
+    <ul class="cr-liste-dangers">${dangersListe}</ul>
+  </section>
+
+  <section class="cr-section cr-grid-2">
+    <div>
+      <h2><span class="cr-puce">2</span> Verrerie</h2>
+      <ul class="cr-liste-materiel">${materielListe}</ul>
+    </div>
+    <div>
+      <h2><span class="cr-puce">3</span> Équipements</h2>
+      <ul class="cr-liste-materiel">${equipementsListe}</ul>
     </div>
   </section>
 
-  <section class="bloc small">
-    <h3>Matériel nécessaire</h3>
-    <ul>${materielListe}</ul>
+  <section class="cr-section">
+    <h2><span class="cr-puce">4</span> Préparation par dissolution</h2>
+    <table class="cr-tableau-donnees">
+      <thead>
+        <tr><th>C (mol/L)</th><th>V (mL)</th><th>M (g/mol)</th><th>Masse théorique (g)</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>${solution.C}</td>
+          <td>${solution.V}</td>
+          <td>${solution.M}</td>
+          <td><strong>${solution.masseTheorique}</strong></td>
+        </tr>
+      </tbody>
+    </table>
   </section>
 
-  <section class="bloc small">
-    <h3>Équipements</h3>
-    <ul>${equipementsListe}</ul>
+  <section class="cr-section">
+    <h2><span class="cr-puce">5</span> Analyse de la pesée</h2>
+    <table class="cr-tableau-donnees">
+      <thead>
+        <tr>
+          <th>Masse théorique (g)</th>
+          <th>Masse lue (g)</th>
+          <th>Erreur absolue Δm (g)</th>
+          <th>Erreur relative (%)</th>
+          <th>Conclusion</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>${solution.masseTheorique}</td>
+          <td>${balance.masse}</td>
+          <td>${balance.erreurAbs}</td>
+          <td>${balance.erreurRel}</td>
+          <td class="cr-conclusion">${balance.conclusion}</td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="cr-analyse-texte">${balance.analyse}</p>
   </section>
 
-  <section class="bloc">
-    <h3>Préparation par dissolution</h3>
-    <p>C (mol/L) : ${solution.C}</p>
-    <p>V (mL) : ${solution.V}</p>
-    <p>M (g/mol) : ${solution.M}</p>
-    <p><strong>Masse à peser (théorique)</strong> : ${solution.masseTheorique} g</p>
-    <p><strong>Masse lue</strong> : ${balance.masse} g</p>
-    <p><strong>Erreur absolue</strong> : ${balance.erreurAbs} g</p>
-    <p><strong>Erreur relative</strong> : ${balance.erreurRel} %</p>
-    <p><strong>Conclusion</strong> : ${balance.conclusion}</p>
+  <section class="cr-section cr-questions">
+    <h2><span class="cr-puce">6</span> Questions — Évaluation des compétences</h2>
+    ${questionsHtml}
   </section>
 
-  <section class="bloc small">
-    <h3>Analyse de l'écart</h3>
-    <p>${balance.analyse}</p>
-  </section>
+  <footer class="cr-footer">
+    Document généré le ${new Date().toLocaleDateString("fr-FR")} — SciLab TP Chimie
+  </footer>
 
-  <section class="bloc small">
-    <h3>Questions / Réponses</h3>
-    ${questions.map((q, i) => `
-      <p><strong>Q :</strong> ${q}</p>
-      <p><strong>R :</strong> ${reponses[i] || ""}</p>
-    `).join("")}
-  </section>
 </div>
 </body>
 </html>`;
