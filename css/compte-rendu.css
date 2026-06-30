@@ -1,0 +1,285 @@
+/**
+ * compte-rendu.css — Trame d'impression commune à tous les TP / domaines SciLab
+ * Chargée dynamiquement par js/compte-rendu.js
+ */
+
+/* ── Conteneur d'impression : invisible à l'écran, visible seulement à l'impression ── */
+#cr-print-container {
+  display: none;
+}
+
+/* ── Overlay de la modale d'identification (visible à l'écran) ───────────────── */
+#cr-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, .55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 5000;
+  font-family: var(--font-corps, system-ui, sans-serif);
+}
+
+#cr-modal {
+  background: #fff;
+  border-radius: 14px;
+  padding: 28px 30px;
+  width: min(420px, 92vw);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, .35);
+}
+
+#cr-modal h2 {
+  font-family: var(--font-titre, inherit);
+  font-size: 1.1rem;
+  color: #0D4F8A;
+  margin-bottom: 4px;
+}
+
+#cr-modal p.cr-soustitre {
+  font-size: .85rem;
+  color: #6b7280;
+  margin-bottom: 18px;
+}
+
+#cr-modal label {
+  display: block;
+  font-size: .8rem;
+  font-weight: 600;
+  color: #374151;
+  margin: 12px 0 4px;
+}
+
+#cr-modal input {
+  width: 100%;
+  padding: 9px 11px;
+  border: 1.5px solid #d1d5db;
+  border-radius: 8px;
+  font-size: .92rem;
+}
+
+#cr-modal input:focus {
+  outline: none;
+  border-color: #1B6CA8;
+  box-shadow: 0 0 0 3px rgba(27, 108, 168, .18);
+}
+
+.cr-modal-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 22px;
+}
+
+.cr-modal-actions button {
+  flex: 1;
+  padding: 10px 14px;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: .88rem;
+  cursor: pointer;
+}
+
+#cr-btn-annuler {
+  background: #f1f5f9;
+  color: #475569;
+}
+
+#cr-btn-generer {
+  background: #1B6CA8;
+  color: #fff;
+}
+
+#cr-btn-generer:hover { background: #0D4F8A; }
+
+.cr-erreur-champ {
+  color: #DC2626;
+  font-size: .75rem;
+  margin-top: 4px;
+  display: none;
+}
+
+/* ════════════════════════════════════════════════════════════════
+   TRAME D'IMPRESSION DU COMPTE-RENDU
+   ════════════════════════════════════════════════════════════════ */
+@media print {
+
+  /* On masque tout le reste de la page, on n'imprime que le CR */
+  body.cr-printing > *:not(#cr-print-container) {
+    display: none !important;
+  }
+
+  body.cr-printing {
+    background: #fff !important;
+  }
+
+  #cr-print-container {
+    display: block !important;
+    width: 100%;
+    font-family: "Segoe UI", system-ui, sans-serif;
+    color: #111827;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  @page {
+    size: A4;
+    margin: 14mm 12mm;
+  }
+
+  .cr-entete {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 3px solid #1B6CA8;
+    padding-bottom: 10px;
+    margin-bottom: 16px;
+  }
+
+  .cr-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .cr-logo svg { width: 38px; height: 38px; }
+
+  .cr-logo-texte {
+    font-weight: 800;
+    font-size: 1.25rem;
+    color: #0D4F8A;
+    letter-spacing: .02em;
+  }
+
+  .cr-logo-texte span { color: #1B6CA8; font-weight: 400; }
+
+  .cr-entete-droite {
+    text-align: right;
+    font-size: .75rem;
+    color: #6b7280;
+  }
+
+  .cr-domaine-badge {
+    display: inline-block;
+    background: #1B6CA8;
+    color: #fff;
+    font-size: .68rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .06em;
+    padding: 3px 10px;
+    border-radius: 20px;
+    margin-bottom: 4px;
+  }
+
+  .cr-titre-tp {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #111827;
+    margin: 4px 0 16px;
+  }
+
+  /* ── Bloc identification élève ── */
+  .cr-identification {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    border: 1.5px solid #1B6CA8;
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 20px;
+  }
+
+  .cr-identification div {
+    padding: 8px 12px;
+    border-right: 1px solid #cbd5e1;
+  }
+  .cr-identification div:last-child { border-right: none; }
+
+  .cr-identification .cr-label {
+    font-size: .65rem;
+    text-transform: uppercase;
+    letter-spacing: .06em;
+    color: #1B6CA8;
+    font-weight: 700;
+    margin-bottom: 2px;
+  }
+
+  .cr-identification .cr-valeur {
+    font-size: .92rem;
+    font-weight: 600;
+  }
+
+  /* ── Sections de contenu ── */
+  .cr-section {
+    margin-bottom: 18px;
+    break-inside: avoid;
+  }
+
+  .cr-section h3 {
+    font-size: .95rem;
+    color: #0D4F8A;
+    border-left: 4px solid #1B6CA8;
+    padding-left: 8px;
+    margin-bottom: 8px;
+  }
+
+  .cr-items {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: .88rem;
+  }
+
+  .cr-items td {
+    padding: 5px 8px;
+    border-bottom: 1px solid #e5e7eb;
+  }
+
+  .cr-items td:first-child {
+    color: #4b5563;
+    width: 55%;
+  }
+
+  .cr-items td:last-child {
+    font-weight: 700;
+    color: #111827;
+  }
+
+  .cr-texte-libre {
+    font-size: .88rem;
+    line-height: 1.5;
+    white-space: pre-wrap;
+  }
+
+  .cr-graphique {
+    width: 100%;
+    max-width: 100%;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    margin-top: 6px;
+  }
+
+  .cr-pied {
+    margin-top: 24px;
+    padding-top: 8px;
+    border-top: 1px solid #e5e7eb;
+    font-size: .68rem;
+    color: #9ca3af;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .cr-signature {
+    margin-top: 30px;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .cr-signature div {
+    width: 45%;
+    border-top: 1px solid #9ca3af;
+    padding-top: 4px;
+    font-size: .75rem;
+    color: #6b7280;
+    text-align: center;
+  }
+}
