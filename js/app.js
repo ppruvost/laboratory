@@ -92,8 +92,13 @@ function renderProductTable(data) {
             .join("");
 
         // ── Visuel produit ──
-        const visuelHTML = p.image
-            ? `<img src="${p.image}" alt="${p.nom}"
+        // p.image = nom de fichier nu (soude.jpg) → préfixer le dossier assets
+        const srcProduit = !p.image ? ""
+            : (p.image.startsWith('http') || p.image.startsWith('/') || p.image.includes('/')
+                ? p.image
+                : `assets/img/products/${p.image}`);
+        const visuelHTML = srcProduit
+            ? `<img src="${srcProduit}" alt="${p.nom}"
                     style="width:48px;height:48px;object-fit:contain;border-radius:4px;"
                     onerror="this.style.display='none'">`
             : "";
@@ -167,7 +172,8 @@ function renderGlasswareTable(data) {
             <td>${g.contenance_ml ? g.contenance_ml + " mL" : "—"}</td>
             <td>${g.lieu || "—"}</td>
             <td>
-                <img src="${g.image}" alt="${g.nom || "verrerie"}"
+                <img src="${!g.image ? '' : g.image.includes('/') ? g.image : `assets/img/glassware/${g.image}`}"
+                     alt="${g.nom || 'verrerie'}"
                      style="height:48px;object-fit:contain;"
                      onerror="this.style.display='none'">
             </td>
