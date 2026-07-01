@@ -342,32 +342,60 @@ function _dessinerGraphe() {
 
   _chartScale = { pad, cw, ch, vMin, vMax, phMin, phMax, xScale, yScale, W, H };
 
-  // ── Fond + grille ──
+  // ── Fond + grille (style "manuel") ──
   ctx.fillStyle = '#fff';
   ctx.fillRect(0, 0, W, H);
-  ctx.strokeStyle = '#e5e7eb';
+
+  // quadrillage gris clair
+  ctx.strokeStyle = '#e0e0e0';
   ctx.lineWidth = 1;
-  ctx.font = '11px sans-serif';
-  ctx.fillStyle = '#6b7280';
   for (let ph = Math.ceil(phMin); ph <= Math.floor(phMax); ph++) {
     const y = yScale(ph);
     ctx.beginPath(); ctx.moveTo(pad.left, y); ctx.lineTo(W - pad.right, y); ctx.stroke();
-    ctx.fillText(ph, 8, y + 4);
   }
   const pasV = _joliPas(vMax - vMin);
   for (let v = Math.ceil(vMin / pasV) * pasV; v <= vMax; v += pasV) {
     const x = xScale(v);
     ctx.beginPath(); ctx.moveTo(x, pad.top); ctx.lineTo(x, H - pad.bottom); ctx.stroke();
-    ctx.fillText(v.toFixed(1), x - 10, H - pad.bottom + 16);
   }
-  ctx.fillText('V (mL)', W - pad.right - 10, H - 10);
-  ctx.save(); ctx.translate(14, pad.top + 10); ctx.fillText('pH', 0, 0); ctx.restore();
 
-  // ── Courbe théorique ──
-  if (afficherTheo && theo.length) _tracerLigne(ctx, theo, xScale, yScale, '#94a3b8', false);
+  // axes noirs (cadre gauche + bas)
+  ctx.strokeStyle = '#000';
+  ctx.lineWidth = 1.5;
+  ctx.beginPath();
+  ctx.moveTo(pad.left, pad.top);
+  ctx.lineTo(pad.left, H - pad.bottom);
+  ctx.lineTo(W - pad.right, H - pad.bottom);
+  ctx.stroke();
 
-  // ── Courbe expérimentale (points + ligne) ──
-  if (afficherExp && exp.length) _tracerLigne(ctx, exp, xScale, yScale, '#1B6CA8', true);
+  // graduations épaisses + libellés (police Arial, aucune légende)
+  ctx.font = '12px Arial';
+  ctx.fillStyle = '#000';
+  ctx.lineWidth = 2;
+  for (let ph = Math.ceil(phMin); ph <= Math.floor(phMax); ph++) {
+    const y = yScale(ph);
+    ctx.beginPath(); ctx.moveTo(pad.left - 5, y); ctx.lineTo(pad.left, y); ctx.stroke();
+    ctx.fillText(ph, pad.left - 24, y + 4);
+  }
+  for (let v = Math.ceil(vMin / pasV) * pasV; v <= vMax; v += pasV) {
+    const x = xScale(v);
+    ctx.beginPath(); ctx.moveTo(x, H - pad.bottom); ctx.lineTo(x, H - pad.bottom + 5); ctx.stroke();
+    ctx.fillText(v.toFixed(1), x - 10, H - pad.bottom + 18);
+  }
+
+  // titres d'axes : uniquement "pH" et "VB (mL)"
+  ctx.font = 'bold 13px Arial';
+  ctx.fillText('VB (mL)', W - pad.right - 40, H - 8);
+  ctx.save();
+  ctx.translate(16, pad.top + 12);
+  ctx.fillText('pH', 0, 0);
+  ctx.restore();
+
+  // ── Courbe théorique (gris clair, trait plein fin) ──
+  if (afficherTheo && theo.length) _tracerCourbeTheorique(ctx, theo, xScale, yScale);
+
+  // ── Courbe expérimentale (rouge pointillé + marqueurs "+", légèrement lissée) ──
+  if (afficherExp && exp.length) _tracerCourbeExperimentale(ctx, exp, xScale, yScale);
 
   // ── Conductimétrie (axe secondaire) ──
   if (afficherCond) _dessinerConductimetrie(ctx, xScale, vMin, vMax, pad, ch, H);
@@ -408,6 +436,14 @@ function _dessinerGraphe() {
     _resultatDerivee = null;
   }
 
+  // ── Point d'équivalence E (bleu) sur le graphe principal ──
+  const veAffiche = _resultatTangentes?.Ve ?? _resultatDerivee?.Ve ?? null;
+  if (veAffiche !== null) {
+    const courbePourPHE = _courbeActive();
+    const phE = _interpoler(courbePourPHE, veAffiche);
+    if (phE !== null) _dessinerPointEquivalence(ctx, veAffiche, phE, xScale, yScale, pad, H);
+  }
+
   _majComparaison();
 }
 
@@ -419,23 +455,94 @@ function _joliPas(etendue) {
   return pas * ordre;
 }
 
-function _tracerLigne(ctx, points, xScale, yScale, couleur, avecPoints) {
+// ── Lissage léger pour l'affichage de la courbe expérimentale ──
+// (n'altère jamais les données réelles _mesures, uniquement le tracé)
+function _lisserAffichage(points, fenetre = 3) {
+  if (points.length < fenetre) return points;
+  const demi = Math.floor(fenetre / 2);
+  return points.map((p, i) => {
+    const debut = Math.max(0, i - demi);
+    const fin = Math.min(points.length - 1, i + demi);
+    let somme = 0, n = 0;
+    for (let k = debut; k <= fin; k++) { somme += points[k].ph; n++; }
+    return { v: p.v, ph: somme / n };
+  });
+}
+
+// ── Courbe théorique : gris clair, trait plein fin, sans marqueurs ──
+function _tracerCourbeTheorique(ctx, points, xScale, yScale) {
   ctx.beginPath();
-  ctx.strokeStyle = couleur;
-  ctx.lineWidth = 2;
+  ctx.strokeStyle = '#c9c9c9';
+  ctx.lineWidth = 1;
+  ctx.setLineDash([]);
   points.forEach((p, i) => {
     const x = xScale(p.v), y = yScale(p.ph);
     i ? ctx.lineTo(x, y) : ctx.moveTo(x, y);
   });
   ctx.stroke();
-  if (avecPoints) {
-    ctx.fillStyle = couleur;
-    points.forEach(p => {
-      ctx.beginPath();
-      ctx.arc(xScale(p.v), yScale(p.ph), 3.5, 0, 2 * Math.PI);
-      ctx.fill();
-    });
-  }
+}
+
+// ── Courbe expérimentale : rouge pointillé légèrement lissé + marqueurs "+" ──
+function _tracerCourbeExperimentale(ctx, points, xScale, yScale) {
+  // ligne légèrement lissée
+  const lisses = _lisserAffichage(points, 3);
+  ctx.beginPath();
+  ctx.strokeStyle = '#d60000';
+  ctx.lineWidth = 2;
+  ctx.setLineDash([6, 4]);
+  lisses.forEach((p, i) => {
+    const x = xScale(p.v), y = yScale(p.ph);
+    i ? ctx.lineTo(x, y) : ctx.moveTo(x, y);
+  });
+  ctx.stroke();
+  ctx.setLineDash([]);
+
+  // marqueurs "+" sur les points réellement mesurés
+  ctx.strokeStyle = '#d60000';
+  ctx.lineWidth = 2;
+  points.forEach(p => {
+    const x = xScale(p.v), y = yScale(p.ph);
+    ctx.beginPath();
+    ctx.moveTo(x - 4, y); ctx.lineTo(x + 4, y);
+    ctx.moveTo(x, y - 4); ctx.lineTo(x, y + 4);
+    ctx.stroke();
+  });
+}
+
+// ── Point d'équivalence E : point bleu + lignes pointillées bleues + libellés Ve / pHE ──
+function _dessinerPointEquivalence(ctx, Ve, pHE, xScale, yScale, pad, H) {
+  const x = xScale(Ve);
+  const y = yScale(pHE);
+
+  ctx.strokeStyle = '#1565C0';
+  ctx.lineWidth = 1.5;
+  ctx.setLineDash([5, 5]);
+
+  // ligne verticale (axe des V jusqu'au point)
+  ctx.beginPath();
+  ctx.moveTo(x, H - pad.bottom);
+  ctx.lineTo(x, y);
+  ctx.stroke();
+
+  // ligne horizontale (axe des pH jusqu'au point)
+  ctx.beginPath();
+  ctx.moveTo(pad.left, y);
+  ctx.lineTo(x, y);
+  ctx.stroke();
+
+  ctx.setLineDash([]);
+
+  // point E
+  ctx.fillStyle = '#1565C0';
+  ctx.beginPath();
+  ctx.arc(x, y, 5, 0, 2 * Math.PI);
+  ctx.fill();
+
+  // libellés Ve et pHE
+  ctx.font = 'bold 12px Arial';
+  ctx.fillStyle = '#1565C0';
+  ctx.fillText(`Ve = ${Ve.toFixed(2)} mL`, x + 8, H - pad.bottom - 6);
+  ctx.fillText(`pHE = ${pHE.toFixed(2)}`, pad.left + 6, y - 6);
 }
 
 function _dessinerConductimetrie(ctx, xScale, vMin, vMax, pad, ch, H) {
@@ -464,7 +571,7 @@ function _dessinerConductimetrie(ctx, xScale, vMin, vMax, pad, ch, H) {
   ctx.stroke();
   ctx.setLineDash([]);
   ctx.fillStyle = '#27AE60';
-  ctx.font = '11px sans-serif';
+  ctx.font = '11px Arial';
   ctx.fillText('σ (mS/cm)', H ? ctx.canvas.width / (window.devicePixelRatio || 1) - pad.right + 4 : 0, pad.top + 10);
 }
 
@@ -523,34 +630,20 @@ function _calculerTangentes(courbe) {
   return { Ve: meilleurV, Ce, droite1, droite2, avant, apres };
 }
 
+// ── Tangentes : noires, prolongées sur toute la largeur, trait continu ──
 function _dessinerTangentes(ctx, res, xScale, yScale, vMin, vMax) {
-  const tracerDroite = (droite, vDebut, vFin, couleur) => {
+  const tracerDroite = (droite, vDebut, vFin) => {
     ctx.beginPath();
-    ctx.strokeStyle = couleur;
-    ctx.lineWidth = 1.5;
-    ctx.setLineDash([6, 4]);
+    ctx.strokeStyle = '#000';
+    ctx.lineWidth = 1.8;
+    ctx.setLineDash([]);
     ctx.moveTo(xScale(vDebut), yScale(droite.m * vDebut + droite.b));
     ctx.lineTo(xScale(vFin), yScale(droite.m * vFin + droite.b));
     ctx.stroke();
-    ctx.setLineDash([]);
   };
-  // tangentes prolongées sur toute la largeur visible pour bien voir l'intersection
-  tracerDroite(res.droite1, vMin, vMax, '#D97706');
-  tracerDroite(res.droite2, vMin, vMax, '#D97706');
-
-  // marqueur Ve
-  const x = xScale(res.Ve);
-  ctx.beginPath();
-  ctx.strokeStyle = '#DC2626';
-  ctx.lineWidth = 1.5;
-  ctx.setLineDash([2, 3]);
-  ctx.moveTo(x, ctx.canvas.height / (window.devicePixelRatio || 1) - 1);
-  ctx.lineTo(x, 0);
-  ctx.stroke();
-  ctx.setLineDash([]);
-  ctx.fillStyle = '#DC2626';
-  ctx.font = 'bold 11px sans-serif';
-  ctx.fillText(`Ve = ${res.Ve.toFixed(2)} mL`, x + 4, 14);
+  tracerDroite(res.droite1, vMin, vMax);
+  tracerDroite(res.droite2, vMin, vMax);
+  // Le point d'équivalence (Ve/pHE) est désormais tracé par _dessinerPointEquivalence
 }
 
 // ══════════════════════════════════════════════════════════════
@@ -586,6 +679,7 @@ function _calculerDerivee(courbe) {
   return { Ve, Ce, courbeDerivee: deriv, idxPic: idx };
 }
 
+// ── Courbe dérivée : violette, pic rouge (ligne + point) ──
 function _dessinerCourbeDerivee(courbe, res) {
   const canvas = document.getElementById('canvas-derivee');
   if (!canvas || !res) return;
@@ -611,34 +705,44 @@ function _dessinerCourbeDerivee(courbe, res) {
   const xScale = v => pad.left + ((v - vMin) / (vMax - vMin)) * cw;
   const yScale = d => pad.top + (1 - d / dMax) * ch;
 
-  ctx.strokeStyle = '#e5e7eb';
-  ctx.font = '10px sans-serif';
-  ctx.fillStyle = '#6b7280';
+  ctx.strokeStyle = '#e0e0e0';
+  ctx.font = '10px Arial';
+  ctx.fillStyle = '#000';
   ctx.beginPath(); ctx.moveTo(pad.left, pad.top); ctx.lineTo(pad.left, H - pad.bottom); ctx.lineTo(W - pad.right, H - pad.bottom); ctx.stroke();
   ctx.fillText('ΔpH/ΔV', 4, pad.top + 8);
-  ctx.fillText('V (mL)', W - pad.right - 30, H - 8);
+  ctx.fillText('VB (mL)', W - pad.right - 34, H - 8);
 
+  // courbe dérivée : violet
   ctx.beginPath();
-  ctx.strokeStyle = '#7C3AED';
-  ctx.lineWidth = 2;
+  ctx.strokeStyle = '#5E35B1';
+  ctx.lineWidth = 2.5;
+  ctx.setLineDash([]);
   res.courbeDerivee.forEach((p, i) => {
     const x = xScale(p.v), y = yScale(Math.max(p.d, 0));
     i ? ctx.lineTo(x, y) : ctx.moveTo(x, y);
   });
   ctx.stroke();
 
-  // marqueur du pic
+  // pic : ligne verticale rouge + point rouge
   const xPic = xScale(res.Ve);
+  const yPic = yScale(Math.max(dVals[res.idxPic] ?? 0, 0));
+
   ctx.beginPath();
-  ctx.strokeStyle = '#DC2626';
+  ctx.strokeStyle = '#d60000';
+  ctx.lineWidth = 1.5;
   ctx.setLineDash([2, 3]);
   ctx.moveTo(xPic, H - pad.bottom);
   ctx.lineTo(xPic, pad.top);
   ctx.stroke();
   ctx.setLineDash([]);
-  ctx.fillStyle = '#DC2626';
-  ctx.font = 'bold 11px sans-serif';
-  ctx.fillText(`Ve = ${res.Ve.toFixed(2)} mL`, xPic + 4, pad.top + 12);
+
+  ctx.fillStyle = '#d60000';
+  ctx.beginPath();
+  ctx.arc(xPic, yPic, 5, 0, 2 * Math.PI);
+  ctx.fill();
+
+  ctx.font = 'bold 11px Arial';
+  ctx.fillText(`Ve = ${res.Ve.toFixed(2)} mL`, xPic + 8, pad.top + 12);
 }
 
 // ── Comparaison tangentes / dérivée ─────────────────────────────
