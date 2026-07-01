@@ -1,15 +1,18 @@
 /**
  * compte-rendu.css — Trame d'impression commune à tous les TP / domaines SciLab
  * Chargée dynamiquement par js/compte-rendu.js
+ *
+ * Parties :
+ *   A. Modales écran (identification, sélection des parties)
+ *   B. Trame d'impression @media print
  */
 
-/* ── Conteneur d'impression : invisible à l'écran, visible seulement à l'impression ── */
-#cr-print-container {
-  display: none;
-}
+/* ══════════════════════════════════════════════════════════════
+   A. MODALES ÉCRAN
+   ══════════════════════════════════════════════════════════════ */
 
-/* ── Overlay de la modale d'identification (visible à l'écran) ───────────────── */
-#cr-modal-overlay {
+/* ── Overlay commun aux deux modales ── */
+.cr-modal-overlay-base {
   position: fixed;
   inset: 0;
   background: rgba(15, 23, 42, .55);
@@ -20,28 +23,32 @@
   font-family: var(--font-corps, system-ui, sans-serif);
 }
 
-#cr-modal {
+/* ── Boîte blanche commune ── */
+.cr-modal-box {
   background: #fff;
   border-radius: 14px;
   padding: 28px 30px;
-  width: min(420px, 92vw);
+  width: min(460px, 94vw);
   box-shadow: 0 20px 50px rgba(0, 0, 0, .35);
+  max-height: 90vh;
+  overflow-y: auto;
 }
 
-#cr-modal h2 {
+.cr-modal-box h2 {
   font-family: var(--font-titre, inherit);
   font-size: 1.1rem;
   color: #0D4F8A;
-  margin-bottom: 4px;
+  margin: 0 0 4px;
 }
 
-#cr-modal p.cr-soustitre {
+.cr-soustitre {
   font-size: .85rem;
   color: #6b7280;
-  margin-bottom: 18px;
+  margin: 0 0 18px;
 }
 
-#cr-modal label {
+/* ── Champs identification ── */
+.cr-modal-box label {
   display: block;
   font-size: .8rem;
   font-weight: 600;
@@ -49,20 +56,79 @@
   margin: 12px 0 4px;
 }
 
-#cr-modal input {
+.cr-modal-box input[type="text"],
+.cr-modal-box input[type="date"] {
   width: 100%;
   padding: 9px 11px;
   border: 1.5px solid #d1d5db;
   border-radius: 8px;
   font-size: .92rem;
+  box-sizing: border-box;
 }
 
-#cr-modal input:focus {
+.cr-modal-box input:focus {
   outline: none;
   border-color: #1B6CA8;
   box-shadow: 0 0 0 3px rgba(27, 108, 168, .18);
 }
 
+.cr-erreur-champ {
+  color: #DC2626;
+  font-size: .75rem;
+  margin-top: 3px;
+  display: none;
+}
+
+/* ── Sélection des parties (groupes) ── */
+.cr-groupes-liste {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 4px 0 20px;
+}
+
+.cr-groupe-ligne {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: .92rem;
+  color: #1e293b;
+  transition: border-color .15s, background .15s;
+}
+
+.cr-groupe-ligne:hover {
+  border-color: #1B6CA8;
+  background: #f0f7ff;
+}
+
+.cr-groupe-ligne input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  accent-color: #1B6CA8;
+  flex-shrink: 0;
+}
+
+.cr-groupe-ligne span:nth-child(2) {
+  flex: 1;
+  font-weight: 600;
+}
+
+.cr-niveau-badge {
+  font-size: .72rem;
+  font-weight: 700;
+  background: #EAF2F8;
+  color: #0D4F8A;
+  border: 1px solid #1B6CA8;
+  border-radius: 20px;
+  padding: 2px 8px;
+  white-space: nowrap;
+}
+
+/* ── Boutons de la modale ── */
 .cr-modal-actions {
   display: flex;
   gap: 10px;
@@ -77,209 +143,382 @@
   font-weight: 600;
   font-size: .88rem;
   cursor: pointer;
+  transition: opacity .15s;
 }
 
-#cr-btn-annuler {
+.cr-modal-actions button:first-child {
   background: #f1f5f9;
   color: #475569;
 }
 
-#cr-btn-generer {
+.cr-modal-actions button:last-child {
   background: #1B6CA8;
   color: #fff;
 }
 
-#cr-btn-generer:hover { background: #0D4F8A; }
+.cr-modal-actions button:last-child:hover { background: #0D4F8A; }
 
-.cr-erreur-champ {
-  color: #DC2626;
-  font-size: .75rem;
-  margin-top: 4px;
-  display: none;
-}
+/* ══════════════════════════════════════════════════════════════
+   B. TRAME D'IMPRESSION
+   ══════════════════════════════════════════════════════════════ */
 
-/* ════════════════════════════════════════════════════════════════
-   TRAME D'IMPRESSION DU COMPTE-RENDU
-   ════════════════════════════════════════════════════════════════ */
+/* Conteneur invisible à l'écran */
+#cr-print-container { display: none; }
+
 @media print {
 
-  /* On masque tout le reste de la page, on n'imprime que le CR */
-  body.cr-printing > *:not(#cr-print-container) {
-    display: none !important;
-  }
+  /* Cacher tout sauf le CR */
+  body.cr-printing > *:not(#cr-print-container) { display: none !important; }
+  body.cr-printing { background: #fff !important; }
 
-  body.cr-printing {
-    background: #fff !important;
-  }
-
+  /* Activer le conteneur */
   #cr-print-container {
     display: block !important;
     width: 100%;
-    font-family: "Segoe UI", system-ui, sans-serif;
+    font-family: "Segoe UI", Arial, sans-serif;
+    font-size: 9.5pt;
     color: #111827;
+    line-height: 1.4;
     -webkit-print-color-adjust: exact;
     print-color-adjust: exact;
   }
 
   @page {
-    size: A4;
-    margin: 14mm 12mm;
+    size: A4 portrait;
+    margin: 13mm 12mm 12mm 12mm;
   }
 
+  /* ── En-tête ── */
   .cr-entete {
     display: flex;
     align-items: center;
     justify-content: space-between;
     border-bottom: 3px solid #1B6CA8;
-    padding-bottom: 10px;
-    margin-bottom: 16px;
+    padding-bottom: 8px;
+    margin-bottom: 12px;
   }
 
   .cr-logo {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 9px;
   }
 
-  .cr-logo svg { width: 38px; height: 38px; }
+  .cr-logo svg {
+    width: 34px;
+    height: 34px;
+  }
 
   .cr-logo-texte {
     font-weight: 800;
-    font-size: 1.25rem;
+    font-size: 14pt;
     color: #0D4F8A;
     letter-spacing: .02em;
   }
 
-  .cr-logo-texte span { color: #1B6CA8; font-weight: 400; }
+  .cr-logo-texte span {
+    color: #1B6CA8;
+    font-weight: 400;
+  }
 
   .cr-entete-droite {
     text-align: right;
-    font-size: .75rem;
+    font-size: 7.5pt;
     color: #6b7280;
+    line-height: 1.5;
   }
 
+  /* ── Badge domaine + titre ── */
   .cr-domaine-badge {
     display: inline-block;
     background: #1B6CA8;
     color: #fff;
-    font-size: .68rem;
+    font-size: 6.5pt;
     font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: .06em;
-    padding: 3px 10px;
+    letter-spacing: .07em;
+    padding: 2px 9px;
     border-radius: 20px;
     margin-bottom: 4px;
   }
 
   .cr-titre-tp {
-    font-size: 1.3rem;
+    font-size: 13pt;
     font-weight: 700;
     color: #111827;
-    margin: 4px 0 16px;
+    margin: 3px 0 12px;
   }
 
-  /* ── Bloc identification élève ── */
+  /* ── Bandeau identification ── */
   .cr-identification {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 0;
     border: 1.5px solid #1B6CA8;
-    border-radius: 8px;
+    border-radius: 6px;
     overflow: hidden;
-    margin-bottom: 20px;
+    margin-bottom: 14px;
   }
 
-  .cr-identification div {
-    padding: 8px 12px;
+  .cr-identification > div {
+    padding: 6px 10px;
     border-right: 1px solid #cbd5e1;
   }
-  .cr-identification div:last-child { border-right: none; }
+
+  .cr-identification > div:last-child { border-right: none; }
 
   .cr-identification .cr-label {
-    font-size: .65rem;
+    font-size: 6pt;
     text-transform: uppercase;
-    letter-spacing: .06em;
+    letter-spacing: .07em;
     color: #1B6CA8;
     font-weight: 700;
+    display: block;
     margin-bottom: 2px;
   }
 
   .cr-identification .cr-valeur {
-    font-size: .92rem;
+    font-size: 9pt;
     font-weight: 600;
   }
 
-  /* ── Sections de contenu ── */
+  /* ── Sections génériques ── */
   .cr-section {
-    margin-bottom: 18px;
+    margin-bottom: 10px;
     break-inside: avoid;
   }
 
-  .cr-section h3 {
-    font-size: .95rem;
-    color: #0D4F8A;
-    border-left: 4px solid #1B6CA8;
-    padding-left: 8px;
-    margin-bottom: 8px;
-  }
-
+  /* ── Tableau de résultats (items) ── */
   .cr-items {
     width: 100%;
     border-collapse: collapse;
-    font-size: .88rem;
+    font-size: 8.5pt;
   }
 
   .cr-items td {
-    padding: 5px 8px;
+    padding: 4px 7px;
     border-bottom: 1px solid #e5e7eb;
   }
 
-  .cr-items td:first-child {
-    color: #4b5563;
-    width: 55%;
-  }
+  .cr-items td:first-child { color: #4b5563; width: 58%; }
+  .cr-items td:last-child  { font-weight: 700; }
 
-  .cr-items td:last-child {
-    font-weight: 700;
-    color: #111827;
-  }
-
+  /* ── Texte libre ── */
   .cr-texte-libre {
-    font-size: .88rem;
+    font-size: 8.5pt;
     line-height: 1.5;
     white-space: pre-wrap;
+    border-left: 3px solid #e2e8f0;
+    padding-left: 8px;
   }
 
+  .cr-vide { color: #9ca3af; font-style: italic; }
+
+  /* ── Graphique canvas ── */
   .cr-graphique {
     width: 100%;
-    max-width: 100%;
     border: 1px solid #d1d5db;
-    border-radius: 6px;
-    margin-top: 6px;
+    border-radius: 5px;
+    margin-top: 5px;
   }
 
+  /* ══════════════════════════════════════════════════════════
+     QUESTIONS AVEC COMPÉTENCE + NOTATION 0 / 1 / 2
+     ══════════════════════════════════════════════════════════ */
+
+  .cr-section-question {
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    padding: 7px 9px;
+    margin-bottom: 7px;
+    break-inside: avoid;
+  }
+
+  /* Ligne = titre de la question à gauche, badge compétence + cases notation à droite */
+  .cr-question-entete {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 8px;
+    margin-bottom: 5px;
+  }
+
+  .cr-question-titre {
+    font-size: 8.5pt;
+    font-weight: 700;
+    color: #1e293b;
+    border-left: 3px solid #1B6CA8;
+    padding-left: 6px;
+    margin: 0;
+    flex: 1;
+    /* Pas de border-left hérité de .cr-section h3 */
+    border-bottom: none;
+  }
+
+  /* Bloc droit : badge + cases */
+  .cr-question-droite {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-shrink: 0;
+  }
+
+  /* Badge compétence coloré */
+  .cr-comp-badge {
+    font-size: 6.5pt;
+    font-weight: 800;
+    letter-spacing: .04em;
+    padding: 2px 7px;
+    border-radius: 10px;
+    border: 1px solid;
+    white-space: nowrap;
+  }
+
+  /* Cases 0 / 1 / 2 à cocher par le professeur */
+  .cr-notation {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+  }
+
+  .cr-notation-label {
+    font-size: 6pt;
+    color: #6b7280;
+    margin-right: 2px;
+    text-transform: uppercase;
+    letter-spacing: .05em;
+  }
+
+  .cr-notation-case {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 14px;
+    height: 14px;
+    border: 1.2px solid #374151;
+    border-radius: 3px;
+    font-size: 7pt;
+    font-weight: 700;
+    color: #374151;
+    background: #fff;
+  }
+
+  /* Zone de réponse de l'élève */
+  .cr-reponse-zone {
+    font-size: 8pt;
+    line-height: 1.5;
+    color: #111827;
+    border-top: 1px dashed #cbd5e1;
+    padding-top: 4px;
+    min-height: 14mm;
+  }
+
+  /* ══════════════════════════════════════════════════════════
+     NOTE FINALE /20
+     ══════════════════════════════════════════════════════════ */
+
+  .cr-note-finale {
+    margin-top: 16px;
+    border: 2px solid #1B6CA8;
+    border-radius: 8px;
+    overflow: hidden;
+    break-inside: avoid;
+  }
+
+  .cr-note-grille {
+    display: flex;
+    align-items: stretch;
+  }
+
+  .cr-note-bareme {
+    flex: 1;
+    padding: 8px 12px;
+    background: #EAF2F8;
+    border-right: 1px solid #1B6CA8;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .cr-note-case {
+    padding: 8px 14px;
+    border-right: 1px solid #1B6CA8;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-width: 55px;
+  }
+
+  .cr-note-case:last-child { border-right: none; }
+
+  .cr-note-label {
+    font-size: 6.5pt;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .06em;
+    color: #0D4F8A;
+    display: block;
+    margin-bottom: 3px;
+  }
+
+  .cr-note-val {
+    font-size: 8pt;
+    color: #374151;
+  }
+
+  /* Grand encadré blanc pour la note /20 */
+  .cr-note-grande {
+    min-width: 72px;
+    background: #fff;
+  }
+
+  .cr-note-blanc {
+    font-size: 9pt;
+    color: #374151;
+    font-weight: 600;
+  }
+
+  .cr-note-grande-val {
+    font-size: 14pt;
+    font-weight: 800;
+    color: #0D4F8A;
+    letter-spacing: .04em;
+  }
+
+  /* ── Pied de page ── */
   .cr-pied {
-    margin-top: 24px;
-    padding-top: 8px;
+    margin-top: 12px;
+    padding-top: 6px;
     border-top: 1px solid #e5e7eb;
-    font-size: .68rem;
+    font-size: 6.5pt;
     color: #9ca3af;
     display: flex;
     justify-content: space-between;
   }
 
+  /* ── Signature (optionnelle, config.signature !== false) ── */
   .cr-signature {
-    margin-top: 30px;
+    margin-top: 20px;
     display: flex;
     justify-content: space-between;
   }
 
-  .cr-signature div {
-    width: 45%;
+  .cr-signature > div {
+    width: 44%;
     border-top: 1px solid #9ca3af;
     padding-top: 4px;
-    font-size: .75rem;
+    font-size: 7pt;
     color: #6b7280;
     text-align: center;
+  }
+
+  /* ── Titres de section h3 (hors questions) ── */
+  .cr-section:not(.cr-section-question) h3 {
+    font-size: 9pt;
+    font-weight: 700;
+    color: #0D4F8A;
+    border-left: 3px solid #1B6CA8;
+    padding-left: 7px;
+    margin: 0 0 6px;
   }
 }
