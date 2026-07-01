@@ -53,17 +53,21 @@ function renderProductTable(data) {
         const tr = document.createElement("tr");
 
         // ── Pictogrammes GHS : images depuis pictogrammes.js ──
-        const pictoHTML = (p.pictogrammes || p.dangers || [])
-            .filter(code => /^SGH/i.test(code))          // ne garder que les codes SGH
-            .map(code => {
-                const picto = pictogrammes.find(px => px.code === code);
-                if (!picto) return `<span title="${code}">⚠️</span>`;
-                return `<img src="assets/picto/${picto.image}"
-                             alt="${code}" title="${code}"
-                             style="width:32px;height:32px;object-fit:contain;"
-                             onerror="this.style.display='none'">`;
-            })
-            .join(" ");
+        const pictoHTML = (p.pictogramme || p.pictogrammes || [])
+  .map(file => {
+    const picto = pictogrammes.find(px => px.image === file || px.code === file);
+
+    const src = picto
+      ? `assets/picto/${picto.image}`
+      : `assets/picto/${file}`;
+
+    return `<img src="${src}"
+                 alt=""
+                 title="${file}"
+                 style="width:32px;height:32px;object-fit:contain;"
+                 onerror="this.style.display='none'">`;
+  })
+  .join(" ");
 
         // ── Codes H (dangers) ──
         const dangersHTML = (p.dangers || [])
