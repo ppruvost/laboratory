@@ -54,7 +54,7 @@ function renderProductTable(data) {
 
         // ── Pictogrammes GHS : images depuis pictogrammes.js ──
         const pictoHTML = (p.pictogrammes || p.dangers || [])
-            .filter(code => /^GHS/i.test(code))          // ne garder que les codes GHS
+            .filter(code => /^SGH/i.test(code))          // ne garder que les codes SGH
             .map(code => {
                 const picto = pictogrammes.find(px => px.code === code);
                 if (!picto) return `<span title="${code}">⚠️</span>`;
