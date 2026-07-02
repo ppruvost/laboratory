@@ -75,36 +75,32 @@ function initTabs() {
 
     document.querySelectorAll(".tabs-container").forEach(container => {
 
-        const boutons  = container.querySelectorAll(".tab-btn");
+        const boutons = container.querySelectorAll(".tab-btn");
         const panneaux = container.querySelectorAll(".tab-panel");
 
         boutons.forEach(btn => {
 
             btn.addEventListener("click", () => {
 
-             boutons.forEach(b => b.classList.remove("actif"));
-             panneaux.forEach(p => p.classList.remove("actif"));
+                boutons.forEach(b => b.classList.remove("actif"));
+                panneaux.forEach(p => p.classList.remove("actif"));
 
-             btn.classList.add("actif");
+                btn.classList.add("actif");
 
-             const cible = container.querySelector("#" + btn.dataset.tab);
-             if (cible) cible.classList.add("actif");
+                const cible = container.querySelector("#" + btn.dataset.tab);
 
-             if (btn.dataset.tab === "tab-dissolution") {
-                 afficherModeOperatoire("dissolution");
-             }
+                if (cible)
+                    cible.classList.add("actif");
 
-             if (btn.dataset.tab === "tab-dilution") {
-                 afficherModeOperatoire("dilution");
-             }
-         });
+                afficherModeOperatoire(btn.dataset.tab);
+
+            });
 
         });
 
     });
 
 }
-
 /* ==========================================================
    MODE OPERATOIRE
 ========================================================== */
