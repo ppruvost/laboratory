@@ -72,19 +72,34 @@ function initSections() {
    ONGLETS
    ========================================================== */
 function initTabs() {
+
     document.querySelectorAll(".tabs-container").forEach(container => {
+
         const boutons  = container.querySelectorAll(".tab-btn");
         const panneaux = container.querySelectorAll(".tab-panel");
+
         boutons.forEach(btn => {
+
             btn.addEventListener("click", () => {
-                boutons.forEach(b  => b.classList.remove("actif"));
+
+                boutons.forEach(b => b.classList.remove("actif"));
                 panneaux.forEach(p => p.classList.remove("actif"));
+
                 btn.classList.add("actif");
+
                 const cible = container.querySelector("#" + btn.dataset.tab);
+
                 if (cible) cible.classList.add("actif");
+
+                // Synchronise l'image du mode opératoire
+                afficherModeOperatoire(btn.dataset.tab);
+
             });
+
         });
+
     });
+
 }
 
 /* ==========================================================
