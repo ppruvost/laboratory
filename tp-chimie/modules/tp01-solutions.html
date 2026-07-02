@@ -94,36 +94,6 @@
     </div>
   </div>
 </div>
-
-<!-- ==========================================================
-     MODE OPÉRATOIRE
-========================================================== -->
-
-<div class="section" data-type="mode-operatoire">
-
-    <div class="section-titre">
-        <div class="picto-section">⚙️</div>
-        <h2>Mode opératoire</h2>
-        <span class="chevron">▼</span>
-    </div>
-
-    <div class="section-corps">
-
-        <div id="modeDissolution" class="mode-op">
-            <img src="../../assets/images/c1-dissolution.png"
-                 alt="Mode opératoire - Dissolution"
-                 class="mode-image">
-        </div>
-
-        <div id="modeDilution" class="mode-op hidden">
-            <img src="../../assets/images/c1-dilution.png"
-                 alt="Mode opératoire - Dilution"
-                 class="mode-image">
-        </div>
-
-    </div>
-
-</div>
   
 <!-- ====================================================== -->
 <!-- MATERIEL                                                -->
@@ -201,7 +171,13 @@
           <div id="res-dissolution" class="resultat-calcul">
             Sélectionner un réactif.
           </div>
-
+          
+          <div id="modeDissolution" class="mode-op">
+              <img
+                  class="mode-image"
+                  src="../../assets/img/tp01/mode_operatoire_dissolution.png"
+                  alt="Mode opératoire dissolution">
+          </div>
         </div>
 
       </div>
@@ -223,7 +199,12 @@
           <input id="v2-hcl" type="number" value="100">
           <div id="res-hcl" class="resultat-calcul"></div>
         </div>
-
+        <div id="modeDilution" class="mode-op hidden">
+        <img
+          class="mode-image"
+          src="../../assets/img/tp01/mode_operatoire_dilution.png"
+          alt="Mode opératoire dilution">
+      </div>
       </div>
       <!-- fin #dilution -->
 
