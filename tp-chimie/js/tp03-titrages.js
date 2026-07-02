@@ -1,4 +1,4 @@
-// TP03-titrages.js — Titrages acido-basiques ──────────────────────
+// tp03-titrages.js — Titrages acido-basiques
 
 import products from "../../data/products.js";
 import { renderBlocSecurite, initSections, initTabs, initImprimer } from './utils.js';
@@ -286,6 +286,11 @@ function _courbeActive() {
 // ══════════════════════════════════════════════════════════════
 // INTERPOLATION SPLINE DE CATMULL-ROM
 // ══════════════════════════════════════════════════════════════
+// Génère une courbe lisse passant exactement par tous les points fournis
+// (contrairement à une régression, la spline interpole — elle ne modifie
+// aucune valeur mesurée). `segments` = nombre de points générés entre
+// chaque paire de points consécutifs (⇒ plusieurs centaines de points
+// au total pour un jeu de mesures typique).
 function _catmullRomSpline(points, segments = 24) {
   const n = points.length;
   if (n < 3) return points.slice();
@@ -608,6 +613,16 @@ function _dessinerConductimetrie(ctx, xScale, vMin, vMax, pad, ch, H) {
 // ══════════════════════════════════════════════════════════════
 // BLOC 3 — MÉTHODE DES TANGENTES PARALLÈLES
 // ══════════════════════════════════════════════════════════════
+// Protocole conforme au TP de chimie :
+//   1) on repère le point d'inflexion (pente maximale) sur une version
+//      lissée (spline) de la courbe ;
+//   2) on ajuste une droite avant et une droite après l'équivalence,
+//      en leur imposant EXACTEMENT la même pente (vraies parallèles) ;
+//   3) le point d'équivalence E est le point de la courbe équidistant
+//      des deux tangentes, c'est-à-dire l'intersection de la courbe
+//      avec la droite médiane (parallèle aux deux tangentes, à mi-distance) ;
+//   4) à l'affichage, un segment perpendiculaire aux deux tangentes est
+//      tracé passant par E, avec les symboles d'angle droit habituels.
 function _regressionLineaire(points) {
   const n = points.length;
   if (n < 2) return null;
@@ -621,32 +636,35 @@ function _regressionLineaire(points) {
 }
 
 function _calculerTangentes(courbe) {
-  if (courbe.length < 4) return null;
+  if (courbe.length < 6) return null;
 
-  // Version dense (spline) pour repérer précisément l'inflexion et E
-  const dense = _catmullRomSpline(courbe, 30);
-
-  // 1) point d'inflexion = pente maximale sur la courbe dense
+  // 1) point d'inflexion = pente maximale, repéré directement sur les
+  //    points bruts (différences centrées) : c'est LUI qui doit servir
+  //    de référence pour placer les deux zones de régression, pas un
+  //    pourcentage fixe de l'étendue totale du volume versé (qui échoue
+  //    dès que le saut de pH n'est pas centré sur le domaine mesuré).
   let idxInflex = 1, maxPente = -Infinity;
-  for (let i = 1; i < dense.length - 1; i++) {
-    const dV = dense[i + 1].v - dense[i - 1].v || 1e-9;
-    const pente = Math.abs((dense[i + 1].ph - dense[i - 1].ph) / dV);
+  for (let i = 1; i < courbe.length - 1; i++) {
+    const dV = courbe[i + 1].v - courbe[i - 1].v || 1e-9;
+    const pente = Math.abs((courbe[i + 1].ph - courbe[i - 1].ph) / dV);
     if (pente > maxPente) { maxPente = pente; idxInflex = i; }
   }
-  const vInflex = dense[idxInflex].v;
 
-  // 2) zones avant / après, avec marge d'exclusion en volume autour de l'équivalence
-  const etendue = (courbe[courbe.length - 1].v - courbe[0].v) || 1;
-  const marge = etendue * 0.15;
-  let avant = courbe.filter(p => p.v <= vInflex - marge);
-  let apres = courbe.filter(p => p.v >= vInflex + marge);
+  // 2) fenêtres LOCALES avant/après le saut : on exclut seulement quelques
+  //    points de part et d'autre de l'inflexion (marge), puis on prend une
+  //    petite fenêtre de points pour chaque régression — comme lorsqu'on
+  //    pose une règle localement sur chaque palier, tout près du coude de
+  //    la courbe, plutôt qu'une régression sur tout le palier (biaisée par
+  //    la courbure) ou pire, une marge qui peut sortir du domaine mesuré.
+  const margeIdx = Math.max(1, Math.round(courbe.length * 0.04));
+  const fenetre = Math.max(3, Math.round(courbe.length * 0.16));
 
-  // repli si le jeu de mesures est trop court pour cette marge
-  if (avant.length < 2 || apres.length < 2) {
-    const mid = Math.floor(courbe.length / 2);
-    avant = courbe.slice(0, Math.max(2, mid - 1));
-    apres = courbe.slice(Math.min(courbe.length - 2, mid + 1));
-  }
+  let avant = courbe.slice(Math.max(0, idxInflex - margeIdx - fenetre), Math.max(2, idxInflex - margeIdx));
+  let apres = courbe.slice(Math.min(courbe.length - 2, idxInflex + margeIdx), Math.min(courbe.length, idxInflex + margeIdx + fenetre + 1));
+
+  // repli si les mesures sont trop clairsemées pour cette fenêtre
+  if (avant.length < 3) avant = courbe.slice(0, Math.max(3, idxInflex));
+  if (apres.length < 3) apres = courbe.slice(Math.min(courbe.length - 3, idxInflex + 1));
   if (avant.length < 2 || apres.length < 2) return null;
 
   const reg1 = _regressionLineaire(avant);
@@ -662,8 +680,11 @@ function _calculerTangentes(courbe) {
   const droite2 = { m: mCommun, b: b2 };
 
   // 4) droite médiane (parallèle aux deux tangentes, à mi-distance) → E = intersection avec la courbe
+  //    Recherche sur la spline dense pour une précision sub-mesure (E tombe
+  //    ainsi très près du pic de la méthode des dérivées, écart minimisé).
+  const dense = _catmullRomSpline(courbe, 30);
   const bMedian = (b1 + b2) / 2;
-  let meilleurIdx = idxInflex, meilleurEcart = Infinity;
+  let meilleurIdx = 0, meilleurEcart = Infinity;
   dense.forEach((p, i) => {
     const ecart = Math.abs(p.ph - (mCommun * p.v + bMedian));
     if (ecart < meilleurEcart) { meilleurEcart = ecart; meilleurIdx = i; }
