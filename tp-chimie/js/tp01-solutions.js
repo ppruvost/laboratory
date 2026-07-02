@@ -37,6 +37,7 @@ export function init() {
     console.log("TP01 Solutions initialisé");
     initSections();
     initTabs();
+    afficherModeOperatoire("dissolution");
     initReactifs();
     initMateriel();
     initCalculs();
