@@ -143,12 +143,25 @@ function message(id, texte) {
     zone.innerHTML = `<div class="info">${texte}</div>`;
 }
 
-function imgSrc(chemin, dossier) {
+function imgSrc(chemin) {
+
     if (!chemin) return "";
-    if (chemin.startsWith("http") || chemin.startsWith("/") ||
-        chemin.startsWith("../")  || chemin.startsWith("./") ||
-        chemin.startsWith("assets/")) return chemin;
-    return `../../assets/img/${dossier}/${chemin}`;
+
+    if (
+        chemin.startsWith("http") ||
+        chemin.startsWith("/") ||
+        chemin.startsWith("../") ||
+        chemin.startsWith("./")
+    ) {
+        return chemin;
+    }
+
+    // Les données contiennent déjà "assets/..."
+    if (chemin.startsWith("assets/")) {
+        return "../" + chemin;
+    }
+
+    return "../assets/img/" + chemin;
 }
 
 /* ==========================================================
