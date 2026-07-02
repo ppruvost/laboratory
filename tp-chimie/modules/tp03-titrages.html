@@ -1,13 +1,28 @@
-<!-- Fragment HTML chargé par navigation.js dans #content.
-     PAS de <link> CSS ici : la page parente (index.html) charge déjà
-     tp-chimie/css/style.css. Un <link> injecté via innerHTML résoudrait
-     son href depuis l'URL parente et produirait une 404. -->
 <section>
 
-<header>
-  <h1>TP03 — Titrages acido-basiques (pH-métrie / conductimétrie)</h1>
-  <div class="progress"><div id="bar"></div></div>
+<header class="tp-header">
+  <div class="tp-header-logo">
+    <div class="logo">
+      <span class="sci">Sci</span><span class="Lab">Lab</span>
+    </div>
+  </div>
+  <div class="tp-header-centre">
+    <h1>Titrages acido-basiques (pH-métrie / conductimétrie)</h1>
+    <div class="tp-meta">
+      <div class="tp-row">
+        <span class="tag">Terminale</span>
+        <span class="tag">Chimie</span>
+        <span class="tag">Titrage</span>
+        <span class="tag">pH-métrie</span>
+      </div>
+    </div>
+  </div>
+  <div class="tp-header-numero">
+    <span class="tp-numero-txt">TP03</span>
+  </div>
 </header>
+
+<div class="progress"><div id="bar"></div></div>
 
 <main id="content">
 
