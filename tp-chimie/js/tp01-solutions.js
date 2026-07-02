@@ -82,19 +82,22 @@ function initTabs() {
 
             btn.addEventListener("click", () => {
 
-                boutons.forEach(b => b.classList.remove("actif"));
-                panneaux.forEach(p => p.classList.remove("actif"));
+             boutons.forEach(b => b.classList.remove("actif"));
+             panneaux.forEach(p => p.classList.remove("actif"));
 
-                btn.classList.add("actif");
+             btn.classList.add("actif");
 
-                const cible = container.querySelector("#" + btn.dataset.tab);
+             const cible = container.querySelector("#" + btn.dataset.tab);
+             if (cible) cible.classList.add("actif");
 
-                if (cible) cible.classList.add("actif");
+             if (btn.dataset.tab === "tab-dissolution") {
+                 afficherModeOperatoire("dissolution");
+             }
 
-                // Synchronise l'image du mode opératoire
-                afficherModeOperatoire(btn.dataset.tab);
-
-            });
+             if (btn.dataset.tab === "tab-dilution") {
+                 afficherModeOperatoire("dilution");
+             }
+         });
 
         });
 
