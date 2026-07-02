@@ -87,6 +87,31 @@ function initTabs() {
 }
 
 /* ==========================================================
+   MODE OPERATOIRE
+========================================================== */
+
+function afficherModeOperatoire(type) {
+
+    const dissolution = document.getElementById("modeDissolution");
+    const dilution    = document.getElementById("modeDilution");
+
+    if (!dissolution || !dilution) return;
+
+    if (type === "dissolution") {
+
+        dissolution.classList.remove("hidden");
+        dilution.classList.add("hidden");
+
+    } else {
+
+        dissolution.classList.add("hidden");
+        dilution.classList.remove("hidden");
+
+    }
+
+}
+
+/* ==========================================================
    OUTILS
    ========================================================== */
 function nombre(v)        { const n = parseFloat(v); return isNaN(n) ? 0 : n; }
