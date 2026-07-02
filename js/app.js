@@ -147,8 +147,8 @@ function renderEquipmentTable(data) {
             <td>${eq.description || "—"}</td>
             <td>${eq.lieu || "—"}</td>
             <td>
-                <img src="${!g.image ? '' : g.image.includes('/') ? g.image : `assets/img/equipments/${g.image}`}"
-                     alt="${g.nom || 'equipments'}"
+                <img src="${!eq.image ? '' : eq.image.includes('/') ? eq.image : `assets/img/equipments/${eq.image}`}"
+                     alt="${eq.nom || 'equipments'}"
                      style="height:48px;object-fit:contain;"
                      onerror="this.style.display='none'">
             </td>
