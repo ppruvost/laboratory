@@ -109,10 +109,16 @@
       <label><input type="checkbox" id="chk-derivee"> Méthode des dérivées</label>
     </div>
 
-    <div style="position:relative;">
-      <canvas id="canvas-titrage" height="400"></canvas>
-      <div id="curseur-info" class="info" style="display:none; position:absolute; pointer-events:none;"></div>
+    <div class="graphe-titrage">
+
+    <canvas id="canvas-titrage"></canvas>
+
+    <div id="curseur-info"
+         class="info"
+         style="display:none; position:absolute; pointer-events:none;">
     </div>
+
+</div>
 
     <canvas id="canvas-derivee" height="180" style="display:none;"></canvas>
 
