@@ -1,12 +1,5 @@
-/**
- * tp03-titrages.js — Titrages acido-basiques
- Fonctionnalités :
- *   Bloc 2 — Tableau de mesures dynamique, tracé temps réel, zoom, curseur
- *   Bloc 3 — Méthode des tangentes (calcul et tracé graphique de Ve)
- *   Bloc 4 — Méthode des dérivées (ΔpH/ΔV, pic, comparaison)
- *   Bloc 5 — Correction des erreurs de mesure (offset, lissage, Savitzky-Golay, aberrants)
- *   Bloc 6 — Export CSV / PNG / PDF + compte-rendu standardisé (compte-rendu.js)
- */
+// TP03-titrages.js — Titrages acido-basiques ──────────────────────
+
 import products from "../../data/products.js";
 import { renderBlocSecurite, initSections, initTabs, initImprimer } from './utils.js';
 import { genererCompteRendu } from '../../js/compte-rendu.js';
@@ -63,7 +56,7 @@ let _theorique = { vols: [], phs: [] }; // courbe simulée (bouton "Générer")
 let _zoom = null;            // { vmin, vmax } ou null
 let _chartScale = null;      // infos d'échelle du dernier tracé (pour curseur/zoom)
 let _drag = null;            // { xStart } pendant un drag de zoom
-let _resultatTangentes = null; // { Ve, Ce, m1,b1,m2,b2 }
+let _resultatTangentes = null; // { Ve, Ce, pHE, droite1, droite2, mCommun, ... }
 let _resultatDerivee = null;   // { Ve, Ce, peakIdx }
 
 // ══════════════════════════════════════════════════════════════
@@ -291,6 +284,45 @@ function _courbeActive() {
 }
 
 // ══════════════════════════════════════════════════════════════
+// INTERPOLATION SPLINE DE CATMULL-ROM
+// ══════════════════════════════════════════════════════════════
+function _catmullRomSpline(points, segments = 24) {
+  const n = points.length;
+  if (n < 3) return points.slice();
+
+  const result = [];
+  for (let i = 0; i < n - 1; i++) {
+    const p0 = points[i - 1] || points[i];
+    const p1 = points[i];
+    const p2 = points[i + 1];
+    const p3 = points[i + 2] || p2;
+
+    const nbPas = i === n - 2 ? segments : segments; // uniforme
+    for (let t = 0; t < nbPas; t++) {
+      const s = t / nbPas;
+      const s2 = s * s;
+      const s3 = s2 * s;
+
+      const v = 0.5 * (
+        (2 * p1.v) +
+        (-p0.v + p2.v) * s +
+        (2 * p0.v - 5 * p1.v + 4 * p2.v - p3.v) * s2 +
+        (-p0.v + 3 * p1.v - 3 * p2.v + p3.v) * s3
+      );
+      const ph = 0.5 * (
+        (2 * p1.ph) +
+        (-p0.ph + p2.ph) * s +
+        (2 * p0.ph - 5 * p1.ph + 4 * p2.ph - p3.ph) * s2 +
+        (-p0.ph + 3 * p1.ph - 3 * p2.ph + p3.ph) * s3
+      );
+      result.push({ v, ph });
+    }
+  }
+  result.push(points[n - 1]);
+  return result;
+}
+
+// ══════════════════════════════════════════════════════════════
 // CASES À COCHER
 // ══════════════════════════════════════════════════════════════
 function _initCheckboxes() {
@@ -394,13 +426,13 @@ function _dessinerGraphe() {
   // ── Courbe théorique (gris clair, trait plein fin) ──
   if (afficherTheo && theo.length) _tracerCourbeTheorique(ctx, theo, xScale, yScale);
 
-  // ── Courbe expérimentale (rouge pointillé + marqueurs "+", légèrement lissée) ──
+  // ── Courbe expérimentale (rouge pointillé + marqueurs "+", spline Catmull-Rom) ──
   if (afficherExp && exp.length) _tracerCourbeExperimentale(ctx, exp, xScale, yScale);
 
   // ── Conductimétrie (axe secondaire) ──
   if (afficherCond) _dessinerConductimetrie(ctx, xScale, vMin, vMax, pad, ch, H);
 
-  // ── Méthode des tangentes ──
+  // ── Méthode des tangentes parallèles ──
   const resTan = document.getElementById('resultat-tangentes');
   if (afficherTangentes) {
     const courbe = _courbeActive();
@@ -439,9 +471,14 @@ function _dessinerGraphe() {
   // ── Point d'équivalence E (bleu) sur le graphe principal ──
   const veAffiche = _resultatTangentes?.Ve ?? _resultatDerivee?.Ve ?? null;
   if (veAffiche !== null) {
-    const courbePourPHE = _courbeActive();
-    const phE = _interpoler(courbePourPHE, veAffiche);
-    if (phE !== null) _dessinerPointEquivalence(ctx, veAffiche, phE, xScale, yScale, pad, H);
+    let phE = null;
+    if (_resultatTangentes && _resultatTangentes.Ve === veAffiche) {
+      phE = _resultatTangentes.pHE;
+    } else {
+      const courbePourPHE = _courbeActive();
+      phE = _interpoler(courbePourPHE, veAffiche);
+    }
+    if (phE !== null && phE !== undefined) _dessinerPointEquivalence(ctx, veAffiche, phE, xScale, yScale, pad, H);
   }
 
   _majComparaison();
@@ -453,20 +490,6 @@ function _joliPas(etendue) {
   const n = brut / ordre;
   const pas = n < 1.5 ? 1 : n < 3 ? 2 : n < 7 ? 5 : 10;
   return pas * ordre;
-}
-
-// ── Lissage léger pour l'affichage de la courbe expérimentale ──
-// (n'altère jamais les données réelles _mesures, uniquement le tracé)
-function _lisserAffichage(points, fenetre = 3) {
-  if (points.length < fenetre) return points;
-  const demi = Math.floor(fenetre / 2);
-  return points.map((p, i) => {
-    const debut = Math.max(0, i - demi);
-    const fin = Math.min(points.length - 1, i + demi);
-    let somme = 0, n = 0;
-    for (let k = debut; k <= fin; k++) { somme += points[k].ph; n++; }
-    return { v: p.v, ph: somme / n };
-  });
 }
 
 // ── Courbe théorique : gris clair, trait plein fin, sans marqueurs ──
@@ -482,22 +505,25 @@ function _tracerCourbeTheorique(ctx, points, xScale, yScale) {
   ctx.stroke();
 }
 
-// ── Courbe expérimentale : rouge pointillé légèrement lissé + marqueurs "+" ──
+// ── Courbe expérimentale : rouge pointillé, interpolée par spline de
+//    Catmull-Rom (courbe continue lisse, sans "droites brisées"),
+//    + marqueurs "+" placés exactement sur les points réellement mesurés ──
 function _tracerCourbeExperimentale(ctx, points, xScale, yScale) {
-  // ligne légèrement lissée
-  const lisses = _lisserAffichage(points, 3);
+  const dense = points.length >= 3 ? _catmullRomSpline(points, 24) : points;
+
   ctx.beginPath();
   ctx.strokeStyle = '#d60000';
   ctx.lineWidth = 2;
   ctx.setLineDash([6, 4]);
-  lisses.forEach((p, i) => {
+  ctx.lineJoin = 'round';
+  dense.forEach((p, i) => {
     const x = xScale(p.v), y = yScale(p.ph);
     i ? ctx.lineTo(x, y) : ctx.moveTo(x, y);
   });
   ctx.stroke();
   ctx.setLineDash([]);
 
-  // marqueurs "+" sur les points réellement mesurés
+  // marqueurs "+" sur les points réellement mesurés (données non modifiées)
   ctx.strokeStyle = '#d60000';
   ctx.lineWidth = 2;
   points.forEach(p => {
@@ -538,6 +564,10 @@ function _dessinerPointEquivalence(ctx, Ve, pHE, xScale, yScale, pad, H) {
   ctx.arc(x, y, 5, 0, 2 * Math.PI);
   ctx.fill();
 
+  ctx.font = 'bold 12px Arial';
+  ctx.fillStyle = '#000';
+  ctx.fillText('E', x + 8, y - 10);
+
   // libellés Ve et pHE
   ctx.font = 'bold 12px Arial';
   ctx.fillStyle = '#1565C0';
@@ -576,7 +606,7 @@ function _dessinerConductimetrie(ctx, xScale, vMin, vMax, pad, ch, H) {
 }
 
 // ══════════════════════════════════════════════════════════════
-// BLOC 3 — MÉTHODE DES TANGENTES
+// BLOC 3 — MÉTHODE DES TANGENTES PARALLÈLES
 // ══════════════════════════════════════════════════════════════
 function _regressionLineaire(points) {
   const n = points.length;
@@ -590,89 +620,158 @@ function _regressionLineaire(points) {
   return { m, b };
 }
 
-function _distancePointDroite(p, droite) {
-  const { m, b } = droite;
-  return Math.abs(m * p.v - p.ph + b) / Math.sqrt(m * m + 1);
-}
-
 function _calculerTangentes(courbe) {
-  // 1) localiser le point d'inflexion (plus forte pente locale)
+  if (courbe.length < 4) return null;
+
+  // Version dense (spline) pour repérer précisément l'inflexion et E
+  const dense = _catmullRomSpline(courbe, 30);
+
+  // 1) point d'inflexion = pente maximale sur la courbe dense
   let idxInflex = 1, maxPente = -Infinity;
-  for (let i = 1; i < courbe.length - 1; i++) {
-    const pente = Math.abs((courbe[i + 1].ph - courbe[i - 1].ph) / (courbe[i + 1].v - courbe[i - 1].v));
+  for (let i = 1; i < dense.length - 1; i++) {
+    const dV = dense[i + 1].v - dense[i - 1].v || 1e-9;
+    const pente = Math.abs((dense[i + 1].ph - dense[i - 1].ph) / dV);
     if (pente > maxPente) { maxPente = pente; idxInflex = i; }
   }
+  const vInflex = dense[idxInflex].v;
 
-  // 2) zones "avant" et "après" l'équivalence, en excluant une marge autour
-  const marge = Math.max(2, Math.round(courbe.length * 0.12));
-  const avant = courbe.slice(0, Math.max(2, idxInflex - marge));
-  const apres = courbe.slice(Math.min(courbe.length - 2, idxInflex + marge));
+  // 2) zones avant / après, avec marge d'exclusion en volume autour de l'équivalence
+  const etendue = (courbe[courbe.length - 1].v - courbe[0].v) || 1;
+  const marge = etendue * 0.15;
+  let avant = courbe.filter(p => p.v <= vInflex - marge);
+  let apres = courbe.filter(p => p.v >= vInflex + marge);
 
+  // repli si le jeu de mesures est trop court pour cette marge
+  if (avant.length < 2 || apres.length < 2) {
+    const mid = Math.floor(courbe.length / 2);
+    avant = courbe.slice(0, Math.max(2, mid - 1));
+    apres = courbe.slice(Math.min(courbe.length - 2, mid + 1));
+  }
   if (avant.length < 2 || apres.length < 2) return null;
 
-  const droite1 = _regressionLineaire(avant);
-  const droite2 = _regressionLineaire(apres);
-  if (!droite1 || !droite2) return null;
+  const reg1 = _regressionLineaire(avant);
+  const reg2 = _regressionLineaire(apres);
+  if (!reg1 || !reg2) return null;
 
-  // 3) Ve = point de la courbe équidistant des deux tangentes
-  //    (construction équivalente à la médiatrice perpendiculaire des deux tangentes parallèles)
-  let meilleurV = courbe[idxInflex].v, meilleurEcart = Infinity;
-  courbe.forEach(p => {
-    const d1 = _distancePointDroite(p, droite1);
-    const d2 = _distancePointDroite(p, droite2);
-    const ecart = Math.abs(d1 - d2);
-    if (ecart < meilleurEcart) { meilleurEcart = ecart; meilleurV = p.v; }
+  // 3) parallélisme imposé : pente commune = moyenne pondérée par le nb de points,
+  //    puis recalcul des ordonnées à l'origine à pente fixée (moindres carrés)
+  const mCommun = (reg1.m * avant.length + reg2.m * apres.length) / (avant.length + apres.length);
+  const b1 = avant.reduce((s, p) => s + (p.ph - mCommun * p.v), 0) / avant.length;
+  const b2 = apres.reduce((s, p) => s + (p.ph - mCommun * p.v), 0) / apres.length;
+  const droite1 = { m: mCommun, b: b1 };
+  const droite2 = { m: mCommun, b: b2 };
+
+  // 4) droite médiane (parallèle aux deux tangentes, à mi-distance) → E = intersection avec la courbe
+  const bMedian = (b1 + b2) / 2;
+  let meilleurIdx = idxInflex, meilleurEcart = Infinity;
+  dense.forEach((p, i) => {
+    const ecart = Math.abs(p.ph - (mCommun * p.v + bMedian));
+    if (ecart < meilleurEcart) { meilleurEcart = ecart; meilleurIdx = i; }
   });
+  const Ve = dense[meilleurIdx].v;
+  const pHE = dense[meilleurIdx].ph;
 
   const { Va, Cb } = _params;
-  const Ce = (Cb * meilleurV) / Va;
+  const Ce = (Cb * Ve) / Va;
 
-  return { Ve: meilleurV, Ce, droite1, droite2, avant, apres };
+  return { Ve, Ce, pHE, droite1, droite2, mCommun, avant, apres };
 }
 
-// ── Tangentes : noires, prolongées sur toute la largeur, trait continu ──
+// ── Tracé : deux tangentes parallèles + segment perpendiculaire passant
+//    par E + symboles d'angle droit (méthode "double équerre") ──
 function _dessinerTangentes(ctx, res, xScale, yScale, vMin, vMax) {
-  const tracerDroite = (droite, vDebut, vFin) => {
+  const tracerDroite = (droite) => {
     ctx.beginPath();
     ctx.strokeStyle = '#000';
     ctx.lineWidth = 1.8;
     ctx.setLineDash([]);
-    ctx.moveTo(xScale(vDebut), yScale(droite.m * vDebut + droite.b));
-    ctx.lineTo(xScale(vFin), yScale(droite.m * vFin + droite.b));
+    ctx.moveTo(xScale(vMin), yScale(droite.m * vMin + droite.b));
+    ctx.lineTo(xScale(vMax), yScale(droite.m * vMax + droite.b));
     ctx.stroke();
   };
-  tracerDroite(res.droite1, vMin, vMax);
-  tracerDroite(res.droite2, vMin, vMax);
-  // Le point d'équivalence (Ve/pHE) est désormais tracé par _dessinerPointEquivalence
+  tracerDroite(res.droite1);
+  tracerDroite(res.droite2);
+
+  // Direction écran commune aux deux parallèles (calculée en espace écran
+  // pour que la perpendiculaire soit visuellement correcte malgré les
+  // échelles différentes des axes V et pH)
+  const dv = (vMax - vMin) * 0.02 || 0.1;
+  const Ex = xScale(res.Ve), Ey = yScale(res.pHE);
+  const dirX = xScale(res.Ve + dv) - xScale(res.Ve - dv);
+  const dirY = yScale(res.pHE + res.mCommun * dv) - yScale(res.pHE - res.mCommun * dv);
+  const norm = Math.hypot(dirX, dirY) || 1;
+  const ux = dirX / norm, uy = dirY / norm;
+  const px = -uy, py = ux; // direction perpendiculaire, en espace écran
+
+  function intersectionEcran(droite) {
+    const anchorX = xScale(vMin);
+    const anchorY = yScale(droite.m * vMin + droite.b);
+    const denom = dirX * py - dirY * px;
+    if (Math.abs(denom) < 1e-9) return { x: Ex, y: Ey };
+    const t = ((Ex - anchorX) * py - (Ey - anchorY) * px) / denom;
+    return { x: anchorX + t * dirX, y: anchorY + t * dirY };
+  }
+
+  const P1 = intersectionEcran(res.droite1);
+  const P2 = intersectionEcran(res.droite2);
+
+  // Segment perpendiculaire reliant les deux tangentes, passant par E
+  ctx.beginPath();
+  ctx.strokeStyle = '#000';
+  ctx.lineWidth = 1.3;
+  ctx.setLineDash([4, 3]);
+  ctx.moveTo(P1.x, P1.y);
+  ctx.lineTo(P2.x, P2.y);
+  ctx.stroke();
+  ctx.setLineDash([]);
+
+  // Symboles d'angle droit aux deux points d'intersection
+  _dessinerAngleDroit(ctx, P1, P2, ux, uy, px, py);
+  _dessinerAngleDroit(ctx, P2, P1, ux, uy, px, py);
+}
+
+// Petit carré d'angle droit dessiné au point P, orienté vers `other`
+// (le long de la tangente et de la perpendiculaire, en espace écran).
+function _dessinerAngleDroit(ctx, P, other, ux, uy, px, py, taille = 9) {
+  const dx = other.x - P.x, dy = other.y - P.y;
+  const signU = (dx * ux + dy * uy) >= 0 ? 1 : -1;
+  const signP = (dx * px + dy * py) >= 0 ? 1 : -1;
+
+  const A = { x: P.x + ux * taille * signU, y: P.y + uy * taille * signU };
+  const C = { x: P.x + px * taille * signP, y: P.y + py * taille * signP };
+  const B = { x: A.x + px * taille * signP, y: A.y + py * taille * signP };
+
+  ctx.beginPath();
+  ctx.strokeStyle = '#000';
+  ctx.lineWidth = 1;
+  ctx.setLineDash([]);
+  ctx.moveTo(A.x, A.y);
+  ctx.lineTo(B.x, B.y);
+  ctx.lineTo(C.x, C.y);
+  ctx.stroke();
 }
 
 // ══════════════════════════════════════════════════════════════
-// BLOC 4 — MÉTHODE DES DÉRIVÉES
+// BLOC 4 — MÉTHODE DES DÉRIVÉES (calculée sur spline dense)
 // ══════════════════════════════════════════════════════════════
 function _calculerDerivee(courbe) {
-  const deriv = [{ v: courbe[0].v, d: 0 }];
-  for (let i = 1; i < courbe.length - 1; i++) {
-    const dV = courbe[i + 1].v - courbe[i - 1].v;
-    const dPh = courbe[i + 1].ph - courbe[i - 1].ph;
-    deriv.push({ v: courbe[i].v, d: dV ? dPh / dV : 0 });
-  }
-  deriv.push({ v: courbe[courbe.length - 1].v, d: 0 });
+  // Interpolation par spline avant dérivation : plusieurs centaines de
+  // points ⇒ pic net et précis, sans avoir besoin d'interpolation
+  // parabolique supplémentaire pour affiner Ve.
+  const dense = _catmullRomSpline(courbe, 25);
 
-  // recherche du maximum
+  const deriv = [{ v: dense[0].v, d: 0 }];
+  for (let i = 1; i < dense.length - 1; i++) {
+    const dV = dense[i + 1].v - dense[i - 1].v;
+    const dPh = dense[i + 1].ph - dense[i - 1].ph;
+    deriv.push({ v: dense[i].v, d: dV ? dPh / dV : 0 });
+  }
+  deriv.push({ v: dense[dense.length - 1].v, d: 0 });
+
+  // recherche du maximum (pic)
   let idx = 0, maxVal = -Infinity;
   deriv.forEach((p, i) => { if (p.d > maxVal) { maxVal = p.d; idx = i; } });
-
-  // interpolation parabolique pour affiner Ve (sous-résolution)
-  let Ve = deriv[idx].v;
-  if (idx > 0 && idx < deriv.length - 1) {
-    const y0 = deriv[idx - 1].d, y1 = deriv[idx].d, y2 = deriv[idx + 1].d;
-    const denom = (y0 - 2 * y1 + y2);
-    if (Math.abs(denom) > 1e-9) {
-      const offset = 0.5 * (y0 - y2) / denom;
-      const h = (deriv[idx + 1].v - deriv[idx - 1].v) / 2;
-      Ve = deriv[idx].v + offset * h;
-    }
-  }
+  const Ve = deriv[idx].v;
 
   const { Va, Cb } = _params;
   const Ce = (Cb * Ve) / Va;
@@ -712,11 +811,12 @@ function _dessinerCourbeDerivee(courbe, res) {
   ctx.fillText('ΔpH/ΔV', 4, pad.top + 8);
   ctx.fillText('VB (mL)', W - pad.right - 34, H - 8);
 
-  // courbe dérivée : violet
+  // courbe dérivée : violet, lisse (issue de la spline)
   ctx.beginPath();
   ctx.strokeStyle = '#5E35B1';
   ctx.lineWidth = 2.5;
   ctx.setLineDash([]);
+  ctx.lineJoin = 'round';
   res.courbeDerivee.forEach((p, i) => {
     const x = xScale(p.v), y = yScale(Math.max(p.d, 0));
     i ? ctx.lineTo(x, y) : ctx.moveTo(x, y);
