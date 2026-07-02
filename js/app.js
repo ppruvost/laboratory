@@ -100,7 +100,7 @@ function renderProductTable(data) {
         const srcProduit = !p.image ? ""
             : (p.image.startsWith('http') || p.image.startsWith('/') || p.image.includes('/')
                 ? p.image
-                : `assets/img/products/${p.image}`);
+                : `assets/img/${p.image}`);
         const visuelHTML = srcProduit
             ? `<img src="${srcProduit}" alt="${p.nom}"
                     style="width:48px;height:48px;object-fit:contain;border-radius:4px;"
