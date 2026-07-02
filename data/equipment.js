@@ -330,7 +330,7 @@ const laboratoryEquipment = [
         nom: "Balance Jeulin 701 277",
         description: "capacité 2 000 g max",
         lieu: "Salle B27 / étagère C2",
-        image:"",
+        image: "assets/img/equipments/balance_jeulin.png",
         categorie: "Dissolution",
         description: "Précision ± 1 g",
         noticeUtilisation: "assets/notice/balance_jeulin.pdf"
