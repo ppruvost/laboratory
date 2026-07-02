@@ -273,33 +273,29 @@
   padding: 2px;
 }
 
-/* ── Schéma de titrage ───────────────────────────────────────── */
-.schema-titrage {
-  border: 2px solid var(--gris-clair);
-  border-radius: var(--r-md);
-  padding: var(--gap-md);
-  background: var(--blanc-paillasse);
-  text-align: center;
-}
-.schema-titrage canvas { max-width: 100%; border-radius: var(--r-sm); }
-.schema-titrage .legende {
-  font-size: .8rem;
-  color: var(--gris-moyen);
-  margin-top: var(--gap-sm);
-  font-style: italic;
+/* ── Zone graphique de titrage ───────────────────────────── */
+
+.graphe-titrage{
+    position:relative;
+    width:100%;
+    min-height:420px;
 }
 
-#canvas-titrage,
-#canvas-derivee{
+#canvas-titrage{
     display:block;
     width:100% !important;
-    max-width:100%;
     height:400px !important;
 }
 
-.card canvas{
+#canvas-derivee{
     display:block;
-    width:100%;
+    width:100% !important;
+    height:180px !important;
+    margin-top:20px;
+}
+
+.card canvas{
+    max-width:100%;
 }
 /* ── Grille matériel ─────────────────────────────────────────── */
 .grille-materiel {
