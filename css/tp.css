@@ -948,3 +948,36 @@
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { transition: none !important; animation: none !important; }
 }
+
+/* ==========================================================
+   MODE OPÉRATOIRE
+========================================================== */
+
+.mode-op{
+    text-align:center;
+    padding:15px;
+}
+
+.mode-image{
+
+    display:block;
+
+    width:100%;
+
+    max-width:1450px;
+
+    margin:auto;
+
+    border-radius:12px;
+
+    background:white;
+
+    border:1px solid #d7d7d7;
+
+    box-shadow:0 4px 10px rgba(0,0,0,.15);
+
+}
+
+.hidden{
+    display:none;
+}
