@@ -157,7 +157,7 @@ function imgSrc(chemin) {
         return "../" + chemin;
     }
 
-    return "../tp-chimie/assets/img/" + chemin;
+    return "../tp-chimie/assets/images/" + chemin;
 }
 
 /* ==========================================================
