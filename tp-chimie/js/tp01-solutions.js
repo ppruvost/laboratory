@@ -151,6 +151,19 @@ function imgSrc(chemin) {
 }
 
 /* ==========================================================
+   OUTIL : gestion multi-catégories
+   ========================================================== */
+function appartientCategorie(produit, categorie) {
+
+    if (!produit.categorie) return false;
+
+    return Array.isArray(produit.categorie)
+        ? produit.categorie.includes(categorie)
+        : produit.categorie === categorie;
+}
+
+
+/* ==========================================================
    REACTIFS
    ========================================================== */
 function initReactifs() {
@@ -164,8 +177,8 @@ function initReactifs() {
     selectDis.innerHTML = '<option value="">-- Sélectionner un sel --</option>';
 
     products
-        .filter(p => p.categorie === "Sel")
-        .sort((a,b)=>a.nom.localeCompare(b.nom))
+        .filter(p => appartientCategorie(p, "Sel"))
+        .sort((a, b) => a.nom.localeCompare(b.nom))
         .forEach(p => {
 
             const opt = document.createElement("option");
@@ -189,6 +202,10 @@ function initReactifs() {
 
 }
 
+
+/* ==========================================================
+   REMPLISSAGE LISTE REACTIFS
+   ========================================================== */
 function remplirListeReactifs() {
 
     const select = $("reactif");
@@ -199,45 +216,40 @@ function remplirListeReactifs() {
     const categories = [...document.querySelectorAll(".filtre-cat:checked")]
         .map(cb => cb.value);
 
-    // Si rien n'est coché, la liste est vide
     if (categories.length === 0) {
-
-        select.innerHTML =
-            '<option value="">-- Aucun filtre sélectionné --</option>';
-
+        select.innerHTML = '<option value="">-- Aucun filtre sélectionné --</option>';
         return;
     }
 
     const valeur = select.value;
 
-    select.innerHTML =
-        '<option value="">-- Sélectionner --</option>';
+    select.innerHTML = '<option value="">-- Sélectionner --</option>';
 
     products
-    .filter(p => categories.includes(p.categorie))
-    .sort((a,b)=>a.nom.localeCompare(b.nom))
-    .forEach(p => {
+        .filter(p =>
+            categories.some(cat => appartientCategorie(p, cat))
+        )
+        .sort((a, b) => a.nom.localeCompare(b.nom))
+        .forEach(p => {
 
-        const option = document.createElement("option");
+            const option = document.createElement("option");
+            option.value = p.cas;
+            option.textContent = p.nom;
 
-        option.value = p.cas;
-        option.textContent = p.nom;
+            if (p.cas === valeur)
+                option.selected = true;
 
-        if (p.cas === valeur)
-            option.selected = true;
+            select.appendChild(option);
 
-        select.appendChild(option);
+        });
 
-    });
+    // si sélection invalide → premier élément
+    if (select.selectedIndex === -1 && select.options.length > 1) {
+        select.selectedIndex = 1;
+    }
 
-// Si l'ancien produit n'existe plus, sélectionner le premier
-if (select.selectedIndex === -1 && select.options.length > 1) {
-    select.selectedIndex = 1;
-}
-
-// Actualiser le bloc sécurité
-afficherSecurite();
-
+    // mise à jour sécurité
+    afficherSecurite();
 }
 /* ==========================================================
    SECURITE
