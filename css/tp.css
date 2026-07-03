@@ -1015,3 +1015,38 @@
 .hidden{
     display:none;
 }
+
+
+/* ==========================================================
+   AUTO EVALUATION ELEVE
+========================================================== */
+.autoeval-print {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 10px 0 20px 0;
+}
+
+.autoeval-print th,
+.autoeval-print td {
+  border: 1px solid #ccc;
+  padding: 6px;
+  font-size: 12px;
+  text-align: center;
+}
+
+.autoeval-print td:nth-child(3) {
+  text-align: left;
+}
+
+/* Radios */
+.autoeval-print input[type="radio"] {
+  transform: scale(1.1);
+  cursor: pointer;
+}
+
+/* Impression */
+@media print {
+  .autoeval-print input[type="radio"] {
+    transform: scale(1.2);
+  }
+}
