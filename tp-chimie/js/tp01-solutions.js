@@ -1,13 +1,3 @@
-/* ==========================================================
-   TP01 — PREPARATION DE SOLUTIONS
-   Impression via le module commun compte-rendu.js :
-   - dialogue sélection parties (Dissolution / Dilution)
-   - compétences évaluées APP / REA / ANA RAI / VAL / COM
-   - notation 0 / 1 / 2 par question
-   - encadré note /20 en fin de document
-   - pas de bloc signature
-   ========================================================== */
-
 import products            from "../../data/products.js";
 import dangerDB            from "../../data/dangerDB.js";
 import pictogrammes        from "../../data/pictogrammes.js";
