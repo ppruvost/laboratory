@@ -154,27 +154,86 @@ function imgSrc(chemin) {
    REACTIFS
    ========================================================== */
 function initReactifs() {
+
     const selectSec = $("reactif");
     const selectDis = $("reactif-dissolution");
+
     if (!selectSec || !selectDis) return;
 
-    selectSec.innerHTML = '<option value="">-- Sélectionner --</option>';
+    // Menu Dissolution : uniquement les sels
     selectDis.innerHTML = '<option value="">-- Sélectionner un sel --</option>';
 
-    products.forEach(p => {
-        const o1 = document.createElement("option");
-        o1.value = p.cas; o1.textContent = p.nom;
-        selectSec.appendChild(o1);
-        if (p.categorie === "Sel") {
-            const o2 = document.createElement("option");
-            o2.value = p.cas; o2.textContent = p.nom;
-            selectDis.appendChild(o2);
-        }
-    });
+    products
+        .filter(p => p.categorie === "Sel")
+        .sort((a,b)=>a.nom.localeCompare(b.nom))
+        .forEach(p => {
+
+            const opt = document.createElement("option");
+            opt.value = p.cas;
+            opt.textContent = p.nom;
+
+            selectDis.appendChild(opt);
+
+        });
+
+    // Construction du menu Sécurité
+    remplirListeReactifs();
+
+    // Evènements
     selectSec.addEventListener("change", afficherSecurite);
     selectDis.addEventListener("change", changerReactif);
+
+    document.querySelectorAll(".filtre-cat").forEach(cb => {
+        cb.addEventListener("change", remplirListeReactifs);
+    });
+
 }
 
+function remplirListeReactifs() {
+
+    const select = $("reactif");
+
+    if (!select) return;
+
+    // catégories cochées
+    const categories = [...document.querySelectorAll(".filtre-cat:checked")]
+        .map(cb => cb.value);
+
+    // Si rien n'est coché, la liste est vide
+    if (categories.length === 0) {
+
+        select.innerHTML =
+            '<option value="">-- Aucun filtre sélectionné --</option>';
+
+        return;
+    }
+
+    const valeur = select.value;
+
+    select.innerHTML =
+        '<option value="">-- Sélectionner --</option>';
+
+    products
+
+        .filter(p => categories.includes(p.categorie))
+
+        .sort((a,b)=>a.nom.localeCompare(b.nom))
+
+        .forEach(p => {
+
+            const option = document.createElement("option");
+
+            option.value = p.cas;
+            option.textContent = p.nom;
+
+            if (p.cas === valeur)
+                option.selected = true;
+
+            select.appendChild(option);
+
+        });
+
+}
 /* ==========================================================
    SECURITE
    ========================================================== */
