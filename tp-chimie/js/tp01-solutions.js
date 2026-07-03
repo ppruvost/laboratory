@@ -214,26 +214,29 @@ function remplirListeReactifs() {
         '<option value="">-- Sélectionner --</option>';
 
     products
+    .filter(p => categories.includes(p.categorie))
+    .sort((a,b)=>a.nom.localeCompare(b.nom))
+    .forEach(p => {
 
-        .filter(p => categories.includes(p.categorie))
+        const option = document.createElement("option");
 
-        .sort((a,b)=>a.nom.localeCompare(b.nom))
+        option.value = p.cas;
+        option.textContent = p.nom;
 
-        .forEach(p => {
+        if (p.cas === valeur)
+            option.selected = true;
 
-            const option = document.createElement("option");
+        select.appendChild(option);
 
-            option.value = p.cas;
-            option.textContent = p.nom;
+    });
 
-            if (p.cas === valeur)
-                option.selected = true;
+// Si l'ancien produit n'existe plus, sélectionner le premier
+if (select.selectedIndex === -1 && select.options.length > 1) {
+    select.selectedIndex = 1;
+}
 
-            select.appendChild(option);
-
-   afficherSecurite();
-
-        });
+// Actualiser le bloc sécurité
+afficherSecurite();
 
 }
 /* ==========================================================
