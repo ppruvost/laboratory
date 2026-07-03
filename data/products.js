@@ -1147,7 +1147,7 @@
     cas: "497-19-8",
     nom: "sodium carbonate",
     formule: "Na₂CO₃",
-    categorie: "Base / sel alcalin",
+    categorie: "Sel",
     localisation: "Salle B27 / étagère D1",
     pictogramme: ["SGH07_PointExclamation.jpg"],
     obligation: ["LUNETTES", "GANTS", "BLOUSE"],
