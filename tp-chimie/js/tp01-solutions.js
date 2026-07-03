@@ -231,6 +231,8 @@ function remplirListeReactifs() {
 
             select.appendChild(option);
 
+   afficherSecurite();
+
         });
 
 }
