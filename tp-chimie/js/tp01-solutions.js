@@ -656,3 +656,13 @@ function _lancerCompteRendu() {
         ],
     });
 }
+
+    /* ── AUTO ÉVALUATION ÉLÈVE ── */
+function getAutoEvalScores() {
+  const comps = ["APP", "ANA", "REA", "VAL", "COM"];
+
+  return comps.map(c => {
+    const checked = document.querySelector(`input[name="${c}"]:checked`);
+    return checked ? Number(checked.value) : null;
+  });
+}
