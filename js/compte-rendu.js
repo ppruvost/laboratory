@@ -199,33 +199,59 @@ function _construireEtImprimer(identite) {
     : '';
 
   // auto-évaluation (version PDF)
-  const autoEvalHTML = `
-    <div class="cr-section cr-auto-eval">
-      <h3>Auto-évaluation de l'élève</h3>
+  function _construireAutoEvaluation() {
+  const lignes = document.querySelectorAll('[data-type="auto-evaluation"] tbody tr');
+
+  let html = `
+    <div class="cr-auto-eval">
+      <h3>Auto-évaluation des compétences</h3>
 
       <table class="cr-auto-eval-table">
         <thead>
           <tr>
+            <th>Domaine</th>
+            <th>Sigle</th>
             <th>Compétence</th>
             <th>0</th>
             <th>1</th>
             <th>2</th>
           </tr>
         </thead>
-
         <tbody>
-          ${["APP", "ANA RAI", "REA", "VAL", "COM"].map(comp => `
-            <tr>
-              <td>${comp}</td>
-              <td><input type="radio" name="auto-${comp}" value="0"></td>
-              <td><input type="radio" name="auto-${comp}" value="1"></td>
-              <td><input type="radio" name="auto-${comp}" value="2"></td>
-            </tr>
-          `).join("")}
+  `;
+
+  lignes.forEach(tr => {
+    const comp = tr.dataset.comp;
+
+    const checked = document.querySelector(`input[name="${comp}"]:checked`);
+    const value = checked ? checked.value : null;
+
+    const cell = (v) => {
+      return v === value ? "✔" : "";
+    };
+
+    const tds = tr.querySelectorAll("td");
+
+    html += `
+      <tr>
+        <td>${tds[0].innerText}</td>
+        <td>${tds[1].innerText}</td>
+        <td>${tds[2].innerText}</td>
+        <td class="score">${cell("0")}</td>
+        <td class="score">${cell("1")}</td>
+        <td class="score">${cell("2")}</td>
+      </tr>
+    `;
+  });
+
+  html += `
         </tbody>
       </table>
     </div>
   `;
+
+  return html;
+}
 
   // barème
   const nbQuestions = sections.filter(s => s.notation).length;
