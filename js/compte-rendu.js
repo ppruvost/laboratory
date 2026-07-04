@@ -311,7 +311,7 @@ function _construireEtImprimer(identite) {
     ${materielHTML}
     ${sectionsHTML}
     ${graphiqueHTML}
-    ${autoEvalHTML}
+    ${_construireAutoEvaluation()}
     ${noteFinaleHTML}
     
 
