@@ -166,21 +166,149 @@ function _construireEtImprimer(identite) {
   }
 
   const dateFr = identite.date
-    ? new Date(identite.date + 'T00:00:00').toLocaleDateString('fr-FR', { day: '2-digit', month: 'long', year: 'numeric' })
+    ? new Date(identite.date + 'T00:00:00').toLocaleDateString('fr-FR', {
+        day: '2-digit',
+        month: 'long',
+        year: 'numeric'
+      })
     : '—';
 
-  // Filtrer les sections selon les groupes sélectionnés
+  // Filtrage des sections
   const sections = (_config.sections || []).filter(s => {
-    if (!s.groupe) return true;                               // pas de groupe = toujours incluse
-    if (!_groupesSelectionnes) return true;                   // pas de filtre = tout inclus
+    if (!s.groupe) return true;
+    if (!_groupesSelectionnes) return true;
     return _groupesSelectionnes.has(s.groupe);
   });
 
-// Matériel nécessaire 
+  // =========================
+  // MATÉRIEL (depuis page TP)
+  // =========================
   const materielHTML = _recupererMaterielDepuisLaPage();
 
-  function _recupererMaterielDepuisLaPage() {
+  // sections HTML
+  const sectionsHTML = sections.map(_rendreSection).join('');
 
+  // graphique
+  const graphiqueHTML = _config.canvas
+    ? `<div class="cr-section">
+         <h3>Graphique</h3>
+         <img class="cr-graphique"
+              src="${_config.canvas.toDataURL('image/png')}"
+              alt="Graphique du TP">
+       </div>`
+    : '';
+
+  // auto-évaluation (version PDF)
+  const autoEvalHTML = `
+    <div class="cr-section cr-auto-eval">
+      <h3>Auto-évaluation de l'élève</h3>
+
+      <table class="cr-auto-eval-table">
+        <thead>
+          <tr>
+            <th>Compétence</th>
+            <th>0</th>
+            <th>1</th>
+            <th>2</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          ${["APP", "ANA RAI", "REA", "VAL", "COM"].map(comp => `
+            <tr>
+              <td>${comp}</td>
+              <td><input type="radio" name="auto-${comp}" value="0"></td>
+              <td><input type="radio" name="auto-${comp}" value="1"></td>
+              <td><input type="radio" name="auto-${comp}" value="2"></td>
+            </tr>
+          `).join("")}
+        </tbody>
+      </table>
+    </div>
+  `;
+
+  // barème
+  const nbQuestions = sections.filter(s => s.notation).length;
+  const totalPts = nbQuestions * 2;
+
+  const noteFinaleHTML = (_config.noteFinale && nbQuestions > 0)
+    ? `
+    <div class="cr-note-finale">
+      <div class="cr-note-grille">
+        <div class="cr-note-bareme">
+          <span class="cr-note-label">Barème</span>
+          <span class="cr-note-val">${nbQuestions} questions × 2 pts = ${totalPts} pts</span>
+        </div>
+
+        <div class="cr-note-case">
+          <span class="cr-note-label">Total</span>
+          <span class="cr-note-blanc">/ ${totalPts}</span>
+        </div>
+
+        <div class="cr-note-case cr-note-grande">
+          <span class="cr-note-label">NOTE</span>
+          <span class="cr-note-blanc cr-note-grande-val">/ 20</span>
+        </div>
+      </div>
+    </div>`
+    : '';
+
+  // =========================
+  // RENDU FINAL
+  // =========================
+  conteneur.innerHTML = `
+    <div class="cr-entete">
+      <div class="cr-logo">
+        ${_logoSVG()}
+        <div class="cr-logo-texte">Sci<span>Lab</span></div>
+      </div>
+
+      <div class="cr-entete-droite">
+        Compte-rendu généré le ${new Date().toLocaleDateString('fr-FR')}<br>
+        Bac Pro — Sciences physiques et chimiques
+      </div>
+    </div>
+
+    <span class="cr-domaine-badge">
+      ${_echapper(_config.domaine || 'Sciences')} — ${_echapper(_config.tp || '')}
+    </span>
+
+    <div class="cr-titre-tp">${_echapper(_config.titre)}</div>
+
+    <div class="cr-identification">
+      <div><div class="cr-label">Nom</div><div class="cr-valeur">${_echapper(identite.nom)}</div></div>
+      <div><div class="cr-label">Prénom</div><div class="cr-valeur">${_echapper(identite.prenom)}</div></div>
+      <div><div class="cr-label">Classe</div><div class="cr-valeur">${_echapper(identite.classe)}</div></div>
+      <div><div class="cr-label">Date du TP</div><div class="cr-valeur">${dateFr}</div></div>
+    </div>
+
+    ${materielHTML}
+    ${sectionsHTML}
+    ${graphiqueHTML}
+    ${noteFinaleHTML}
+    ${autoEvalHTML}
+
+    <div class="cr-pied">
+      <span>SciLab — Travaux pratiques</span>
+      <span>${_echapper(_config.tp || '')} · ${_echapper(_config.domaine || '')}</span>
+    </div>
+  `;
+
+  document.body.classList.add('cr-printing');
+
+  const nettoyer = () => {
+    document.body.classList.remove('cr-printing');
+    window.removeEventListener('afterprint', nettoyer);
+  };
+
+  window.addEventListener('afterprint', nettoyer);
+  setTimeout(() => window.print(), 50);
+}
+
+// ____________________________________________________________________
+// Matériel sélectionné par l'élève
+//_____________________________________________________________________
+function _recupererMaterielDepuisLaPage() {
   const groupes = [
     { titre: "Verrerie", id: "materiel-verrerie" },
     { titre: "Équipements", id: "materiel-equipements" }
@@ -189,7 +317,6 @@ function _construireEtImprimer(identite) {
   let contenu = "";
 
   for (const groupe of groupes) {
-
     const bloc = document.getElementById(groupe.id);
     if (!bloc) continue;
 
@@ -220,108 +347,6 @@ function _construireEtImprimer(identite) {
     </div>
   `;
 }
-// ________________________
-  
-  const sectionsHTML = sections.map(_rendreSection).join('');
-
-  const graphiqueHTML = _config.canvas
-    ? `<div class="cr-section">
-         <h3>Graphique</h3>
-         <img class="cr-graphique" src="${_config.canvas.toDataURL('image/png')}" alt="Graphique du TP">
-       </div>`
-    : '';
-
-const autoEvalHTML = `
-  <div class="cr-section cr-auto-eval">
-    <h3>Auto-évaluation de l'élève</h3>
-
-    <table class="cr-auto-eval-table">
-      <thead>
-        <tr>
-          <th>Compétence</th>
-          <th>0</th>
-          <th>1</th>
-          <th>2</th>
-        </tr>
-      </thead>
-
-      <tbody>
-        ${["APP", "ANA RAI", "REA", "VAL", "COM"].map(comp => `
-          <tr>
-            <td>${comp}</td>
-            <td><input type="radio" name="auto-${comp}" value="0"></td>
-            <td><input type="radio" name="auto-${comp}" value="1"></td>
-            <td><input type="radio" name="auto-${comp}" value="2"></td>
-          </tr>
-        `).join("")}
-      </tbody>
-    </table>
-  </div>
-`;
-    
-  // Calcul du barème : compter les questions avec notation
-  const nbQuestions = sections.filter(s => s.notation).length;
-  const totalPts    = nbQuestions * 2;   // 2 pts par question
-
-  const noteFinaleHTML = (_config.noteFinale && nbQuestions > 0) ? `
-    <div class="cr-note-finale">
-      <div class="cr-note-grille">
-        <div class="cr-note-bareme">
-          <span class="cr-note-label">Barème</span>
-          <span class="cr-note-val">${nbQuestions} questions × 2 pts = ${totalPts} pts</span>
-        </div>
-        <div class="cr-note-case">
-          <span class="cr-note-label">Total points</span>
-          <span class="cr-note-blanc">      / ${totalPts}</span>
-        </div>
-        <div class="cr-note-case cr-note-grande">
-          <span class="cr-note-label">NOTE</span>
-          <span class="cr-note-blanc cr-note-grande-val">      / 20</span>
-        </div>
-      </div>
-    </div>` : '';
-
-
-
-  conteneur.innerHTML = `
-    <div class="cr-entete">
-      <div class="cr-logo">
-        ${_logoSVG()}
-        <div class="cr-logo-texte">Sci<span>Lab</span></div>
-      </div>
-      <div class="cr-entete-droite">
-        Compte-rendu généré le ${new Date().toLocaleDateString('fr-FR')}<br>
-        Bac Pro — Sciences physiques et chimiques
-      </div>
-    </div>
-
-    <span class="cr-domaine-badge">${_echapper(_config.domaine || 'Sciences')} — ${_echapper(_config.tp || '')}</span>
-    <div class="cr-titre-tp">${_echapper(_config.titre)}</div>
-
-    <div class="cr-identification">
-      <div><div class="cr-label">Nom</div><div class="cr-valeur">${_echapper(identite.nom)}</div></div>
-      <div><div class="cr-label">Prénom</div><div class="cr-valeur">${_echapper(identite.prenom)}</div></div>
-      <div><div class="cr-label">Classe</div><div class="cr-valeur">${_echapper(identite.classe)}</div></div>
-      <div><div class="cr-label">Date du TP</div><div class="cr-valeur">${dateFr}</div></div>
-    </div>
-
-    ${materielHTML}
-    ${sectionsHTML}
-    ${graphiqueHTML}
-    ${noteFinaleHTML}
-    ${autoEvalHTML}
-   
-    <div class="cr-pied">
-      <span>SciLab — Travaux pratiques</span>
-      <span>${_echapper(_config.tp || '')} · ${_echapper(_config.domaine || '')}</span>
-    </div>`;
-
-  document.body.classList.add('cr-printing');
-  const nettoyer = () => { document.body.classList.remove('cr-printing'); window.removeEventListener('afterprint', nettoyer); };
-  window.addEventListener('afterprint', nettoyer);
-  setTimeout(() => window.print(), 50);
-}
-
 // ══════════════════════════════════════════════════════════════
 // RENDU D'UNE SECTION
 // Types : items (tableau), texte+competence+notation, texte libre
