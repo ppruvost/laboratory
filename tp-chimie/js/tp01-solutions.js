@@ -666,3 +666,138 @@ function getAutoEvalScores() {
     return checked ? Number(checked.value) : null;
   });
 }
+
+/* ==========================================================
+   AUTO-EVALUATION : RADAR
+   ========================================================== */
+
+let radarCanvas = null;
+
+function initRadarCompetences() {
+
+    const btn = document.getElementById("btn-radar");
+    if (!btn) return;
+
+    btn.addEventListener("click", afficherRadarCompetences);
+
+    // Mise à jour automatique lorsqu'une note change
+    document
+        .querySelectorAll('[data-type="auto-evaluation"] input[type="radio"]')
+        .forEach(radio => {
+            radio.addEventListener("change", afficherRadarCompetences);
+        });
+}
+
+function afficherRadarCompetences() {
+
+    const zone = document.getElementById("radar-resultat");
+    if (!zone) return;
+
+    const scores = getAutoEvalScores().map(v => v ?? 0);
+
+    zone.innerHTML = `
+        <canvas id="canvasRadarCompetences"
+                width="420"
+                height="420">
+        </canvas>
+    `;
+
+    const canvas = document.getElementById("canvasRadarCompetences");
+
+    if (!canvas) return;
+
+    const ctx = canvas.getContext("2d");
+
+    dessinerRadar(ctx, scores);
+}
+
+function dessinerRadar(ctx, valeurs) {
+
+    const labels = ["APP", "ANA", "REA", "VAL", "COM"];
+
+    const largeur = ctx.canvas.width;
+    const hauteur = ctx.canvas.height;
+
+    const cx = largeur / 2;
+    const cy = hauteur / 2;
+
+    const rayon = 140;
+
+    ctx.clearRect(0,0,largeur,hauteur);
+
+    // cercles
+
+    for(let niveau=1;niveau<=2;niveau++){
+
+        ctx.beginPath();
+
+        for(let i=0;i<labels.length;i++){
+
+            const angle = -Math.PI/2 + i*2*Math.PI/labels.length;
+
+            const r = rayon*(niveau/2);
+
+            const x = cx + Math.cos(angle)*r;
+            const y = cy + Math.sin(angle)*r;
+
+            if(i===0) ctx.moveTo(x,y);
+            else ctx.lineTo(x,y);
+        }
+
+        ctx.closePath();
+        ctx.strokeStyle="#cccccc";
+        ctx.stroke();
+    }
+
+    // axes
+
+    for(let i=0;i<labels.length;i++){
+
+        const angle = -Math.PI/2 + i*2*Math.PI/labels.length;
+
+        const x = cx + Math.cos(angle)*rayon;
+        const y = cy + Math.sin(angle)*rayon;
+
+        ctx.beginPath();
+        ctx.moveTo(cx,cy);
+        ctx.lineTo(x,y);
+        ctx.strokeStyle="#888";
+        ctx.stroke();
+
+        ctx.fillStyle="#000";
+        ctx.font="15px Arial";
+
+        ctx.fillText(
+            labels[i],
+            cx + Math.cos(angle)*(rayon+20)-12,
+            cy + Math.sin(angle)*(rayon+20)+5
+        );
+    }
+
+    // polygone des notes
+
+    ctx.beginPath();
+
+    valeurs.forEach((v,i)=>{
+
+        const angle = -Math.PI/2 + i*2*Math.PI/labels.length;
+
+        const r = rayon*(v/2);
+
+        const x = cx + Math.cos(angle)*r;
+        const y = cy + Math.sin(angle)*r;
+
+        if(i===0) ctx.moveTo(x,y);
+        else ctx.lineTo(x,y);
+
+    });
+
+    ctx.closePath();
+
+    ctx.fillStyle="rgba(27,108,168,0.35)";
+    ctx.fill();
+
+    ctx.strokeStyle="#1B6CA8";
+    ctx.lineWidth=3;
+    ctx.stroke();
+}
