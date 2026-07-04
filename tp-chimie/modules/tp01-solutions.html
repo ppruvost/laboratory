@@ -665,6 +665,97 @@
     </ol>
   </div>
 </div>
+
+
+<!-- ====================================================== -->
+<!-- AUTO-EVALUATION ELEVE                                   -->
+<!-- ====================================================== -->
+
+<div class="section" data-type="auto-evaluation">
+
+  <div class="section-titre">
+    <div class="picto-section">📡</div>
+    <h2>Auto-évaluation des compétences</h2>
+    <span class="chevron">▼</span>
+  </div>
+
+  <div class="section-corps">
+
+    <table class="tableau-resultats autoeval-table">
+      <thead>
+        <tr>
+          <th>Domaine</th>
+          <th>Sigle</th>
+          <th>Je sais faire…</th>
+          <th>0</th>
+          <th>1</th>
+          <th>2</th>
+        </tr>
+      </thead>
+
+      <tbody>
+
+        <tr data-comp="APP">
+          <td>S’approprier</td>
+          <td>APP</td>
+          <td>Identifier la question, repérer les données utiles.</td>
+          <td><input type="radio" name="APP" value="0"></td>
+          <td><input type="radio" name="APP" value="1"></td>
+          <td><input type="radio" name="APP" value="2"></td>
+        </tr>
+
+        <tr data-comp="ANA">
+          <td>Analyser / Raisonner</td>
+          <td>ANA / RAI</td>
+          <td>Choisir une méthode, proposer une hypothèse.</td>
+          <td><input type="radio" name="ANA" value="0"></td>
+          <td><input type="radio" name="ANA" value="1"></td>
+          <td><input type="radio" name="ANA" value="2"></td>
+        </tr>
+
+        <tr data-comp="REA">
+          <td>Réaliser</td>
+          <td>REA</td>
+          <td>Mettre en œuvre le protocole, mesurer correctement.</td>
+          <td><input type="radio" name="REA" value="0"></td>
+          <td><input type="radio" name="REA" value="1"></td>
+          <td><input type="radio" name="REA" value="2"></td>
+        </tr>
+
+        <tr data-comp="VAL">
+          <td>Valider</td>
+          <td>VAL</td>
+          <td>Vérifier la cohérence des résultats.</td>
+          <td><input type="radio" name="VAL" value="0"></td>
+          <td><input type="radio" name="VAL" value="1"></td>
+          <td><input type="radio" name="VAL" value="2"></td>
+        </tr>
+
+        <tr data-comp="COM">
+          <td>Communiquer</td>
+          <td>COM</td>
+          <td>Rendre compte avec un vocabulaire scientifique adapté.</td>
+          <td><input type="radio" name="COM" value="0"></td>
+          <td><input type="radio" name="COM" value="1"></td>
+          <td><input type="radio" name="COM" value="2"></td>
+        </tr>
+
+      </tbody>
+    </table>
+
+    <br>
+
+    <!-- BOUTON RADAR -->
+    <div class="radar-actions">
+      <button id="btn-radar" class="btn btn-primaire">
+        📊 Générer mon radar de compétences
+      </button>
+
+      <div id="radar-resultat" style="margin-top:15px;"></div>
+    </div>
+
+  </div>
+</div>
 <!-- ====================================================== -->
 <!-- NAVIGATION                                              -->
 <!-- ====================================================== -->
