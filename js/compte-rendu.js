@@ -262,8 +262,8 @@ const autoEvalHTML = `
     ${sectionsHTML}
     ${graphiqueHTML}
     ${noteFinaleHTML}
-    ${signatureHTML}
-
+    ${autoEvalHTML}
+   
     <div class="cr-pied">
       <span>SciLab — Travaux pratiques</span>
       <span>${_echapper(_config.tp || '')} · ${_echapper(_config.domaine || '')}</span>
