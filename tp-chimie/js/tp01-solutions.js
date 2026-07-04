@@ -34,6 +34,7 @@ export function init() {
     initResultats();
     initBalanceErreurs();
     initBoutonImpressionCR();
+    initRadarCompetences();
 }
 
 if (document.readyState === "loading") {
