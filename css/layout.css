@@ -1,0 +1,782 @@
+/* ============================================================================
+   SCILAB — layout.css
+   Composants communs de la plateforme (dépend des tokens de global.css).
+   Sommaire :
+     1. Structure de page & conteneurs
+     2. Navigation SPA (navigation.js)
+     3. En-tête de TP (.tp-header)
+     4. Cartes (.card)
+     5. Accordéon
+     6. Boutons
+     7. Formulaires & champs
+     8. Tableaux (mesures, matériel)
+     9. Badges de compétences
+    10. Blocs de notation 0/1/2
+    11. Modales (compte-rendu, identification élève)
+    12. Toasts / alertes
+    13. Onglets
+    14. Zone de graphe (canvas)
+    15. Utilitaires de mise en page
+   ============================================================================ */
+
+/* ----------------------------------------------------------------------------
+   1. STRUCTURE DE PAGE & CONTENEURS
+   ---------------------------------------------------------------------------- */
+#app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.container {
+  width: 100%;
+  max-width: var(--scilab-container-max);
+  margin-inline: auto;
+  padding-inline: var(--scilab-container-padding);
+}
+
+main.tp-content {
+  flex: 1;
+  padding-block: var(--scilab-space-6);
+}
+
+.section {
+  margin-bottom: var(--scilab-space-6);
+}
+
+/* ----------------------------------------------------------------------------
+   2. NAVIGATION SPA
+   ---------------------------------------------------------------------------- */
+.scilab-nav {
+  position: sticky;
+  top: 0;
+  z-index: var(--scilab-z-header);
+  background: var(--scilab-bg-header);
+  color: var(--scilab-text-inverse);
+  box-shadow: var(--scilab-shadow-sm);
+}
+
+.scilab-nav__bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--scilab-space-4);
+  padding-block: var(--scilab-space-3);
+}
+
+.scilab-nav__brand {
+  display: flex;
+  align-items: center;
+  gap: var(--scilab-space-2);
+  font-weight: var(--scilab-fw-bold);
+  font-size: var(--scilab-fs-md);
+  color: var(--scilab-text-inverse);
+  text-decoration: none;
+}
+
+.scilab-nav__brand img {
+  height: 32px;
+  width: auto;
+}
+
+.scilab-nav__links {
+  display: flex;
+  gap: var(--scilab-space-2);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.scilab-nav__link {
+  display: inline-block;
+  padding: var(--scilab-space-2) var(--scilab-space-3);
+  border-radius: var(--scilab-radius-md);
+  color: var(--scilab-blue-100);
+  text-decoration: none;
+  font-size: var(--scilab-fs-sm);
+  transition: background var(--scilab-transition-fast);
+}
+
+.scilab-nav__link:hover {
+  background: rgba(255, 255, 255, 0.10);
+  color: var(--scilab-white);
+}
+
+.scilab-nav__link[aria-current="page"] {
+  background: var(--scilab-blue-600);
+  color: var(--scilab-white);
+  font-weight: var(--scilab-fw-medium);
+}
+
+.scilab-nav__toggle {
+  display: none;
+}
+
+/* ----------------------------------------------------------------------------
+   3. EN-TÊTE DE TP — .tp-header (composant standardisé, cf. TP01/TP03)
+   ---------------------------------------------------------------------------- */
+.tp-header {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: var(--scilab-space-5);
+  background: var(--scilab-bg-surface);
+  border: var(--scilab-border-width) solid var(--scilab-border);
+  border-left: 6px solid var(--scilab-primary);
+  border-radius: var(--scilab-radius-lg);
+  padding: var(--scilab-space-5);
+  margin-bottom: var(--scilab-space-6);
+  box-shadow: var(--scilab-shadow-sm);
+}
+
+.tp-header__badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  border-radius: var(--scilab-radius-full);
+  background: var(--scilab-primary-light);
+  color: var(--scilab-primary);
+  font-weight: var(--scilab-fw-bold);
+  font-size: var(--scilab-fs-lg);
+  flex-shrink: 0;
+}
+
+.tp-header__body h1 {
+  font-size: var(--scilab-fs-xl);
+  margin-bottom: var(--scilab-space-1);
+}
+
+.tp-header__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--scilab-space-2) var(--scilab-space-4);
+  color: var(--scilab-text-secondary);
+  font-size: var(--scilab-fs-sm);
+}
+
+.tp-header__meta-item {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--scilab-space-1);
+}
+
+.tp-header__actions {
+  display: flex;
+  gap: var(--scilab-space-2);
+  flex-shrink: 0;
+}
+
+/* ----------------------------------------------------------------------------
+   4. CARTES
+   ---------------------------------------------------------------------------- */
+.card {
+  background: var(--scilab-bg-surface);
+  border: var(--scilab-border-width) solid var(--scilab-border);
+  border-radius: var(--scilab-radius-lg);
+  padding: var(--scilab-space-5);
+  box-shadow: var(--scilab-shadow-sm);
+  transition: box-shadow var(--scilab-transition-base), transform var(--scilab-transition-base);
+}
+
+.card:hover {
+  box-shadow: var(--scilab-shadow-md);
+}
+
+.card--interactive {
+  cursor: pointer;
+}
+
+.card--interactive:hover {
+  transform: translateY(-2px);
+}
+
+.card__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--scilab-space-4);
+  padding-bottom: var(--scilab-space-3);
+  border-bottom: var(--scilab-border-width) solid var(--scilab-border);
+}
+
+.card__title {
+  font-size: var(--scilab-fs-md);
+  font-weight: var(--scilab-fw-bold);
+  margin: 0;
+}
+
+.card__body {
+  color: var(--scilab-text-secondary);
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: var(--scilab-space-4);
+}
+
+/* ----------------------------------------------------------------------------
+   5. ACCORDÉON
+   ---------------------------------------------------------------------------- */
+.accordion {
+  border: var(--scilab-border-width) solid var(--scilab-border);
+  border-radius: var(--scilab-radius-md);
+  overflow: hidden;
+  margin-bottom: var(--scilab-space-4);
+}
+
+.accordion__item + .accordion__item {
+  border-top: var(--scilab-border-width) solid var(--scilab-border);
+}
+
+.accordion__trigger {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--scilab-space-3);
+  padding: var(--scilab-space-4);
+  background: var(--scilab-bg-surface-2);
+  border: none;
+  text-align: left;
+  cursor: pointer;
+  font-weight: var(--scilab-fw-medium);
+  font-size: var(--scilab-fs-base);
+  color: var(--scilab-text-primary);
+}
+
+.accordion__trigger:hover {
+  background: var(--scilab-blue-100);
+}
+
+.accordion__icon {
+  transition: transform var(--scilab-transition-base);
+  flex-shrink: 0;
+}
+
+.accordion__trigger[aria-expanded="true"] .accordion__icon {
+  transform: rotate(180deg);
+}
+
+.accordion__panel {
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height var(--scilab-transition-slow);
+  background: var(--scilab-bg-surface);
+}
+
+.accordion__panel[data-open="true"] {
+  max-height: none;
+}
+
+.accordion__panel-inner {
+  padding: var(--scilab-space-4) var(--scilab-space-5);
+}
+
+/* ----------------------------------------------------------------------------
+   6. BOUTONS
+   ---------------------------------------------------------------------------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--scilab-space-2);
+  padding: var(--scilab-space-2) var(--scilab-space-4);
+  border-radius: var(--scilab-radius-md);
+  border: var(--scilab-border-width) solid transparent;
+  font-size: var(--scilab-fs-sm);
+  font-weight: var(--scilab-fw-medium);
+  cursor: pointer;
+  transition: background var(--scilab-transition-fast), border-color var(--scilab-transition-fast), color var(--scilab-transition-fast);
+  text-decoration: none;
+  line-height: 1;
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.btn--primary {
+  background: var(--scilab-primary);
+  color: var(--scilab-text-inverse);
+}
+
+.btn--primary:hover:not(:disabled) {
+  background: var(--scilab-primary-hover);
+}
+
+.btn--primary:active:not(:disabled) {
+  background: var(--scilab-primary-active);
+}
+
+.btn--secondary {
+  background: var(--scilab-bg-surface);
+  border-color: var(--scilab-border-strong);
+  color: var(--scilab-text-primary);
+}
+
+.btn--secondary:hover:not(:disabled) {
+  background: var(--scilab-gray-100);
+}
+
+.btn--ghost {
+  background: transparent;
+  color: var(--scilab-primary);
+}
+
+.btn--ghost:hover:not(:disabled) {
+  background: var(--scilab-primary-light);
+}
+
+.btn--danger {
+  background: var(--scilab-danger);
+  color: var(--scilab-white);
+}
+
+.btn--sm {
+  padding: var(--scilab-space-1) var(--scilab-space-3);
+  font-size: var(--scilab-fs-xs);
+}
+
+.btn--lg {
+  padding: var(--scilab-space-3) var(--scilab-space-5);
+  font-size: var(--scilab-fs-base);
+}
+
+.btn--icon {
+  padding: var(--scilab-space-2);
+  aspect-ratio: 1;
+}
+
+.btn-group {
+  display: inline-flex;
+  gap: var(--scilab-space-2);
+}
+
+/* ----------------------------------------------------------------------------
+   7. FORMULAIRES & CHAMPS
+   ---------------------------------------------------------------------------- */
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--scilab-space-1);
+  margin-bottom: var(--scilab-space-4);
+}
+
+.field__label {
+  font-size: var(--scilab-fs-sm);
+  font-weight: var(--scilab-fw-medium);
+  color: var(--scilab-text-secondary);
+}
+
+.field__hint {
+  font-size: var(--scilab-fs-xs);
+  color: var(--scilab-text-muted);
+}
+
+.input, .select, .textarea {
+  padding: var(--scilab-space-2) var(--scilab-space-3);
+  border: var(--scilab-border-width) solid var(--scilab-border-strong);
+  border-radius: var(--scilab-radius-sm);
+  background: var(--scilab-bg-surface);
+  color: var(--scilab-text-primary);
+  transition: border-color var(--scilab-transition-fast), box-shadow var(--scilab-transition-fast);
+}
+
+.input:focus, .select:focus, .textarea:focus {
+  border-color: var(--scilab-border-focus);
+  box-shadow: 0 0 0 3px var(--scilab-blue-100);
+  outline: none;
+}
+
+.input--invalid {
+  border-color: var(--scilab-danger);
+}
+
+.form-row {
+  display: flex;
+  gap: var(--scilab-space-4);
+  flex-wrap: wrap;
+}
+
+.form-row > .field {
+  flex: 1;
+  min-width: 180px;
+}
+
+fieldset.form-group {
+  border: var(--scilab-border-width) solid var(--scilab-border);
+  border-radius: var(--scilab-radius-md);
+  padding: var(--scilab-space-4);
+  margin-bottom: var(--scilab-space-4);
+}
+
+fieldset.form-group legend {
+  padding-inline: var(--scilab-space-2);
+  font-weight: var(--scilab-fw-medium);
+  color: var(--scilab-primary);
+}
+
+/* ----------------------------------------------------------------------------
+   8. TABLEAUX (mesures, matériel)
+   ---------------------------------------------------------------------------- */
+.table-wrap {
+  overflow-x: auto;
+  border: var(--scilab-border-width) solid var(--scilab-border);
+  border-radius: var(--scilab-radius-md);
+}
+
+table.scilab-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--scilab-fs-sm);
+}
+
+.scilab-table thead th {
+  background: var(--scilab-bg-header);
+  color: var(--scilab-text-inverse);
+  text-align: left;
+  padding: var(--scilab-space-3);
+  font-weight: var(--scilab-fw-medium);
+  position: sticky;
+  top: 0;
+}
+
+.scilab-table tbody td {
+  padding: var(--scilab-space-3);
+  border-top: var(--scilab-border-width) solid var(--scilab-border);
+}
+
+.scilab-table tbody tr:nth-child(even) {
+  background: var(--scilab-bg-surface-2);
+}
+
+.scilab-table tbody tr:hover {
+  background: var(--scilab-blue-100);
+}
+
+.scilab-table td input.input {
+  width: 100%;
+  min-width: 60px;
+  text-align: center;
+}
+
+.scilab-table .table-caption {
+  caption-side: top;
+  text-align: left;
+  padding: var(--scilab-space-2) var(--scilab-space-3);
+  font-size: var(--scilab-fs-xs);
+  color: var(--scilab-text-muted);
+}
+
+/* Tableau matériel : icônes + libellé */
+.equipment-table td.equipment-cell {
+  display: flex;
+  align-items: center;
+  gap: var(--scilab-space-3);
+}
+
+.equipment-table img.equipment-icon {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+}
+
+/* ----------------------------------------------------------------------------
+   9. BADGES DE COMPÉTENCES (APP / REA / ANA-RAI / VAL / COM)
+   ---------------------------------------------------------------------------- */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--scilab-space-1);
+  padding: var(--scilab-space-1) var(--scilab-space-2);
+  border-radius: var(--scilab-radius-sm);
+  font-size: var(--scilab-fs-xs);
+  font-weight: var(--scilab-fw-bold);
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.badge--app { background: var(--scilab-badge-app-bg); color: var(--scilab-badge-app-fg); }
+.badge--rea { background: var(--scilab-badge-rea-bg); color: var(--scilab-badge-rea-fg); }
+.badge--ana { background: var(--scilab-badge-ana-bg); color: var(--scilab-badge-ana-fg); }
+.badge--val { background: var(--scilab-badge-val-bg); color: var(--scilab-badge-val-fg); }
+.badge--com { background: var(--scilab-badge-com-bg); color: var(--scilab-badge-com-fg); }
+
+.badge-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--scilab-space-1);
+}
+
+/* ----------------------------------------------------------------------------
+   10. BLOCS DE NOTATION 0 / 1 / 2
+   ---------------------------------------------------------------------------- */
+.notation {
+  display: inline-flex;
+  border-radius: var(--scilab-radius-sm);
+  overflow: hidden;
+  border: var(--scilab-border-width) solid var(--scilab-border-strong);
+}
+
+.notation__option {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--scilab-fs-sm);
+  font-weight: var(--scilab-fw-bold);
+  cursor: pointer;
+  background: var(--scilab-bg-surface);
+  color: var(--scilab-text-muted);
+  border-right: var(--scilab-border-width) solid var(--scilab-border);
+}
+
+.notation__option:last-child {
+  border-right: none;
+}
+
+.notation__option[data-value="0"][aria-checked="true"] {
+  background: var(--scilab-note-0-bg);
+  color: var(--scilab-note-0-fg);
+}
+
+.notation__option[data-value="1"][aria-checked="true"] {
+  background: var(--scilab-note-1-bg);
+  color: var(--scilab-note-1-fg);
+}
+
+.notation__option[data-value="2"][aria-checked="true"] {
+  background: var(--scilab-note-2-bg);
+  color: var(--scilab-note-2-fg);
+}
+
+.question-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--scilab-space-4);
+  padding: var(--scilab-space-3) 0;
+  border-bottom: var(--scilab-border-width) solid var(--scilab-border);
+}
+
+.question-row__label {
+  font-weight: var(--scilab-fw-medium);
+}
+
+/* ----------------------------------------------------------------------------
+   11. MODALES (compte-rendu : sélection sections -> identification élève)
+   ---------------------------------------------------------------------------- */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 30, 61, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: var(--scilab-z-modal);
+  padding: var(--scilab-space-4);
+}
+
+.modal {
+  background: var(--scilab-bg-surface);
+  border-radius: var(--scilab-radius-lg);
+  box-shadow: var(--scilab-shadow-lg);
+  width: 100%;
+  max-width: 520px;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.modal__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--scilab-space-4) var(--scilab-space-5);
+  border-bottom: var(--scilab-border-width) solid var(--scilab-border);
+}
+
+.modal__title {
+  margin: 0;
+  font-size: var(--scilab-fs-md);
+}
+
+.modal__close {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--scilab-text-muted);
+}
+
+.modal__body {
+  padding: var(--scilab-space-5);
+}
+
+.modal__footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--scilab-space-2);
+  padding: var(--scilab-space-4) var(--scilab-space-5);
+  border-top: var(--scilab-border-width) solid var(--scilab-border);
+}
+
+.modal__steps {
+  display: flex;
+  gap: var(--scilab-space-2);
+  margin-bottom: var(--scilab-space-4);
+}
+
+.modal__step-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: var(--scilab-radius-full);
+  background: var(--scilab-border-strong);
+}
+
+.modal__step-dot[data-active="true"] {
+  background: var(--scilab-primary);
+}
+
+/* ----------------------------------------------------------------------------
+   12. TOASTS / ALERTES
+   ---------------------------------------------------------------------------- */
+.alert {
+  display: flex;
+  gap: var(--scilab-space-3);
+  align-items: flex-start;
+  padding: var(--scilab-space-3) var(--scilab-space-4);
+  border-radius: var(--scilab-radius-md);
+  border: var(--scilab-border-width) solid var(--scilab-border);
+  font-size: var(--scilab-fs-sm);
+  margin-bottom: var(--scilab-space-4);
+}
+
+.alert--info    { background: var(--scilab-blue-050);   border-color: var(--scilab-blue-200); color: var(--scilab-blue-900); }
+.alert--success { background: var(--scilab-success-bg); border-color: var(--scilab-success); color: var(--scilab-success); }
+.alert--warning { background: var(--scilab-warning-bg); border-color: var(--scilab-warning); color: var(--scilab-warning); }
+.alert--danger  { background: var(--scilab-danger-bg);  border-color: var(--scilab-danger);  color: var(--scilab-danger); }
+
+.toast-stack {
+  position: fixed;
+  bottom: var(--scilab-space-5);
+  right: var(--scilab-space-5);
+  z-index: var(--scilab-z-toast);
+  display: flex;
+  flex-direction: column;
+  gap: var(--scilab-space-2);
+}
+
+.toast {
+  min-width: 260px;
+  box-shadow: var(--scilab-shadow-md);
+  animation: scilab-toast-in var(--scilab-transition-base);
+}
+
+@keyframes scilab-toast-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ----------------------------------------------------------------------------
+   13. ONGLETS
+   ---------------------------------------------------------------------------- */
+.tabs__list {
+  display: flex;
+  gap: var(--scilab-space-1);
+  border-bottom: var(--scilab-border-width-thick) solid var(--scilab-border);
+  margin-bottom: var(--scilab-space-4);
+}
+
+.tabs__trigger {
+  padding: var(--scilab-space-2) var(--scilab-space-4);
+  background: none;
+  border: none;
+  border-bottom: var(--scilab-border-width-thick) solid transparent;
+  margin-bottom: -2px;
+  cursor: pointer;
+  color: var(--scilab-text-secondary);
+  font-weight: var(--scilab-fw-medium);
+}
+
+.tabs__trigger[aria-selected="true"] {
+  color: var(--scilab-primary);
+  border-bottom-color: var(--scilab-primary);
+}
+
+/* ----------------------------------------------------------------------------
+   14. ZONE DE GRAPHE (canvas pH / titrage)
+   ---------------------------------------------------------------------------- */
+.graph-panel {
+  display: grid;
+  grid-template-columns: 1fr 260px;
+  gap: var(--scilab-space-4);
+}
+
+.graph-canvas-wrap {
+  position: relative;
+  background: var(--scilab-bg-surface);
+  border: var(--scilab-border-width) solid var(--scilab-border);
+  border-radius: var(--scilab-radius-md);
+  overflow: hidden;
+}
+
+.graph-canvas-wrap canvas {
+  width: 100%;
+  height: auto;
+  cursor: crosshair;
+}
+
+.graph-toolbar {
+  display: flex;
+  gap: var(--scilab-space-2);
+  padding: var(--scilab-space-2);
+  border-bottom: var(--scilab-border-width) solid var(--scilab-border);
+  background: var(--scilab-bg-surface-2);
+}
+
+.graph-legend {
+  display: flex;
+  flex-direction: column;
+  gap: var(--scilab-space-2);
+  padding: var(--scilab-space-3);
+}
+
+.graph-legend__item {
+  display: flex;
+  align-items: center;
+  gap: var(--scilab-space-2);
+  font-size: var(--scilab-fs-xs);
+}
+
+.graph-legend__swatch {
+  width: 20px;
+  height: 3px;
+  border-radius: var(--scilab-radius-full);
+}
+
+.graph-legend__swatch--experimental { background: var(--scilab-curve-experimental); }
+.graph-legend__swatch--theorique    { background: var(--scilab-curve-theorique); }
+.graph-legend__swatch--tangente     { background: var(--scilab-curve-tangente); }
+.graph-legend__swatch--equivalence  { background: var(--scilab-curve-equivalence); }
+.graph-legend__swatch--derivee      { background: var(--scilab-curve-derivee); }
+
+/* ----------------------------------------------------------------------------
+   15. UTILITAIRES DE MISE EN PAGE
+   ---------------------------------------------------------------------------- */
+.flex        { display: flex; }
+.flex-col    { flex-direction: column; }
+.items-center{ align-items: center; }
+.justify-between { justify-content: space-between; }
+.gap-1 { gap: var(--scilab-space-1); }
+.gap-2 { gap: var(--scilab-space-2); }
+.gap-3 { gap: var(--scilab-space-3); }
+.gap-4 { gap: var(--scilab-space-4); }
+.mt-0 { margin-top: 0; }
+.mb-0 { margin-bottom: 0; }
+.text-muted { color: var(--scilab-text-muted); }
+.text-center { text-align: center; }
+.hidden { display: none !important; }
