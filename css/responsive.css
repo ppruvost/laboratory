@@ -1,0 +1,306 @@
+/* ============================================================================
+   SCILAB — responsive.css
+   Adaptation de layout.css à toutes les tailles d'écran.
+   Stratégie "desktop-first" : la mise en page de base (layout.css) cible le
+   poste fixe de labo (≥1200px) ; on dégrade progressivement pour tablette,
+   petite tablette et smartphone, y compris en usage tactile au labo.
+
+   Points de rupture :
+     --bp-xl : 1200px  (poste labo / grand écran)
+     --bp-lg : 992px   (petit écran de labo / tablette paysage)
+     --bp-md : 768px   (tablette portrait)
+     --bp-sm : 576px   (smartphone)
+   ============================================================================ */
+
+/* ----------------------------------------------------------------------------
+   1. GRANDS ÉCRANS — confort de lecture (>1400px)
+   ---------------------------------------------------------------------------- */
+@media (min-width: 1400px) {
+  .container {
+    padding-inline: var(--scilab-space-7);
+  }
+
+  .card-grid {
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  }
+}
+
+/* ----------------------------------------------------------------------------
+   2. ≤ 1200px — début de compression (tablette paysage grand format)
+   ---------------------------------------------------------------------------- */
+@media (max-width: 1200px) {
+  .graph-panel {
+    grid-template-columns: 1fr 220px;
+  }
+
+  .container {
+    padding-inline: var(--scilab-space-4);
+  }
+}
+
+/* ----------------------------------------------------------------------------
+   3. ≤ 992px — tablette paysage : le graphe passe sous la légende
+   ---------------------------------------------------------------------------- */
+@media (max-width: 992px) {
+  .graph-panel {
+    grid-template-columns: 1fr;
+  }
+
+  .graph-legend {
+    flex-direction: row;
+    flex-wrap: wrap;
+    border-top: var(--scilab-border-width) solid var(--scilab-border);
+  }
+
+  .tp-header {
+    grid-template-columns: auto 1fr;
+    grid-template-areas:
+      "badge body"
+      "actions actions";
+  }
+
+  .tp-header__badge  { grid-area: badge; }
+  .tp-header__body   { grid-area: body; }
+  .tp-header__actions{
+    grid-area: actions;
+    justify-content: flex-start;
+    margin-top: var(--scilab-space-3);
+  }
+
+  .card-grid {
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  }
+}
+
+/* ----------------------------------------------------------------------------
+   4. ≤ 768px — tablette portrait : navigation en menu déroulant
+   ---------------------------------------------------------------------------- */
+@media (max-width: 768px) {
+  .scilab-nav__bar {
+    flex-wrap: wrap;
+  }
+
+  .scilab-nav__toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background: transparent;
+    border: var(--scilab-border-width) solid rgba(255, 255, 255, 0.3);
+    border-radius: var(--scilab-radius-sm);
+    color: var(--scilab-text-inverse);
+    cursor: pointer;
+  }
+
+  .scilab-nav__links {
+    display: none;
+    flex-direction: column;
+    width: 100%;
+    padding-top: var(--scilab-space-3);
+    gap: var(--scilab-space-1);
+  }
+
+  .scilab-nav__links[data-open="true"] {
+    display: flex;
+  }
+
+  .scilab-nav__link {
+    width: 100%;
+  }
+
+  main.tp-content {
+    padding-block: var(--scilab-space-4);
+  }
+
+  .tp-header {
+    padding: var(--scilab-space-4);
+    gap: var(--scilab-space-3);
+  }
+
+  .tp-header__badge {
+    width: 48px;
+    height: 48px;
+    font-size: var(--scilab-fs-base);
+  }
+
+  .tp-header__body h1 {
+    font-size: var(--scilab-fs-lg);
+  }
+
+  .card-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .form-row {
+    flex-direction: column;
+  }
+
+  .form-row > .field {
+    min-width: 0;
+  }
+
+  /* Les tableaux larges (mesures, matériel) défilent horizontalement plutôt
+     que de se réorganiser : conserver l'alignement colonne = grandeur physique
+     est essentiel en sciences physiques. */
+  .table-wrap {
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .scilab-table {
+    min-width: 560px;
+  }
+
+  .modal {
+    max-width: 92vw;
+  }
+}
+
+/* ----------------------------------------------------------------------------
+   5. ≤ 576px — smartphone
+   ---------------------------------------------------------------------------- */
+@media (max-width: 576px) {
+  :root {
+    --scilab-container-padding: var(--scilab-space-3);
+  }
+
+  h1 { font-size: var(--scilab-fs-xl); }
+  h2 { font-size: var(--scilab-fs-md); }
+
+  .card-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .card {
+    padding: var(--scilab-space-4);
+  }
+
+  .btn-group {
+    flex-wrap: wrap;
+  }
+
+  .tp-header {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "badge"
+      "body"
+      "actions";
+    text-align: left;
+  }
+
+  .tp-header__actions {
+    flex-wrap: wrap;
+  }
+
+  .tp-header__actions .btn {
+    flex: 1;
+  }
+
+  .accordion__panel-inner {
+    padding: var(--scilab-space-3);
+  }
+
+  .modal__header,
+  .modal__body,
+  .modal__footer {
+    padding: var(--scilab-space-3) var(--scilab-space-4);
+  }
+
+  .modal__footer {
+    flex-direction: column-reverse;
+  }
+
+  .modal__footer .btn {
+    width: 100%;
+  }
+
+  .toast-stack {
+    left: var(--scilab-space-3);
+    right: var(--scilab-space-3);
+    bottom: var(--scilab-space-3);
+  }
+
+  .toast {
+    min-width: 0;
+    width: 100%;
+  }
+
+  .graph-toolbar {
+    flex-wrap: wrap;
+  }
+
+  .graph-legend {
+    font-size: var(--scilab-fs-xs);
+  }
+
+  .question-row {
+    flex-direction: column;
+    gap: var(--scilab-space-2);
+  }
+}
+
+/* ----------------------------------------------------------------------------
+   6. USAGE TACTILE — cibles agrandies quel que soit l'écran
+   ---------------------------------------------------------------------------- */
+@media (pointer: coarse) {
+  .btn {
+    min-height: 44px;
+  }
+
+  .notation__option {
+    width: 40px;
+    height: 40px;
+  }
+
+  .accordion__trigger {
+    padding-block: var(--scilab-space-5);
+  }
+
+  .scilab-table td input.input {
+    min-height: 40px;
+  }
+}
+
+/* ----------------------------------------------------------------------------
+   7. ORIENTATION PAYSAGE SUR SMARTPHONE — priorité au graphe pendant la manip
+   ---------------------------------------------------------------------------- */
+@media (max-width: 900px) and (orientation: landscape) {
+  .scilab-nav {
+    position: static;
+  }
+
+  main.tp-content {
+    padding-block: var(--scilab-space-3);
+  }
+
+  .graph-canvas-wrap canvas {
+    max-height: 70vh;
+  }
+}
+
+/* ----------------------------------------------------------------------------
+   8. ÉCRANS HAUTE DENSITÉ — traits fins plus nets
+   ---------------------------------------------------------------------------- */
+@media (min-resolution: 2dppx) {
+  .card,
+  .tp-header,
+  .modal,
+  .table-wrap {
+    border-width: 0.5px;
+  }
+}
+
+/* ----------------------------------------------------------------------------
+   9. MODE PAYSAGE VIDÉOPROJECTEUR (grand écran de classe, ratio large)
+   ---------------------------------------------------------------------------- */
+@media (min-width: 1600px) and (max-height: 900px) {
+  .container {
+    max-width: 1500px;
+  }
+
+  h1 { font-size: var(--scilab-fs-2xl); }
+
+  .graph-canvas-wrap canvas {
+    max-height: 80vh;
+  }
+}
