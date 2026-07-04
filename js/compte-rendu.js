@@ -176,6 +176,21 @@ function _construireEtImprimer(identite) {
     return _groupesSelectionnes.has(s.groupe);
   });
 
+
+  const materielHTML = (_config.materiel && _config.materiel.length)
+? `
+<div class="cr-section">
+    <h3>Matériel nécessaire</h3>
+
+    <ul class="cr-materiel">
+        ${_config.materiel.map(m => `<li>${_echapper(m)}</li>`).join("")}
+    </ul>
+
+</div>
+`
+: "";
+
+  
   const sectionsHTML = sections.map(_rendreSection).join('');
 
   const graphiqueHTML = _config.canvas
@@ -259,6 +274,7 @@ const autoEvalHTML = `
       <div><div class="cr-label">Date du TP</div><div class="cr-valeur">${dateFr}</div></div>
     </div>
 
+    ${materielHTML}
     ${sectionsHTML}
     ${graphiqueHTML}
     ${noteFinaleHTML}
