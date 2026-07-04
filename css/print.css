@@ -1,0 +1,244 @@
+/* ============================================================================
+   SCILAB — print.css
+   Règles d'impression : compte-rendu élève (compte-rendu.js), export PNG/PDF
+   des courbes, en-tête SciLab avec logo, badges de compétences, notation.
+   Chargé uniquement dans le contexte `about:blank` ouvert par le module
+   d'impression (cf. compte-rendu.js / print-tp01.js), via @media print.
+   ============================================================================ */
+
+@media print {
+
+  /* --------------------------------------------------------------------------
+     1. RÉGLAGES DE PAGE
+     -------------------------------------------------------------------------- */
+  @page {
+    size: A4 portrait;
+    margin: 15mm 12mm;
+  }
+
+  html, body {
+    background: var(--scilab-white, #fff) !important;
+    color: #14171c !important;
+    font-size: 11pt;
+    line-height: 1.4;
+  }
+
+  /* --------------------------------------------------------------------------
+     2. ÉLÉMENTS MASQUÉS À L'IMPRESSION
+     -------------------------------------------------------------------------- */
+  .scilab-nav,
+  .tp-header__actions,
+  .graph-toolbar,
+  .btn,
+  .modal-overlay,
+  .toast-stack,
+  .accordion__icon,
+  .no-print {
+    display: none !important;
+  }
+
+  /* Les panneaux d'accordéon doivent être entièrement visibles à l'impression,
+     même s'ils étaient repliés à l'écran. */
+  .accordion__panel {
+    max-height: none !important;
+    overflow: visible !important;
+  }
+
+  /* --------------------------------------------------------------------------
+     3. EN-TÊTE DU COMPTE-RENDU (logo SciLab + identité)
+     -------------------------------------------------------------------------- */
+  .cr-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12mm;
+    padding-bottom: 4mm;
+    margin-bottom: 6mm;
+    border-bottom: 2pt solid #123b6e;
+  }
+
+  .cr-header__logo {
+    height: 14mm;
+    width: auto;
+  }
+
+  .cr-header__title {
+    flex: 1;
+  }
+
+  .cr-header__title h1 {
+    font-size: 15pt;
+    margin: 0 0 1mm;
+  }
+
+  .cr-header__title .cr-subtitle {
+    font-size: 9pt;
+    color: #3d434d;
+  }
+
+  .cr-header__identity {
+    text-align: right;
+    font-size: 9pt;
+    line-height: 1.6;
+  }
+
+  .cr-header__identity strong {
+    display: block;
+    font-size: 10pt;
+  }
+
+  /* --------------------------------------------------------------------------
+     4. STRUCTURE DES QUESTIONS ET RÉPONSES
+     -------------------------------------------------------------------------- */
+  .cr-question {
+    break-inside: avoid;
+    page-break-inside: avoid;
+    margin-bottom: 4mm;
+    padding-bottom: 3mm;
+    border-bottom: 0.5pt solid #c3c9d1;
+  }
+
+  .cr-question__number {
+    font-weight: 700;
+    color: #123b6e;
+  }
+
+  .cr-question__answer {
+    margin-top: 1mm;
+    padding-left: 4mm;
+    white-space: pre-wrap;
+  }
+
+  /* --------------------------------------------------------------------------
+     5. BADGES DE COMPÉTENCES — version imprimable (niveaux de gris + trame)
+     -------------------------------------------------------------------------- */
+  .badge {
+    display: inline-block;
+    border: 0.5pt solid #6b7280;
+    background: none !important;
+    color: #14171c !important;
+    padding: 0.5mm 2mm;
+    font-size: 7pt;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .badge--app::before { content: "APP "; font-weight: 700; }
+  .badge--rea::before { content: "REA "; font-weight: 700; }
+  .badge--ana::before { content: "ANA/RAI "; font-weight: 700; }
+  .badge--val::before { content: "VAL "; font-weight: 700; }
+  .badge--com::before { content: "COM "; font-weight: 700; }
+
+  /* --------------------------------------------------------------------------
+     6. CASES DE NOTATION 0 / 1 / 2 (à cocher à la main ou pré-remplies)
+     -------------------------------------------------------------------------- */
+  .notation {
+    display: inline-flex;
+    border: 0.75pt solid #14171c;
+  }
+
+  .notation__option {
+    width: 6mm;
+    height: 6mm;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 9pt;
+    font-weight: 700;
+    border-right: 0.5pt solid #14171c;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .notation__option:last-child {
+    border-right: none;
+  }
+
+  .notation__option[aria-checked="true"] {
+    background: #dfe3e8 !important;
+  }
+
+  /* --------------------------------------------------------------------------
+     7. TABLEAUX DE MESURES — lisibilité en noir et blanc
+     -------------------------------------------------------------------------- */
+  .scilab-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 9pt;
+  }
+
+  .scilab-table thead th {
+    background: #dfe3e8 !important;
+    color: #14171c !important;
+    border: 0.5pt solid #14171c;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .scilab-table tbody td {
+    border: 0.5pt solid #6b7280;
+    padding: 1.5mm 2mm;
+  }
+
+  .scilab-table tbody tr:nth-child(even) {
+    background: none !important;
+  }
+
+  /* --------------------------------------------------------------------------
+     8. EXPORT DE COURBE (canvas -> image insérée par le module TP03)
+     -------------------------------------------------------------------------- */
+  .cr-graph {
+    break-inside: avoid;
+    page-break-inside: avoid;
+    margin: 4mm 0;
+    text-align: center;
+  }
+
+  .cr-graph img {
+    max-width: 100%;
+    border: 0.5pt solid #6b7280;
+  }
+
+  .cr-graph__caption {
+    font-size: 8pt;
+    color: #3d434d;
+    margin-top: 1mm;
+  }
+
+  /* --------------------------------------------------------------------------
+     9. PIED DE PAGE (numérotation, mentions)
+     -------------------------------------------------------------------------- */
+  .cr-footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    font-size: 7.5pt;
+    color: #6b7280;
+    display: flex;
+    justify-content: space-between;
+    border-top: 0.5pt solid #c3c9d1;
+    padding-top: 1.5mm;
+  }
+
+  /* --------------------------------------------------------------------------
+     10. SAUTS DE PAGE
+     -------------------------------------------------------------------------- */
+  .cr-page-break {
+    break-before: page;
+    page-break-before: always;
+  }
+
+  .cr-avoid-break {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  /* Forcer les couleurs des courbes à l'impression (dashed rouge, gris, etc.)
+     même sur les navigateurs qui suppriment les couleurs par défaut. */
+  .cr-graph img,
+  canvas.graph-canvas {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+}
