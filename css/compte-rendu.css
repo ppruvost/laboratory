@@ -412,6 +412,43 @@
     min-height: 14mm;
   }
 
+   /* ══════════════════════════════════════════════════════════
+     AUTO EVALUATION ELEVE
+    ══════════════════════════════════════════════════════════ */
+
+.cr-auto-eval {
+  margin-top: 20px;
+}
+
+.cr-auto-eval-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.cr-auto-eval-table th,
+.cr-auto-eval-table td {
+  border: 1px solid #ccc;
+  padding: 8px;
+  text-align: center;
+}
+
+.cr-auto-eval-table th {
+  background: #1B6CA8;
+  color: white;
+}
+
+@media print {
+  .cr-auto-eval input {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 12px;
+    height: 12px;
+    border: 1px solid #000;
+    display: inline-block;
+  }
+}
+   
   /* ══════════════════════════════════════════════════════════
      NOTE FINALE /20
      ══════════════════════════════════════════════════════════ */
@@ -496,21 +533,7 @@
     justify-content: space-between;
   }
 
-  /* ── Signature (optionnelle, config.signature !== false) ── */
-  .cr-signature {
-    margin-top: 20px;
-    display: flex;
-    justify-content: space-between;
-  }
-
-  .cr-signature > div {
-    width: 44%;
-    border-top: 1px solid #9ca3af;
-    padding-top: 4px;
-    font-size: 7pt;
-    color: #6b7280;
-    text-align: center;
-  }
+  
 
   /* ── Titres de section h3 (hors questions) ── */
   .cr-section:not(.cr-section-question) h3 {
