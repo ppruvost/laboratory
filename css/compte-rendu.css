@@ -377,7 +377,7 @@
   .cr-notation {
     display: flex;
     align-items: center;
-    gap: 3px;
+    gap: 4px;
   }
 
   .cr-notation-label {
@@ -402,6 +402,15 @@
     background: #fff;
   }
 
+   .cr-case {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  border: 1.3px solid #374151;
+  border-radius: 2px;
+  background: white;
+}
+   
   /* Zone de réponse de l'élève */
   .cr-reponse-zone {
     font-size: 8pt;
