@@ -176,20 +176,51 @@ function _construireEtImprimer(identite) {
     return _groupesSelectionnes.has(s.groupe);
   });
 
+// Matériel nécessaire 
+  const materielHTML = _recupererMaterielDepuisLaPage();
 
-  const materielHTML = (_config.materiel && _config.materiel.length)
-? `
-<div class="cr-section">
-    <h3>Matériel nécessaire</h3>
+  function _recupererMaterielDepuisLaPage() {
 
-    <ul class="cr-materiel">
-        ${_config.materiel.map(m => `<li>${_echapper(m)}</li>`).join("")}
-    </ul>
+  const groupes = [
+    { titre: "Verrerie", id: "materiel-verrerie" },
+    { titre: "Équipements", id: "materiel-equipements" }
+  ];
 
-</div>
-`
-: "";
+  let contenu = "";
 
+  for (const groupe of groupes) {
+
+    const bloc = document.getElementById(groupe.id);
+    if (!bloc) continue;
+
+    const elements = [...bloc.querySelectorAll('input[type="checkbox"]:checked')]
+      .map(c =>
+        c.closest("label")?.textContent.trim() ||
+        c.parentElement?.textContent.trim() ||
+        c.value
+      )
+      .filter(Boolean);
+
+    if (!elements.length) continue;
+
+    contenu += `
+      <h4>${groupe.titre}</h4>
+      <ul class="cr-materiel">
+        ${elements.map(e => `<li>${_echapper(e)}</li>`).join("")}
+      </ul>
+    `;
+  }
+
+  if (!contenu) return "";
+
+  return `
+    <div class="cr-section">
+      <h3>Matériel nécessaire</h3>
+      ${contenu}
+    </div>
+  `;
+}
+// ________________________
   
   const sectionsHTML = sections.map(_rendreSection).join('');
 
