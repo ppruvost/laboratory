@@ -462,7 +462,23 @@
   font-size: 1.1rem;
   font-weight: bold;
 }
-   
+
+   /* ════════════════════════════════════════
+   MODE IMPRESSION — AUTO-EVALUATION
+   ════════════════════════════════════════ */
+
+@media print {
+
+  /* on masque totalement les inputs radio */
+  .autoeval-table input {
+    display: none !important;
+  }
+
+  /* optionnel : on neutralise l'aspect interactif */
+  .autoeval-table td {
+    cursor: default;
+  }
+}
   /* ══════════════════════════════════════════════════════════
      NOTE FINALE /20
      ══════════════════════════════════════════════════════════ */
