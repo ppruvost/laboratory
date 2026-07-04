@@ -345,12 +345,12 @@ function _badgeCompetence(comp) {
 }
 
 function _boxesNotation() {
-  // Trois cases 0 / 1 / 2 à cocher par le professeur
   return `<div class="cr-notation">
     <span class="cr-notation-label">Note</span>
-    <span class="cr-notation-case">0</span>
-    <span class="cr-notation-case">1</span>
-    <span class="cr-notation-case">2</span>
+
+    <span class="cr-case"></span>
+    <span class="cr-case"></span>
+    <span class="cr-case"></span>
   </div>`;
 }
 
