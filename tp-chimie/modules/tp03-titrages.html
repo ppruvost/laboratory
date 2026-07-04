@@ -47,11 +47,79 @@
   </div>
 </div>
 
-  <!-- ════════════ SÉCURITÉ ════════════ -->
-  <section class="card">
-    <h2>Sécurité</h2>
-    <div id="securite-bloc"></div>
-  </section>
+<!-- ====================================================== -->
+<!-- SECURITE                                                -->
+<!-- ====================================================== -->
+
+<div class="section" data-type="securite">
+  <div class="section-titre">
+    <div class="picto-section">⚠️</div>
+    <h2>Sécurité - Produits utilisés</h2>
+    <span class="chevron">▼</span>
+  </div>
+
+  <div class="section-corps">
+
+    <!-- ===== Filtres par catégorie ===== -->
+    <div class="filtre-reactifs">
+      <span class="filtre-titre"><strong>Afficher :</strong></span>
+
+      <label>
+        <input type="checkbox" class="filtre-cat" value="Liquide" checked>
+        Liquides
+      </label>
+
+      <label>
+        <input type="checkbox" class="filtre-cat" value="Sel" checked>
+        Sels
+      </label>
+
+      <label>
+        <input type="checkbox" class="filtre-cat" value="Solide" checked>
+        Solides
+      </label>
+
+      <label>
+        <input type="checkbox" class="filtre-cat" value="Indicateur" checked>
+        Indicateurs
+      </label>
+
+      <label>
+        <input type="checkbox" class="filtre-cat" value="Colorant" checked>
+        Colorants
+      </label>
+
+      <label>
+        <input type="checkbox" class="filtre-cat" value="Métal" checked>
+        Métaux
+      </label>
+
+      <label>
+        <input type="checkbox" class="filtre-cat" value="Solvant" checked>
+        Solvants
+      </label>
+
+      <label>
+        <input type="checkbox" class="filtre-cat" value="Halogène" checked>
+        Halogènes
+      </label>
+    </div>
+
+    <!-- ===== Sélection du réactif ===== -->
+    <div class="form-group">
+      <label for="reactif">Choisir un réactif :</label>
+      <select id="reactif">
+        <option value="">-- Sélectionner --</option>
+      </select>
+    </div>
+
+    <!-- ===== Bloc sécurité ===== -->
+    <div id="securite-bloc">
+      <div class="info">Sélectionner un réactif.</div>
+    </div>
+
+  </div>
+</div>
 
   <!-- ════════════ PARAMÈTRES DU TITRAGE ════════════ -->
   <section class="card">
