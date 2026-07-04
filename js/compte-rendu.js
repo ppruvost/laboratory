@@ -263,12 +263,12 @@ function _construireEtImprimer(identite) {
       <div class="cr-note-grille">
         <div class="cr-note-bareme">
           <span class="cr-note-label">Barème</span>
-          <span class="cr-note-val">${nbQuestions} questions × 2 pts = ${totalPts} pts</span>
+          <span class="cr-note-val">${nbQuestions} questions sur ${totalPts} pts</span>
         </div>
 
         <div class="cr-note-case">
           <span class="cr-note-label">Total</span>
-          <span class="cr-note-blanc">/ ${totalPts}</span>
+          <span class="cr-note-blanc">......</span>
         </div>
 
         <div class="cr-note-case cr-note-grande">
