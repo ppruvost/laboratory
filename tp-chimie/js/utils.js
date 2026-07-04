@@ -152,14 +152,6 @@ export const MASSES_MOLAIRES = {
   'ZnSO4·7H2O': 287.54
 };
 
-// ── Filtre réactifs ─────────────────────────────────────────────
-const categoriesSelectionnees = [...document.querySelectorAll('.filtre-cat:checked')]
-    .map(cb => cb.value);
-
-const produitsFiltres = PRODUITS.filter(p =>
-    categoriesSelectionnees.includes(p.categorie)
-);
-
 // ── Carte produit ─────────────────────────────────────────────
 export function renderCarteProduit(p, options = {}) {
   const ghsBadges = (p.pictogrammes || p.dangers || [])
