@@ -285,8 +285,9 @@ function _construireEtImprimer(identite) {
     ${materielHTML}
     ${sectionsHTML}
     ${graphiqueHTML}
-    ${noteFinaleHTML}
     ${autoEvalHTML}
+    ${noteFinaleHTML}
+    
 
     <div class="cr-pied">
       <span>SciLab — Travaux pratiques</span>
