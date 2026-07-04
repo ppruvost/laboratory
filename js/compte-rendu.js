@@ -185,6 +185,34 @@ function _construireEtImprimer(identite) {
        </div>`
     : '';
 
+const autoEvalHTML = `
+  <div class="cr-section cr-auto-eval">
+    <h3>Auto-évaluation de l'élève</h3>
+
+    <table class="cr-auto-eval-table">
+      <thead>
+        <tr>
+          <th>Compétence</th>
+          <th>0</th>
+          <th>1</th>
+          <th>2</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        ${["APP", "ANA RAI", "REA", "VAL", "COM"].map(comp => `
+          <tr>
+            <td>${comp}</td>
+            <td><input type="radio" name="auto-${comp}" value="0"></td>
+            <td><input type="radio" name="auto-${comp}" value="1"></td>
+            <td><input type="radio" name="auto-${comp}" value="2"></td>
+          </tr>
+        `).join("")}
+      </tbody>
+    </table>
+  </div>
+`;
+    
   // Calcul du barème : compter les questions avec notation
   const nbQuestions = sections.filter(s => s.notation).length;
   const totalPts    = nbQuestions * 2;   // 2 pts par question
@@ -207,11 +235,7 @@ function _construireEtImprimer(identite) {
       </div>
     </div>` : '';
 
-  const signatureHTML = (_config.signature !== false) ? `
-    <div class="cr-signature">
-      <div>Signature de l'élève</div>
-      <div>Visa du professeur</div>
-    </div>` : '';
+
 
   conteneur.innerHTML = `
     <div class="cr-entete">
@@ -241,7 +265,7 @@ function _construireEtImprimer(identite) {
     ${signatureHTML}
 
     <div class="cr-pied">
-      <span>SciLab — Plateforme de travaux pratiques</span>
+      <span>SciLab — Travaux pratiques</span>
       <span>${_echapper(_config.tp || '')} · ${_echapper(_config.domaine || '')}</span>
     </div>`;
 
