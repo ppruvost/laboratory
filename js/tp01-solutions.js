@@ -1,10 +1,17 @@
-import products            from "../../data/products.js";
-import dangerDB            from "../../data/dangerDB.js";
-import pictogrammes        from "../../data/pictogrammes.js";
-import glassware           from "../../data/glassware.js";
-import laboratoryEquipment from "../../data/equipment.js";
-import { initBalanceErreurs } from "../../js/balance-erreurs.js";
-import { genererCompteRendu } from "../../js/compte-rendu.js";
+/**
+ * tp01-solutions.js
+ * Vit dans /js à la racine du site (tous les fichiers JS sont regroupés
+ * dans /js, tous les CSS dans /css). Les imports ci-dessous sont donc
+ * relatifs à /js/, tandis que les chemins d'image générés en HTML
+ * (voir afficherSecurite) sont relatifs à la racine du site (cf. utils.js).
+ */
+import products            from "../data/products.js";
+import dangerDB            from "../data/dangerDB.js";
+import pictogrammes        from "../data/pictogrammes.js";
+import glassware           from "../data/glassware.js";
+import laboratoryEquipment from "../data/equipment.js";
+import { initBalanceErreurs } from "./balance-erreurs.js";
+import { genererCompteRendu } from "./compte-rendu.js";
 import { imgSrc } from "./utils.js";
 
 /* ==========================================================
@@ -215,7 +222,7 @@ function afficherSecurite() {
     html += `<div class="pictos-clp">`;
     produit.dangers.forEach(code => {
       const picto = pictogrammes.find(p => p.code === code);
-      if (picto) html += `<img class="picto-clp" src="../../assets/picto/${picto.image}" alt="${code}" title="${code}">`;
+      if (picto) html += `<img class="picto-clp" src="assets/picto/${picto.image}" alt="${code}" title="${code}">`;
     });
     html += `</div>`;
     html += `<div class="danger-bloc"><h4>⚠️ Mentions de danger (H)</h4><ul>`;
