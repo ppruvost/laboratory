@@ -1,9 +1,10 @@
 /**
  * compte-rendu.css — Trame d'impression commune à tous les TP / domaines SciLab
  * Chargée dynamiquement par js/compte-rendu.js
+ * Dépend des variables de global.css.
  *
  * Parties :
- *   A. Modales écran (identification, sélection des parties)
+ *   A. Modales écran (identification, sélection des parties) + responsive
  *   B. Trame d'impression @media print
  */
 
@@ -11,7 +12,6 @@
    A. MODALES ÉCRAN
    ══════════════════════════════════════════════════════════════ */
 
-/* ── Overlay commun aux deux modales ── */
 .cr-modal-overlay-base {
   position: fixed;
   inset: 0;
@@ -19,38 +19,33 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 5000;
-  font-family: var(--font-corps, system-ui, sans-serif);
+  z-index: var(--z-modale);
+  font-family: var(--font-corps);
+  padding: var(--gap-sm);
 }
 
-/* ── Boîte blanche commune ── */
 .cr-modal-box {
-  background: #fff;
-  border-radius: 14px;
+  background: var(--blanc);
+  border-radius: var(--r-lg);
   padding: 28px 30px;
-  width: min(460px, 94vw);
-  box-shadow: 0 20px 50px rgba(0, 0, 0, .35);
+  width: min(var(--largeur-modale), 94vw);
+  box-shadow: var(--ombre-modale);
   max-height: 90vh;
   overflow-y: auto;
 }
 
 .cr-modal-box h2 {
-  font-family: var(--font-titre, inherit);
-  font-size: 1.1rem;
-  color: #0D4F8A;
+  font-family: var(--font-titre);
+  font-size: var(--fs-md);
+  color: var(--bleu-fonce);
   margin: 0 0 4px;
 }
 
-.cr-soustitre {
-  font-size: .85rem;
-  color: #6b7280;
-  margin: 0 0 18px;
-}
+.cr-soustitre { font-size: var(--fs-sm); color: var(--gris-texte-clair); margin: 0 0 18px; }
 
-/* ── Champs identification ── */
 .cr-modal-box label {
   display: block;
-  font-size: .8rem;
+  font-size: var(--fs-xs);
   font-weight: 600;
   color: #374151;
   margin: 12px 0 4px;
@@ -60,118 +55,89 @@
 .cr-modal-box input[type="date"] {
   width: 100%;
   padding: 9px 11px;
-  border: 1.5px solid #d1d5db;
-  border-radius: 8px;
+  border: 1.5px solid #D1D5DB;
+  border-radius: var(--r-md);
   font-size: .92rem;
   box-sizing: border-box;
 }
 
 .cr-modal-box input:focus {
   outline: none;
-  border-color: #1B6CA8;
+  border-color: var(--bleu-cuivre);
   box-shadow: 0 0 0 3px rgba(27, 108, 168, .18);
 }
 
-.cr-erreur-champ {
-  color: #DC2626;
-  font-size: .75rem;
-  margin-top: 3px;
-  display: none;
-}
+.cr-erreur-champ { color: #DC2626; font-size: var(--fs-xs); margin-top: 3px; display: none; }
 
 /* ── Sélection des parties (groupes) ── */
-.cr-groupes-liste {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  margin: 4px 0 20px;
-}
+.cr-groupes-liste { display: flex; flex-direction: column; gap: 10px; margin: 4px 0 20px; }
 
 .cr-groupe-ligne {
   display: flex;
   align-items: center;
   gap: 10px;
   padding: 10px 14px;
-  border: 1.5px solid #e2e8f0;
-  border-radius: 8px;
+  border: 1.5px solid #E2E8F0;
+  border-radius: var(--r-md);
   cursor: pointer;
   font-size: .92rem;
-  color: #1e293b;
-  transition: border-color .15s, background .15s;
+  color: #1E293B;
+  transition: border-color var(--duree-rapide), background var(--duree-rapide);
 }
-
-.cr-groupe-ligne:hover {
-  border-color: #1B6CA8;
-  background: #f0f7ff;
-}
-
-.cr-groupe-ligne input[type="checkbox"] {
-  width: 16px;
-  height: 16px;
-  accent-color: #1B6CA8;
-  flex-shrink: 0;
-}
-
-.cr-groupe-ligne span:nth-child(2) {
-  flex: 1;
-  font-weight: 600;
-}
+.cr-groupe-ligne:hover { border-color: var(--bleu-cuivre); background: #F0F7FF; }
+.cr-groupe-ligne input[type="checkbox"] { width: 16px; height: 16px; accent-color: var(--bleu-cuivre); flex-shrink: 0; }
+.cr-groupe-ligne span:nth-child(2) { flex: 1; font-weight: 600; }
 
 .cr-niveau-badge {
-  font-size: .72rem;
+  font-size: var(--fs-xs);
   font-weight: 700;
-  background: #EAF2F8;
-  color: #0D4F8A;
-  border: 1px solid #1B6CA8;
-  border-radius: 20px;
+  background: var(--bleu-clair-bg);
+  color: var(--bleu-fonce);
+  border: 1px solid var(--bleu-cuivre);
+  border-radius: var(--r-pill);
   padding: 2px 8px;
   white-space: nowrap;
 }
 
 /* ── Boutons de la modale ── */
-.cr-modal-actions {
-  display: flex;
-  gap: 10px;
-  margin-top: 22px;
-}
-
+.cr-modal-actions { display: flex; gap: 10px; margin-top: 22px; }
 .cr-modal-actions button {
   flex: 1;
   padding: 10px 14px;
   border: none;
-  border-radius: 8px;
+  border-radius: var(--r-md);
   font-weight: 600;
   font-size: .88rem;
   cursor: pointer;
-  transition: opacity .15s;
+  transition: opacity var(--duree-rapide);
+}
+.cr-modal-actions button:first-child { background: #F1F5F9; color: #475569; }
+.cr-modal-actions button:last-child  { background: var(--bleu-cuivre); color: var(--blanc); }
+.cr-modal-actions button:last-child:hover { background: var(--bleu-fonce); }
+
+/* ── Responsive écran (modale sur mobile) ── */
+@media (max-width: 500px) {
+  .cr-modal-box { padding: 20px; width: 100vw; height: 100%; max-height: 100vh; border-radius: 0; }
+  .cr-modal-actions { flex-direction: column-reverse; }
+  .cr-groupe-ligne { flex-wrap: wrap; }
 }
 
-.cr-modal-actions button:first-child {
-  background: #f1f5f9;
-  color: #475569;
+@media (pointer: coarse) {
+  .cr-groupe-ligne { min-height: 44px; }
+  .cr-modal-actions button { min-height: 44px; }
 }
-
-.cr-modal-actions button:last-child {
-  background: #1B6CA8;
-  color: #fff;
-}
-
-.cr-modal-actions button:last-child:hover { background: #0D4F8A; }
 
 /* ══════════════════════════════════════════════════════════════
    B. TRAME D'IMPRESSION
    ══════════════════════════════════════════════════════════════ */
 
-/* Conteneur invisible à l'écran */
 #cr-print-container { display: none; }
 
 @media print {
 
-  /* Cacher tout sauf le CR */
   body.cr-printing > *:not(#cr-print-container) { display: none !important; }
-  body.cr-printing { background: #fff !important; }
+  body.cr-printing { background: var(--blanc) !important; }
 
-  /* Activer le conteneur */
   #cr-print-container {
     display: block !important;
     width: 100%;
@@ -183,123 +149,70 @@
     print-color-adjust: exact;
   }
 
-  @page {
-    size: A4 portrait;
-    margin: 13mm 12mm 12mm 12mm;
-  }
+  @page { size: A4 portrait; margin: 13mm 12mm 12mm 12mm; }
 
   /* ── En-tête ── */
   .cr-entete {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    border-bottom: 3px solid #1B6CA8;
+    border-bottom: 3px solid var(--bleu-cuivre);
     padding-bottom: 8px;
     margin-bottom: 12px;
   }
 
-  .cr-logo {
-    display: flex;
-    align-items: center;
-    gap: 9px;
-  }
+  .cr-logo { display: flex; align-items: center; gap: 9px; }
+  .cr-logo svg { width: 34px; height: 34px; }
+  .cr-logo-texte { font-weight: 800; font-size: 14pt; color: var(--bleu-fonce); letter-spacing: .02em; }
+  .cr-logo-texte span { color: var(--bleu-cuivre); font-weight: 400; }
 
-  .cr-logo svg {
-    width: 34px;
-    height: 34px;
-  }
-
-  .cr-logo-texte {
-    font-weight: 800;
-    font-size: 14pt;
-    color: #0D4F8A;
-    letter-spacing: .02em;
-  }
-
-  .cr-logo-texte span {
-    color: #1B6CA8;
-    font-weight: 400;
-  }
-
-  .cr-entete-droite {
-    text-align: right;
-    font-size: 7.5pt;
-    color: #6b7280;
-    line-height: 1.5;
-  }
+  .cr-entete-droite { text-align: right; font-size: 7.5pt; color: var(--gris-texte-clair); line-height: 1.5; }
 
   /* ── Badge domaine + titre ── */
   .cr-domaine-badge {
     display: inline-block;
-    background: #1B6CA8;
-    color: #fff;
+    background: var(--bleu-cuivre);
+    color: var(--blanc);
     font-size: 6.5pt;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: .07em;
     padding: 2px 9px;
-    border-radius: 20px;
+    border-radius: var(--r-pill);
     margin-bottom: 4px;
   }
 
-  .cr-titre-tp {
-    font-size: 13pt;
-    font-weight: 700;
-    color: #111827;
-    margin: 3px 0 12px;
-  }
+  .cr-titre-tp { font-size: 13pt; font-weight: 700; color: #111827; margin: 3px 0 12px; }
 
   /* ── Bandeau identification ── */
   .cr-identification {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    border: 1.5px solid #1B6CA8;
+    border: 1.5px solid var(--bleu-cuivre);
     border-radius: 6px;
     overflow: hidden;
     margin-bottom: 14px;
   }
-
-  .cr-identification > div {
-    padding: 6px 10px;
-    border-right: 1px solid #cbd5e1;
-  }
-
+  .cr-identification > div { padding: 6px 10px; border-right: 1px solid var(--gris-bordure-print); }
   .cr-identification > div:last-child { border-right: none; }
-
   .cr-identification .cr-label {
     font-size: 6pt;
     text-transform: uppercase;
     letter-spacing: .07em;
-    color: #1B6CA8;
+    color: var(--bleu-cuivre);
     font-weight: 700;
     display: block;
     margin-bottom: 2px;
   }
-
-  .cr-identification .cr-valeur {
-    font-size: 9pt;
-    font-weight: 600;
-  }
+  .cr-identification .cr-valeur { font-size: 9pt; font-weight: 600; }
 
   /* ── Sections génériques ── */
-  .cr-section {
-    margin-bottom: 10px;
-    break-inside: avoid;
-  }
+  .cr-section { margin-bottom: 10px; break-inside: avoid; }
 
   /* ── Tableau de résultats (items) ── */
-  .cr-items {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 8.5pt;
-  }
-
-  .cr-items td {
-    padding: 4px 7px;
-    border-bottom: 1px solid #e5e7eb;
-  }
-
-  .cr-items td:first-child { color: #4b5563; width: 58%; }
+  .cr-items { width: 100%; border-collapse: collapse; font-size: 8.5pt; }
+  .cr-items td { padding: 4px 7px; border-bottom: 1px solid #E5E7EB; }
+  .cr-items td:first-child { color: #4B5563; width: 58%; }
   .cr-items td:last-child  { font-weight: 700; }
 
   /* ── Texte libre ── */
@@ -307,62 +220,40 @@
     font-size: 8.5pt;
     line-height: 1.5;
     white-space: pre-wrap;
-    border-left: 3px solid #e2e8f0;
+    border-left: 3px solid #E2E8F0;
     padding-left: 8px;
   }
-
-  .cr-vide { color: #9ca3af; font-style: italic; }
+  .cr-vide { color: #9CA3AF; font-style: italic; }
 
   /* ── Graphique canvas ── */
-  .cr-graphique {
-    width: 100%;
-    border: 1px solid #d1d5db;
-    border-radius: 5px;
-    margin-top: 5px;
-  }
+  .cr-graphique { width: 100%; border: 1px solid #D1D5DB; border-radius: 5px; margin-top: 5px; }
 
   /* ══════════════════════════════════════════════════════════
      QUESTIONS AVEC COMPÉTENCE + NOTATION 0 / 1 / 2
      ══════════════════════════════════════════════════════════ */
-
   .cr-section-question {
-    border: 1px solid #e2e8f0;
+    border: 1px solid #E2E8F0;
     border-radius: 6px;
     padding: 7px 9px;
     margin-bottom: 7px;
     break-inside: avoid;
   }
 
-  /* Ligne = titre de la question à gauche, badge compétence + cases notation à droite */
-  .cr-question-entete {
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    gap: 8px;
-    margin-bottom: 5px;
-  }
+  .cr-question-entete { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; margin-bottom: 5px; }
 
   .cr-question-titre {
     font-size: 8.5pt;
     font-weight: 700;
-    color: #1e293b;
-    border-left: 3px solid #1B6CA8;
+    color: #1E293B;
+    border-left: 3px solid var(--bleu-cuivre);
     padding-left: 6px;
     margin: 0;
     flex: 1;
-    /* Pas de border-left hérité de .cr-section h3 */
     border-bottom: none;
   }
 
-  /* Bloc droit : badge + cases */
-  .cr-question-droite {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    flex-shrink: 0;
-  }
+  .cr-question-droite { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
 
-  /* Badge compétence coloré */
   .cr-comp-badge {
     font-size: 6.5pt;
     font-weight: 800;
@@ -373,205 +264,98 @@
     white-space: nowrap;
   }
 
-  /* Cases 0 / 1 / 2 à cocher par le professeur */
-  .cr-notation {
-    display: flex;
-    align-items: center;
-    gap: 4px;
-  }
-
-  .cr-notation-label {
-    font-size: 6pt;
-    color: #6b7280;
-    margin-right: 2px;
-    text-transform: uppercase;
-    letter-spacing: .05em;
-  }
-
+  .cr-notation { display: flex; align-items: center; gap: 4px; }
+  .cr-notation-label { font-size: 6pt; color: var(--gris-texte-clair); margin-right: 2px; text-transform: uppercase; letter-spacing: .05em; }
   .cr-notation-case {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 14px;
-    height: 14px;
+    width: 14px; height: 14px;
     border: 1.2px solid #374151;
     border-radius: 3px;
     font-size: 7pt;
     font-weight: 700;
     color: #374151;
-    background: #fff;
+    background: var(--blanc);
   }
+  .cr-case { display: inline-block; width: 14px; height: 14px; border: 1.3px solid #374151; border-radius: 2px; background: var(--blanc); }
 
-   .cr-case {
-     display: inline-block;
-     width: 14px;
-     height: 14px;
-     border: 1.3px solid #374151;
-     border-radius: 2px;
-     background: white;
-   }
-   
-  /* Zone de réponse de l'élève */
   .cr-reponse-zone {
     font-size: 8pt;
     line-height: 1.5;
     color: #111827;
-    border-top: 1px dashed #cbd5e1;
+    border-top: 1px dashed var(--gris-bordure-print);
     padding-top: 4px;
     min-height: 14mm;
     white-space: pre-wrap;
   }
 
-/* ═══════════════════════════════════════════════════════
-   AUTO EVALUATION ELEVE (PRINT / COMPTE RENDU)
-   ═══════════════════════════════════════════════════════ */
+  /* ═══════════════════════════════════════════════════════
+     AUTO-ÉVALUATION ÉLÈVE (compte-rendu imprimé)
+     ═══════════════════════════════════════════════════════ */
+  .cr-auto-eval { margin-top: 20px; }
+  .cr-auto-eval h3 { margin-bottom: 10px; font-size: 1rem; }
+  .cr-auto-eval-table { width: 100%; border-collapse: collapse; font-size: .9rem; }
+  .cr-auto-eval-table th, .cr-auto-eval-table td { border: 1px solid var(--gris-clair); padding: 6px; text-align: center; }
+  .cr-auto-eval-table th { background: var(--bleu-cuivre); color: var(--blanc); }
+  .cr-auto-eval-table td:first-child, .cr-auto-eval-table td:nth-child(3) { text-align: left; }
+  .cr-auto-eval-table td.score { font-size: 1.1rem; font-weight: bold; }
+  .autoeval-table input { display: none !important; }
+  .autoeval-table td { cursor: default; }
 
-.cr-auto-eval {
-  margin-top: 20px;
-}
-
-.cr-auto-eval h3 {
-  margin-bottom: 10px;
-  font-size: 1rem;
-}
-
-.cr-auto-eval-table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 0.9rem;
-}
-
-.cr-auto-eval-table th,
-.cr-auto-eval-table td {
-  border: 1px solid #ccc;
-  padding: 6px;
-  text-align: center;
-}
-
-.cr-auto-eval-table th {
-  background: #1B6CA8;
-  color: white;
-}
-
-.cr-auto-eval-table td:first-child,
-.cr-auto-eval-table td:nth-child(3) {
-  text-align: left;
-}
-
-.cr-auto-eval-table td.score {
-  font-size: 1.1rem;
-  font-weight: bold;
-}
-
-   /* ════════════════════════════════════════
-   MODE IMPRESSION — AUTO-EVALUATION
-   ════════════════════════════════════════ */
-
-@media print {
-
-  /* on masque totalement les inputs radio */
-  .autoeval-table input {
-    display: none !important;
-  }
-
-  /* optionnel : on neutralise l'aspect interactif */
-  .autoeval-table td {
-    cursor: default;
-  }
-}
   /* ══════════════════════════════════════════════════════════
      NOTE FINALE /20
      ══════════════════════════════════════════════════════════ */
-
-  .cr-note-finale {
-    margin-top: 16px;
-    border: 2px solid #1B6CA8;
-    border-radius: 8px;
-    overflow: hidden;
-    break-inside: avoid;
-  }
-
-  .cr-note-grille {
-    display: flex;
-    align-items: stretch;
-  }
-
+  .cr-note-finale { margin-top: 16px; border: 2px solid var(--bleu-cuivre); border-radius: 8px; overflow: hidden; break-inside: avoid; }
+  .cr-note-grille { display: flex; align-items: stretch; }
   .cr-note-bareme {
     flex: 1;
     padding: 8px 12px;
-    background: #EAF2F8;
-    border-right: 1px solid #1B6CA8;
+    background: var(--bleu-clair-bg);
+    border-right: 1px solid var(--bleu-cuivre);
     display: flex;
     flex-direction: column;
     justify-content: center;
   }
-
   .cr-note-case {
     padding: 8px 14px;
-    border-right: 1px solid #1B6CA8;
+    border-right: 1px solid var(--bleu-cuivre);
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     min-width: 55px;
   }
-
   .cr-note-case:last-child { border-right: none; }
-
-  .cr-note-label {
-    font-size: 6.5pt;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: .06em;
-    color: #0D4F8A;
-    display: block;
-    margin-bottom: 3px;
-  }
-
-  .cr-note-val {
-    font-size: 8pt;
-    color: #374151;
-  }
-
-  /* Grand encadré blanc pour la note /20 */
-  .cr-note-grande {
-    min-width: 72px;
-    background: #fff;
-  }
-
-  .cr-note-blanc {
-    font-size: 9pt;
-    color: #374151;
-    font-weight: 600;
-  }
-
-  .cr-note-grande-val {
-    font-size: 14pt;
-    font-weight: 800;
-    color: #0D4F8A;
-    letter-spacing: .04em;
-  }
+  .cr-note-label { font-size: 6.5pt; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: var(--bleu-fonce); display: block; margin-bottom: 3px; }
+  .cr-note-val { font-size: 8pt; color: #374151; }
+  .cr-note-grande { min-width: 72px; background: var(--blanc); }
+  .cr-note-blanc { font-size: 9pt; color: #374151; font-weight: 600; }
+  .cr-note-grande-val { font-size: 14pt; font-weight: 800; color: var(--bleu-fonce); letter-spacing: .04em; }
 
   /* ── Pied de page ── */
   .cr-pied {
     margin-top: 12px;
     padding-top: 6px;
-    border-top: 1px solid #e5e7eb;
+    border-top: 1px solid #E5E7EB;
     font-size: 6.5pt;
-    color: #9ca3af;
+    color: #9CA3AF;
     display: flex;
     justify-content: space-between;
   }
-
-  
 
   /* ── Titres de section h3 (hors questions) ── */
   .cr-section:not(.cr-section-question) h3 {
     font-size: 9pt;
     font-weight: 700;
-    color: #0D4F8A;
-    border-left: 3px solid #1B6CA8;
+    color: var(--bleu-fonce);
+    border-left: 3px solid var(--bleu-cuivre);
     padding-left: 7px;
     margin: 0 0 6px;
+  }
+
+  /* Sur pages étroites (impression A5 / réduction) : identification sur 2 colonnes */
+  @media (max-width: 480px) {
+    .cr-identification { grid-template-columns: repeat(2, 1fr); }
   }
 }
