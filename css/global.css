@@ -1,545 +1,144 @@
 /* ════════════════════════════════════════════════════════════════
-   global.css    Palette : matière, rigueur, couleurs de réaction
+   global.css
+   FONDATIONS DU THÈME SCILAB — variables uniquement.
    ════════════════════════════════════════════════════════════════ */
 
 @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Fira+Code:wght@400;500&family=Lato:wght@300;400;700&display=swap');
 
-/* ── Tokens ──────────────────────────────────────────────────── */
 :root {
-  /* Couleurs primaires inspirées des réactions chimiques */
-  --bleu-cuivre:   #1B6CA8;   /* CuSO₄ en solution */
-  --vert-acide:    #00875A;   /* virage BBT basique */
-  --rouge-ph:      #C0392B;   /* hélianthine acide */
-  --violet-kmno4:  #6C3483;   /* KMnO₄ */
-  --ambre-fer:     #CA6F1E;   /* Fe²⁺ en solution */
 
-  /* Neutres labo */
+  /* ── 1. Couleurs de marque (inspirées des réactions chimiques) ── */
+  --bleu-cuivre:   #1B6CA8;   /* CuSO₄ en solution — couleur principale */
+  --bleu-fonce:    #0D4F8A;   /* fin de dégradé, logo, titres imprimés */
+  --bleu-clair-bg: #EAF2F8;   /* fonds de badges / bandeaux clairs */
+  --bleu-tres-clair: #EBF5FB;/* fonds de blocs info très clairs */
+  --bleu-prevention: #0D6EFD;/* bloc "prévention" (bleu distinct, Bootstrap-like) */
+  --vert-acide:    #00875A;  /* virage BBT basique */
+  --rouge-ph:      #C0392B;  /* hélianthine acide */
+  --violet-kmno4:  #6C3483;  /* KMnO₄ */
+  --ambre-fer:     #CA6F1E;  /* Fe²⁺ en solution */
+
+  /* ── 2. Neutres labo ── */
   --blanc-paillasse: #F8F9FA;
   --gris-ardoise:    #2C3E50;
   --gris-moyen:      #566573;
+  --gris-texte-clair:#6B7280;  /* texte secondaire sur fond clair / impression */
   --gris-clair:      #D5D8DC;
+  --gris-bordure-print: #CBD5E1;
   --noir-crayon:     #1A1A2E;
+  --blanc:           #FFFFFF;
 
-  /* Danger CLP */
+  /* ── 3. Danger / CLP (pictogrammes réglementaires) ── */
   --clp-rouge:   #E74C3C;
   --clp-orange:  #E67E22;
   --clp-jaune:   #F1C40F;
   --clp-vert:    #27AE60;
 
-  /* Typographie */
-  --font-titre: 'Space Grotesk', sans-serif;
-  --font-corps:  'Lato', sans-serif;
-  --font-code:   'Fira Code', monospace;
+  /* Blocs danger / prévention (distincts des couleurs CLP officielles) */
+  --danger-bg:     #FFF5F5;
+  --danger-bordure:#D9534F;
+  --danger-texte:  #B02A37;
+  --prevention-bg: #F4F8FF;
 
-  /* Espacement */
+  /* ── 4. États sémantiques unifiés (résultats, écarts, qualité) ── */
+  --etat-succes-bg:    #D4EDDA;
+  --etat-succes-fg:    #155724;
+  --etat-succes-accent:#10B981;
+  --etat-attention-bg: #FFF3CD;
+  --etat-attention-fg: #856404;
+  --etat-erreur-bg:    #F8D7DA;
+  --etat-erreur-fg:    #721C24;
+
+  /* ── 5. Blocs de message (info / résultat / erreur) ── */
+  --resultat-bg:     #ECFDF5;
+  --resultat-bordure:#6EE7B7;
+  --resultat-accent: #10B981;
+  --resultat-titre:  #059669;
+  --resultat-valeur: #065F46;
+  --erreur-bg:       #FEF2F2;
+  --info-bg:         #EFF6FF;
+
+  /* ── 6. EPI (équipements de protection individuelle) ── */
+  --epi-lunettes-bg: #D6EAF8; --epi-lunettes-fg: #1565C0;
+  --epi-gants-bg:    #D5F5E3; --epi-gants-fg:    #1E8449;
+  --epi-blouse-bg:   #E8DAEF; --epi-blouse-fg:   #6C3483;
+  --epi-hotte-bg:    #FDEBD0; --epi-hotte-fg:    #D35400;
+
+  /* ── 7. Sections de TP par type (fond pastel + icône colorée) ── */
+  --section-securite-bg:  #FDEDEC; --section-securite-fg:  var(--clp-rouge);
+  --section-objectif-bg:  #EBF5FB; --section-objectif-fg:  var(--bleu-cuivre);
+  --section-materiel-bg:  #FDFEFE; --section-materiel-fg:  var(--gris-moyen);
+  --section-reactifs-bg:  #FEF9E7; --section-reactifs-fg:  var(--ambre-fer);
+  --section-protocole-bg: #EAFAF1; --section-protocole-fg: var(--vert-acide);
+  --section-resultats-bg: #F5EEF8; --section-resultats-fg: var(--violet-kmno4);
+  --section-bilan-bg:     #EBF5FB; --section-bilan-fg:     var(--bleu-cuivre);
+
+  /* ── 8. Niveaux pédagogiques (Bac Pro) ── */
+  --niveau-seconde-bg:   var(--epi-gants-bg);   --niveau-seconde-fg:   var(--epi-gants-fg);
+  --niveau-premiere-bg:  var(--epi-lunettes-bg);--niveau-premiere-fg:  #1A5276;
+  --niveau-terminale-bg: var(--epi-blouse-bg);  --niveau-terminale-fg: var(--violet-kmno4);
+
+  /* ── 9. Typographie ── */
+  --font-titre: 'Space Grotesk', sans-serif;
+  --font-corps: 'Lato', sans-serif;
+  --font-code:  'Fira Code', monospace;
+
+  --fs-xs:  0.75rem;
+  --fs-sm:  0.85rem;
+  --fs-base:1rem;
+  --fs-md:  1.1rem;
+  --fs-lg:  1.35rem;
+  --fs-xl:  1.75rem;
+
+  /* ── 10. Espacements (échelle unique du projet) ── */
   --gap-xs: 0.4rem;
   --gap-sm: 0.8rem;
   --gap-md: 1.6rem;
   --gap-lg: 3.2rem;
   --gap-xl: 6.4rem;
 
-  /* Rayons */
+  /* ── 11. Rayons ── */
   --r-sm: 4px;
   --r-md: 8px;
   --r-lg: 16px;
+  --r-pill: 999px;
 
-  /* Ombres */
-  --ombre-carte: 0 2px 8px rgba(0,0,0,.10);
-  --ombre-lourde: 0 8px 32px rgba(0,0,0,.15);
-}
+  /* ── 12. Ombres ── */
+  --ombre-carte:  0 2px 8px rgba(0, 0, 0, .10);
+  --ombre-lourde: 0 8px 32px rgba(0, 0, 0, .15);
+  --ombre-modale: 0 20px 50px rgba(0, 0, 0, .35);
 
-/* ── Reset ──────────────────────────────────────────────────── */
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; font-size: 16px; }
-body {
-  font-family: var(--font-corps);
-  background: var(--blanc-paillasse);
-  color: var(--gris-ardoise);
-  line-height: 1.65;
-  min-height: 100vh;
-}
-a { color: var(--bleu-cuivre); text-decoration: none; }
-a:hover { text-decoration: underline; }
-img, svg { display: block; max-width: 100%; }
+  /* ── 13. Largeurs / conteneurs ── */
+  --largeur-page:      1200px;
+  --largeur-contenu:   1000px;
+  --largeur-modale:    460px;
+  --largeur-sidebar:   300px;
 
-/* ── En-tête global ─────────────────────────────────────────── */
-.site-header {
-  background: var(--gris-ardoise);
-  color: #fff;
-  display: flex;
-  align-items: center;
-  gap: var(--gap-md);
-  padding: var(--gap-sm) var(--gap-lg);
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  box-shadow: 0 2px 8px rgba(0,0,0,.3);
-}
-.site-header .logo {
-  font-family: var(--font-titre);
-  font-size: 1.1rem;
-  font-weight: 700;
-  letter-spacing: -.02em;
-  color: #fff;
-  white-space: nowrap;
-}
-.site-header .logo span { color: var(--ambre-fer); }
-.site-header nav { display: flex; gap: var(--gap-sm); flex-wrap: wrap; }
-.site-header nav a {
-  color: rgba(255,255,255,.75);
-  font-size: .85rem;
-  font-weight: 500;
-  padding: .3rem .7rem;
-  border-radius: var(--r-sm);
-  transition: background .2s, color .2s;
-}
-.site-header nav a:hover,
-.site-header nav a.actif {
-  background: rgba(255,255,255,.15);
-  color: #fff;
-  text-decoration: none;
-}
-.site-header .badge-niveau {
-  margin-left: auto;
-  font-size: .75rem;
-  font-family: var(--font-code);
-  background: var(--bleu-cuivre);
-  color: #fff;
-  padding: .2rem .6rem;
-  border-radius: 20px;
+  /* ── 14. Points de rupture (référence — utilisés dans responsive.css) ──
+     mobile   : ≤ 500px
+     tablette : ≤ 760px
+     labo     : ≤ 900px
+     compact  : ≤ 1024px
+  */
+  --bp-mobile:   500px;
+  --bp-tablette: 760px;
+  --bp-labo:     900px;
+  --bp-compact:  1024px;
+
+  /* ── 15. Z-index ── */
+  --z-header:  100;
+  --z-tooltip: 50;
+  --z-modale:  5000;
+
+  /* ── 16. Durées d'animation ── */
+  --duree-rapide: .15s;
+  --duree-normale:.2s;
+  --duree-lente:  .3s;
 }
 
-.tp-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  margin-bottom: 0.3rem;
-}
-
-.tag {
-  padding: 0.2rem 0.6rem;
-  border-radius: 12px;
-  background: #e7dfd3;
-  font-size: 0.85rem;
-}
-
-/* ── Mise en page principale ─────────────────────────────────── */
-.page-wrapper {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: var(--gap-lg) var(--gap-md);
-}
-
-/* ── En-tête de TP ──────────────────────────────────────────── */
-.tp-header {
-  background: linear-gradient(135deg, var(--bleu-cuivre) 0%, #0D4F8A 100%);
-  color: #fff;
-  border-radius: var(--r-lg);
-  padding: var(--gap-lg);
-  margin-bottom: var(--gap-lg);
-  display: grid;
-  grid-template-columns: 1fr auto;
-  gap: var(--gap-md);
-  align-items: start;
-}
-.tp-header h1 {
-  font-family: var(--font-titre);
-  font-size: clamp(1.3rem, 2vw, 1.6rem);
-  font-weight: 700;
-  line-height: 1.2;
-  margin-bottom: .5rem;
-}
-.tp-header .tp-meta {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 0.4rem;
-  margin-top: var(--gap-sm);
-  width: 100%;
-}
-
-.tp-header .tp-meta .tp-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  width: 100%;
-}
-.tp-header .tag {
-  background: rgba(255,255,255,.2);
-  border: 1px solid rgba(255,255,255,.3);
-  border-radius: 20px;
-  padding: .2rem .8rem;
-  font-size: .78rem;
-  font-weight: 600;
-  letter-spacing: .04em;
-  text-transform: uppercase;
-}
-.tp-header .tp-numero {
-  font-family: var(--font-code);
-  font-size: 3.5rem;
-  font-weight: 500;
-  opacity: .2;
-  line-height: 1;
-  text-align: right;
-}
-
-/* ── Sections ───────────────────────────────────────────────── */
-.section {
-  background: #fff;
-  border-radius: var(--r-md);
-  border: 1px solid var(--gris-clair);
-  margin-bottom: var(--gap-md);
-  overflow: hidden;
-  box-shadow: var(--ombre-carte);
-}
-.section-titre {
-  display: flex;
-  align-items: center;
-  gap: var(--gap-sm);
-  padding: var(--gap-sm) var(--gap-md);
-  background: var(--blanc-paillasse);
-  border-bottom: 2px solid var(--gris-clair);
-  cursor: pointer;
-  user-select: none;
-}
-.section-titre h2 {
-  font-family: var(--font-titre);
-  font-size: 1rem;
-  font-weight: 600;
-  color: var(--gris-ardoise);
-  flex: 1;
-}
-.section-titre .picto-section {
-  width: 32px;
-  height: 32px;
-  border-radius: var(--r-sm);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1rem;
-  flex-shrink: 0;
-}
-.section-titre .chevron {
-  font-size: .8rem;
-  transition: transform .25s;
-  color: var(--gris-moyen);
-}
-.section.fermee .chevron { transform: rotate(-90deg); }
-.section.fermee .section-corps { display: none; }
-.section-corps { padding: var(--gap-md); }
-
-/* Couleurs de section par type */
-.section[data-type="securite"]   .picto-section { background: #FDEDEC; color: var(--clp-rouge); }
-.section[data-type="objectif"]   .picto-section { background: #EBF5FB; color: var(--bleu-cuivre); }
-.section[data-type="materiel"]   .picto-section { background: #FDFEFE; color: var(--gris-moyen); }
-.section[data-type="reactifs"]   .picto-section { background: #FEF9E7; color: var(--ambre-fer); }
-.section[data-type="protocole"]  .picto-section { background: #EAFAF1; color: var(--vert-acide); }
-.section[data-type="resultats"]  .picto-section { background: #F5EEF8; color: var(--violet-kmno4); }
-.section[data-type="bilan"]      .picto-section { background: #EBF5FB; color: var(--bleu-cuivre); }
-
-/* ── Alerte sécurité ─────────────────────────────────────────── */
-.alerte-securite {
-  background: #FDEDEC;
-  border-left: 4px solid var(--clp-rouge);
-  border-radius: 0 var(--r-md) var(--r-md) 0;
-  padding: var(--gap-sm) var(--gap-md);
-  margin-bottom: var(--gap-sm);
-}
-.alerte-securite strong { color: var(--clp-rouge); display: block; margin-bottom: .3rem; }
-
-/* ── Carte produit ───────────────────────────────────────────── */
-.produit-carte {
-  border: 1px solid var(--gris-clair);
-  border-radius: var(--r-md);
-  padding: var(--gap-sm);
-  display: grid;
-  grid-template-columns: auto 1fr;
-  gap: var(--gap-sm);
-  align-items: start;
-  margin-bottom: var(--gap-sm);
-  background: #fff;
-}
-.produit-carte:last-child { margin-bottom: 0; }
-.produit-cas {
-  font-family: var(--font-code);
-  font-size: .72rem;
-  background: var(--gris-ardoise);
-  color: #fff;
-  padding: .15rem .5rem;
-  border-radius: var(--r-sm);
-  white-space: nowrap;
-}
-.produit-nom { font-weight: 700; font-size: .95rem; color: var(--gris-ardoise); }
-.produit-formule {
-  font-family: var(--font-code);
-  font-size: .85rem;
-  color: var(--bleu-cuivre);
-}
-.produit-localisation { font-size: .78rem; color: var(--gris-moyen); }
-.produit-epi { display: flex; flex-wrap: wrap; gap: .3rem; margin-top: .4rem; }
-.epi-badge {
-  font-size: .7rem;
-  font-weight: 700;
-  letter-spacing: .06em;
-  padding: .15rem .5rem;
-  border-radius: 20px;
-  text-transform: uppercase;
-}
-.epi-badge.lunettes  { background: #D6EAF8; color: #1565C0; }
-.epi-badge.gants     { background: #D5F5E3; color: #1E8449; }
-.epi-badge.blouse    { background: #E8DAEF; color: #6C3483; }
-.epi-badge.hotte     { background: #FDEBD0; color: #D35400; }
-
-/* ── Pictogrammes GHS ───────────────────────────────────────── */
-.ghs-pictos { display: flex; flex-wrap: wrap; gap: .4rem; margin-top: .4rem; }
-.ghs-badge {
-  width: 36px;
-  height: 36px;
-  border: 2px solid var(--clp-rouge);
-  border-radius: var(--r-sm);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.3rem;
-  background: #fff;
-  title: attr(title);
-}
-
-.danger-bloc{
-    margin-top:15px;
-    padding:12px;
-    border-left:4px solid #d9534f;
-    background:#fff5f5;
-    border-radius:6px;
-}
-
-.prevention-bloc{
-    margin-top:15px;
-    padding:12px;
-    border-left:4px solid #0d6efd;
-    background:#f4f8ff;
-    border-radius:6px;
-}
-
-.danger-bloc h4{
-    color:#b02a37;
-    margin-bottom:8px;
-}
-
-.prevention-bloc h4{
-    color:#0d6efd;
-    margin-bottom:8px;
-}
-
-.danger-bloc ul,
-.prevention-bloc ul{
-    margin:0;
-    padding-left:20px;
-}
-
-
-/* ─────────────────────────────────────────────
-   ÉTAPES NUMÉROTÉES
-   ───────────────────────────────────────────── */
-
-.etapes{
-    list-style:none;
-    counter-reset:etape;
-    padding:0;
-    margin:0;
-}
-
-.etapes li{
-    counter-increment:etape;
-
-    display:flex;
-    align-items:flex-start;
-    gap:1rem;
-
-    width:100%;
-    margin-bottom:1rem;
-    padding-bottom:1rem;
-
-    border-bottom:1px dashed var(--gris-clair);
-}
-
-.etapes li:last-child{
-    margin-bottom:0;
-    padding-bottom:0;
-    border-bottom:none;
-}
-
-.etapes li::before{
-
-    content:counter(etape);
-
-    width:40px;
-    height:40px;
-    min-width:40px;
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    border-radius:50%;
-
-    background:var(--bleu-cuivre);
-    color:#fff;
-
-    font-family:var(--font-titre);
-    font-weight:700;
-    font-size:.95rem;
-
-    flex-shrink:0;
-}
-
-.etapes li > *{
-    flex:1;
-    min-width:0;
-}
-
-.etapes li .attention{
-    color:var(--clp-rouge);
-    font-weight:600;
-}
-
-.etapes li strong,
-.etapes li em,
-.etapes li span,
-.etapes li p{
-    display:inline;
-    width:auto;
-    max-width:none;
-}
-
-/* ── Tableau de résultats ────────────────────────────────────── */
-.tableau-resultats {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: .9rem;
-}
-.tableau-resultats th {
-  background: var(--gris-ardoise);
-  color: #fff;
-  padding: .6rem 1rem;
-  text-align: left;
-  font-family: var(--font-titre);
-  font-weight: 600;
-  font-size: .8rem;
-  letter-spacing: .04em;
-}
-.tableau-resultats td {
-  padding: .6rem 1rem;
-  border-bottom: 1px solid var(--gris-clair);
-}
-.tableau-resultats tr:nth-child(even) td { background: var(--blanc-paillasse); }
-.tableau-resultats td.saisie {
-  background: #FFF9C4;
-  border: 1px dashed #F0C040;
-  min-width: 120px;
-}
-
-/* ── Formule chimique highlight ──────────────────────────────── */
-.formule-bloc {
-  font-family: var(--font-code);
-  background: var(--gris-ardoise);
-  color: #7EC8E3;
-  padding: var(--gap-sm) var(--gap-md);
-  border-radius: var(--r-md);
-  font-size: 1.05rem;
-  margin: var(--gap-sm) 0;
-  overflow-x: auto;
-}
-
-/* ── Calcul guidé ────────────────────────────────────────────── */
-/* APRÈS — tout passe au bleu cuivre */
-.calcul-guide {
-  background: #EBF5FB;
-  border: 1px solid #AED6F1;
-  border-radius: var(--r-md);
-  padding: var(--gap-md);
-  margin: var(--gap-sm) 0;
-}
-.calcul-guide h4 {
-  font-family: var(--font-titre);
-  font-size: .85rem;
-  font-weight: 700;
-  color: var(--bleu-cuivre);
-  margin-bottom: var(--gap-sm);
-  text-transform: uppercase;
-  letter-spacing: .08em;
-}
-.calcul-guide input[type="number"],
-.calcul-guide input[type="text"] {
-  border: 2px solid var(--bleu-cuivre);
-  border-radius: var(--r-sm);
-  padding: .4rem .7rem;
-  font-family: var(--font-code);
-  font-size: 1rem;
-  width: 120px;
-  outline: none;
-  background: #fff;
-}
-.calcul-guide input:focus {
-  box-shadow: 0 0 0 3px rgba(27,108,168,.2);
-}
-.calcul-guide .resultat-calcul {
-  font-family: var(--font-code);
-  font-size: 1.2rem;
-  font-weight: 700;
-  color: var(--bleu-cuivre);
-  margin-top: .5rem;
-}
-
-/* ── Boutons ─────────────────────────────────────────────────── */
-.btn {
-  display: inline-flex;
-  align-items: center;
-  gap: .4rem;
-  padding: .55rem 1.2rem;
-  border-radius: var(--r-sm);
-  font-family: var(--font-titre);
-  font-weight: 600;
-  font-size: .9rem;
-  cursor: pointer;
-  border: none;
-  transition: all .2s;
-  text-decoration: none;
-}
-.btn-primaire  { background: var(--bleu-cuivre); color: #fff; }
-.btn-primaire:hover  { background: #1557A0; color: #fff; text-decoration: none; }
-.btn-secondaire { background: transparent; color: var(--gris-ardoise); border: 2px solid var(--gris-clair); }
-.btn-secondaire:hover { border-color: var(--gris-ardoise); text-decoration: none; }
-.btn-danger { background: var(--clp-rouge); color: #fff; }
-.btn-imprimer { background: var(--gris-ardoise); color: #fff; }
-
-/* ── Navigation entre TP ─────────────────────────────────────── */
-.nav-tp {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: var(--gap-lg);
-  padding-top: var(--gap-md);
-  border-top: 2px solid var(--gris-clair);
-}
-
-/* ── Responsive ──────────────────────────────────────────────── */
-@media (max-width: 768px) {
-  .tp-header { grid-template-columns: 1fr; }
-  .tp-header .tp-numero { display: none; }
-  .page-wrapper { padding: var(--gap-md) var(--gap-sm); }
-  .site-header { padding: var(--gap-sm); }
-}
-
-/* ── Impression ──────────────────────────────────────────────── */
-@media print {
-  .site-header, .btn, .nav-tp { display: none !important; }
-  .section.fermee .section-corps { display: block !important; }
-  .section { box-shadow: none; border: 1px solid #ccc; break-inside: avoid; }
-  body { font-size: 11pt; }
-}
-
-/* ── Motion réduit ───────────────────────────────────────────── */
-@media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after { transition: none !important; animation: none !important; }
-}
+/* ────────────────────────────────────────────────────────────────
+   Le reset navigateur, la typographie de base et les préférences
+   d'accessibilité (focus visible) vivent désormais dans reset.css.
+   Ordre de chargement : global.css → reset.css → tp.css →
+   compte-rendu.css / balance-erreurs.css → animations.css.
+   ──────────────────────────────────────────────────────────────── */
