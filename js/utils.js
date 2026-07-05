@@ -96,25 +96,27 @@ export const MASSES_MOLAIRES = {
 };
 
 // ── Résolution de chemin d'image ───────────────────────────────
-// Les données peuvent contenir un nom de fichier seul, un chemin déjà
-// préfixé par "assets/", ou une URL absolue/relative complète.
+// Les fragments de TP sont injectés par navigation.js dans la page hôte
+// (le "shell" SPA à la racine du site) : tous les chemins d'image doivent
+// donc être RELATIFS À LA RACINE DU SITE, jamais relatifs au fichier JS
+// ni au fichier HTML d'origine du fragment.
 export function imgSrc(chemin, dossierParDefaut = 'tp-chimie/assets/images/') {
   if (!chemin) return '';
 
+  // URL absolue ou déjà explicitement relative à la racine (ex: "assets/…",
+  // "tp-chimie/…") ou une URL complète : on la laisse telle quelle.
   if (
     chemin.startsWith('http') ||
-    chemin.startsWith('/') ||
-    chemin.startsWith('../') ||
-    chemin.startsWith('./')
+    chemin.startsWith('assets/') ||
+    chemin.startsWith('tp-chimie/') ||
+    chemin.startsWith('/')
   ) {
     return chemin;
   }
 
-  if (chemin.startsWith('assets/')) {
-    return '../' + chemin;
-  }
-
-  return '../' + dossierParDefaut + chemin;
+  // Nom de fichier seul → on préfixe avec le dossier par défaut (relatif
+  // à la racine du site).
+  return dossierParDefaut + chemin;
 }
 
 // ── Carte produit ─────────────────────────────────────────────
