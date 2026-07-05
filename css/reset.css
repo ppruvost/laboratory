@@ -1,0 +1,64 @@
+/* ════════════════════════════════════════════════════════════════
+   reset.css
+   ════════════════════════════════════════════════════════════════ */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+body {
+  font-family: var(--font-corps);
+  background: var(--blanc-paillasse);
+  color: var(--gris-ardoise);
+  line-height: 1.65;
+  min-height: 100vh;
+}
+
+a { color: var(--bleu-cuivre); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+img, svg { display: block; max-width: 100%; }
+
+button, input, select, textarea {
+  font-family: inherit;
+  color: inherit;
+  font-size: 1rem;
+}
+
+ul, ol { list-style: none; }
+
+hr {
+  border: none;
+  border-top: 1px solid var(--gris-clair);
+  margin: var(--gap-sm) 0;
+}
+
+/* ── Typographie de base ── */
+h1, h2, h3, h4 {
+  font-family: var(--font-titre);
+  font-weight: 700;
+  color: var(--gris-ardoise);
+  line-height: 1.25;
+}
+
+h1 { font-size: var(--fs-xl); }
+h2 { font-size: var(--fs-lg); }
+h3 { font-size: var(--fs-md); }
+h4 { font-size: var(--fs-base); }
+
+p { line-height: 1.65; }
+
+small { font-size: var(--fs-xs); color: var(--gris-moyen); }
+
+/* ── Accessibilité — focus visible partout ── */
+:focus-visible {
+  outline: 3px solid var(--bleu-cuivre);
+  outline-offset: 2px;
+}
