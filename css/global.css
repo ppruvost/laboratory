@@ -1,6 +1,9 @@
 /* ════════════════════════════════════════════════════════════════
    global.css
    FONDATIONS DU THÈME SCILAB — variables uniquement.
+   Aucune classe de mise en page ici (voir tp.css pour les composants).
+   Tous les autres fichiers CSS du projet doivent utiliser ces
+   variables plutôt que des couleurs/tailles en dur.
    ════════════════════════════════════════════════════════════════ */
 
 @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Fira+Code:wght@400;500&family=Lato:wght@300;400;700&display=swap');
