@@ -1,5 +1,9 @@
 /* ════════════════════════════════════════════════════════════════
    reset.css
+   Remise à zéro du navigateur + styles de base des éléments HTML nus
+   (body, titres, liens, formulaires). Aucune classe de composant ici
+   — voir tp.css. Dépend des variables de global.css : à charger APRÈS
+   global.css et AVANT tp.css.
    ════════════════════════════════════════════════════════════════ */
 
 *, *::before, *::after {
