@@ -1,0 +1,54 @@
+/* ════════════════════════════════════════════════════════════════
+   animations.css
+   Toutes les animations et transitions décoratives de la plateforme,
+   ainsi que la prise en compte de prefers-reduced-motion.
+   À charger après tp.css.
+   ════════════════════════════════════════════════════════════════ */
+
+/* ── Apparition des sections au chargement ── */
+@keyframes fadeSlideUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.section {
+  animation: fadeSlideUp var(--duree-lente) ease both;
+}
+.section:nth-child(2) { animation-delay: .05s; }
+.section:nth-child(3) { animation-delay: .10s; }
+.section:nth-child(4) { animation-delay: .15s; }
+.section:nth-child(5) { animation-delay: .20s; }
+.section:nth-child(6) { animation-delay: .25s; }
+
+/* ── Barre de progression de lecture (.progress / #bar) ── */
+@keyframes progressPulse {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: .7; }
+}
+
+/* ── Pulsation légère pour attirer l'attention (ex : alerte sécurité) ── */
+@keyframes attentionPulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(231, 76, 60, .35); }
+  50%      { box-shadow: 0 0 0 6px rgba(231, 76, 60, 0); }
+}
+.alerte-securite.attire-attention { animation: attentionPulse 1.6s ease-in-out infinite; }
+
+/* ── Apparition douce des résultats calculés dynamiquement ── */
+@keyframes resultatApparait {
+  from { opacity: 0; transform: translateY(4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.resultat, .resultat-calcul:not(:empty) {
+  animation: resultatApparait var(--duree-normale) ease both;
+}
+
+/* ════════════════════════════════════════════════════════════════
+   PRÉFÉRENCES DE MOUVEMENT RÉDUIT — désactive tout ce qui précède
+   ════════════════════════════════════════════════════════════════ */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    transition: none !important;
+    animation: none !important;
+    scroll-behavior: auto !important;
+  }
+}
