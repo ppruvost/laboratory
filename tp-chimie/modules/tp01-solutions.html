@@ -1,32 +1,16 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>TP01 - Préparation de solutions</title>
-
-<link rel="stylesheet" href="../css/global.css">
-<link rel="stylesheet" href="../css/tp.css">
-<link rel="stylesheet" href="../css/balance-erreurs.css">
-</head>
-
-<body>
-
-<div class="page-wrapper">
-
-<!-- ====================================================== -->
-<!-- HEADER COMPACT — une seule ligne                        -->
-<!-- ====================================================== -->
+<!--
+  Fragment SPA chargé dynamiquement par navigation.js dans la page hôte.
+  Convention de chemins : tous les chemins (images, etc.) sont relatifs
+  à la RACINE DU SITE (là où vit le shell SPA), jamais à ce fichier.
+-->
+<section>
 
 <header class="tp-header">
-
   <div class="tp-header-logo">
     <div class="logo">
       <span class="sci">Sci</span><span class="Lab">Lab</span>
     </div>
   </div>
-
   <div class="tp-header-centre">
     <h1>Préparation de solutions par dissolution et dilution</h1>
     <div class="tp-meta">
@@ -43,732 +27,672 @@
       </div>
     </div>
   </div>
-
   <div class="tp-header-numero">
     <span class="tp-numero-txt">TP01</span>
   </div>
-
 </header>
 
-<!-- ====================================================== -->
-<!-- OBJECTIFS                                               -->
-<!-- ====================================================== -->
+<div class="progress"><div id="bar"></div></div>
 
-<div class="section" data-type="objectif">
-  <div class="section-titre">
-    <div class="picto-section">🎯</div>
-    <h2>Objectifs</h2>
-    <span class="chevron">▼</span>
-  </div>
-  <div class="section-corps">
-    <ul>
-      <li>Définir soluté, solvant et solution.</li>
-      <li>Calculer une quantité de matière.</li>
-      <li>Utiliser la relation n = m / M.</li>
-      <li>Préparer une solution par dissolution.</li>
-      <li>Préparer une solution par dilution.</li>
-      <li>Utiliser correctement la verrerie volumétrique.</li>
-    </ul>
-  </div>
-</div>
+<main id="content">
 
-<!-- ====================================================== -->
-<!-- SECURITE                                                -->
-<!-- ====================================================== -->
+  <!-- ====================================================== -->
+  <!-- OBJECTIFS                                               -->
+  <!-- ====================================================== -->
 
-<div class="section" data-type="securite">
-  <div class="section-titre">
-    <div class="picto-section">⚠️</div>
-    <h2>Sécurité - Produits utilisés</h2>
-    <span class="chevron">▼</span>
+  <div class="section" data-type="objectif">
+    <div class="section-titre">
+      <div class="picto-section">🎯</div>
+      <h2>Objectifs</h2>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="section-corps">
+      <ul>
+        <li>Définir soluté, solvant et solution.</li>
+        <li>Calculer une quantité de matière.</li>
+        <li>Utiliser la relation n = m / M.</li>
+        <li>Préparer une solution par dissolution.</li>
+        <li>Préparer une solution par dilution.</li>
+        <li>Utiliser correctement la verrerie volumétrique.</li>
+      </ul>
+    </div>
   </div>
 
-  <div class="section-corps">
+  <!-- ====================================================== -->
+  <!-- SECURITE                                                -->
+  <!-- ====================================================== -->
 
-    <!-- ===== Filtres par catégorie ===== -->
-    <div class="filtre-reactifs">
-      <span class="filtre-titre"><strong>Afficher :</strong></span>
-
-      <label>
-        <input type="checkbox" class="filtre-cat" value="Liquide" checked>
-        Liquides
-      </label>
-
-      <label>
-        <input type="checkbox" class="filtre-cat" value="Sel" checked>
-        Sels
-      </label>
-
-      <label>
-        <input type="checkbox" class="filtre-cat" value="Solide" checked>
-        Solides
-      </label>
-
-      <label>
-        <input type="checkbox" class="filtre-cat" value="Indicateur" checked>
-        Indicateurs
-      </label>
-
-      <label>
-        <input type="checkbox" class="filtre-cat" value="Colorant" checked>
-        Colorants
-      </label>
-
-      <label>
-        <input type="checkbox" class="filtre-cat" value="Métal" checked>
-        Métaux
-      </label>
-
-      <label>
-        <input type="checkbox" class="filtre-cat" value="Solvant" checked>
-        Solvants
-      </label>
-
-      <label>
-        <input type="checkbox" class="filtre-cat" value="Halogène" checked>
-        Halogènes
-      </label>
+  <div class="section" data-type="securite">
+    <div class="section-titre">
+      <div class="picto-section">⚠️</div>
+      <h2>Sécurité - Produits utilisés</h2>
+      <span class="chevron">▼</span>
     </div>
 
-    <!-- ===== Sélection du réactif ===== -->
-    <div class="form-group">
-      <label for="reactif">Choisir un réactif :</label>
-      <select id="reactif">
-        <option value="">-- Sélectionner --</option>
-      </select>
-    </div>
+    <div class="section-corps">
 
-    <!-- ===== Bloc sécurité ===== -->
-    <div id="securite-bloc">
-      <div class="info">Sélectionner un réactif.</div>
-    </div>
+      <!-- ===== Filtres par catégorie ===== -->
+      <div class="filtre-reactifs">
+        <span class="filtre-titre"><strong>Afficher :</strong></span>
 
-  </div>
-</div>
-  
-<!-- ====================================================== -->
-<!-- MATERIEL                                                -->
-<!-- ====================================================== -->
-
-<div class="section" data-type="materiel">
-  <div class="section-titre">
-    <div class="picto-section">🧪</div>
-    <h2>Matériel nécessaire</h2>
-    <span class="chevron">▼</span>
-  </div>
-  <div class="section-corps">
-    <h3>Verrerie</h3>
-    <div id="materiel-verrerie" class="grille-materiel"></div>
-    <br>
-    <h3>Équipements</h3>
-    <div id="materiel-equipements" class="grille-materiel"></div>
-  </div>
-</div>
-
-<!-- ====================================================== -->
-<!-- PREPARATION — TABS dissolution / dilution              -->
-<!-- ====================================================== -->
-
-<div class="section" data-type="reactifs">
-  <div class="section-titre">
-    <div class="picto-section">⚗️</div>
-    <h2>Préparation des réactifs</h2>
-    <span class="chevron">▼</span>
-  </div>
-  <div class="section-corps">
-
-    <div class="tabs-container">
-
-      <div class="tabs-header">
-        <button class="tab-btn actif" data-tab="dissolution">Dissolution</button>
-        <button class="tab-btn"       data-tab="dilution">Dilution</button>
+        <label><input type="checkbox" class="filtre-cat" value="Liquide" checked> Liquides</label>
+        <label><input type="checkbox" class="filtre-cat" value="Sel" checked> Sels</label>
+        <label><input type="checkbox" class="filtre-cat" value="Solide" checked> Solides</label>
+        <label><input type="checkbox" class="filtre-cat" value="Indicateur" checked> Indicateurs</label>
+        <label><input type="checkbox" class="filtre-cat" value="Colorant" checked> Colorants</label>
+        <label><input type="checkbox" class="filtre-cat" value="Métal" checked> Métaux</label>
+        <label><input type="checkbox" class="filtre-cat" value="Solvant" checked> Solvants</label>
+        <label><input type="checkbox" class="filtre-cat" value="Halogène" checked> Halogènes</label>
       </div>
 
-      <!-- ── DISSOLUTION ─────────────────────────────────── -->
-      <div class="tab-panel actif" id="dissolution">
+      <!-- ===== Sélection du réactif ===== -->
+      <div class="form-group">
+        <label for="reactif">Choisir un réactif :</label>
+        <select id="reactif">
+          <option value="">-- Sélectionner --</option>
+        </select>
+      </div>
 
-        <h3>Préparation par dissolution</h3>
+      <!-- ===== Bloc sécurité ===== -->
+      <div id="securite-bloc">
+        <div class="info">Sélectionner un réactif.</div>
+      </div>
 
-        <div class="calcul-guide">
+    </div>
+  </div>
 
-          <label for="reactif-dissolution">Réactif</label>
-          <select id="reactif-dissolution">
-            <option value="">-- Sélectionner un sel --</option>
-          </select>
+  <!-- ====================================================== -->
+  <!-- MATERIEL                                                -->
+  <!-- ====================================================== -->
 
-          <br><br>
+  <div class="section" data-type="materiel">
+    <div class="section-titre">
+      <div class="picto-section">🧪</div>
+      <h2>Matériel nécessaire</h2>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="section-corps">
+      <h3>Verrerie</h3>
+      <div id="materiel-verrerie" class="grille-materiel"></div>
+      <hr>
+      <h3>Équipements</h3>
+      <div id="materiel-equipements" class="grille-materiel"></div>
+    </div>
+  </div>
 
-          <div class="info-reactif">
-            <p><strong>Nom :</strong> <span id="nom-reactif">-</span></p>
-            <p><strong>Formule :</strong> <span id="formule-dissolution">-</span></p>
-            <p><strong>Masse molaire :</strong> <span id="masse-dissolution">-</span> g/mol</p>
-          </div>
+  <!-- ====================================================== -->
+  <!-- PREPARATION — TABS dissolution / dilution              -->
+  <!-- ====================================================== -->
 
-          <hr>
+  <div class="section" data-type="reactifs">
+    <div class="section-titre">
+      <div class="picto-section">⚗️</div>
+      <h2>Préparation des réactifs</h2>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="section-corps">
 
-          <h4>Calcul de la masse à peser</h4>
-          <div class="formule">m = C × V × M</div>
-          <br>
+      <div class="tabs-container">
 
-          <label for="c-dissolution">C (mol/L)</label>
-          <input id="c-dissolution" type="number" value="0.10" step="0.01" min="0">
-
-          <label for="v-dissolution">V (mL)</label>
-          <input id="v-dissolution" type="number" value="100" min="1">
-
-          <label for="m-dissolution">M (g/mol)</label>
-          <input id="m-dissolution" type="number" readonly>
-
-          <div id="res-dissolution" class="resultat-calcul">
-            Sélectionner un réactif.
-          </div>
-          
-          <div id="modeDissolution" class="mode-op">
-              <img
-                  class="mode-image"
-                  src="../tp-chimie/assets/images/c1-dissolution.png"
-                  alt="Mode opératoire dissolution">
-          </div>
+        <div class="tabs-header">
+          <button class="tab-btn actif" data-tab="dissolution">Dissolution</button>
+          <button class="tab-btn"       data-tab="dilution">Dilution</button>
         </div>
 
-      </div>
-      <!-- fin #dissolution -->
+        <!-- ── DISSOLUTION ─────────────────────────────────── -->
+        <div class="tab-panel actif" id="dissolution">
 
-      <!-- ── DILUTION ────────────────────────────────────── -->
-      <div class="tab-panel" id="dilution">
+          <h3>Préparation par dissolution</h3>
 
-        <h3>Dilution</h3>
+          <div class="calcul-guide">
 
-        <div class="calcul-guide">
-          <div class="formule">C₁V₁ = C₂V₂</div>
-          <br>
-          <label>C₁</label>
-          <input id="c1-hcl" type="number" value="1">
-          <label>C₂</label>
-          <input id="c2-hcl" type="number" value="0.10">
-          <label>V₂ (mL)</label>
-          <input id="v2-hcl" type="number" value="100">
-          <div id="res-hcl" class="resultat-calcul"></div>
-        </div>
-        <div id="modeDilution" class="mode-op hidden">
-        <img
-          class="mode-image"
-          src="../tp-chimie/assets/images/c1-dilution.png"
-          alt="Mode opératoire dilution">
-      </div>
-      </div>
-      <!-- fin #dilution -->
+            <label for="reactif-dissolution">Réactif</label>
+            <select id="reactif-dissolution">
+              <option value="">-- Sélectionner un sel --</option>
+            </select>
 
-    </div>
-    <!-- fin .tabs-container -->
-
-  </div>
-</div>
-
-<!-- ====================================================== -->
-<!-- ERREURS DE PESÉE — section indépendante, hors tabs     -->
-<!-- ====================================================== -->
-
-<div class="section" data-type="resultats" id="section-erreurs-pesee">
-  <div class="section-titre">
-    <div class="picto-section">⚖️</div>
-    <h2>Analyse des erreurs de pesée</h2>
-    <span class="chevron">▼</span>
-  </div>
-  <div class="section-corps">
-
-    <div class="balance-intro">
-      <p>
-        Toute mesure est entachée d'une incertitude liée à la résolution de
-        l'instrument. Saisir la <strong>masse théorique</strong> et les
-        <strong>masses lues</strong> sur chaque balance pour calculer
-        automatiquement les erreurs absolues et relatives.
-      </p>
-    </div>
-
-    <!-- Masse théorique -->
-    <div class="balance-params">
-      <div class="balance-param-group">
-        <label for="pe-masse-theo">Masse théorique à peser <em>(g)</em></label>
-        <div class="balance-input-row">
-          <input type="number" id="pe-masse-theo"
-                 placeholder="ex : 2.940" step="0.001" min="0">
-          <span class="balance-unit">g</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- Deux balances -->
-    <div class="balances-grid">
-
-      <div class="balance-card" id="card-01">
-        <div class="balance-card-header balance-header-01">
-          <div class="balance-icon">⚖️</div>
-          <div>
-            <div class="balance-card-title">Balance de précision METTLER TOLEDO</div>
-            <div class="balance-resolution">Résolution : <strong>0,1 g</strong></div>
-          </div>
-          <div class="balance-incert-badge">± 0,05 g</div>
-        </div>
-        <div class="balance-card-body">
-          <div class="balance-field">
-            <label for="pe-lue-01">Masse lue <em>(g)</em></label>
-            <div class="balance-input-row">
-              <input type="number" id="pe-lue-01"
-                     placeholder="ex : 2.9" step="0.1" min="0">
-              <span class="balance-unit">g</span>
+            <div class="info-reactif" style="margin-top:var(--gap-sm);">
+              <p><strong>Nom :</strong> <span id="nom-reactif">-</span></p>
+              <p><strong>Formule :</strong> <span id="formule-dissolution">-</span></p>
+              <p><strong>Masse molaire :</strong> <span id="masse-dissolution">-</span> g/mol</p>
             </div>
-            <div class="balance-hint">Arrondi au 0,1 g le plus proche</div>
-          </div>
-          <div class="balance-results" id="res-01">
-            <div class="balance-placeholder">Saisir les deux masses pour calculer</div>
-          </div>
-        </div>
-      </div>
 
-      <div class="balance-card" id="card-1g">
-        <div class="balance-card-header balance-header-1g">
-          <div class="balance-icon">⚖️</div>
-          <div>
-            <div class="balance-card-title">Balance JEULIN JBE-402</div>
-            <div class="balance-resolution">Résolution : <strong>1 g</strong></div>
-          </div>
-          <div class="balance-incert-badge">± 0,5 g</div>
-        </div>
-        <div class="balance-card-body">
-          <div class="balance-field">
-            <label for="pe-lue-1g">Masse lue <em>(g)</em></label>
-            <div class="balance-input-row">
-              <input type="number" id="pe-lue-1g"
-                     placeholder="ex : 3" step="1" min="0">
-              <span class="balance-unit">g</span>
+            <hr>
+
+            <h4>Calcul de la masse à peser</h4>
+            <div class="formule">m = C × V × M</div>
+
+            <div class="form-row" style="margin-top:var(--gap-sm);">
+              <div class="form-group">
+                <label for="c-dissolution">C (mol/L)</label>
+                <input id="c-dissolution" type="number" value="0.10" step="0.01" min="0">
+              </div>
+              <div class="form-group">
+                <label for="v-dissolution">V (mL)</label>
+                <input id="v-dissolution" type="number" value="100" min="1">
+              </div>
+              <div class="form-group">
+                <label for="m-dissolution">M (g/mol)</label>
+                <input id="m-dissolution" type="number" readonly>
+              </div>
             </div>
-            <div class="balance-hint">Arrondi au gramme le plus proche</div>
+
+            <div id="res-dissolution" class="resultat-calcul">
+              Sélectionner un réactif.
+            </div>
+
+            <div id="modeDissolution" class="mode-op">
+              <img class="mode-image"
+                   src="tp-chimie/assets/images/c1-dissolution.png"
+                   alt="Mode opératoire dissolution">
+            </div>
           </div>
-          <div class="balance-results" id="res-1g">
-            <div class="balance-placeholder">Saisir les deux masses pour calculer</div>
+
+        </div>
+        <!-- fin #dissolution -->
+
+        <!-- ── DILUTION ────────────────────────────────────── -->
+        <div class="tab-panel" id="dilution">
+
+          <h3>Dilution</h3>
+
+          <div class="calcul-guide">
+            <div class="formule">C₁V₁ = C₂V₂</div>
+
+            <div class="form-row" style="margin-top:var(--gap-sm);">
+              <div class="form-group">
+                <label for="c1-hcl">C₁ (mol/L)</label>
+                <input id="c1-hcl" type="number" value="1">
+              </div>
+              <div class="form-group">
+                <label for="c2-hcl">C₂ (mol/L)</label>
+                <input id="c2-hcl" type="number" value="0.10">
+              </div>
+              <div class="form-group">
+                <label for="v2-hcl">V₂ (mL)</label>
+                <input id="v2-hcl" type="number" value="100">
+              </div>
+            </div>
+
+            <div id="res-hcl" class="resultat-calcul"></div>
+          </div>
+
+          <div id="modeDilution" class="mode-op hidden">
+            <img class="mode-image"
+                 src="tp-chimie/assets/images/c1-dilution.png"
+                 alt="Mode opératoire dilution">
+          </div>
+        </div>
+        <!-- fin #dilution -->
+
+      </div>
+      <!-- fin .tabs-container -->
+
+    </div>
+  </div>
+
+  <!-- ====================================================== -->
+  <!-- ERREURS DE PESÉE — section indépendante, hors tabs      -->
+  <!-- ====================================================== -->
+
+  <div class="section" data-type="resultats" id="section-erreurs-pesee">
+    <div class="section-titre">
+      <div class="picto-section">⚖️</div>
+      <h2>Analyse des erreurs de pesée</h2>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="section-corps">
+
+      <div class="balance-intro">
+        <p>
+          Toute mesure est entachée d'une incertitude liée à la résolution de
+          l'instrument. Saisir la <strong>masse théorique</strong> et les
+          <strong>masses lues</strong> sur chaque balance pour calculer
+          automatiquement les erreurs absolues et relatives.
+        </p>
+      </div>
+
+      <!-- Masse théorique -->
+      <div class="balance-params">
+        <div class="balance-param-group">
+          <label for="pe-masse-theo">Masse théorique à peser <em>(g)</em></label>
+          <div class="balance-input-row">
+            <input type="number" id="pe-masse-theo" placeholder="ex : 2.940" step="0.001" min="0">
+            <span class="balance-unit">g</span>
           </div>
         </div>
       </div>
 
-    </div>
+      <!-- Deux balances -->
+      <div class="balances-grid">
 
-    <!-- Synthèse -->
-    <div class="balance-synthese" id="synthese-balances" style="display:none;">
-      <div class="synthese-titre"><span>📊</span> Comparaison des deux instruments</div>
-      <table class="tableau-comparaison">
-        <thead>
-          <tr><th>Critère</th><th>Balance 0,1 g</th><th>Balance 1 g</th></tr>
-        </thead>
-        <tbody>
-          <tr><td>Masse lue</td>       <td id="syn-lue-01">—</td><td id="syn-lue-1g">—</td></tr>
-          <tr><td>Erreur absolue</td>  <td id="syn-abs-01">—</td><td id="syn-abs-1g">—</td></tr>
-          <tr><td>Erreur relative</td> <td id="syn-rel-01">—</td><td id="syn-rel-1g">—</td></tr>
-          <tr><td>Qualité</td>         <td id="syn-qual-01">—</td><td id="syn-qual-1g">—</td></tr>
-          <tr class="synthese-conclusion-row">
-            <td colspan="3" id="synthese-conclusion"></td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <!-- Rappel théorique -->
-    <details class="balance-theorie">
-      <summary>📐 Rappel — Définitions des erreurs de mesure</summary>
-      <div class="balance-theorie-corps">
-
-        <div class="formule-bloc">
-          Erreur absolue : Δm = |m<sub>lue</sub> − m<sub>théorique</sub>|
+        <div class="balance-card" id="card-01">
+          <div class="balance-card-header balance-header-01">
+            <div class="balance-icon">⚖️</div>
+            <div>
+              <div class="balance-card-title">Balance de précision METTLER TOLEDO</div>
+              <div class="balance-resolution">Résolution : <strong>0,1 g</strong></div>
+            </div>
+            <div class="balance-incert-badge">± 0,05 g</div>
+          </div>
+          <div class="balance-card-body">
+            <div class="balance-field">
+              <label for="pe-lue-01">Masse lue <em>(g)</em></label>
+              <div class="balance-input-row">
+                <input type="number" id="pe-lue-01" placeholder="ex : 2.9" step="0.1" min="0">
+                <span class="balance-unit">g</span>
+              </div>
+              <div class="balance-hint">Arrondi au 0,1 g le plus proche</div>
+            </div>
+            <div class="balance-results" id="res-01">
+              <div class="balance-placeholder">Saisir les deux masses pour calculer</div>
+            </div>
+          </div>
         </div>
-        <p>
-          L'erreur absolue exprime l'écart en grammes entre la valeur lue et
-          la valeur cible. Elle est <strong>bornée</strong> par la demi-résolution
-          de l'instrument : Δm ≤ résolution / 2.
-        </p>
 
-        <div class="formule-bloc" style="margin-top:var(--gap-sm);">
-          Erreur relative : εᵣ = Δm / m<sub>théorique</sub> × 100 (%)
+        <div class="balance-card" id="card-1g">
+          <div class="balance-card-header balance-header-1g">
+            <div class="balance-icon">⚖️</div>
+            <div>
+              <div class="balance-card-title">Balance JEULIN JBE-402</div>
+              <div class="balance-resolution">Résolution : <strong>1 g</strong></div>
+            </div>
+            <div class="balance-incert-badge">± 0,5 g</div>
+          </div>
+          <div class="balance-card-body">
+            <div class="balance-field">
+              <label for="pe-lue-1g">Masse lue <em>(g)</em></label>
+              <div class="balance-input-row">
+                <input type="number" id="pe-lue-1g" placeholder="ex : 3" step="1" min="0">
+                <span class="balance-unit">g</span>
+              </div>
+              <div class="balance-hint">Arrondi au gramme le plus proche</div>
+            </div>
+            <div class="balance-results" id="res-1g">
+              <div class="balance-placeholder">Saisir les deux masses pour calculer</div>
+            </div>
+          </div>
         </div>
-        <p>
-          L'erreur relative permet de <strong>comparer</strong> la précision
-          indépendamment de l'ordre de grandeur de la masse.
-        </p>
 
-        <table class="tableau-resultats" style="margin-top:var(--gap-sm);">
+      </div>
+
+      <!-- Synthèse -->
+      <div class="balance-synthese" id="synthese-balances" style="display:none;">
+        <div class="synthese-titre"><span>📊</span> Comparaison des deux instruments</div>
+        <table class="tableau-comparaison">
           <thead>
-            <tr>
-              <th>Balance</th><th>Résolution</th>
-              <th>Incertitude max</th><th>Usage recommandé</th>
-            </tr>
+            <tr><th>Critère</th><th>Balance 0,1 g</th><th>Balance 1 g</th></tr>
           </thead>
           <tbody>
-            <tr>
-              <td>Balance METTLER TOLEDO 0,1 g</td><td>0,1 g</td>
-              <td>± 0,05 g</td><td>TP courant, pesées > 1 g</td>
-            </tr>
-            <tr>
-              <td>Balance JEULIN 1 g</td><td>1 g</td>
-              <td>± 0,5 g</td><td>Pesées grossières uniquement</td>
+            <tr><td>Masse lue</td>       <td id="syn-lue-01">—</td><td id="syn-lue-1g">—</td></tr>
+            <tr><td>Erreur absolue</td>  <td id="syn-abs-01">—</td><td id="syn-abs-1g">—</td></tr>
+            <tr><td>Erreur relative</td> <td id="syn-rel-01">—</td><td id="syn-rel-1g">—</td></tr>
+            <tr><td>Qualité</td>         <td id="syn-qual-01">—</td><td id="syn-qual-1g">—</td></tr>
+            <tr class="synthese-conclusion-row">
+              <td colspan="3" id="synthese-conclusion"></td>
             </tr>
           </tbody>
         </table>
-
-      </div>
-    </details>
-
-  </div>
-</div>
-
-<!-- ====================================================== -->
-<!-- PROTOCOLE                                               -->
-<!-- ====================================================== -->
-
-<div class="section" data-type="protocole">
-  <div class="section-titre">
-    <div class="picto-section">📋</div>
-    <h2>Protocole expérimental</h2>
-    <span class="chevron">▼</span>
-  </div>
-  <div class="section-corps">
-    <ul class="etapes">
-      <li>Peser la masse de Peser la masse de <strong id="nom-sel-protocole">ce sel</strong>.</li>
-      <li>Introduire le solide dans une fiole jaugée.</li>
-      <li>Ajouter un peu d'eau distillée et dissoudre.</li>
-      <li>Compléter jusqu'au trait de jauge.</li>
-      <li>Boucher puis homogénéiser.</li>
-    </ul>
-  </div>
-</div>
-
-<!-- ====================================================== -->
-<!-- RESULTATS                                               -->
-<!-- ====================================================== -->
-
-<div class="section" data-type="resultats">
-  <div class="section-titre">
-    <div class="picto-section">📊</div>
-    <h2>Tableau de résultats</h2>
-    <span class="chevron">▼</span>
-  </div>
-  <div class="section-corps">
-    <table class="tableau-resultats">
-      <thead>
-        <tr>
-          <th>Préparation</th>
-          <th>Masse théorique(g)</th>
-          <th>Volume expérimental(mL)</th>
-          <th>C calculée</th>
-          <th>C visé</th>
-          <th>Masse pesée (g)</th>
-          <th>C expérimentale</th>
-          <th>Écart %</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr data-theo="0.10">
-          <td id="nom-sel-table">Sel sélectionné</td>
-          <td id="table-masse-dissolution"></td>
-          <td id="table-volume-dissolution">100</td>
-          <td id="table-calc-dissolution"></td>
-          <td id="table-theo-dissolution">0.10</td>
-          <!-- APRÈS — deux cellules distinctes -->
-          <td><input class="c-exp" id="masse-exp-pesee" type="number" step="0.001" placeholder="masse g"></td>
-          <td><input class="c-exp" id="c-exp-saisie" type="number" step="0.001" placeholder="mol/L"></td>
-          <td class="ecart" id="table-ecart">—</td>
-        </tr>
-      </tbody>
-    </table>
-    <div id="res-ecart" style="margin-top:var(--gap-sm);"></div>
-  </div>
-</div>
-
-<!-- ====================================================== -->
-<!-- COMPTE RENDU                                            -->
-<!-- ====================================================== -->
-
-<div class="section" data-type="bilan">
-
-  <div class="section-titre">
-    <div class="picto-section">📝</div>
-    <h2>Compte rendu</h2>
-    <span class="chevron">▼</span>
-  </div>
-
-  <div class="section-corps">
-
-    <!-- ============================================ -->
-    <!-- Identification                               -->
-    <!-- ============================================ -->
-
-    <h3>Identification</h3>
-
-    <div class="grille-materiel">
-
-      <div class="form-group">
-        <label for="nom-eleve">Nom</label>
-        <input
-          id="nom-eleve"
-          type="text"
-          placeholder="Nom">
       </div>
 
-      <div class="form-group">
-        <label for="prenom-eleve">Prénom</label>
-        <input
-          id="prenom-eleve"
-          type="text"
-          placeholder="Prénom">
+      <!-- Rappel théorique -->
+      <details class="balance-theorie">
+        <summary>📐 Rappel — Définitions des erreurs de mesure</summary>
+        <div class="balance-theorie-corps">
+
+          <div class="formule-bloc">
+            Erreur absolue : Δm = |m<sub>lue</sub> − m<sub>théorique</sub>|
+          </div>
+          <p>
+            L'erreur absolue exprime l'écart en grammes entre la valeur lue et
+            la valeur cible. Elle est <strong>bornée</strong> par la demi-résolution
+            de l'instrument : Δm ≤ résolution / 2.
+          </p>
+
+          <div class="formule-bloc" style="margin-top:var(--gap-sm);">
+            Erreur relative : εᵣ = Δm / m<sub>théorique</sub> × 100 (%)
+          </div>
+          <p>
+            L'erreur relative permet de <strong>comparer</strong> la précision
+            indépendamment de l'ordre de grandeur de la masse.
+          </p>
+
+          <table class="tableau-resultats" style="margin-top:var(--gap-sm);">
+            <thead>
+              <tr>
+                <th>Balance</th><th>Résolution</th>
+                <th>Incertitude max</th><th>Usage recommandé</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Balance METTLER TOLEDO 0,1 g</td><td>0,1 g</td>
+                <td>± 0,05 g</td><td>TP courant, pesées > 1 g</td>
+              </tr>
+              <tr>
+                <td>Balance JEULIN 1 g</td><td>1 g</td>
+                <td>± 0,5 g</td><td>Pesées grossières uniquement</td>
+              </tr>
+            </tbody>
+          </table>
+
+        </div>
+      </details>
+
+    </div>
+  </div>
+
+  <!-- ====================================================== -->
+  <!-- PROTOCOLE                                               -->
+  <!-- ====================================================== -->
+
+  <div class="section" data-type="protocole">
+    <div class="section-titre">
+      <div class="picto-section">📋</div>
+      <h2>Protocole expérimental</h2>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="section-corps">
+      <ul class="etapes">
+        <li>Peser la masse de <strong id="nom-sel-protocole">ce sel</strong>.</li>
+        <li>Introduire le solide dans une fiole jaugée.</li>
+        <li>Ajouter un peu d'eau distillée et dissoudre.</li>
+        <li>Compléter jusqu'au trait de jauge.</li>
+        <li>Boucher puis homogénéiser.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ====================================================== -->
+  <!-- RESULTATS                                               -->
+  <!-- ====================================================== -->
+
+  <div class="section" data-type="resultats">
+    <div class="section-titre">
+      <div class="picto-section">📊</div>
+      <h2>Tableau de résultats</h2>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="section-corps">
+      <div class="table-responsive">
+        <table class="tableau-resultats">
+          <thead>
+            <tr>
+              <th>Préparation</th>
+              <th>Masse théorique (g)</th>
+              <th>Volume expérimental (mL)</th>
+              <th>C calculée</th>
+              <th>C visé</th>
+              <th>Masse pesée (g)</th>
+              <th>C expérimentale</th>
+              <th>Écart %</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr data-theo="0.10">
+              <td id="nom-sel-table">Sel sélectionné</td>
+              <td id="table-masse-dissolution"></td>
+              <td id="table-volume-dissolution">100</td>
+              <td id="table-calc-dissolution"></td>
+              <td id="table-theo-dissolution">0.10</td>
+              <td><input class="c-exp" id="masse-exp-pesee" type="number" step="0.001" placeholder="masse g"></td>
+              <td><input class="c-exp" id="c-exp-saisie" type="number" step="0.001" placeholder="mol/L"></td>
+              <td class="ecart" id="table-ecart">—</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div id="res-ecart" style="margin-top:var(--gap-sm);"></div>
+    </div>
+  </div>
+
+  <!-- ====================================================== -->
+  <!-- COMPTE RENDU                                            -->
+  <!-- ====================================================== -->
+
+  <div class="section" data-type="bilan">
+
+    <div class="section-titre">
+      <div class="picto-section">📝</div>
+      <h2>Compte rendu</h2>
+      <span class="chevron">▼</span>
+    </div>
+
+    <div class="section-corps">
+
+      <h3>Identification</h3>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="nom-eleve">Nom</label>
+          <input id="nom-eleve" type="text" placeholder="Nom">
+        </div>
+        <div class="form-group">
+          <label for="prenom-eleve">Prénom</label>
+          <input id="prenom-eleve" type="text" placeholder="Prénom">
+        </div>
+        <div class="form-group">
+          <label for="classe-eleve">Classe</label>
+          <input id="classe-eleve" type="text" placeholder="Classe">
+        </div>
+        <div class="form-group">
+          <label for="date-eleve">Date</label>
+          <input id="date-eleve" type="date">
+        </div>
       </div>
 
-      <div class="form-group">
-        <label for="classe-eleve">Classe</label>
-        <input
-          id="classe-eleve"
-          type="text"
-          placeholder="Classe">
+      <h3 style="margin-top:var(--gap-md);">Résumé du TP</h3>
+
+      <div class="zone-eleve">
+        <textarea id="resume-tp" rows="6" placeholder="Résumer le déroulement du TP..."></textarea>
       </div>
 
-      <div class="form-group">
-        <label for="date-eleve">Date</label>
-        <input
-          id="date-eleve"
-          type="date">
+      <h3 style="margin-top:var(--gap-md);">Questions</h3>
+
+      <ol class="questions-tp">
+
+        <li>
+          <div class="question-entete">
+            <strong>1A. Qu'est-ce qu'une dissolution ? Qu'est-ce qu'une dilution ? Expliquer la différence.</strong>
+            <span class="cartouche" data-comp="APP">APP</span>
+          </div>
+          <div class="zone-eleve">
+            <textarea id="question1" rows="3" placeholder="Votre réponse..."></textarea>
+          </div>
+        </li>
+
+        <li>
+          <div class="question-entete">
+            <strong>2A. Pourquoi faut-il toujours verser l'acide dans l'eau et jamais l'inverse ?</strong>
+            <span class="cartouche" data-comp="APP">APP</span>
+          </div>
+          <div class="zone-eleve">
+            <textarea id="question2" rows="3" placeholder="Votre réponse..."></textarea>
+          </div>
+        </li>
+
+        <li>
+          <div class="question-entete">
+            <strong>3A. Convertir le volume V utilisé pour la dissolution de mL en L, puis de L en mL si une autre valeur est donnée en L.</strong>
+            <span class="cartouche" data-comp="REA">REA</span>
+          </div>
+          <div class="zone-eleve">
+            <textarea id="question3" rows="3" placeholder="Calcul et réponse..."></textarea>
+          </div>
+        </li>
+
+        <li>
+          <div class="question-entete">
+            <strong>4A. Calculer la quantité de matière n (en mol) du réactif sélectionné à partir de la masse théorique et de la masse molaire M.</strong>
+            <span class="cartouche" data-comp="REA">REA</span>
+          </div>
+          <div class="zone-eleve">
+            <textarea id="question4" rows="3" placeholder="Calcul et réponse..."></textarea>
+          </div>
+        </li>
+
+        <li>
+          <div class="question-entete">
+            <strong>5A. Convertir la masse théorique calculée de g en mg.</strong>
+            <span class="cartouche" data-comp="REA">REA</span>
+          </div>
+          <div class="zone-eleve">
+            <textarea id="question5" rows="2" placeholder="Calcul et réponse..."></textarea>
+          </div>
+        </li>
+
+        <li>
+          <div class="question-entete">
+            <strong>6A. Calculer la concentration massique Cm (en g/L) de la solution préparée à partir de la masse théorique et du volume V.</strong>
+            <span class="cartouche" data-comp="REA">REA</span>
+          </div>
+          <div class="zone-eleve">
+            <textarea id="question6" rows="3" placeholder="Calcul et réponse..."></textarea>
+          </div>
+        </li>
+
+        <li>
+          <div class="question-entete">
+            <strong>7A. Calculer l'erreur absolue Δm entre la masse théorique et la masse réellement pesée.</strong>
+            <span class="cartouche" data-comp="ANA RAI">ANA RAI</span>
+          </div>
+          <div class="zone-eleve">
+            <textarea id="question7" rows="3" placeholder="Calcul et réponse..."></textarea>
+          </div>
+        </li>
+
+        <li>
+          <div class="question-entete">
+            <strong>8A. Calculer l'erreur relative (en %) associée à cette pesée. Cette erreur est-elle acceptable au regard du seuil de 2 % habituellement retenu ?</strong>
+            <span class="cartouche" data-comp="ANA RAI">ANA RAI</span>
+          </div>
+          <div class="zone-eleve">
+            <textarea id="question8" rows="4" placeholder="Calcul, comparaison et conclusion..."></textarea>
+          </div>
+        </li>
+
+        <li>
+          <div class="question-entete">
+            <strong>9A. Identifier les principales sources d'erreurs expérimentales lors de la préparation de la solution (pesée, transfert, trait de jauge...) et proposer une amélioration du protocole pour chacune.</strong>
+            <span class="cartouche" data-comp="VAL">VAL</span>
+          </div>
+          <div class="zone-eleve">
+            <textarea id="question9" rows="4" placeholder="Votre analyse..."></textarea>
+          </div>
+        </li>
+
+        <li>
+          <div class="question-entete">
+            <strong>10A. Rédiger une conclusion synthétique présentant la solution préparée (nature, concentration molaire, concentration massique) et la qualité de la pesée réalisée, en utilisant un vocabulaire scientifique précis.</strong>
+            <span class="cartouche" data-comp="COM">COM</span>
+          </div>
+          <div class="zone-eleve">
+            <textarea id="question10" rows="4" placeholder="Votre conclusion..."></textarea>
+          </div>
+        </li>
+
+      </ol>
+    </div>
+  </div>
+
+  <!-- ====================================================== -->
+  <!-- AUTO-EVALUATION ELEVE                                   -->
+  <!-- ====================================================== -->
+
+  <div class="section" data-type="auto-evaluation">
+
+    <div class="section-titre">
+      <div class="picto-section">📡</div>
+      <h2>Auto-évaluation des compétences</h2>
+      <span class="chevron">▼</span>
+    </div>
+
+    <div class="section-corps">
+
+      <div class="table-responsive">
+        <table class="tableau-resultats autoeval-table">
+          <thead>
+            <tr>
+              <th>Domaine</th>
+              <th>Sigle</th>
+              <th>Je sais faire…</th>
+              <th>0</th>
+              <th>1</th>
+              <th>2</th>
+            </tr>
+          </thead>
+
+          <tbody>
+
+            <tr data-comp="APP">
+              <td>S'approprier</td>
+              <td>APP</td>
+              <td>Identifier la question, repérer les données utiles.</td>
+              <td><input type="radio" name="APP" value="0"></td>
+              <td><input type="radio" name="APP" value="1"></td>
+              <td><input type="radio" name="APP" value="2"></td>
+            </tr>
+
+            <tr data-comp="ANA">
+              <td>Analyser / Raisonner</td>
+              <td>ANA / RAI</td>
+              <td>Choisir une méthode, proposer une hypothèse.</td>
+              <td><input type="radio" name="ANA" value="0"></td>
+              <td><input type="radio" name="ANA" value="1"></td>
+              <td><input type="radio" name="ANA" value="2"></td>
+            </tr>
+
+            <tr data-comp="REA">
+              <td>Réaliser</td>
+              <td>REA</td>
+              <td>Mettre en œuvre le protocole, mesurer correctement.</td>
+              <td><input type="radio" name="REA" value="0"></td>
+              <td><input type="radio" name="REA" value="1"></td>
+              <td><input type="radio" name="REA" value="2"></td>
+            </tr>
+
+            <tr data-comp="VAL">
+              <td>Valider</td>
+              <td>VAL</td>
+              <td>Vérifier la cohérence des résultats.</td>
+              <td><input type="radio" name="VAL" value="0"></td>
+              <td><input type="radio" name="VAL" value="1"></td>
+              <td><input type="radio" name="VAL" value="2"></td>
+            </tr>
+
+            <tr data-comp="COM">
+              <td>Communiquer</td>
+              <td>COM</td>
+              <td>Rendre compte avec un vocabulaire scientifique adapté.</td>
+              <td><input type="radio" name="COM" value="0"></td>
+              <td><input type="radio" name="COM" value="1"></td>
+              <td><input type="radio" name="COM" value="2"></td>
+            </tr>
+
+          </tbody>
+        </table>
+      </div>
+
+      <div class="radar-actions" style="margin-top:var(--gap-md);">
+        <button id="btn-radar" class="btn btn-primaire">
+          📊 Générer mon radar de compétences
+        </button>
+        <div id="radar-resultat" style="margin-top:15px;"></div>
       </div>
 
     </div>
-
-    <br>
-
-    <!-- ============================================ -->
-    <!-- Résumé                                       -->
-    <!-- ============================================ -->
-
-    <h3>Résumé du TP</h3>
-
-    <div class="zone-eleve">
-      <textarea
-        id="resume-tp"
-        rows="6"
-        placeholder="Résumer le déroulement du TP..."></textarea>
-    </div>
-
-    <br>
-
-<!-- ============================================ -->
-    <!-- Questions                                    -->
-    <!-- ============================================ -->
-
-    <h3>Questions</h3>
-
-    <ol class="questions-tp">
-
-      <li>
-        <div class="question-entete">
-          <strong>1A. Qu'est-ce qu'une dissolution ? Qu'est-ce qu'une dilution ? Expliquer la différence.</strong>
-          <span class="cartouche" data-comp="APP">APP</span>
-        </div>
-        <div class="zone-eleve">
-          <textarea id="question1" rows="3" placeholder="Votre réponse..."></textarea>
-        </div>
-      </li>
-
-      <li>
-        <div class="question-entete">
-          <strong>2A. Pourquoi faut-il toujours verser l'acide dans l'eau et jamais l'inverse ?</strong>
-          <span class="cartouche" data-comp="APP">APP</span>
-        </div>
-        <div class="zone-eleve">
-          <textarea id="question2" rows="3" placeholder="Votre réponse..."></textarea>
-        </div>
-      </li>
-
-      <li>
-        <div class="question-entete">
-          <strong>3A. Convertir le volume V utilisé pour la dissolution de mL en L, puis de L en mL si une autre valeur est donnée en L.</strong>
-          <span class="cartouche" data-comp="REA">REA</span>
-        </div>
-        <div class="zone-eleve">
-          <textarea id="question3" rows="3" placeholder="Calcul et réponse..."></textarea>
-        </div>
-      </li>
-
-      <li>
-        <div class="question-entete">
-          <strong>4A. Calculer la quantité de matière n (en mol) du réactif sélectionné à partir de la masse théorique et de la masse molaire M.</strong>
-          <span class="cartouche" data-comp="REA">REA</span>
-        </div>
-        <div class="zone-eleve">
-          <textarea id="question4" rows="3" placeholder="Calcul et réponse..."></textarea>
-        </div>
-      </li>
-
-      <li>
-        <div class="question-entete">
-          <strong>5A. Convertir la masse théorique calculée de g en mg.</strong>
-          <span class="cartouche" data-comp="REA">REA</span>
-        </div>
-        <div class="zone-eleve">
-          <textarea id="question5" rows="2" placeholder="Calcul et réponse..."></textarea>
-        </div>
-      </li>
-
-      <li>
-        <div class="question-entete">
-          <strong>6A. Calculer la concentration massique Cm (en g/L) de la solution préparée à partir de la masse théorique et du volume V.</strong>
-          <span class="cartouche" data-comp="REA">REA</span>
-        </div>
-        <div class="zone-eleve">
-          <textarea id="question6" rows="3" placeholder="Calcul et réponse..."></textarea>
-        </div>
-      </li>
-
-      <li>
-        <div class="question-entete">
-          <strong>7A. Calculer l'erreur absolue Δm entre la masse théorique et la masse réellement pesée.</strong>
-          <span class="cartouche" data-comp="ANA RAI">ANA RAI</span>
-        </div>
-        <div class="zone-eleve">
-          <textarea id="question7" rows="3" placeholder="Calcul et réponse..."></textarea>
-        </div>
-      </li>
-
-      <li>
-        <div class="question-entete">
-          <strong>8A. Calculer l'erreur relative (en %) associée à cette pesée. Cette erreur est-elle acceptable au regard du seuil de 2 % habituellement retenu ?</strong>
-          <span class="cartouche" data-comp="ANA RAI">ANA RAI</span>
-        </div>
-        <div class="zone-eleve">
-          <textarea id="question8" rows="4" placeholder="Calcul, comparaison et conclusion..."></textarea>
-        </div>
-      </li>
-
-      <li>
-        <div class="question-entete">
-          <strong>9A. Identifier les principales sources d'erreurs expérimentales lors de la préparation de la solution (pesée, transfert, trait de jauge...) et proposer une amélioration du protocole pour chacune.</strong>
-          <span class="cartouche" data-comp="VAL">VAL</span>
-        </div>
-        <div class="zone-eleve">
-          <textarea id="question9" rows="4" placeholder="Votre analyse..."></textarea>
-        </div>
-      </li>
-
-      <li>
-        <div class="question-entete">
-          <strong>10A. Rédiger une conclusion synthétique présentant la solution préparée (nature, concentration molaire, concentration massique) et la qualité de la pesée réalisée, en utilisant un vocabulaire scientifique précis.</strong>
-          <span class="cartouche" data-comp="COM">COM</span>
-        </div>
-        <div class="zone-eleve">
-          <textarea id="question10" rows="4" placeholder="Votre conclusion..."></textarea>
-        </div>
-      </li>
-
-    </ol>
-  </div>
-</div>
-
-
-<!-- ====================================================== -->
-<!-- AUTO-EVALUATION ELEVE                                   -->
-<!-- ====================================================== -->
-
-<div class="section" data-type="auto-evaluation">
-
-  <div class="section-titre">
-    <div class="picto-section">📡</div>
-    <h2>Auto-évaluation des compétences</h2>
-    <span class="chevron">▼</span>
   </div>
 
-  <div class="section-corps">
+  <!-- ====================================================== -->
+  <!-- NAVIGATION                                              -->
+  <!-- ====================================================== -->
 
-    <table class="tableau-resultats autoeval-table">
-      <thead>
-        <tr>
-          <th>Domaine</th>
-          <th>Sigle</th>
-          <th>Je sais faire…</th>
-          <th>0</th>
-          <th>1</th>
-          <th>2</th>
-        </tr>
-      </thead>
-
-      <tbody>
-
-        <tr data-comp="APP">
-          <td>S’approprier</td>
-          <td>APP</td>
-          <td>Identifier la question, repérer les données utiles.</td>
-          <td><input type="radio" name="APP" value="0"></td>
-          <td><input type="radio" name="APP" value="1"></td>
-          <td><input type="radio" name="APP" value="2"></td>
-        </tr>
-
-        <tr data-comp="ANA">
-          <td>Analyser / Raisonner</td>
-          <td>ANA / RAI</td>
-          <td>Choisir une méthode, proposer une hypothèse.</td>
-          <td><input type="radio" name="ANA" value="0"></td>
-          <td><input type="radio" name="ANA" value="1"></td>
-          <td><input type="radio" name="ANA" value="2"></td>
-        </tr>
-
-        <tr data-comp="REA">
-          <td>Réaliser</td>
-          <td>REA</td>
-          <td>Mettre en œuvre le protocole, mesurer correctement.</td>
-          <td><input type="radio" name="REA" value="0"></td>
-          <td><input type="radio" name="REA" value="1"></td>
-          <td><input type="radio" name="REA" value="2"></td>
-        </tr>
-
-        <tr data-comp="VAL">
-          <td>Valider</td>
-          <td>VAL</td>
-          <td>Vérifier la cohérence des résultats.</td>
-          <td><input type="radio" name="VAL" value="0"></td>
-          <td><input type="radio" name="VAL" value="1"></td>
-          <td><input type="radio" name="VAL" value="2"></td>
-        </tr>
-
-        <tr data-comp="COM">
-          <td>Communiquer</td>
-          <td>COM</td>
-          <td>Rendre compte avec un vocabulaire scientifique adapté.</td>
-          <td><input type="radio" name="COM" value="0"></td>
-          <td><input type="radio" name="COM" value="1"></td>
-          <td><input type="radio" name="COM" value="2"></td>
-        </tr>
-
-      </tbody>
-    </table>
-
-    <br>
-
-    <!-- BOUTON RADAR -->
-    <div class="radar-actions">
-      <button id="btn-radar" class="btn btn-primaire">
-        📊 Générer mon radar de compétences
-      </button>
-
-      <div id="radar-resultat" style="margin-top:15px;"></div>
-    </div>
-
+  <div class="nav-tp">
+    <a href="../index.html" class="btn btn-secondaire">← Accueil</a>
+    <a href="tp02-ph-indicateurs.html" class="btn btn-primaire">TP02 →</a>
   </div>
-</div>
-<!-- ====================================================== -->
-<!-- NAVIGATION                                              -->
-<!-- ====================================================== -->
 
-<div class="nav-tp">
-  <a href="../index.html" class="btn btn-secondaire">← Accueil</a>
-  <a href="tp02-ph-indicateurs.html" class="btn btn-primaire">TP02 →</a>
-</div>
+</main>
 
-</div>
-<!-- fin .page-wrapper -->
-
-<script type="module" src="../js/tp01-solutions.js"></script>
-
-</body>
-</html>
+<!-- Le JS est chargé dynamiquement par navigation.js (tp-chimie/js/tp01-solutions.js) — pas de <script> ici -->
+</section>
