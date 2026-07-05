@@ -1,4 +1,6 @@
-const CSS_HREF = new URL('../css/compte-rendu.css', import.meta.url).href;
+const GLOBAL_CSS_HREF = new URL('../css/global.css', import.meta.url).href;
+const RESET_CSS_HREF  = new URL('../css/reset.css', import.meta.url).href;
+const CSS_HREF         = new URL('../css/compte-rendu.css', import.meta.url).href;
 const CLE_IDENTITE = 'scilab-identite-eleve';
 
 let _cssChargee = false;
@@ -27,6 +29,7 @@ export function genererCompteRendu(config) {
 
 // ══════════════════════════════════════════════════════════════
 // CSS — chargé une seule fois quel que soit le TP appelant
+// (nécessaire pour les DEUX modales, qui vivent dans la page principale)
 // ══════════════════════════════════════════════════════════════
 function _chargerCSS() {
   if (_cssChargee || document.querySelector(`link[href="${CSS_HREF}"]`)) {
@@ -155,16 +158,9 @@ function _ouvrirModalIdentification() {
 }
 
 // ══════════════════════════════════════════════════════════════
-// ÉTAPE 3 — CONSTRUCTION DE LA TRAME + IMPRESSION
+// ÉTAPE 3 — CONSTRUCTION DE LA TRAME (HTML sous forme de chaîne)
 // ══════════════════════════════════════════════════════════════
-function _construireEtImprimer(identite) {
-  let conteneur = document.getElementById('cr-print-container');
-  if (!conteneur) {
-    conteneur = document.createElement('div');
-    conteneur.id = 'cr-print-container';
-    document.body.appendChild(conteneur);
-  }
-
+function _construireTrameHTML(identite) {
   const dateFr = identite.date
     ? new Date(identite.date + 'T00:00:00').toLocaleDateString('fr-FR', {
         day: '2-digit',
@@ -180,15 +176,13 @@ function _construireEtImprimer(identite) {
     return _groupesSelectionnes.has(s.groupe);
   });
 
-  // =========================
-  // MATÉRIEL (depuis page TP)
-  // =========================
+  // Matériel (sélectionné par l'élève dans la page TP)
   const materielHTML = _recupererMaterielDepuisLaPage();
 
-  // sections HTML
+  // Sections
   const sectionsHTML = sections.map(_rendreSection).join('');
 
-  // graphique
+  // Graphique (canvas → image)
   const graphiqueHTML = _config.canvas
     ? `<div class="cr-section">
          <h3>Graphique</h3>
@@ -198,62 +192,10 @@ function _construireEtImprimer(identite) {
        </div>`
     : '';
 
-  // auto-évaluation (version PDF)
-  function _construireAutoEvaluation() {
-  const lignes = document.querySelectorAll('[data-type="auto-evaluation"] tbody tr');
+  // Auto-évaluation (version PDF)
+  const autoEvalHTML = _construireAutoEvaluation();
 
-  let html = `
-    <div class="cr-auto-eval">
-      <h3>Auto-évaluation des compétences</h3>
-
-      <table class="cr-auto-eval-table">
-        <thead>
-          <tr>
-            <th>Domaine</th>
-            <th>Sigle</th>
-            <th>Compétence</th>
-            <th>0</th>
-            <th>1</th>
-            <th>2</th>
-          </tr>
-        </thead>
-        <tbody>
-  `;
-
-  lignes.forEach(tr => {
-    const comp = tr.dataset.comp;
-
-    const checked = document.querySelector(`input[name="${comp}"]:checked`);
-    const value = checked ? checked.value : null;
-
-    const cell = (v) => {
-      return v === value ? "✔" : "";
-    };
-
-    const tds = tr.querySelectorAll("td");
-
-    html += `
-      <tr>
-        <td>${tds[0].innerText}</td>
-        <td>${tds[1].innerText}</td>
-        <td>${tds[2].innerText}</td>
-        <td class="score">${cell("0")}</td>
-        <td class="score">${cell("1")}</td>
-        <td class="score">${cell("2")}</td>
-      </tr>
-    `;
-  });
-
-  html += `
-        </tbody>
-      </table>
-    </div>
-  `;
-
-  return html;
-}
-
-  // barème
+  // Barème / note finale
   const nbQuestions = sections.filter(s => s.notation).length;
   const totalPts = nbQuestions * 2;
 
@@ -279,10 +221,7 @@ function _construireEtImprimer(identite) {
     </div>`
     : '';
 
-  // =========================
-  // RENDU FINAL
-  // =========================
-  conteneur.innerHTML = `
+  return `
     <div class="cr-entete">
       <div class="cr-logo">
         ${_logoSVG()}
@@ -311,37 +250,167 @@ function _construireEtImprimer(identite) {
     ${materielHTML}
     ${sectionsHTML}
     ${graphiqueHTML}
-    ${_construireAutoEvaluation()}
+    ${autoEvalHTML}
     ${noteFinaleHTML}
-    
 
     <div class="cr-pied">
       <span>SciLab — Travaux pratiques</span>
       <span>${_echapper(_config.tp || '')} · ${_echapper(_config.domaine || '')}</span>
     </div>
   `;
-
-  document.body.classList.add('cr-printing');
-
-  const nettoyer = () => {
-    document.body.classList.remove('cr-printing');
-    window.removeEventListener('afterprint', nettoyer);
-  };
-
-  window.addEventListener('afterprint', nettoyer);
-  setTimeout(() => window.print(), 50);
 }
 
-// ____________________________________________________________________
+function _construireAutoEvaluation() {
+  const lignes = document.querySelectorAll('[data-type="auto-evaluation"] tbody tr');
+  if (!lignes.length) return '';
+
+  let html = `
+    <div class="cr-auto-eval">
+      <h3>Auto-évaluation des compétences</h3>
+
+      <table class="cr-auto-eval-table">
+        <thead>
+          <tr>
+            <th>Domaine</th>
+            <th>Sigle</th>
+            <th>Compétence</th>
+            <th>0</th>
+            <th>1</th>
+            <th>2</th>
+          </tr>
+        </thead>
+        <tbody>
+  `;
+
+  lignes.forEach(tr => {
+    const comp = tr.dataset.comp;
+    const checked = document.querySelector(`input[name="${comp}"]:checked`);
+    const value = checked ? checked.value : null;
+    const cell = v => (v === value ? '✔' : '');
+
+    const tds = tr.querySelectorAll('td');
+
+    html += `
+      <tr>
+        <td>${tds[0].innerText}</td>
+        <td>${tds[1].innerText}</td>
+        <td>${tds[2].innerText}</td>
+        <td class="score">${cell('0')}</td>
+        <td class="score">${cell('1')}</td>
+        <td class="score">${cell('2')}</td>
+      </tr>
+    `;
+  });
+
+  html += `
+        </tbody>
+      </table>
+    </div>
+  `;
+
+  return html;
+}
+
+// ══════════════════════════════════════════════════════════════
+// ÉTAPE 4 — IMPRESSION VIA IFRAME ISOLÉ
+//
+// Pourquoi un iframe et pas un simple `document.body.classList.add(...)` ?
+// Sur mobile (iOS Safari, Chrome Android), la bascule de classe + @media
+// print sur la page principale est peu fiable : l'évènement "afterprint"
+// ne se déclenche pas toujours, et le moteur de rendu peut imprimer un
+// instantané de la page avant que les styles ne soient appliqués — d'où
+// des PDF contenant TOUTE la page web au lieu du seul compte-rendu.
+//
+// En construisant le compte-rendu dans un iframe jetable qui ne contient
+// QUE ce contenu (+ ses propres feuilles de style), il n'y a plus rien à
+// masquer : impossible que la page hôte se retrouve dans le PDF.
+// ══════════════════════════════════════════════════════════════
+function _construireEtImprimer(identite) {
+  const contenuHTML = _construireTrameHTML(identite);
+
+  const docHTML = `<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>${_echapper(_config.titre)}</title>
+<link rel="stylesheet" href="${GLOBAL_CSS_HREF}">
+<link rel="stylesheet" href="${RESET_CSS_HREF}">
+<link rel="stylesheet" href="${CSS_HREF}">
+</head>
+<body class="cr-printing">
+<div id="cr-print-container">${contenuHTML}</div>
+</body>
+</html>`;
+
+  const iframe = document.createElement('iframe');
+  iframe.setAttribute('aria-hidden', 'true');
+  iframe.setAttribute('title', 'Impression du compte-rendu');
+  Object.assign(iframe.style, {
+    position: 'fixed',
+    right: '0',
+    bottom: '0',
+    width: '0',
+    height: '0',
+    border: '0',
+    visibility: 'hidden',
+  });
+
+  let dejaImprime = false;
+  const declencherImpression = () => {
+    if (dejaImprime) return;
+    dejaImprime = true;
+
+    const fenetre = iframe.contentWindow;
+    if (!fenetre) return;
+
+    // Double requestAnimationFrame : laisse le temps au moteur de rendu
+    // mobile de terminer la mise en page avant d'ouvrir la boîte
+    // d'impression. Un simple setTimeout court est insuffisant sur
+    // certains iOS/Android — c'est la cause la plus fréquente du bug
+    // "le PDF contient toute la page".
+    requestAnimationFrame(() => requestAnimationFrame(() => {
+      try {
+        fenetre.focus();
+        fenetre.print();
+      } catch (e) {
+        console.error('SciLab — impression du compte-rendu impossible :', e);
+      }
+    }));
+  };
+
+  let dejaRetire = false;
+  const retirerIframe = () => {
+    if (dejaRetire) return;
+    dejaRetire = true;
+    setTimeout(() => iframe.remove(), 1000);
+  };
+
+  iframe.addEventListener('load', () => {
+    declencherImpression();
+    // "afterprint" n'est pas toujours fiable sur mobile : on nettoie
+    // aussi via un filet de sécurité (setTimeout) plus bas.
+    iframe.contentWindow?.addEventListener('afterprint', retirerIframe);
+  });
+
+  // Filets de sécurité si "load" ou "afterprint" ne se déclenchent jamais
+  // (observé sur certains navigateurs mobiles / contextes PWA).
+  setTimeout(declencherImpression, 1200);
+  setTimeout(retirerIframe, 20000);
+
+  document.body.appendChild(iframe);
+  iframe.srcdoc = docHTML;
+}
+
+// ══════════════════════════════════════════════════════════════
 // Matériel sélectionné par l'élève
-//_____________________________________________________________________
+// ══════════════════════════════════════════════════════════════
 function _recupererMaterielDepuisLaPage() {
   const groupes = [
-    { titre: "Verrerie", id: "materiel-verrerie" },
-    { titre: "Équipements", id: "materiel-equipements" }
+    { titre: 'Verrerie', id: 'materiel-verrerie' },
+    { titre: 'Équipements', id: 'materiel-equipements' }
   ];
 
-  let contenu = "";
+  let contenu = '';
 
   for (const groupe of groupes) {
     const bloc = document.getElementById(groupe.id);
@@ -349,7 +418,7 @@ function _recupererMaterielDepuisLaPage() {
 
     const elements = [...bloc.querySelectorAll('input[type="checkbox"]:checked')]
       .map(c =>
-        c.closest("label")?.textContent.trim() ||
+        c.closest('label')?.textContent.trim() ||
         c.parentElement?.textContent.trim() ||
         c.value
       )
@@ -360,12 +429,12 @@ function _recupererMaterielDepuisLaPage() {
     contenu += `
       <h4>${groupe.titre}</h4>
       <ul class="cr-materiel">
-        ${elements.map(e => `<li>${_echapper(e)}</li>`).join("")}
+        ${elements.map(e => `<li>${_echapper(e)}</li>`).join('')}
       </ul>
     `;
   }
 
-  if (!contenu) return "";
+  if (!contenu) return '';
 
   return `
     <div class="cr-section">
@@ -374,6 +443,7 @@ function _recupererMaterielDepuisLaPage() {
     </div>
   `;
 }
+
 // ══════════════════════════════════════════════════════════════
 // RENDU D'UNE SECTION
 // Types : items (tableau), texte+competence+notation, texte libre
@@ -399,7 +469,6 @@ function _badgeCompetence(comp) {
 function _boxesNotation() {
   return `<div class="cr-notation">
     <span class="cr-notation-label">Note</span>
-
     <span class="cr-case"></span>
     <span class="cr-case"></span>
     <span class="cr-case"></span>
@@ -426,7 +495,6 @@ function _rendreSection(section) {
       ? reponse.split('\n').map(l => `<div>${_echapper(l)}</div>`).join('')
       : `<div class="cr-vide">(pas de réponse saisie)</div>`;
 
-    // Hauteur proportionnelle au texte, min 18mm
     const nbLignes = Math.max(3, (reponse.match(/\n/g) || []).length + 2);
     const hauteur  = Math.min(nbLignes * 5, 50); // en mm, max 50mm
 
