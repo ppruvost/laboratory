@@ -342,15 +342,24 @@ function _construireEtImprimer(identite) {
 </body>
 </html>`;
 
+  const iframe = document.createElement('iframe');
+  iframe.setAttribute('aria-hidden', 'true');
+  iframe.setAttribute('title', 'Impression du compte-rendu');
+  // IMPORTANT : ne JAMAIS combiner une taille 0×0 avec visibility:hidden ou
+  // display:none sur cet iframe. Ces navigateurs (notamment Chrome/Chromium)
+  // excluent purement et simplement un iframe ainsi masqué du pipeline de
+  // rendu — y compris lors de l'appel à contentWindow.print() — ce qui
+  // produit un PDF entièrement blanc, quel que soit le contenu injecté.
+  // L'iframe doit rester "rendable" : on le positionne hors écran avec de
+  // vraies dimensions (format A4) plutôt que de le masquer.
   Object.assign(iframe.style, {
     position: 'fixed',
     top: '0',
-    left: '-10000px',   // unité obligatoire
-    width: '210mm',      // vraie dimension A4, pas 0
+    left: '-10000px',
+    width: '210mm',
     height: '297mm',
     border: '0',
-    // pas de visibility:hidden — l'iframe doit rester "rendable"
-});
+  });
 
   let dejaImprime = false;
   const declencherImpression = () => {
