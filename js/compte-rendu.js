@@ -342,18 +342,15 @@ function _construireEtImprimer(identite) {
 </body>
 </html>`;
 
-  const iframe = document.createElement('iframe');
-  iframe.setAttribute('aria-hidden', 'true');
-  iframe.setAttribute('title', 'Impression du compte-rendu');
   Object.assign(iframe.style, {
     position: 'fixed',
-    right: '0',
-    bottom: '0',
-    width: '0',
-    height: '0',
+    top: '0',
+    left: '-10000px',   // unité obligatoire
+    width: '210mm',      // vraie dimension A4, pas 0
+    height: '297mm',
     border: '0',
-    visibility: 'hidden',
-  });
+    // pas de visibility:hidden — l'iframe doit rester "rendable"
+});
 
   let dejaImprime = false;
   const declencherImpression = () => {
