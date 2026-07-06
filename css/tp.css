@@ -1210,15 +1210,9 @@ textarea { font-family: var(--font-corps); resize: vertical; min-height: 80px; }
 }
 
 /* ════════════════════════════════════════════════════════════════
-   24. IMPRESSION — mise en page générale (hors compte-rendu détaillé,
-   voir compte-rendu.css pour la trame du compte-rendu élève)
+   24. IMPRESSION — déplacée vers print.css (mise en page générale,
+   hors compte-rendu). Voir compte-rendu.css pour la trame du
+   compte-rendu élève, imprimée via un iframe isolé.
    ════════════════════════════════════════════════════════════════ */
-@media print {
-  .site-header, .progress, .btn, .nav-tp, .filtre-reactifs, .tabs-header { display: none !important; }
-  .section.fermee .section-corps { display: block !important; }
-  .section { box-shadow: none; border: 1px solid #CCC; break-inside: avoid; animation: none; }
-  body { font-size: 11pt; }
-  .autoeval-print input[type="radio"] { transform: scale(1.2); }
-}
 
 /* Les préférences prefers-reduced-motion sont centralisées dans animations.css */
