@@ -1,7 +1,9 @@
 // tp03-titrages.js — Titrages acido-basiques
 
 import products from "../../data/products.js";
-import { renderBlocSecurite, initSections, initTabs, initImprimer } from '../../js/utils.js';
+import dangerDB from "../../data/dangerDB.js";
+import pictogrammes from "../../data/pictogrammes.js";
+import { initSections, initTabs, initImprimer } from '../../js/utils.js';
 import { genererCompteRendu } from '../../js/compte-rendu.js';
 
 // ── Constantes chimiques ────────────────────────────────────────
@@ -58,16 +60,17 @@ let _chartScale = null;      // infos d'échelle du dernier tracé (pour curseur
 let _drag = null;            // { xStart } pendant un drag de zoom
 let _resultatTangentes = null; // { Ve, Ce, pHE, droite1, droite2, mCommun, ... }
 let _resultatDerivee = null;   // { Ve, Ce, peakIdx }
+let _reactifCourant = null;
 
 // ══════════════════════════════════════════════════════════════
 // INIT
 // ══════════════════════════════════════════════════════════════
 export function init() {
-  _initSecurite();
   initSections();
   initTabs();
   initImprimer();
 
+  _initReactifs();
   _initParametres();
   _initTableauMesures();
   _initCheckboxes();
@@ -79,13 +82,109 @@ export function init() {
   _dessinerGraphe();
 }
 
-// ── Sécurité ─────────────────────────────────────────────────
-function _initSecurite() {
-  const el = document.getElementById('securite-bloc');
-  if (!el) return;
-  const CAS = ['7647-01-0', '1310-73-2', '64-19-7', '77-09-8', '76-59-5'];
-  const liste = CAS.map(c => products.find(p => p.cas === c)).filter(Boolean);
-  el.innerHTML = renderBlocSecurite(liste);
+// ══════════════════════════════════════════════════════════════
+// SÉCURITÉ — SÉLECTION DU RÉACTIF (aligné sur tp01-solutions.js)
+// ══════════════════════════════════════════════════════════════
+
+// Gestion multi-catégories, identique à TP01
+function _appartientCategorie(produit, categorie) {
+  if (!produit.categorie) return false;
+  return Array.isArray(produit.categorie)
+    ? produit.categorie.includes(categorie)
+    : produit.categorie === categorie;
+}
+
+function _initReactifs() {
+  const select = document.getElementById('reactif');
+  if (!select) return;
+
+  _remplirListeReactifs();
+
+  select.addEventListener('change', _afficherSecurite);
+
+  document.querySelectorAll('.filtre-cat').forEach(cb => {
+    cb.addEventListener('change', _remplirListeReactifs);
+  });
+}
+
+function _remplirListeReactifs() {
+  const select = document.getElementById('reactif');
+  if (!select) return;
+
+  // catégories cochées
+  const categories = [...document.querySelectorAll('.filtre-cat:checked')]
+    .map(cb => cb.value);
+
+  if (categories.length === 0) {
+    select.innerHTML = '<option value="">-- Aucun filtre sélectionné --</option>';
+    return;
+  }
+
+  const valeur = select.value;
+
+  select.innerHTML = '<option value="">-- Sélectionner --</option>';
+
+  products
+    .filter(p => categories.some(cat => _appartientCategorie(p, cat)))
+    .sort((a, b) => a.nom.localeCompare(b.nom))
+    .forEach(p => {
+      const option = document.createElement('option');
+      option.value = p.cas;
+      option.textContent = p.nom;
+      if (p.cas === valeur) option.selected = true;
+      select.appendChild(option);
+    });
+
+  // si sélection invalide → on repart sur "-- Sélectionner --" (pas de choix forcé)
+  if (select.selectedIndex === -1) select.selectedIndex = 0;
+
+  _afficherSecurite();
+}
+
+function _afficherSecurite() {
+  const select = document.getElementById('reactif');
+  const zone = document.getElementById('securite-bloc');
+  if (!select || !zone) return;
+
+  if (!select.value) {
+    zone.innerHTML = '<div class="info">Sélectionner un réactif.</div>';
+    return;
+  }
+
+  const produit = products.find(p => p.cas === select.value);
+  if (!produit) return;
+  _reactifCourant = produit;
+
+  let html = `<h3 style="margin-bottom:.5rem;">${produit.nom}</h3>
+  <p><strong>Formule :</strong>
+     <span style="font-family:var(--font-code);color:var(--bleu-cuivre);">${produit.formule || ''}</span>
+  </p>`;
+
+  if (produit.dangers?.length) {
+    html += `<div class="pictos-clp">`;
+    produit.dangers.forEach(code => {
+      const picto = pictogrammes.find(p => p.code === code);
+      if (picto) html += `<img class="picto-clp" src="../../assets/picto/${picto.image}" alt="${code}" title="${code}">`;
+    });
+    html += `</div>`;
+    html += `<div class="danger-bloc"><h4>⚠️ Mentions de danger (H)</h4><ul>`;
+    produit.dangers.forEach(code => {
+      const h = dangerDB.find(d => d.code === code);
+      if (h) html += `<li><strong>${code}</strong> : ${h.text ?? h.texte ?? ''}</li>`;
+    });
+    html += `</ul></div>`;
+  }
+
+  if (produit.prevention?.length) {
+    html += `<div class="prevention-bloc"><h4>🛡️ Conseils de prudence (P)</h4><ul>`;
+    produit.prevention.forEach(code => {
+      const p = dangerDB.find(d => d.code === code);
+      if (p) html += `<li><strong>${code}</strong> : ${p.text ?? p.texte ?? ''}</li>`;
+    });
+    html += `</ul></div>`;
+  }
+
+  zone.innerHTML = html;
 }
 
 // ══════════════════════════════════════════════════════════════
