@@ -1,3 +1,8 @@
+<!--
+  Fragment SPA chargé dynamiquement par navigation.js dans la page hôte.
+  Convention de chemins : tous les chemins (images, etc.) sont relatifs
+  à la RACINE DU SITE (là où vit le shell SPA), jamais à ce fichier.
+-->
 <section>
 
 <!-- ====================================================== -->
@@ -219,7 +224,7 @@
 
         </div>
 
-        <p class="info" style="margin-top:15px;">
+        <p class="info" style="margin-top:var(--gap-sm);">
 
             Le montage comprend une burette graduée fixée sur une potence,
             un bécher contenant la solution à titrer placé sur un agitateur
@@ -239,7 +244,7 @@
 
     <div class="section-titre">
         <div class="picto-section">⚗️</div>
-        <h2>1. Paramètres du titrage</h2>
+        <h2>Paramètres du titrage</h2>
         <span class="chevron">▼</span>
     </div>
 
@@ -344,7 +349,7 @@
 
     <div class="section-titre">
         <div class="picto-section">📋</div>
-        <h2>2. Tableau de mesures expérimentales</h2>
+        <h2>Tableau de mesures expérimentales</h2>
         <span class="chevron">▼</span>
     </div>
 
@@ -455,7 +460,7 @@
 
     <div class="section-titre">
         <div class="picto-section">📈</div>
-        <h2>3. Courbe de titrage</h2>
+        <h2>Courbe de titrage</h2>
         <span class="chevron">▼</span>
     </div>
 
@@ -571,7 +576,7 @@
 
     <div class="section-titre">
         <div class="picto-section">📊</div>
-        <h2>4. Résultats automatiques</h2>
+        <h2>Résultats automatiques</h2>
         <span class="chevron">▼</span>
     </div>
 
@@ -678,7 +683,7 @@
 
         </div>
 
-        <div class="info" style="margin-top:20px;">
+        <div class="info" style="margin-top:var(--gap-md);">
 
             Les résultats sont calculés automatiquement dès que
             suffisamment de points expérimentaux sont disponibles.
@@ -697,7 +702,7 @@
 
     <div class="section-titre">
         <div class="picto-section">🛠️</div>
-        <h2>5. Correction des erreurs de mesure</h2>
+        <h2>Correction des erreurs de mesure</h2>
         <span class="chevron">▼</span>
     </div>
 
@@ -712,7 +717,7 @@
 
         </div>
 
-        <div class="toolbar" style="margin-top:20px;">
+        <div class="toolbar" style="margin-top:var(--gap-md);">
 
             <button id="btn-correction-erreurs"
                     class="btn btn-primaire">
@@ -724,7 +729,7 @@
         </div>
 
         <div id="panneau-correction"
-             style="display:none; margin-top:25px;">
+             style="display:none; margin-top:var(--gap-lg);">
 
             <fieldset>
 
@@ -768,7 +773,7 @@
 
             </fieldset>
 
-            <fieldset style="margin-top:25px;">
+            <fieldset style="margin-top:var(--gap-lg);">
 
                 <legend>
 
@@ -806,7 +811,7 @@
 
             </fieldset>
 
-            <fieldset style="margin-top:25px;">
+            <fieldset style="margin-top:var(--gap-lg);">
 
                 <legend>
 
@@ -829,7 +834,7 @@
         </div>
 
         <details class="balance-theorie"
-                 style="margin-top:25px;">
+                 style="margin-top:var(--gap-lg);">
 
             <summary>
 
@@ -872,14 +877,14 @@
 
 </div>
 <!-- ====================================================== -->
-<!-- COMPTE-RENDU                                           -->
+<!-- COMPTE RENDU                                           -->
 <!-- ====================================================== -->
 
 <div class="section" data-type="bilan">
 
     <div class="section-titre">
         <div class="picto-section">📝</div>
-        <h2>Compte-rendu</h2>
+        <h2>Compte rendu</h2>
         <span class="chevron">▼</span>
     </div>
 
@@ -919,7 +924,7 @@
         <!-- RESUME                                          -->
         <!-- =============================================== -->
 
-        <h3 style="margin-top:30px;">Résumé du TP</h3>
+        <h3 style="margin-top:var(--gap-md);">Résumé du TP</h3>
 
         <div class="zone-eleve">
 
@@ -934,7 +939,7 @@
         <!-- QUESTIONS                                       -->
         <!-- =============================================== -->
 
-        <h3 style="margin-top:30px;">Questions</h3>
+        <h3 style="margin-top:var(--gap-md);">Questions</h3>
 
         <ol class="questions-tp">
 
@@ -951,7 +956,7 @@
                 </div>
 
                 <div class="zone-eleve">
-                    <textarea id="question1" rows="3"></textarea>
+                    <textarea id="question1" rows="3" placeholder="Votre réponse..."></textarea>
                 </div>
 
             </li>
@@ -969,7 +974,7 @@
                 </div>
 
                 <div class="zone-eleve">
-                    <textarea id="question2" rows="3"></textarea>
+                    <textarea id="question2" rows="3" placeholder="Votre réponse..."></textarea>
                 </div>
 
             </li>
@@ -987,7 +992,7 @@
                 </div>
 
                 <div class="zone-eleve">
-                    <textarea id="question3" rows="4"></textarea>
+                    <textarea id="question3" rows="4" placeholder="Votre réponse..."></textarea>
                 </div>
 
             </li>
@@ -1005,7 +1010,7 @@
                 </div>
 
                 <div class="zone-eleve">
-                    <textarea id="question4" rows="3"></textarea>
+                    <textarea id="question4" rows="3" placeholder="Calcul et réponse..."></textarea>
                 </div>
 
             </li>
@@ -1023,7 +1028,7 @@
                 </div>
 
                 <div class="zone-eleve">
-                    <textarea id="question5" rows="4"></textarea>
+                    <textarea id="question5" rows="4" placeholder="Calcul et réponse..."></textarea>
                 </div>
 
             </li>
@@ -1041,7 +1046,7 @@
                 </div>
 
                 <div class="zone-eleve">
-                    <textarea id="question6" rows="4"></textarea>
+                    <textarea id="question6" rows="4" placeholder="Votre analyse..."></textarea>
                 </div>
 
             </li>
@@ -1059,7 +1064,7 @@
                 </div>
 
                 <div class="zone-eleve">
-                    <textarea id="question7" rows="4"></textarea>
+                    <textarea id="question7" rows="4" placeholder="Votre analyse..."></textarea>
                 </div>
 
             </li>
@@ -1077,7 +1082,7 @@
                 </div>
 
                 <div class="zone-eleve">
-                    <textarea id="question8" rows="4"></textarea>
+                    <textarea id="question8" rows="4" placeholder="Votre réponse..."></textarea>
                 </div>
 
             </li>
@@ -1095,7 +1100,7 @@
                 </div>
 
                 <div class="zone-eleve">
-                    <textarea id="question9" rows="4"></textarea>
+                    <textarea id="question9" rows="4" placeholder="Calcul, comparaison et conclusion..."></textarea>
                 </div>
 
             </li>
@@ -1113,7 +1118,7 @@
                 </div>
 
                 <div class="zone-eleve">
-                    <textarea id="question10" rows="5"></textarea>
+                    <textarea id="question10" rows="5" placeholder="Votre conclusion..."></textarea>
                 </div>
 
             </li>
@@ -1124,7 +1129,7 @@
         <!-- IMPRESSION                                      -->
         <!-- =============================================== -->
 
-        <h3 style="margin-top:35px;">Impression du compte-rendu</h3>
+        <h3 style="margin-top:var(--gap-lg);">Impression du compte-rendu</h3>
 
         <div class="toolbar">
 
@@ -1138,7 +1143,7 @@
 
         </div>
 
-        <div class="info" style="margin-top:20px;">
+        <div class="info" style="margin-top:var(--gap-md);">
 
             L'impression reprend automatiquement :
 
@@ -1300,7 +1305,7 @@
         </div>
 
         <div class="radar-actions"
-             style="margin-top:25px;">
+             style="margin-top:var(--gap-lg);">
 
             <button
                 id="btn-radar"
@@ -1311,7 +1316,7 @@
             </button>
 
             <div id="radar-resultat"
-                 style="margin-top:20px;">
+                 style="margin-top:var(--gap-md);">
 
             </div>
 
@@ -1354,6 +1359,8 @@
 </div>
 
 </main>
+
+<!-- Le JS est chargé dynamiquement par navigation.js (tp-chimie/js/tp03-titrages.js) — pas de <script> ici -->
 
 <!-- ====================================================== -->
 <!-- CONTENEUR D'IMPRESSION                                 -->
