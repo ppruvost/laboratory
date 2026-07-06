@@ -1,7 +1,7 @@
 // tp03-titrages.js — Titrages acido-basiques
 
 import products from "../../data/products.js";
-import { renderBlocSecurite, initSections, initTabs, initImprimer } from './utils.js';
+import { renderBlocSecurite, initSections, initTabs, initImprimer } from '../../js/utils.js';
 import { genererCompteRendu } from '../../js/compte-rendu.js';
 
 // ── Constantes chimiques ────────────────────────────────────────
