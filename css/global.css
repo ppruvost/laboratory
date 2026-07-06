@@ -143,5 +143,5 @@
    Le reset navigateur, la typographie de base et les préférences
    d'accessibilité (focus visible) vivent désormais dans reset.css.
    Ordre de chargement : global.css → reset.css → tp.css →
-   compte-rendu.css / balance-erreurs.css → animations.css.
+   compte-rendu.css / balance-erreurs.css → print.css → animations.css.
    ──────────────────────────────────────────────────────────────── */
