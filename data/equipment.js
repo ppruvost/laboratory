@@ -353,7 +353,7 @@ const laboratoryEquipment = [
         description: "Capacité 2 000 g max — Précision ± 1 g",
         lieu: "Salle B27 / étagère C2",
         image: "assets/img/equipments/balance_jeulin.jpg",
-        noticeUtilisation: "assets/notice/balance_jeulin.pdf""
+        noticeUtilisation: "assets/notice/balance_jeulin.pdf"
     },
        {
         domaine: "Chimie",
