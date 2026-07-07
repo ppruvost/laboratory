@@ -3,6 +3,8 @@
 import products from "../../data/products.js";
 import dangerDB from "../../data/dangerDB.js";
 import pictogrammes from "../../data/pictogrammes.js";
+import glassware from "../../data/glassware.js";
+import laboratoryEquipment from "../../data/equipment.js";
 import { initSections, initTabs, initImprimer } from '../../js/utils.js';
 import { genererCompteRendu } from '../../js/compte-rendu.js';
 
