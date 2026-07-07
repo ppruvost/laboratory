@@ -540,7 +540,9 @@ function _dessinerGraphe() {
   const afficherDerivee = document.getElementById('chk-derivee')?.checked;
 
   // ── Étendue des axes ──
-  let vMin = 0, vMax = _params.Ve ? _params.Ve * 1.8 : 40;
+  // ── Étendue des axes ──
+  const facteur = (_params.typeAcide === 'faible') ? Math.max(1, _params.n || 1) : 1;
+  let vMin = 0, vMax = _params.Ve ? _params.Ve * facteur * 1.8 : 40;
   if (_zoom) { vMin = _zoom.vmin; vMax = _zoom.vmax; }
 
   const tousPoints = [...(afficherExp ? exp : []), ...(afficherTheo ? theo : [])];
