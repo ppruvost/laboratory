@@ -1,8 +1,9 @@
 <!--
-  Fragment SPA chargé dynamiquement par navigation.js dans la page hôte.
-  Convention de chemins : tous les chemins (images, etc.) sont relatifs
-  à la RACINE DU SITE (là où vit le shell SPA), jamais à ce fichier.
+  Fragment SPA chargé dynamiquement par navigation.js.
+  Tous les chemins sont relatifs à la racine du site.
+  Aucun <script> dans ce fragment.
 -->
+
 <section>
 
 <!-- ====================================================== -->
@@ -45,11 +46,14 @@
 
 </header>
 
+
 <div class="progress">
-    <div id="bar"></div>
+  <div id="bar"></div>
 </div>
 
+
 <main id="content">
+
 
 <!-- ====================================================== -->
 <!-- OBJECTIFS                                               -->
@@ -57,37 +61,57 @@
 
 <div class="section" data-type="objectif">
 
-    <div class="section-titre">
-        <div class="picto-section">🎯</div>
-        <h2>Objectifs</h2>
-        <span class="chevron">▼</span>
-    </div>
+  <div class="section-titre">
+    <div class="picto-section">🎯</div>
+    <h2>Objectifs</h2>
+    <span class="chevron">▼</span>
+  </div>
 
-    <div class="section-corps">
 
-        <ul>
+  <div class="section-corps">
 
-            <li>Réaliser un titrage acido-basique dans de bonnes conditions expérimentales.</li>
+    <ul>
 
-            <li>Utiliser correctement une burette graduée et un agitateur magnétique.</li>
+      <li>
+        Réaliser un titrage acido-basique dans de bonnes conditions expérimentales.
+      </li>
 
-            <li>Mesurer le pH d'une solution au cours d'un titrage.</li>
+      <li>
+        Utiliser correctement une burette graduée, un agitateur magnétique
+        et un pH-mètre.
+      </li>
 
-            <li>Tracer une courbe de titrage pH = f(V).</li>
+      <li>
+        Mesurer l'évolution du pH au cours d'un titrage.
+      </li>
 
-            <li>Déterminer graphiquement le volume d'équivalence.</li>
+      <li>
+        Construire une courbe pH = f(V).
+      </li>
 
-            <li>Exploiter une méthode des tangentes et une méthode des dérivées.</li>
+      <li>
+        Déterminer graphiquement le volume d'équivalence.
+      </li>
 
-            <li>Déterminer la concentration d'une solution inconnue.</li>
+      <li>
+        Exploiter les méthodes des tangentes et des dérivées.
+      </li>
 
-            <li>Comparer une courbe expérimentale à une courbe théorique.</li>
+      <li>
+        Déterminer la concentration inconnue d'une solution.
+      </li>
 
-        </ul>
+      <li>
+        Comparer résultats expérimentaux et modèle théorique.
+      </li>
 
-    </div>
+    </ul>
+
+  </div>
 
 </div>
+
+
 
 <!-- ====================================================== -->
 <!-- SECURITE                                                -->
@@ -95,89 +119,142 @@
 
 <div class="section" data-type="securite">
 
-    <div class="section-titre">
-        <div class="picto-section">⚠️</div>
-        <h2>Sécurité - Produits utilisés</h2>
-        <span class="chevron">▼</span>
+
+  <div class="section-titre">
+
+    <div class="picto-section">⚠️</div>
+
+    <h2>Sécurité - Produits utilisés</h2>
+
+    <span class="chevron">▼</span>
+
+  </div>
+
+
+
+  <div class="section-corps">
+
+
+    <!-- Filtres gérés par securite.js -->
+
+    <div class="filtre-reactifs">
+
+
+      <span class="filtre-titre">
+        <strong>Afficher :</strong>
+      </span>
+
+
+      <label>
+        <input type="checkbox"
+               class="filtre-cat"
+               value="Liquide"
+               checked>
+        Liquides
+      </label>
+
+
+      <label>
+        <input type="checkbox"
+               class="filtre-cat"
+               value="Sel"
+               checked>
+        Sels
+      </label>
+
+
+      <label>
+        <input type="checkbox"
+               class="filtre-cat"
+               value="Solide"
+               checked>
+        Solides
+      </label>
+
+
+      <label>
+        <input type="checkbox"
+               class="filtre-cat"
+               value="Indicateur"
+               checked>
+        Indicateurs
+      </label>
+
+
+      <label>
+        <input type="checkbox"
+               class="filtre-cat"
+               value="Colorant"
+               checked>
+        Colorants
+      </label>
+
+
+      <label>
+        <input type="checkbox"
+               class="filtre-cat"
+               value="Métal"
+               checked>
+        Métaux
+      </label>
+
+
+      <label>
+        <input type="checkbox"
+               class="filtre-cat"
+               value="Solvant"
+               checked>
+        Solvants
+      </label>
+
+
+      <label>
+        <input type="checkbox"
+               class="filtre-cat"
+               value="Halogène"
+               checked>
+        Halogènes
+      </label>
+
+
     </div>
 
-    <div class="section-corps">
 
-        <!-- ===== Filtres ===== -->
 
-        <div class="filtre-reactifs">
+    <div class="form-group">
 
-            <span class="filtre-titre">
-                <strong>Afficher :</strong>
-            </span>
+      <label for="reactif">
+        Choisir un réactif :
+      </label>
 
-            <label>
-                <input type="checkbox" class="filtre-cat" value="Liquide" checked>
-                Liquides
-            </label>
 
-            <label>
-                <input type="checkbox" class="filtre-cat" value="Sel" checked>
-                Sels
-            </label>
+      <select id="reactif">
 
-            <label>
-                <input type="checkbox" class="filtre-cat" value="Solide" checked>
-                Solides
-            </label>
+        <option value="">
+          -- Sélectionner --
+        </option>
 
-            <label>
-                <input type="checkbox" class="filtre-cat" value="Indicateur" checked>
-                Indicateurs
-            </label>
-
-            <label>
-                <input type="checkbox" class="filtre-cat" value="Colorant" checked>
-                Colorants
-            </label>
-
-            <label>
-                <input type="checkbox" class="filtre-cat" value="Métal" checked>
-                Métaux
-            </label>
-
-            <label>
-                <input type="checkbox" class="filtre-cat" value="Solvant" checked>
-                Solvants
-            </label>
-
-            <label>
-                <input type="checkbox" class="filtre-cat" value="Halogène" checked>
-                Halogènes
-            </label>
-
-        </div>
-
-        <!-- ===== Choix du réactif ===== -->
-
-        <div class="form-group">
-
-            <label for="reactif">
-                Choisir un réactif :
-            </label>
-
-            <select id="reactif">
-                <option value="">-- Sélectionner --</option>
-            </select>
-
-        </div>
-
-        <!-- ===== Bloc sécurité généré automatiquement ===== -->
-
-        <div id="securite-bloc">
-            <div class="info">
-                Sélectionner un réactif.
-            </div>
-        </div>
+      </select>
 
     </div>
+
+
+
+    <div id="securite-bloc">
+
+      <div class="info">
+        Sélectionner un réactif.
+      </div>
+
+    </div>
+
+
+  </div>
 
 </div>
+
+
+
 
 <!-- ====================================================== -->
 <!-- MATERIEL                                                -->
@@ -185,55 +262,487 @@
 
 <div class="section" data-type="materiel">
 
-    <div class="section-titre">
-        <div class="picto-section">🧪</div>
-        <h2>Matériel nécessaire</h2>
-        <span class="chevron">▼</span>
+
+  <div class="section-titre">
+
+    <div class="picto-section">🧪</div>
+
+    <h2>Matériel nécessaire</h2>
+
+    <span class="chevron">▼</span>
+
+  </div>
+
+
+
+  <div class="section-corps">
+
+
+    <h3>Verrerie</h3>
+
+
+    <div id="materiel-verrerie"
+         class="grille-materiel">
     </div>
 
-    <div class="section-corps">
 
-        <h3>Verrerie</h3>
 
-        <div id="materiel-verrerie" class="grille-materiel">
+    <hr>
 
-            <!-- rempli automatiquement par tp03-titrages.js -->
 
-        </div>
 
-        <hr>
+    <h3>Équipements</h3>
 
-        <h3>Équipements</h3>
 
-        <div id="materiel-equipements" class="grille-materiel">
+    <div id="materiel-equipements"
+         class="grille-materiel">
+    </div>
 
-            <!-- rempli automatiquement -->
 
-        </div>
 
-        <hr>
+    <hr>
 
-        <h3>Montage expérimental</h3>
 
-        <div class="illustration-centre">
 
-            <img
-                src="./assets/images/c3-titrage-montage.png"
-                alt="Montage de titrage"
-                class="mode-image">
+    <h3>Montage expérimental</h3>
 
-        </div>
 
-        <p class="info" style="margin-top:var(--gap-sm);">
+    <div class="illustration-centre">
 
-            Le montage comprend une burette graduée fixée sur une potence,
-            un bécher contenant la solution à titrer placé sur un agitateur
-            magnétique, un barreau aimanté et une électrode de pH-mètre
-            immergée dans la solution.
-
-        </p>
+      <img
+        src="./assets/images/c3-titrage-montage.png"
+        alt="Montage expérimental de titrage"
+        class="mode-image">
 
     </div>
+
+
+
+    <p class="info">
+
+      Le montage comprend une burette graduée fixée sur une potence,
+      un bécher contenant la solution titrée placé sur agitateur magnétique,
+      un barreau aimanté et une électrode de pH-mètre immergée dans la solution.
+
+    </p>
+
+
+  </div>
+
+
+</div>
+<!-- ====================================================== -->
+<!-- PARAMÈTRES DU TITRAGE                                  -->
+<!-- ====================================================== -->
+
+<div class="section" data-type="parametres">
+
+  <div class="section-titre">
+
+    <div class="picto-section">⚗️</div>
+
+    <h2>Paramètres du titrage</h2>
+
+    <span class="chevron">▼</span>
+
+  </div>
+
+
+
+  <div class="section-corps">
+
+
+    <div class="form-row">
+
+
+      <div class="form-group">
+
+        <label for="va">
+          Volume de solution titrée Va (mL)
+        </label>
+
+        <input id="va"
+               type="number"
+               value="20"
+               step="0.1">
+
+      </div>
+
+
+
+      <div class="form-group">
+
+        <label for="ca">
+          Concentration estimée Ca (mol/L)
+        </label>
+
+        <input id="ca"
+               type="number"
+               value="0.100"
+               step="0.001">
+
+      </div>
+
+
+
+      <div class="form-group">
+
+        <label for="cb">
+          Concentration solution titrante Cb (mol/L)
+        </label>
+
+        <input id="cb"
+               type="number"
+               value="0.100"
+               step="0.001">
+
+      </div>
+
+
+    </div>
+
+
+
+
+    <div class="form-row">
+
+
+
+      <div class="form-group">
+
+        <label for="sel-acide">
+          Nature de l'acide
+        </label>
+
+
+        <select id="sel-acide">
+
+          <option value="fort">
+            Acide fort
+          </option>
+
+          <option value="faible">
+            Acide faible
+          </option>
+
+        </select>
+
+      </div>
+
+
+
+
+      <div class="form-group">
+
+        <label for="sel-base">
+          Nature de la base
+        </label>
+
+
+        <select id="sel-base">
+
+          <option value="fort">
+            Base forte
+          </option>
+
+          <option value="faible">
+            Base faible
+          </option>
+
+        </select>
+
+      </div>
+
+
+
+
+      <div class="form-group">
+
+        <label for="pka-select">
+          Couple acide/base
+        </label>
+
+
+        <select id="pka-select">
+
+
+          <optgroup label="Monoacides / monobases faibles">
+
+
+            <option value="CH3COOH">
+              CH₃COOH / CH₃COO⁻ (acide acétique)
+            </option>
+
+
+            <option value="HF">
+              HF / F⁻ (acide fluorhydrique)
+            </option>
+
+
+            <option value="HNO2">
+              HNO₂ / NO₂⁻ (acide nitreux)
+            </option>
+
+
+            <option value="NH4+">
+              NH₄⁺ / NH₃ (ammonium / ammoniac)
+            </option>
+
+
+            <option value="H2O2">
+              H₂O₂ / HO₂⁻ (eau oxygénée)
+            </option>
+
+
+            <option value="H3BO3">
+              H₃BO₃ / H₂BO₃⁻ (acide borique)
+            </option>
+
+
+          </optgroup>
+
+
+
+
+          <optgroup label="Polyacides">
+
+
+            <option value="H2C2O4">
+              H₂C₂O₄ — acide oxalique
+            </option>
+
+
+            <option value="H2CO3">
+              H₂CO₃ — acide carbonique
+            </option>
+
+
+            <option value="H2S">
+              H₂S — sulfure d'hydrogène
+            </option>
+
+
+            <option value="H3PO4">
+              H₃PO₄ — acide phosphorique
+            </option>
+
+
+            <option value="H4EDTA">
+              H₄EDTA — EDTA
+            </option>
+
+
+          </optgroup>
+
+
+        </select>
+
+
+      </div>
+
+
+    </div>
+
+
+
+
+
+    <div class="resultat">
+
+
+      <h3>
+        Volume d'équivalence théorique
+      </h3>
+
+
+      <div id="ve-theo"
+           class="valeur">
+
+        —
+
+      </div>
+
+
+    </div>
+
+
+
+  </div>
+
+
+</div>
+
+
+
+
+
+<!-- ====================================================== -->
+<!-- TABLEAU DE MESURES                                     -->
+<!-- ====================================================== -->
+
+<div class="section" data-type="mesures">
+
+
+  <div class="section-titre">
+
+
+    <div class="picto-section">📋</div>
+
+    <h2>
+      Tableau de mesures expérimentales
+    </h2>
+
+
+    <span class="chevron">
+      ▼
+    </span>
+
+
+  </div>
+
+
+
+
+  <div class="section-corps">
+
+
+
+    <div class="toolbar">
+
+
+
+      <button id="btn-ajouter-mesure"
+              class="btn btn-primaire">
+
+        ➕ Ajouter une mesure
+
+      </button>
+
+
+
+
+      <div class="form-group">
+
+        <label for="pas-rapide">
+          Pas rapide
+        </label>
+
+
+        <select id="pas-rapide">
+
+
+          <option value="0.2">
+            0,2 mL
+          </option>
+
+
+          <option value="0.5"
+                  selected>
+            0,5 mL
+          </option>
+
+
+          <option value="1">
+            1,0 mL
+          </option>
+
+
+        </select>
+
+
+      </div>
+
+
+
+
+      <button id="btn-generer-theorique"
+              class="btn btn-secondaire">
+
+        Générer une courbe théorique
+
+      </button>
+
+
+
+
+      <button id="btn-vider-mesures"
+              class="btn btn-danger">
+
+        🗑 Effacer les mesures
+
+      </button>
+
+
+    </div>
+
+
+
+
+
+    <div class="table-responsive">
+
+
+      <table id="table-mesures"
+             class="tableau-resultats">
+
+
+        <thead>
+
+
+          <tr>
+
+            <th>
+              Volume ajouté (mL)
+            </th>
+
+
+            <th>
+              pH
+            </th>
+
+
+            <th>
+              Observation
+            </th>
+
+
+            <th>
+              Action
+            </th>
+
+
+          </tr>
+
+
+        </thead>
+
+
+
+        <tbody id="tbody-mesures">
+
+        </tbody>
+
+
+
+      </table>
+
+
+    </div>
+
+
+
+
+    <div class="info">
+
+      Il est conseillé de réaliser des mesures rapprochées
+      autour du volume d'équivalence.
+
+    </div>
+
+
+
+  </div>
+
 
 </div>
 <!-- ====================================================== -->
@@ -253,23 +762,45 @@
         <div class="form-row">
 
             <div class="form-group">
-                <label for="va">Volume de solution titrée Va (mL)</label>
-                <input type="number" id="va" value="20" step="0.1">
+                <label for="va">
+                    Volume de solution titrée Va (mL)
+                </label>
+                <input 
+                    type="number"
+                    id="va"
+                    value="20"
+                    step="0.1">
             </div>
 
-            <div class="form-group">
-                <label for="ca">Concentration estimée Ca (mol/L)</label>
-                <input type="number" id="ca" value="0.100" step="0.001">
-            </div>
 
             <div class="form-group">
-                <label for="cb">Concentration de la burette Cb (mol/L)</label>
-                <input type="number" id="cb" value="0.100" step="0.001">
+                <label for="ca">
+                    Concentration estimée Ca (mol/L)
+                </label>
+                <input 
+                    type="number"
+                    id="ca"
+                    value="0.100"
+                    step="0.001">
+            </div>
+
+
+            <div class="form-group">
+                <label for="cb">
+                    Concentration solution titrante Cb (mol/L)
+                </label>
+                <input 
+                    type="number"
+                    id="cb"
+                    value="0.100"
+                    step="0.001">
             </div>
 
         </div>
 
+
         <div class="form-row">
+
 
             <div class="form-group">
 
@@ -278,11 +809,19 @@
                 </label>
 
                 <select id="sel-acide">
-                    <option value="fort">Acide fort</option>
-                    <option value="faible">Acide faible</option>
+
+                    <option value="fort">
+                        Acide fort
+                    </option>
+
+                    <option value="faible">
+                        Acide faible
+                    </option>
+
                 </select>
 
             </div>
+
 
             <div class="form-group">
 
@@ -291,11 +830,20 @@
                 </label>
 
                 <select id="sel-base">
-                    <option value="fort">Base forte</option>
-                    <option value="faible">Base faible</option>
+
+                    <option value="fort">
+                        Base forte
+                    </option>
+
+                    <option value="faible">
+                        Base faible
+                    </option>
+
                 </select>
 
             </div>
+
+
 
             <div class="form-group">
 
@@ -303,107 +851,215 @@
                     Couple acide/base
                 </label>
 
+
                 <select id="pka-select">
-  <optgroup label="Monoacides / monobases faibles">
-    <option value="CH3COOH">CH₃COOH / CH₃COO⁻ (acide acétique)</option>
-    <option value="HF">HF / F⁻ (acide fluorhydrique)</option>
-    <option value="HNO2">HNO₂ / NO₂⁻ (acide nitreux)</option>
-    <option value="NH4+">NH₄⁺ / NH₃ (ammonium / ammoniac)</option>
-    <option value="H2O2">H₂O₂ / HO₂⁻ (eau oxygénée)</option>
-    <option value="H3BO3">H₃BO₃ / H₂BO₃⁻ (acide borique)</option>
-  </optgroup>
-  <optgroup label="Polyacides (plusieurs équivalences)">
-    <option value="H2C2O4">H₂C₂O₄ — acide oxalique (diacide)</option>
-    <option value="H2CO3">H₂CO₃ — acide carbonique (diacide)</option>
-    <option value="H2S">H₂S — sulfure d'hydrogène (diacide)</option>
-    <option value="H3PO4">H₃PO₄ — acide phosphorique (triacide)</option>
-    <option value="H4EDTA">H₄EDTA — EDTA (tétraacide)</option>
-  </optgroup>
-</select>
 
-            </div>
+                    <optgroup label="Monoacides faibles">
 
-        </div>
+                        <option value="CH3COOH">
+                            CH₃COOH / CH₃COO⁻
+                        </option>
 
-        <div class="resultat">
 
-            <h3>Volume d'équivalence théorique</h3>
+                        <option value="HF">
+                            HF / F⁻
+                        </option>
 
-            <div id="ve-theo" class="valeur">
-                —
-            </div>
 
-        </div>
+                        <option value="HNO2">
+                            HNO₂ / NO₂⁻
+                        </option>
 
-    </div>
 
-</div>
+                        <option value="NH4+">
+                            NH₄⁺ / NH₃
+                        </option>
 
-<!-- ====================================================== -->
-<!-- TABLEAU DE MESURES                                     -->
-<!-- ====================================================== -->
 
-<div class="section" data-type="mesures">
+                        <option value="H2O2">
+                            H₂O₂ / HO₂⁻
+                        </option>
 
-    <div class="section-titre">
-        <div class="picto-section">📋</div>
-        <h2>Tableau de mesures expérimentales</h2>
-        <span class="chevron">▼</span>
-    </div>
 
-    <div class="section-corps">
+                        <option value="H3BO3">
+                            H₃BO₃ / H₂BO₃⁻
+                        </option>
 
-        <div class="toolbar">
+                    </optgroup>
 
-            <button id="btn-ajouter-mesure" class="btn btn-primaire">
-                ➕ Ajouter une mesure
-            </button>
 
-            <div class="form-group">
 
-                <label for="pas-rapide">
-                    Pas rapide
-                </label>
+                    <optgroup label="Polyacides">
 
-                <select id="pas-rapide">
+                        <option value="H2C2O4">
+                            H₂C₂O₄ — acide oxalique
+                        </option>
 
-                    <option value="0.2">
-                        0,2 mL
-                    </option>
 
-                    <option value="0.5" selected>
-                        0,5 mL
-                    </option>
+                        <option value="H2CO3">
+                            H₂CO₃ — acide carbonique
+                        </option>
 
-                    <option value="1">
-                        1,0 mL
-                    </option>
+
+                        <option value="H2S">
+                            H₂S — sulfure d'hydrogène
+                        </option>
+
+
+                        <option value="H3PO4">
+                            H₃PO₄ — acide phosphorique
+                        </option>
+
+
+                        <option value="H4EDTA">
+                            H₄EDTA — EDTA
+                        </option>
+
+
+                    </optgroup>
+
 
                 </select>
 
             </div>
 
-            <button id="btn-generer-theorique"
-                    class="btn btn-secondaire">
 
-                Générer une courbe théorique
+        </div>
+
+
+
+        <div class="resultat">
+
+            <h3>
+                Volume d'équivalence théorique
+            </h3>
+
+
+            <div 
+                id="ve-theo"
+                class="valeur">
+
+                —
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+</div>
+
+
+
+<!-- ====================================================== -->
+<!-- TABLEAU DE MESURES                                     -->
+<!-- ====================================================== -->
+
+
+<div class="section" data-type="mesures">
+
+
+    <div class="section-titre">
+
+        <div class="picto-section">📋</div>
+
+        <h2>
+            Tableau de mesures expérimentales
+        </h2>
+
+        <span class="chevron">
+            ▼
+        </span>
+
+    </div>
+
+
+
+    <div class="section-corps">
+
+
+        <div class="toolbar">
+
+
+            <button
+                id="btn-ajouter-mesure"
+                class="btn btn-primaire">
+
+                ➕ Ajouter une mesure
 
             </button>
 
-            <button id="btn-vider-mesures"
-                    class="btn btn-danger">
+
+
+            <div class="form-group">
+
+
+                <label for="pas-rapide">
+                    Pas rapide
+                </label>
+
+
+                <select id="pas-rapide">
+
+
+                    <option value="0.2">
+                        0,2 mL
+                    </option>
+
+
+                    <option value="0.5" selected>
+                        0,5 mL
+                    </option>
+
+
+                    <option value="1">
+                        1,0 mL
+                    </option>
+
+
+                </select>
+
+
+            </div>
+
+
+
+
+            <button
+                id="btn-generer-theorique"
+                class="btn btn-secondaire">
+
+                📈 Générer courbe théorique
+
+            </button>
+
+
+
+
+            <button
+                id="btn-vider-mesures"
+                class="btn btn-danger">
 
                 🗑 Effacer les mesures
 
             </button>
 
+
         </div>
 
+
+
+
+
         <div class="table-responsive">
+
 
             <table
                 id="table-mesures"
                 class="tableau-resultats">
+
 
                 <thead>
 
@@ -413,43 +1069,63 @@
                             Volume ajouté (mL)
                         </th>
 
+
                         <th>
                             pH
                         </th>
+
 
                         <th>
                             Observation
                         </th>
 
+
                         <th>
                             Action
                         </th>
 
+
                     </tr>
+
 
                 </thead>
 
+
+
                 <tbody id="tbody-mesures">
 
-                    <!-- généré automatiquement -->
+                    <!-- Génération dynamique JS -->
 
                 </tbody>
 
+
+
             </table>
 
+
+
         </div>
+
+
+
+
 
         <div class="info">
 
-            Il est conseillé de réaliser des mesures rapprochées
+
+            Il est conseillé d'effectuer des mesures rapprochées
             autour du volume d'équivalence.
+
 
         </div>
 
+
+
     </div>
 
-</div>
 
+
+</div>
 <!-- ====================================================== -->
 <!-- COURBE DE TITRAGE                                      -->
 <!-- ====================================================== -->
@@ -457,14 +1133,26 @@
 <div class="section" data-type="courbe">
 
     <div class="section-titre">
+
         <div class="picto-section">📈</div>
-        <h2>Courbe de titrage</h2>
-        <span class="chevron">▼</span>
+
+        <h2>
+            Courbe de titrage
+        </h2>
+
+        <span class="chevron">
+            ▼
+        </span>
+
     </div>
+
+
 
     <div class="section-corps">
 
+
         <div class="toolbar">
+
 
             <label>
 
@@ -477,6 +1165,8 @@
 
             </label>
 
+
+
             <label>
 
                 <input
@@ -488,6 +1178,8 @@
 
             </label>
 
+
+
             <label>
 
                 <input
@@ -498,9 +1190,13 @@
 
             </label>
 
+
         </div>
 
+
+
         <div class="toolbar">
+
 
             <label>
 
@@ -512,6 +1208,8 @@
 
             </label>
 
+
+
             <label>
 
                 <input
@@ -522,176 +1220,428 @@
 
             </label>
 
+
         </div>
+
+
+
+
 
         <div class="graphe-titrage">
 
-            <canvas id="canvas-titrage"></canvas>
 
-            <div id="curseur-info"
-                 class="info"
-                 style="display:none;
-                        position:absolute;
-                        pointer-events:none;">
+            <canvas
+                id="canvas-titrage">
+            </canvas>
+
+
+
+            <div
+                id="curseur-info"
+                class="info"
+                style="
+                    display:none;
+                    position:absolute;
+                    pointer-events:none;
+                ">
 
             </div>
 
+
+
         </div>
+
+
+
 
         <canvas
             id="canvas-derivee"
             height="180"
             style="display:none;">
-
         </canvas>
+
+
+
+
 
         <div class="toolbar">
 
-            <button id="btn-zoom-reset"
-                    class="btn btn-secondaire">
 
-                Réinitialiser le zoom
+            <button
+                id="btn-zoom-reset"
+                class="btn btn-secondaire">
+
+                🔄 Réinitialiser le zoom
 
             </button>
 
+
+
             <div class="info">
 
-                Astuce : cliquer-glisser sur le graphique
+
+                Astuce :
+                cliquer-glisser sur le graphique
                 pour zoomer autour de l'équivalence.
+
 
             </div>
 
+
         </div>
+
+
+
 
     </div>
 
+
 </div>
+
+
+
+
+
 <!-- ====================================================== -->
 <!-- RÉSULTATS AUTOMATIQUES                                 -->
 <!-- ====================================================== -->
 
+
 <div class="section" data-type="resultats">
 
+
     <div class="section-titre">
-        <div class="picto-section">📊</div>
-        <h2>Résultats automatiques</h2>
-        <span class="chevron">▼</span>
+
+
+        <div class="picto-section">
+            📊
+        </div>
+
+
+        <h2>
+            Résultats automatiques
+        </h2>
+
+
+        <span class="chevron">
+            ▼
+        </span>
+
+
     </div>
+
+
+
+
 
     <div class="section-corps">
 
+
         <div class="resultats-grid">
 
-            <!-- ================= Tangentes ================= -->
 
-            <div class="resultat" id="resultat-tangentes" style="display:none;">
 
-                <h3>📐 Méthode des tangentes</h3>
 
-                <table class="tableau-resultats">
 
-                    <tbody>
+            <!-- ========================= -->
+            <!-- Méthode des tangentes     -->
+            <!-- ========================= -->
 
-                        <tr>
-                            <th>Volume d'équivalence</th>
-                            <td>
-                                <span id="ve-tangentes" class="valeur">—</span> mL
-                            </td>
-                        </tr>
 
-                        <tr>
-                            <th>Concentration calculée</th>
-                            <td>
-                                <span id="ca-tangentes">—</span> mol/L
-                            </td>
-                        </tr>
+            <div
+                class="resultat"
+                id="resultat-tangentes"
+                style="display:none;">
 
-                    </tbody>
 
-                </table>
 
-            </div>
+                <h3>
+                    📐 Méthode des tangentes
+                </h3>
 
-            <!-- ================= Dérivée ================= -->
 
-            <div class="resultat" id="resultat-derivee" style="display:none;">
-
-                <h3>📈 Méthode des dérivées</h3>
 
                 <table class="tableau-resultats">
 
+
                     <tbody>
 
-                        <tr>
-                            <th>Volume d'équivalence</th>
-                            <td>
-                                <span id="ve-derivee" class="valeur">—</span> mL
-                            </td>
-                        </tr>
 
                         <tr>
-                            <th>Concentration calculée</th>
+
+                            <th>
+                                Volume d'équivalence
+                            </th>
+
+
                             <td>
-                                <span id="ca-derivee">—</span> mol/L
+
+                                <span
+                                    id="ve-tangentes"
+                                    class="valeur">
+                                    —
+                                </span>
+
+                                mL
+
                             </td>
+
                         </tr>
+
+
+
+
+                        <tr>
+
+
+                            <th>
+                                Concentration calculée
+                            </th>
+
+
+                            <td>
+
+                                <span
+                                    id="ca-tangentes">
+                                    —
+                                </span>
+
+                                mol/L
+
+
+                            </td>
+
+
+                        </tr>
+
 
                     </tbody>
 
+
                 </table>
+
 
             </div>
 
-            <!-- ================= Comparaison ================= -->
 
-            <div class="resultat" id="resultat-comparaison" style="display:none;">
 
-                <h3>⚖️ Comparaison des méthodes</h3>
+
+
+
+
+            <!-- ========================= -->
+            <!-- Méthode dérivée           -->
+            <!-- ========================= -->
+
+
+            <div
+                class="resultat"
+                id="resultat-derivee"
+                style="display:none;">
+
+
+
+                <h3>
+                    📈 Méthode des dérivées
+                </h3>
+
+
+
 
                 <table class="tableau-resultats">
 
+
                     <tbody>
 
-                        <tr>
-
-                            <th>Écart sur Ve</th>
-
-                            <td>
-                                <span id="ecart-ve">—</span> mL
-                            </td>
-
-                        </tr>
 
                         <tr>
 
-                            <th>Erreur relative</th>
+
+                            <th>
+                                Volume d'équivalence
+                            </th>
+
 
                             <td>
-                                <span id="erreur-relative">—</span> %
+
+
+                                <span
+                                    id="ve-derivee"
+                                    class="valeur">
+                                    —
+                                </span>
+
+
+                                mL
+
 
                             </td>
 
+
                         </tr>
+
+
+
+
+
+                        <tr>
+
+
+                            <th>
+                                Concentration calculée
+                            </th>
+
+
+                            <td>
+
+
+                                <span
+                                    id="ca-derivee">
+                                    —
+                                </span>
+
+
+                                mol/L
+
+
+                            </td>
+
+
+                        </tr>
+
 
                     </tbody>
 
+
                 </table>
 
+
+
             </div>
+
+
+
+
+
+
+
+            <!-- ========================= -->
+            <!-- Comparaison                -->
+            <!-- ========================= -->
+
+
+            <div
+                class="resultat"
+                id="resultat-comparaison"
+                style="display:none;">
+
+
+
+                <h3>
+                    ⚖️ Comparaison des méthodes
+                </h3>
+
+
+
+
+                <table class="tableau-resultats">
+
+
+                    <tbody>
+
+
+
+                        <tr>
+
+
+                            <th>
+                                Écart sur Ve
+                            </th>
+
+
+                            <td>
+
+                                <span
+                                    id="ecart-ve">
+                                    —
+                                </span>
+
+                                mL
+
+
+                            </td>
+
+
+                        </tr>
+
+
+
+
+
+                        <tr>
+
+
+                            <th>
+                                Erreur relative
+                            </th>
+
+
+                            <td>
+
+
+                                <span
+                                    id="erreur-relative">
+                                    —
+                                </span>
+
+
+                                %
+
+
+                            </td>
+
+
+                        </tr>
+
+
+
+                    </tbody>
+
+
+                </table>
+
+
+
+            </div>
+
+
+
 
         </div>
 
-        <div class="info" style="margin-top:var(--gap-md);">
 
-            Les résultats sont calculés automatiquement dès que
-            suffisamment de points expérimentaux sont disponibles.
+
+
+
+        <div
+            class="info"
+            style="margin-top:var(--gap-md);">
+
+
+            Les résultats sont calculés automatiquement
+            dès que suffisamment de points expérimentaux
+            sont disponibles.
+
 
         </div>
+
+
 
     </div>
 
-</div>
 
+
+</div>
 <!-- ====================================================== -->
 <!-- CORRECTION DES ERREURS DE MESURE                       -->
 <!-- ====================================================== -->
@@ -699,51 +1649,85 @@
 <div class="section" data-type="correction">
 
     <div class="section-titre">
+
         <div class="picto-section">🛠️</div>
-        <h2>Correction des erreurs de mesure</h2>
-        <span class="chevron">▼</span>
+
+        <h2>
+            Correction des erreurs de mesure
+        </h2>
+
+        <span class="chevron">
+            ▼
+        </span>
+
     </div>
 
+
+
     <div class="section-corps">
+
 
         <div class="info">
 
             Cette section permet d'améliorer les données
-            expérimentales en corrigeant les erreurs de calibration,
-            en supprimant les valeurs aberrantes et en appliquant un
-            lissage numérique.
+            expérimentales en appliquant des corrections
+            numériques et en identifiant les mesures
+            incohérentes.
 
         </div>
 
-        <div class="toolbar" style="margin-top:var(--gap-md);">
 
-            <button id="btn-correction-erreurs"
-                    class="btn btn-primaire">
+
+        <div
+            class="toolbar"
+            style="margin-top:var(--gap-md);">
+
+
+            <button
+                id="btn-correction-erreurs"
+                class="btn btn-primaire">
 
                 🔧 Ouvrir les outils de correction
 
             </button>
 
+
         </div>
 
-        <div id="panneau-correction"
-             style="display:none; margin-top:var(--gap-lg);">
+
+
+
+
+        <div
+            id="panneau-correction"
+            style="
+                display:none;
+                margin-top:var(--gap-lg);
+            ">
+
+
 
             <fieldset>
+
 
                 <legend>
                     Calibration du pH-mètre
                 </legend>
 
+
+
                 <div class="form-row">
+
 
                     <div class="form-group">
 
+
                         <label for="offset-ph">
 
-                            Décalage de calibration (ΔpH)
+                            Décalage de calibration ΔpH
 
                         </label>
+
 
                         <input
                             type="number"
@@ -751,73 +1735,126 @@
                             value="0"
                             step="0.01">
 
+
                     </div>
+
+
+
 
                     <div class="form-group">
 
-                        <label>&nbsp;</label>
+
+                        <label>
+                            &nbsp;
+                        </label>
+
+
 
                         <button
                             id="btn-appliquer-offset"
                             class="btn btn-primaire">
 
+
                             Appliquer
+
 
                         </button>
 
+
+
                     </div>
+
 
                 </div>
 
+
             </fieldset>
 
-            <fieldset style="margin-top:var(--gap-lg);">
+
+
+
+
+
+
+            <fieldset
+                style="margin-top:var(--gap-lg);">
+
 
                 <legend>
-
                     Traitement numérique
-
                 </legend>
 
+
+
+
                 <div class="toolbar">
+
 
                     <button
                         id="btn-lissage"
                         class="btn btn-secondaire">
 
-                        Moyenne glissante
+
+                        📉 Moyenne glissante
+
 
                     </button>
+
+
+
+
 
                     <button
                         id="btn-savgol"
                         class="btn btn-secondaire">
 
-                        Savitzky-Golay
+
+                        📊 Savitzky-Golay
+
 
                     </button>
+
+
+
+
 
                     <button
                         id="btn-detecter-aberrants"
                         class="btn btn-secondaire">
 
-                        Détecter les points aberrants
+
+                        🔎 Détecter les points aberrants
+
 
                     </button>
 
+
+
                 </div>
+
+
 
             </fieldset>
 
-            <fieldset style="margin-top:var(--gap-lg);">
+
+
+
+
+
+
+            <fieldset
+                style="margin-top:var(--gap-lg);">
+
 
                 <legend>
-
                     Diagnostic
-
                 </legend>
 
+
+
+
                 <div id="liste-points-suspects">
+
 
                     <div class="info">
 
@@ -825,14 +1862,30 @@
 
                     </div>
 
+
+
                 </div>
+
+
 
             </fieldset>
 
+
+
+
+
         </div>
 
-        <details class="balance-theorie"
-                 style="margin-top:var(--gap-lg);">
+
+
+
+
+
+
+        <details
+            class="balance-theorie"
+            style="margin-top:var(--gap-lg);">
+
 
             <summary>
 
@@ -840,296 +1893,556 @@
 
             </summary>
 
+
+
+
             <div class="balance-theorie-corps">
+
 
                 <ul>
 
-                    <li>
-                        Le décalage de calibration compense une
-                        erreur systématique du pH-mètre.
-                    </li>
 
                     <li>
-                        La moyenne glissante réduit les fluctuations
-                        aléatoires.
+
+                        Le décalage de calibration
+                        corrige une erreur systématique
+                        du pH-mètre.
+
                     </li>
 
-                    <li>
-                        Le filtre de Savitzky-Golay conserve mieux la
-                        forme de la courbe autour de l'équivalence.
-                    </li>
+
 
                     <li>
-                        La détection des valeurs aberrantes signale
-                        les mesures très éloignées de la tendance
-                        générale.
+
+                        La moyenne glissante réduit
+                        les fluctuations aléatoires.
+
                     </li>
+
+
+
+
+                    <li>
+
+                        Le filtre de Savitzky-Golay
+                        conserve la forme générale
+                        de la courbe.
+
+                    </li>
+
+
+
+
+                    <li>
+
+                        La détection des valeurs aberrantes
+                        identifie les mesures éloignées
+                        de la tendance.
+
+                    </li>
+
+
 
                 </ul>
 
+
             </div>
+
+
 
         </details>
 
+
+
     </div>
 
+
 </div>
+
+
+
+
+
+
+
 <!-- ====================================================== -->
 <!-- COMPTE RENDU                                           -->
 <!-- ====================================================== -->
 
+
 <div class="section" data-type="bilan">
 
+
     <div class="section-titre">
-        <div class="picto-section">📝</div>
-        <h2>Compte rendu</h2>
-        <span class="chevron">▼</span>
+
+
+        <div class="picto-section">
+            📝
+        </div>
+
+
+        <h2>
+            Compte rendu
+        </h2>
+
+
+        <span class="chevron">
+            ▼
+        </span>
+
+
     </div>
+
+
+
+
 
     <div class="section-corps">
 
-        <!-- =============================================== -->
-        <!-- IDENTIFICATION                                  -->
-        <!-- =============================================== -->
 
-        <h3>Identification</h3>
+        <h3>
+            Identification
+        </h3>
+
+
 
         <div class="form-row">
 
-            <div class="form-group">
-                <label for="nom-eleve">Nom</label>
-                <input id="nom-eleve" type="text" placeholder="Nom">
-            </div>
 
             <div class="form-group">
-                <label for="prenom-eleve">Prénom</label>
-                <input id="prenom-eleve" type="text" placeholder="Prénom">
+
+                <label for="nom-eleve">
+                    Nom
+                </label>
+
+                <input
+                    id="nom-eleve"
+                    type="text"
+                    placeholder="Nom">
+
             </div>
 
-            <div class="form-group">
-                <label for="classe-eleve">Classe</label>
-                <input id="classe-eleve" type="text" placeholder="Classe">
-            </div>
+
 
             <div class="form-group">
-                <label for="date-eleve">Date</label>
-                <input id="date-eleve" type="date">
+
+                <label for="prenom-eleve">
+                    Prénom
+                </label>
+
+                <input
+                    id="prenom-eleve"
+                    type="text"
+                    placeholder="Prénom">
+
             </div>
+
+
+
+
+            <div class="form-group">
+
+                <label for="classe-eleve">
+                    Classe
+                </label>
+
+                <input
+                    id="classe-eleve"
+                    type="text"
+                    placeholder="Classe">
+
+            </div>
+
+
+
+
+            <div class="form-group">
+
+                <label for="date-eleve">
+                    Date
+                </label>
+
+                <input
+                    id="date-eleve"
+                    type="date">
+
+            </div>
+
+
 
         </div>
 
-        <!-- =============================================== -->
-        <!-- RESUME                                          -->
-        <!-- =============================================== -->
 
-        <h3 style="margin-top:var(--gap-md);">Résumé du TP</h3>
+
+
+
+        <h3 style="margin-top:var(--gap-md);">
+            Résumé du TP
+        </h3>
+
+
+
 
         <div class="zone-eleve">
+
 
             <textarea
                 id="resume-tp"
                 rows="6"
-                placeholder="Résumer le déroulement du titrage, les observations et les résultats obtenus..."></textarea>
+                placeholder="Résumer le déroulement du titrage, les observations et les résultats obtenus...">
+            </textarea>
+
+
 
         </div>
 
-        <!-- =============================================== -->
-        <!-- QUESTIONS                                       -->
-        <!-- =============================================== -->
 
-        <h3 style="margin-top:var(--gap-md);">Questions</h3>
+
+
+
+
+        <h3 style="margin-top:var(--gap-md);">
+            Questions
+        </h3>
+
+
+
+
 
         <ol class="questions-tp">
 
-            <li>
-
-                <div class="question-entete">
-
-                    <strong>
-                        . Définir un titrage acido-basique et préciser son objectif.
-                    </strong>
-
-                    <span class="cartouche" data-comp="APP">APP</span>
-
-                </div>
-
-                <div class="zone-eleve">
-                    <textarea id="question1" rows="3" placeholder="Votre réponse..."></textarea>
-                </div>
-
-            </li>
 
             <li>
 
                 <div class="question-entete">
 
                     <strong>
-                        . Identifier la solution titrante et la solution titrée.
+                        Définir un titrage acido-basique
+                        et préciser son objectif.
                     </strong>
 
-                    <span class="cartouche" data-comp="APP">APP</span>
+                    <span
+                        class="cartouche"
+                        data-comp="APP">
+                        APP
+                    </span>
 
                 </div>
+
 
                 <div class="zone-eleve">
-                    <textarea id="question2" rows="3" placeholder="Votre réponse..."></textarea>
+
+                    <textarea
+                        id="question1"
+                        rows="3"
+                        placeholder="Votre réponse...">
+                    </textarea>
+
                 </div>
 
+
             </li>
+
+
+
 
             <li>
 
                 <div class="question-entete">
 
                     <strong>
-                        . Expliquer le rôle de la burette graduée, de l'agitateur magnétique et du pH-mètre.
+                        Identifier la solution titrante
+                        et la solution titrée.
                     </strong>
 
-                    <span class="cartouche" data-comp="REA">REA</span>
+                    <span
+                        class="cartouche"
+                        data-comp="APP">
+                        APP
+                    </span>
 
                 </div>
+
 
                 <div class="zone-eleve">
-                    <textarea id="question3" rows="4" placeholder="Votre réponse..."></textarea>
+
+                    <textarea
+                        id="question2"
+                        rows="3"
+                        placeholder="Votre réponse...">
+                    </textarea>
+
                 </div>
 
+
             </li>
+
+
+
 
             <li>
 
                 <div class="question-entete">
 
                     <strong>
-                        . Déterminer le volume d'équivalence obtenu expérimentalement.
+                        Expliquer le rôle de la burette,
+                        de l'agitateur magnétique
+                        et du pH-mètre.
                     </strong>
 
-                    <span class="cartouche" data-comp="REA">REA</span>
+                    <span
+                        class="cartouche"
+                        data-comp="REA">
+                        REA
+                    </span>
 
                 </div>
+
 
                 <div class="zone-eleve">
-                    <textarea id="question4" rows="3" placeholder="Calcul et réponse..."></textarea>
+
+                    <textarea
+                        id="question3"
+                        rows="4"
+                        placeholder="Votre réponse...">
+                    </textarea>
+
                 </div>
 
+
             </li>
+            <!-- ====================================================== -->
+<!-- QUESTIONS 4 À 10                                      -->
+<!-- ====================================================== -->
 
             <li>
 
                 <div class="question-entete">
 
                     <strong>
-                        . Calculer la concentration de la solution titrée à partir du volume d'équivalence.
+                        Déterminer le volume d'équivalence
+                        obtenu expérimentalement.
                     </strong>
 
-                    <span class="cartouche" data-comp="REA">REA</span>
+                    <span class="cartouche" data-comp="REA">
+                        REA
+                    </span>
 
                 </div>
 
+
                 <div class="zone-eleve">
-                    <textarea id="question5" rows="4" placeholder="Calcul et réponse..."></textarea>
+
+                    <textarea
+                        id="question4"
+                        rows="3"
+                        placeholder="Calcul et réponse...">
+                    </textarea>
+
                 </div>
 
             </li>
+
+
 
             <li>
 
                 <div class="question-entete">
 
                     <strong>
-                        . Comparer les résultats obtenus par la méthode des tangentes et par la méthode des dérivées.
+                        Calculer la concentration de la solution
+                        titrée à partir du volume d'équivalence.
                     </strong>
 
-                    <span class="cartouche" data-comp="ANA">ANA</span>
+                    <span class="cartouche" data-comp="REA">
+                        REA
+                    </span>
 
                 </div>
 
+
                 <div class="zone-eleve">
-                    <textarea id="question6" rows="4" placeholder="Votre analyse..."></textarea>
+
+                    <textarea
+                        id="question5"
+                        rows="4"
+                        placeholder="Calcul et réponse...">
+                    </textarea>
+
                 </div>
 
             </li>
+
+
 
             <li>
 
                 <div class="question-entete">
 
                     <strong>
-                        . Identifier les principales sources d'erreurs expérimentales lors du titrage.
+                        Comparer les résultats obtenus par la
+                        méthode des tangentes et la méthode
+                        des dérivées.
                     </strong>
 
-                    <span class="cartouche" data-comp="ANA">ANA</span>
+                    <span class="cartouche" data-comp="ANA">
+                        ANA
+                    </span>
 
                 </div>
 
+
                 <div class="zone-eleve">
-                    <textarea id="question7" rows="4" placeholder="Votre analyse..."></textarea>
+
+                    <textarea
+                        id="question6"
+                        rows="4"
+                        placeholder="Votre analyse...">
+                    </textarea>
+
                 </div>
 
             </li>
+
+
 
             <li>
 
                 <div class="question-entete">
 
                     <strong>
-                        . Proposer des améliorations permettant d'obtenir un résultat plus précis.
+                        Identifier les principales sources
+                        d'erreurs expérimentales lors du titrage.
                     </strong>
 
-                    <span class="cartouche" data-comp="VAL">VAL</span>
+                    <span class="cartouche" data-comp="ANA">
+                        ANA
+                    </span>
 
                 </div>
 
+
                 <div class="zone-eleve">
-                    <textarea id="question8" rows="4" placeholder="Votre réponse..."></textarea>
+
+                    <textarea
+                        id="question7"
+                        rows="4"
+                        placeholder="Votre analyse...">
+                    </textarea>
+
                 </div>
 
             </li>
+
+
 
             <li>
 
                 <div class="question-entete">
 
                     <strong>
-                        . La concentration obtenue est-elle compatible avec la valeur théorique ? Justifier.
+                        Proposer des améliorations permettant
+                        d'obtenir un résultat plus précis.
                     </strong>
 
-                    <span class="cartouche" data-comp="VAL">VAL</span>
+                    <span class="cartouche" data-comp="VAL">
+                        VAL
+                    </span>
 
                 </div>
 
+
                 <div class="zone-eleve">
-                    <textarea id="question9" rows="4" placeholder="Calcul, comparaison et conclusion..."></textarea>
+
+                    <textarea
+                        id="question8"
+                        rows="4"
+                        placeholder="Votre réponse...">
+                    </textarea>
+
                 </div>
 
             </li>
+
+
 
             <li>
 
                 <div class="question-entete">
 
                     <strong>
-                        . Rédiger une conclusion présentant les résultats du titrage et la qualité des mesures réalisées.
+                        La concentration obtenue est-elle
+                        compatible avec la valeur théorique ?
+                        Justifier.
                     </strong>
 
-                    <span class="cartouche" data-comp="COM">COM</span>
+                    <span class="cartouche" data-comp="VAL">
+                        VAL
+                    </span>
 
                 </div>
 
+
                 <div class="zone-eleve">
-                    <textarea id="question10" rows="5" placeholder="Votre conclusion..."></textarea>
+
+                    <textarea
+                        id="question9"
+                        rows="4"
+                        placeholder="Calcul, comparaison et conclusion...">
+                    </textarea>
+
                 </div>
 
             </li>
+
+
+
+            <li>
+
+                <div class="question-entete">
+
+                    <strong>
+                        Rédiger une conclusion présentant
+                        les résultats du titrage et la qualité
+                        des mesures réalisées.
+                    </strong>
+
+                    <span class="cartouche" data-comp="COM">
+                        COM
+                    </span>
+
+                </div>
+
+
+                <div class="zone-eleve">
+
+                    <textarea
+                        id="question10"
+                        rows="5"
+                        placeholder="Votre conclusion...">
+                    </textarea>
+
+                </div>
+
+            </li>
+
 
         </ol>
 
+
+
         <!-- =============================================== -->
-        <!-- IMPRESSION                                      -->
+        <!-- IMPRESSION COMPTE RENDU                        -->
         <!-- =============================================== -->
 
-        <h3 style="margin-top:var(--gap-lg);">Impression du compte-rendu</h3>
+
+        <h3 style="margin-top:var(--gap-lg);">
+            Impression du compte-rendu
+        </h3>
+
 
         <div class="toolbar">
+
 
             <button
                 id="btn-imprimer"
@@ -1139,57 +2452,107 @@
 
             </button>
 
+
         </div>
 
-        <div class="info" style="margin-top:var(--gap-md);">
 
-            L'impression reprend automatiquement :
+        <div class="info"
+             style="margin-top:var(--gap-md);">
+
+
+            L'impression récupère automatiquement :
 
             <ul>
 
-                <li>les paramètres du titrage ;</li>
+                <li>
+                    les paramètres du titrage ;
+                </li>
 
-                <li>le tableau des mesures ;</li>
+                <li>
+                    le tableau des mesures ;
+                </li>
 
-                <li>la courbe de titrage ;</li>
+                <li>
+                    la courbe de titrage ;
+                </li>
 
-                <li>les résultats calculés ;</li>
+                <li>
+                    les résultats calculés ;
+                </li>
 
-                <li>les réponses aux questions ;</li>
+                <li>
+                    les réponses aux questions ;
+                </li>
 
-                <li>l'auto-évaluation des compétences.</li>
+                <li>
+                    l'auto-évaluation des compétences.
+                </li>
 
             </ul>
 
+
         </div>
+
 
     </div>
 
+
 </div>
+
+
+
+
+
+
 <!-- ====================================================== -->
-<!-- AUTO-ÉVALUATION DES COMPÉTENCES                        -->
+<!-- AUTO-ÉVALUATION                                       -->
 <!-- ====================================================== -->
+
 
 <div class="section" data-type="auto-evaluation">
 
+
     <div class="section-titre">
-        <div class="picto-section">📡</div>
-        <h2>Auto-évaluation des compétences</h2>
-        <span class="chevron">▼</span>
+
+        <div class="picto-section">
+            📡
+        </div>
+
+
+        <h2>
+            Auto-évaluation des compétences
+        </h2>
+
+
+        <span class="chevron">
+            ▼
+        </span>
+
+
     </div>
+
+
+
+
 
     <div class="section-corps">
 
+
         <p class="info">
 
-            À la fin du TP, évaluez votre niveau de maîtrise pour
-            chacune des compétences travaillées.
+            À la fin du TP, évaluez votre niveau
+            de maîtrise pour chaque compétence.
 
         </p>
 
+
+
+
         <div class="table-responsive">
 
+
             <table class="tableau-resultats autoeval-table">
+
 
                 <thead>
 
@@ -1198,7 +2561,6 @@
                         <th>Domaine</th>
                         <th>Sigle</th>
                         <th>Je suis capable de...</th>
-
                         <th>0</th>
                         <th>1</th>
                         <th>2</th>
@@ -1207,103 +2569,181 @@
 
                 </thead>
 
+
+
+
                 <tbody>
+
 
                     <tr data-comp="APP">
 
-                        <td>S'approprier</td>
-
-                        <td>APP</td>
-
                         <td>
-                            Identifier les données utiles,
-                            choisir les solutions à utiliser
-                            et préparer correctement le titrage.
+                            S'approprier
                         </td>
 
-                        <td><input type="radio" name="APP" value="0"></td>
-                        <td><input type="radio" name="APP" value="1"></td>
-                        <td><input type="radio" name="APP" value="2"></td>
+                        <td>
+                            APP
+                        </td>
+
+                        <td>
+                            Identifier les données utiles
+                            et préparer le titrage.
+                        </td>
+
+                        <td>
+                            <input type="radio" name="APP" value="0">
+                        </td>
+
+                        <td>
+                            <input type="radio" name="APP" value="1">
+                        </td>
+
+                        <td>
+                            <input type="radio" name="APP" value="2">
+                        </td>
 
                     </tr>
+
+
 
                     <tr data-comp="ANA">
 
-                        <td>Analyser / Raisonner</td>
-
-                        <td>ANA</td>
-
                         <td>
-                            Exploiter une courbe de titrage,
-                            déterminer l'équivalence et interpréter
-                            les résultats.
+                            Analyser / Raisonner
                         </td>
 
-                        <td><input type="radio" name="ANA" value="0"></td>
-                        <td><input type="radio" name="ANA" value="1"></td>
-                        <td><input type="radio" name="ANA" value="2"></td>
+                        <td>
+                            ANA
+                        </td>
+
+                        <td>
+                            Exploiter une courbe,
+                            déterminer l'équivalence.
+                        </td>
+
+                        <td>
+                            <input type="radio" name="ANA" value="0">
+                        </td>
+
+                        <td>
+                            <input type="radio" name="ANA" value="1">
+                        </td>
+
+                        <td>
+                            <input type="radio" name="ANA" value="2">
+                        </td>
 
                     </tr>
+
+
 
                     <tr data-comp="REA">
 
-                        <td>Réaliser</td>
-
-                        <td>REA</td>
-
                         <td>
-                            Utiliser correctement la burette,
-                            le pH-mètre et réaliser les mesures.
+                            Réaliser
                         </td>
 
-                        <td><input type="radio" name="REA" value="0"></td>
-                        <td><input type="radio" name="REA" value="1"></td>
-                        <td><input type="radio" name="REA" value="2"></td>
+                        <td>
+                            REA
+                        </td>
+
+                        <td>
+                            Réaliser les mesures
+                            et appliquer le protocole.
+                        </td>
+
+                        <td>
+                            <input type="radio" name="REA" value="0">
+                        </td>
+
+                        <td>
+                            <input type="radio" name="REA" value="1">
+                        </td>
+
+                        <td>
+                            <input type="radio" name="REA" value="2">
+                        </td>
 
                     </tr>
+
+
 
                     <tr data-comp="VAL">
 
-                        <td>Valider</td>
-
-                        <td>VAL</td>
-
                         <td>
-                            Vérifier la cohérence des résultats
-                            expérimentaux et estimer leur précision.
+                            Valider
                         </td>
 
-                        <td><input type="radio" name="VAL" value="0"></td>
-                        <td><input type="radio" name="VAL" value="1"></td>
-                        <td><input type="radio" name="VAL" value="2"></td>
+                        <td>
+                            VAL
+                        </td>
+
+                        <td>
+                            Vérifier la cohérence
+                            des résultats.
+                        </td>
+
+                        <td>
+                            <input type="radio" name="VAL" value="0">
+                        </td>
+
+                        <td>
+                            <input type="radio" name="VAL" value="1">
+                        </td>
+
+                        <td>
+                            <input type="radio" name="VAL" value="2">
+                        </td>
 
                     </tr>
+
+
 
                     <tr data-comp="COM">
 
-                        <td>Communiquer</td>
-
-                        <td>COM</td>
-
                         <td>
-                            Présenter clairement les résultats,
-                            les calculs et la conclusion du titrage.
+                            Communiquer
                         </td>
 
-                        <td><input type="radio" name="COM" value="0"></td>
-                        <td><input type="radio" name="COM" value="1"></td>
-                        <td><input type="radio" name="COM" value="2"></td>
+                        <td>
+                            COM
+                        </td>
+
+                        <td>
+                            Présenter les résultats
+                            avec un vocabulaire scientifique.
+                        </td>
+
+                        <td>
+                            <input type="radio" name="COM" value="0">
+                        </td>
+
+                        <td>
+                            <input type="radio" name="COM" value="1">
+                        </td>
+
+                        <td>
+                            <input type="radio" name="COM" value="2">
+                        </td>
 
                     </tr>
 
+
                 </tbody>
+
 
             </table>
 
+
         </div>
+
+
+
+
 
         <div class="radar-actions"
              style="margin-top:var(--gap-lg);">
+
 
             <button
                 id="btn-radar"
@@ -1313,22 +2753,28 @@
 
             </button>
 
-            <div id="radar-resultat"
-                 style="margin-top:var(--gap-md);">
+
+            <div
+                id="radar-resultat"
+                style="margin-top:var(--gap-md);">
 
             </div>
 
+
         </div>
+
+
 
     </div>
 
-</div>
 
+</div>
 <!-- ====================================================== -->
 <!-- NAVIGATION                                              -->
 <!-- ====================================================== -->
 
 <div class="nav-tp">
+
 
     <a
         href="tp02-ph-indicateurs.html"
@@ -1338,13 +2784,17 @@
 
     </a>
 
+
+
     <a
         href="../index.html"
         class="btn btn-secondaire">
 
-        Accueil
+        🏠 Accueil
 
     </a>
+
+
 
     <a
         href="tp04-conductivite.html"
@@ -1354,17 +2804,31 @@
 
     </a>
 
+
+
 </div>
+
+
 
 </main>
 
-<!-- Le JS est chargé dynamiquement par navigation.js (tp-chimie/js/tp03-titrages.js) — pas de <script> ici -->
+
+
+
 
 <!-- ====================================================== -->
-<!-- CONTENEUR D'IMPRESSION                                 -->
+<!-- CONTENEUR IMPRESSION COMPTE RENDU                      -->
 <!-- ====================================================== -->
 
-<div id="cr-print-container"
-     style="display:none;"></div>
+
+<div
+    id="cr-print-container"
+    style="display:none;">
+
+</div>
+
+
+
+
 
 </section>
