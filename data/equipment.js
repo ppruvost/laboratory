@@ -494,7 +494,7 @@ const laboratoryEquipment = [
         domaine: "Sécurité",
         nom: "Blouse de laboratoire",
         description: "Protection des vêtements",
-        categorie: "Acoustique",
+        categorie: ["Dilution", "Dissolution", "pHmétrie"],
         lieu: "",
         image:"",
         noticeUtilisation: "assets/notice/blouse_laboratoire.pdf"
@@ -502,48 +502,26 @@ const laboratoryEquipment = [
     {
         domaine: "Sécurité",
         nom: "Lunettes de protection",
+        categorie: ["Dilution", "Dissolution", "pHmétrie"],
         description: "Protection des yeux",
-        lieu: "",
+        lieu: "Salle B27 - Etagère D2",
         image:"",
         noticeUtilisation: "assets/notice/lunettes_protection.pdf"
     },
     {
         domaine: "Sécurité",
         nom: "Gants de protection",
+        categorie: ["Dilution", "Dissolution", "pHmétrie"],
         description: "Protection des mains",
-        lieu: "",
+        lieu: "Salle B27 - paillasse E1",
         image:"",
         noticeUtilisation: "assets/notice/gants_protection.pdf"
-    },
-    {
-        domaine: "Sécurité",
-        nom: "Extincteur (CO2)",
-        description: "Sécurité incendie",
-        lieu: "",
-        image:"",
-        noticeUtilisation: "assets/notice/extincteur.pdf"
-    },
-    {
-        domaine: "Sécurité",
-        nom: "Tapis anti-fatigue",
-        description: "Confort et sécurité au poste de travail",
-        lieu: "",
-        image:"",
-        noticeUtilisation: "assets/notice/tapis_antifatigue.pdf"
-    },
-    {
-        domaine: "Sécurité",
-        nom: "Douche oculaire",
-        description: "Urgence en cas de projection",
-        lieu: "",
-        image:"",
-        noticeUtilisation: "assets/notice/douche_oculaire.pdf"
-    },
+    },    
     {
         domaine: "Sécurité",
         nom: "Armoire de sécurité pour produits chimiques",
         description: "Stockage sécurisé des réactifs",
-        lieu: "",
+        lieu: "Salle B27 - Etagères B1 / B2",
         image:"",
         noticeUtilisation: "assets/notice/armoire_securite.pdf"
     }
