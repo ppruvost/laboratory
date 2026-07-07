@@ -350,21 +350,18 @@ const laboratoryEquipment = [
         domaine: "Chimie",
         nom: "Balance Jeulin 701 277",
         categorie: ["Dissolution", "pHmétrie"],
-        description: "capacité 2 000 g max",
+        description: "Capacité 2 000 g max — Précision ± 1 g",
         lieu: "Salle B27 / étagère C2",
-        image: "assets/img/equipments/balance_jeulin.jpg",        
-        description: "Précision ± 1 g",
-        noticeUtilisation: "assets/notice/balance_jeulin.pdf"
+        image: "assets/img/equipments/balance_jeulin.jpg",
+        noticeUtilisation: "assets/notice/balance_jeulin.pdf""
     },
        {
         domaine: "Chimie",
         nom: "Balance METTLER TOLEDO PB602",
         categorie: ["Dissolution", "pHmétrie"],
-        description: "capacité 610 g max - 0,5 g min",
+        description: "Capacité 610 g max - 0,5 g min — Précision ± 0,1 g",
         lieu: "Salle B27 / pallasse E2",
         image:"",
-        categorie: "Dissolution",
-        description: "Précision ± 0,1 g",
         noticeUtilisation: "assets/notice/balance_mettler.pdf"
     }, 
     {
