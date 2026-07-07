@@ -88,7 +88,21 @@ export function init() {
 // ==========================================================
 //  OUTILS
 //  ==========================================================
-
+function imgSrc(chemin) {
+  if (!chemin) return "";
+  if (
+    chemin.startsWith("http") ||
+    chemin.startsWith("/") ||
+    chemin.startsWith("../") ||
+    chemin.startsWith("./")
+  ) {
+    return chemin;
+  }
+  if (chemin.startsWith("assets/")) {
+    return "../" + chemin;
+  }
+  return "../tp-chimie/assets/images/" + chemin;
+}
 // ══════════════════════════════════════════════════════════════
 // SÉCURITÉ — SÉLECTION DU RÉACTIF (aligné sur tp01-solutions.js)
 // ══════════════════════════════════════════════════════════════
