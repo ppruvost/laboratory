@@ -295,7 +295,7 @@ const laboratoryEquipment = [
     {
         domaine: "Chimie",
         nom: "Pipettes",
-        categorie: "",
+        categorie: ["dilution", "pHmétrie"],
         description: "Transfert précis de liquides",
         lieu: "Salle B27 / étagère E2",
         image:"",
@@ -305,6 +305,7 @@ const laboratoryEquipment = [
     {
         domaine: "Chimie",
         nom: "Propipettes",
+        categorie: ["dilution", "pHmétrie"],
         description: "Transfert précis de liquides",
         lieu: "Salle B27 / étagère D4",
         image:"",
@@ -314,6 +315,7 @@ const laboratoryEquipment = [
     {
         domaine: "Chimie",
         nom: "Burette",
+        categorie: "pHmétrie",
         description: "Titrage et dosage",
         lieu: "Salle B27 / étagère E2",
         image:"",
@@ -323,23 +325,17 @@ const laboratoryEquipment = [
     {
         domaine: "Chimie",
         nom: "pH-mètre",
+        categorie: "pHmétrie",
         description: "Mesure du pH des solutions",
         lieu: "Salle B27 / étagère D4",
         image:"",
         categorie: "Dissolution", 
         noticeUtilisation: "assets/notice/phmetre.pdf"
-    },
-    {
-        domaine: "Chimie",
-        nom: "Conductimètre",
-        description: "Mesure de la conductivité",
-        lieu: "",
-        image:"",
-        noticeUtilisation: "assets/notice/conductimetre.pdf"
-    },
+    },    
     {
         domaine: "Chimie",
         nom: "Agitateurs magnétiques",
+        categorie: ["dissolution", "pHmétrie"],
         description: "Agitation des solutions",
         lieu: "Salle B27 / étagère D4",
         image:"",
@@ -349,6 +345,7 @@ const laboratoryEquipment = [
     {
         domaine: "Chimie",
         nom: "Chauffe-ballon",
+        categorie: "dissolution",
         description: "Chauffage de solutions",
         lieu: "Salle B27 / étagère C1",
         image:"",
@@ -358,6 +355,7 @@ const laboratoryEquipment = [
     {
         domaine: "Chimie",
         nom: "Balance Jeulin 701 277",
+        categorie: "dissolution",
         description: "capacité 2 000 g max",
         lieu: "Salle B27 / étagère C2",
         image: "assets/img/equipments/balance_jeulin.jpg",
@@ -368,6 +366,7 @@ const laboratoryEquipment = [
        {
         domaine: "Chimie",
         nom: "Balance METTLER TOLEDO PB602",
+        categorie: "dissolution",
         description: "capacité 610 g max - 0,5 g min",
         lieu: "Salle B27 / pallasse E2",
         image:"",
