@@ -474,6 +474,7 @@ const laboratoryEquipment = [
         domaine: "Signaux",
         nom: "Oscilloscope (pour signaux sonores)",
         description: "Visualisation des signaux sonores",
+        categorie: ["Circuit", "Acoustique"],
         lieu: "",
         image:"",
         noticeUtilisation: "assets/notice/oscilloscope_son.pdf"
@@ -481,25 +482,19 @@ const laboratoryEquipment = [
     {
         domaine: "Signaux",
         nom: "Sonomètre",
+        categorie: "Acoustique",
         description: "Mesure du niveau sonore",
         lieu: "",
         image:"",
         noticeUtilisation: "assets/notice/sonometre.pdf"
-    },
-    {
-        domaine: "Signaux",
-        nom: "Fibre optique et émetteur/récepteur",
-        description: "Transmission de signaux lumineux",
-        lieu: "",
-        image:"",
-        noticeUtilisation: "assets/notice/fibre_optique_signal.pdf"
-    },
+    },    
 
     // Sécurité
     {
         domaine: "Sécurité",
         nom: "Blouse de laboratoire",
         description: "Protection des vêtements",
+        categorie: "Acoustique",
         lieu: "",
         image:"",
         noticeUtilisation: "assets/notice/blouse_laboratoire.pdf"
