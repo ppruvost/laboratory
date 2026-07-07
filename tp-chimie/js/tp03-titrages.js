@@ -345,8 +345,9 @@ function _calcPH(Vb, p) {
 }
 
 function _genererDonneesTheoriques(p) {
-  const vMax = p.Ve * 1.8;
-  const pas = Math.max(p.Ve / 80, 0.05);
+  const facteur = (p.typeAcide === 'faible') ? Math.max(1, p.n || 1) : 1;
+  const vMax = p.Ve * facteur * 1.8;
+  const pas = Math.max(vMax / 200, 0.05); // un peu plus de résolution pour les polyacides
   const vols = [], phs = [];
   for (let v = 0; v <= vMax; v += pas) {
     vols.push(+v.toFixed(3));
