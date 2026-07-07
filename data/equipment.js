@@ -27,6 +27,7 @@ const laboratoryEquipment = [
     {
         domaine: "Électricité",
         nom: "Oscilloscope numérique",
+        categorie: "",
         description: "Visualisation de signaux électriques",
         lieu: "Salle B27 / étagère A1",
         image:"",
@@ -35,6 +36,7 @@ const laboratoryEquipment = [
     {
         domaine: "Électricité",
         nom: "Wattmètre",
+        categorie: "",
         description: "Mesure de puissance électrique",
         lieu: "Salle B27 / étagère A1",
         image:"",
@@ -43,6 +45,7 @@ const laboratoryEquipment = [
     {
         domaine: "Électricité",
         nom: "Transformateur (abaisseur/élévateur)",
+        categorie: "",
         description: "Transformation de tension",
         lieu: "Salle B27 / étagère A1",
         image:"",
@@ -51,6 +54,7 @@ const laboratoryEquipment = [
     {
         domaine: "Électricité",
         nom: "Diode et pont de diodes",
+        categorie: "",
         description: "Redressement de courant",
         lieu: "Salle B27 / étagère A2",
         image:"",
@@ -59,6 +63,7 @@ const laboratoryEquipment = [
     {
         domaine: "Électricité",
         nom: "Condensateurs (diverses capacités)",
+        categorie: "",
         description: "Filtrage et stockage d'énergie",
         lieu: "Salle B27 / étagère A2",
         image:"",
@@ -67,6 +72,7 @@ const laboratoryEquipment = [
     {
         domaine: "Électricité",
         nom: "Moteur électrique (CC et CA)",
+        categorie: "",
         description: "Conversion énergie électrique/mécanique",
         lieu: "Salle B23 / étagère B1",
         image:"",
@@ -75,6 +81,7 @@ const laboratoryEquipment = [
     {
         domaine: "Électricité",
         nom: "Capteurs (température, lumière, pression)",
+        categorie: "",
         description: "Acquisition de données expérimentales",
         lieu: "",
         image:"",
@@ -83,6 +90,7 @@ const laboratoryEquipment = [
     {
         domaine: "Électricité",
         nom: "Carte d'acquisition (ExAO)",
+        categorie: "",
         description: "Interface pour expériences assistées par ordinateur",
         lieu: "Salle B25 / étagère A1",
         image:"",
@@ -91,6 +99,7 @@ const laboratoryEquipment = [
     {
         domaine: "Électricité",
         nom: "Résistances (diverses valeurs)",
+        categorie: "",
         description: "Composants pour circuits électriques",
         lieu: "Salle B27 / A2",
         image:"",
@@ -99,6 +108,7 @@ const laboratoryEquipment = [
     {
         domaine: "Électricité",
         nom: "Fils de connexion et câbles",
+        categorie: "",
         description: "Connexion de circuits",
         lieu: "Salle B29 B25 / Support de cordons",
         image:"",
@@ -107,6 +117,7 @@ const laboratoryEquipment = [
     {
         domaine: "Électricité",
         nom: "Interrupteurs et boutons poussoirs",
+        categorie: "",
         description: "Contrôle de circuits",
         lieu: "Salle B27 / étagère A2",
         image:"",
@@ -115,6 +126,7 @@ const laboratoryEquipment = [
     {
         domaine: "Électricité",
         nom: "Disjoncteur différentiel",
+        categorie: "",
         description: "Protection des circuits",
         lieu: "",
         image:"",
@@ -125,6 +137,7 @@ const laboratoryEquipment = [
     {
         domaine: "Optique",
         nom: "Lentilles convergentes et divergentes",
+        categorie: "",
         description: "Étude des systèmes optiques",
         lieu: "Salle B23 / étagère A1",
         image:"",
@@ -133,6 +146,7 @@ const laboratoryEquipment = [
     {
         domaine: "Optique",
         nom: "Banc d'optique",
+        categorie: "",
         description: "Support pour expériences optiques",
         lieu: "",
         image:"",
@@ -141,6 +155,7 @@ const laboratoryEquipment = [
     {
         domaine: "Optique",
         nom: "Source lumineuse blanche",
+        categorie: "",
         description: "Éclairage pour expériences optiques",
         lieu: "Salle B23 / étagère A2",
         image:"",
@@ -149,6 +164,7 @@ const laboratoryEquipment = [
     {
         domaine: "Optique",
         nom: "Laser (classe II)",
+        categorie: "",
         description: "Source de lumière cohérente",
         lieu: "Salle B23 / étagère A2",
         image:"",
@@ -157,6 +173,7 @@ const laboratoryEquipment = [
     {
         domaine: "Optique",
         nom: "Écran blanc",
+        categorie: "",
         description: "Visualisation des images",
         lieu: "",
         image:"",
@@ -165,6 +182,7 @@ const laboratoryEquipment = [
     {
         domaine: "Optique",
         nom: "Prismes",
+        categorie: "",
         description: "Décomposition de la lumière",
         lieu: "Salle B23 / étagère A2",
         image:"",
@@ -173,6 +191,7 @@ const laboratoryEquipment = [
     {
         domaine: "Optique",
         nom: "Fibre optique",
+        categorie: "",
         description: "Transmission de la lumière",
         lieu: "",
         image:"",
@@ -181,6 +200,7 @@ const laboratoryEquipment = [
     {
         domaine: "Optique",
         nom: "Luxmètre",
+        categorie: "",
         description: "Mesure de l'éclairement lumineux",
         lieu: "",
         image:"",
@@ -189,6 +209,7 @@ const laboratoryEquipment = [
     {
         domaine: "Optique",
         nom: "Spectroscope",
+        categorie: "",
         description: "Analyse spectrale de la lumière",
         lieu: "",
         image:"",
@@ -197,6 +218,7 @@ const laboratoryEquipment = [
     {
         domaine: "Optique",
         nom: "Filtres colorés",
+        categorie: "",
         description: "Sélection de longueurs d'onde",
         lieu: "",
         image:"",
@@ -207,6 +229,7 @@ const laboratoryEquipment = [
     {
         domaine: "Mécanique",
         nom: "Chronomètre numérique",
+        categorie: "",
         description: "Mesure de temps et de vitesses",
         lieu: "",
         image:"",
@@ -215,6 +238,7 @@ const laboratoryEquipment = [
     {
         domaine: "Mécanique",
         nom: "Dynamomètre",
+        categorie: "",
         description: "Mesure de forces",
         lieu: "",
         image:"",
@@ -223,6 +247,7 @@ const laboratoryEquipment = [
     {
         domaine: "Mécanique",
         nom: "Poulies et masses marquées",
+        categorie: "",
         description: "Étude des forces et mouvements",
         lieu: "",
         image:"",
@@ -231,6 +256,7 @@ const laboratoryEquipment = [
     {
         domaine: "Mécanique",
         nom: "Plan incliné",
+        categorie: "",
         description: "Étude des forces et de l'équilibre",
         lieu: "",
         image:"",
@@ -239,6 +265,7 @@ const laboratoryEquipment = [
     {
         domaine: "Mécanique",
         nom: "Vérin hydraulique",
+        categorie: "",
         description: "Étude de la pression et de la force pressante",
         lieu: "",
         image:"",
@@ -247,6 +274,7 @@ const laboratoryEquipment = [
     {
         domaine: "Mécanique",
         nom: "Manomètre",
+        categorie: "",
         description: "Mesure de pression",
         lieu: "",
         image:"",
@@ -255,6 +283,7 @@ const laboratoryEquipment = [
     {
         domaine: "Mécanique",
         nom: "Capteur de pression",
+        categorie: "",
         description: "Mesure de pression dans les fluides",
         lieu: "",
         image:"",
@@ -266,6 +295,7 @@ const laboratoryEquipment = [
     {
         domaine: "Chimie",
         nom: "Pipettes",
+        categorie: "",
         description: "Transfert précis de liquides",
         lieu: "Salle B27 / étagère E2",
         image:"",
