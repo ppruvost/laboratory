@@ -27,7 +27,7 @@ export function init() {
     dejaInitialise = true;
     console.log("TP01 Solutions initialisé");
     initSections();
-    initTabs();
+    initTabs(afficherModeOperatoire);
     afficherModeOperatoire("dissolution");
     initReactifs();
     initMateriel();
