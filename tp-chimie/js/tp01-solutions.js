@@ -42,57 +42,7 @@ if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", init);
 } else { init(); }
 
-/* ==========================================================
-   ACCORDEONS
-   ========================================================== */
-function initSections() {
-    document.querySelectorAll(".section").forEach(section => {
-        const titre = section.querySelector(".section-titre");
-        const corps = section.querySelector(".section-corps");
-        if (!titre || !corps) return;
-        corps.style.display = "block";
-        titre.addEventListener("click", () => {
-            const ouvert = corps.style.display !== "none";
-            corps.style.display = ouvert ? "none" : "block";
-            const chevron = titre.querySelector(".chevron");
-            if (chevron) chevron.textContent = ouvert ? "►" : "▼";
-        });
-    });
-}
 
-/* ==========================================================
-   ONGLETS
-   ========================================================== */
-function initTabs() {
-
-    document.querySelectorAll(".tabs-container").forEach(container => {
-
-        const boutons = container.querySelectorAll(".tab-btn");
-        const panneaux = container.querySelectorAll(".tab-panel");
-
-        boutons.forEach(btn => {
-
-            btn.addEventListener("click", () => {
-
-                boutons.forEach(b => b.classList.remove("actif"));
-                panneaux.forEach(p => p.classList.remove("actif"));
-
-                btn.classList.add("actif");
-
-                const cible = container.querySelector("#" + btn.dataset.tab);
-
-                if (cible)
-                    cible.classList.add("actif");
-
-                afficherModeOperatoire(btn.dataset.tab);
-
-            });
-
-        });
-
-    });
-
-}
 /* ==========================================================
    MODE OPERATOIRE
 ========================================================== */
@@ -131,26 +81,6 @@ function message(id, texte) {
     zone.innerHTML = `<div class="info">${texte}</div>`;
 }
 
-function imgSrc(chemin) {
-
-    if (!chemin) return "";
-
-    if (
-        chemin.startsWith("http") ||
-        chemin.startsWith("/") ||
-        chemin.startsWith("../") ||
-        chemin.startsWith("./")
-    ) {
-        return chemin;
-    }
-
-    // Les données contiennent déjà "assets/..."
-    if (chemin.startsWith("assets/")) {
-        return "../" + chemin;
-    }
-
-    return "../tp-chimie/assets/images/" + chemin;
-}
 
 /* ==========================================================
    OUTIL : gestion multi-catégories
