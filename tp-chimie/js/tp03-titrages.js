@@ -71,8 +71,7 @@ export function init() {
   initSections();
   initTabs();
   initMateriel();
-  initImprimer();
-
+  
   _initReactifs();
   _initParametres();
   _initTableauMesures();
@@ -81,7 +80,6 @@ export function init() {
   _initBoutonGenererTheorique();
   _initCorrectionErreurs();
   _initExportEtCompteRendu();
-
   _dessinerGraphe();
 }
 
