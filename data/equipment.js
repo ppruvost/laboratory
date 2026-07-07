@@ -295,78 +295,71 @@ const laboratoryEquipment = [
     {
         domaine: "Chimie",
         nom: "Pipettes",
-        categorie: ["dilution", "pHmétrie"],
+        categorie: ["Dilution", "pHmétrie"],
         description: "Transfert précis de liquides",
         lieu: "Salle B27 / étagère E2",
-        image:"",
-        categorie: "Dissolution", 
+        image:"",         
         noticeUtilisation: "assets/notice/pipettes.pdf"
     },
     {
         domaine: "Chimie",
         nom: "Propipettes",
-        categorie: ["dilution", "pHmétrie"],
+        categorie: ["Dilution", "pHmétrie"],
         description: "Transfert précis de liquides",
         lieu: "Salle B27 / étagère D4",
-        image:"",
-        categorie: "Dissolution", 
+        image:"",        
         noticeUtilisation: "assets/notice/propipettes.pdf"
     },
     {
         domaine: "Chimie",
         nom: "Burette",
-        categorie: "pHmétrie",
+        categorie: ["Dilution", "pHmétrie"],
         description: "Titrage et dosage",
         lieu: "Salle B27 / étagère E2",
-        image:"",
-        categorie: "Dissolution",        
+        image:"",               
         noticeUtilisation: "assets/notice/burette.pdf"
     },
     {
         domaine: "Chimie",
         nom: "pH-mètre",
-        categorie: "pHmétrie",
+        categorie: ["Dissolution", "pHmétrie"],
         description: "Mesure du pH des solutions",
         lieu: "Salle B27 / étagère D4",
         image:"",
-        categorie: "Dissolution", 
         noticeUtilisation: "assets/notice/phmetre.pdf"
     },    
     {
         domaine: "Chimie",
         nom: "Agitateurs magnétiques",
-        categorie: ["dissolution", "pHmétrie"],
+        categorie: ["Dissolution", "pHmétrie"],
         description: "Agitation des solutions",
         lieu: "Salle B27 / étagère D4",
-        image:"",
-        categorie: "Dissolution", 
+        image:"",         
         noticeUtilisation: "assets/notice/agitateur_magnetique.pdf"
     },
     {
         domaine: "Chimie",
         nom: "Chauffe-ballon",
-        categorie: "dissolution",
+        categorie: ["Dissolution", "pHmétrie"],
         description: "Chauffage de solutions",
         lieu: "Salle B27 / étagère C1",
-        image:"",
-        categorie: "Dissolution", 
+        image:"",         
         noticeUtilisation: "assets/notice/chauffe_ballon.pdf"
     },
     {
         domaine: "Chimie",
         nom: "Balance Jeulin 701 277",
-        categorie: "dissolution",
+        categorie: ["Dissolution", "pHmétrie"],
         description: "capacité 2 000 g max",
         lieu: "Salle B27 / étagère C2",
-        image: "assets/img/equipments/balance_jeulin.jpg",
-        categorie: "Dissolution",
+        image: "assets/img/equipments/balance_jeulin.jpg",        
         description: "Précision ± 1 g",
         noticeUtilisation: "assets/notice/balance_jeulin.pdf"
     },
        {
         domaine: "Chimie",
         nom: "Balance METTLER TOLEDO PB602",
-        categorie: "dissolution",
+        categorie: ["Dissolution", "pHmétrie"],
         description: "capacité 610 g max - 0,5 g min",
         lieu: "Salle B27 / pallasse E2",
         image:"",
@@ -376,34 +369,28 @@ const laboratoryEquipment = [
     }, 
     {
         domaine: "Chimie",
-        nom: "Indicateurs colorés",
+        nom: "papier pH (nuancier)",
+        categorie: ["Dilution", "pHmétrie"],
         description: "Repérage des équivalences en titrage",
         lieu: "Salle B27 / étagère D4",
         image:"",
         noticeUtilisation: "assets/notice/indicateurs_colorés.pdf"
-    },
-    {
-        domaine: "Chimie",
-        nom: "Spectrophotomètre",
-        description: "Analyse spectrale des solutions",
-        lieu: "",
-        image:"",
-        noticeUtilisation: "assets/notice/spectrophotometre.pdf"
-    },
+    },    
 
     // Thermique
     {
         domaine: "Thermique",
         nom: "Thermomètre numérique",
+        categorie: ["Température", "pHmétrie"],
         description: "Mesure de température",
         lieu: "",
-        image:"",
-        categorie: "Dissolution", 
+        image:"",        
         noticeUtilisation: "assets/notice/thermometre.pdf"
     },
     {
         domaine: "Thermique",
         nom: "Thermocouple",
+        categorie: "Température",
         description: "Mesure de température en temps réel",
         lieu: "",
         image:"",
@@ -412,6 +399,7 @@ const laboratoryEquipment = [
     {
         domaine: "Thermique",
         nom: "Calorimètre",
+        categorie: "Température",
         description: "Mesure des échanges thermiques",
         lieu: "",
         image:"",
@@ -420,6 +408,7 @@ const laboratoryEquipment = [
     {
         domaine: "Thermique",
         nom: "Caméra thermique",
+        categorie: ["Température", "Optique"],
         description: "Visualisation des transferts thermiques",
         lieu: "",
         image:"",
@@ -428,6 +417,7 @@ const laboratoryEquipment = [
     {
         domaine: "Thermique",
         nom: "Matériaux isolants (laine de verre, polystyrène)",
+        categorie: "Température",
         description: "Étude de l'isolation thermique",
         lieu: "",
         image:"",
@@ -438,6 +428,7 @@ const laboratoryEquipment = [
     {
         domaine: "Signaux",
         nom: "Générateur de fonctions",
+        categorie: ["Température", "Acoustique"],
         description: "Production de signaux sonores et électriques",
         lieu: "",
         image:"",
@@ -445,7 +436,35 @@ const laboratoryEquipment = [
     },
     {
         domaine: "Signaux",
-        nom: "Microphone et haut-parleur",
+        nom: "Microphone avec prise Jack 3,5mm",
+        categorie: "Acoustique",
+        description: "Émission et réception de signaux sonores",
+        lieu: "",
+        image:"",
+        noticeUtilisation: "assets/notice/micro_35.pdf"
+    },
+    {
+        domaine: "Signaux",
+        nom: "Microphone avec prise Jack 6,5mm",
+        categorie: "Acoustique",
+        description: "Émission et réception de signaux sonores",
+        lieu: "",
+        image:"",
+        noticeUtilisation: "assets/notice/micro_65.pdf"
+    },
+    {
+        domaine: "Signaux",
+        nom: "Microphone avec prise USB",
+        categorie: "Acoustique",
+        description: "Émission et réception de signaux sonores",
+        lieu: "",
+        image:"",
+        noticeUtilisation: "assets/notice/micro_usb.pdf"
+    },
+        {
+        domaine: "Signaux",
+        nom: "haut-parleur",
+        categorie: "Acoustique",
         description: "Émission et réception de signaux sonores",
         lieu: "",
         image:"",
