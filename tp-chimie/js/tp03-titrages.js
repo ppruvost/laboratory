@@ -1276,6 +1276,7 @@ function _initExportEtCompteRendu() {
   document.getElementById('btn-export-png')?.addEventListener('click', _exporterPNG);
   document.getElementById('btn-export-pdf')?.addEventListener('click', _exporterPDF);
   document.getElementById('btn-inserer-cr')?.addEventListener('click', _insererCompteRendu);
+  document.getElementById('btn-imprimer')?.addEventListener('click', _insererCompteRendu); // ← ajouté
 }
 
 function _telecharger(blob, nomFichier) {
