@@ -186,6 +186,44 @@ function _afficherSecurite() {
 
   zone.innerHTML = html;
 }
+/* ==========================================================
+   MATERIEL
+   ========================================================== */
+function initMateriel() {
+    const divV = $("materiel-verrerie");
+    const divE = $("materiel-equipements");
+    if (!divV || !divE) return;
+
+    const verres = glassware.some(v => v.categorie)
+        ? glassware.filter(v => v.categorie === "pHmétrie") : glassware;
+
+    divV.innerHTML = verres.map(v => {
+        const src = imgSrc(v.image, "glassware");
+        return `<label class="item-materiel">
+          <input type="checkbox" class="materiel-check-input">
+          <span class="icone-materiel">${src ? `<img src="${src}" alt="${v.nom}" onerror="this.style.display='none'">` : `🧪`}</span>
+          <span class="materiel-info">
+            <strong>${v.nom}</strong>
+            <span class="materiel-detail">${v.contenance_ml ? v.contenance_ml + " mL" : ""}</span>
+            <span class="materiel-detail lieu">${v.lieu ?? ""}</span>
+          </span></label>`;
+    }).join("");
+
+    const equips = laboratoryEquipment.some(e => e.categorie)
+        ? laboratoryEquipment.filter(e => e.categorie === "pHmétrie") : laboratoryEquipment;
+
+    divE.innerHTML = equips.map(e => {
+        const src = imgSrc(e.image, "equipment");
+        return `<label class="item-materiel">
+          <input type="checkbox" class="materiel-check-input">
+          <span class="icone-materiel">${src ? `<img src="${src}" alt="${e.nom}" onerror="this.style.display='none'">` : `🔬`}</span>
+          <span class="materiel-info">
+            <strong>${e.nom}</strong>
+            <span class="materiel-detail">${e.description ?? ""}</span>
+            <span class="materiel-detail lieu">${e.lieu ?? ""}</span>
+          </span></label>`;
+    }).join("");
+}
 
 // ══════════════════════════════════════════════════════════════
 // PARAMÈTRES
