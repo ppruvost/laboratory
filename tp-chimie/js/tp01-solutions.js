@@ -319,8 +319,7 @@ function initMateriel() {
     const divE = $("materiel-equipements");
     if (!divV || !divE) return;
 
-    const verres = glassware.some(v => v.categorie)
-        ? glassware.filter(v => v.categorie === "Dissolution") : glassware;
+    const verres = glassware.filter(v => appartientCategorie(v, "Dissolution"));
 
     divV.innerHTML = verres.map(v => {
         const src = imgSrc(v.image, "glassware");
@@ -334,8 +333,7 @@ function initMateriel() {
           </span></label>`;
     }).join("");
 
-    const equips = laboratoryEquipment.some(e => e.categorie)
-        ? laboratoryEquipment.filter(e => e.categorie === "Dissolution") : laboratoryEquipment;
+    const equips = laboratoryEquipment.filter(e => appartientCategorie(e, "Dissolution"));
 
     divE.innerHTML = equips.map(e => {
         const src = imgSrc(e.image, "equipment");
