@@ -195,8 +195,7 @@ function initMateriel() {
     const divE = $("materiel-equipements");
     if (!divV || !divE) return;
 
-    const verres = glassware.some(v => v.categorie)
-        ? glassware.filter(v => v.categorie === "pHmétrie") : glassware;
+    const verres = glassware.filter(v => _appartientCategorie(v, "pHmétrie"));
 
     divV.innerHTML = verres.map(v => {
         const src = imgSrc(v.image, "glassware");
@@ -210,8 +209,7 @@ function initMateriel() {
           </span></label>`;
     }).join("");
 
-    const equips = laboratoryEquipment.some(e => e.categorie)
-        ? laboratoryEquipment.filter(e => e.categorie === "pHmétrie") : laboratoryEquipment;
+    const equips = laboratoryEquipment.filter(e => _appartientCategorie(e, "pHmétrie"));
 
     divE.innerHTML = equips.map(e => {
         const src = imgSrc(e.image, "equipment");
