@@ -191,8 +191,10 @@ function _afficherSecurite() {
    MATERIEL
    ========================================================== */
 function initMateriel() {
-    const divV = $("materiel-verrerie");
-    const divE = $("materiel-equipements");
+
+    const divV = document.getElementById("materiel-verrerie");
+    const divE = document.getElementById("materiel-equipements");
+
     if (!divV || !divE) return;
 
     const verres = glassware.filter(v => _appartientCategorie(v, "pHmétrie"));
@@ -206,7 +208,8 @@ function initMateriel() {
             <strong>${v.nom}</strong>
             <span class="materiel-detail">${v.contenance_ml ? v.contenance_ml + " mL" : ""}</span>
             <span class="materiel-detail lieu">${v.lieu ?? ""}</span>
-          </span></label>`;
+          </span>
+        </label>`;
     }).join("");
 
     const equips = laboratoryEquipment.filter(e => _appartientCategorie(e, "pHmétrie"));
@@ -220,7 +223,8 @@ function initMateriel() {
             <strong>${e.nom}</strong>
             <span class="materiel-detail">${e.description ?? ""}</span>
             <span class="materiel-detail lieu">${e.lieu ?? ""}</span>
-          </span></label>`;
+          </span>
+        </label>`;
     }).join("");
 }
 
