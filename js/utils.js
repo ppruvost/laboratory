@@ -1,239 +1,1509 @@
 /**
- * utils.js — Fonctions partagées par tous les TP chimie
- *
- * renderBlocSecurite() et renderCarteProduit() reçoivent les données
- * en paramètre — aucune importation globale de PRODUITS n'est nécessaire
- * (l'ancien import mort "./produits.js", renommé en products.js dans la
- * refonte de la base de données, a été supprimé).
+ * utils.js
+ * Bibliothèque commune des TP de Chimie
+ * ------------------------------------------------------------
+ * Bloc 1/4
+ * - Helpers DOM
+ * - Fonctions numériques
+ * - Gestion des messages
+ * - Images
+ * - Catégories
+ * - Constantes GHS / EPI
  */
 
-// ── Pictogrammes GHS → images ─────────────────────────────────
+/* ============================================================
+   HELPERS DOM
+   ============================================================ */
+
+export const $ = (id) => document.getElementById(id);
+
+export function lireTexte(id) {
+    return ($(id)?.value || "").trim();
+}
+
+/* ============================================================
+   NOMBRES
+   ============================================================ */
+
+export function nombre(v) {
+    const n = parseFloat(v);
+    return Number.isFinite(n) ? n : 0;
+}
+
+export function arrondir(v, decimales = 2) {
+    return Number(v).toFixed(decimales);
+}
+
+export function clamp(v, min, max) {
+    return Math.min(max, Math.max(min, v));
+}
+
+/* ============================================================
+   AFFICHAGE DE MESSAGE
+   ============================================================ */
+
+export function message(id, texte, classe = "info") {
+
+    const zone = $(id);
+
+    if (!zone) return;
+
+    zone.innerHTML = `
+        <div class="${classe}">
+            ${texte}
+        </div>
+    `;
+}
+
+/* ============================================================
+   RESOLUTION DES CHEMINS D'IMAGES
+   ============================================================ */
+
+export function imgSrc(
+    chemin,
+    dossierParDefaut = "tp-chimie/assets/images/"
+) {
+
+    if (!chemin) return "";
+
+    if (
+        chemin.startsWith("http") ||
+        chemin.startsWith("/") ||
+        chemin.startsWith("assets/") ||
+        chemin.startsWith("tp-chimie/")
+    ) {
+        return chemin;
+    }
+
+    return dossierParDefaut + chemin;
+}
+
+/* ============================================================
+   TEST DE CATEGORIE
+   ============================================================ */
+
+export function appartientCategorie(element, categorie) {
+
+    if (!element?.categorie)
+        return false;
+
+    if (Array.isArray(element.categorie))
+        return element.categorie.includes(categorie);
+
+    return element.categorie === categorie;
+}
+
+/* ============================================================
+   PICTOGRAMMES GHS
+   ============================================================ */
+
 export const GHS_PICTO = {
-  GHS01: { img: 'assets/picto/SGH01_BombeExplosant.jpg',   label: 'Explosif' },
-  GHS02: { img: 'assets/picto/SGH02_Flamme.jpg',           label: 'Inflammable' },
-  GHS03: { img: 'assets/picto/SGH03_FlammeSurCercle.jpg',  label: 'Comburant' },
-  GHS04: { img: 'assets/picto/SGH04_BouteilleGaz.jpg',     label: 'Gaz sous pression' },
-  GHS05: { img: 'assets/picto/SGH05_Corrosion.jpg',        label: 'Corrosif' },
-  GHS06: { img: 'assets/picto/SGH06_TeteDeMort.jpg',       label: 'Toxique' },
-  GHS07: { img: 'assets/picto/SGH07_PointExclamation.jpg', label: 'Irritant / nocif' },
-  GHS08: { img: 'assets/picto/SGH08_DangerSante.jpg',      label: 'Danger santé grave' },
-  GHS09: { img: 'assets/picto/SGH09_Environnement.jpg',    label: 'Danger environnement' },
+
+    GHS01: {
+        img: "assets/picto/SGH01_BombeExplosant.jpg",
+        label: "Explosif"
+    },
+
+    GHS02: {
+        img: "assets/picto/SGH02_Flamme.jpg",
+        label: "Inflammable"
+    },
+
+    GHS03: {
+        img: "assets/picto/SGH03_FlammeSurCercle.jpg",
+        label: "Comburant"
+    },
+
+    GHS04: {
+        img: "assets/picto/SGH04_BouteilleGaz.jpg",
+        label: "Gaz sous pression"
+    },
+
+    GHS05: {
+        img: "assets/picto/SGH05_Corrosion.jpg",
+        label: "Corrosif"
+    },
+
+    GHS06: {
+        img: "assets/picto/SGH06_TeteDeMort.jpg",
+        label: "Toxique"
+    },
+
+    GHS07: {
+        img: "assets/picto/SGH07_PointExclamation.jpg",
+        label: "Irritant / nocif"
+    },
+
+    GHS08: {
+        img: "assets/picto/SGH08_DangerSante.jpg",
+        label: "Danger santé"
+    },
+
+    GHS09: {
+        img: "assets/picto/SGH09_Environnement.jpg",
+        label: "Environnement"
+    }
+
 };
 
-// ── EPI ───────────────────────────────────────────────────────
+/* ============================================================
+   EQUIPEMENTS DE PROTECTION
+   ============================================================ */
+
 export const EPI_CONFIG = {
-  LUNETTES:     { img: 'assets/picto/OBLIGATION-lunettes.jpg',                      label: 'Lunettes de protection' },
-  GANTS:        { img: 'assets/picto/OBLIGATION-gants.jpg',                         label: 'Gants' },
-  BLOUSE:       { img: 'assets/picto/OBLIGATION-blouse.jpg',                        label: 'Blouse' },
-  HOTTE:        { img: 'assets/picto/OBLIGATION-hotte.jpeg',                        label: 'Hotte aspirante' },
-  CASQUE:       { img: 'assets/picto/OBLIGATION-casque.jpg',                        label: 'Casque' },
-  VISIERE:      { img: 'assets/picto/OBLIGATION-visiere.jpg',                       label: 'Visière' },
-  CHAUSSURES:   { img: 'assets/picto/OBLIGATION-chaussures.jpg',                    label: 'Chaussures de sécurité' },
-  COMBINAISON:  { img: 'assets/picto/OBLIGATION-combinaison.jpg',                   label: 'Combinaison' },
-  HARNAIS:      { img: 'assets/picto/OBLIGATION-harnais.jpg',                       label: 'Harnais' },
-  RESPIRATOIRE: { img: 'assets/picto/OBLIGATION-protection-voies-espiratoires.jpg', label: 'Protection respiratoire' },
+
+    LUNETTES: {
+        img: "assets/picto/OBLIGATION-lunettes.jpg",
+        label: "Lunettes"
+    },
+
+    GANTS: {
+        img: "assets/picto/OBLIGATION-gants.jpg",
+        label: "Gants"
+    },
+
+    BLOUSE: {
+        img: "assets/picto/OBLIGATION-blouse.jpg",
+        label: "Blouse"
+    },
+
+    HOTTE: {
+        img: "assets/picto/OBLIGATION-hotte.jpeg",
+        label: "Hotte"
+    },
+
+    VISIERE: {
+        img: "assets/picto/OBLIGATION-visiere.jpg",
+        label: "Visière"
+    },
+
+    CHAUSSURES: {
+        img: "assets/picto/OBLIGATION-chaussures.jpg",
+        label: "Chaussures de sécurité"
+    },
+
+    RESPIRATOIRE: {
+        img: "assets/picto/OBLIGATION-protection-voies-espiratoires.jpg",
+        label: "Protection respiratoire"
+    }
+
 };
 
-// ── Masses molaires (g/mol) ───────────────────────────────────
+/* ============================================================
+   MASSES MOLAIRES
+   (conservées telles quelles)
+   ============================================================ */
+
 export const MASSES_MOLAIRES = {
-  'C8H8O': 120.15, 'C4H8O2': 88.11, 'HCl': 36.46, 'C10H16N2O8': 292.24,
-  'CH3COOH': 60.05, 'HNO3': 63.01, 'C3H6O2': 74.08, 'H2SO4': 98.08,
 
-  'Al': 26.98, 'AlCl3': 133.34, 'Al2(SO4)3·16H2O': 630.40,
+    'NaOH':40.00,
+    'HCl':36.46,
+    'H2SO4':98.08,
+    'HNO3':63.01,
+    'CH3COOH':60.05,
+    'Na2CO3':105.99,
+    'CuSO4':159.61,
+    'KMnO4':158.03,
+    'NaCl':58.44,
+    'KCl':74.55,
+    'CaCO3':100.09,
+    'AgNO3':169.87,
+    'KI':166.00,
+    'KOH':56.11,
+    'NH4Cl':53.49,
+    'Fe':55.85,
+    'Cu':63.55,
+    'ZnCl2':136.29,
+    'ZnSO4·7H2O':287.54,
+    'FeSO4·7H2O':278.01,
+    'FeCl3·6H2O':270.30,
+    'CuCl2':134.45,
+    'CaCl2':110.98,
+    'KNO3':101.10,
+    'KBrO3':167.00,
+    'NaHCO3':84.01,
+    'Na3PO4':163.94,
+    'Na2SO3':126.04,
+    'CH2Cl2':84.93,
+    'C2H6O':46.07,
+    'C3H8O3':92.09,
+    'C3H6O':58.08,
+    'C4H10O':74.12,
+    'C5H12O':88.15,
+    'C8H8O':120.15
 
-  'NH4Cl': 53.49, '(NH4)2Fe(SO4)2·6H2O': 392.14, 'NH4OH': 35.05, '(NH4)2C2O4': 124.10,
-
-  'AgNO3': 169.87, 'BaCl2·2H2O': 244.26,
-
-  'C27H28Br2O5S': 624.38, 'C16H18N3SCl': 319.85,
-
-  'CaCO3': 100.09, 'CaCl2': 110.98, 'Ca': 40.08, 'CaSO4': 136.14,
-
-  'C': 12.01,
-
-  'CuCl2': 134.45, 'CuO': 79.55, 'Cu': 63.55, 'CuSO4': 159.61,
-
-  'CH2Cl2': 84.93, 'C4H10O': 74.12, 'Na2B4O7': 201.22,
-
-  'C20H6Br4NaO5': 691.85, 'C20H12N3NaO7S': 461.38,
-
-  'SnCl2·2H2O': 225.63, 'Sn': 118.71, 'C2H6O': 46.07,
-
-  'FeCl2·4H2O': 198.81, 'FeCl3·6H2O': 270.30, 'Fe': 55.85, 'Fe2O3': 159.69,
-  'FeSO4·7H2O': 278.01, 'FeS': 87.91,
-
-  'C20H12O5': 332.31, 'C3H8O3': 92.09, 'C14H14N3NaO3S': 327.33, 'C6H16N2': 116.20,
-  'H2O2': 34.02, 'I2': 253.81, 'C5H12O': 88.15, 'MgCl2·6H2O': 203.30,
-
-  'Hg': 200.59,
-
-  'C5H8O2': 100.12, 'C5H10': 70.13, 'C4H6O2': 86.09, 'C10H8': 128.17,
-
-  'NiSO4·6H2O': 262.85,
-
-  'C20H14O4': 318.33,
-
-  'P4': 123.90, 'Ca3(PO4)2': 310.18,
-
-  'Pb': 207.20, 'Pb3O4': 685.60,
-
-  'KAl(SO4)2·12H2O': 474.39, 'KBrO3': 167.00, 'KClO3': 122.55, 'KCl': 74.55,
-  'K2CrO4': 194.19, 'K3[Fe(CN)6]': 329.24, 'K4[Fe(CN)6]': 368.35, 'KOH': 56.11,
-  'KI': 166.00, 'K': 39.10, 'KNO3': 101.10, 'K2C2O4': 166.22, 'KMnO4': 158.03,
-  'K2S2O8': 270.32,
-
-  'C3H6O': 58.08,
-
-  'K2[HgI4]': 786.40, '(NH4)6Mo7O24·4H2O': 1235.86,
-
-  'C15H15N3O2': 269.30,
-
-  'Na2CO3': 105.99, 'NaCl': 58.44, 'CH3COONa': 82.03, 'NaHCO3': 84.01,
-  'NaHSO3': 104.06, 'NaOH': 40.00, 'Na3PO4': 163.94, 'Na2SO3': 126.04,
-  'Na2B4O7·10H2O': 381.37,
-
-  'ZnCl2': 136.29, 'ZnSO4·7H2O': 287.54,
 };
+/**
+ * utils.js
+ * Bloc 2/4
+ *
+ * - Cartes produits
+ * - Bloc sécurité
+ * - Rendu pictogrammes
+ * - Gestion des produits chimiques
+ */
 
-// ── Résolution de chemin d'image ───────────────────────────────
-// Les fragments de TP sont injectés par navigation.js dans la page hôte
-// (le "shell" SPA à la racine du site) : tous les chemins d'image doivent
-// donc être RELATIFS À LA RACINE DU SITE, jamais relatifs au fichier JS
-// ni au fichier HTML d'origine du fragment.
-export function imgSrc(chemin, dossierParDefaut = 'tp-chimie/assets/images/') {
-  if (!chemin) return '';
+/* ============================================================
+   CARTE PRODUIT
+   ============================================================ */
 
-  // URL absolue ou déjà explicitement relative à la racine (ex: "assets/…",
-  // "tp-chimie/…") ou une URL complète : on la laisse telle quelle.
-  if (
-    chemin.startsWith('http') ||
-    chemin.startsWith('assets/') ||
-    chemin.startsWith('tp-chimie/') ||
-    chemin.startsWith('/')
-  ) {
-    return chemin;
-  }
+export function renderCarteProduit(produit, options = {}) {
 
-  // Nom de fichier seul → on préfixe avec le dossier par défaut (relatif
-  // à la racine du site).
-  return dossierParDefaut + chemin;
+    const ghsListe =
+        (produit.pictogrammes || produit.dangers || [])
+        .filter(code => /^GHS/i.test(code));
+
+
+    const pictos = ghsListe
+        .map(code => {
+
+            const info = GHS_PICTO[code];
+
+            if (!info) {
+
+                return `
+                <span class="ghs-inconnu"
+                      title="${code}">
+                    ⚠️
+                </span>`;
+            }
+
+            return `
+            <img
+                src="${info.img}"
+                alt="${code}"
+                title="${info.label}"
+                class="ghs-badge"
+                onerror="this.style.display='none'"
+            >`;
+
+        })
+        .join("");
+
+
+    const dangersH =
+        (produit.dangers || [])
+        .filter(code => /^H\d+/i.test(code))
+        .map(code =>
+            `
+            <span class="danger-code">
+                ${code}
+            </span>
+            `
+        )
+        .join("");
+
+
+    return `
+
+    <article class="produit-carte">
+
+        <div class="produit-entete">
+
+            <span class="produit-cas">
+                ${produit.cas || ""}
+            </span>
+
+        </div>
+
+
+        <div class="produit-corps">
+
+            <h4>
+                ${produit.nom || ""}
+            </h4>
+
+
+            <div class="produit-formule">
+                ${produit.formule || ""}
+            </div>
+
+
+            ${
+                produit.localisation
+                ?
+                `
+                <div class="produit-localisation">
+                    📍 ${produit.localisation}
+                </div>
+                `
+                :
+                ""
+            }
+
+
+            ${
+                options.showGHS && pictos
+                ?
+                `
+                <div class="ghs-pictos">
+                    ${pictos}
+                </div>
+                `
+                :
+                ""
+            }
+
+
+            ${
+                options.showH && dangersH
+                ?
+                `
+                <div class="danger-liste">
+                    ${dangersH}
+                </div>
+                `
+                :
+                ""
+            }
+
+
+        </div>
+
+    </article>
+
+    `;
+
 }
 
-// ── Carte produit ─────────────────────────────────────────────
-export function renderCarteProduit(p, options = {}) {
-  const ghsBadges = (p.pictogrammes || p.dangers || [])
-    .filter(g => /^GHS/i.test(g))
-    .map(g => {
-      const info = GHS_PICTO[g];
-      if (!info) return `<span title="${g}">⚠️</span>`;
-      return `<img src="${info.img}" alt="${g}" title="${info.label}"
-                   class="ghs-badge"
-                   onerror="this.style.display='none'">`;
-    }).join('');
 
-  const hlist = (p.dangers || [])
-    .filter(c => /^H/i.test(c))
-    .map(c => `<div class="danger-strip"><span class="code-h">${c}</span></div>`)
-    .join('');
 
-  return `
-    <div class="produit-carte">
-      <div><span class="produit-cas">${p.cas || ''}</span></div>
-      <div>
-        <div class="produit-nom">${p.nom || ''}</div>
-        <div class="produit-formule">${p.formule || ''}</div>
-        <div class="produit-localisation">📍 ${p.localisation || ''}</div>
-        ${options.showGHS && ghsBadges ? `<div class="ghs-pictos">${ghsBadges}</div>` : ''}
-        ${options.showH && hlist ? hlist : ''}
-      </div>
-    </div>`;
+/* ============================================================
+   BLOC SECURITE GLOBAL
+   ============================================================ */
+
+
+export function renderBlocSecurite(produits = []) {
+
+
+    const cartes = produits
+        .map(produit =>
+            renderCarteProduit(
+                produit,
+                {
+                    showGHS:true,
+                    showH:true
+                }
+            )
+        )
+        .join("");
+
+
+
+    return `
+
+    <section class="alerte-securite">
+
+
+        <h3>
+            ⚠️ Sécurité chimique
+        </h3>
+
+
+        <p>
+            Lire les fiches de données de sécurité avant toute
+            manipulation.
+        </p>
+
+
+        <p>
+            Porter obligatoirement les équipements de protection
+            adaptés.
+        </p>
+
+
+        <p>
+            En cas de projection :
+            rincer abondamment à l'eau et prévenir le responsable.
+        </p>
+
+
+    </section>
+
+
+    <section class="liste-produits-securite">
+
+        ${cartes}
+
+    </section>
+
+    `;
+
 }
 
-// ── Bloc sécurité ─────────────────────────────────────────────
-export function renderBlocSecurite(produits) {
-  const cartes = produits
-    .map(p => renderCarteProduit(p, { showGHS: true, showH: true }))
-    .join('');
-  return `
-    <div class="alerte-securite">
-      <strong>⚠️ Consignes de sécurité obligatoires</strong>
-      Lire les fiches de données de sécurité avant toute manipulation.
-      En cas d'accident : rincer abondamment et appeler le responsable.
-    </div>
-    ${cartes}`;
+
+
+/* ============================================================
+   RENDU D'UN PRODUIT UNIQUE
+   ============================================================ */
+
+
+export function renderProduitSecurite(produit) {
+
+    if (!produit)
+        return "";
+
+    return renderCarteProduit(
+        produit,
+        {
+            showGHS:true,
+            showH:true
+        }
+    );
+
 }
 
-// ── Calculs ───────────────────────────────────────────────────
-export function concentrationMolaire(masseG, volumeL, masseMolaire) {
-  if (!volumeL || !masseMolaire) return null;
-  return (masseG / masseMolaire / volumeL).toFixed(4);
+
+
+/* ============================================================
+   RECHERCHE PRODUIT
+   ============================================================ */
+
+
+export function trouverProduit(liste, cle) {
+
+    if (!Array.isArray(liste))
+        return null;
+
+
+    return liste.find(
+        produit =>
+            produit.cas === cle
+            ||
+            produit.id === cle
+    )
+    || null;
+
 }
 
-export function dilution({ c1, v1, c2, v2 }) {
-  if (c1 && v1 && c2) return (c1 * v1 / c2).toFixed(1);
-  if (c1 && v1 && v2) return (c1 * v1 / v2).toFixed(4);
-  return null;
-}
 
-// ── Accordéons ────────────────────────────────────────────────
-export function initSections() {
-  document.querySelectorAll('.section-titre').forEach(titre => {
-    titre.addEventListener('click', () => {
-      titre.closest('.section').classList.toggle('fermee');
-      const chev = titre.querySelector('.chevron');
-      if (chev) chev.textContent = titre.closest('.section').classList.contains('fermee') ? '▶' : '▼';
+
+/* ============================================================
+   CONSTRUCTION LISTE SELECT PRODUITS
+   ============================================================ */
+
+
+export function remplirSelectProduits(
+    select,
+    produits,
+    options={}
+) {
+
+
+    if (!select)
+        return;
+
+
+    const {
+
+        placeholder="-- Sélectionner --",
+
+        categorie=null
+
+    } = options;
+
+
+
+    select.innerHTML =
+        `
+        <option value="">
+            ${placeholder}
+        </option>
+        `;
+
+
+
+    produits
+
+    .filter(p =>
+        !categorie
+        ||
+        appartientCategorie(p,categorie)
+    )
+
+
+    .sort(
+        (a,b)=>
+            a.nom.localeCompare(
+                b.nom,
+                "fr"
+            )
+    )
+
+
+    .forEach(p=>{
+
+
+        const option =
+            document.createElement("option");
+
+
+        option.value =
+            p.cas;
+
+
+        option.textContent =
+            p.nom;
+
+
+        select.appendChild(option);
+
+
     });
-  });
+
+
 }
 
-// ── Onglets ───────────────────────────────────────────────────
-export function initTabs(callback = null) {
 
-    document.querySelectorAll(".tabs-container").forEach(container => {
 
-        const boutons = container.querySelectorAll(".tab-btn");
-        const panneaux = container.querySelectorAll(".tab-panel");
+/* ============================================================
+   FILTRAGE DYNAMIQUE PAR CHECKBOX
+   ============================================================ */
 
-        boutons.forEach(btn => {
 
-            btn.addEventListener("click", () => {
+export function appliquerFiltresCategorie(
+    select,
+    produits,
+    classeCheckbox="filtre-cat"
+) {
 
-                boutons.forEach(b => b.classList.remove("actif"));
-                panneaux.forEach(p => p.classList.remove("actif"));
 
-                btn.classList.add("actif");
+    if (!select)
+        return;
 
-                const panel = container.querySelector("#" + btn.dataset.tab);
 
-                if (panel)
-                    panel.classList.add("actif");
+    const categories =
+        [
+            ...document.querySelectorAll(
+                "." + classeCheckbox + ":checked"
+            )
+        ]
+        .map(cb=>cb.value);
 
-                if (callback)
-                    callback(btn.dataset.tab);
 
-            });
+
+    const ancienneValeur =
+        select.value;
+
+
+
+    select.innerHTML =
+        `
+        <option value="">
+        -- Sélectionner --
+        </option>
+        `;
+
+
+
+    if(categories.length===0)
+        return;
+
+
+
+    produits
+
+    .filter(
+        produit =>
+            categories.some(
+                cat =>
+                    appartientCategorie(
+                        produit,
+                        cat
+                    )
+            )
+    )
+
+
+    .sort(
+        (a,b)=>
+        a.nom.localeCompare(
+            b.nom,
+            "fr"
+        )
+    )
+
+
+    .forEach(
+        produit=>{
+
+
+            const option =
+                document.createElement("option");
+
+
+            option.value =
+                produit.cas;
+
+
+            option.textContent =
+                produit.nom;
+
+
+
+            if(option.value===ancienneValeur)
+                option.selected=true;
+
+
+
+            select.appendChild(option);
+
+        }
+    );
+
+
+}
+/**
+ * utils.js
+ * Bloc 3/4
+ *
+ * - Accordéons
+ * - Onglets
+ * - Modes opératoires
+ * - Impression
+ * - Evènements communs
+ */
+
+/* ============================================================
+   ACCORDEONS
+   ============================================================ */
+
+
+export function initSections() {
+
+
+    document
+    .querySelectorAll(".section-titre")
+    .forEach(titre=>{
+
+
+        const section =
+            titre.closest(".section");
+
+
+        if(!section)
+            return;
+
+
+        const corps =
+            section.querySelector(".section-corps");
+
+
+        const chevron =
+            titre.querySelector(".chevron");
+
+
+
+        if(!corps)
+            return;
+
+
+
+        // état initial
+
+        corps.style.display =
+            section.classList.contains("fermee")
+            ?
+            "none"
+            :
+            "block";
+
+
+
+        if(chevron){
+
+            chevron.textContent =
+                section.classList.contains("fermee")
+                ?
+                "▶"
+                :
+                "▼";
+
+        }
+
+
+
+        titre.addEventListener(
+            "click",
+            ()=>{
+
+
+                const fermee =
+                    section.classList.toggle(
+                        "fermee"
+                    );
+
+
+
+                corps.style.display =
+                    fermee
+                    ?
+                    "none"
+                    :
+                    "block";
+
+
+
+                if(chevron){
+
+                    chevron.textContent =
+                        fermee
+                        ?
+                        "▶"
+                        :
+                        "▼";
+
+                }
+
+
+            }
+        );
+
+
+    });
+
+
+}
+
+
+
+/* ============================================================
+   ONGLET GENERIQUE
+   ============================================================ */
+
+
+export function initTabs() {
+
+
+    document
+    .querySelectorAll(".tabs-container")
+    .forEach(container=>{
+
+
+        const boutons =
+            container.querySelectorAll(
+                ".tab-btn"
+            );
+
+
+        const panneaux =
+            container.querySelectorAll(
+                ".tab-panel"
+            );
+
+
+
+        boutons.forEach(btn=>{
+
+
+            btn.addEventListener(
+                "click",
+                ()=>{
+
+
+                    boutons.forEach(
+                        b=>
+                        b.classList.remove(
+                            "actif"
+                        )
+                    );
+
+
+                    panneaux.forEach(
+                        p=>
+                        p.classList.remove(
+                            "actif"
+                        )
+                    );
+
+
+
+                    btn.classList.add(
+                        "actif"
+                    );
+
+
+
+                    const cible =
+                        container.querySelector(
+                            "#"+btn.dataset.tab
+                        );
+
+
+
+                    if(cible)
+                        cible.classList.add(
+                            "actif"
+                        );
+
+
+
+                    // événement personnalisé
+                    container.dispatchEvent(
+                        new CustomEvent(
+                            "ongletChange",
+                            {
+                                detail:
+                                {
+                                    tab:
+                                    btn.dataset.tab
+                                }
+                            }
+                        )
+                    );
+
+
+                }
+            );
+
 
         });
 
+
     });
+
 
 }
 
-// ── Impression simple (window.print) ─────────────────────────
+
+
+/* ============================================================
+   MODE OPERATOIRE
+   ============================================================ */
+
+
+export function afficherModeOperatoire(type) {
+
+
+    const modes =
+    {
+
+        dissolution:
+            "modeDissolution",
+
+        dilution:
+            "modeDilution"
+
+    };
+
+
+
+    Object
+    .entries(modes)
+    .forEach(
+        ([nom,id])=>{
+
+
+            const bloc =
+                document.getElementById(id);
+
+
+
+            if(!bloc)
+                return;
+
+
+
+            bloc.classList.toggle(
+                "hidden",
+                nom!==type
+            );
+
+
+        }
+    );
+
+
+}
+
+
+
+/* ============================================================
+   INITIALISATION DES MODES OPERATOIRES
+   ============================================================ */
+
+
+export function initModesOperatoires() {
+
+
+    document
+    .querySelectorAll(
+        "[data-mode-operatoire]"
+    )
+    .forEach(btn=>{
+
+
+        btn.addEventListener(
+            "click",
+            ()=>{
+
+
+                afficherModeOperatoire(
+                    btn.dataset.modeOperatoire
+                );
+
+
+            }
+        );
+
+
+    });
+
+
+}
+
+
+
+/* ============================================================
+   IMPRESSION SIMPLE
+   ============================================================ */
+
+
 export function initImprimer() {
-  const btn = document.getElementById('btn-imprimer');
-  if (btn) btn.addEventListener('click', () => window.print());
+
+
+    const btn =
+        document.getElementById(
+            "btn-imprimer"
+        );
+
+
+
+    if(!btn)
+        return;
+
+
+
+    btn.addEventListener(
+        "click",
+        ()=>window.print()
+    );
+
+
 }
 
-// ── Calcul guidé générique ────────────────────────────────────
-export function bindCalcul(id, fn) {
-  const el = document.getElementById(id);
-  if (!el) return;
-  el.querySelectorAll('input').forEach(inp => {
-    inp.addEventListener('input', () => {
-      const vals = [...el.querySelectorAll('input')].map(i => parseFloat(i.value));
-      const res = el.querySelector('.resultat-calcul');
-      if (res) res.textContent = fn(vals) ?? '—';
-    });
-  });
+
+
+/* ============================================================
+   AJOUT D'UN BOUTON DANS UNE NAVIGATION TP
+   ============================================================ */
+
+
+export function ajouterBouton(
+    conteneur,
+    id,
+    texte,
+    callback,
+    classe="btn btn-primaire"
+){
+
+
+    if(!conteneur)
+        return null;
+
+
+
+    if(
+        document.getElementById(id)
+    )
+        return document.getElementById(id);
+
+
+
+    const bouton =
+        document.createElement(
+            "button"
+        );
+
+
+    bouton.id =
+        id;
+
+
+    bouton.type =
+        "button";
+
+
+    bouton.className =
+        classe;
+
+
+    bouton.textContent =
+        texte;
+
+
+
+    bouton.addEventListener(
+        "click",
+        callback
+    );
+
+
+
+    conteneur.appendChild(
+        bouton
+    );
+
+
+
+    return bouton;
+
+}
+
+
+
+/* ============================================================
+   INITIALISATION COMPLETE COMMUNE
+   ============================================================ */
+
+
+export function initInterfaceTP(){
+
+
+    initSections();
+
+
+    initTabs();
+
+
+    initModesOperatoires();
+
+
+    initImprimer();
+
+
+}
+/**
+ * utils.js
+ * Bloc 4/4
+ *
+ * - Calculs chimiques génériques
+ * - Liaison automatique inputs/calculs
+ * - Export final
+ */
+
+
+/* ============================================================
+   CONCENTRATION MOLAIRE
+   ============================================================ */
+
+
+export function concentrationMolaire(
+    masseG,
+    volumeL,
+    masseMolaire
+){
+
+    if(
+        masseG<=0 ||
+        volumeL<=0 ||
+        masseMolaire<=0
+    )
+        return null;
+
+
+    return (
+        masseG /
+        masseMolaire /
+        volumeL
+    );
+
+}
+
+
+
+/* ============================================================
+   CONCENTRATION MASSIQUE
+   ============================================================ */
+
+
+export function concentrationMassique(
+    masseG,
+    volumeL
+){
+
+    if(
+        masseG<=0 ||
+        volumeL<=0
+    )
+        return null;
+
+
+    return masseG / volumeL;
+
+}
+
+
+
+/* ============================================================
+   QUANTITE DE MATIERE
+   ============================================================ */
+
+
+export function quantiteMatiere(
+    masseG,
+    masseMolaire
+){
+
+    if(
+        masseG<=0 ||
+        masseMolaire<=0
+    )
+        return null;
+
+
+    return masseG / masseMolaire;
+
+}
+
+
+
+/* ============================================================
+   DILUTION C1V1=C2V2
+   ============================================================ */
+
+
+export function dilution({
+    c1,
+    v1,
+    c2,
+    v2
+}){
+
+
+    c1 = nombre(c1);
+    v1 = nombre(v1);
+    c2 = nombre(c2);
+    v2 = nombre(v2);
+
+
+
+    if(
+        c1>0 &&
+        v1>0 &&
+        c2>0
+    ){
+
+        return (
+            c1*v1/c2
+        );
+
+    }
+
+
+
+    if(
+        c1>0 &&
+        v1>0 &&
+        v2>0
+    ){
+
+        return (
+            c1*v1/v2
+        );
+
+    }
+
+
+
+    return null;
+
+}
+
+
+
+/* ============================================================
+   CALCUL D'ERREUR RELATIVE
+   ============================================================ */
+
+
+export function erreurRelative(
+    experimental,
+    theorique
+){
+
+    experimental =
+        nombre(experimental);
+
+    theorique =
+        nombre(theorique);
+
+
+
+    if(theorique===0)
+        return null;
+
+
+
+    return Math.abs(
+        (experimental-theorique)
+        /
+        theorique
+    )*100;
+
+}
+
+
+
+/* ============================================================
+   ECART SIGNE
+   ============================================================ */
+
+
+export function ecartSigne(
+    experimental,
+    theorique
+){
+
+    experimental =
+        nombre(experimental);
+
+    theorique =
+        nombre(theorique);
+
+
+
+    if(theorique===0)
+        return null;
+
+
+
+    return (
+        (experimental-theorique)
+        /
+        theorique
+    )*100;
+
+}
+
+
+
+/* ============================================================
+   CALCUL GUIDÉ GENERIQUE
+   ============================================================ */
+
+
+export function bindCalcul(
+    id,
+    fonction
+){
+
+
+    const bloc =
+        document.getElementById(id);
+
+
+
+    if(!bloc)
+        return;
+
+
+
+    const inputs =
+        bloc.querySelectorAll(
+            "input"
+        );
+
+
+    const resultat =
+        bloc.querySelector(
+            ".resultat-calcul"
+        );
+
+
+
+    inputs.forEach(
+        input=>{
+
+
+            input.addEventListener(
+                "input",
+                ()=>{
+
+
+                    const valeurs =
+                    [
+                        ...inputs
+                    ]
+                    .map(
+                        i=>nombre(i.value)
+                    );
+
+
+
+                    const res =
+                        fonction(valeurs);
+
+
+
+                    if(resultat)
+                        resultat.textContent =
+                            res ?? "—";
+
+
+                }
+            );
+
+
+        }
+    );
+
+
+}
+
+
+
+/* ============================================================
+   CREATION D'UNE LISTE CHECKBOX
+   ============================================================ */
+
+
+export function creerListeCheckbox(
+    conteneur,
+    elements,
+    classe="choix"
+){
+
+
+    if(!conteneur)
+        return;
+
+
+
+    conteneur.innerHTML =
+        "";
+
+
+
+    elements.forEach(
+        element=>{
+
+
+            const label =
+                document.createElement(
+                    "label"
+                );
+
+
+            label.className =
+                classe;
+
+
+
+            label.innerHTML =
+            `
+
+            <input
+                type="checkbox"
+                value="${element.id || element}"
+            >
+
+            <span>
+                ${element.nom || element}
+            </span>
+
+            `;
+
+
+
+            conteneur.appendChild(
+                label
+            );
+
+
+        }
+    );
+
+
+}
+
+
+
+/* ============================================================
+   EXPORT DONNEES FORMULAIRE
+   ============================================================ */
+
+
+export function lireFormulaire(
+    selecteur
+){
+
+    const zone =
+        document.querySelector(
+            selecteur
+        );
+
+
+    if(!zone)
+        return {};
+
+
+
+    const donnees =
+        {};
+
+
+
+    zone
+    .querySelectorAll(
+        "input,select,textarea"
+    )
+    .forEach(
+        champ=>{
+
+
+            if(
+                champ.name ||
+                champ.id
+            ){
+
+                donnees[
+                    champ.name || champ.id
+                ]
+                =
+                champ.value;
+
+
+            }
+
+
+        }
+    );
+
+
+
+    return donnees;
+
+}
+
+
+
+/* ============================================================
+   RESET ZONE
+   ============================================================ */
+
+
+export function viderZone(id){
+
+    const zone =
+        $(id);
+
+
+    if(zone)
+        zone.innerHTML =
+            "";
+
+}
+
+
+
+/* ============================================================
+   INITIALISATION DOM COMPLETE
+   ============================================================ */
+
+
+export function initCommun(){
+
+    initInterfaceTP();
+
 }
