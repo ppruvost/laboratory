@@ -327,6 +327,7 @@ function _construireAutoEvaluation() {
 // ══════════════════════════════════════════════════════════════
 function _construireEtImprimer(identite) {
   const contenuHTML = _construireTrameHTML(identite);
+  console.log(contenuHTML.length);
 
   const docHTML = `<!DOCTYPE html>
 <html lang="fr">
