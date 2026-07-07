@@ -5,6 +5,7 @@ import glassware           from "../../data/glassware.js";
 import laboratoryEquipment from "../../data/equipment.js";
 import { initBalanceErreurs } from "../../js/balance-erreurs.js";
 import { genererCompteRendu } from "../../js/compte-rendu.js";
+import { initSections, initTabs, imgSrc } from "../../js/utils.js";
 
 /* ==========================================================
    VARIABLES
