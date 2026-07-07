@@ -241,16 +241,28 @@ function _miseAJourParams() {
   const Va = parseFloat(document.getElementById('va')?.value) || 20;
   const Ca = parseFloat(document.getElementById('ca')?.value) || 0.1;
   const Cb = parseFloat(document.getElementById('cb')?.value) || 0.1;
+
+  const cle = document.getElementById('pka-select')?.value || 'CH3COOH';
+  const jeu = PKA_SETS[cle] || PKA_SETS['CH3COOH'];
+
   _params = {
     Va, Ca, Cb,
     typeAcide: document.getElementById('sel-acide')?.value || 'fort',
-    typeBase: document.getElementById('sel-base')?.value || 'fort',
-    pKa: PKA[document.getElementById('pka-select')?.value] ?? null,
+    typeBase:  document.getElementById('sel-base')?.value  || 'fort',
+    pKaArray:  jeu.pKa,
+    n:         jeu.pKa.length,
   };
-  _params.Ve = (Ca * Va) / Cb;
+  _params.Ve = (Ca * Va) / Cb; // volume par équivalence (1 proton)
 
   const elVe = document.getElementById('ve-theo');
-  if (elVe) elVe.textContent = `${_params.Ve.toFixed(2)} mL`;
+  if (elVe) {
+    if (_params.typeAcide === 'faible' && _params.n > 1) {
+      const points = Array.from({ length: _params.n }, (_, i) => (_params.Ve * (i + 1)).toFixed(2));
+      elVe.textContent = `${points.join(' mL, ')} mL  (${_params.n} équivalences)`;
+    } else {
+      elVe.textContent = `${_params.Ve.toFixed(2)} mL`;
+    }
+  }
 
   _dessinerGraphe();
 }
