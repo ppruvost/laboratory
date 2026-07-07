@@ -187,19 +187,36 @@ export function initSections() {
 }
 
 // ── Onglets ───────────────────────────────────────────────────
-export function initTabs() {
-  document.querySelectorAll('.tabs-header').forEach(header => {
-    header.querySelectorAll('.tab-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const container = header.closest('.tabs-container') || header.parentElement;
-        container.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('actif'));
-        container.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('actif'));
-        btn.classList.add('actif');
-        const panel = container.querySelector(`#${btn.dataset.tab}`);
-        if (panel) panel.classList.add('actif');
-      });
+export function initTabs(callback = null) {
+
+    document.querySelectorAll(".tabs-container").forEach(container => {
+
+        const boutons = container.querySelectorAll(".tab-btn");
+        const panneaux = container.querySelectorAll(".tab-panel");
+
+        boutons.forEach(btn => {
+
+            btn.addEventListener("click", () => {
+
+                boutons.forEach(b => b.classList.remove("actif"));
+                panneaux.forEach(p => p.classList.remove("actif"));
+
+                btn.classList.add("actif");
+
+                const panel = container.querySelector("#" + btn.dataset.tab);
+
+                if (panel)
+                    panel.classList.add("actif");
+
+                if (callback)
+                    callback(btn.dataset.tab);
+
+            });
+
+        });
+
     });
-  });
+
 }
 
 // ── Impression simple (window.print) ─────────────────────────
