@@ -258,8 +258,49 @@ function _miseAJourParams() {
 // ══════════════════════════════════════════════════════════════
 // pH THÉORIQUE (pour la courbe simulée)
 // ══════════════════════════════════════════════════════════════
+// ══════════════════════════════════════════════════════════════
+// pH d'un polyacide faible (n protons acides, pKa croissants)
+// titré par une base forte, à un volume Vb donné.
+// Résolution numérique du bilan de charge par bissection
+// (dichotomie géométrique sur [H+], robuste sur 14 décades).
+// ══════════════════════════════════════════════════════════════
+function _pHPolyacideFaibleBaseForte(Vb, Va, Ca, Cb, pKaArray) {
+  const n  = pKaArray.length;
+  const Ka = pKaArray.map(pk => Math.pow(10, -pk));
+  const V  = (Va + Vb) / 1000;
+  const C      = (Ca * Va) / 1000 / V;   // concentration analytique totale de l'acide
+  const Cbase  = (Cb * Vb) / 1000 / V;   // [Na+] apporté par la burette
+
+  function f(h) {
+    // termes[i] = produit des i premiers Ka × h^(n-i), pour i = 0..n
+    const termes = [Math.pow(h, n)];
+    let cumKa = 1;
+    for (let i = 0; i < n; i++) {
+      cumKa *= Ka[i];
+      termes.push(cumKa * Math.pow(h, n - 1 - i));
+    }
+    const D = termes.reduce((a, b) => a + b, 0);
+
+    let sommeCharges = 0; // Σ i·[espèce i- fois chargée] / C
+    for (let i = 1; i <= n; i++) sommeCharges += i * termes[i] / D;
+
+    return Cbase + h - (Ke / h) - C * sommeCharges;
+  }
+
+  let lo = 1e-14, hi = 1;      // bornes en [H+], soit pH ∈ [0, 14]
+  let flo = f(lo);
+  for (let iter = 0; iter < 80; iter++) {
+    const mid  = Math.sqrt(lo * hi); // moyenne géométrique = dichotomie en pH
+    const fmid = f(mid);
+    if (Math.abs(fmid) < 1e-15) return -Math.log10(mid);
+    if ((fmid > 0) === (flo > 0)) { lo = mid; flo = fmid; }
+    else { hi = mid; }
+  }
+  return -Math.log10(Math.sqrt(lo * hi));
+}
+
 function _calcPH(Vb, p) {
-  const { Va, Ca, Cb, typeAcide, typeBase, pKa } = p;
+  const { Va, Ca, Cb, typeAcide, typeBase, pKaArray } = p;
   const na = Ca * Va / 1000;
   const nb = Cb * Vb / 1000;
   const Vt = (Va + Vb) / 1000;
@@ -270,26 +311,15 @@ function _calcPH(Vb, p) {
     if (nb > na + eps) return 14 + Math.log10((nb - na) / Vt);
     return 7;
   }
+
   if (typeAcide === 'faible' && typeBase === 'fort') {
-    const Ka = Math.pow(10, -(pKa || PKA['CH3COOH']));
-    if (Vb === 0) {
-      const h = (-Ka + Math.sqrt(Ka * Ka + 4 * Ka * Ca)) / 2;
-      return -Math.log10(h);
-    }
-    if (nb < na - eps) {
-      const ratio = (na - nb) / nb;
-      return (pKa || 4.76) + Math.log10(1 / ratio);
-    }
-    if (Math.abs(nb - na) <= eps) {
-      const cSel = na / Vt;
-      const Kb = Ke / Ka;
-      const oh = (-Kb + Math.sqrt(Kb * Kb + 4 * Kb * cSel)) / 2;
-      return 14 + Math.log10(oh);
-    }
-    return 14 + Math.log10((nb - na) / Vt);
+    const jeu = (pKaArray && pKaArray.length) ? pKaArray : PKA_SETS['CH3COOH'].pKa;
+    return _pHPolyacideFaibleBaseForte(Vb, Va, Ca, Cb, jeu);
   }
+
   if (typeAcide === 'fort' && typeBase === 'faible') {
-    const Kb = Math.pow(10, -(14 - (pKa || PKA['NH4+'])));
+    const pKa1 = (pKaArray && pKaArray[0]) || PKA_SETS['NH4+'].pKa[0];
+    const Kb = Math.pow(10, -(14 - pKa1));
     const Ka = Ke / Kb;
     if (nb < na - eps) return -Math.log10((na - nb) / Vt);
     if (Math.abs(nb - na) <= eps) {
@@ -297,7 +327,7 @@ function _calcPH(Vb, p) {
       const h = (-Ka + Math.sqrt(Ka * Ka + 4 * Ka * cSel)) / 2;
       return -Math.log10(h);
     }
-    return (14 - (pKa || 9.25)) + Math.log10((nb - na) / Vt);
+    return (14 - pKa1) + Math.log10((nb - na) / Vt);
   }
   return 7;
 }
