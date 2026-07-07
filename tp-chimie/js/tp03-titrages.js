@@ -10,47 +10,25 @@ import { genererCompteRendu } from '../../js/compte-rendu.js';
 
 // ── Constantes chimiques ────────────────────────────────────────
 const Ke = 1e-14;
-const PKA = {
-  // Acides faibles
-  "CH3COOH": 4.76,          // acide acétique
-  "CH3CH2COOH": 4.87,       // acide propionique
-  "CH3CH2CH2COOH": 4.82,    // acide butyrique
-  "HF": 3.17,
-  "HNO2": 3.37,
 
-  // Ammoniac / ammonium
-  "NH4+": 9.25,
+// Chaque entrée = { label, pKa: [Ka1, Ka2, ...] } dans l'ordre croissant
+// (pKa1 = première acidité, la plus forte, donc le pKa le plus bas)
+const PKA_SETS = {
+  // Monoacides / monobases faibles
+  CH3COOH: { label: "CH₃COOH / CH₃COO⁻ (acide acétique)",  pKa: [4.76] },
+  HF:      { label: "HF / F⁻ (acide fluorhydrique)",        pKa: [3.17] },
+  HNO2:    { label: "HNO₂ / NO₂⁻ (acide nitreux)",          pKa: [3.37] },
+  "NH4+":  { label: "NH₄⁺ / NH₃ (ammonium / ammoniac)",     pKa: [9.25] },
+  H2O2:    { label: "H₂O₂ / HO₂⁻ (eau oxygénée)",           pKa: [11.7] },
+  H3BO3:   { label: "H₃BO₃ / H₂BO₃⁻ (acide borique)",       pKa: [9.24] },
 
-  // Acide phosphorique
-  "H3PO4": 2.15,
-  "H2PO4-": 7.20,
-  "HPO4^2-": 12.35,
-
-  // Acide carbonique
-  "H2CO3": 6.35,
-  "HCO3-": 10.33,
-
-  // Acide borique (borax)
-  "H3BO3": 9.24,
-
-  // Acide oxalique
-  "H2C2O4": 1.25,
-  "HC2O4-": 4.27,
-
-  // EDTA
-  "H4EDTA": 2.00,
-  "H3EDTA-": 2.67,
-  "H2EDTA2-": 6.16,
-  "HEDTA3-": 10.26,
-
-  // Sulfure d'hydrogène (utile avec FeS)
-  "H2S": 7.02,
-  "HS-": 12.90,
-
-  // Eau oxygénée
-  "H2O2": 11.7,
+  // Polyacides — plusieurs sauts de pH
+  H2C2O4:  { label: "H₂C₂O₄ — acide oxalique (diacide)",         pKa: [1.25, 4.27] },
+  H2CO3:   { label: "H₂CO₃ — acide carbonique (diacide)",        pKa: [6.35, 10.33] },
+  H2S:     { label: "H₂S — sulfure d'hydrogène (diacide)",       pKa: [7.02, 12.90] },
+  H3PO4:   { label: "H₃PO₄ — acide phosphorique (triacide)",     pKa: [2.15, 7.20, 12.35] },
+  H4EDTA:  { label: "H₄EDTA — EDTA (tétraacide)",                pKa: [2.00, 2.67, 6.16, 10.26] },
 };
-
 // ══════════════════════════════════════════════════════════════
 // ÉTAT GLOBAL
 // ══════════════════════════════════════════════════════════════
