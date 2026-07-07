@@ -304,24 +304,22 @@
                 </label>
 
                 <select id="pka-select">
-
-                    <option value="CH3COOH">
-                        CH₃COOH / CH₃COO⁻
-                    </option>
-
-                    <option value="NH4+">
-                        NH₄⁺ / NH₃
-                    </option>
-
-                    <option value="HF">
-                        HF / F⁻
-                    </option>
-
-                    <option value="HNO2">
-                        HNO₂ / NO₂⁻
-                    </option>
-
-                </select>
+  <optgroup label="Monoacides / monobases faibles">
+    <option value="CH3COOH">CH₃COOH / CH₃COO⁻ (acide acétique)</option>
+    <option value="HF">HF / F⁻ (acide fluorhydrique)</option>
+    <option value="HNO2">HNO₂ / NO₂⁻ (acide nitreux)</option>
+    <option value="NH4+">NH₄⁺ / NH₃ (ammonium / ammoniac)</option>
+    <option value="H2O2">H₂O₂ / HO₂⁻ (eau oxygénée)</option>
+    <option value="H3BO3">H₃BO₃ / H₂BO₃⁻ (acide borique)</option>
+  </optgroup>
+  <optgroup label="Polyacides (plusieurs équivalences)">
+    <option value="H2C2O4">H₂C₂O₄ — acide oxalique (diacide)</option>
+    <option value="H2CO3">H₂CO₃ — acide carbonique (diacide)</option>
+    <option value="H2S">H₂S — sulfure d'hydrogène (diacide)</option>
+    <option value="H3PO4">H₃PO₄ — acide phosphorique (triacide)</option>
+    <option value="H4EDTA">H₄EDTA — EDTA (tétraacide)</option>
+  </optgroup>
+</select>
 
             </div>
 
