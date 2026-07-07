@@ -392,30 +392,7 @@ function _construireEtImprimer(identite) {
     setTimeout(() => iframe.remove(), 1000);
   };
 
-  iframe.addEventListener('load', () => {
-    declencherImpression();
-    // "afterprint" n'est pas toujours fiable sur mobile : on nettoie
-    // aussi via un filet de sécurité (setTimeout) plus bas.
-    iframe.contentWindow?.addEventListener('afterprint', retirerIframe);
-  });
-
-  // Filets de sécurité si "load" ou "afterprint" ne se déclenchent jamais
-  // (observé sur certains navigateurs mobiles / contextes PWA).
-  setTimeout(declencherImpression, 1200);
-  setTimeout(retirerIframe, 20000);
-
-  document.body.appendChild(iframe);
-
-iframe.onload = () => {
-    console.log("iframe chargé");
-    console.log(iframe.contentDocument.body.innerHTML);
-
-    iframe.contentWindow.focus();
-    iframe.contentWindow.print();
-};
-
-iframe.srcdoc = docHTML;
-}
+  
 
 // ══════════════════════════════════════════════════════════════
 // Matériel sélectionné par l'élève
