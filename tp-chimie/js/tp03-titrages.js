@@ -68,6 +68,7 @@ let _reactifCourant = null;
 export function init() {
   initSections();
   initTabs();
+  initMateriel();
   initImprimer();
 
   _initReactifs();
