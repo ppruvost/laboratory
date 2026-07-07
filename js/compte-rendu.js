@@ -404,7 +404,16 @@ function _construireEtImprimer(identite) {
   setTimeout(retirerIframe, 20000);
 
   document.body.appendChild(iframe);
-  iframe.srcdoc = docHTML;
+
+iframe.onload = () => {
+    console.log("iframe chargé");
+    console.log(iframe.contentDocument.body.innerHTML);
+
+    iframe.contentWindow.focus();
+    iframe.contentWindow.print();
+};
+
+iframe.srcdoc = docHTML;
 }
 
 // ══════════════════════════════════════════════════════════════
