@@ -311,113 +311,71 @@ function _construireAutoEvaluation() {
   return html;
 }
 
+
 // ══════════════════════════════════════════════════════════════
-// ÉTAPE 4 — IMPRESSION VIA IFRAME ISOLÉ
-//
-// Pourquoi un iframe et pas un simple `document.body.classList.add(...)` ?
-// Sur mobile (iOS Safari, Chrome Android), la bascule de classe + @media
-// print sur la page principale est peu fiable : l'évènement "afterprint"
-// ne se déclenche pas toujours, et le moteur de rendu peut imprimer un
-// instantané de la page avant que les styles ne soient appliqués — d'où
-// des PDF contenant TOUTE la page web au lieu du seul compte-rendu.
-//
-// En construisant le compte-rendu dans un iframe jetable qui ne contient
-// QUE ce contenu (+ ses propres feuilles de style), il n'y a plus rien à
-// masquer : impossible que la page hôte se retrouve dans le PDF.
+// ÉTAPE 4 — IMPRESSION
+// Version stable (window.print)
 // ══════════════════════════════════════════════════════════════
 function _construireEtImprimer(identite) {
+
   const contenuHTML = _construireTrameHTML(identite);
 
-  const docHTML = `<!DOCTYPE html>
-<html lang="fr">
-<head>
-<meta charset="UTF-8">
-<title>${_echapper(_config.titre)}</title>
-<link rel="stylesheet" href="${GLOBAL_CSS_HREF}">
-<link rel="stylesheet" href="${RESET_CSS_HREF}">
-<link rel="stylesheet" href="${CSS_HREF}">
-</head>
-<body class="cr-printing">
-<div id="cr-print-container">${contenuHTML}</div>
-</body>
-</html>`;
+  // Création du conteneur d'impression s'il n'existe pas
+  let conteneur = document.getElementById('cr-print-container');
 
-  const iframe = document.createElement('iframe');
-  iframe.setAttribute('aria-hidden', 'true');
-  iframe.setAttribute('title', 'Impression du compte-rendu');
-  // IMPORTANT : ne JAMAIS combiner une taille 0×0 avec visibility:hidden ou
-  // display:none sur cet iframe. Ces navigateurs (notamment Chrome/Chromium)
-  // excluent purement et simplement un iframe ainsi masqué du pipeline de
-  // rendu — y compris lors de l'appel à contentWindow.print() — ce qui
-  // produit un PDF entièrement blanc, quel que soit le contenu injecté.
-  // L'iframe doit rester "rendable" : on le positionne hors écran avec de
-  // vraies dimensions (format A4) plutôt que de le masquer.
-  Object.assign(iframe.style, {
-    position: 'fixed',
-    top: '0',
-    left: '-10000px',
-    width: '210mm',
-    height: '297mm',
-    border: '0',
-  });
+  if (!conteneur) {
+    conteneur = document.createElement('div');
+    conteneur.id = 'cr-print-container';
+    document.body.appendChild(conteneur);
+  }
 
-  let dejaImprime = false;
-  const declencherImpression = () => {
-    if (dejaImprime) return;
-    dejaImprime = true;
+  // Injection du compte-rendu
+  conteneur.innerHTML = contenuHTML;
 
-    const fenetre = iframe.contentWindow;
-    if (!fenetre) return;
+  // Activation du mode impression
+  document.body.classList.add('cr-printing');
 
-    // Double requestAnimationFrame : laisse le temps au moteur de rendu
-    // mobile de terminer la mise en page avant d'ouvrir la boîte
-    // d'impression. Un simple setTimeout court est insuffisant sur
-    // certains iOS/Android — c'est la cause la plus fréquente du bug
-    // "le PDF contient toute la page".
-    requestAnimationFrame(() => requestAnimationFrame(() => {
+  // Nettoyage après impression
+  let nettoyageEffectue = false;
+
+  const nettoyer = () => {
+
+    if (nettoyageEffectue) return;
+    nettoyageEffectue = true;
+
+    document.body.classList.remove('cr-printing');
+
+    conteneur.innerHTML = '';
+
+    window.removeEventListener('afterprint', nettoyer);
+
+  };
+
+  // Après impression (Chrome, Edge, Firefox)
+  window.addEventListener('afterprint', nettoyer, { once: true });
+
+  // Sécurité si afterprint n'est jamais déclenché
+  setTimeout(() => {
+    nettoyer();
+  }, 5000);
+
+  // Laisse le navigateur effectuer complètement la mise en page
+  requestAnimationFrame(() => {
+
+    requestAnimationFrame(() => {
+
       try {
-        fenetre.focus();
-        fenetre.print();
-      } catch (e) {
-        console.error('SciLab — impression du compte-rendu impossible :', e);
+        window.focus();
+        window.print();
       }
-    }));
-  };
+      catch (e) {
+        console.error("SciLab — Impression impossible :", e);
+        nettoyer();
+      }
 
-  let dejaRetire = false;
-  const retirerIframe = () => {
-    if (dejaRetire) return;
-    dejaRetire = true;
-    setTimeout(() => iframe.remove(), 1000);
-  };
-
-  // ────────────────────────────────────────────────────────────
-  // BRANCHEMENT RÉEL DE L'IFRAME
-  // (c'est cette partie qui manquait entièrement : sans elle,
-  //  l'iframe n'était jamais rempli ni inséré dans le DOM,
-  //  d'où les PDF vides / l'impression qui ne se déclenchait pas)
-  // ────────────────────────────────────────────────────────────
-
-  iframe.addEventListener('load', () => {
-
-    declencherImpression();
-
-    try {
-      iframe.contentWindow.addEventListener('afterprint', retirerIframe);
-    } catch (e) {
-      // certains navigateurs mobiles ne déclenchent jamais afterprint
-    }
-
-    // filet de sécurité : on retire l'iframe après 60s
-    // même si afterprint ne s'est jamais déclenché
-    setTimeout(retirerIframe, 60000);
+    });
 
   });
-
-  document.body.appendChild(iframe);
-
-  // srcdoc déclenche l'évènement 'load' une fois le document chargé
-  iframe.srcdoc = docHTML;
 
 }
 
