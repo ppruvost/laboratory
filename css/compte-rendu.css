@@ -133,21 +133,98 @@
 
 #cr-print-container { display: none; }
 
+/* ══════════════════════════════════════════════════════════════
+   IMPRESSION
+   ══════════════════════════════════════════════════════════════ */
+
 @media print {
 
-  body.cr-printing > *:not(#cr-print-container) { display: none !important; }
-  body.cr-printing { background: var(--blanc) !important; }
-
-  #cr-print-container {
-    display: block !important;
-    width: 100%;
-    font-family: "Segoe UI", Arial, sans-serif;
-    font-size: 9.5pt;
-    color: #111827;
-    line-height: 1.4;
-    -webkit-print-color-adjust: exact;
-    print-color-adjust: exact;
+  @page {
+    size: A4 portrait;
+    margin: 12mm;
   }
+
+  html,
+  body {
+    margin: 0;
+    padding: 0;
+    background: #fff !important;
+  }
+
+  /* --------------------------------------------------------
+     Masquer toute l'application
+     -------------------------------------------------------- */
+
+  body.cr-printing > * {
+    display: none !important;
+  }
+
+  /* --------------------------------------------------------
+     N'afficher que le compte-rendu
+     -------------------------------------------------------- */
+
+  body.cr-printing #cr-print-container {
+
+    display: block !important;
+
+    position: static !important;
+
+    width: auto !important;
+
+    max-width: none !important;
+
+    margin: 0 !important;
+
+    padding: 0 !important;
+
+    background: white !important;
+
+    color: black !important;
+
+    overflow: visible !important;
+
+  }
+
+  body.cr-printing #cr-print-container * {
+
+    visibility: visible !important;
+
+  }
+
+  /* --------------------------------------------------------
+     Éviter les coupures
+     -------------------------------------------------------- */
+
+  .cr-section,
+  .cr-note-finale,
+  .cr-auto-eval,
+  .cr-identification {
+
+    page-break-inside: avoid;
+    break-inside: avoid;
+
+  }
+
+  table {
+
+    page-break-inside: auto;
+
+  }
+
+  tr {
+
+    page-break-inside: avoid;
+
+  }
+
+  img {
+
+    max-width: 100%;
+    page-break-inside: avoid;
+
+  }
+
+}
 
   @page { size: A4 portrait; margin: 13mm 12mm 12mm 12mm; }
 
