@@ -309,16 +309,7 @@ const laboratoryEquipment = [
         lieu: "Salle B27 / étagère D4",
         image:"",        
         noticeUtilisation: "assets/notice/propipettes.pdf"
-    },
-    {
-        domaine: "Chimie",
-        nom: "Burette",
-        categorie: ["Dilution", "pHmétrie"],
-        description: "Titrage et dosage",
-        lieu: "Salle B27 / étagère E2",
-        image:"",               
-        noticeUtilisation: "assets/notice/burette.pdf"
-    },
+    },    
     {
         domaine: "Chimie",
         nom: "pH-mètre",
