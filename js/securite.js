@@ -115,6 +115,30 @@ export function remplirListeProduits({
 
 
 /* ==========================================================
+   RESOLUTION IMAGE PICTOGRAMME
+   ==========================================================
+   pictogrammes.js est un tableau d'objets à clé unique,
+   par exemple : { H314: "SGH05_Corrosion.jpg" }
+   ou : { GANTS: "OBLIGATION-gants.jpg" }
+
+   Cette fonction retrouve le nom de fichier associé
+   à un code donné (H-code, EPI, etc.).
+   ========================================================== */
+
+function _resoudreImagePictogramme(pictogrammes, code) {
+
+    if (!pictogrammes || !code)
+        return null;
+
+    const entree =
+        pictogrammes.find(p => code in p);
+
+    return entree ? entree[code] : null;
+
+}
+
+
+/* ==========================================================
    AFFICHAGE SECURITE PRODUIT
    ========================================================== */
 
@@ -156,47 +180,84 @@ export function afficherSecuriteProduit({
     `;
 
 
-    /* ---------- pictogrammes ---------- */
+    /* ---------- pictogrammes GHS ----------
+       products.js fournit déjà les noms de fichiers
+       directement dans produit.pictogramme (ex: ["SGH05_Corrosion.jpg"])
+       → pas besoin de passer par dangerDB/pictogrammes.js pour ceux-ci.
+    */
 
-    const dangers =
-        produit.dangers ||
+    const fichiersPicto =
+        produit.pictogramme ||
         produit.pictogrammes ||
         [];
 
 
-    const pictos = dangers
-        .map(code => {
-
-            const picto =
-                pictogrammes.find(
-                    p => p.code === code
-                );
-
-            if (!picto)
-                return "";
-
-
-            return `
+    const pictosHTML = fichiersPicto
+        .map(fichier => `
             <img
                 class="picto-clp"
-                src="${imgSrc(
-                    "assets/picto/" + picto.image
-                )}"
-                alt="${code}"
-                title="${code}">
+                src="${imgSrc("assets/picto/" + fichier)}"
+                alt="pictogramme"
+                title="pictogramme"
+                onerror="this.style.display='none'">
+        `)
+        .join("");
+
+
+    if (pictosHTML) {
+
+        html += `
+
+        <div class="pictos-clp">
+            ${pictosHTML}
+        </div>
+
+        `;
+
+    }
+
+
+
+    /* ---------- EPI obligatoires ---------- */
+
+    const epiHTML =
+        (produit.obligation || [])
+        .map(code => {
+
+            const epi = EPI_CONFIG[code];
+
+            if (!epi)
+                return "";
+
+            return `
+            <div class="epi-item">
+                <img
+                    src="${imgSrc(epi.img)}"
+                    alt="${epi.label}"
+                    title="${epi.label}"
+                    onerror="this.style.display='none'">
+                <span>${epi.label}</span>
+            </div>
             `;
 
         })
         .join("");
 
 
-
-    if (pictos) {
+    if (epiHTML) {
 
         html += `
 
-        <div class="pictos-clp">
-            ${pictos}
+        <div class="epi-bloc">
+
+            <h4>
+                🦺 Équipements de protection
+            </h4>
+
+            <div class="epi-liste">
+                ${epiHTML}
+            </div>
+
         </div>
 
         `;
@@ -206,6 +267,10 @@ export function afficherSecuriteProduit({
 
 
     /* ---------- mentions H ---------- */
+
+    const dangers =
+        produit.dangers || [];
+
 
     const mentionsH =
         dangers
@@ -312,6 +377,18 @@ export function afficherSecuriteProduit({
     }
 
 
+    /* ---------- localisation ---------- */
+
+    if (produit.localisation) {
+
+        html += `
+        <p class="produit-localisation">
+            📍 ${produit.localisation}
+        </p>
+        `;
+
+    }
+
 
     html += `</div>`;
 
@@ -323,7 +400,7 @@ export function afficherSecuriteProduit({
 
 
 /* ==========================================================
-   BLOC SECURITE COMPLET
+   BLOC SECURITE COMPLET (liste multi-produits)
    ========================================================== */
 
 export function genererBlocSecurite({
@@ -350,32 +427,17 @@ export function genererBlocSecurite({
         `;
 
 
-        const dangers =
-            p.dangers || [];
+        const fichiersPicto =
+            p.pictogramme || [];
 
 
-        html += dangers
-        .map(code => {
-
-            const picto =
-                pictogrammes.find(
-                    x => x.code === code
-                );
-
-
-            if (!picto)
-                return "";
-
-
-            return `
+        html += fichiersPicto
+        .map(fichier => `
             <img
             class="picto-clp"
-            src="${imgSrc(
-                "assets/picto/" + picto.image
-            )}">
-            `;
-
-        })
+            src="${imgSrc("assets/picto/" + fichier)}"
+            onerror="this.style.display='none'">
+            `)
         .join("");
 
 
@@ -393,7 +455,7 @@ export function genererBlocSecurite({
 
 
 /* ==========================================================
-   EPI
+   EPI (usage autonome, hors fiche produit)
    ========================================================== */
 
 export function afficherEPI(zoneId, listeEPI = []) {
