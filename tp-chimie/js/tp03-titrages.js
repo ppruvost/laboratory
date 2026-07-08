@@ -7,7 +7,7 @@
  * - dépend uniquement des modules communs
  * - aucun accès direct à PRODUITS
  * - aucun doublon de fonction avec utils.js
- * - initialisation via initTP()
+ * - initialisation via init()
  * ============================================================
  */
 
@@ -86,7 +86,7 @@ const TP_CONFIG = {
 
 
 /* ============================================================
-   INITIALISATION PRINCIPALE
+   INITIALISATION MODULES COMMUNS
 ============================================================ */
 
 
@@ -158,6 +158,12 @@ export function initTP03() {
       TP_CONFIG.competences
 
   });
+
+
+}
+
+
+
 /* ============================================================
    GESTION DES PARAMÈTRES DE TITRAGE
 ============================================================ */
@@ -1440,24 +1446,25 @@ function initialiserTP03() {
 
 
 
-
-
 /* ============================================================
-   DÉTECTION CHARGEMENT MODULE SPA
+   POINT D'ENTRÉE ATTENDU PAR navigation.js
+   (navigation.js appelle module.init() après le fetch du HTML)
 ============================================================ */
 
 
-/**
- * navigation.js charge le fragment puis le JS.
- * Cette protection évite les doubles initialisations.
- */
+export function init() {
 
 
-if (
+  if (
 
-  !window.tp03Initialise
+    window.tp03Initialise
 
-) {
+  ) {
+
+    return;
+
+  }
+
 
 
   window.tp03Initialise = true;
@@ -1465,12 +1472,6 @@ if (
 
 
   initialiserTP03();
-
-
-}
-
-
-
 
 
 }
