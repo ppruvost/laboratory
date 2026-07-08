@@ -5,13 +5,11 @@ import dangerDB            from "../data/dangerDB.js";
 import pictogrammes        from "../data/pictogrammes.js";
 
 import { initPrintLabels } from "../data/print-labels.js";
-import { showSection }     from "../modules/ui.js";
 
 // =====================================================
 // GLOBAL ACCESS (UI uniquement)
 // =====================================================
 window.products   = products;
-window.showSection = showSection;
 
 // =====================================================
 // ÉTIQUETTES
