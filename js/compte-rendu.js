@@ -327,7 +327,6 @@ function _construireAutoEvaluation() {
 // ══════════════════════════════════════════════════════════════
 function _construireEtImprimer(identite) {
   const contenuHTML = _construireTrameHTML(identite);
-  console.log(contenuHTML.length);
 
   const docHTML = `<!DOCTYPE html>
 <html lang="fr">
@@ -392,7 +391,36 @@ function _construireEtImprimer(identite) {
     setTimeout(() => iframe.remove(), 1000);
   };
 
-  
+  // ────────────────────────────────────────────────────────────
+  // BRANCHEMENT RÉEL DE L'IFRAME
+  // (c'est cette partie qui manquait entièrement : sans elle,
+  //  l'iframe n'était jamais rempli ni inséré dans le DOM,
+  //  d'où les PDF vides / l'impression qui ne se déclenchait pas)
+  // ────────────────────────────────────────────────────────────
+
+  iframe.addEventListener('load', () => {
+
+    declencherImpression();
+
+    try {
+      iframe.contentWindow.addEventListener('afterprint', retirerIframe);
+    } catch (e) {
+      // certains navigateurs mobiles ne déclenchent jamais afterprint
+    }
+
+    // filet de sécurité : on retire l'iframe après 60s
+    // même si afterprint ne s'est jamais déclenché
+    setTimeout(retirerIframe, 60000);
+
+  });
+
+  document.body.appendChild(iframe);
+
+  // srcdoc déclenche l'évènement 'load' une fois le document chargé
+  iframe.srcdoc = docHTML;
+
+}
+
 
 // ══════════════════════════════════════════════════════════════
 // Matériel sélectionné par l'élève
