@@ -331,6 +331,8 @@
 
 
 </div>
+
+
 <!-- ====================================================== -->
 <!-- PARAMÈTRES DU TITRAGE                                  -->
 <!-- ====================================================== -->
@@ -658,7 +660,7 @@
       <button id="btn-generer-theorique"
               class="btn btn-secondaire">
 
-        Générer une courbe théorique
+        📈 Générer courbe théorique
 
       </button>
 
@@ -745,387 +747,8 @@
 
 
 </div>
-<!-- ====================================================== -->
-<!-- PARAMÈTRES DU TITRAGE                                  -->
-<!-- ====================================================== -->
 
-<div class="section" data-type="parametres">
 
-    <div class="section-titre">
-        <div class="picto-section">⚗️</div>
-        <h2>Paramètres du titrage</h2>
-        <span class="chevron">▼</span>
-    </div>
-
-    <div class="section-corps">
-
-        <div class="form-row">
-
-            <div class="form-group">
-                <label for="va">
-                    Volume de solution titrée Va (mL)
-                </label>
-                <input 
-                    type="number"
-                    id="va"
-                    value="20"
-                    step="0.1">
-            </div>
-
-
-            <div class="form-group">
-                <label for="ca">
-                    Concentration estimée Ca (mol/L)
-                </label>
-                <input 
-                    type="number"
-                    id="ca"
-                    value="0.100"
-                    step="0.001">
-            </div>
-
-
-            <div class="form-group">
-                <label for="cb">
-                    Concentration solution titrante Cb (mol/L)
-                </label>
-                <input 
-                    type="number"
-                    id="cb"
-                    value="0.100"
-                    step="0.001">
-            </div>
-
-        </div>
-
-
-        <div class="form-row">
-
-
-            <div class="form-group">
-
-                <label for="sel-acide">
-                    Nature de l'acide
-                </label>
-
-                <select id="sel-acide">
-
-                    <option value="fort">
-                        Acide fort
-                    </option>
-
-                    <option value="faible">
-                        Acide faible
-                    </option>
-
-                </select>
-
-            </div>
-
-
-            <div class="form-group">
-
-                <label for="sel-base">
-                    Nature de la base
-                </label>
-
-                <select id="sel-base">
-
-                    <option value="fort">
-                        Base forte
-                    </option>
-
-                    <option value="faible">
-                        Base faible
-                    </option>
-
-                </select>
-
-            </div>
-
-
-
-            <div class="form-group">
-
-                <label for="pka-select">
-                    Couple acide/base
-                </label>
-
-
-                <select id="pka-select">
-
-                    <optgroup label="Monoacides faibles">
-
-                        <option value="CH3COOH">
-                            CH₃COOH / CH₃COO⁻
-                        </option>
-
-
-                        <option value="HF">
-                            HF / F⁻
-                        </option>
-
-
-                        <option value="HNO2">
-                            HNO₂ / NO₂⁻
-                        </option>
-
-
-                        <option value="NH4+">
-                            NH₄⁺ / NH₃
-                        </option>
-
-
-                        <option value="H2O2">
-                            H₂O₂ / HO₂⁻
-                        </option>
-
-
-                        <option value="H3BO3">
-                            H₃BO₃ / H₂BO₃⁻
-                        </option>
-
-                    </optgroup>
-
-
-
-                    <optgroup label="Polyacides">
-
-                        <option value="H2C2O4">
-                            H₂C₂O₄ — acide oxalique
-                        </option>
-
-
-                        <option value="H2CO3">
-                            H₂CO₃ — acide carbonique
-                        </option>
-
-
-                        <option value="H2S">
-                            H₂S — sulfure d'hydrogène
-                        </option>
-
-
-                        <option value="H3PO4">
-                            H₃PO₄ — acide phosphorique
-                        </option>
-
-
-                        <option value="H4EDTA">
-                            H₄EDTA — EDTA
-                        </option>
-
-
-                    </optgroup>
-
-
-                </select>
-
-            </div>
-
-
-        </div>
-
-
-
-        <div class="resultat">
-
-            <h3>
-                Volume d'équivalence théorique
-            </h3>
-
-
-            <div 
-                id="ve-theo"
-                class="valeur">
-
-                —
-
-            </div>
-
-
-        </div>
-
-
-    </div>
-
-</div>
-
-
-
-<!-- ====================================================== -->
-<!-- TABLEAU DE MESURES                                     -->
-<!-- ====================================================== -->
-
-
-<div class="section" data-type="mesures">
-
-
-    <div class="section-titre">
-
-        <div class="picto-section">📋</div>
-
-        <h2>
-            Tableau de mesures expérimentales
-        </h2>
-
-        <span class="chevron">
-            ▼
-        </span>
-
-    </div>
-
-
-
-    <div class="section-corps">
-
-
-        <div class="toolbar">
-
-
-            <button
-                id="btn-ajouter-mesure"
-                class="btn btn-primaire">
-
-                ➕ Ajouter une mesure
-
-            </button>
-
-
-
-            <div class="form-group">
-
-
-                <label for="pas-rapide">
-                    Pas rapide
-                </label>
-
-
-                <select id="pas-rapide">
-
-
-                    <option value="0.2">
-                        0,2 mL
-                    </option>
-
-
-                    <option value="0.5" selected>
-                        0,5 mL
-                    </option>
-
-
-                    <option value="1">
-                        1,0 mL
-                    </option>
-
-
-                </select>
-
-
-            </div>
-
-
-
-
-            <button
-                id="btn-generer-theorique"
-                class="btn btn-secondaire">
-
-                📈 Générer courbe théorique
-
-            </button>
-
-
-
-
-            <button
-                id="btn-vider-mesures"
-                class="btn btn-danger">
-
-                🗑 Effacer les mesures
-
-            </button>
-
-
-        </div>
-
-
-
-
-
-        <div class="table-responsive">
-
-
-            <table
-                id="table-mesures"
-                class="tableau-resultats">
-
-
-                <thead>
-
-                    <tr>
-
-                        <th>
-                            Volume ajouté (mL)
-                        </th>
-
-
-                        <th>
-                            pH
-                        </th>
-
-
-                        <th>
-                            Observation
-                        </th>
-
-
-                        <th>
-                            Action
-                        </th>
-
-
-                    </tr>
-
-
-                </thead>
-
-
-
-                <tbody id="tbody-mesures">
-
-                    <!-- Génération dynamique JS -->
-
-                </tbody>
-
-
-
-            </table>
-
-
-
-        </div>
-
-
-
-
-
-        <div class="info">
-
-
-            Il est conseillé d'effectuer des mesures rapprochées
-            autour du volume d'équivalence.
-
-
-        </div>
-
-
-
-    </div>
-
-
-
-</div>
 <!-- ====================================================== -->
 <!-- COURBE DE TITRAGE                                      -->
 <!-- ====================================================== -->
@@ -1642,6 +1265,8 @@
 
 
 </div>
+
+
 <!-- ====================================================== -->
 <!-- CORRECTION DES ERREURS DE MESURE                       -->
 <!-- ====================================================== -->
@@ -2769,6 +2394,8 @@
 
 
 </div>
+
+
 <!-- ====================================================== -->
 <!-- NAVIGATION                                              -->
 <!-- ====================================================== -->
@@ -2776,7 +2403,7 @@
 <div class="nav-tp">
 
 
-    <a
+    
         href="tp02-ph-indicateurs.html"
         class="btn btn-secondaire">
 
@@ -2786,7 +2413,7 @@
 
 
 
-    <a
+    
         href="../index.html"
         class="btn btn-secondaire">
 
@@ -2796,7 +2423,7 @@
 
 
 
-    <a
+    
         href="tp04-conductivite.html"
         class="btn btn-primaire">
 
