@@ -3,7 +3,7 @@
  *
  * TP03 — Titrages acido-basiques (pH-métrie)
  *
- * Architecture modulaire (identique à TP01) :
+ * Architecture modulaire :
  *  - utils.js
  *  - securite.js
  *  - materiel.js
@@ -268,8 +268,6 @@ else {
 
 }
 
-
-
 /* ==========================================================
    REACTIF + FILTRE SECURITE (identique TP01)
    ========================================================== */
@@ -343,8 +341,6 @@ function afficherSecurite() {
     });
 
 }
-
-
 
 /* ==========================================================
    PARAMETRES DU TITRAGE (va, ca, cb, sel-acide, sel-base, pka)
@@ -425,8 +421,6 @@ function getParametresTitrage() {
 
 }
 
-
-
 /* ==========================================================
    VOLUME D'EQUIVALENCE THEORIQUE
    ========================================================== */
@@ -457,8 +451,6 @@ function calculerVeTheorique() {
     return veq;
 
 }
-
-
 
 /* ==========================================================
    TABLEAU DE MESURES
@@ -621,8 +613,6 @@ function viderMesures() {
 
 }
 
-
-
 /* ==========================================================
    COURBE THEORIQUE (simulation pH = f(V))
    ========================================================== */
@@ -712,8 +702,6 @@ function genererCourbeTheorique() {
 
 }
 
-
-
 /* ==========================================================
    DERIVEE (à partir des mesures expérimentales)
    ========================================================== */
@@ -748,8 +736,6 @@ function calculerDeriveeMesures() {
     return derivees;
 
 }
-
-
 
 /* ==========================================================
    RESULTATS AUTOMATIQUES (tangentes / dérivées)
@@ -847,8 +833,6 @@ function calculerResultatsAutomatiques() {
     }
 
 }
-
-
 
 /* ==========================================================
    CANVAS — COURBE DE TITRAGE
@@ -1212,8 +1196,6 @@ function dessinerDerivee(canvas, vMin, vMax) {
 
 }
 
-
-
 /* ==========================================================
    CORRECTION DES ERREURS DE MESURE
    ========================================================== */
@@ -1398,8 +1380,6 @@ function rafraichirTableauMesures() {
     });
 
 }
-
-
 
 /* ==========================================================
    BOUTON IMPRESSION COMPTE-RENDU
