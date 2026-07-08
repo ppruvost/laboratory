@@ -35,7 +35,9 @@ import laboratoryEquipment
 import {
     initSections,
     initTabs,
-    lireTexte
+    lireTexte,
+    appliquerFiltresCategorie,
+    appartientCategorie
 }
 from "../../js/utils.js";
 
@@ -78,8 +80,6 @@ import {
     genererCompteRendu
 }
 from "../../js/compte-rendu.js";
-
-
 
 /* ==========================================================
    VARIABLES
@@ -355,42 +355,6 @@ function initReactifs() {
 
 
 }
-
-
-
-/* ==========================================================
-   FILTRE CATEGORIE
-   ========================================================== */
-
-
-function appartientCategorie(
-    produit,
-    categorie
-) {
-
-
-    if (!produit?.categorie)
-        return false;
-
-
-
-    return Array.isArray(
-        produit.categorie
-    )
-
-    ?
-
-    produit.categorie.includes(
-        categorie
-    )
-
-    :
-
-    produit.categorie === categorie;
-
-
-}
-
 
 
 
