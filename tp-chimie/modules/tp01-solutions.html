@@ -103,158 +103,125 @@
 
 <div class="section" data-type="securite">
 
+    <div class="section-titre">
+        <div class="picto-section">⚠️</div>
+        <h2>Sécurité - Produits utilisés</h2>
+        <span class="chevron">▼</span>
+    </div>
 
-<div class="section-titre">
+    <div class="section-corps">
 
-<div class="picto-section">⚠️</div>
+        <!-- ===================== -->
+        <!-- FILTRES -->
+        <!-- ===================== -->
 
-<h2>
-Sécurité - Produits utilisés
-</h2>
+        <div class="filtre-reactifs">
 
-<span class="chevron">▼</span>
+            <strong>Afficher :</strong>
 
-</div>
+            <label>
+                <input type="checkbox"
+                       class="filtre-cat"
+                       value="Liquide"
+                       checked>
+                Liquides
+            </label>
 
+            <label>
+                <input type="checkbox"
+                       class="filtre-cat"
+                       value="Sel"
+                       checked>
+                Sels
+            </label>
 
+            <label>
+                <input type="checkbox"
+                       class="filtre-cat"
+                       value="Solide"
+                       checked>
+                Solides
+            </label>
 
-<div class="section-corps">
+            <label>
+                <input type="checkbox"
+                       class="filtre-cat"
+                       value="Indicateur"
+                       checked>
+                Indicateurs
+            </label>
 
+            <label>
+                <input type="checkbox"
+                       class="filtre-cat"
+                       value="Colorant"
+                       checked>
+                Colorants
+            </label>
 
-<!-- généré par securite.js -->
+            <label>
+                <input type="checkbox"
+                       class="filtre-cat"
+                       value="Métal"
+                       checked>
+                Métaux
+            </label>
 
-<div class="securite-controles">
+            <label>
+                <input type="checkbox"
+                       class="filtre-cat"
+                       value="Solvant"
+                       checked>
+                Solvants
+            </label>
 
+            <label>
+                <input type="checkbox"
+                       class="filtre-cat"
+                       value="Halogène"
+                       checked>
+                Halogènes
+            </label>
 
-<label for="reactif">
-Choisir un réactif :
-</label>
+        </div>
 
-<!-- ===== Filtres ===== -->
+        <!-- ===================== -->
+        <!-- LISTE DES REACTIFS -->
+        <!-- ===================== -->
 
-<div class="filtre-reactifs">
+        <div class="securite-controles">
 
-    <span class="filtre-titre">
-        <strong>Afficher :</strong>
-    </span>
+            <label for="reactif">
+                Choisir un réactif :
+            </label>
 
-    <label>
-        <input type="checkbox"
-               class="filtre-cat"
-               value="Liquide"
-               checked>
-        Liquides
-    </label>
+            <select id="reactif">
 
-    <label>
-        <input type="checkbox"
-               class="filtre-cat"
-               value="Sel"
-               checked>
-        Sels
-    </label>
+                <option value="">
+                    -- Sélectionner --
+                </option>
 
-    <label>
-        <input type="checkbox"
-               class="filtre-cat"
-               value="Solide"
-               checked>
-        Solides
-    </label>
+            </select>
 
-    <label>
-        <input type="checkbox"
-               class="filtre-cat"
-               value="Indicateur"
-               checked>
-        Indicateurs
-    </label>
+        </div>
 
-    <label>
-        <input type="checkbox"
-               class="filtre-cat"
-               value="Colorant"
-               checked>
-        Colorants
-    </label>
+        <!-- ===================== -->
+        <!-- FICHE SECURITE -->
+        <!-- ===================== -->
 
-    <label>
-        <input type="checkbox"
-               class="filtre-cat"
-               value="Métal"
-               checked>
-        Métaux
-    </label>
+        <div id="securite-bloc">
 
-    <label>
-        <input type="checkbox"
-               class="filtre-cat"
-               value="Solvant"
-               checked>
-        Solvants
-    </label>
+            <div class="info">
 
-    <label>
-        <input type="checkbox"
-               class="filtre-cat"
-               value="Halogène"
-               checked>
-        Halogènes
-    </label>
+                Sélectionner un réactif.
 
-</div>
+            </div>
 
-<!-- ===== Choix du réactif ===== -->
+        </div>
 
-<div class="securite-controles">
-
-    <label for="reactif">
-        Choisir un réactif :
-    </label>
-
-    <select id="reactif">
-        <option value="">
-            -- Sélectionner --
-        </option>
-    </select>
-
-</div>
-
-<div id="securite-bloc">
-
-    <div class="info">
-        Sélectionner un réactif.
     </div>
 
 </div>
-  
-<select id="reactif">
-
-<option value="">
--- Sélectionner --
-</option>
-
-</select>
-
-
-</div>
-
-
-<div id="securite-bloc">
-
-<div class="info">
-Sélectionner un réactif.
-</div>
-
-</div>
-
-
-</div>
-
-</div>
-
-
-
 <!-- ======================================================
      MATERIEL
 ====================================================== -->
