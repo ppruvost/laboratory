@@ -121,6 +121,74 @@ function $(id) {
     return document.getElementById(id);
 }
 
+function clamp(x, a, b) {
+    return Math.max(a, Math.min(b, x));
+}
+
+function log10(x) {
+    return Math.log(x) / Math.LN10;
+}
+
+function phFromH(h) {
+    h = Math.max(h, 1e-14);
+    return clamp(-log10(h), 0, 14);
+}
+
+function phStrongAcidStrongBase({ Ca, Va, Cb, Vb }) {
+    const na = Ca * Va;
+    const nb = Cb * Vb;
+    const Vt = Va + Vb;
+
+    if (Vt <= 0) return 7;
+    if (Math.abs(na - nb) < 1e-18) return 7;
+
+    if (na > nb) {
+        const h = (na - nb) / Vt;
+        return phFromH(h);
+    }
+
+    const oh = (nb - na) / Vt;
+    return clamp(14 - phFromH(oh), 0, 14);
+}
+
+function phWeakAcidStrongBase({ Ca, Va, Cb, Vb, Ka, Kw = 1e-14 }) {
+    const na = Ca * Va;
+    const nb = Cb * Vb;
+    const Vt = Va + Vb;
+    const pKa = -log10(Ka);
+
+    if (Vt <= 0) return 7;
+
+    if (Vb <= 0) {
+        const C = na / Vt;
+        const x = (-Ka + Math.sqrt(Ka * Ka + 4 * Ka * C)) / 2;
+        return phFromH(x);
+    }
+
+    if (nb < na - 1e-15) {
+        const nHA = na - nb;
+        const nA = nb;
+
+        if (nA <= 0) {
+            const C = na / Vt;
+            const x = (-Ka + Math.sqrt(Ka * Ka + 4 * Ka * C)) / 2;
+            return phFromH(x);
+        }
+
+        return clamp(pKa + log10(nA / nHA), 0, 14);
+    }
+
+    if (Math.abs(nb - na) <= 1e-15) {
+        const Cb = na / Vt;
+        const Kb = Kw / Ka;
+        const x = (-Kb + Math.sqrt(Kb * Kb + 4 * Kb * Cb)) / 2;
+        return clamp(14 - phFromH(x), 0, 14);
+    }
+
+    const oh = (nb - na) / Vt;
+    return clamp(14 - phFromH(oh), 0, 14);
+}
+
 
 
 /* ==========================================================
@@ -566,6 +634,7 @@ function genererCourbeTheorique() {
         ca,
         cb,
         natureAcide,
+        natureBase,
         pkaListe
     } = getParametresTitrage();
 
@@ -590,68 +659,47 @@ function genererCourbeTheorique() {
 
     for (let v = 0; v <= vMax; v += pas) {
 
-        let pH;
+        let pH = 7;
 
-        const nA0 =
-            (ca * va) / 1000;
-
-        const nB =
-            (cb * v) / 1000;
-
-        const volTotalL =
-            (va + v) / 1000;
-
-        if (v < veq) {
-
-            const nRestant =
-                nA0 - nB;
-
-            const concentration =
-                Math.max(nRestant, 1e-12) / volTotalL;
-
-            if (natureAcide === "faible" && pka !== null) {
-
-                // Henderson-Hasselbalch (approx, hors bornes strictes)
-                const nFormee =
-                    Math.max(nB, 1e-12);
-
-                const nRestanteFaible =
-                    Math.max(nA0 - nB, 1e-12);
-
-                pH =
-                    pka + Math.log10(nFormee / nRestanteFaible);
-
-            }
-            else {
-
-                pH =
-                    -Math.log10(concentration);
-
-            }
-
+        if (natureAcide === "fort" && natureBase === "fort") {
+            pH = phStrongAcidStrongBase({
+                Ca: ca,
+                Va: va,
+                Cb: cb,
+                Vb: v
+            });
         }
-        else if (Math.abs(v - veq) < pas) {
-
-            pH =
-                natureAcide === "faible"
-                ? 7 + 0.5 * (pka ? (pka - 7) / 7 : 0)
-                : 7;
-
+        else if (natureAcide === "faible" && natureBase === "fort" && pka !== null) {
+            pH = phWeakAcidStrongBase({
+                Ca: ca,
+                Va: va,
+                Cb: cb,
+                Vb: v,
+                Ka: Math.pow(10, -pka)
+            });
         }
         else {
+            // secours : modèle simplifié
+            const nA0 = (ca * va) / 1000;
+            const nB = (cb * v) / 1000;
+            const volTotalL = (va + v) / 1000;
 
-            const exces =
-                (nB - nA0);
-
-            const concentrationOH =
-                Math.max(exces, 1e-12) / volTotalL;
-
-            pH =
-                14 + Math.log10(concentrationOH);
-
+            if (v < veq) {
+                const nRestant = nA0 - nB;
+                const concentration = Math.max(nRestant, 1e-12) / volTotalL;
+                pH = -Math.log10(concentration);
+            }
+            else if (Math.abs(v - veq) < pas) {
+                pH = 7;
+            }
+            else {
+                const exces = (nB - nA0);
+                const concentrationOH = Math.max(exces, 1e-12) / volTotalL;
+                pH = 14 + Math.log10(concentrationOH);
+            }
         }
 
-        pH = Math.min(Math.max(pH, 0), 14);
+        pH = clamp(pH, 0, 14);
 
         points.push({
             x: Number(v.toFixed(2)),
@@ -787,7 +835,8 @@ function calculerResultatsAutomatiques() {
             ? (ecart / veqTheo) * 100
             : 0;
 
-        blocComparaison.style.display = "";
+        blocComparaison.style.display =
+            "";
 
         $("ecart-ve").textContent =
             ecart.toFixed(2);
