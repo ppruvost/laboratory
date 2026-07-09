@@ -1,18 +1,8 @@
 /**
- * tp00-titrages.js
+ * tp00-solutions.js
  * TP00 — Dissolution - Dilution
- * Architecture modulaire :
- *  - utils.js
- *  - securite.js
- *  - materiel.js
- *  - radar.js
- *  - balance-erreurs.js
- *  - compte-rendu.js
  */
 
- /* ==========================================================
-    IMPORTS
-    ========================================================== */
 import products from "../../data/products.js";
 import dangerDB from "../../data/dangerDB.js";
 import pictogrammes from "../../data/pictogrammes.js";
@@ -24,7 +14,6 @@ import {
     initTabs,
     lireTexte,
     appliquerFiltresCategorie,
-    appartientCategorie,
     $
 } from "../../js/utils.js";
 
@@ -43,10 +32,6 @@ import {
 } from "../../js/radar.js";
 
 import {
-    initBalanceErreurs
-} from "../../js/balance-erreurs.js";
-
-import {
     genererCompteRendu
 } from "../../js/compte-rendu.js";
 
@@ -55,8 +40,6 @@ import {
    ========================================================== */
 let reactifCourant = null;
 let dejaInitialise = false;
-let mesures = [];
-let zoomRange = null;
 
 /* ==========================================================
    INITIALISATION TP00
@@ -67,20 +50,11 @@ export function init() {
 
     console.log("TP00 — Initialisation des calculs de dissolution et dilution.");
 
-    // Initialiser les sections et onglets
     initSections();
     initTabs();
-
-    // Initialiser la liste des réactifs (section Sécurité)
     initReactifSelect();
-
-    // Initialiser les calculs de dissolution
     initCalculsDissolution();
-
-    // Initialiser les calculs de dilution
     initCalculsDilution();
-
-    // Initialiser le matériel
     initMateriel({
         verreId: "materiel-verrerie",
         equipementId: "materiel-equipements",
@@ -88,15 +62,9 @@ export function init() {
         equipment: laboratoryEquipment,
         categorie: "Sels"
     });
-
-    // Autres initialisations
-    initParametresTitrage();
-    initMesures();
-    initCourbe();
-    initCorrection();
-    initBalanceErreurs();
     initBoutonImpressionCR();
     initRadarCompetences();
+    initBalanceErreurs();
 }
 
 /* ==========================================================
@@ -105,7 +73,7 @@ export function init() {
 function initReactifSelect() {
     const select = $("reactif");
     if (!select) {
-        console.warn("Select #reactif introuvable dans le DOM TP00");
+        console.warn("Select #reactif introuvable dans le DOM.");
         return;
     }
 
@@ -120,7 +88,7 @@ function initReactifSelect() {
 
     select.addEventListener("change", () => {
         afficherSecurite();
-        updateDissolutionInfo(); // Met à jour les infos de dissolution
+        updateDissolutionInfo();
     });
 
     rafraichir();
@@ -149,16 +117,27 @@ function updateDissolutionInfo() {
     const nomReactifSpan = $("nom-reactif-selectionne");
     const formuleReactifSpan = $("formule-reactif-selectionne");
     const masseMolaireSpan = $("masse-molaire-reactif-selectionne");
+    const mDissolutionInput = $("m-dissolution");
     const resDissolutionDiv = $("res-dissolution");
 
-    if (!produit || !nomReactifSpan || !formuleReactifSpan || !masseMolaireSpan || !resDissolutionDiv) {
+    if (!produit) {
+        if (nomReactifSpan) nomReactifSpan.textContent = '-';
+        if (formuleReactifSpan) formuleReactifSpan.textContent = '-';
+        if (masseMolaireSpan) masseMolaireSpan.textContent = '-';
+        if (mDissolutionInput) mDissolutionInput.value = '';
+        if (resDissolutionDiv) resDissolutionDiv.textContent = 'Sélectionner un réactif.';
         return;
     }
 
     // Mettre à jour les informations du produit
-    nomReactifSpan.textContent = produit.nom || '-';
-    formuleReactifSpan.textContent = produit.formule || '-';
-    masseMolaireSpan.textContent = (produit.masseMolaire || 0).toFixed(2);
+    if (nomReactifSpan) nomReactifSpan.textContent = produit.nom || '-';
+    if (formuleReactifSpan) formuleReactifSpan.textContent = produit.formule || '-';
+    if (masseMolaireSpan) masseMolaireSpan.textContent = (produit.masseMolaire || 0).toFixed(2);
+    if (mDissolutionInput) mDissolutionInput.value = (produit.masseMolaire || 0).toFixed(2);
+
+    // Mettre à jour le nom dans le tableau des résultats
+    const nomSelTable = $("nom-sel-table");
+    if (nomSelTable) nomSelTable.textContent = produit.nom || '-';
 
     // Recalculer la masse à peser
     calculDissolution();
@@ -170,7 +149,7 @@ function updateDissolutionInfo() {
 function calculDissolution() {
     const c = parseFloat($("c-dissolution")?.value) || 0;
     const v = parseFloat($("v-dissolution")?.value) || 0;
-    const m = parseFloat($("masse-molaire-reactif-selectionne")?.textContent) || 0;
+    const m = parseFloat($("m-dissolution")?.value) || 0;
     const resDissolutionDiv = $("res-dissolution");
 
     if (!resDissolutionDiv) return;
@@ -185,15 +164,20 @@ function calculDissolution() {
     const masse = c * vL * m;
 
     resDissolutionDiv.textContent = `Masse à peser : ${masse.toFixed(4)} g`;
+
+    // Mettre à jour le tableau des résultats
+    const tableMasseDissolution = $("table-masse-dissolution");
+    if (tableMasseDissolution) tableMasseDissolution.textContent = `${masse.toFixed(4)} g`;
 }
 
 /* ==========================================================
    INITIALISATION DES ÉCOUTEURS POUR LA DISSOLUTION
    ========================================================== */
 function initCalculsDissolution() {
-    // Écouter les changements dans les champs de concentration et volume
     $("c-dissolution")?.addEventListener("input", calculDissolution);
     $("v-dissolution")?.addEventListener("input", calculDissolution);
+    // Écouter aussi les changements de masse molaire (au cas où)
+    $("m-dissolution")?.addEventListener("input", calculDissolution);
 }
 
 /* ==========================================================
@@ -221,47 +205,116 @@ function calculDilution() {
    INITIALISATION DES ÉCOUTEURS POUR LA DILUTION
    ========================================================== */
 function initCalculsDilution() {
-    // Écouter les changements dans les champs de dilution
     $("c1-hcl")?.addEventListener("input", calculDilution);
     $("c2-hcl")?.addEventListener("input", calculDilution);
     $("v2-hcl")?.addEventListener("input", calculDilution);
 }
 
 /* ==========================================================
-   INITIALISATION AU CHARGEMENT
+   ANALYSE DES ERREURS DE PESÉE
    ========================================================== */
-if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", init);
-} else {
-    init();
+function initBalanceErreurs() {
+    // Écouter les changements dans les champs de pesée
+    const inputs = [
+        "pe-masse-theo",
+        "pe-lue-01",
+        "pe-lue-1g",
+        "masse-exp-pesee",
+        "c-exp-saisie"
+    ];
+
+    inputs.forEach(id => {
+        $(id)?.addEventListener("input", () => {
+            calculerErreursPesee();
+            calculerEcart();
+        });
+    });
+
+    // Initialiser les calculs
+    calculerErreursPesee();
+    calculerEcart();
 }
 
-/* ==========================================================
-   TABLEAU DE MESURES
-   ========================================================== */
-function initMesures() {
-    // Logique pour le tableau de mesures (à compléter si nécessaire)
+function evaluerQualitePesee(erreurRelative) {
+    if (erreurRelative === null || Number.isNaN(erreurRelative)) return "—";
+    if (erreurRelative <= 2) return "Excellente précision";
+    if (erreurRelative <= 5) return "Bonne précision";
+    if (erreurRelative <= 10) return "Précision acceptable";
+    return "Précision insuffisante";
 }
 
-/* ==========================================================
-   COURBE DE TITRAGE
-   ========================================================== */
-function initCourbe() {
-    // Logique pour la courbe de titrage (à compléter si nécessaire)
+function calculerErreursPesee() {
+    const theo = Number($("pe-masse-theo")?.value) || 0;
+    const lue01 = Number($("pe-lue-01")?.value) || 0;
+    const lue1g = Number($("pe-lue-1g")?.value) || 0;
+
+    const res01 = $("res-01");
+    const res1g = $("res-1g");
+    const synth = $("synthese-balances");
+
+    if (theo <= 0) {
+        if (res01) res01.textContent = "Saisir la masse théorique attendue.";
+        if (res1g) res1g.textContent = "Saisir la masse théorique attendue.";
+        if (synth) synth.classList.add("hidden");
+        return;
+    }
+
+    let abs01 = null, rel01 = null;
+    let abs1g = null, rel1g = null;
+
+    if (lue01 > 0) {
+        abs01 = Math.abs(lue01 - theo);
+        rel01 = (abs01 / theo) * 100;
+        if (res01) res01.textContent = `Écart : ${abs01.toFixed(3)} g (${rel01.toFixed(1)} %) — ${evaluerQualitePesee(rel01)}`;
+    } else if (res01) {
+        res01.textContent = "Saisir la masse mesurée.";
+    }
+
+    if (lue1g > 0) {
+        abs1g = Math.abs(lue1g - theo);
+        rel1g = (abs1g / theo) * 100;
+        if (res1g) res1g.textContent = `Écart : ${abs1g.toFixed(3)} g (${rel1g.toFixed(1)} %) — ${evaluerQualitePesee(rel1g)}`;
+    } else if (res1g) {
+        res1g.textContent = "Saisir la masse mesurée.";
+    }
+
+    if (synth && (lue01 > 0 || lue1g > 0)) {
+        synth.classList.remove("hidden");
+        if ($("syn-lue-01")) $("syn-lue-01").textContent = lue01 > 0 ? `${lue01.toFixed(1)} g` : "—";
+        if ($("syn-lue-1g")) $("syn-lue-1g").textContent = lue1g > 0 ? `${lue1g.toFixed(0)} g` : "—";
+        if ($("syn-abs-01")) $("syn-abs-01").textContent = abs01 !== null ? `${abs01.toFixed(3)} g` : "—";
+        if ($("syn-abs-1g")) $("syn-abs-1g").textContent = abs1g !== null ? `${abs1g.toFixed(3)} g` : "—";
+        if ($("syn-rel-01")) $("syn-rel-01").textContent = rel01 !== null ? `${rel01.toFixed(1)} %` : "—";
+        if ($("syn-rel-1g")) $("syn-rel-1g").textContent = rel1g !== null ? `${rel1g.toFixed(1)} %` : "—";
+        if ($("syn-qual-01")) $("syn-qual-01").textContent = evaluerQualitePesee(rel01);
+        if ($("syn-qual-1g")) $("syn-qual-1g").textContent = evaluerQualitePesee(rel1g);
+    } else if (synth) {
+        synth.classList.add("hidden");
+    }
 }
 
-/* ==========================================================
-   PARAMÈTRES DE TITRAGE
-   ========================================================== */
-function initParametresTitrage() {
-    // Logique pour les paramètres de titrage (à compléter si nécessaire)
-}
+function calculerEcart() {
+    const masseTheo = Number($("pe-masse-theo")?.value) || 0;
+    const masseExp = Number($("masse-exp-pesee")?.value) || 0;
+    const cExp = Number($("c-exp-saisie")?.value) || 0;
+    const resEcartDiv = $("res-ecart");
+    const tableEcart = $("table-ecart");
 
-/* ==========================================================
-   CORRECTION DES ERREURS DE MESURE
-   ========================================================== */
-function initCorrection() {
-    // Logique pour la correction des erreurs (à compléter si nécessaire)
+    if (!resEcartDiv || masseTheo <= 0) {
+        if (resEcartDiv) resEcartDiv.textContent = "Saisir la masse théorique.";
+        if (tableEcart) tableEcart.textContent = "—";
+        return;
+    }
+
+    const ecartAbsolu = Math.abs(masseExp - masseTheo);
+    const ecartRelatif = (ecartAbsolu / masseTheo) * 100;
+
+    if (resEcartDiv) {
+        resEcartDiv.textContent = `Écart absolu : ${ecartAbsolu.toFixed(4)} g | Écart relatif : ${ecartRelatif.toFixed(2)} %`;
+    }
+    if (tableEcart) {
+        tableEcart.textContent = `${ecartRelatif.toFixed(2)} %`;
+    }
 }
 
 /* ==========================================================
@@ -292,26 +345,33 @@ function lancerCompteRendu() {
     };
 
     const nomReactif = reactifCourant?.nom || "—";
+    const cDissolution = $("c-dissolution")?.value || "—";
+    const vDissolution = $("v-dissolution")?.value || "—";
+    const masseTheo = $("pe-masse-theo")?.value || "—";
+    const masseExp = $("masse-exp-pesee")?.value || "—";
+    const cExp = $("c-exp-saisie")?.value || "—";
+
     const autoEval = recupererAutoEvaluation();
 
     const sections = [
         {
-            titre: "Paramètres du titrage",
+            titre: "Paramètres de la dissolution",
             items: [
                 { label: "Réactif", valeur: nomReactif },
-                { label: "Volume Va", valeur: "—" },
-                { label: "Concentration Ca estimée", valeur: "—" },
-                { label: "Concentration Cb titrante", valeur: "—" },
-                { label: "Volume équivalent théorique", valeur: "—" }
+                { label: "Concentration visée (C)", valeur: `${cDissolution} mol/L` },
+                { label: "Volume (V)", valeur: `${vDissolution} mL` },
+                { label: "Masse théorique", valeur: `${masseTheo} g` },
+                { label: "Masse pesée", valeur: `${masseExp} g` },
+                { label: "Concentration expérimentale", valeur: `${cExp} mol/L` }
             ]
         },
         {
-            titre: "Résultats expérimentaux",
+            titre: "Paramètres de la dilution",
             items: [
-                { label: "Volume équivalent (dérivée)", valeur: "—" },
-                { label: "Concentration calculée", valeur: "—" },
-                { label: "Écart sur Ve", valeur: "—" },
-                { label: "Erreur relative", valeur: "—" }
+                { label: "Concentration mère (C₁)", valeur: `${$("c1-hcl")?.value || "—"} mol/L` },
+                { label: "Concentration fille (C₂)", valeur: `${$("c2-hcl")?.value || "—"} mol/L` },
+                { label: "Volume final (V₂)", valeur: `${$("v2-hcl")?.value || "—"} mL` },
+                { label: "Volume à prélever (V₁)", valeur: `${$("res-hcl")?.textContent?.replace("Volume à prélever : ", "") || "—"}` }
             ]
         }
     ];
@@ -362,4 +422,13 @@ function lancerCompteRendu() {
         signature: false,
         noteFinale: true
     });
+}
+
+/* ==========================================================
+   INITIALISATION AU CHARGEMENT
+   ========================================================== */
+if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", init);
+} else {
+    init();
 }
