@@ -3,21 +3,11 @@
  *
  * TP01 — Préparation de solutions (dissolution / dilution)
  *
- * Architecture strictement calquée sur tp03-titrages.js
- * (qui fonctionne) :
  *  - utils.js
  *  - securite.js
  *  - materiel.js
  *  - balance-erreurs.js
  *  - compte-rendu.js
- *
- * Différence volontaire avec l'ancienne version : il n'existe
- * plus qu'UN SEUL select réactif (#reactif), filtré par les
- * cases .filtre-cat — exactement comme sur TP03. Ce même
- * select pilote à la fois la fiche sécurité ET les champs du
- * calculateur de dissolution (nom, formule, masse molaire).
- */
-
 
 /* ==========================================================
    IMPORTS
@@ -188,7 +178,7 @@ else {
 }
 
 /* ==========================================================
-   REACTIF + FILTRE SECURITE (copie conforme TP03)
+   REACTIF + FILTRE SECURITE
    ========================================================== */
 
 function initReactifSelect() {
@@ -552,7 +542,7 @@ function initResultatsTableau() {
 }
 
 /* ==========================================================
-   BOUTON IMPRESSION COMPTE-RENDU (copie conforme TP03)
+   BOUTON IMPRESSION COMPTE-RENDU 
    ========================================================== */
 
 function initBoutonImpressionCR() {
