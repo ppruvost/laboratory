@@ -1,14 +1,21 @@
 /**
  * tp01-solutions.js
  *
- * TP01 — Préparation de solutions
+ * TP01 — Préparation de solutions (dissolution / dilution)
  *
- * Architecture modulaire :
+ * Architecture strictement calquée sur tp03-titrages.js
+ * (qui fonctionne) :
  *  - utils.js
  *  - securite.js
  *  - materiel.js
- *  - calculs.js
- *  - radar.js
+ *  - balance-erreurs.js
+ *  - compte-rendu.js
+ *
+ * Différence volontaire avec l'ancienne version : il n'existe
+ * plus qu'UN SEUL select réactif (#reactif), filtré par les
+ * cases .filtre-cat — exactement comme sur TP03. Ce même
+ * select pilote à la fois la fiche sécurité ET les champs du
+ * calculateur de dissolution (nom, formule, masse molaire).
  */
 
 
@@ -81,10 +88,11 @@ import {
 }
 from "../../js/compte-rendu.js";
 
+
+
 /* ==========================================================
    VARIABLES
    ========================================================== */
-
 
 let reactifCourant = null;
 
@@ -106,21 +114,14 @@ function $(id) {
    INITIALISATION TP01
    ========================================================== */
 
-
 export function init() {
-
 
     if (dejaInitialise)
         return;
 
-
     dejaInitialise = true;
 
-
-    console.log(
-        "TP01 Solutions initialisé"
-    );
-
+    console.log("TP01 Solutions initialisé");
 
 
     initSections();
@@ -128,7 +129,7 @@ export function init() {
     initTabs();
 
 
-    initReactifs();
+    initReactifSelect();
 
 
     initMateriel({
@@ -150,31 +151,29 @@ export function init() {
     });
 
 
+    initModeOperatoireToggle();
 
     initCalculsTP01();
 
+    initErreursPesee();
 
-    initResultats();
-
+    initResultatsTableau();
 
     initBalanceErreurs();
 
-
     initBoutonImpressionCR();
-
 
     initRadarCompetences();
 
 
+    // premier calcul
+    calculDissolution();
+    calculDilution();
+
 }
 
 
-
-
-
-if (
-    document.readyState === "loading"
-) {
+if (document.readyState === "loading") {
 
     document.addEventListener(
         "DOMContentLoaded",
@@ -188,141 +187,9 @@ else {
 
 }
 
-
-
-
 /* ==========================================================
-   MODE OPERATOIRE
+   REACTIF + FILTRE SECURITE (copie conforme TP03)
    ========================================================== */
-
-
-function afficherModeOperatoire(type) {
-
-
-    const dissolution =
-        $("modeDissolution");
-
-
-    const dilution =
-        $("modeDilution");
-
-
-
-    if (!dissolution || !dilution)
-        return;
-
-
-
-    if(type==="dissolution") {
-
-        dissolution.classList.remove(
-            "hidden"
-        );
-
-        dilution.classList.add(
-            "hidden"
-        );
-
-    }
-    else {
-
-        dissolution.classList.add(
-            "hidden"
-        );
-
-        dilution.classList.remove(
-            "hidden"
-        );
-
-    }
-
-}
-
-
-/* ==========================================================
-   REACTIFS
-   ========================================================== *
-   Deux selects totalement indépendants (comme sur TP03) :
-   - #reactif-dissolution : liste des sels pour le calcul
-   - #reactif             : liste "sécurité" filtrée par
-                             .filtre-cat
-   Chacun est isolé dans sa propre fonction, avec sa propre
-   garde et son propre try/catch, afin qu'une erreur sur l'un
-   des deux selects ne puisse jamais empêcher l'initialisation
-   de l'autre (c'est ce cloisonnement qui manquait et qui
-   laissait le menu "Choisir un réactif" vide en silence).
-   ========================================================== */
-
-function initReactifs() {
-
-    initReactifDissolutionSelect();
-
-    initReactifSelect();
-
-}
-
-
-/* -----------------------------
-   MENU DISSOLUTION
-   (#reactif-dissolution)
------------------------------ */
-
-function initReactifDissolutionSelect() {
-
-    const selectDis =
-        $("reactif-dissolution");
-
-    if (!selectDis) {
-        console.warn(
-            "Select #reactif-dissolution introuvable dans le DOM TP01"
-        );
-        return;
-    }
-
-    try {
-
-        selectDis.innerHTML = `
-            <option value="">
-                -- Sélectionner un sel --
-            </option>
-        `;
-
-        products
-            .filter(p => appartientCategorie(p, "Sel"))
-            .sort((a, b) => a.nom.localeCompare(b.nom, "fr"))
-            .forEach(p => {
-
-                const option = document.createElement("option");
-
-                option.value = p.cas;
-                option.textContent = p.nom;
-
-                selectDis.appendChild(option);
-
-            });
-
-    }
-    catch (err) {
-
-        console.error(
-            "TP01 — échec de la construction de la liste des sels (#reactif-dissolution) :",
-            err
-        );
-
-    }
-
-    selectDis.addEventListener(
-        "change",
-        changerReactif
-    );
-
-}
-
-
-/* -----------------------------
-   MENU SECURITE
-   (#reactif — copie conforme TP03)
------------------------------ */
 
 function initReactifSelect() {
 
@@ -350,7 +217,7 @@ function initReactifSelect() {
         catch (err) {
 
             console.error(
-                "TP01 — échec du filtrage du réactif sécurité (#reactif) :",
+                "TP01 — échec du filtrage du réactif (#reactif) :",
                 err
             );
 
@@ -380,31 +247,16 @@ function initReactifSelect() {
 }
 
 
-/* ==========================================================
-   AFFICHAGE SECURITE
-   ========================================================== */
-
-
 function afficherSecurite() {
-
 
     const cas =
         $("reactif")?.value;
 
-
-
     const produit =
-        trouverProduit(
-            products,
-            cas
-        );
-
-
+        trouverProduit(products, cas);
 
     reactifCourant =
         produit;
-
-
 
     afficherSecuriteProduit({
 
@@ -419,126 +271,111 @@ function afficherSecurite() {
 
     });
 
+    // Le même réactif alimente le calculateur de dissolution
+    mettreAJourChampsDissolution(produit);
 
 }
 
 
-
-
-
 /* ==========================================================
-   CHANGEMENT REACTIF DISSOLUTION
+   MISE A JOUR DES CHAMPS DE DISSOLUTION
+   (déclenchée par le select unique #reactif)
    ========================================================== */
 
-
-function changerReactif() {
-
-
-    const cas =
-        $("reactif-dissolution")
-        ?.value;
-
-
-
-    const produit =
-        trouverProduit(
-            products,
-            cas
-        );
-
-
-
-    if(!produit)
-        return;
-
-
-
-    reactifCourant =
-        produit;
-
-
+function mettreAJourChampsDissolution(produit) {
 
     const correspondances = {
 
-
         "nom-reactif":
-            produit.nom,
-
-
-        "nom-sel-protocole":
-            produit.nom,
-
+            produit?.nom || "-",
 
         "formule-dissolution":
-            produit.formule,
-
+            produit?.formule || "-",
 
         "nom-sel-table":
-            produit.nom
-
+            produit?.nom || "Réactif sélectionné"
 
     };
 
+    Object.entries(correspondances)
+        .forEach(([id, val]) => {
 
+            const el = $(id);
 
-    Object.entries(
-        correspondances
-    )
+            if (el)
+                el.textContent = val;
 
-    .forEach(
-        ([id,val])=>{
-
-
-            const el =
-                $(id);
-
-
-
-            if(el)
-                el.textContent =
-                    val;
-
-
-        }
-    );
-
-
+        });
 
     const masse =
         $("m-dissolution");
 
-
-
-    if(masse)
+    if (masse)
         masse.value =
-            produit.masseMolaire || "";
-
-
+            produit?.masseMolaire || "";
 
     calculDissolution();
 
+}
+
+/* ==========================================================
+   BASCULE DES MODES OPERATOIRES (onglets Dissolution/Dilution)
+   ========================================================== */
+
+function initModeOperatoireToggle() {
+
+    document
+        .querySelectorAll(".tabs-header .tab-btn")
+        .forEach(btn => {
+
+            btn.addEventListener("click", () => {
+                afficherModeOperatoire(btn.dataset.tab);
+            });
+
+        });
 
 }
 
 
+function afficherModeOperatoire(type) {
+
+    const dissolution =
+        $("modeDissolution");
+
+    const dilution =
+        $("modeDilution");
+
+    if (!dissolution || !dilution)
+        return;
+
+    if (type === "dissolution") {
+
+        dissolution.classList.remove("hidden");
+        dilution.classList.add("hidden");
+
+    }
+    else {
+
+        dissolution.classList.add("hidden");
+        dilution.classList.remove("hidden");
+
+    }
+
+}
 
 /* ==========================================================
-   CALCULS TP01
+   CALCULS TP01 (dissolution / dilution)
    ========================================================== */
 
-
 function initCalculsTP01() {
-
 
     [
         "c-dissolution",
         "v-dissolution",
         "m-dissolution"
-
     ]
-
     .forEach(
-        id=>{
+        id => {
 
             $(id)?.addEventListener(
                 "input",
@@ -549,17 +386,13 @@ function initCalculsTP01() {
     );
 
 
-
     [
-
         "c1-hcl",
         "c2-hcl",
         "v2-hcl"
-
     ]
-
     .forEach(
-        id=>{
+        id => {
 
             $(id)?.addEventListener(
                 "input",
@@ -569,1001 +402,354 @@ function initCalculsTP01() {
         }
     );
 
-
-
-    $("masse-exp-pesee")
-    ?.addEventListener(
-        "input",
-        calculEcart
-    );
-
-
-
-    calculDissolution();
-
-    calculDilution();
-
-
 }
 
-
-
 /* ==========================================================
-   RESULTATS
+   ANALYSE DES ERREURS DE PESEE (balances 0,1 g / 1 g)
    ========================================================== */
 
+function initErreursPesee() {
 
-function initResultats() {
+    [
+        "pe-masse-theo",
+        "pe-lue-01",
+        "pe-lue-1g"
+    ]
+    .forEach(
+        id => {
 
-
-    const input =
-        $("masse-exp-pesee");
-
-
-    if(input)
-        input.addEventListener(
-            "input",
-            calculEcart
-        );
-
-
-}
-/* ==========================================================
-   BOUTON IMPRESSION COMPTE-RENDU
-   ========================================================== */
-
-
-function initBoutonImpressionCR() {
-
-
-    const navTp =
-        document.querySelector(
-            ".nav-tp"
-        );
-
-
-    if(!navTp)
-        return;
-
-
-
-    if(
-        navTp.querySelector(
-            "#btn-imprimer-cr"
-        )
-    )
-        return;
-
-
-
-    const btn =
-        document.createElement(
-            "button"
-        );
-
-
-
-    btn.id =
-        "btn-imprimer-cr";
-
-
-    btn.type =
-        "button";
-
-
-    btn.className =
-        "btn btn-primaire";
-
-
-    btn.textContent =
-        "📄 Imprimer le compte-rendu";
-
-
-
-    btn.addEventListener(
-        "click",
-        lancerCompteRendu
-    );
-
-
-
-    navTp.appendChild(
-        btn
-    );
-
-
-}
-
-
-
-/* ==========================================================
-   COLLECTE AUTO-EVALUATION
-   ========================================================== */
-
-
-function recupererAutoEvaluation() {
-
-
-    const competences = [
-        "APP",
-        "ANA",
-        "REA",
-        "VAL",
-        "COM"
-    ];
-
-
-
-    const scores = {};
-
-
-
-    competences.forEach(
-        c=>{
-
-
-            const choix =
-                document.querySelector(
-                    `input[name="${c}"]:checked`
-                );
-
-
-
-            scores[c] =
-                choix
-                ?
-                Number(
-                    choix.value
-                )
-                :
-                null;
-
+            $(id)?.addEventListener(
+                "input",
+                calculerErreursPesee
+            );
 
         }
     );
 
+    calculerErreursPesee();
 
+}
+
+
+function evaluerQualitePesee(erreurRelative) {
+
+    if (erreurRelative === null || Number.isNaN(erreurRelative))
+        return "—";
+
+    if (erreurRelative <= 2)
+        return "Excellente précision";
+
+    if (erreurRelative <= 5)
+        return "Bonne précision";
+
+    if (erreurRelative <= 10)
+        return "Précision acceptable";
+
+    return "Précision insuffisante";
+
+}
+
+
+function calculerErreursPesee() {
+
+    const theo =
+        Number($("pe-masse-theo")?.value) || 0;
+
+    const lue01 =
+        Number($("pe-lue-01")?.value) || 0;
+
+    const lue1g =
+        Number($("pe-lue-1g")?.value) || 0;
+
+    const res01 =
+        $("res-01");
+
+    const res1g =
+        $("res-1g");
+
+    const synth =
+        $("synthese-balances");
+
+    if (theo <= 0) {
+
+        if (res01) res01.textContent = "Saisir la masse théorique attendue.";
+        if (res1g) res1g.textContent = "Saisir la masse théorique attendue.";
+        if (synth) synth.classList.add("hidden");
+
+        return;
+
+    }
+
+    let abs01 = null, rel01 = null;
+    let abs1g = null, rel1g = null;
+
+    if (lue01 > 0) {
+
+        abs01 = Math.abs(lue01 - theo);
+        rel01 = (abs01 / theo) * 100;
+
+        if (res01)
+            res01.textContent =
+                `Écart : ${abs01.toFixed(3)} g (${rel01.toFixed(1)} %) — ${evaluerQualitePesee(rel01)}`;
+
+    }
+    else if (res01) {
+
+        res01.textContent = "Saisir la masse mesurée.";
+
+    }
+
+    if (lue1g > 0) {
+
+        abs1g = Math.abs(lue1g - theo);
+        rel1g = (abs1g / theo) * 100;
+
+        if (res1g)
+            res1g.textContent =
+                `Écart : ${abs1g.toFixed(3)} g (${rel1g.toFixed(1)} %) — ${evaluerQualitePesee(rel1g)}`;
+
+    }
+    else if (res1g) {
+
+        res1g.textContent = "Saisir la masse mesurée.";
+
+    }
+
+    if (synth && (lue01 > 0 || lue1g > 0)) {
+
+        synth.classList.remove("hidden");
+
+        if ($("syn-lue-01")) $("syn-lue-01").textContent = lue01 > 0 ? `${lue01.toFixed(1)} g` : "—";
+        if ($("syn-lue-1g")) $("syn-lue-1g").textContent = lue1g > 0 ? `${lue1g.toFixed(0)} g` : "—";
+
+        if ($("syn-abs-01")) $("syn-abs-01").textContent = abs01 !== null ? `${abs01.toFixed(3)} g` : "—";
+        if ($("syn-abs-1g")) $("syn-abs-1g").textContent = abs1g !== null ? `${abs1g.toFixed(3)} g` : "—";
+
+        if ($("syn-rel-01")) $("syn-rel-01").textContent = rel01 !== null ? `${rel01.toFixed(1)} %` : "—";
+        if ($("syn-rel-1g")) $("syn-rel-1g").textContent = rel1g !== null ? `${rel1g.toFixed(1)} %` : "—";
+
+        if ($("syn-qual-01")) $("syn-qual-01").textContent = evaluerQualitePesee(rel01);
+        if ($("syn-qual-1g")) $("syn-qual-1g").textContent = evaluerQualitePesee(rel1g);
+
+    }
+    else if (synth) {
+
+        synth.classList.add("hidden");
+
+    }
+
+}
+
+/* ==========================================================
+   TABLEAU DE RESULTATS
+   ========================================================== */
+
+function initResultatsTableau() {
+
+    $("masse-exp-pesee")
+        ?.addEventListener("input", calculEcart);
+
+}
+
+/* ==========================================================
+   BOUTON IMPRESSION COMPTE-RENDU (copie conforme TP03)
+   ========================================================== */
+
+function initBoutonImpressionCR() {
+
+    const btn =
+        $("btn-imprimer");
+
+    if (!btn) return;
+
+    btn.addEventListener("click", lancerCompteRendu);
+
+}
+
+
+function recupererAutoEvaluation() {
+
+    const competences =
+        ["APP", "ANA", "REA", "VAL", "COM"];
+
+    const scores = {};
+
+    competences.forEach(c => {
+
+        const choix =
+            document.querySelector(`input[name="${c}"]:checked`);
+
+        scores[c] =
+            choix ? Number(choix.value) : null;
+
+    });
 
     return scores;
 
 }
 
 
-
-
-/* ==========================================================
-   LANCEMENT COMPTE-RENDU
-   ========================================================== */
-
-
 function lancerCompteRendu() {
-
-
 
     const identite = {
 
-
-        nom:
-            lireTexte(
-                "nom-eleve"
-            ),
-
-
-        prenom:
-            lireTexte(
-                "prenom-eleve"
-            ),
-
-
-        classe:
-            lireTexte(
-                "classe-eleve"
-            ),
-
-
-        date:
-            $("date-eleve")
-            ?.value || ""
-
+        nom: lireTexte("nom-eleve"),
+        prenom: lireTexte("prenom-eleve"),
+        classe: lireTexte("classe-eleve"),
+        date: $("date-eleve")?.value || ""
 
     };
 
 
-
-
     const nomReactif =
-        reactifCourant?.nom
-        ||
-        $("nom-sel-table")
-        ?.textContent
-        ||
-        "—";
-
-
+        reactifCourant?.nom || "—";
 
     const formule =
-        reactifCourant?.formule
-        ||
-        $("formule-dissolution")
-        ?.textContent
-        ||
-        "—";
-
-
+        reactifCourant?.formule || "—";
 
     const masseMolaire =
-        $("m-dissolution")
-        ?.value
-        ||
-        "—";
-
-
+        $("m-dissolution")?.value || "—";
 
     const C =
-        $("c-dissolution")
-        ?.value
-        ||
-        "—";
-
-
+        $("c-dissolution")?.value || "—";
 
     const V =
-        $("v-dissolution")
-        ?.value
-        ||
-        "—";
-
-
+        $("v-dissolution")?.value || "—";
 
     const masseTheo =
-        $("table-masse-dissolution")
-        ?.textContent
-        ||
-        "—";
-
-
+        $("table-masse-dissolution")?.textContent || "—";
 
     const masseExp =
-        $("masse-exp-pesee")
-        ?.value
-        ||
-        "—";
-
-
+        $("masse-exp-pesee")?.value || "—";
 
     const ecart =
-        $("table-ecart")
-        ?.textContent
-        ||
-        "—";
-
-
+        $("table-ecart")?.textContent || "—";
 
 
     const C1 =
-        $("c1-hcl")
-        ?.value
-        ||
-        "—";
-
-
+        $("c1-hcl")?.value || "—";
 
     const C2 =
-        $("c2-hcl")
-        ?.value
-        ||
-        "—";
-
-
+        $("c2-hcl")?.value || "—";
 
     const V2 =
-        $("v2-hcl")
-        ?.value
-        ||
-        "—";
-
-
-
+        $("v2-hcl")?.value || "—";
 
     const V1 =
-
-        (
-            Number(C1)>0
-            &&
-            Number(C2)>0
-        )
-
-        ?
-
-        (
-            Number(C2)
-            *
-            Number(V2)
-            /
-            Number(C1)
-        )
-        .toFixed(2)
-
-        :
-
-        "—";
-
-
-
+        (Number(C1) > 0 && Number(C2) > 0)
+        ? (Number(C2) * Number(V2) / Number(C1)).toFixed(2)
+        : "—";
 
 
     const autoEval =
         recupererAutoEvaluation();
 
 
-
-
-
     const sections = [
-
 
         {
 
-            groupe:
-                "dissolution",
+            titre: "Paramètres de la dissolution",
 
+            items: [
 
-            titre:
-                "Paramètres de la dissolution",
-
-
-            items:[
-
-
-                {
-                    label:
-                    "Réactif",
-
-                    valeur:
-                    `${nomReactif} (${formule})`
-
-                },
-
-
-                {
-                    label:
-                    "Masse molaire",
-
-                    valeur:
-                    `${masseMolaire} g/mol`
-
-                },
-
-
-                {
-                    label:
-                    "Concentration",
-
-                    valeur:
-                    `${C} mol/L`
-
-                },
-
-
-                {
-                    label:
-                    "Volume préparé",
-
-                    valeur:
-                    `${V} mL`
-
-                },
-
-
-                {
-                    label:
-                    "Masse théorique",
-
-                    valeur:
-                    `${masseTheo} g`
-
-                },
-
-
-                {
-                    label:
-                    "Masse pesée",
-
-                    valeur:
-                    `${masseExp} g`
-
-                },
-
-
-                {
-                    label:
-                    "Écart relatif",
-
-                    valeur:
-                    `${ecart}`
-
-                }
-
+                { label: "Réactif", valeur: `${nomReactif} (${formule})` },
+                { label: "Masse molaire", valeur: `${masseMolaire} g/mol` },
+                { label: "Concentration visée", valeur: `${C} mol/L` },
+                { label: "Volume préparé", valeur: `${V} mL` },
+                { label: "Masse théorique", valeur: `${masseTheo} g` },
+                { label: "Masse pesée", valeur: `${masseExp} g` },
+                { label: "Écart relatif", valeur: `${ecart}` }
 
             ]
 
         },
 
-
-
         {
 
-            groupe:
-                "dissolution",
+            titre: "Paramètres de la dilution",
 
+            items: [
 
-            titre:
-                "Question 1 — Différence dissolution / dilution",
+                { label: "Concentration mère C₁", valeur: `${C1} mol/L` },
+                { label: "Concentration fille C₂", valeur: `${C2} mol/L` },
+                { label: "Volume final V₂", valeur: `${V2} mL` },
+                { label: "Volume prélevé V₁", valeur: `${V1} mL` }
 
-
-            competence:
-                "APP",
-
-
-            notation:
-                true,
-
-
-            texte:
-                lireTexte(
-                    "question1"
-                )
-
-        },
-
-
-        {
-
-            groupe:
-                "dissolution",
-
-
-            titre:
-                "Question 2 — Sécurité lors d'une dilution acide",
-
-
-            competence:
-                "APP",
-
-
-            notation:
-                true,
-
-
-            texte:
-                lireTexte(
-                    "question2"
-                )
-
-        },
-
-
-        {
-
-            groupe:
-                "dissolution",
-
-
-            titre:
-                "Question 3 — Conversion du volume",
-
-
-            competence:
-                "REA",
-
-
-            notation:
-                true,
-
-
-            texte:
-                lireTexte(
-                    "question3"
-                )
-
-        },
-
-
-
-        {
-
-            groupe:
-                "dissolution",
-
-
-            titre:
-                "Question 4 — Quantité de matière",
-
-
-            competence:
-                "REA",
-
-
-            notation:
-                true,
-
-
-            texte:
-                lireTexte(
-                    "question4"
-                )
-
-        },
-
-
-        {
-
-            groupe:
-                "dissolution",
-
-
-            titre:
-                "Question 5 — Conversion masse g/mg",
-
-
-            competence:
-                "REA",
-
-
-            notation:
-                true,
-
-
-            texte:
-                lireTexte(
-                    "question5"
-                )
-
-        },
-
-
-        {
-
-            groupe:
-                "dissolution",
-
-
-            titre:
-                "Question 6 — Concentration massique",
-
-
-            competence:
-                "ANA",
-
-
-            notation:
-                true,
-
-
-            texte:
-                lireTexte(
-                    "question6"
-                )
-
-        },
-
-
-        {
-
-            groupe:
-                "dissolution",
-
-
-            titre:
-                "Question 7 — Analyse de l'écart",
-
-
-            competence:
-                "ANA",
-
-
-            notation:
-                true,
-
-
-            texte:
-                lireTexte(
-                    "question7"
-                )
-
-        },
-
-
-        {
-
-            groupe:
-                "dissolution",
-
-
-            titre:
-                "Question 8 — Acceptabilité de l'erreur",
-
-
-            competence:
-                "VAL",
-
-
-            notation:
-                true,
-
-
-            texte:
-                lireTexte(
-                    "question8"
-                )
-
-        },
-
-
-        {
-
-            groupe:
-                "dissolution",
-
-
-            titre:
-                "Question 9 — Sources d'erreurs et améliorations",
-
-
-            competence:
-                "VAL",
-
-
-            notation:
-                true,
-
-
-            texte:
-                lireTexte(
-                    "question9"
-                )
-
-        },
-
-
-        {
-
-            groupe:
-                "dissolution",
-
-
-            titre:
-                "Question 10 — Conclusion",
-
-
-            competence:
-                "COM",
-
-
-            notation:
-                true,
-
-
-            texte:
-                lireTexte(
-                    "question10"
-                )
+            ]
 
         }
 
     ];
-   /* ==========================================================
-   AJOUT PARTIE DILUTION
-   ========================================================== */
 
 
-sections.push({
+    for (let i = 1; i <= 10; i++) {
+
+        const texte =
+            lireTexte(`question${i}`);
+
+        sections.push({
+
+            titre: `Question ${i}`,
+
+            texte
+
+        });
+
+    }
 
 
-    groupe:
-        "dilution",
+    const resume =
+        lireTexte("resume-tp");
 
+    if (resume) {
 
-    titre:
-        "Paramètres de la dilution C₁V₁ = C₂V₂",
+        sections.push({
+            titre: "Résumé du TP",
+            texte: resume
+        });
 
-
-    items:[
-
-
-        {
-
-            label:
-            "Concentration mère C₁",
-
-            valeur:
-            `${C1} mol/L`
-
-        },
-
-
-        {
-
-            label:
-            "Concentration fille C₂",
-
-            valeur:
-            `${C2} mol/L`
-
-        },
-
-
-        {
-
-            label:
-            "Volume final V₂",
-
-            valeur:
-            `${V2} mL`
-
-        },
-
-
-        {
-
-            label:
-            "Volume prélevé V₁",
-
-            valeur:
-            `${V1} mL`
-
-        }
-
-
-    ]
-
-});
-
-
-
-
-
-/* ==========================================================
-   RESUME TP
-   ========================================================== */
-
-
-const resume =
-    lireTexte(
-        "resume-tp"
-    );
-
-
-
-if(resume) {
+    }
 
 
     sections.push({
 
+        titre: "Auto-évaluation des compétences",
 
-        titre:
-            "Résumé du TP",
-
-
-        texte:
-            resume
-
+        items: [
+            { label: "APP", valeur: autoEval.APP ?? "—" },
+            { label: "ANA", valeur: autoEval.ANA ?? "—" },
+            { label: "REA", valeur: autoEval.REA ?? "—" },
+            { label: "VAL", valeur: autoEval.VAL ?? "—" },
+            { label: "COM", valeur: autoEval.COM ?? "—" }
+        ]
 
     });
 
 
-}
+    const materiel =
+        getMaterielSelectionne();
+
+    if (materiel.length) {
+
+        sections.push({
+            titre: "Matériel utilisé",
+            texte: materiel.join(" • ")
+        });
+
+    }
 
 
+    genererCompteRendu({
 
-
-/* ==========================================================
-   AUTO EVALUATION
-   ========================================================== */
-
-
-sections.push({
-
-
-    titre:
-        "Auto-évaluation des compétences",
-
-
-    competence:
-        "AUTO",
-
-
-    items:[
-
-
-        {
-
-            label:
-            "APP",
-
-            valeur:
-            autoEval.APP ?? "—"
-
-        },
-
-
-        {
-
-            label:
-            "ANA",
-
-            valeur:
-            autoEval.ANA ?? "—"
-
-        },
-
-
-        {
-
-            label:
-            "REA",
-
-            valeur:
-            autoEval.REA ?? "—"
-
-        },
-
-
-        {
-
-            label:
-            "VAL",
-
-            valeur:
-            autoEval.VAL ?? "—"
-
-        },
-
-
-        {
-
-            label:
-            "COM",
-
-            valeur:
-            autoEval.COM ?? "—"
-
-        }
-
-
-    ]
-
-});
-
-
-
-
-
-
-/* ==========================================================
-   MATERIEL UTILISE
-   ========================================================== */
-
-
-const materiel =
-    getMaterielSelectionne();
-
-
-
-if(materiel.length) {
-
-
-    sections.push({
-
-
-        titre:
-            "Matériel utilisé",
-
-
-        texte:
-            materiel.join(
-                " • "
-            )
-
+        domaine: "Chimie",
+        tp: "TP01",
+        titre: "Préparation de solutions par dissolution et dilution",
+        sections,
+        identiteDefaut: identite,
+        signature: false,
+        noteFinale: true
 
     });
-
-
-}
-
-
-
-
-/* ==========================================================
-   GENERATION COMPTE RENDU
-   ========================================================== */
-
-
-genererCompteRendu({
-
-
-    domaine:
-        "Chimie",
-
-
-
-    tp:
-        "TP01",
-
-
-
-    titre:
-        "Préparation de solutions par dissolution et dilution",
-
-
-
-    sections,
-
-
-
-    identiteDefaut:
-        identite,
-
-
-
-    signature:
-        false,
-
-
-
-    noteFinale:
-        true,
-
-
-
-    groupes:[
-
-
-        {
-
-            id:
-                "dissolution",
-
-
-            label:
-                "Dissolution — Préparation d'une solution par pesée",
-
-
-            niveau:
-                "2nde et 1ère Bac Pro",
-
-
-            defaut:
-                true
-
-        },
-
-
-
-        {
-
-            id:
-                "dilution",
-
-
-            label:
-                "Dilution — Préparation d'une solution fille",
-
-
-            niveau:
-                "1ère Bac Pro uniquement",
-
-
-            defaut:
-                false
-
-        }
-
-
-    ]
-
-});
-
-
 
 }
