@@ -213,6 +213,12 @@ button:disabled {
     font-weight:600;
     color:#333;
 }
+/* sécurité : toutes les images EPI utilisent une taille fixe */
+
+#securite-bloc .epi-item img{
+    max-width:140px;
+    max-height:140px;
+}
 
 /* ── Tableaux ────────────────────────────────────────────────── */
 table {
