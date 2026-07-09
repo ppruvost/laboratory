@@ -60,7 +60,7 @@ export function init() {
         equipementId: "materiel-equipements",
         glassware,
         equipment: laboratoryEquipment,
-        categorie: "Sels"
+        categorie: "Sel"
     });
     initBoutonImpressionCR();
     initRadarCompetences();
