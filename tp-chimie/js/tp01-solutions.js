@@ -237,20 +237,49 @@ function afficherModeOperatoire(type) {
     }
 
 }
+
+
 /* ==========================================================
    REACTIFS
+   ========================================================== *
+   Deux selects totalement indépendants (comme sur TP03) :
+   - #reactif-dissolution : liste des sels pour le calcul
+   - #reactif             : liste "sécurité" filtrée par
+                             .filtre-cat
+   Chacun est isolé dans sa propre fonction, avec sa propre
+   garde et son propre try/catch, afin qu'une erreur sur l'un
+   des deux selects ne puisse jamais empêcher l'initialisation
+   de l'autre (c'est ce cloisonnement qui manquait et qui
+   laissait le menu "Choisir un réactif" vide en silence).
    ========================================================== */
 
 function initReactifs() {
 
-    const selectSec = $("reactif");
-    const selectDis = $("reactif-dissolution");
+    initReactifDissolutionSelect();
 
-    /* -----------------------------
-       MENU DISSOLUTION
-    ----------------------------- */
+    initReactifSelect();
 
-    if (selectDis) {
+}
+
+
+/* -----------------------------
+   MENU DISSOLUTION
+   (#reactif-dissolution)
+----------------------------- */
+
+function initReactifDissolutionSelect() {
+
+    const selectDis =
+        $("reactif-dissolution");
+
+    if (!selectDis) {
+        console.warn(
+            "Select #reactif-dissolution introuvable dans le DOM TP01"
+        );
+        return;
+    }
+
+    try {
 
         selectDis.innerHTML = `
             <option value="">
@@ -272,27 +301,60 @@ function initReactifs() {
 
             });
 
-        selectDis.addEventListener(
-            "change",
-            changerReactif
+    }
+    catch (err) {
+
+        console.error(
+            "TP01 — échec de la construction de la liste des sels (#reactif-dissolution) :",
+            err
         );
+
     }
 
-    /* -----------------------------
-       MENU SECURITE
-       (copie conforme TP03)
-    ----------------------------- */
+    selectDis.addEventListener(
+        "change",
+        changerReactif
+    );
 
-    if (!selectSec)
+}
+
+
+/* -----------------------------
+   MENU SECURITE
+   (#reactif — copie conforme TP03)
+----------------------------- */
+
+function initReactifSelect() {
+
+    const select =
+        $("reactif");
+
+    if (!select) {
+        console.warn(
+            "Select #reactif introuvable dans le DOM TP01"
+        );
         return;
+    }
 
     function rafraichir() {
 
-        appliquerFiltresCategorie(
-            selectSec,
-            products,
-            "filtre-cat"
-        );
+        try {
+
+            appliquerFiltresCategorie(
+                select,
+                products,
+                "filtre-cat"
+            );
+
+        }
+        catch (err) {
+
+            console.error(
+                "TP01 — échec du filtrage du réactif sécurité (#reactif) :",
+                err
+            );
+
+        }
 
         afficherSecurite();
 
@@ -300,14 +362,15 @@ function initReactifs() {
 
     document
         .querySelectorAll(".filtre-cat")
-        .forEach(cb =>
+        .forEach(
+            cb =>
             cb.addEventListener(
                 "change",
                 rafraichir
             )
         );
 
-    selectSec.addEventListener(
+    select.addEventListener(
         "change",
         afficherSecurite
     );
@@ -315,126 +378,6 @@ function initReactifs() {
     rafraichir();
 
 }
-
-
-/* ==========================================================
-   CONSTRUCTION LISTE SECURITE
-   ========================================================== */
-
-
-function remplirListeReactifs() {
-
-
-    const select =
-        $("reactif");
-
-
-    if (!select)
-        return;
-
-
-
-    const categories =
-        [
-            ...
-            document.querySelectorAll(
-                ".filtre-cat:checked"
-            )
-        ]
-
-        .map(
-            cb =>
-            cb.value
-        );
-
-
-
-    const ancienneValeur =
-        select.value;
-
-
-
-    select.innerHTML =
-    `
-    <option value="">
-        -- Sélectionner --
-    </option>
-    `;
-
-
-
-    products
-
-    .filter(
-        p => {
-
-
-            if(categories.length===0)
-                return false;
-
-
-
-            return categories.some(
-                cat =>
-                appartientCategorie(
-                    p,
-                    cat
-                )
-            );
-
-
-        }
-    )
-
-
-    .sort(
-        (a,b)=>
-        a.nom.localeCompare(
-            b.nom
-        )
-    )
-
-
-    .forEach(
-        p=>{
-
-
-            const option =
-                document.createElement(
-                    "option"
-                );
-
-
-            option.value =
-                p.cas;
-
-
-            option.textContent =
-                p.nom;
-
-
-
-            if(
-                p.cas===ancienneValeur
-            )
-                option.selected=true;
-
-
-
-            select.appendChild(
-                option
-            );
-
-
-        }
-    );
-
-
-
-    afficherSecurite();
-
-}
-
 
 
 /* ==========================================================
