@@ -196,7 +196,7 @@ export function afficherSecuriteProduit({
         .map(fichier => `
             <img
                 class="picto-clp"
-                src="${imgSrc("assets/picto/" + fichier)}"
+                src="${imgSrc(fichier, "assets/picto/")}"
                 alt="pictogramme"
                 title="pictogramme"
                 onerror="this.style.display='none'">
