@@ -1,7 +1,7 @@
 /**
- * tp03-titrages.js
+ * tp00-titrages.js
  *
- * TP03 — Titrages acido-basiques (pH-métrie)
+ * TP00 — Dissolution - dilution
  *
  * Architecture modulaire :
  *  - utils.js
@@ -76,26 +76,6 @@ from "../../js/compte-rendu.js";
 
 
 
-/* ==========================================================
-   BASE pKa (couples acide/base faibles)
-   ========================================================== */
-
-const PKA_DB = {
-
-    CH3COOH: [4.76],
-    HF:      [3.17],
-    HNO2:    [3.34],
-    "NH4+":  [9.25],
-    H2O2:    [11.6],
-    H3BO3:   [9.24],
-
-    H2C2O4:  [1.25, 4.14],
-    H2CO3:   [6.35, 10.33],
-    H2S:     [7.0, 13.0],
-    H3PO4:   [2.15, 7.20, 12.35],
-    H4EDTA:  [2.0, 2.67, 6.16, 10.26]
-
-};
 
 
 
@@ -117,82 +97,77 @@ let zoomRange = null; // { vMin, vMax } ou null = auto
    RACCOURCI DOM
    ========================================================== */
 
-function $(id) {
-    return document.getElementById(id);
-}
+document.addEventListener('DOMContentLoaded', function() {
+  // === Éléments de la section "Préparation des solutions" ===
+  const nomReactifSpan = document.getElementById('nom-reactif-selectionne');
+  const formuleReactifSpan = document.getElementById('formule-reactif-selectionne');
+  const masseMolaireSpan = document.getElementById('masse-molaire-reactif-selectionne');
+  const cDissolutionInput = document.getElementById('c-dissolution');
+  const vDissolutionInput = document.getElementById('v-dissolution');
+  const resDissolutionDiv = document.getElementById('res-dissolution');
 
-function clamp(x, a, b) {
-    return Math.max(a, Math.min(b, x));
-}
+  // === Éléments de la section "Sécurité" ===
+  const reactifSelect = document.getElementById('reactif');
 
-function log10(x) {
-    return Math.log(x) / Math.LN10;
-}
+  // === Fonction pour mettre à jour les informations du produit sélectionné ===
+  function updateProductInfo() {
+    const selectedOption = reactifSelect.options[reactifSelect.selectedIndex];
 
-function phFromH(h) {
-    h = Math.max(h, 1e-14);
-    return clamp(-log10(h), 0, 14);
-}
-
-function phStrongAcidStrongBase({ Ca, Va, Cb, Vb }) {
-    const na = Ca * Va;
-    const nb = Cb * Vb;
-    const Vt = Va + Vb;
-
-    if (Vt <= 0) return 7;
-    if (Math.abs(na - nb) < 1e-18) return 7;
-
-    if (na > nb) {
-        const h = (na - nb) / Vt;
-        return phFromH(h);
+    if (!selectedOption.value) {
+      // Aucun produit sélectionné
+      nomReactifSpan.textContent = '-';
+      formuleReactifSpan.textContent = '-';
+      masseMolaireSpan.textContent = '-';
+      resDissolutionDiv.textContent = 'Sélectionner un réactif.';
+      return;
     }
 
-    const oh = (nb - na) / Vt;
-    return clamp(14 - phFromH(oh), 0, 14);
-}
+    // Récupérer les attributs personnalisés
+    const nom = selectedOption.getAttribute('data-nom') || selectedOption.textContent;
+    const formule = selectedOption.getAttribute('data-formule') || '-';
+    const masseMolaire = parseFloat(selectedOption.getAttribute('data-masse-molaire')) || 0;
 
-function phWeakAcidStrongBase({ Ca, Va, Cb, Vb, Ka, Kw = 1e-14 }) {
-    const na = Ca * Va;
-    const nb = Cb * Vb;
-    const Vt = Va + Vb;
-    const pKa = -log10(Ka);
+    // Mettre à jour les informations dans la section "Préparation des solutions"
+    nomReactifSpan.textContent = nom;
+    formuleReactifSpan.textContent = formule;
+    masseMolaireSpan.textContent = masseMolaire.toFixed(2);
 
-    if (Vt <= 0) return 7;
+    // Recalculer la masse à peser
+    calculateMasse();
+  }
 
-    if (Vb <= 0) {
-        const C = na / Vt;
-        const x = (-Ka + Math.sqrt(Ka * Ka + 4 * Ka * C)) / 2;
-        return phFromH(x);
+  // === Fonction pour calculer la masse à peser (m = C × V × M) ===
+  function calculateMasse() {
+    const c = parseFloat(cDissolutionInput.value) || 0;
+    const v = parseFloat(vDissolutionInput.value) || 0;
+    const m = parseFloat(masseMolaireSpan.textContent) || 0;
+
+    if (!reactifSelect.value || c <= 0 || v <= 0 || m <= 0) {
+      resDissolutionDiv.textContent = 'Veuillez sélectionner un réactif et remplir tous les champs.';
+      return;
     }
 
-    if (nb < na - 1e-15) {
-        const nHA = na - nb;
-        const nA = nb;
+    // Convertir le volume de mL en L
+    const vL = v / 1000;
+    const masse = c * vL * m;
 
-        if (nA <= 0) {
-            const C = na / Vt;
-            const x = (-Ka + Math.sqrt(Ka * Ka + 4 * Ka * C)) / 2;
-            return phFromH(x);
-        }
+    resDissolutionDiv.textContent = `Masse à peser : ${masse.toFixed(4)} g`;
+  }
 
-        return clamp(pKa + log10(nA / nHA), 0, 14);
-    }
+  // === Écouter les changements ===
+  // 1. Changement de produit sélectionné
+  reactifSelect.addEventListener('change', updateProductInfo);
 
-    if (Math.abs(nb - na) <= 1e-15) {
-        const Cb = na / Vt;
-        const Kb = Kw / Ka;
-        const x = (-Kb + Math.sqrt(Kb * Kb + 4 * Kb * Cb)) / 2;
-        return clamp(14 - phFromH(x), 0, 14);
-    }
+  // 2. Changement de concentration ou de volume
+  cDissolutionInput.addEventListener('input', calculateMasse);
+  vDissolutionInput.addEventListener('input', calculateMasse);
 
-    const oh = (nb - na) / Vt;
-    return clamp(14 - phFromH(oh), 0, 14);
-}
-
-
+  // === Initialisation au chargement ===
+  updateProductInfo();
+});
 
 /* ==========================================================
-   INITIALISATION TP03
+   INITIALISATION TP00
    ========================================================== */
 
 export function init() {
@@ -202,7 +177,7 @@ export function init() {
 
     dejaInitialise = true;
 
-    console.log("TP03 Titrage initialisé");
+    console.log("TP00 Dissolution- Dilution");
 
 
     initSections();
@@ -227,7 +202,7 @@ export function init() {
             laboratoryEquipment,
 
         categorie:
-            "pHmétrie"
+            "Sels"
 
     });
 
@@ -247,9 +222,7 @@ export function init() {
     initRadarCompetences();
 
 
-    // premier calcul / premier rendu
-    calculerVeTheorique();
-    dessinerCourbe();
+    
 
 }
 
@@ -269,7 +242,7 @@ else {
 }
 
 /* ==========================================================
-   REACTIF + FILTRE SECURITE (identique TP01)
+   REACTIF + FILTRE SECURITE
    ========================================================== */
 
 function initReactifSelect() {
@@ -279,7 +252,7 @@ function initReactifSelect() {
 
     if (!select) {
         console.warn(
-            "Select #reactif introuvable dans le DOM TP03"
+            "Select #reactif introuvable dans le DOM TP00"
         );
         return;
     }
@@ -342,115 +315,6 @@ function afficherSecurite() {
 
 }
 
-/* ==========================================================
-   PARAMETRES DU TITRAGE (va, ca, cb, sel-acide, sel-base, pka)
-   ========================================================== */
-
-function initParametresTitrage() {
-
-    [
-        "va",
-        "ca",
-        "cb",
-        "sel-acide",
-        "sel-base",
-        "pka-select"
-    ]
-    .forEach(
-        id => {
-
-            const el = $(id);
-
-            if (!el) return;
-
-            el.addEventListener(
-                "input",
-                () => {
-                    calculerVeTheorique();
-                    dessinerCourbe();
-                }
-            );
-
-            el.addEventListener(
-                "change",
-                () => {
-                    calculerVeTheorique();
-                    dessinerCourbe();
-                }
-            );
-
-        }
-    );
-
-}
-
-
-function getParametresTitrage() {
-
-    const va =
-        Number($("va")?.value) || 0;
-
-    const ca =
-        Number($("ca")?.value) || 0;
-
-    const cb =
-        Number($("cb")?.value) || 0;
-
-    const natureAcide =
-        $("sel-acide")?.value || "fort";
-
-    const natureBase =
-        $("sel-base")?.value || "fort";
-
-    const coupleId =
-        $("pka-select")?.value || null;
-
-    const pkaListe =
-        coupleId && PKA_DB[coupleId]
-        ? PKA_DB[coupleId]
-        : [];
-
-    return {
-        va,
-        ca,
-        cb,
-        natureAcide,
-        natureBase,
-        pkaListe
-    };
-
-}
-
-/* ==========================================================
-   VOLUME D'EQUIVALENCE THEORIQUE
-   ========================================================== */
-
-function calculerVeTheorique() {
-
-    const { va, ca, cb } =
-        getParametresTitrage();
-
-    const zone =
-        $("ve-theo");
-
-    if (!zone) return;
-
-    if (va <= 0 || ca <= 0 || cb <= 0) {
-
-        zone.textContent = "—";
-        return null;
-
-    }
-
-    const veq =
-        (ca * va) / cb;
-
-    zone.textContent =
-        `${veq.toFixed(2)} mL`;
-
-    return veq;
-
-}
 
 /* ==========================================================
    TABLEAU DE MESURES
