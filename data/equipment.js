@@ -356,6 +356,15 @@ const laboratoryEquipment = [
         noticeUtilisation: "assets/notice/balance_mettler.pdf"
     }, 
     {
+    domaine: "Chimie",
+    nom: "Sorbonne d'aspiration",
+    categorie: ["Dissolution", "pHmétrie"],
+    description: "Élimination sécurisée des vapeurs toxiques ou corrosives",
+    lieu: "Salle B29",
+    image: "",
+    noticeUtilisation: ""
+},
+    {
         domaine: "Chimie",
         nom: "papier pH (nuancier)",
         categorie: ["Dilution", "pHmétrie"],
