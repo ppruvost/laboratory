@@ -1,13 +1,16 @@
 /**
  * tp01-solutions.js
  *
- * TP01 — Préparation de solutions (dissolution / dilution)
+ * TP01 — Préparation de solutions
  *
+ * Architecture modulaire (trame commune) :
  *  - utils.js
  *  - securite.js
  *  - materiel.js
  *  - balance-erreurs.js
- *  - compte-rendu.js
+ *  - compte-rendu.js 
+ */
+
 
 /* ==========================================================
    IMPORTS
@@ -119,9 +122,11 @@ export function init() {
     initTabs();
 
 
+    // ---- bloc SECURITE (trame commune, copie conforme TP03) ----
     initReactifSelect();
 
 
+    // ---- bloc MATERIEL (trame commune, copie conforme TP03) ----
     initMateriel({
 
         verreId:
@@ -141,7 +146,8 @@ export function init() {
     });
 
 
-    initModeOperatoireToggle();
+    // ---- cœur du TP01 (spécifique) ----
+    initReactifDissolutionSelect();
 
     initCalculsTP01();
 
@@ -149,6 +155,8 @@ export function init() {
 
     initResultatsTableau();
 
+
+    // ---- bloc commun (balance-erreurs / impression / radar) ----
     initBalanceErreurs();
 
     initBoutonImpressionCR();
@@ -177,8 +185,9 @@ else {
 
 }
 
+
 /* ==========================================================
-   REACTIF + FILTRE SECURITE
+   REACTIF + FILTRE SECURITE   
    ========================================================== */
 
 function initReactifSelect() {
@@ -195,23 +204,11 @@ function initReactifSelect() {
 
     function rafraichir() {
 
-        try {
-
-            appliquerFiltresCategorie(
-                select,
-                products,
-                "filtre-cat"
-            );
-
-        }
-        catch (err) {
-
-            console.error(
-                "TP01 — échec du filtrage du réactif (#reactif) :",
-                err
-            );
-
-        }
+        appliquerFiltresCategorie(
+            select,
+            products,
+            "filtre-cat"
+        );
 
         afficherSecurite();
 
@@ -261,29 +258,90 @@ function afficherSecurite() {
 
     });
 
-    // Le même réactif alimente le calculateur de dissolution
-    mettreAJourChampsDissolution(produit);
-
 }
 
 
 /* ==========================================================
-   MISE A JOUR DES CHAMPS DE DISSOLUTION
-   (déclenchée par le select unique #reactif)
+   CŒUR DU TP01 — SELECT REACTIF DE DISSOLUTION   
    ========================================================== */
 
-function mettreAJourChampsDissolution(produit) {
+function initReactifDissolutionSelect() {
+
+    const selectDis =
+        $("reactif-dissolution");
+
+    if (!selectDis) {
+        console.warn(
+            "Select #reactif-dissolution introuvable dans le DOM TP01"
+        );
+        return;
+    }
+
+    try {
+
+        selectDis.innerHTML = `
+            <option value="">
+                -- Sélectionner un sel --
+            </option>
+        `;
+
+        products
+            .filter(p => appartientCategorie(p, "Sel"))
+            .sort((a, b) => a.nom.localeCompare(b.nom, "fr"))
+            .forEach(p => {
+
+                const option =
+                    document.createElement("option");
+
+                option.value = p.cas;
+                option.textContent = p.nom;
+
+                selectDis.appendChild(option);
+
+            });
+
+    }
+    catch (err) {
+
+        console.error(
+            "TP01 — échec de la construction de la liste des sels (#reactif-dissolution) :",
+            err
+        );
+
+    }
+
+    selectDis.addEventListener(
+        "change",
+        changerReactif
+    );
+
+}
+
+
+function changerReactif() {
+
+    const cas =
+        $("reactif-dissolution")?.value;
+
+    const produit =
+        trouverProduit(products, cas);
+
+    if (!produit)
+        return;
+
+    reactifCourant =
+        produit;
 
     const correspondances = {
 
         "nom-reactif":
-            produit?.nom || "-",
+            produit.nom,
 
         "formule-dissolution":
-            produit?.formule || "-",
+            produit.formule,
 
         "nom-sel-table":
-            produit?.nom || "Réactif sélectionné"
+            produit.nom
 
     };
 
@@ -302,59 +360,14 @@ function mettreAJourChampsDissolution(produit) {
 
     if (masse)
         masse.value =
-            produit?.masseMolaire || "";
+            produit.masseMolaire || "";
 
     calculDissolution();
 
 }
 
 /* ==========================================================
-   BASCULE DES MODES OPERATOIRES (onglets Dissolution/Dilution)
-   ========================================================== */
-
-function initModeOperatoireToggle() {
-
-    document
-        .querySelectorAll(".tabs-header .tab-btn")
-        .forEach(btn => {
-
-            btn.addEventListener("click", () => {
-                afficherModeOperatoire(btn.dataset.tab);
-            });
-
-        });
-
-}
-
-
-function afficherModeOperatoire(type) {
-
-    const dissolution =
-        $("modeDissolution");
-
-    const dilution =
-        $("modeDilution");
-
-    if (!dissolution || !dilution)
-        return;
-
-    if (type === "dissolution") {
-
-        dissolution.classList.remove("hidden");
-        dilution.classList.add("hidden");
-
-    }
-    else {
-
-        dissolution.classList.add("hidden");
-        dilution.classList.remove("hidden");
-
-    }
-
-}
-
-/* ==========================================================
-   CALCULS TP01 (dissolution / dilution)
+   CŒUR DU TP01 — CALCULS DISSOLUTION / DILUTION
    ========================================================== */
 
 function initCalculsTP01() {
@@ -395,7 +408,7 @@ function initCalculsTP01() {
 }
 
 /* ==========================================================
-   ANALYSE DES ERREURS DE PESEE (balances 0,1 g / 1 g)
+   CŒUR DU TP01 — ANALYSE DES ERREURS DE PESEE
    ========================================================== */
 
 function initErreursPesee() {
@@ -531,7 +544,7 @@ function calculerErreursPesee() {
 }
 
 /* ==========================================================
-   TABLEAU DE RESULTATS
+   CŒUR DU TP01 — TABLEAU DE RESULTATS
    ========================================================== */
 
 function initResultatsTableau() {
@@ -541,8 +554,9 @@ function initResultatsTableau() {
 
 }
 
+
 /* ==========================================================
-   BOUTON IMPRESSION COMPTE-RENDU 
+   BOUTON IMPRESSION COMPTE-RENDU
    ========================================================== */
 
 function initBoutonImpressionCR() {
@@ -631,6 +645,10 @@ function lancerCompteRendu() {
         : "—";
 
 
+    const nomReactifTitre =
+        nomReactif !== "—" ? nomReactif : ($("nom-sel-table")?.textContent || "—");
+
+
     const autoEval =
         recupererAutoEvaluation();
 
@@ -643,7 +661,7 @@ function lancerCompteRendu() {
 
             items: [
 
-                { label: "Réactif", valeur: `${nomReactif} (${formule})` },
+                { label: "Réactif", valeur: `${nomReactifTitre} (${formule})` },
                 { label: "Masse molaire", valeur: `${masseMolaire} g/mol` },
                 { label: "Concentration visée", valeur: `${C} mol/L` },
                 { label: "Volume préparé", valeur: `${V} mL` },
