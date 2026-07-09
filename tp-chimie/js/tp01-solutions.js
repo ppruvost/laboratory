@@ -241,11 +241,6 @@ function afficherModeOperatoire(type) {
    REACTIFS
    ========================================================== */
 
-
-/* ==========================================================
-   REACTIFS (identique TP03)
-   ========================================================== */
-
 function initReactifs() {
 
     const selectSec = $("reactif");
