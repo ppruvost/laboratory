@@ -59,25 +59,22 @@ export function message(id, texte, classe = "info") {
    RESOLUTION DES CHEMINS D'IMAGES
    ============================================================ */
 
+const BASE =
+    window.location.hostname === "ppruvost.github.io"
+        ? "/laboratory/"
+        : "/";
+
 export function imgSrc(chemin) {
 
     if (!chemin) return "";
 
     if (chemin.startsWith("http")) return chemin;
 
-    if (chemin.startsWith("/")) return chemin;
+    if (chemin.startsWith(BASE)) return chemin;
 
-    // Les chemins commençant par assets/ sont à la racine du projet
-    if (chemin.startsWith("assets/")) {
-        return "../../" + chemin;
-    }
-
-    if (chemin.startsWith("tp-chimie/")) {
-        return "../../" + chemin;
-    }
-
-    return "../../tp-chimie/assets/images/" + chemin;
+    return BASE + chemin.replace(/^\/+/, "");
 }
+
 /* ============================================================
    TEST DE CATEGORIE
    ============================================================ */
