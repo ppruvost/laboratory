@@ -184,12 +184,21 @@ button:disabled {
    ÉQUIPEMENTS DE PROTECTION (EPI)
    ========================================================== */
 
+/* ==========================================================
+   EPI
+   ========================================================== */
+
+.epi-bloc{
+    margin-top:20px;
+}
+
 .epi-container{
     display:flex;
     flex-wrap:wrap;
     gap:24px;
-    margin:15px 0;
+    justify-content:flex-start;
     align-items:flex-start;
+    margin-top:12px;
 }
 
 .epi-item{
@@ -201,18 +210,20 @@ button:disabled {
 }
 
 .epi-item img{
-    width:140px;
-    height:140px;
+    width:120px;
+    height:120px;
     object-fit:contain;
+    object-position:center;
     display:block;
 }
 
 .epi-item span{
-    margin-top:8px;
+    margin-top:10px;
     font-size:.90rem;
     font-weight:600;
-    color:#333;
+    line-height:1.2;
 }
+
 /* sécurité : toutes les images EPI utilisent une taille fixe */
 
 #securite-bloc .epi-item img{
