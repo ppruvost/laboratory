@@ -178,6 +178,41 @@ button:disabled {
   margin: var(--gap-sm) 0;
 }
 
+
+
+/* ==========================================================
+   EPI - Uniformisation des pictogrammes
+   ========================================================== */
+
+.epi-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: flex-start;
+    align-items: flex-start;
+    margin: 15px 0;
+}
+
+.epi-item {
+    width: 150px;
+    text-align: center;
+}
+
+.epi-item img,
+.epi-item .epi-image {
+    width: 140px;
+    height: 140px;
+    object-fit: contain;
+    display: block;
+    margin: 0 auto 8px;
+}
+
+.epi-item span,
+.epi-item p {
+    display: block;
+    font-size: .85rem;
+    font-weight: 600;
+}
 /* ── Tableaux ────────────────────────────────────────────────── */
 table {
   width: 100%;
