@@ -317,34 +317,12 @@
         <div class="calcul-guide">
 
 
-          <label for="reactif-dissolution">
-            Soluté solide :
-          </label>
-
-
-          <select id="reactif-dissolution">
-
-            <option value="">
-              -- Sélectionner un sel --
-            </option>
-
-          </select>
-
-
-          <div class="info-reactif">
-
-            <p>
-              <strong>Nom :</strong>
-              <span id="nom-reactif">-</span>
-            </p>
-
-            <p>
-              <strong>Formule :</strong>
-              <span id="formule-dissolution">-</span>
-            </p>
-
-          </div>
-
+          <!-- Affichage des informations du produit sélectionné (lié à #reactif de la section Sécurité) -->
+<div class="info-reactif">
+  <p><strong>Produit sélectionné :</strong> <span id="nom-reactif-selectionne">-</span></p>
+  <p><strong>Formule :</strong> <span id="formule-reactif-selectionne">-</span></p>
+  <p><strong>Masse molaire M (g/mol) :</strong> <span id="masse-molaire-reactif-selectionne">-</span></p>
+</div>
 
           <hr>
 
@@ -387,17 +365,11 @@
             </div>
 
 
-            <div class="form-group">
-
-              <label for="m-dissolution">
-                Masse molaire M (g/mol)
-              </label>
-
-              <input id="m-dissolution"
-                     type="number"
-                     readonly>
-
-            </div>
+            <!-- La masse molaire est affichée dans le bloc info-reactif, donc on peut supprimer ce champ ou le garder en lecture seule -->
+<div class="form-group">
+  <label for="m-dissolution">Masse molaire M (g/mol)</label>
+  <input id="m-dissolution" type="number" readonly>
+</div>
 
           </div>
 
