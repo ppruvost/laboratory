@@ -242,120 +242,84 @@ function afficherModeOperatoire(type) {
    ========================================================== */
 
 
+/* ==========================================================
+   REACTIFS (identique TP03)
+   ========================================================== */
+
 function initReactifs() {
 
+    const selectSec = $("reactif");
+    const selectDis = $("reactif-dissolution");
 
-    const selectSec =
-        $("reactif");
+    /* -----------------------------
+       MENU DISSOLUTION
+    ----------------------------- */
 
+    if (selectDis) {
 
-    const selectDis =
-        $("reactif-dissolution");
+        selectDis.innerHTML = `
+            <option value="">
+                -- Sélectionner un sel --
+            </option>
+        `;
 
+        products
+            .filter(p => appartientCategorie(p, "Sel"))
+            .sort((a, b) => a.nom.localeCompare(b.nom, "fr"))
+            .forEach(p => {
 
+                const option = document.createElement("option");
 
-    if (!selectSec || !selectDis)
+                option.value = p.cas;
+                option.textContent = p.nom;
+
+                selectDis.appendChild(option);
+
+            });
+
+        selectDis.addEventListener(
+            "change",
+            changerReactif
+        );
+    }
+
+    /* -----------------------------
+       MENU SECURITE
+       (copie conforme TP03)
+    ----------------------------- */
+
+    if (!selectSec)
         return;
 
+    function rafraichir() {
 
+        appliquerFiltresCategorie(
+            selectSec,
+            products,
+            "filtre-cat"
+        );
 
-    /* ───── MENU DISSOLUTION ───── */
+        afficherSecurite();
 
-    selectDis.innerHTML =
-    `
-    <option value="">
-        -- Sélectionner un sel --
-    </option>
-    `;
+    }
 
-
-
-    products
-
-    .filter(
-        p =>
-        appartientCategorie(
-            p,
-            "Sel"
-        )
-    )
-
-    .sort(
-        (a,b)=>
-        a.nom.localeCompare(
-            b.nom
-        )
-    )
-
-    .forEach(
-        p=>{
-
-
-            const option =
-                document.createElement(
-                    "option"
-                );
-
-
-            option.value =
-                p.cas;
-
-
-            option.textContent =
-                p.nom;
-
-
-            selectDis.appendChild(
-                option
-            );
-
-
-        }
-    );
-
-
-
-    /* ───── MENU SECURITE ───── */
-
-
-    remplirListeReactifs();
-
-
+    document
+        .querySelectorAll(".filtre-cat")
+        .forEach(cb =>
+            cb.addEventListener(
+                "change",
+                rafraichir
+            )
+        );
 
     selectSec.addEventListener(
         "change",
         afficherSecurite
     );
 
-
-    selectDis.addEventListener(
-        "change",
-        changerReactif
-    );
-
-
-
-    document
-    .querySelectorAll(
-        ".filtre-cat"
-    )
-
-    .forEach(
-        cb => {
-
-
-            cb.addEventListener(
-                "change",
-                remplirListeReactifs
-            );
-
-
-        }
-    );
-
+    rafraichir();
 
 }
-
 
 
 /* ==========================================================
