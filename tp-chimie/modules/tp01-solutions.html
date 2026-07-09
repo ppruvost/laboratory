@@ -55,7 +55,7 @@
 
 
 <!-- ====================================================== -->
-<!-- OBJECTIFS                                               -->
+<!-- OBJECTIFS  (trame commune — seul le texte change)       -->
 <!-- ====================================================== -->
 
 <div class="section" data-type="objectif">
@@ -109,7 +109,7 @@
 
 
 <!-- ====================================================== -->
-<!-- SECURITE                                                -->
+<!-- SECURITE  (trame commune — copie conforme TP03)         -->
 <!-- ====================================================== -->
 
 <div class="section" data-type="securite">
@@ -234,15 +234,6 @@
     </div>
 
 
-    <div class="info">
-
-      Le réactif choisi ici alimente automatiquement
-      les champs du calculateur de dissolution
-      ci-dessous (nom, formule, masse molaire).
-
-    </div>
-
-
 
     <div id="securite-bloc">
 
@@ -261,7 +252,7 @@
 
 
 <!-- ====================================================== -->
-<!-- MATERIEL                                                -->
+<!-- MATERIEL  (trame commune — copie conforme TP03)         -->
 <!-- ====================================================== -->
 
 <div class="section" data-type="materiel">
@@ -310,6 +301,13 @@
 
 
 <!-- ====================================================== -->
+<!-- ====================================================== -->
+<!-- CŒUR DU TP — SPECIFIQUE À TP01                          -->
+<!-- ====================================================== -->
+<!-- ====================================================== -->
+
+
+<!-- ====================================================== -->
 <!-- PREPARATION DES SOLUTIONS                              -->
 <!-- ====================================================== -->
 
@@ -354,6 +352,21 @@
         <h3>Préparation par dissolution</h3>
 
         <div class="calcul-guide">
+
+
+          <label for="reactif-dissolution">
+            Soluté solide :
+          </label>
+
+
+          <select id="reactif-dissolution">
+
+            <option value="">
+              -- Sélectionner un sel --
+            </option>
+
+          </select>
+
 
           <div class="info-reactif">
 
@@ -427,7 +440,7 @@
 
 
           <div id="res-dissolution" class="resultat-calcul">
-            Sélectionner un réactif dans la section Sécurité.
+            Sélectionner un réactif.
           </div>
 
 
@@ -801,7 +814,15 @@
 
 
 <!-- ====================================================== -->
-<!-- COMPTE RENDU                                            -->
+<!-- ====================================================== -->
+<!-- FIN DU CŒUR SPECIFIQUE TP01                             -->
+<!-- ====================================================== -->
+<!-- ====================================================== -->
+
+
+<!-- ====================================================== -->
+<!-- COMPTE RENDU  (trame commune — seuls les textes des     -->
+<!-- questions et les blocs "Paramètres" changent)           -->
 <!-- ====================================================== -->
 
 <div class="section" data-type="bilan">
@@ -1022,7 +1043,7 @@
 
 
     <!-- =============================================== -->
-    <!-- IMPRESSION COMPTE RENDU                          -->
+    <!-- IMPRESSION COMPTE RENDU (copie conforme TP03)    -->
     <!-- =============================================== -->
 
     <h3 style="margin-top:var(--gap-lg);">
@@ -1057,7 +1078,7 @@
 
 
 <!-- ====================================================== -->
-<!-- AUTO-ÉVALUATION                                        -->
+<!-- AUTO-ÉVALUATION  (trame commune — copie conforme TP03)  -->
 <!-- ====================================================== -->
 
 <div class="section" data-type="auto-evaluation">
