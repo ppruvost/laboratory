@@ -219,10 +219,7 @@ export function init() {
 
     initBoutonImpressionCR();
 
-    initRadarCompetences();
-
-
-    
+    initRadarCompetences();    
 
 }
 
@@ -314,7 +311,129 @@ function afficherSecurite() {
     });
 
 }
+/* ==========================================================
+   CŒUR DU TP01 — SELECT REACTIF (DISSOLUTION)
+   ========================================================== */
 
+function initReactifDissolution() {
+    // On n'a plus besoin de #reactif-dissolution, car on utilise #reactif (section Sécurité)
+    // On écoute simplement les changements sur #reactif
+    const reactifSelect = document.getElementById('reactif');
+    if (!reactifSelect) {
+        console.warn("Select #reactif introuvable dans le DOM.");
+        return;
+    }
+
+    // Écouter les changements de sélection
+    reactifSelect.addEventListener('change', updateDissolutionInfo);
+}
+
+/* ==========================================================
+   MISE À JOUR DES INFORMATIONS DE DISSOLUTION
+   ========================================================== */
+
+function updateDissolutionInfo() {
+    const cas = document.getElementById('reactif')?.value;
+    const produit = trouverProduit(products, cas);
+
+    if (!produit) {
+        // Réinitialiser les champs si aucun produit n'est sélectionné
+        document.getElementById('nom-reactif-selectionne')?.textContent = '-';
+        document.getElementById('formule-reactif-selectionne')?.textContent = '-';
+        document.getElementById('masse-molaire-reactif-selectionne')?.textContent = '-';
+        document.getElementById('res-dissolution')?.textContent = 'Sélectionner un réactif.';
+        return;
+    }
+
+    // Mettre à jour les informations du produit
+    document.getElementById('nom-reactif-selectionne')?.textContent = produit.nom || '-';
+    document.getElementById('formule-reactif-selectionne')?.textContent = produit.formule || '-';
+    document.getElementById('masse-molaire-reactif-selectionne')?.textContent = (produit.masseMolaire || 0).toFixed(2);
+
+    // Recalculer la masse à peser
+    calculDissolution();
+}
+
+/* ==========================================================
+   CALCUL DE LA MASSE À PESER (DISSOLUTION)
+   ========================================================== */
+
+function calculDissolution() {
+    const c = parseFloat(document.getElementById('c-dissolution')?.value) || 0;
+    const v = parseFloat(document.getElementById('v-dissolution')?.value) || 0;
+    const m = parseFloat(document.getElementById('masse-molaire-reactif-selectionne')?.textContent) || 0;
+
+    const resDissolutionDiv = document.getElementById('res-dissolution');
+    if (!resDissolutionDiv) return;
+
+    if (!document.getElementById('reactif')?.value || c <= 0 || v <= 0 || m <= 0) {
+        resDissolutionDiv.textContent = 'Veuillez sélectionner un réactif et remplir tous les champs.';
+        return;
+    }
+
+    // Convertir le volume de mL en L
+    const vL = v / 1000;
+    const masse = c * vL * m;
+
+    resDissolutionDiv.textContent = `Masse à peser : ${masse.toFixed(4)} g`;
+}
+
+/* ==========================================================
+   INITIALISATION DES ÉCOUTEURS POUR LES CALCULS
+   ========================================================== */
+
+function initCalculsDissolution() {
+    // Écouter les changements dans les champs de concentration et volume
+    document.getElementById('c-dissolution')?.addEventListener('input', calculDissolution);
+    document.getElementById('v-dissolution')?.addEventListener('input', calculDissolution);
+}
+
+/* ==========================================================
+   INITIALISATION COMPLÈTE
+   ========================================================== */
+
+export function init() {
+    if (dejaInitialise) return;
+    dejaInitialise = true;
+
+    console.log("TP01 — Initialisation des calculs de dissolution.");
+
+    // Initialiser les sections et onglets
+    initSections();
+    initTabs();
+
+    // Initialiser la liste des réactifs (section Sécurité)
+    initReactifSelect();
+
+    // Initialiser les calculs de dissolution
+    initReactifDissolution();
+    initCalculsDissolution();
+
+    // Initialiser le matériel
+    initMateriel({
+        verreId: "materiel-verrerie",
+        equipementId: "materiel-equipements",
+        glassware,
+        equipment: laboratoryEquipment,
+        categorie: "Sels"
+    });
+
+    // Autres initialisations (à conserver si nécessaire)
+    initParametresTitrage();
+    initMesures();
+    initCourbe();
+    initCorrection();
+    initBalanceErreurs();
+    initBoutonImpressionCR();
+    initRadarCompetences();
+}
+
+// Appel de l'initialisation
+if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", init);
+} else {
+    init();
+}
 
 /* ==========================================================
    TABLEAU DE MESURES
@@ -327,186 +446,6 @@ function afficherSecurite() {
    CORRECTION DES ERREURS DE MESURE
    ========================================================== */
 
-function initCorrection() {
-
-    $("btn-correction-erreurs")
-        ?.addEventListener("click", () => {
-
-            const panneau =
-                $("panneau-correction");
-
-            if (!panneau) return;
-
-            panneau.style.display =
-                panneau.style.display === "none" ? "" : "none";
-
-        });
-
-    $("btn-appliquer-offset")
-        ?.addEventListener("click", appliquerOffsetPH);
-
-    $("btn-lissage")
-        ?.addEventListener("click", () => lisserMesures(3));
-
-    $("btn-savgol")
-        ?.addEventListener("click", () => lisserMesures(5));
-
-    $("btn-detecter-aberrants")
-        ?.addEventListener("click", detecterPointsAberrants);
-
-}
-
-
-function appliquerOffsetPH() {
-
-    const offset =
-        Number($("offset-ph")?.value) || 0;
-
-    if (offset === 0) return;
-
-    mesures.forEach(m => {
-        m.pH = Number((m.pH + offset).toFixed(2));
-    });
-
-    rafraichirTableauMesures();
-    dessinerCourbe();
-    calculerResultatsAutomatiques();
-
-}
-
-
-function lisserMesures(fenetre) {
-
-    if (mesures.length < fenetre) return;
-
-    const tries =
-        [...mesures].sort((a, b) => a.volume - b.volume);
-
-    const demi =
-        Math.floor(fenetre / 2);
-
-    const lissees =
-        tries.map((m, i) => {
-
-            const debut = Math.max(0, i - demi);
-            const fin = Math.min(tries.length, i + demi + 1);
-
-            const fenetreValeurs =
-                tries.slice(debut, fin).map(p => p.pH);
-
-            const moyenne =
-                fenetreValeurs.reduce((s, v) => s + v, 0) / fenetreValeurs.length;
-
-            return { ...m, pH: Number(moyenne.toFixed(2)) };
-
-        });
-
-    mesures = lissees;
-
-    rafraichirTableauMesures();
-    dessinerCourbe();
-    calculerResultatsAutomatiques();
-
-}
-
-
-function detecterPointsAberrants() {
-
-    const zone =
-        $("liste-points-suspects");
-
-    if (!zone) return;
-
-    if (mesures.length < 3) {
-
-        zone.innerHTML =
-            `<div class="info">Pas assez de mesures pour un diagnostic.</div>`;
-        return;
-
-    }
-
-    const valeurs =
-        mesures.map(m => m.pH);
-
-    const moyenne =
-        valeurs.reduce((s, v) => s + v, 0) / valeurs.length;
-
-    const ecartType =
-        Math.sqrt(
-            valeurs.reduce((s, v) => s + (v - moyenne) ** 2, 0) / valeurs.length
-        );
-
-    const suspects =
-        mesures.filter(m =>
-            ecartType > 0 && Math.abs(m.pH - moyenne) / ecartType > 3
-        );
-
-    if (suspects.length === 0) {
-
-        zone.innerHTML =
-            `<div class="info">Aucun point aberrant détecté (seuil 3σ).</div>`;
-        return;
-
-    }
-
-    zone.innerHTML =
-        `<ul>` +
-        suspects.map(m =>
-            `<li>V = ${m.volume} mL — pH = ${m.pH} (écart important)</li>`
-        ).join("") +
-        `</ul>`;
-
-}
-
-
-function rafraichirTableauMesures() {
-
-    const tbody =
-        $("tbody-mesures");
-
-    if (!tbody) return;
-
-    tbody.innerHTML = "";
-
-    mesures.forEach(m => {
-
-        const tr =
-            document.createElement("tr");
-
-        tr.dataset.id = m.id;
-
-        tr.innerHTML = `
-            <td>
-                <input type="number" step="0.01" class="input-volume" value="${m.volume}">
-            </td>
-            <td>
-                <input type="number" step="0.01" class="input-ph" value="${m.pH}">
-            </td>
-            <td>
-                <input type="text" class="input-observation" value="${m.observation || ""}">
-            </td>
-            <td>
-                <button type="button" class="btn btn-danger btn-suppr-mesure">🗑</button>
-            </td>
-        `;
-
-        tbody.appendChild(tr);
-
-        tr.querySelector(".input-volume")
-            .addEventListener("input", e => majMesure(m.id, "volume", Number(e.target.value)));
-
-        tr.querySelector(".input-ph")
-            .addEventListener("input", e => majMesure(m.id, "pH", Number(e.target.value)));
-
-        tr.querySelector(".input-observation")
-            .addEventListener("input", e => majMesure(m.id, "observation", e.target.value));
-
-        tr.querySelector(".btn-suppr-mesure")
-            .addEventListener("click", () => supprimerMesure(m.id, tr));
-
-    });
-
-}
 
 /* ==========================================================
    BOUTON IMPRESSION COMPTE-RENDU
