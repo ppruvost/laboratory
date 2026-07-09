@@ -250,15 +250,15 @@ export function afficherSecuriteProduit({
 
         <div class="epi-bloc">
 
-            <h4>
-                🦺 Équipements de protection
-            </h4>
+    <h4>
+        🦺 Équipements de protection
+    </h4>
 
-            <div class="epi-liste">
-                ${epiHTML}
-            </div>
+    <div class="epi-container">
+        ${epiHTML}
+    </div>
 
-        </div>
+</div>
 
         `;
 
@@ -467,8 +467,11 @@ export function afficherEPI(zoneId, listeEPI = []) {
 
 
     zone.innerHTML =
-    listeEPI
-    .map(e => {
+`
+<div class="epi-container">
+${
+listeEPI
+.map(e => {
 
 
         const epi =
@@ -496,6 +499,9 @@ export function afficherEPI(zoneId, listeEPI = []) {
         `;
 
     })
-    .join("");
+    .join("")
+}
+</div>
+`;
 
 }
