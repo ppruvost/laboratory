@@ -59,25 +59,25 @@ export function message(id, texte, classe = "info") {
    RESOLUTION DES CHEMINS D'IMAGES
    ============================================================ */
 
-export function imgSrc(
-    chemin,
-    dossierParDefaut = "tp-chimie/assets/images/"
-) {
+export function imgSrc(chemin) {
 
     if (!chemin) return "";
 
-    if (
-        chemin.startsWith("http") ||
-        chemin.startsWith("/") ||
-        chemin.startsWith("assets/") ||
-        chemin.startsWith("tp-chimie/")
-    ) {
-        return chemin;
+    if (chemin.startsWith("http")) return chemin;
+
+    if (chemin.startsWith("/")) return chemin;
+
+    // Les chemins commençant par assets/ sont à la racine du projet
+    if (chemin.startsWith("assets/")) {
+        return "../../" + chemin;
     }
 
-    return dossierParDefaut + chemin;
-}
+    if (chemin.startsWith("tp-chimie/")) {
+        return "../../" + chemin;
+    }
 
+    return "../../tp-chimie/assets/images/" + chemin;
+}
 /* ============================================================
    TEST DE CATEGORIE
    ============================================================ */
