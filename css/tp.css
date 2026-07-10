@@ -607,6 +607,11 @@ textarea { font-family: var(--font-corps); resize: vertical; min-height: 80px; }
   gap: .75rem;
 }
 
+.question-entete strong {
+  flex: 1;
+  min-width: 0;
+}
+
 .niveau-badge {
   flex: 1;
   padding: .5rem;
