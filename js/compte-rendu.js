@@ -323,11 +323,12 @@ function _construireEtImprimer(identite) {
   let conteneur = document.getElementById("cr-print-container");
 
   if (!conteneur) {
-
     conteneur = document.createElement("div");
     conteneur.id = "cr-print-container";
+  }
+  
+  if (conteneur.parentElement !== document.body) {
     document.body.appendChild(conteneur);
-
   }
 
   conteneur.innerHTML = contenuHTML;
