@@ -326,16 +326,6 @@ function initBoutonImpressionCR() {
     btn.addEventListener("click", lancerCompteRendu);
 }
 
-function recupererAutoEvaluation() {
-    const competences = ["APP", "ANA", "REA", "VAL", "COM"];
-    const scores = {};
-    competences.forEach(c => {
-        const choix = document.querySelector(`input[name="${c}"]:checked`);
-        scores[c] = choix ? Number(choix.value) : null;
-    });
-    return scores;
-}
-
 function lancerCompteRendu() {
     const identite = {
         nom: lireTexte("nom-eleve"),
@@ -343,6 +333,76 @@ function lancerCompteRendu() {
         classe: lireTexte("classe-eleve"),
         date: $("date-eleve")?.value || ""
     };
+
+    const nomReactif = reactifCourant?.nom || "—";
+    const masseMolaire = $("masse-molaire-reactif-selectionne")?.textContent || "—";
+    const cDissolution = $("c-dissolution")?.value || "—";
+    const vDissolution = $("v-dissolution")?.value || "—";
+    const masseTheo = $("pe-masse-theo")?.value || "—";
+    const masseExp = $("masse-exp-pesee")?.value || "—";
+    const ecartRelatif = $("table-ecart")?.textContent?.trim() || "—";
+
+    const sections = [
+        {
+            titre: "Paramètres de la dissolution",
+            items: [
+                { label: "Réactif", valeur: nomReactif },
+                { label: "Masse molaire M", valeur: `${masseMolaire} g/mol` },
+                { label: "Concentration C", valeur: `${cDissolution} mol/L` },
+                { label: "Volume V", valeur: `${vDissolution} mL` },
+                { label: "Masse théorique m", valeur: `${masseTheo} g` },
+                { label: "Masse pesée", valeur: `${masseExp} g` },
+                { label: "Écart relatif", valeur: ecartRelatif }
+            ]
+        },
+        {
+            titre: "Paramètres de la dilution (C₁V₁ = C₂V₂)",
+            items: [
+                { label: "Concentration mère C₁", valeur: `${$("c1-hcl")?.value || "—"} mol/L` },
+                { label: "Concentration fille C₂", valeur: `${$("c2-hcl")?.value || "—"} mol/L` },
+                { label: "Volume final V₂", valeur: `${$("v2-hcl")?.value || "—"} mL` },
+                { label: "Volume à prélever V₁", valeur: `${$("res-hcl")?.textContent?.replace("Volume à prélever : ", "") || "—"}` }
+            ]
+        }
+    ];
+
+    document.querySelectorAll(".questions-tp > li").forEach((li, index) => {
+        const zone = li.querySelector("textarea.cr-reponse, textarea[id^='question']") 
+                     || li.querySelector("textarea");
+        if (!zone) return;
+
+        const titreQuestion = li.querySelector(".question-entete strong")
+            ?.textContent.replace(/\s+/g, " ").trim() || `Question ${index + 1}`;
+        const competence = li.querySelector(".cartouche")?.dataset.comp || "";
+
+        sections.push({
+            titre: titreQuestion,
+            competence,
+            notation: true,
+            texte: (zone.value || "").trim()
+        });
+    });
+
+    const resume = lireTexte("resume-tp");
+    if (resume) {
+        sections.push({
+            titre: "Résumé du TP",
+            texte: resume
+        });
+    }    
+
+    const materiel = getMaterielSelectionne();    
+
+    genererCompteRendu({
+        domaine: "Chimie",
+        tp: "TP01",
+        titre: "Préparation de solutions par dissolution et dilution",
+        sections,
+        identiteDefaut: identite,
+        signature: false,
+        noteFinale: true
+    });
+}
 
     const nomReactif = reactifCourant?.nom || "—";
     const cDissolution = $("c-dissolution")?.value || "—";
