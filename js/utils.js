@@ -57,6 +57,7 @@ export function message(id, texte, classe = "info") {
 
 /* ============================================================
    RESOLUTION DES CHEMINS D'IMAGES
+   Compatible GitHub Pages + développement local
    ============================================================ */
 
 const BASE =
@@ -64,13 +65,47 @@ const BASE =
         ? "/laboratory/"
         : "/";
 
-export function imgSrc(chemin) {
+export function imgSrc(
+    chemin,
+    dossierParDefaut = ""
+) {
 
     if (!chemin) return "";
 
-    if (chemin.startsWith("http")) return chemin;
+    // URL complète
+    if (
+        chemin.startsWith("http://") ||
+        chemin.startsWith("https://")
+    ) {
+        return chemin;
+    }
 
-    if (chemin.startsWith(BASE)) return chemin;
+    // Déjà préfixé par la base
+    if (chemin.startsWith(BASE)) {
+        return chemin;
+    }
+
+    // Chemin absolu du projet
+    if (
+        chemin.startsWith("assets/") ||
+        chemin.startsWith("tp-chimie/") ||
+        chemin.startsWith("tp-lumiere/") ||
+        chemin.startsWith("tp-acoustique/") ||
+        chemin.startsWith("tp-electricite/") ||
+        chemin.startsWith("tp-mecanique/") ||
+       chemin.startsWith("tp-thermique/") ||
+        chemin.startsWith("tp-optique/")
+    ) {
+        return BASE + chemin;
+    }
+
+    // Ajoute le dossier par défaut si le nom de fichier est seul
+    if (dossierParDefaut) {
+
+        dossierParDefaut = dossierParDefaut.replace(/^\/+|\/+$/g, "");
+
+        chemin = `${dossierParDefaut}/${chemin}`;
+    }
 
     return BASE + chemin.replace(/^\/+/, "");
 }
