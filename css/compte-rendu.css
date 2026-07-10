@@ -139,57 +139,59 @@
 
 @media print {
 
-  @page {
-    size: A4 portrait;
-    margin: 12mm;
-  }
+    @page {
+        size: A4 portrait;
+        margin: 12mm;
+    }
 
-  html,
-  body {
-    margin: 0;
-    padding: 0;
-    background: #fff !important;
-  }
+    html,
+    body{
+        margin:0;
+        padding:0;
+        background:#fff !important;
+    }
 
-  /* --------------------------------------------------------
-     Masquer toute l'application
-     -------------------------------------------------------- */
+    body.cr-printing{
 
-  body.cr-printing > * {
-    display: none !important;
-  }
+        background:#fff !important;
+        overflow:visible !important;
 
-  /* --------------------------------------------------------
-     N'afficher que le compte-rendu
-     -------------------------------------------------------- */
+    }
 
-  body.cr-printing #cr-print-container {
+    body.cr-printing > *:not(#cr-print-container){
 
-    display: block !important;
+        display:none !important;
 
-    position: static !important;
+    }
 
-    width: auto !important;
+    body.cr-printing #cr-print-container{
 
-    max-width: none !important;
+        display:block !important;
+        visibility:visible !important;
+        opacity:1 !important;
 
-    margin: 0 !important;
+        position:relative !important;
 
-    padding: 0 !important;
+        width:100% !important;
+        min-height:100vh;
 
-    background: white !important;
+        margin:0 auto !important;
+        padding:0 !important;
 
-    color: black !important;
+        background:#fff !important;
+        color:#000 !important;
 
-    overflow: visible !important;
+        overflow:visible !important;
 
-  }
+        z-index:99999;
 
-  body.cr-printing #cr-print-container * {
+    }
 
-    visibility: visible !important;
+    body.cr-printing #cr-print-container *{
 
-  }
+        visibility:visible !important;
+
+    }
 
   /* --------------------------------------------------------
      Éviter les coupures
@@ -223,9 +225,7 @@
     page-break-inside: avoid;
 
   }
-
-  @page { size: A4 portrait; margin: 13mm 12mm 12mm 12mm; }
-
+ 
   /* ── En-tête ── */
   .cr-entete {
     display: flex;
