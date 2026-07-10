@@ -308,6 +308,15 @@ td.saisie {
   margin-top: var(--gap-sm);
 }
 
+.input-unite{
+    display:flex;
+    align-items:center;
+    gap:.5rem;
+}
+
+.input-unite input{
+    flex:1;
+}
 /* ── Pictos CLP ──────────────────────────────────────────────── */
 .pictos-clp {
   display: flex;
