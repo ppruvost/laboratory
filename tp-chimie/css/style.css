@@ -379,10 +379,3 @@ canvas {
   .controls, .buttons, .presets { flex-direction: column; align-items: stretch; }
   header { padding: var(--gap-md); }
 }
-
-/* ── Impression ──────────────────────────────────────────────── */
-@media print {
-  nav, button, .progress { display: none !important; }
-  .card { box-shadow: none; border: 1px solid #ccc; break-inside: avoid; }
-  body { background: white; }
-}
