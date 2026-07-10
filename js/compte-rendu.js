@@ -313,72 +313,62 @@ function _construireAutoEvaluation() {
 
 
 // ══════════════════════════════════════════════════════════════
-// ÉTAPE 4 — IMPRESSION
-// Version stable (window.print)
+// ÉTAPE 4 — CONSTRUCTION + IMPRESSION (version robuste Chrome/Edge)
 // ══════════════════════════════════════════════════════════════
+
 function _construireEtImprimer(identite) {
 
   const contenuHTML = _construireTrameHTML(identite);
 
-  // Création du conteneur d'impression s'il n'existe pas
-  let conteneur = document.getElementById('cr-print-container');
+  let conteneur = document.getElementById("cr-print-container");
 
   if (!conteneur) {
-    conteneur = document.createElement('div');
-    conteneur.id = 'cr-print-container';
+
+    conteneur = document.createElement("div");
+    conteneur.id = "cr-print-container";
     document.body.appendChild(conteneur);
+
   }
 
-  // Injection du compte-rendu
   conteneur.innerHTML = contenuHTML;
 
-  // Activation du mode impression
-  document.body.classList.add('cr-printing');
+  // force le navigateur à calculer la mise en page
+  void conteneur.offsetHeight;
 
-  // Nettoyage après impression
-  let nettoyageEffectue = false;
+  document.body.classList.add("cr-printing");
+
+  // force un deuxième recalcul
+  void document.body.offsetHeight;
 
   const nettoyer = () => {
 
-    if (nettoyageEffectue) return;
-    nettoyageEffectue = true;
+    document.body.classList.remove("cr-printing");
 
-    document.body.classList.remove('cr-printing');
+    conteneur.innerHTML = "";
 
-    conteneur.innerHTML = '';
-
-    window.removeEventListener('afterprint', nettoyer);
+    window.removeEventListener("afterprint", nettoyer);
 
   };
 
-  // Après impression (Chrome, Edge, Firefox)
-  window.addEventListener('afterprint', nettoyer, { once: true });
+  window.addEventListener("afterprint", nettoyer);
 
-  // Sécurité si afterprint n'est jamais déclenché
-  setTimeout(() => {
-    nettoyer();
-  }, 5000);
-
-  // Laisse le navigateur effectuer complètement la mise en page
   requestAnimationFrame(() => {
 
     requestAnimationFrame(() => {
 
-      try {
+      requestAnimationFrame(() => {
+
         window.focus();
+
         window.print();
-      }
-      catch (e) {
-        console.error("SciLab — Impression impossible :", e);
-        nettoyer();
-      }
+
+      });
 
     });
 
   });
 
 }
-
 
 // ══════════════════════════════════════════════════════════════
 // Matériel sélectionné par l'élève
