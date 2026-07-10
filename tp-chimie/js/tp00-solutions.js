@@ -389,9 +389,7 @@ function lancerCompteRendu() {
             titre: "Résumé du TP",
             texte: resume
         });
-    }    
-
-    const materiel = getMaterielSelectionne();    
+    }       
 
     genererCompteRendu({
         domaine: "Chimie",
