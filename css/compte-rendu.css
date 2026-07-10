@@ -115,21 +115,6 @@
 .cr-modal-actions button:last-child  { background: var(--bleu-cuivre); color: var(--blanc); }
 .cr-modal-actions button:last-child:hover { background: var(--bleu-fonce); }
 
-/* ── Liste matériel (Verrerie / Équipements) ── */
-  .cr-section h4 {
-    font-size: 8pt;
-    font-weight: 700;
-    color: var(--bleu-fonce);
-    margin: 6px 0 3px;
-  }
-  .cr-materiel {
-    list-style: disc;
-    margin: 0 0 6px 16px;
-    padding: 0;
-    font-size: 8pt;
-    line-height: 1.45;
-  }
-  .cr-materiel li { margin-bottom: 1px; }
 
 /* ── Responsive écran (modale sur mobile) ── */
 @media (max-width: 500px) {
@@ -314,6 +299,23 @@
     border-left: 3px solid #E2E8F0;
     padding-left: 8px;
   }
+
+/* ── Liste matériel (Verrerie / Équipements) ── */
+  .cr-section h4 {
+    font-size: 8pt;
+    font-weight: 700;
+    color: var(--bleu-fonce);
+    margin: 6px 0 3px;
+  }
+  .cr-materiel {
+    list-style: disc;
+    margin: 0 0 6px 16px;
+    padding: 0;
+    font-size: 8pt;
+    line-height: 1.45;
+  }
+  .cr-materiel li { margin-bottom: 1px; }
+   
   .cr-vide { color: #9CA3AF; font-style: italic; }
 
   /* ── Graphique canvas ── */
