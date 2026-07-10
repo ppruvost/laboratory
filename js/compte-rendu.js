@@ -344,9 +344,11 @@ function _construireEtImprimer(identite) {
 
     document.body.classList.remove("cr-printing");
 
-    conteneur.innerHTML = "";
+    conteneur.replaceChildren();
 
-    window.removeEventListener("afterprint", nettoyer);
+  conteneur.insertAdjacentHTML("afterbegin", contenuHTML);
+
+      window.removeEventListener("afterprint", nettoyer);
 
   };
 
@@ -359,6 +361,10 @@ function _construireEtImprimer(identite) {
       requestAnimationFrame(() => {
 
         window.focus();
+
+        console.log("===== CONTENU PDF =====");
+
+        console.log(conteneur.innerHTML);
 
         window.print();
 
