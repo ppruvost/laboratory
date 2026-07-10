@@ -150,24 +150,24 @@ function calculDissolution() {
     const c = parseFloat($("c-dissolution")?.value) || 0;
     const v = parseFloat($("v-dissolution")?.value) || 0;
     const m = parseFloat($("m-dissolution")?.value) || 0;
-    const resDissolutionDiv = $("res-dissolution");
+    const resDissolution = $("res-dissolution");
 
-    if (!resDissolutionDiv) return;
+    if (!resDissolution) return;
 
     if (!$("reactif")?.value || c <= 0 || v <= 0 || m <= 0) {
-        resDissolutionDiv.textContent = 'Veuillez sélectionner un réactif et remplir tous les champs.';
+        resDissolution.value = "";
         return;
     }
 
-    // Convertir le volume de mL en L
     const vL = v / 1000;
     const masse = c * vL * m;
 
-    resDissolutionDiv.textContent = `Masse à peser : ${masse.toFixed(4)} g`;
+    resDissolution.value = masse.toFixed(4);
 
-    // Mettre à jour le tableau des résultats
     const tableMasseDissolution = $("table-masse-dissolution");
-    if (tableMasseDissolution) tableMasseDissolution.textContent = `${masse.toFixed(4)} g`;
+    if (tableMasseDissolution) {
+        tableMasseDissolution.textContent = `${masse.toFixed(4)} g`;
+    }
 }
 
 /* ==========================================================
