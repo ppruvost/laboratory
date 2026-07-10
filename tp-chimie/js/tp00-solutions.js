@@ -345,6 +345,7 @@ function lancerCompteRendu() {
     const sections = [
         {
             titre: "Paramètres de la dissolution",
+            groupe: "dissolution",
             items: [
                 { label: "Réactif", valeur: nomReactif },
                 { label: "Masse molaire M", valeur: `${masseMolaire} g/mol` },
@@ -357,6 +358,7 @@ function lancerCompteRendu() {
         },
         {
             titre: "Paramètres de la dilution (C₁V₁ = C₂V₂)",
+            groupe: "dilution",
             items: [
                 { label: "Concentration mère C₁", valeur: `${$("c1-hcl")?.value || "—"} mol/L` },
                 { label: "Concentration fille C₂", valeur: `${$("c2-hcl")?.value || "—"} mol/L` },
@@ -367,18 +369,20 @@ function lancerCompteRendu() {
     ];
 
     document.querySelectorAll(".questions-tp > li").forEach((li, index) => {
-        const zone = li.querySelector("textarea.cr-reponse, textarea[id^='question']") 
+        const zone = li.querySelector("textarea.cr-reponse, textarea[id^='question']")
                      || li.querySelector("textarea");
         if (!zone) return;
 
         const titreQuestion = li.querySelector(".question-entete strong")
             ?.textContent.replace(/\s+/g, " ").trim() || `Question ${index + 1}`;
         const competence = li.querySelector(".cartouche")?.dataset.comp || "";
+        const groupe = /dilution/i.test(titreQuestion) ? "dilution" : "dissolution";
 
         sections.push({
             titre: titreQuestion,
             competence,
             notation: true,
+            groupe,
             texte: (zone.value || "").trim()
         });
     });
@@ -389,13 +393,17 @@ function lancerCompteRendu() {
             titre: "Résumé du TP",
             texte: resume
         });
-    }       
+    }
 
     genererCompteRendu({
         domaine: "Chimie",
         tp: "TP01",
         titre: "Préparation de solutions par dissolution et dilution",
         sections,
+        groupes: [
+            { id: "dissolution", label: "Partie Dissolution", defaut: true },
+            { id: "dilution",    label: "Partie Dilution",    defaut: true }
+        ],
         identiteDefaut: identite,
         signature: false,
         noteFinale: true
