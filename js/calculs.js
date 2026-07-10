@@ -171,7 +171,22 @@ export function calculConcentrationMolaire({
 
 }
 
+/* ============================================================
+   DISOLUTION
+   Calcul masse m à peser (en g)
+   ============================================================ */
 
+export function calculDilution({
+    C1,
+    C2,
+    V2
+}) {
+    return calculV1Dilution({
+        C1,
+        C2,
+        V2
+    });
+}
 
 /* ============================================================
    CONCENTRATION MASSIQUE
@@ -541,6 +556,8 @@ export default {
     calculConcentrationMassique,
 
     calculV1Dilution,
+   
+    calculDilution,
 
     facteurDilution,
 
