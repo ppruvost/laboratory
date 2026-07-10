@@ -301,7 +301,7 @@ function calculerEcart() {
     const tableEcart = $("table-ecart");
 
     if (!resEcartDiv || masseTheo <= 0) {
-        if (resEcartDiv) resEcartDiv.textContent = "Saisir la masse théorique.";
+        if (resEcartDiv) resEcartDiv.textContent = "Saisir la masse mesurée.";
         if (tableEcart) tableEcart.textContent = "—";
         return;
     }
