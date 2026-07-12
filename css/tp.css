@@ -21,6 +21,7 @@
      13. Bande de pH
      14. Équation chimique & bilan redox
      15. Virage d'indicateur
+     15b. Simulateur pH & échantillons (TP02)
      16. Filtre réactifs & grille matériel
      17. Étapes numérotées & mode opératoire
      18. Onglets
@@ -969,6 +970,99 @@ textarea { font-family: var(--font-corps); resize: vertical; min-height: 80px; }
 }
 .virage-indicateur .plage { text-align: center; font-family: var(--font-code); font-size: .8rem; color: var(--gris-moyen); }
 .virage-indicateur .fleche-virage { font-size: 1.4rem; color: var(--gris-moyen); }
+
+/* ──────────────────────────────────────────────────────────────
+   15b. SIMULATEUR pH & ÉCHANTILLONS (TP02)
+   Widgets propres au TP02 (pH-métrie / indicateurs colorés) qui ne
+   sont pas couverts par la bande de pH (13) ni le virage d'indicateur
+   (15), lesquels restent génériques et réutilisables par d'autres TP.
+   ────────────────────────────────────────────────────────────── */
+
+/* Bloc conteneur du simulateur interactif */
+.simulateur-ph {
+  background: var(--blanc);
+  border: 1px solid var(--gris-clair);
+  border-radius: var(--r-md);
+  padding: var(--gap-md);
+  margin-bottom: var(--gap-md);
+}
+
+.ph-input-bloc {
+  display: flex;
+  align-items: center;
+  gap: var(--gap-md);
+  flex-wrap: wrap;
+  margin-bottom: var(--gap-md);
+}
+
+.ph-input-bloc input[type="range"] {
+  flex: 1;
+  min-width: 200px;
+  accent-color: var(--bleu-cuivre);
+}
+
+.ph-valeur {
+  font-family: var(--font-code);
+  font-size: 2.5rem;
+  font-weight: 700;
+  min-width: 80px;
+}
+
+/* Cartes de réponse des indicateurs affichées sous la bande de pH */
+.resultats-indicateurs {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: var(--gap-sm);
+  margin-top: var(--gap-md);
+}
+
+.carte-indicateur {
+  border: 1px solid var(--gris-clair);
+  border-radius: var(--r-md);
+  padding: var(--gap-sm);
+  text-align: center;
+}
+.carte-indicateur .ind-nom {
+  font-weight: 700;
+  font-size: .85rem;
+  margin-bottom: .4rem;
+}
+.carte-indicateur .ind-couleur {
+  padding: .5rem;
+  border-radius: var(--r-sm);
+  color: var(--blanc);
+  font-weight: 700;
+  font-size: .9rem;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, .3);
+  transition: background .4s;
+}
+.carte-indicateur .ind-plage {
+  font-size: .75rem;
+  color: var(--gris-moyen);
+  font-family: var(--font-code);
+  margin-top: .4rem;
+}
+
+/* Échantillons de solutions à préparer/tester */
+.couleurs-solutions {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: var(--gap-sm);
+}
+.echantillon {
+  border-radius: var(--r-md);
+  overflow: hidden;
+  border: 1px solid var(--gris-clair);
+}
+.echantillon .couleur-tube {
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+}
+.echantillon .infos { padding: .5rem; font-size: .78rem; }
+.echantillon .infos strong { display: block; }
 
 /* ──────────────────────────────────────────────────────────────
    16. FILTRE RÉACTIFS
