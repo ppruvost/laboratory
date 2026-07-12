@@ -329,6 +329,53 @@ const laboratoryEquipment = [
         noticeUtilisation: "assets/notice/agitateur_magnetique.pdf"
     },
     {
+    domaine: "Chimie",
+    nom: "Papier tournesol bleu",
+    categorie: ["Indicateur", "pHmétrie"],
+    description: "Papier indicateur virant au rouge en présence d'une solution acide.",
+    lieu: "Salle B27 / étagère D4",
+    image: "papier_pH.jpg",
+    noticeUtilisation: "assets/notice/papier_tournesol_bleu.pdf"
+},
+{
+    domaine: "Chimie",
+    nom: "Papier tournesol neutre",
+    categorie: ["Indicateur", "pHmétrie"],
+    description: "Papier indicateur permettant de distinguer les solutions acides et basiques.",
+    lieu: "Salle B27 / étagère D4",
+    image: "papier_pH.jpg",
+    noticeUtilisation: "assets/notice/papier_tournesol_neutre.pdf"
+},
+
+{
+    domaine: "Chimie",
+    nom: "Papier tournesol rouge",
+    categorie: ["Indicateur", "pHmétrie"],
+    description: "Papier indicateur virant au bleu en présence d'une solution basique.",
+    lieu: "Salle B27 / étagère D4",
+    image: "papier_pH.jpg",
+    noticeUtilisation: "assets/notice/papier_tournesol_rouge.pdf"
+},
+
+{
+    domaine: "Chimie",
+    nom: "Papier phénolphtaléine",
+    categorie: ["Indicateur", "pHmétrie"],
+    description: "Papier imprégné de phénolphtaléine, incolore en milieu acide et rose en milieu basique.",
+    lieu: "Salle B27 / étagère D4",
+    image: "papier_pH.jpg",
+    noticeUtilisation: "assets/notice/papier_phenolphtaleine.pdf"
+},
+{
+    domaine: "Chimie",
+    nom: "Papier à l'acétate de plomb",
+    categorie: ["Indicateur", "pHmétrie"],
+    description: "Papier détecteur des ions sulfure et du sulfure d'hydrogène (H₂S) par noircissement.",
+    lieu: "Salle B27 / étagère D4",
+    image: "papier_pH.jpg",
+    noticeUtilisation: "assets/notice/papier_acetate_plomb.pdf"
+},
+    {
         domaine: "Chimie",
         nom: "Chauffe-ballon",
         categorie: ["Dissolution", "pHmétrie"],
