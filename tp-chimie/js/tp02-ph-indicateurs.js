@@ -229,9 +229,15 @@ function _rendrePictogrammes(produit) {
   if (!produit?.pictogrammes) return '';
   const codes = Object.keys(produit.pictogrammes);
   if (!codes.length) return '';
-  return `<div class="pictogrammes">${codes.map(code =>
-    `<img class="picto-danger" src="../assets/pictogrammes/${produit.pictogrammes[code]}" alt="${code}" title="${code}">`
+  return `<div class="pictos-clp">${codes.map(code =>
+    `<img class="picto-clp" src="../assets/pictogrammes/${produit.pictogrammes[code]}" alt="${code}" title="${code}">`
   ).join('')}</div>`;
+}
+
+function _rendreEpi(produit) {
+  const epi = Array.isArray(produit?.epi) ? produit.epi : [];
+  if (!epi.length) return '';
+  return `<div class="produit-epi">${epi.map(e => `<span class="epi-badge ${e}">${e}</span>`).join('')}</div>`;
 }
 
 function _rendreFicheProduit(produit) {
@@ -241,13 +247,19 @@ function _rendreFicheProduit(produit) {
   const phrasesP = Array.isArray(produit.phrasesP) ? produit.phrasesP : [];
 
   return `
-    <div class="fiche-produit">
-      <h4>${produit.nom}${produit.formule ? ` <span class="formule-inline">(${produit.formule})</span>` : ''}</h4>
-      ${produit.cas ? `<p class="cas">CAS : ${produit.cas}</p>` : ''}
-      ${_rendrePictogrammes(produit)}
-      ${phrasesH.length ? `<p><strong>Mentions de danger :</strong> ${phrasesH.join(', ')}</p>` : ''}
-      ${phrasesP.length ? `<p><strong>Conseils de prudence :</strong> ${phrasesP.join(', ')}</p>` : ''}
-      ${produit.localisation ? `<p><strong>Localisation :</strong> ${produit.localisation}</p>` : ''}
+    <div class="produit-carte">
+      <div>
+        ${produit.cas ? `<span class="produit-cas">${produit.cas}</span>` : ''}
+        ${_rendrePictogrammes(produit)}
+      </div>
+      <div>
+        <div class="produit-nom">${produit.nom}</div>
+        ${produit.formule ? `<div class="produit-formule">${produit.formule}</div>` : ''}
+        ${produit.localisation ? `<div class="produit-localisation">${produit.localisation}</div>` : ''}
+        ${phrasesH.length ? `<div class="danger-bloc"><h4>Dangers</h4><ul>${phrasesH.map(h => `<li>${h}</li>`).join('')}</ul></div>` : ''}
+        ${phrasesP.length ? `<div class="prevention-bloc"><h4>Prévention</h4><ul>${phrasesP.map(p => `<li>${p}</li>`).join('')}</ul></div>` : ''}
+        ${_rendreEpi(produit)}
+      </div>
     </div>
   `;
 }
@@ -367,15 +379,15 @@ function _initSimulateurPH() {
 function _rendreFicheIndicateur(ind) {
   if (!ind) return '<p>Sélectionner un indicateur pour afficher sa fiche.</p>';
   return `
-    <p><strong>${ind.nom}</strong>${ind.formule ? ` — <span class="formule-inline">${ind.formule}</span>` : ''}</p>
-    ${ind.cas ? `<p class="cas">CAS : ${ind.cas}</p>` : ''}
-    <p><strong>Plage de virage :</strong> pH ${ind.plageMin} – ${ind.plageMax}</p>
-    <p>
-      <span class="pastille-couleur" style="background:${ind.couleurAcide}"></span> ${ind.nomAcide} en milieu acide
-      &nbsp;→&nbsp;
-      <span class="pastille-couleur" style="background:${ind.couleurBasique}"></span> ${ind.nomBasique} en milieu basique
-    </p>
-    ${ind.localisation ? `<p><strong>Localisation :</strong> ${ind.localisation}</p>` : ''}
+    <p><strong>${ind.nom}</strong>${ind.formule ? ` — <span class="produit-formule">${ind.formule}</span>` : ''}</p>
+    ${ind.cas ? `<p class="produit-cas" style="display:inline-block">${ind.cas}</p>` : ''}
+    <div class="virage-indicateur">
+      <div class="couleur-acide" style="background:${ind.couleurAcide}">${ind.nomAcide}</div>
+      <div class="fleche-virage">→</div>
+      <div class="couleur-basique" style="background:${ind.couleurBasique}">${ind.nomBasique}</div>
+      <div class="plage">pH ${ind.plageMin} – ${ind.plageMax}</div>
+    </div>
+    ${ind.localisation ? `<p class="produit-localisation">${ind.localisation}</p>` : ''}
   `;
 }
 
@@ -403,8 +415,8 @@ function _rendreFichePapier(papier) {
     <p><strong>${papier.nom}</strong></p>
     <p>${papier.description}</p>
     <p><strong>Usage :</strong> ${papier.usage}</p>
-    ${papier.lieu ? `<p><strong>Localisation :</strong> ${papier.lieu}</p>` : ''}
-    ${papier.horsPH ? `<p class="attention">⚠️ Ce papier ne sert pas à mesurer un pH — réservé à un autre TP (identification d'ions).</p>` : ''}
+    ${papier.lieu ? `<p class="produit-localisation">${papier.lieu}</p>` : ''}
+    ${papier.horsPH ? `<p class="warning">⚠️ Ce papier ne sert pas à mesurer un pH — réservé à un autre TP (identification d'ions).</p>` : ''}
   `;
 }
 
