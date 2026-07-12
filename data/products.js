@@ -961,6 +961,19 @@
     dangers: ["H350", "H340", "H332", "H334", "H317", "H412"],
     prevention: ["P202", "P261", "P271", "P272", "P272"]
   },
+      {
+    cas: "14459-95-1",
+    nom: "potassium ferrocyanure trihydraté",
+    formule: "K₄[Fe(CN)₆]·3H₂O",
+    categorie: "Sel",
+    localisation: "Salle B27 / étagère D4",
+    pictogramme: [],
+    obligation: ["LUNETTES", "GANTS", "BLOUSE"],
+    image: "potassium_ferrocyanure.jpg",
+    fds: "FicheTox_PotassiumFerrocyanure.pdf",
+    dangers: [],
+    prevention: []
+},
     {
      cas: "13746-66-2",
      nom: "Potassium III hexacyanoferrate (potassium ferricyanure)",
