@@ -1049,6 +1049,81 @@ textarea { font-family: var(--font-corps); resize: vertical; min-height: 80px; }
 .etapes li .attention { color: var(--clp-rouge); font-weight: 600; }
 .etapes li strong, .etapes li em, .etapes li span, .etapes li p { display: inline; width: auto; max-width: none; }
 
+/* ── Liste de questions notées (bloc "Compte rendu" de chaque TP) ──
+   Utilisée par tous les TP (tp00, tp01, tp03...) pour les questions
+   à réponse libre notées par compétence. Numérotation en médaillon
+   bleu, dans le même esprit visuel que .etapes, avec un conteneur
+   explicitement borné pour empêcher tout débordement du cadre. */
+.questions-tp {
+  list-style: none;
+  counter-reset: question;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  max-width: 100%;
+}
+
+.questions-tp > li {
+  counter-increment: question;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  margin-bottom: var(--gap-md);
+  padding-bottom: var(--gap-md);
+  border-bottom: 1px dashed var(--gris-clair);
+}
+
+.questions-tp > li:last-child {
+  margin-bottom: 0;
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+/* .question-entete est défini en section 10 (BADGES) ; on renforce
+   ici son confinement et on ajoute le médaillon numéroté. */
+.questions-tp .question-entete {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  flex-wrap: wrap;
+}
+
+.questions-tp .question-entete::before {
+  content: counter(question);
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  min-width: 28px;
+  border-radius: 50%;
+  background: var(--bleu-cuivre);
+  color: var(--blanc);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-titre);
+  font-weight: 700;
+  font-size: var(--fs-xs);
+}
+
+.questions-tp .question-entete strong {
+  flex: 1 1 auto;
+  min-width: 0;
+  max-width: 100%;
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+
+.questions-tp .cartouche {
+  max-width: 100%;
+}
+
+.questions-tp .zone-eleve {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+
 .mode-op { text-align: center; padding: 15px; }
 .mode-image {
   display: block;
