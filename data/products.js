@@ -1338,6 +1338,19 @@
     dangers: ["H302", "H314", "H410"],
     prevention: ["P260", "P264", "P270", "P273", "P280", "P301+P312"]
   },
+      {
+    cas: "1314-13-2",
+    nom: "zinc oxyde",
+    formule: "ZnO",
+    categorie: "Sel",
+    localisation: "salle B27 / étagère D4",
+    pictogramme: ["SGH09_Environnement.jpg"],
+    obligation: ["LUNETTES", "GANTS", "BLOUSE"],
+    image: "oxyde_zinc.jpg",
+    fds: "FicheTox_OxydeZinc.pdf",
+    dangers: ["H410"],
+    prevention: ["P273", "P391", "P501"]
+},
   {
     cas: "7446-20-0",
     nom: "zinc sulfate heptahydraté",
