@@ -293,15 +293,51 @@ const laboratoryEquipment = [
     // Chimie
 
     {
-        domaine: "Chimie",
-        nom: "Agitateurs magnétiques",
-        categorie: ["Dissolution", "pHmétrie"],
-        description: "Agitation des solutions",
-        lieu: "Salle B27 / étagère D4",
-        image:"",         
-        noticeUtilisation: "assets/notice/agitateur_magnetique.pdf"
+     domaine: "Chimie",
+     nom: "Agitateurs magnétiques",
+     categorie: ["Dissolution", "pHmétrie"],
+     description: "Agitation des solutions",
+     lieu: "Salle B27 / étagère D4",
+     image:"",         
+     noticeUtilisation: "assets/notice/agitateur_magnetique.pdf"
     },
-        {
+    {
+    domaine: "Chimie",
+    nom: "Balance Jeulin 701 277",
+    categorie: ["Dissolution", "pHmétrie"],
+    description: "Capacité 2 000 g max — Précision ± 1 g",
+    lieu: "Salle B27 / étagère C2",
+    image: "assets/img/equipments/balance_jeulin.jpg",
+    noticeUtilisation: "assets/notice/balance_jeulin.pdf"
+    },
+    {
+    domaine: "Chimie",
+    nom: "Balance METTLER TOLEDO PB602",
+    categorie: ["Dissolution", "pHmétrie"],
+    description: "Capacité 610 g max - 0,5 g min — Précision ± 0,1 g",
+    lieu: "Salle B27 / pallasse E2",
+    image:"",
+    noticeUtilisation: "assets/notice/balance_mettler.pdf"
+    },
+    {
+    domaine: "Chimie",
+    nom: "Bandelettes pH 5,0 à 10,0",
+    categorie: ["Indicateur", "pHmétrie"],
+    description: "Bandelettes indicatrices permettant une mesure précise du pH des solutions entre 5,0 et 10,0.",
+    lieu: "Salle B27 / étagère D4",
+    image: "bandelettes_pH.jpg",
+    noticeUtilisation: "assets/notice/bandelettes_ph_5_10.pdf"
+    },
+    {
+    domaine: "Chimie",
+    nom: "Chauffe-ballon",
+    categorie: ["Dissolution", "pHmétrie"],
+    description: "Chauffage de solutions",
+    lieu: "Salle B27 / étagère C1",
+    image:"chauffe_ballon.jpg",         
+    noticeUtilisation: "assets/notice/chauffe_ballon.pdf"
+    },
+    {
     domaine: "Chimie",
     nom: "Papier tournesol bleu",
     categorie: ["Indicateur", "pHmétrie"],
@@ -309,8 +345,8 @@ const laboratoryEquipment = [
     lieu: "Salle B27 / étagère D4",
     image: "papier_pH.jpg",
     noticeUtilisation: "assets/notice/papier_tournesol_bleu.pdf"
-},
-{
+    },
+    {
     domaine: "Chimie",
     nom: "Papier tournesol neutre",
     categorie: ["Indicateur", "pHmétrie"],
@@ -318,8 +354,8 @@ const laboratoryEquipment = [
     lieu: "Salle B27 / étagère D4",
     image: "papier_pH.jpg",
     noticeUtilisation: "assets/notice/papier_tournesol_neutre.pdf"
-},
-{
+    },
+    {
     domaine: "Chimie",
     nom: "Papier tournesol rouge",
     categorie: ["Indicateur", "pHmétrie"],
@@ -327,8 +363,8 @@ const laboratoryEquipment = [
     lieu: "Salle B27 / étagère D4",
     image: "papier_pH.jpg",
     noticeUtilisation: "assets/notice/papier_tournesol_rouge.pdf"
-},
-{
+    },
+    {
     domaine: "Chimie",
     nom: "Papier phénolphtaléine",
     categorie: ["Indicateur", "pHmétrie"],
@@ -336,8 +372,8 @@ const laboratoryEquipment = [
     lieu: "Salle B27 / étagère D4",
     image: "papier_pH.jpg",
     noticeUtilisation: "assets/notice/papier_phenolphtaleine.pdf"
-},
-{
+    },
+    {
     domaine: "Chimie",
     nom: "Papier à l'acétate de plomb",
     categorie: ["Indicateur", "pHmétrie"],
@@ -345,7 +381,7 @@ const laboratoryEquipment = [
     lieu: "Salle B27 / étagère D4",
     image: "papier_pH.jpg",
     noticeUtilisation: "assets/notice/papier_acetate_plomb.pdf"
-},
+    },
     {
     domaine: "Chimie",
     nom: "Papier pH universel",
@@ -354,8 +390,8 @@ const laboratoryEquipment = [
     lieu: "Salle B27 / étagère D4",
     image: "papier_ph_universel.jpg",
     noticeUtilisation: "assets/notice/papier_ph_universel.pdf"
-},
-{
+    },
+    {
     domaine: "Chimie",
     nom: "Papier pH 7,0 à 14,0",
     categorie: ["Indicateur", "pHmétrie"],
@@ -363,71 +399,33 @@ const laboratoryEquipment = [
     lieu: "Salle B27 / étagère D4",
     image: "papier_pH_universel.jpg",
     noticeUtilisation: "assets/notice/papier_ph_7_10.pdf"
-},
-    
-        {
-        domaine: "Chimie",
-        nom: "Poire",
-        categorie: ["Dilution", "pHmétrie"],
-        description: "Transfert précis de liquides",
-        lieu: "Salle B27 / étagère D4",
-        image:"poire.jpg",         
-        noticeUtilisation: "assets/notice/poire.pdf"
     },
     {
-        domaine: "Chimie",
-        nom: "Propipettes",
-        categorie: ["Dilution", "pHmétrie"],
-        description: "Transfert précis de liquides",
-        lieu: "Salle B27 / étagère D4",
-        image:"pro_pipette.jpg",        
-        noticeUtilisation: "assets/notice/propipettes.pdf"
-    },
-    {
-        domaine: "Chimie",
-        nom: "pH-mètre",
-        categorie: ["Dissolution", "pHmétrie"],
-        description: "Mesure du pH des solutions",
-        lieu: "Salle B27 / étagère D4",
-        image:"",
-        noticeUtilisation: "assets/notice/phmetre.pdf"
-    },    
-
-{
     domaine: "Chimie",
-    nom: "Bandelettes pH 5,0 à 10,0",
-    categorie: ["Indicateur", "pHmétrie"],
-    description: "Bandelettes indicatrices permettant une mesure précise du pH des solutions entre 5,0 et 10,0.",
+    nom: "pH-mètre",
+    categorie: ["Dissolution", "pHmétrie"],
+    description: "Mesure du pH des solutions",
+     lieu: "Salle B27 / étagère D4",
+     image:"",
+     noticeUtilisation: "assets/notice/phmetre.pdf"
+    },   
+    {
+     domaine: "Chimie",
+     nom: "Poire",
+     categorie: ["Dilution", "pHmétrie"],
+     description: "Transfert précis de liquides",
+     lieu: "Salle B27 / étagère D4",
+     image:"poire.jpg",         
+     noticeUtilisation: "assets/notice/poire.pdf"
+    },
+    {
+    domaine: "Chimie",
+    nom: "Propipettes",
+    categorie: ["Dilution", "pHmétrie"],
+    description: "Transfert précis de liquides",
     lieu: "Salle B27 / étagère D4",
-    image: "bandelettes_pH.jpg",
-    noticeUtilisation: "assets/notice/bandelettes_ph_5_10.pdf"
-},
-    {
-        domaine: "Chimie",
-        nom: "Chauffe-ballon",
-        categorie: ["Dissolution", "pHmétrie"],
-        description: "Chauffage de solutions",
-        lieu: "Salle B27 / étagère C1",
-        image:"chauffe_ballon.jpg",         
-        noticeUtilisation: "assets/notice/chauffe_ballon.pdf"
-    },
-    {
-        domaine: "Chimie",
-        nom: "Balance Jeulin 701 277",
-        categorie: ["Dissolution", "pHmétrie"],
-        description: "Capacité 2 000 g max — Précision ± 1 g",
-        lieu: "Salle B27 / étagère C2",
-        image: "assets/img/equipments/balance_jeulin.jpg",
-        noticeUtilisation: "assets/notice/balance_jeulin.pdf"
-    },
-       {
-        domaine: "Chimie",
-        nom: "Balance METTLER TOLEDO PB602",
-        categorie: ["Dissolution", "pHmétrie"],
-        description: "Capacité 610 g max - 0,5 g min — Précision ± 0,1 g",
-        lieu: "Salle B27 / pallasse E2",
-        image:"",
-        noticeUtilisation: "assets/notice/balance_mettler.pdf"
+    image:"pro_pipette.jpg",        
+    noticeUtilisation: "assets/notice/propipettes.pdf"
     }, 
     {
     domaine: "Chimie",
@@ -437,16 +435,8 @@ const laboratoryEquipment = [
     lieu: "Salle B29",
     image: "",
     noticeUtilisation: ""
-},
-    {
-        domaine: "Chimie",
-        nom: "papier pH (nuancier)",
-        categorie: ["Dilution", "pHmétrie"],
-        description: "Repérage des équivalences en titrage",
-        lieu: "Salle B27 / étagère D4",
-        image:"",
-        noticeUtilisation: "assets/notice/indicateurs_colorés.pdf"
-    },    
+    },
+   
 
     // Thermique
     {
