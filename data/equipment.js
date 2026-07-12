@@ -325,7 +325,7 @@ const laboratoryEquipment = [
     categorie: ["Indicateur", "pHmétrie"],
     description: "Bandelettes indicatrices permettant une mesure précise du pH des solutions entre 5,0 et 10,0.",
     lieu: "Salle B27 / étagère D4",
-    image: "bandelettes_pH.jpg",
+    image: "assets/img/equipments/bandelettes_pH.jpg",
     noticeUtilisation: "assets/notice/bandelettes_ph_5_10.pdf"
     },
     {
@@ -334,7 +334,7 @@ const laboratoryEquipment = [
     categorie: ["Dissolution", "pHmétrie"],
     description: "Chauffage de solutions",
     lieu: "Salle B27 / étagère C1",
-    image:"chauffe_ballon.jpg",         
+    image:"assets/img/equipments/chauffe_ballon.jpg",         
     noticeUtilisation: "assets/notice/chauffe_ballon.pdf"
     },
     {
@@ -343,7 +343,7 @@ const laboratoryEquipment = [
     categorie: ["Indicateur", "pHmétrie"],
     description: "Papier indicateur virant au rouge en présence d'une solution acide.",
     lieu: "Salle B27 / étagère D4",
-    image: "papier_pH.jpg",
+    image: "assets/img/equipments/papier_pH.jpg",
     noticeUtilisation: "assets/notice/papier_tournesol_bleu.pdf"
     },
     {
@@ -352,7 +352,7 @@ const laboratoryEquipment = [
     categorie: ["Indicateur", "pHmétrie"],
     description: "Papier indicateur permettant de distinguer les solutions acides et basiques.",
     lieu: "Salle B27 / étagère D4",
-    image: "papier_pH.jpg",
+    image: "assets/img/equipments/papier_pH.jpg",
     noticeUtilisation: "assets/notice/papier_tournesol_neutre.pdf"
     },
     {
@@ -361,7 +361,7 @@ const laboratoryEquipment = [
     categorie: ["Indicateur", "pHmétrie"],
     description: "Papier indicateur virant au bleu en présence d'une solution basique.",
     lieu: "Salle B27 / étagère D4",
-    image: "papier_pH.jpg",
+    image: "assets/img/equipments/papier_pH.jpg",
     noticeUtilisation: "assets/notice/papier_tournesol_rouge.pdf"
     },
     {
@@ -370,7 +370,7 @@ const laboratoryEquipment = [
     categorie: ["Indicateur", "pHmétrie"],
     description: "Papier imprégné de phénolphtaléine, incolore en milieu acide et rose en milieu basique.",
     lieu: "Salle B27 / étagère D4",
-    image: "papier_pH.jpg",
+    image: "assets/img/equipments/papier_pH.jpg",
     noticeUtilisation: "assets/notice/papier_phenolphtaleine.pdf"
     },
     {
@@ -379,7 +379,7 @@ const laboratoryEquipment = [
     categorie: ["Indicateur", "pHmétrie"],
     description: "Papier détecteur des ions sulfure et du sulfure d'hydrogène (H₂S) par noircissement.",
     lieu: "Salle B27 / étagère D4",
-    image: "papier_pH.jpg",
+    image: "assets/img/equipments/papier_pH.jpg",
     noticeUtilisation: "assets/notice/papier_acetate_plomb.pdf"
     },
     {
@@ -388,7 +388,7 @@ const laboratoryEquipment = [
     categorie: ["Indicateur", "pHmétrie"],
     description: "Bandelette indicatrice permettant de mesurer le pH d'une solution par comparaison avec une échelle colorée.",
     lieu: "Salle B27 / étagère D4",
-    image: "papier_ph_universel.jpg",
+    image: "assets/img/equipments/papier_ph_universel.jpg",
     noticeUtilisation: "assets/notice/papier_ph_universel.pdf"
     },    
     {
@@ -406,7 +406,7 @@ const laboratoryEquipment = [
      categorie: ["Dilution", "pHmétrie"],
      description: "Transfert précis de liquides",
      lieu: "Salle B27 / étagère D4",
-     image:"poire.jpg",         
+     image:"assets/img/equipments/poire.jpg",         
      noticeUtilisation: "assets/notice/poire.pdf"
     },
     {
@@ -415,7 +415,7 @@ const laboratoryEquipment = [
     categorie: ["Dilution", "pHmétrie"],
     description: "Transfert précis de liquides",
     lieu: "Salle B27 / étagère D4",
-    image:"pro_pipette.jpg",        
+    image:"assets/img/equipments/pro_pipette.jpg",        
     noticeUtilisation: "assets/notice/propipettes.pdf"
     }, 
     {
