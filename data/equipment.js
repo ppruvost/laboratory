@@ -291,34 +291,7 @@ const laboratoryEquipment = [
     },
 
     // Chimie
-       
-    {
-        domaine: "Chimie",
-        nom: "Propipettes",
-        categorie: ["Dilution", "pHmétrie"],
-        description: "Transfert précis de liquides",
-        lieu: "Salle B27 / étagère D4",
-        image:"pro_pipette.jpg",        
-        noticeUtilisation: "assets/notice/propipettes.pdf"
-    },
-        {
-        domaine: "Chimie",
-        nom: "Poire",
-        categorie: ["Dilution", "pHmétrie"],
-        description: "Transfert précis de liquides",
-        lieu: "Salle B27 / étagère D4",
-        image:"poire.jpg",         
-        noticeUtilisation: "assets/notice/poire.pdf"
-    },
-    {
-        domaine: "Chimie",
-        nom: "pH-mètre",
-        categorie: ["Dissolution", "pHmétrie"],
-        description: "Mesure du pH des solutions",
-        lieu: "Salle B27 / étagère D4",
-        image:"",
-        noticeUtilisation: "assets/notice/phmetre.pdf"
-    },    
+
     {
         domaine: "Chimie",
         nom: "Agitateurs magnétiques",
@@ -328,7 +301,7 @@ const laboratoryEquipment = [
         image:"",         
         noticeUtilisation: "assets/notice/agitateur_magnetique.pdf"
     },
-    {
+        {
     domaine: "Chimie",
     nom: "Papier tournesol bleu",
     categorie: ["Indicateur", "pHmétrie"],
@@ -346,7 +319,6 @@ const laboratoryEquipment = [
     image: "papier_pH.jpg",
     noticeUtilisation: "assets/notice/papier_tournesol_neutre.pdf"
 },
-
 {
     domaine: "Chimie",
     nom: "Papier tournesol rouge",
@@ -392,6 +364,35 @@ const laboratoryEquipment = [
     image: "papier_pH_universel.jpg",
     noticeUtilisation: "assets/notice/papier_ph_7_10.pdf"
 },
+    
+        {
+        domaine: "Chimie",
+        nom: "Poire",
+        categorie: ["Dilution", "pHmétrie"],
+        description: "Transfert précis de liquides",
+        lieu: "Salle B27 / étagère D4",
+        image:"poire.jpg",         
+        noticeUtilisation: "assets/notice/poire.pdf"
+    },
+    {
+        domaine: "Chimie",
+        nom: "Propipettes",
+        categorie: ["Dilution", "pHmétrie"],
+        description: "Transfert précis de liquides",
+        lieu: "Salle B27 / étagère D4",
+        image:"pro_pipette.jpg",        
+        noticeUtilisation: "assets/notice/propipettes.pdf"
+    },
+    {
+        domaine: "Chimie",
+        nom: "pH-mètre",
+        categorie: ["Dissolution", "pHmétrie"],
+        description: "Mesure du pH des solutions",
+        lieu: "Salle B27 / étagère D4",
+        image:"",
+        noticeUtilisation: "assets/notice/phmetre.pdf"
+    },    
+
 {
     domaine: "Chimie",
     nom: "Bandelettes pH 5,0 à 10,0",
@@ -407,7 +408,7 @@ const laboratoryEquipment = [
         categorie: ["Dissolution", "pHmétrie"],
         description: "Chauffage de solutions",
         lieu: "Salle B27 / étagère C1",
-        image:"",         
+        image:"chauffe_ballon.jpg",         
         noticeUtilisation: "assets/notice/chauffe_ballon.pdf"
     },
     {
