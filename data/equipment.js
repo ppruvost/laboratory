@@ -17,6 +17,15 @@ const laboratoryEquipment = [
         noticeUtilisation: "assets/notice/alimentation_alternative.pdf"
     },
     {
+    domaine: "Électricité",
+    nom: "LCR Meter Lutron LCFR-9063",
+    categorie: ["Résistance", "Capacité", "Inductance"],
+    description: "Appareil de mesure des résistances, des capacités et des inductances (R, C, L).",
+    lieu: "Salle B27 / paillasse A1",
+    image: "lcr_meter_lutron_lcfr9063.jpg",
+    noticeUtilisation: "assets/notice/lcr_meter_lutron_lcfr9063.pdf"
+    },
+    {
         domaine: "Électricité",
         nom: "Multimètre numérique",
         description: "Mesure de tension, courant, résistance",
