@@ -390,6 +390,16 @@ button:not([class]):hover { border-color: var(--bleu-cuivre); color: var(--bleu-
 .btn-outline:hover { background: var(--bleu-tres-clair); }
 .btn-imprimer   { background: var(--gris-ardoise); color: var(--blanc); }
 
+/* Bouton bascule (ex. méthode des tangentes / des dérivées en TP03,
+   mais réutilisable pour tout bouton "actif/inactif" d'un widget). */
+.btn-toggle { position: relative; }
+.btn-toggle.actif {
+  background: var(--bleu-cuivre);
+  color: var(--blanc);
+  border-color: var(--bleu-cuivre);
+  box-shadow: inset 0 0 0 2px rgba(255, 255, 255, .4);
+}
+
 /* ──────────────────────────────────────────────────────────────
    7. FORMULAIRES
    ────────────────────────────────────────────────────────────── */
@@ -815,6 +825,19 @@ textarea { font-family: var(--font-corps); resize: vertical; min-height: 80px; }
 .graphe-titrage { position: relative; width: 100%; min-height: 420px; }
 #canvas-titrage { display: block; width: 100% !important; height: 400px !important; }
 #canvas-derivee { display: block; width: 100% !important; height: 180px !important; margin-top: 20px; }
+
+/* Légende de courbe (couleurs/traits d'un graphe canvas — titrage,
+   oscilloscope, etc.) : liste de puces "trait coloré + libellé". */
+.legende-courbe {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--gap-md);
+  font-size: var(--fs-sm);
+  color: var(--gris-ardoise);
+  margin: var(--gap-sm) 0 var(--gap-md);
+}
+.legende-courbe span { display: inline-flex; align-items: center; gap: 6px; }
+.legende-courbe i { display: inline-block; width: 14px; height: 4px; border-radius: 2px; }
 
 /* ──────────────────────────────────────────────────────────────
    14. ÉQUATION CHIMIQUE & BILAN REDOX
