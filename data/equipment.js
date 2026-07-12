@@ -291,25 +291,25 @@ const laboratoryEquipment = [
     },
 
     // Chimie
-    
-    {
-        domaine: "Chimie",
-        nom: "Pipettes",
-        categorie: ["Dilution", "pHmétrie"],
-        description: "Transfert précis de liquides",
-        lieu: "Salle B27 / étagère E2",
-        image:"",         
-        noticeUtilisation: "assets/notice/pipettes.pdf"
-    },
+       
     {
         domaine: "Chimie",
         nom: "Propipettes",
         categorie: ["Dilution", "pHmétrie"],
         description: "Transfert précis de liquides",
         lieu: "Salle B27 / étagère D4",
-        image:"",        
+        image:"pro_pipette.jpg",        
         noticeUtilisation: "assets/notice/propipettes.pdf"
-    },    
+    },
+        {
+        domaine: "Chimie",
+        nom: "Poire",
+        categorie: ["Dilution", "pHmétrie"],
+        description: "Transfert précis de liquides",
+        lieu: "Salle B27 / étagère D4",
+        image:"poire.jpg",         
+        noticeUtilisation: "assets/notice/poire.pdf"
+    },
     {
         domaine: "Chimie",
         nom: "pH-mètre",
