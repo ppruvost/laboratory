@@ -356,7 +356,6 @@ const laboratoryEquipment = [
     image: "papier_pH.jpg",
     noticeUtilisation: "assets/notice/papier_tournesol_rouge.pdf"
 },
-
 {
     domaine: "Chimie",
     nom: "Papier phénolphtaléine",
@@ -386,21 +385,21 @@ const laboratoryEquipment = [
 },
 {
     domaine: "Chimie",
-    nom: "Papier pH 7,0 à 10,0",
+    nom: "Papier pH 7,0 à 14,0",
     categorie: ["Indicateur", "pHmétrie"],
     description: "Bandelette indicatrice destinée à la mesure précise du pH des solutions légèrement basiques.",
     lieu: "Salle B27 / étagère D4",
-    image: "papier_ph_universel.jpg",
+    image: "papier_pH_universel.jpg",
     noticeUtilisation: "assets/notice/papier_ph_7_10.pdf"
 },
 {
     domaine: "Chimie",
-    nom: "Papier pH 9,5 à 14,0",
+    nom: "Bandelettes pH 5,0 à 10,0",
     categorie: ["Indicateur", "pHmétrie"],
-    description: "Bandelette indicatrice destinée à la mesure du pH des solutions fortement basiques.",
+    description: "Bandelettes indicatrices permettant une mesure précise du pH des solutions entre 5,0 et 10,0.",
     lieu: "Salle B27 / étagère D4",
-    image: "papier_ph_universel.jpg",
-    noticeUtilisation: "assets/notice/papier_ph_95_14.pdf"
+    image: "bandelettes_pH.jpg",
+    noticeUtilisation: "assets/notice/bandelettes_ph_5_10.pdf"
 },
     {
         domaine: "Chimie",
