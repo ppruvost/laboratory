@@ -1338,6 +1338,19 @@
     dangers: ["H302", "H314", "H410"],
     prevention: ["P260", "P264", "P270", "P273", "P280", "P301+P312"]
   },
+   {
+    cas: "7440-66-6",
+    nom: "zinc en grenaille",
+    formule: "Zn",
+    categorie: "Métal",
+    localisation: "salle B27 / étagère D4",
+    pictogramme: [],
+    obligation: ["LUNETTES", "BLOUSE"],
+    image: "zinc_grenaille.jpg",
+    fds: "FicheTox_ZincGrenaille.pdf",
+    dangers: [],
+    prevention: []
+},
       {
     cas: "1314-13-2",
     nom: "zinc oxyde",
