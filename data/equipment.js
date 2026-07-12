@@ -376,6 +376,33 @@ const laboratoryEquipment = [
     noticeUtilisation: "assets/notice/papier_acetate_plomb.pdf"
 },
     {
+    domaine: "Chimie",
+    nom: "Papier pH universel",
+    categorie: ["Indicateur", "pHmétrie"],
+    description: "Bandelette indicatrice permettant de mesurer le pH d'une solution par comparaison avec une échelle colorée.",
+    lieu: "Salle B27 / étagère D4",
+    image: "papier_ph_universel.jpg",
+    noticeUtilisation: "assets/notice/papier_ph_universel.pdf"
+},
+{
+    domaine: "Chimie",
+    nom: "Papier pH 7,0 à 10,0",
+    categorie: ["Indicateur", "pHmétrie"],
+    description: "Bandelette indicatrice destinée à la mesure précise du pH des solutions légèrement basiques.",
+    lieu: "Salle B27 / étagère D4",
+    image: "papier_ph_universel.jpg",
+    noticeUtilisation: "assets/notice/papier_ph_7_10.pdf"
+},
+{
+    domaine: "Chimie",
+    nom: "Papier pH 9,5 à 14,0",
+    categorie: ["Indicateur", "pHmétrie"],
+    description: "Bandelette indicatrice destinée à la mesure du pH des solutions fortement basiques.",
+    lieu: "Salle B27 / étagère D4",
+    image: "papier_ph_universel.jpg",
+    noticeUtilisation: "assets/notice/papier_ph_95_14.pdf"
+},
+    {
         domaine: "Chimie",
         nom: "Chauffe-ballon",
         categorie: ["Dissolution", "pHmétrie"],
