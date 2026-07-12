@@ -355,6 +355,31 @@
 
     <div class="form-row">
 
+      <div class="form-group">
+
+        <label for="sel-titre">
+          Espèce dans le bécher (titrée)
+        </label>
+
+        <select id="sel-titre">
+
+          <option value="acide">
+            Un acide (la base est versée à la burette)
+          </option>
+
+          <option value="base">
+            Une base (l'acide est versé à la burette)
+          </option>
+
+        </select>
+
+      </div>
+
+    </div>
+
+
+    <div class="form-row">
+
 
       <div class="form-group">
 
@@ -457,92 +482,41 @@
 
 
 
-      <div class="form-group">
+      <div class="form-group"
+           id="groupe-pka-acide">
 
-        <label for="pka-select">
-          Couple acide/base
+        <label for="pka-select-acide">
+          Couple acide (si acide faible / polyacide)
         </label>
 
-
-        <select id="pka-select">
-
-
-          <optgroup label="Monoacides / monobases faibles">
-
-
-            <option value="CH3COOH">
-              CH₃COOH / CH₃COO⁻ (acide acétique)
-            </option>
-
-
-            <option value="HF">
-              HF / F⁻ (acide fluorhydrique)
-            </option>
-
-
-            <option value="HNO2">
-              HNO₂ / NO₂⁻ (acide nitreux)
-            </option>
-
-
-            <option value="NH4+">
-              NH₄⁺ / NH₃ (ammonium / ammoniac)
-            </option>
-
-
-            <option value="H2O2">
-              H₂O₂ / HO₂⁻ (eau oxygénée)
-            </option>
-
-
-            <option value="H3BO3">
-              H₃BO₃ / H₂BO₃⁻ (acide borique)
-            </option>
-
-
-          </optgroup>
-
-
-
-
-          <optgroup label="Polyacides">
-
-
-            <option value="H2C2O4">
-              H₂C₂O₄ — acide oxalique
-            </option>
-
-
-            <option value="H2CO3">
-              H₂CO₃ — acide carbonique
-            </option>
-
-
-            <option value="H2S">
-              H₂S — sulfure d'hydrogène
-            </option>
-
-
-            <option value="H3PO4">
-              H₃PO₄ — acide phosphorique
-            </option>
-
-
-            <option value="H4EDTA">
-              H₄EDTA — EDTA
-            </option>
-
-
-          </optgroup>
-
-
+        <select id="pka-select-acide">
+          <!-- rempli dynamiquement par peuplerSelectCouples() -->
         </select>
 
+      </div>
+
+
+      <div class="form-group"
+           id="groupe-pka-base">
+
+        <label for="pka-select-base">
+          Couple base (si base faible)
+        </label>
+
+        <select id="pka-select-base">
+          <!-- rempli dynamiquement par peuplerSelectCouples() -->
+        </select>
 
       </div>
 
 
     </div>
+
+
+    <p class="info">
+      Pour un polyacide (H₂C₂O₄, H₂CO₃, H₂S, H₃PO₄, H₄EDTA), la courbe
+      théorique affiche automatiquement toutes les équivalences successives.
+    </p>
 
 
 
@@ -807,29 +781,38 @@
 
         <div class="toolbar">
 
+            <button
+                type="button"
+                id="btn-tangentes"
+                class="btn btn-secondaire btn-toggle"
+                aria-pressed="false">
 
-            <label>
+                📐 Méthode des tangentes parallèles
 
-                <input
-                    type="checkbox"
-                    id="chk-tangentes">
-
-                Méthode des tangentes
-
-            </label>
-
+            </button>
 
 
-            <label>
+            <button
+                type="button"
+                id="btn-derivee"
+                class="btn btn-secondaire btn-toggle"
+                aria-pressed="false">
 
-                <input
-                    type="checkbox"
-                    id="chk-derivee">
+                📈 Méthode des dérivées
 
-                Méthode des dérivées
+            </button>
 
-            </label>
 
+        </div>
+
+
+        <div class="legende-courbe">
+
+            <span><i style="background:#8a8a8a"></i> Courbe théorique</span>
+            <span><i style="background:#c0392b"></i> Courbe expérimentale (+)</span>
+            <span><i style="background:#111"></i> Tangentes / médiane</span>
+            <span><i style="background:#1B6CA8"></i> Point d'équivalence</span>
+            <span><i style="background:#8e44ad"></i> |dpH/dV|</span>
 
         </div>
 
