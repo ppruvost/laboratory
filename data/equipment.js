@@ -390,16 +390,7 @@ const laboratoryEquipment = [
     lieu: "Salle B27 / étagère D4",
     image: "papier_ph_universel.jpg",
     noticeUtilisation: "assets/notice/papier_ph_universel.pdf"
-    },
-    {
-    domaine: "Chimie",
-    nom: "Papier pH 7,0 à 14,0",
-    categorie: ["Indicateur", "pHmétrie"],
-    description: "Bandelette indicatrice destinée à la mesure précise du pH des solutions légèrement basiques.",
-    lieu: "Salle B27 / étagère D4",
-    image: "papier_pH_universel.jpg",
-    noticeUtilisation: "assets/notice/papier_ph_7_10.pdf"
-    },
+    },    
     {
     domaine: "Chimie",
     nom: "pH-mètre",
