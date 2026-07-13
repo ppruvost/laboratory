@@ -286,6 +286,7 @@
 .section[data-type="protocole"] .picto-section { background: var(--section-protocole-bg); color: var(--section-protocole-fg); }
 .section[data-type="resultats"] .picto-section { background: var(--section-resultats-bg); color: var(--section-resultats-fg); }
 .section[data-type="bilan"]     .picto-section { background: var(--section-bilan-bg);     color: var(--section-bilan-fg); }
+.section[data-type="environnement"] .picto-section { background: var(--etat-succes-bg);  color: var(--etat-succes-fg); }
 
 /* ──────────────────────────────────────────────────────────────
    5. CARTES & GRILLES
