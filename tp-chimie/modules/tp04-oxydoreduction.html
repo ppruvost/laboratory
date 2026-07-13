@@ -2,230 +2,201 @@
 <html lang="fr">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>TP04 — Réactions d'oxydo-réduction</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet" href="../css/global.css">
-    <link rel="stylesheet" href="../css/tp.css">
-    <link rel="stylesheet" href="../css/balance-erreurs.css">
-    <link rel="stylesheet" href="../css/compte-rendu.css">
+<title>TP04 — Réactions d'oxydo-réduction</title>
+
+<link rel="stylesheet" href="../css/global.css">
+<link rel="stylesheet" href="../css/tp.css">
+<link rel="stylesheet" href="../css/balance-erreurs.css">
+<link rel="stylesheet" href="../css/compte-rendu.css">
+
 </head>
 
 <body>
 
-<div class="tp-container">
+<main class="tp-page">
 
-<header class="hero">
-    <div class="hero-content">
+<section class="hero">
 
-        <span class="badge">TP04</span>
+<div class="hero-content">
 
-        <h1>
-            Réactions d'oxydo-réduction
-        </h1>
+<span class="badge">TP04</span>
 
-        <p class="hero-subtitle">
-            Identifier les couples oxydant/réducteur, équilibrer une réaction d'oxydo-réduction,
-            comprendre le fonctionnement d'une pile électrochimique et réaliser un dosage rédox.
-        </p>
+<h1>Réactions d'oxydo-réduction</h1>
 
-    </div>
-</header>
+<p class="hero-subtitle">
+Identifier les couples rédox, équilibrer une réaction, comprendre le fonctionnement
+d'une pile électrochimique et réaliser un dosage d'oxydo-réduction.
+</p>
 
-<section class="card">
+<div class="hero-actions">
 
-    <h2>Objectifs</h2>
+<button id="btnImprimer" class="btn btn-primary">
+🖨️ Imprimer le compte-rendu
+</button>
 
-    <div class="grid-2">
+<button id="btnExportPDF" class="btn">
+📄 Export PDF
+</button>
 
-        <div>
+</div>
 
-            <ul class="check-list">
-
-                <li>Identifier un oxydant et un réducteur.</li>
-
-                <li>Déterminer un nombre d'oxydation.</li>
-
-                <li>Écrire une demi-équation électronique.</li>
-
-                <li>Équilibrer une réaction d'oxydo-réduction.</li>
-
-            </ul>
-
-        </div>
-
-        <div>
-
-            <ul class="check-list">
-
-                <li>Prévoir le sens spontané d'une réaction.</li>
-
-                <li>Comprendre le fonctionnement d'une pile.</li>
-
-                <li>Réaliser un dosage d'oxydo-réduction.</li>
-
-                <li>Interpréter les résultats expérimentaux.</li>
-
-            </ul>
-
-        </div>
-
-    </div>
+</div>
 
 </section>
 
 <section class="card">
 
-    <h2>Compétences</h2>
+<h2>Objectifs</h2>
 
-    <div class="competences-grid">
+<div class="grid-2">
 
-        <div class="competence">
-            <strong>APP</strong>
-            <span>S'approprier le protocole.</span>
-        </div>
+<div>
 
-        <div class="competence">
-            <strong>ANA</strong>
-            <span>Identifier les espèces chimiques.</span>
-        </div>
+<ul class="check-list">
 
-        <div class="competence">
-            <strong>REA</strong>
-            <span>Mettre en œuvre les manipulations.</span>
-        </div>
+<li>Identifier un oxydant et un réducteur.</li>
 
-        <div class="competence">
-            <strong>VAL</strong>
-            <span>Valider les résultats.</span>
-        </div>
+<li>Déterminer un nombre d'oxydation.</li>
 
-        <div class="competence">
-            <strong>COM</strong>
-            <span>Communiquer les observations.</span>
-        </div>
+<li>Écrire une demi-équation électronique.</li>
 
-    </div>
+<li>Équilibrer une réaction d'oxydo-réduction.</li>
 
-</section>
+</ul>
 
-<section class="card">
+</div>
 
-    <h2>Sécurité</h2>
+<div>
 
-    <div id="produits-utilises" class="products-grid"></div>
+<ul class="check-list">
 
-</section>
+<li>Prévoir le sens spontané d'une réaction.</li>
 
-<section class="card">
+<li>Comprendre le fonctionnement d'une pile.</li>
 
-    <h2>Matériel</h2>
+<li>Exploiter un dosage rédox.</li>
 
-    <div id="materiel-list" class="grid-3">
+<li>Valider les résultats expérimentaux.</li>
 
-        <label class="checkbox-card">
-            <input type="checkbox" value="bécher">
-            <span>Bécher</span>
-        </label>
+</ul>
 
-        <label class="checkbox-card">
-            <input type="checkbox" value="erlenmeyer">
-            <span>Erlenmeyer</span>
-        </label>
+</div>
 
-        <label class="checkbox-card">
-            <input type="checkbox" value="agitateur">
-            <span>Agitateur magnétique</span>
-        </label>
-
-        <label class="checkbox-card">
-            <input type="checkbox" value="barreau">
-            <span>Barreau aimanté</span>
-        </label>
-
-        <label class="checkbox-card">
-            <input type="checkbox" value="burette">
-            <span>Burette graduée</span>
-        </label>
-
-        <label class="checkbox-card">
-            <input type="checkbox" value="pipette">
-            <span>Pipette jaugée</span>
-        </label>
-
-        <label class="checkbox-card">
-            <input type="checkbox" value="propipette">
-            <span>Propipette</span>
-        </label>
-
-        <label class="checkbox-card">
-            <input type="checkbox" value="fiole">
-            <span>Fiole jaugée</span>
-        </label>
-
-        <label class="checkbox-card">
-            <input type="checkbox" value="support">
-            <span>Support universel</span>
-        </label>
-
-        <label class="checkbox-card">
-            <input type="checkbox" value="voltmètre">
-            <span>Voltmètre</span>
-        </label>
-
-        <label class="checkbox-card">
-            <input type="checkbox" value="pont-salin">
-            <span>Pont salin</span>
-        </label>
-
-        <label class="checkbox-card">
-            <input type="checkbox" value="electrode-cuivre">
-            <span>Électrode de cuivre</span>
-        </label>
-
-        <label class="checkbox-card">
-            <input type="checkbox" value="electrode-zinc">
-            <span>Électrode de zinc</span>
-        </label>
-
-    </div>
+</div>
 
 </section>
 
 <section class="card">
 
-    <div class="tp-tabs">
+<h2>Compétences travaillées</h2>
 
-        <button class="tab active" data-tab="couples">
-            Couples RedOx
-        </button>
+<div class="competences-grid">
 
-        <button class="tab" data-tab="oxydation">
-            Nombres d'oxydation
-        </button>
+<div class="competence">
+<strong>APP</strong>
+<span>S'approprier</span>
+</div>
 
-        <button class="tab" data-tab="equilibrage">
-            Équilibrage
-        </button>
+<div class="competence">
+<strong>ANA</strong>
+<span>Analyser</span>
+</div>
 
-        <button class="tab" data-tab="reactions">
-            Réactions
-        </button>
+<div class="competence">
+<strong>REA</strong>
+<span>Réaliser</span>
+</div>
 
-        <button class="tab" data-tab="piles">
-            Piles
-        </button>
+<div class="competence">
+<strong>VAL</strong>
+<span>Valider</span>
+</div>
 
-        <button class="tab" data-tab="dosages">
-            Dosages
-        </button>
+<div class="competence">
+<strong>COM</strong>
+<span>Communiquer</span>
+</div>
 
-    </div>
+</div>
 
-    <div class="tp-content">
-      <div id="couples" class="tp-panel active">
+</section>
+
+<section class="card">
+
+<h2>Produits utilisés</h2>
+
+<div id="tp-produits" class="products-grid"></div>
+
+</section>
+
+<section class="card">
+
+<h2>Matériel</h2>
+
+<div id="tp-materiel" class="equipment-grid"></div>
+
+</section>
+
+<section class="card">
+
+<div class="tp-tabs">
+
+<button
+class="tab active"
+data-tab="couples">
+
+Couples rédox
+
+</button>
+
+<button
+class="tab"
+data-tab="oxydation">
+
+Nombres d'oxydation
+
+</button>
+
+<button
+class="tab"
+data-tab="equilibrage">
+
+Équilibrage
+
+</button>
+
+<button
+class="tab"
+data-tab="reactions">
+
+Réactions
+
+</button>
+
+<button
+class="tab"
+data-tab="piles">
+
+Pile Daniell
+
+</button>
+
+<button
+class="tab"
+data-tab="dosages">
+
+Dosages
+
+</button>
+
+</div>
+
+<div class="tp-content">
+    <div id="couples" class="tp-panel active">
 
     <h2>Couples oxydant / réducteur</h2>
 
@@ -233,7 +204,11 @@
 
         <div class="card">
 
-            <h3>Choisir un couple</h3>
+            <h3>Étude d'un couple</h3>
+
+            <label for="coupleSelect">
+                Couple rédox
+            </label>
 
             <select id="coupleSelect">
 
@@ -245,6 +220,8 @@
 
                 <option value="Zn2+/Zn">Zn²⁺ / Zn</option>
 
+                <option value="Ag+/Ag">Ag⁺ / Ag</option>
+
                 <option value="MnO4-/Mn2+">MnO₄⁻ / Mn²⁺</option>
 
                 <option value="Cr2O72-/Cr3+">Cr₂O₇²⁻ / Cr³⁺</option>
@@ -253,21 +230,57 @@
 
                 <option value="Cl2/Cl-">Cl₂ / Cl⁻</option>
 
-                <option value="Ag+/Ag">Ag⁺ / Ag</option>
-
             </select>
+
+            <br><br>
+
+            <button id="btnAfficherCouple" class="btn btn-primary">
+
+                Afficher
+
+            </button>
 
         </div>
 
         <div class="card">
 
-            <h3>Demi-équation</h3>
+            <h3>Résultats</h3>
 
-            <div id="demiEquation" class="result-box">
+            <table class="table">
 
-                Sélectionner un couple.
+                <tr>
 
-            </div>
+                    <th>Oxydant</th>
+
+                    <td id="oxydantResult">—</td>
+
+                </tr>
+
+                <tr>
+
+                    <th>Réducteur</th>
+
+                    <td id="reducteurResult">—</td>
+
+                </tr>
+
+                <tr>
+
+                    <th>Demi-équation</th>
+
+                    <td id="demiEquationResult">—</td>
+
+                </tr>
+
+                <tr>
+
+                    <th>Électrons</th>
+
+                    <td id="electronResult">—</td>
+
+                </tr>
+
+            </table>
 
         </div>
 
@@ -283,11 +296,15 @@
 
         <div class="card">
 
-            <label>Espèce chimique</label>
+            <label for="especeNO">
+
+                Espèce chimique
+
+            </label>
 
             <select id="especeNO">
 
-                <option value="">Choisir...</option>
+                <option value="">Sélectionner...</option>
 
                 <option>KMnO₄</option>
 
@@ -297,9 +314,9 @@
 
                 <option>Fe₂O₃</option>
 
-                <option>HNO₃</option>
-
                 <option>NaClO</option>
+
+                <option>HNO₃</option>
 
                 <option>SO₄²⁻</option>
 
@@ -307,15 +324,23 @@
 
             </select>
 
+            <br><br>
+
+            <button id="btnNO" class="btn btn-primary">
+
+                Calculer
+
+            </button>
+
         </div>
 
         <div class="card">
 
             <h3>Résultat</h3>
 
-            <div id="noResult" class="result-box">
+            <div id="noResult" class="result-card">
 
-                Choisir une espèce.
+                Choisir une espèce chimique.
 
             </div>
 
@@ -327,50 +352,83 @@
 
 <div id="equilibrage" class="tp-panel">
 
-    <h2>Équilibrage d'une réaction</h2>
+    <h2>Équilibrage d'une réaction d'oxydo-réduction</h2>
 
     <div class="grid-2">
 
         <div class="card">
 
-            <label>Réaction</label>
+            <label>
+
+                Réaction
+
+            </label>
 
             <select id="reactionSelect">
 
-                <option value="">Choisir...</option>
+                <option value="">Sélectionner...</option>
 
                 <option value="permanganate">
+
                     Fe²⁺ + MnO₄⁻ → Fe³⁺ + Mn²⁺
+
                 </option>
 
                 <option value="dichromate">
-                    Cr₂O₇²⁻ + Fe²⁺ → Cr³⁺ + Fe³⁺
+
+                    Fe²⁺ + Cr₂O₇²⁻ → Fe³⁺ + Cr³⁺
+
                 </option>
 
                 <option value="iode">
+
                     I₂ + S₂O₃²⁻ → I⁻ + S₄O₆²⁻
+
                 </option>
 
             </select>
 
             <br><br>
 
-            <label>Milieu</label>
+            <label>
 
-            <select id="milieuSelect">
+                Milieu
 
-                <option value="acide">Acide</option>
+            </label>
 
-                <option value="basique">Basique</option>
+            <select id="milieu">
+
+                <option value="acide">
+
+                    Acide
+
+                </option>
+
+                <option value="basique">
+
+                    Basique
+
+                </option>
 
             </select>
 
             <br><br>
 
-            <button id="btnEtape1">Étape 1</button>
-            <button id="btnEtape2">Étape 2</button>
-            <button id="btnEtape3">Étape 3</button>
-            <button id="btnCorrection">Correction</button>
+            <div class="toolbar">
+
+                <button id="btnEtape1">Étape 1</button>
+
+                <button id="btnEtape2">Étape 2</button>
+
+                <button id="btnEtape3">Étape 3</button>
+
+                <button id="btnCorrection">
+
+                    Correction
+
+                </button>
+
+            </div>
 
         </div>
 
@@ -378,9 +436,11 @@
 
             <h3>Résolution</h3>
 
-            <div id="equilibrageResult" class="result-box">
+            <div
+                id="equilibrageResult"
+                class="result-card">
 
-                Sélectionner une réaction.
+                En attente...
 
             </div>
 
@@ -398,35 +458,51 @@
 
         <div class="card">
 
-            <label>Premier couple</label>
+            <label>
+
+                Couple 1
+
+            </label>
 
             <select id="couple1">
 
                 <option>Zn²⁺ / Zn</option>
+
                 <option>Cu²⁺ / Cu</option>
+
                 <option>Fe³⁺ / Fe²⁺</option>
+
                 <option>Ag⁺ / Ag</option>
 
             </select>
 
             <br><br>
 
-            <label>Deuxième couple</label>
+            <label>
+
+                Couple 2
+
+            </label>
 
             <select id="couple2">
 
                 <option>Cu²⁺ / Cu</option>
+
                 <option>Zn²⁺ / Zn</option>
+
                 <option>MnO₄⁻ / Mn²⁺</option>
+
                 <option>I₂ / I⁻</option>
 
             </select>
 
             <br><br>
 
-            <button id="btnReaction">
+            <button
+                id="btnReaction"
+                class="btn btn-primary">
 
-                Déterminer
+                Déterminer la réaction
 
             </button>
 
@@ -434,11 +510,13 @@
 
         <div class="card">
 
-            <h3>Analyse</h3>
+            <h3>Résultat</h3>
 
-            <div id="reactionResult" class="result-box">
+            <div
+                id="reactionResult"
+                class="result-card">
 
-                Les résultats apparaîtront ici.
+                En attente...
 
             </div>
 
@@ -454,33 +532,47 @@
 
     <div class="card">
 
-        <div id="pileSchema" class="pile-schema">
+        <div id="pileContainer"></div>
 
-            Zn | Zn²⁺ || Cu²⁺ | Cu
+        <div class="toolbar">
+
+            <button id="btnAnode">
+
+                Anode
+
+            </button>
+
+            <button id="btnCathode">
+
+                Cathode
+
+            </button>
+
+            <button id="btnElectrons">
+
+                Électrons
+
+            </button>
+
+            <button id="btnPont">
+
+                Pont salin
+
+            </button>
+
+            <button
+                id="btnMesure"
+                class="btn btn-primary">
+
+                Mesurer la tension
+
+            </button>
 
         </div>
 
-        <div class="grid-4">
-
-            <button id="btnAnode">Anode</button>
-
-            <button id="btnCathode">Cathode</button>
-
-            <button id="btnElectrons">Électrons</button>
-
-            <button id="btnPontSalin">Pont salin</button>
-
-        </div>
-
-        <br>
-
-        <button id="btnMesure">
-
-            Mesurer la tension
-
-        </button>
-
-        <div id="pileResult" class="result-box">
+        <div
+            id="pileResult"
+            class="result-card">
 
             Tension non mesurée.
 
@@ -498,7 +590,11 @@
 
         <div class="card">
 
-            <label>Type de dosage</label>
+            <label>
+
+                Dosage
+
+            </label>
 
             <select id="dosageType">
 
@@ -518,37 +614,51 @@
 
             <br><br>
 
-            <label>Volume prélevé (mL)</label>
+            <label>
+
+                Volume analysé (mL)
+
+            </label>
 
             <input
+                id="Va"
                 type="number"
-                id="volumeAnalyse"
                 min="0"
                 step="0.1">
 
             <br><br>
 
-            <label>Concentration titrante (mol/L)</label>
+            <label>
+
+                Concentration titrante (mol/L)
+
+            </label>
 
             <input
+                id="Ct"
                 type="number"
-                id="concentrationTitrant"
                 min="0"
                 step="0.001">
 
             <br><br>
 
-            <label>Volume à l'équivalence (mL)</label>
+            <label>
+
+                Volume équivalent (mL)
+
+            </label>
 
             <input
+                id="Ve"
                 type="number"
-                id="volumeEq"
                 min="0"
                 step="0.1">
 
             <br><br>
 
-            <button id="btnCalculDosage">
+            <button
+                id="btnCalculDosage"
+                class="btn btn-primary">
 
                 Calculer
 
@@ -558,18 +668,20 @@
 
         <div class="card">
 
-            <h3>Résultats</h3>
+            <h3>Résultat</h3>
 
-            <div id="dosageResult" class="result-box">
+            <div
+                id="dosageResult"
+                class="result-card">
 
-                En attente des calculs.
+                En attente...
 
             </div>
 
             <canvas
                 id="graphRedox"
-                width="700"
-                height="400">
+                width="800"
+                height="420">
             </canvas>
 
         </div>
@@ -577,259 +689,3 @@
     </div>
 
 </div>
-
-      </section>
-
-<section class="card">
-
-    <h2>Observations expérimentales</h2>
-
-    <textarea
-        id="observations"
-        rows="8"
-        placeholder="Noter ici les observations réalisées pendant le TP..."></textarea>
-
-</section>
-
-<section class="card">
-
-    <h2>Questions</h2>
-
-    <div class="question">
-
-        <p><strong>1.</strong> Définir une oxydation.</p>
-
-        <textarea id="q1" rows="3"></textarea>
-
-    </div>
-
-    <div class="question">
-
-        <p><strong>2.</strong> Définir une réduction.</p>
-
-        <textarea id="q2" rows="3"></textarea>
-
-    </div>
-
-    <div class="question">
-
-        <p><strong>3.</strong> Qu'est-ce qu'un oxydant ?</p>
-
-        <textarea id="q3" rows="3"></textarea>
-
-    </div>
-
-    <div class="question">
-
-        <p><strong>4.</strong> Qu'est-ce qu'un réducteur ?</p>
-
-        <textarea id="q4" rows="3"></textarea>
-
-    </div>
-
-    <div class="question">
-
-        <p><strong>5.</strong> Quel est le rôle du pont salin ?</p>
-
-        <textarea id="q5" rows="3"></textarea>
-
-    </div>
-
-    <div class="question">
-
-        <p><strong>6.</strong> Dans quel sens circulent les électrons dans une pile Daniell ?</p>
-
-        <textarea id="q6" rows="3"></textarea>
-
-    </div>
-
-</section>
-
-<section class="card">
-
-    <h2>Conclusion</h2>
-
-    <textarea
-        id="conclusion"
-        rows="6"
-        placeholder="Rédiger une conclusion..."></textarea>
-
-</section>
-
-<section class="card autoeval">
-
-    <h2>Auto-évaluation</h2>
-
-    <table class="autoeval-table">
-
-        <thead>
-
-            <tr>
-
-                <th>Compétence</th>
-                <th>0</th>
-                <th>1</th>
-                <th>2</th>
-
-            </tr>
-
-        </thead>
-
-        <tbody>
-
-            <tr>
-
-                <td>Identifier un oxydant et un réducteur</td>
-
-                <td><input type="radio" name="app1" value="0"></td>
-                <td><input type="radio" name="app1" value="1"></td>
-                <td><input type="radio" name="app1" value="2"></td>
-
-            </tr>
-
-            <tr>
-
-                <td>Déterminer un nombre d'oxydation</td>
-
-                <td><input type="radio" name="ana1" value="0"></td>
-                <td><input type="radio" name="ana1" value="1"></td>
-                <td><input type="radio" name="ana1" value="2"></td>
-
-            </tr>
-
-            <tr>
-
-                <td>Équilibrer une réaction</td>
-
-                <td><input type="radio" name="rea1" value="0"></td>
-                <td><input type="radio" name="rea1" value="1"></td>
-                <td><input type="radio" name="rea1" value="2"></td>
-
-            </tr>
-
-            <tr>
-
-                <td>Interpréter une pile</td>
-
-                <td><input type="radio" name="val1" value="0"></td>
-                <td><input type="radio" name="val1" value="1"></td>
-                <td><input type="radio" name="val1" value="2"></td>
-
-            </tr>
-
-            <tr>
-
-                <td>Communiquer les résultats</td>
-
-                <td><input type="radio" name="com1" value="0"></td>
-                <td><input type="radio" name="com1" value="1"></td>
-                <td><input type="radio" name="com1" value="2"></td>
-
-            </tr>
-
-        </tbody>
-
-    </table>
-
-    <br>
-
-    <button id="btnRadar">
-
-        Afficher le radar
-
-    </button>
-
-    <canvas
-        id="radarCanvas"
-        width="450"
-        height="450">
-    </canvas>
-
-</section>
-
-<section class="card">
-
-    <h2>Compte-rendu</h2>
-
-    <div class="actions">
-
-        <button id="btnSauvegarder">
-
-            💾 Sauvegarder
-
-        </button>
-
-        <button id="btnCharger">
-
-            📂 Charger
-
-        </button>
-
-        <button id="btnImprimer">
-
-            🖨️ Imprimer
-
-        </button>
-
-        <button id="btnExporterPDF">
-
-            📄 Export PDF
-
-        </button>
-
-    </div>
-
-</section>
-</div>
-
-</div>
-
-<div id="cr-print-container" style="display:none;"></div>
-
-<script type="module">
-
-import {
-    products
-} from "../data/products.js";
-
-import {
-    equipment
-} from "../data/equipment.js";
-
-import {
-    glassware
-} from "../data/glassware.js";
-
-import {
-    dangerDB
-} from "../data/dangerDB.js";
-
-import "../js/navigation.js";
-import "../js/compte-rendu.js";
-import "../js/print-tp01.js";
-
-import {
-    initTP04
-} from "../js/tp04.js";
-
-document.addEventListener(
-    "DOMContentLoaded",
-    () => {
-
-        initTP04({
-
-            products,
-            equipment,
-            glassware,
-            dangerDB
-
-        });
-
-    }
-);
-
-</script>
-
-</body>
-
-</html>
