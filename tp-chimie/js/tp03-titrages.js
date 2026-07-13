@@ -1947,20 +1947,31 @@ function lancerCompteRendu() {
     ];
 
 
-    for (let i = 1; i <= 10; i++) {
+    document.querySelectorAll(".questions-tp > li").forEach((li, index) => {
 
-        const texte =
-            lireTexte(`question${i}`);
+        const zone =
+            li.querySelector("textarea");
+
+        if (!zone) return;
+
+        const titreQuestion =
+            li.querySelector(".question-entete strong")
+                ?.textContent.replace(/\s+/g, " ").trim()
+            || `Question ${index + 1}`;
+
+        const competence =
+            li.querySelector(".cartouche")?.dataset.comp || "";
 
         sections.push({
 
-            titre: `Question ${i}`,
-
-            texte
+            titre: titreQuestion,
+            competence,
+            notation: true,
+            texte: (zone.value || "").trim()
 
         });
 
-    }
+    });
 
 
     const resume =
