@@ -424,7 +424,7 @@ const laboratoryEquipment = [
     categorie: ["Dissolution", "pHmétrie"],
     description: "Mesure du pH des solutions",
      lieu: "Salle B27 / étagère D4",
-     image:"",
+     image:"assets/img/equipments/pHmetre.jpg",
      noticeUtilisation: "assets/notice/phmetre.pdf"
     },   
     {
