@@ -356,6 +356,14 @@ const laboratoryEquipment = [
     image:"assets/img/equipments/chauffe_ballon.jpg",         
     noticeUtilisation: "assets/notice/chauffe_ballon.pdf"
     },
+    {domaine: "Chimie",
+    nom: "Lames métalliques (Zn, Cu, Fe, Pb, Al)",
+    categorie: ["Redox"],
+    description: "Électrodes des demi-piles, à décaper avant chaque usage",
+    lieu: "Salle B27 / étagère D1",
+    image: "",
+    noticeUtilisation: ""
+    },
     {
     domaine: "Chimie",
     nom: "Papier tournesol bleu",
@@ -428,6 +436,15 @@ const laboratoryEquipment = [
      image:"assets/img/equipments/poire.jpg",         
      noticeUtilisation: "assets/notice/poire.pdf"
     },
+     {
+    domaine: "Chimie",
+    nom: "Potence, noix et pince",
+    categorie: ["Redox"],
+    description: "Support de la demi-pile à hydrogène simplifiée",
+    lieu: "Salle B27 / paillasse E2",
+    image: "",
+    noticeUtilisation: ""
+    },
     {
     domaine: "Chimie",
     nom: "Propipettes",
@@ -443,6 +460,15 @@ const laboratoryEquipment = [
     categorie: ["Dissolution", "pHmétrie"],
     description: "Élimination sécurisée des vapeurs toxiques ou corrosives",
     lieu: "Salle B29",
+    image: "",
+    noticeUtilisation: ""
+    },
+    {
+    domaine: "Chimie",
+    nom: "Toile émeri",
+    categorie: ["Redox"],
+    description: "Décapage des lames métalliques avant utilisation comme électrodes",
+    lieu: "Salle B27 / étagère D1",
     image: "",
     noticeUtilisation: ""
     },
@@ -566,8 +592,8 @@ const laboratoryEquipment = [
         nom: "Blouse de laboratoire",
         description: "Protection des vêtements",
         categorie: ["Dilution", "Dissolution", "pHmétrie"],
-        lieu: "",
-        image:"",
+        lieu: "Salle B27 - Paillasse E2",
+        image:"assets/img/equipments/blouse.jpg",
         noticeUtilisation: "assets/notice/blouse_laboratoire.pdf"
     },
     {
@@ -576,7 +602,7 @@ const laboratoryEquipment = [
         categorie: ["Dilution", "Dissolution", "pHmétrie"],
         description: "Protection des yeux",
         lieu: "Salle B27 - Etagère D2",
-        image:"",
+        image:"assets/img/equipments/lunette.jpg",
         noticeUtilisation: "assets/notice/lunettes_protection.pdf"
     },
     {
