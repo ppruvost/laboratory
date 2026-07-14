@@ -30,8 +30,6 @@
         <span class="tag">Oxydoréduction</span>
       </div>
 
-      
-
     </div>
 
   </div>
@@ -69,15 +67,15 @@
       </li>
 
       <li>
-        Écrire l’équation de réaction modélisant une transformation d’oxydoréduction à partir de deux demi-équations de réaction.
+        Écrire l'équation de réaction modélisant une transformation d'oxydoréduction à partir de deux demi-équations de réaction.
       </li>
 
       <li>
-        Identifier l’oxydant et le réducteur dans une transformation d’oxydoréduction d’équation de réaction donnée.
+        Identifier l'oxydant et le réducteur dans une transformation d'oxydoréduction d'équation de réaction donnée.
       </li>
 
       <li>
-        Prévoir à partir d’une classification électrochimique qualitative, le sens d’évolution spontané d’une transformation d’oxydoréduction.
+        Prévoir à partir d'une classification électrochimique qualitative, le sens d'évolution spontané d'une transformation d'oxydoréduction.
       </li>
 
       <li>
@@ -85,17 +83,17 @@
       </li>
 
       <li>
-        Réaliser expérimentalement et interpréter une transformation d’oxydoréduction en lien avec la corrosion d’un métal.
+        Réaliser expérimentalement et interpréter une transformation d'oxydoréduction en lien avec la corrosion d'un métal.
       </li>
 
       <li>
-        Illustrer au moyen d’une expérience la passivation d’un métal.
+        Illustrer au moyen d'une expérience la passivation d'un métal.
       </li>
 
       <li>
-        Mettre en évidence expérimentalement la protection d’un métal par la méthode d’anode sacrificielle.
+        Mettre en évidence expérimentalement la protection d'un métal par la méthode d'anode sacrificielle.
       </li>
-      
+
       <li>
         Identifier un pictogramme sur l'étiquette d'un produit chimique de laboratoire ou d'usage domestique.
       </li>
@@ -131,8 +129,6 @@
   </div>
 
   <div class="section-corps">
-
-    <!-- Filtres gérés par securite.js -->
 
     <div class="filtre-reactifs">
 
@@ -233,9 +229,11 @@
     <p class="info" style="margin-top:var(--gap-md);">
       Cette section nécessite des entrées <code>categorie: "Redox"</code> dans
       <code>data/glassware.js</code> et <code>data/equipment.js</code> (lames
-      métalliques, pont salin, multimètre/voltmètre numérique, fils de connexion et
-      pinces crocodile, potence). Voir <code>tp04-materiel-redox-additions.js</code>
-      pour les entrées prêtes à copier ; en leur absence, la grille reste vide.
+      métalliques dont fer, zinc et aluminium, pont salin, multimètre/voltmètre
+      numérique, fils de connexion et pinces crocodile, potence, toile émeri,
+      coupelles pour l'exposition à l'eau salée). Voir
+      <code>tp04-materiel-redox-additions.js</code> pour les entrées prêtes à
+      copier ; en leur absence, la grille reste vide.
     </p>
 
   </div>
@@ -260,8 +258,11 @@
 
       <div class="tabs-header">
         <button class="tab-btn actif" data-tab="reaction-acide">Réaction avec un acide</button>
+        <button class="tab-btn" data-tab="classification-qualitative">Classification qualitative</button>
         <button class="tab-btn" data-tab="pile-electrochimique">Pile électrochimique</button>
-        <button class="tab-btn" data-tab="classification">Classification</button>
+        <button class="tab-btn" data-tab="classification">Classification quantitative</button>
+        <button class="tab-btn" data-tab="corrosion-passivation">Corrosion et passivation</button>
+        <button class="tab-btn" data-tab="anode-sacrificielle">Anode sacrificielle</button>
       </div>
 
       <!-- ============================ -->
@@ -291,6 +292,57 @@
 
             <img src="./assets/images/c4-acide_sur_metal.png"
                  alt="Mode opératoire acide sur métal"
+                 class="mode-image">
+
+          </div>
+
+      </div>
+
+      <!-- ============================ -->
+      <!-- CLASSIFICATION QUALITATIVE   -->
+      <!-- (déplacement métal / ion)    -->
+      <!-- ============================ -->
+
+      <div class="tab-panel" id="classification-qualitative">
+
+        <h3>Déplacement d'un métal par un autre (classification expérimentale)</h3>
+
+        <p class="info">
+          Plonger un métal dans une solution contenant les ions d'un autre métal permet
+          de comparer expérimentalement le pouvoir réducteur des deux métaux, sans
+          calcul de potentiel.
+        </p>
+
+        <div class="calcul-guide">
+
+          <div class="form-row">
+
+            <div class="form-group">
+              <label for="select-metal-solide">Métal solide plongé dans la solution</label>
+              <select id="select-metal-solide">
+                <option value="">-- Sélectionner --</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="select-ion-solution">Ion métallique en solution</label>
+              <select id="select-ion-solution">
+                <option value="">-- Sélectionner --</option>
+              </select>
+            </div>
+
+          </div>
+
+          <div id="resultat-deplacement" class="resultat-calcul">
+            Sélectionner un métal solide et une solution ionique pour prédire la réaction de déplacement.
+          </div>
+
+        </div>
+
+        <div id="mode_deplacement" class="mode-op">
+
+            <img src="./assets/images/c4-deplacement_metal.png"
+                 alt="Mode opératoire déplacement d'un métal"
                  class="mode-image">
 
           </div>
@@ -342,7 +394,7 @@
       </div>
 
       <!-- ============================ -->
-      <!-- CLASSIFICATION               -->
+      <!-- CLASSIFICATION QUANTITATIVE  -->
       <!-- ============================ -->
 
       <div class="tab-panel" id="classification">
@@ -366,6 +418,97 @@
             </tbody>
           </table>
         </div>
+
+      </div>
+
+      <!-- ============================ -->
+      <!-- CORROSION ET PASSIVATION     -->
+      <!-- ============================ -->
+
+      <div class="tab-panel" id="corrosion-passivation">
+
+        <h3>Corrosion et passivation des métaux</h3>
+
+        <p class="info">
+          Certains métaux se corrodent activement à l'air humide (formation d'un
+          oxyde poreux, non protecteur), tandis que d'autres se recouvrent d'une
+          fine couche d'oxyde adhérente qui stoppe toute corrosion ultérieure :
+          c'est la <strong>passivation</strong>.
+        </p>
+
+        <div class="calcul-guide">
+
+          <div class="form-group">
+            <label for="select-metal-corrosion">Choisir un métal à observer</label>
+            <select id="select-metal-corrosion">
+              <option value="">-- Sélectionner --</option>
+            </select>
+          </div>
+
+          <div id="resultat-corrosion" class="resultat-calcul">
+            Sélectionner un métal pour connaître son comportement face à la corrosion.
+          </div>
+
+        </div>
+
+        <div id="mode_corrosion" class="mode-op">
+
+            <img src="./assets/images/c4-corrosion_passivation.png"
+                 alt="Mode opératoire corrosion et passivation"
+                 class="mode-image">
+
+          </div>
+
+      </div>
+
+      <!-- ============================ -->
+      <!-- ANODE SACRIFICIELLE          -->
+      <!-- ============================ -->
+
+      <div class="tab-panel" id="anode-sacrificielle">
+
+        <h3>Protection d'un métal par anode sacrificielle</h3>
+
+        <p class="info">
+          En reliant électriquement le métal à protéger à un métal plus réducteur
+          (anode sacrificielle), c'est ce dernier qui s'oxyde préférentiellement :
+          le métal principal reste intact tant que l'anode n'est pas entièrement
+          consommée.
+        </p>
+
+        <div class="calcul-guide">
+
+          <div class="form-row">
+
+            <div class="form-group">
+              <label for="select-metal-protege">Métal à protéger</label>
+              <select id="select-metal-protege">
+                <option value="">-- Sélectionner --</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="select-metal-sacrificiel">Métal candidat comme anode sacrificielle</label>
+              <select id="select-metal-sacrificiel">
+                <option value="">-- Sélectionner --</option>
+              </select>
+            </div>
+
+          </div>
+
+          <div id="resultat-anode" class="resultat-calcul">
+            Sélectionner les deux métaux pour évaluer la protection.
+          </div>
+
+        </div>
+
+        <div id="mode_anode" class="mode-op">
+
+            <img src="./assets/images/c4-anode_sacrificielle.png"
+                 alt="Mode opératoire anode sacrificielle"
+                 class="mode-image">
+
+          </div>
 
       </div>
 
@@ -415,6 +558,33 @@
       <li>Observer l'éventuel dégagement gazeux et la variation de température.</li>
       <li>Approcher une flamme de l'ouverture du tube pour mettre en évidence le dihydrogène formé.</li>
       <li><span class="attention">⚠️ Ne jamais approcher de flamme d'un tube contenant encore de l'acide en excès non identifié.</span></li>
+    </ol>
+
+    <h4 style="margin-top:var(--gap-lg);">C. Classification expérimentale par déplacement</h4>
+
+    <ol class="etapes">
+      <li>Dans plusieurs tubes à essai, verser quelques centimètres cubes de solutions d'ions métalliques différentes (Cu²⁺, Ag⁺, Zn²⁺, Fe²⁺...).</li>
+      <li>Plonger dans chaque tube un morceau (lame ou grenaille) préalablement décapé d'un autre métal.</li>
+      <li>Observer l'apparition éventuelle d'un dépôt métallique sur le solide et/ou une décoloration de la solution.</li>
+      <li>Répéter l'expérience avec plusieurs couples métal solide / ion en solution pour établir un classement expérimental des couples.</li>
+    </ol>
+
+    <h4 style="margin-top:var(--gap-lg);">D. Corrosion et passivation</h4>
+
+    <ol class="etapes">
+      <li>Décaper une lame de fer et une lame d'aluminium à la toile émeri.</li>
+      <li>Déposer une goutte d'eau salée sur chaque lame et laisser reposer à l'air libre plusieurs jours (ou observer des échantillons déjà exposés fournis en classe).</li>
+      <li>Comparer l'aspect des deux surfaces : présence de rouille sur le fer, absence de dégradation visible sur l'aluminium.</li>
+      <li>Gratter légèrement la surface de l'aluminium pour mettre en évidence la fine couche d'oxyde protectrice sous-jacente.</li>
+    </ol>
+
+    <h4 style="margin-top:var(--gap-lg);">E. Protection par anode sacrificielle</h4>
+
+    <ol class="etapes">
+      <li>Décaper deux lames de fer identiques.</li>
+      <li>Relier électriquement l'une des lames de fer à une lame de zinc à l'aide d'un fil de connexion et d'une pince crocodile ; laisser l'autre lame de fer isolée (témoin).</li>
+      <li>Plonger les deux montages dans un même bécher contenant de l'eau salée.</li>
+      <li>Observer après quelques jours : la lame de fer témoin rouille, la lame reliée au zinc reste protégée tandis que le zinc se corrode à sa place.</li>
     </ol>
 
   </div>
@@ -469,6 +639,31 @@
       couples correspondants.
     </p>
 
+    <h4 style="margin-top:var(--gap-lg);">Observations qualitatives</h4>
+
+    <div class="table-responsive">
+
+      <table class="tableau-resultats">
+
+        <thead>
+          <tr>
+            <th>Expérience</th>
+            <th>Observation</th>
+            <th>Interprétation</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr><td>Déplacement métal / ion</td><td class="saisie" contenteditable="true"></td><td class="saisie" contenteditable="true"></td></tr>
+          <tr><td>Corrosion du fer</td><td class="saisie" contenteditable="true"></td><td class="saisie" contenteditable="true"></td></tr>
+          <tr><td>Passivation de l'aluminium</td><td class="saisie" contenteditable="true"></td><td class="saisie" contenteditable="true"></td></tr>
+          <tr><td>Fer protégé par anode de zinc</td><td class="saisie" contenteditable="true"></td><td class="saisie" contenteditable="true"></td></tr>
+        </tbody>
+
+      </table>
+
+    </div>
+
   </div>
 
 </div>
@@ -498,6 +693,7 @@
       <li>Ne préparer que le volume de solution nécessaire à chaque demi-pile (quelques dizaines de mL suffisent par groupe).</li>
       <li>Bien rincer et conserver les lames métalliques décapées d'une séance à l'autre plutôt que d'en racheter.</li>
       <li>Changer le pont salin (papier filtre) entre chaque mesure sans en préparer plus que nécessaire.</li>
+      <li>L'eau salée utilisée pour les expériences de corrosion et d'anode sacrificielle peut être évacuée à l'évier après avoir récupéré les lames métalliques, qui sont rincées, séchées et réutilisées d'une séance à l'autre.</li>
     </ul>
 
     <h3 style="margin-top:var(--gap-md);">L'oxydoréduction au service des enjeux actuels</h3>
@@ -676,6 +872,36 @@
         </div>
         <div class="zone-eleve">
           <textarea id="question11" rows="4" placeholder="Votre réponse..."></textarea>
+        </div>
+      </li>
+
+      <li>
+        <div class="question-entete">
+          <strong>D'après les résultats de l'expérience de déplacement, classer les couples oxydant/réducteur étudiés par force croissante du pouvoir réducteur des métaux.</strong>
+          <span class="cartouche" data-comp="APP">APP</span>
+        </div>
+        <div class="zone-eleve">
+          <textarea id="question12" rows="4" placeholder="Votre réponse..."></textarea>
+        </div>
+      </li>
+
+      <li>
+        <div class="question-entete">
+          <strong>Expliquer pourquoi l'aluminium, pourtant très réducteur, résiste bien mieux à la corrosion que le fer (phénomène de passivation).</strong>
+          <span class="cartouche" data-comp="ANA">ANA</span>
+        </div>
+        <div class="zone-eleve">
+          <textarea id="question13" rows="4" placeholder="Votre analyse..."></textarea>
+        </div>
+      </li>
+
+      <li>
+        <div class="question-entete">
+          <strong>Justifier, à l'aide des potentiels normaux, le choix du zinc comme anode sacrificielle pour protéger une lame de fer. Le cuivre conviendrait-il ? Justifier.</strong>
+          <span class="cartouche" data-comp="VAL">VAL</span>
+        </div>
+        <div class="zone-eleve">
+          <textarea id="question14" rows="4" placeholder="Justification..."></textarea>
         </div>
       </li>
 
