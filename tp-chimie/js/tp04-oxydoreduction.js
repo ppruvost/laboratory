@@ -61,6 +61,54 @@ const COUPLE_H2 = { id: "H2", nom: "H⁺ / H₂", e0: 0.00 };
 const EXPOSANTS = { 1: "", 2: "²", 3: "³" };
 
 /* ==========================================================
+   DONNEES LOCALES — comportement face à la corrosion
+   (chapitre "corrosion et passivation")
+   ========================================================== */
+
+const COMPORTEMENT_CORROSION = {
+    Mg: {
+        type: "Corrosion active et rapide",
+        detail: "Le magnésium, très réducteur, s'oxyde rapidement à l'air humide ; la couche d'oxyde formée n'est pas protectrice."
+    },
+    Al: {
+        type: "Passivation",
+        detail: "Une fine couche d'oxyde d'aluminium (Al₂O₃), transparente, adhérente et imperméable, se forme instantanément à l'air et empêche toute corrosion ultérieure du métal sous-jacent."
+    },
+    Zn: {
+        type: "Corrosion active mais lente",
+        detail: "Le zinc s'oxyde progressivement en formant une couche de carbonate basique grisâtre, partiellement protectrice — d'où son usage en galvanisation."
+    },
+    Fe: {
+        type: "Corrosion active",
+        detail: "Le fer forme de la rouille (oxydes et hydroxydes de fer III), une couche poreuse et non adhérente qui laisse la corrosion progresser en profondeur."
+    },
+    Ni: {
+        type: "Corrosion lente",
+        detail: "Le nickel se recouvre d'une fine couche d'oxyde relativement protectrice, d'où son usage en revêtement anticorrosion."
+    },
+    Sn: {
+        type: "Corrosion très lente",
+        detail: "L'étain forme une couche d'oxyde stable, ce qui explique son usage traditionnel pour l'étamage des autres métaux."
+    },
+    Pb: {
+        type: "Corrosion très lente",
+        detail: "Le plomb se recouvre d'une couche de carbonate ou de sulfate insoluble qui ralentit fortement la corrosion."
+    },
+    Cu: {
+        type: "Corrosion très lente",
+        detail: "Le cuivre se recouvre lentement de vert-de-gris (carbonate basique de cuivre), une patine protectrice bien connue sur les toitures anciennes."
+    },
+    Ag: {
+        type: "Ternissure",
+        detail: "L'argent réagit très lentement, principalement avec les composés soufrés de l'air, formant une fine couche de sulfure noirâtre (ternissure), sans corrosion en profondeur."
+    },
+    Au: {
+        type: "Quasiment inoxydable",
+        detail: "L'or, très peu réducteur, ne réagit pratiquement pas avec l'air ou l'eau : il ne se corrode pas dans les conditions usuelles."
+    }
+};
+
+/* ==========================================================
    VARIABLES
    ========================================================== */
 let reactifCourant = null;
@@ -86,8 +134,11 @@ export function init() {
         categorie: "Redox"
     });
     initTabReactionAcide();
+    initTabClassificationQualitative();
     initTabPileElectrochimique();
     initTabClassification();
+    initTabCorrosionPassivation();
+    initTabAnodeSacrificielle();
     initBoutonImpressionCR();
     initRadarCompetences();
 }
@@ -195,6 +246,75 @@ function rendreReactionAcide(metal) {
 }
 
 /* ==========================================================
+   ONGLET "Classification qualitative" (déplacement métal / ion)
+   ========================================================== */
+
+function calculerDeplacement(idSolide, idIon) {
+    const solide = METAUX.find(m => m.id === idSolide);
+    const enSolution = METAUX.find(m => m.id === idIon);
+    if (!solide || !enSolution || solide.id === enSolution.id) return null;
+
+    // Réaction spontanée si le métal solide est un réducteur plus fort
+    // que celui associé à l'ion en solution (E° du solide plus bas).
+    const spontanee = solide.e0 < enSolution.e0;
+    const oxydant = spontanee ? enSolution : solide;
+    const reducteur = spontanee ? solide : enSolution;
+
+    const n = ppcm(oxydant.charge, reducteur.charge);
+    const kOx = n / oxydant.charge;
+    const kRed = n / reducteur.charge;
+
+    return { solide, enSolution, spontanee, oxydant, reducteur, n, kOx, kRed };
+}
+
+function rendreDeplacement(resultat) {
+    if (!resultat) return "Sélectionner un métal solide et une solution ionique pour prédire la réaction de déplacement.";
+
+    const { solide, enSolution, spontanee, oxydant, reducteur, n, kOx, kRed } = resultat;
+    const prefixe = (k) => (k > 1 ? `${k} ` : "");
+
+    if (!spontanee) {
+        return `
+            <p><strong>${solide.symbole}</strong> (E° = ${solide.e0.toFixed(2)} V) est un réducteur plus faible que ${enSolution.symbole} (E° = ${enSolution.e0.toFixed(2)} V).</p>
+            <p>Aucune réaction observée : pas de dépôt métallique, la solution ne se décolore pas.</p>
+        `;
+    }
+
+    const demiReduction = `${prefixe(kOx)}${ion(oxydant)} + ${n} e⁻ → ${prefixe(kOx)}${oxydant.symbole}`;
+    const demiOxydation = `${prefixe(kRed)}${reducteur.symbole} → ${prefixe(kRed)}${ion(reducteur)} + ${n} e⁻`;
+    const bilan = `${prefixe(kOx)}${ion(oxydant)} + ${prefixe(kRed)}${reducteur.symbole} → ${prefixe(kOx)}${oxydant.symbole} + ${prefixe(kRed)}${ion(reducteur)}`;
+
+    return `
+        <p><strong>${solide.symbole}</strong> (E° = ${solide.e0.toFixed(2)} V) est un réducteur plus fort que ${enSolution.symbole} (E° = ${enSolution.e0.toFixed(2)} V).</p>
+        <p>Réaction observée : dépôt métallique de ${oxydant.symbole} sur le solide, décoloration progressive de la solution.</p>
+        <p><strong>Demi-équation (réduction) :</strong> ${demiReduction}</p>
+        <p><strong>Demi-équation (oxydation) :</strong> ${demiOxydation}</p>
+        <p><strong>Équation-bilan :</strong> ${bilan}</p>
+    `;
+}
+
+function initTabClassificationQualitative() {
+    const selectSolide = $("select-metal-solide");
+    const selectIon = $("select-ion-solution");
+    const zone = $("resultat-deplacement");
+    if (!selectSolide || !selectIon || !zone) return;
+
+    const options = '<option value="">-- Sélectionner --</option>' +
+        METAUX.map(m => `<option value="${m.id}">${m.symbole} / ${ion(m)}</option>`).join("");
+
+    selectSolide.innerHTML = options;
+    selectIon.innerHTML = options;
+
+    const rafraichir = () => {
+        const resultat = calculerDeplacement(selectSolide.value, selectIon.value);
+        zone.innerHTML = rendreDeplacement(resultat);
+    };
+
+    selectSolide.addEventListener("change", rafraichir);
+    selectIon.addEventListener("change", rafraichir);
+}
+
+/* ==========================================================
    ONGLET "Pile électrochimique"
    ========================================================== */
 
@@ -259,7 +379,7 @@ function initTabPileElectrochimique() {
 }
 
 /* ==========================================================
-   ONGLET "Classification"
+   ONGLET "Classification quantitative"
    ========================================================== */
 
 function initTabClassification() {
@@ -272,6 +392,92 @@ function initTabClassification() {
         const nom = item.nom || `${ion(item)} / ${item.symbole}`;
         return `<tr><td>${nom}</td><td>${item.e0.toFixed(2)}</td></tr>`;
     }).join("");
+}
+
+/* ==========================================================
+   ONGLET "Corrosion et passivation"
+   ========================================================== */
+
+function rendreCorrosion(metal) {
+    if (!metal) return "Sélectionner un métal pour connaître son comportement face à la corrosion.";
+
+    const comportement = COMPORTEMENT_CORROSION[metal.id];
+    if (!comportement) return "Comportement non renseigné pour ce métal.";
+
+    return `
+        <p><strong>${metal.symbole}</strong> (E° = ${metal.e0.toFixed(2)} V) — <strong>${comportement.type}</strong></p>
+        <p>${comportement.detail}</p>
+    `;
+}
+
+function initTabCorrosionPassivation() {
+    const select = $("select-metal-corrosion");
+    const zone = $("resultat-corrosion");
+    if (!select || !zone) return;
+
+    select.innerHTML = '<option value="">-- Sélectionner --</option>' +
+        METAUX.map(m => `<option value="${m.id}">${m.symbole} (E° = ${m.e0.toFixed(2)} V)</option>`).join("");
+
+    select.addEventListener("change", () => {
+        const metal = METAUX.find(m => m.id === select.value);
+        zone.innerHTML = rendreCorrosion(metal);
+    });
+}
+
+/* ==========================================================
+   ONGLET "Anode sacrificielle"
+   ========================================================== */
+
+function evaluerAnodeSacrificielle(idProtege, idSacrificiel) {
+    const protege = METAUX.find(m => m.id === idProtege);
+    const sacrificiel = METAUX.find(m => m.id === idSacrificiel);
+    if (!protege || !sacrificiel || protege.id === sacrificiel.id) return null;
+
+    // L'anode sacrificielle doit être un réducteur plus fort (E° plus bas)
+    // que le métal à protéger pour s'oxyder à sa place.
+    const valide = sacrificiel.e0 < protege.e0;
+
+    return { protege, sacrificiel, valide };
+}
+
+function rendreAnodeSacrificielle(resultat) {
+    if (!resultat) return "Sélectionner les deux métaux pour évaluer la protection.";
+
+    const { protege, sacrificiel, valide } = resultat;
+
+    if (valide) {
+        return `
+            <p><strong>${sacrificiel.symbole}</strong> (E° = ${sacrificiel.e0.toFixed(2)} V) est un réducteur plus fort que <strong>${protege.symbole}</strong> (E° = ${protege.e0.toFixed(2)} V).</p>
+            <p>Protection efficace : ${sacrificiel.symbole} joue le rôle d'anode et s'oxyde préférentiellement (${sacrificiel.symbole} → ${ion(sacrificiel)} + ${sacrificiel.charge} e⁻), tandis que ${protege.symbole} reste à l'état métallique (cathode, non attaqué).</p>
+            <p>L'anode de ${sacrificiel.symbole} devra être remplacée périodiquement, car elle est consommée à la place du métal protégé.</p>
+        `;
+    }
+
+    return `
+        <p><strong>${sacrificiel.symbole}</strong> (E° = ${sacrificiel.e0.toFixed(2)} V) est un réducteur plus faible que <strong>${protege.symbole}</strong> (E° = ${protege.e0.toFixed(2)} V).</p>
+        <p>Protection inefficace : ce couplage ne protège pas ${protege.symbole}. Au contraire, c'est ${protege.symbole} qui jouerait le rôle de cathode et accélérerait l'oxydation de ${sacrificiel.symbole} (couplage galvanique défavorable).</p>
+    `;
+}
+
+function initTabAnodeSacrificielle() {
+    const selectProtege = $("select-metal-protege");
+    const selectSacrificiel = $("select-metal-sacrificiel");
+    const zone = $("resultat-anode");
+    if (!selectProtege || !selectSacrificiel || !zone) return;
+
+    const options = '<option value="">-- Sélectionner --</option>' +
+        METAUX.map(m => `<option value="${m.id}">${m.symbole} (E° = ${m.e0.toFixed(2)} V)</option>`).join("");
+
+    selectProtege.innerHTML = options;
+    selectSacrificiel.innerHTML = options;
+
+    const rafraichir = () => {
+        const resultat = evaluerAnodeSacrificielle(selectProtege.value, selectSacrificiel.value);
+        zone.innerHTML = rendreAnodeSacrificielle(resultat);
+    };
+
+    selectProtege.addEventListener("change", rafraichir);
+    selectSacrificiel.addEventListener("change", rafraichir);
 }
 
 /* ==========================================================
