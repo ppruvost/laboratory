@@ -1,254 +1,354 @@
 /**
- * tp04.js — Réactions d'oxydoréduction
- * Gère : équilibreur de demi-équations, simulateur dosage KMnO₄/Fe²⁺,
- *        dosage H₂O₂, simulateur pile Daniell, calcul Ve, tableau résultats
+ * tp04-oxydoreduction.js
+ * TP04 — Oxydoréduction (piles et potentiels électrochimiques)
  */
 
-import { PRODUITS } from '../produits.js';
-import { renderBlocSecurite, initSections, initTabs } from '../utils.js';
+import products from "../../data/products.js";
+import dangerDB from "../../data/dangerDB.js";
+import pictogrammes from "../../data/pictogrammes.js";
+import glassware from "../../data/glassware.js";
+import laboratoryEquipment from "../../data/equipment.js";
 
-// ── Couples rédox disponibles ────────────────────────────────
-export const COUPLES_REDOX = [
-  {
-    id: 'mnO4-mn2',
-    ox: 'MnO₄⁻', red: 'Mn²⁺',
-    demiEqRed: 'MnO₄⁻ + 8H⁺ + 5e⁻ → Mn²⁺ + 4H₂O',
-    neRed: 5,
-    E0: 1.51,
-    couleurOx: '#6C3483',
-    couleurRed: '#D5F5E3',
-    nomOx: 'KMnO₄',
-    nomRed: 'Mn²⁺',
-    cas: '7722-64-7',
-  },
-  {
-    id: 'fe3-fe2',
-    ox: 'Fe³⁺', red: 'Fe²⁺',
-    demiEqOx: 'Fe²⁺ → Fe³⁺ + e⁻',
-    demiEqRed: 'Fe³⁺ + e⁻ → Fe²⁺',
-    neOx: 1,
-    neRed: 1,
-    E0: 0.77,
-    couleurOx: '#E67E22',
-    couleurRed: '#A9CCE3',
-    nomOx: 'Fe³⁺',
-    nomRed: 'Fe²⁺',
-    cas: '7783-85-9',
-  },
-  {
-    id: 'i2-i',
-    ox: 'I₂', red: 'I⁻',
-    demiEqOx: '2I⁻ → I₂ + 2e⁻',
-    demiEqRed: 'I₂ + 2e⁻ → 2I⁻',
-    neOx: 2,
-    neRed: 2,
-    E0: 0.54,
-    couleurOx: '#F39C12',
-    couleurRed: '#FDFEFE',
-    nomOx: 'I₂',
-    nomRed: 'I⁻',
-    cas: '7553-56-2',
-  },
-  {
-    id: 'h2o2-h2o',
-    ox: 'H₂O₂', red: 'H₂O',
-    demiEqOx: 'H₂O₂ → O₂ + 2H⁺ + 2e⁻',
-    demiEqRed: 'H₂O₂ + 2H⁺ + 2e⁻ → 2H₂O',
-    neOx: 2,
-    neRed: 2,
-    E0: 1.77,
-    couleurOx: '#AED6F1',
-    couleurRed: '#D6EAF8',
-    nomOx: 'H₂O₂',
-    nomRed: 'H₂O',
-    cas: '7722-84-1',
-  },
-  {
-    id: 'cu2-cu',
-    ox: 'Cu²⁺', red: 'Cu',
-    demiEqOx: 'Cu → Cu²⁺ + 2e⁻',
-    demiEqRed: 'Cu²⁺ + 2e⁻ → Cu',
-    neOx: 2,
-    neRed: 2,
-    E0: 0.34,
-    couleurOx: '#2E86C1',
-    couleurRed: '#CA6F1E',
-    nomOx: 'Cu²⁺',
-    nomRed: 'Cu',
-    cas: '7758-98-7',
-  },
-  {
-    id: 'zn2-zn',
-    ox: 'Zn²⁺', red: 'Zn',
-    demiEqOx: 'Zn → Zn²⁺ + 2e⁻',
-    demiEqRed: 'Zn²⁺ + 2e⁻ → Zn',
-    neOx: 2,
-    neRed: 2,
-    E0: -0.76,
-    couleurOx: '#EAECEE',
-    couleurRed: '#BDC3C7',
-    nomOx: 'Zn²⁺',
-    nomRed: 'Zn',
-    cas: '7446-20-0',
-  },
+import {
+    initSections,
+    initTabs,
+    lireTexte,
+    appliquerFiltresCategorie,
+    $
+} from "../../js/utils.js";
+
+import {
+    afficherSecuriteProduit,
+    trouverProduit
+} from "../../js/securite.js";
+
+import {
+    initMateriel,
+    getMaterielSelectionne
+} from "../../js/materiel.js";
+
+import {
+    initRadarCompetences
+} from "../../js/radar.js";
+
+import {
+    genererCompteRendu
+} from "../../js/compte-rendu.js";
+
+/* ==========================================================
+   DONNEES LOCALES — potentiels normaux d'oxydoréduction
+   (couples métal / ion métallique, chapitre "classification
+   quantitative des couples oxydant-réducteur")
+   ========================================================== */
+
+const METAUX = [
+    { id: "Mg", symbole: "Mg", charge: 2, e0: -2.37 },
+    { id: "Al", symbole: "Al", charge: 3, e0: -1.66 },
+    { id: "Zn", symbole: "Zn", charge: 2, e0: -0.76 },
+    { id: "Fe", symbole: "Fe", charge: 2, e0: -0.44 },
+    { id: "Ni", symbole: "Ni", charge: 2, e0: -0.257 },
+    { id: "Sn", symbole: "Sn", charge: 2, e0: -0.14 },
+    { id: "Pb", symbole: "Pb", charge: 2, e0: -0.13 },
+    { id: "Cu", symbole: "Cu", charge: 2, e0: 0.34 },
+    { id: "Ag", symbole: "Ag", charge: 1, e0: 0.80 },
+    { id: "Au", symbole: "Au", charge: 3, e0: 1.50 }
 ];
 
+// Couple de référence (non inclus dans METAUX : ce n'est pas un couple
+// métal / ion métallique, il a sa propre logique dans l'onglet "acide").
+const COUPLE_H2 = { id: "H2", nom: "H⁺ / H₂", e0: 0.00 };
+
+const EXPOSANTS = { 1: "", 2: "²", 3: "³" };
+
+/* ==========================================================
+   VARIABLES
+   ========================================================== */
+let reactifCourant = null;
+let dejaInitialise = false;
+
+/* ==========================================================
+   INITIALISATION TP04
+   ========================================================== */
 export function init() {
-  _initSecurite();
-  initSections();
-  initTabs();
-  _initEquilibreur();
-  _initSimulateurDosage();
-  _initPileDaniell();
-  _initTableauResultats();
-  _initPotentielRedox();
+    if (dejaInitialise) return;
+    dejaInitialise = true;
+
+    console.log("TP04 — Initialisation Oxydoréduction.");
+
+    initSections();
+    initTabs();
+    initReactifSelect();
+    initMateriel({
+        verreId: "materiel-verrerie",
+        equipementId: "materiel-equipements",
+        glassware,
+        equipment: laboratoryEquipment,
+        categorie: "Redox"
+    });
+    initTabReactionAcide();
+    initTabPileElectrochimique();
+    initTabClassification();
+    initBoutonImpressionCR();
+    initRadarCompetences();
 }
 
-// ── Sécurité ────────────────────────────────────────────────
-function _initSecurite() {
-  const el = document.getElementById('securite-bloc');
-  if (!el) return;
-
-  const CAS = ['7722-64-7', '7783-85-9', '7722-84-1', '7664-93-9', '7446-20-0', '7758-98-7'];
-  const produits = CAS.map(c => PRODUITS.find(p => p.cas === c)).filter(Boolean);
-
-  el.innerHTML = renderBlocSecurite(produits);
-}
-
-// ════════════════════════════════════════════════════════════
-// ÉQUILIBREUR RÉDOX
-// ════════════════════════════════════════════════════════════
-function _initEquilibreur() {
-  const selOx = document.getElementById('sel-couple-ox');
-  const selRed = document.getElementById('sel-couple-red');
-  const btn = document.getElementById('btn-equilibrer');
-  const out = document.getElementById('eq-redox-result');
-
-  if (!selOx || !selRed || !btn || !out) return;
-
-  selOx.innerHTML = COUPLES_REDOX.map(c =>
-    `<option value="${c.id}">${c.ox}/${c.red} (E°=${c.E0} V)</option>`
-  ).join('');
-
-  selRed.innerHTML = selOx.innerHTML;
-  selRed.selectedIndex = 1;
-
-  btn.addEventListener('click', () => {
-    const ox = COUPLES_REDOX.find(c => c.id === selOx.value);
-    const red = COUPLES_REDOX.find(c => c.id === selRed.value);
-
-    if (!ox || !red || ox.id === red.id) {
-      out.innerHTML = '<span style="color:red">Choisir deux couples différents.</span>';
-      return;
+/* ==========================================================
+   REACTIF + FILTRE SECURITE  (identique au pattern TP01)
+   ========================================================== */
+function initReactifSelect() {
+    const select = $("reactif");
+    if (!select) {
+        console.warn("Select #reactif introuvable dans le DOM.");
+        return;
     }
 
-    const spont = ox.E0 > red.E0;
-    const fem = +(ox.E0 - red.E0).toFixed(3);
+    function rafraichir() {
+        appliquerFiltresCategorie(select, products, "filtre-cat");
+        afficherSecurite();
+    }
 
-    const txt = `
-      <div>
-        <strong>Oxydant :</strong> ${ox.demiEqRed || ''}<br>
-        <strong>Réducteur :</strong> ${red.demiEqOx || ''}<br><br>
-        <strong>f.é.m :</strong> ${fem} V<br>
-        <strong>${spont ? 'Réaction spontanée' : 'Non spontanée'}</strong>
-      </div>
+    document.querySelectorAll(".filtre-cat").forEach(cb => {
+        cb.addEventListener("change", rafraichir);
+    });
+
+    select.addEventListener("change", afficherSecurite);
+
+    rafraichir();
+}
+
+function afficherSecurite() {
+    const cas = $("reactif")?.value;
+    const produit = trouverProduit(products, cas);
+    reactifCourant = produit;
+
+    afficherSecuriteProduit({
+        produit,
+        dangerDB,
+        pictogrammes,
+        zoneId: "securite-bloc"
+    });
+}
+
+/* ==========================================================
+   OUTILS NUMERIQUES (pgcd / ppcm)
+   ========================================================== */
+
+function pgcd(a, b) {
+    a = Math.abs(a); b = Math.abs(b);
+    while (b) { [a, b] = [b, a % b]; }
+    return a || 1;
+}
+
+function ppcm(a, b) {
+    return Math.abs(a * b) / pgcd(a, b);
+}
+
+function ion(metal) {
+    const exp = EXPOSANTS[metal.charge] || metal.charge;
+    return `${metal.symbole}${exp}⁺`;
+}
+
+/* ==========================================================
+   ONGLET "Réaction avec un acide"
+   ========================================================== */
+
+function initTabReactionAcide() {
+    const select = $("select-metal-acide");
+    const zone = $("resultat-acide");
+    if (!select || !zone) return;
+
+    select.innerHTML = '<option value="">-- Sélectionner --</option>' +
+        METAUX.map(m => `<option value="${m.id}">${m.symbole} (${ion(m)} / ${m.symbole})</option>`).join("");
+
+    select.addEventListener("change", () => {
+        const metal = METAUX.find(m => m.id === select.value);
+        zone.innerHTML = rendreReactionAcide(metal);
+    });
+}
+
+function rendreReactionAcide(metal) {
+    if (!metal) return "Sélectionner un métal pour prédire la réaction avec une solution acide.";
+
+    if (metal.e0 >= COUPLE_H2.e0) {
+        return `
+            <p><strong>${metal.symbole}</strong> (E° = ${metal.e0.toFixed(2)} V) est un réducteur plus faible que H₂ (E° = 0,00 V).</p>
+            <p>Aucune réaction observée : ${metal.symbole} ne réagit pas avec les ions H⁺ d'une solution acide diluée.</p>
+        `;
+    }
+
+    const n = metal.charge;
+    const g = pgcd(2, n);
+    const coeffMetal = 2 / g;
+    const coeffH = (2 * n) / g;
+    const coeffH2 = n / g;
+
+    const eqMetal = coeffMetal > 1 ? `${coeffMetal} ${metal.symbole}` : metal.symbole;
+    const eqIon = coeffMetal > 1 ? `${coeffMetal} ${ion(metal)}` : ion(metal);
+    const eqH = `${coeffH} H⁺`;
+    const eqH2 = coeffH2 > 1 ? `${coeffH2} H₂` : "H₂";
+
+    return `
+        <p><strong>${metal.symbole}</strong> (E° = ${metal.e0.toFixed(2)} V) est un réducteur plus fort que H₂ (E° = 0,00 V).</p>
+        <p>Réaction observée : dégagement de dihydrogène, mis en évidence à la flamme.</p>
+        <p><strong>Équation-bilan :</strong> ${eqMetal} + ${eqH} → ${eqIon} + ${eqH2}</p>
     `;
-
-    out.innerHTML = txt;
-  });
 }
 
-// ════════════════════════════════════════════════════════════
-// DOSAGE KMnO4 / Fe2+
-// ════════════════════════════════════════════════════════════
-function _initSimulateurDosage() {
-  const btn = document.getElementById('btn-tracer-dosage');
-  if (!btn) return;
+/* ==========================================================
+   ONGLET "Pile électrochimique"
+   ========================================================== */
 
-  btn.addEventListener('click', () => {
-    const va = +document.getElementById('va-dosage')?.value || 20;
-    const ca = +document.getElementById('ca-dosage')?.value || 0.1;
-    const cb = +document.getElementById('cb-dosage')?.value || 0.02;
+function calculerPile(idA, idB) {
+    const a = METAUX.find(m => m.id === idA);
+    const b = METAUX.find(m => m.id === idB);
+    if (!a || !b || a.id === b.id) return null;
 
-    const Ve = (ca * va) / (5 * cb);
+    const oxydant = a.e0 >= b.e0 ? a : b;   // potentiel le plus élevé → réduit à la cathode (borne +)
+    const reducteur = a.e0 >= b.e0 ? b : a; // potentiel le plus bas → oxydé à l'anode (borne -)
 
-    _setText('ve-dosage', Ve.toFixed(2));
-    _dessinerDosage(va, ca, cb, Ve);
-  });
+    const fem = Math.abs(a.e0 - b.e0);
+    const n = ppcm(oxydant.charge, reducteur.charge);
+    const kOx = n / oxydant.charge;
+    const kRed = n / reducteur.charge;
+
+    return { oxydant, reducteur, fem, n, kOx, kRed };
 }
 
-function _dessinerDosage(va, ca, cb, Ve) {
-  const canvas = document.getElementById('courbe-dosage');
-  if (!canvas) return;
+function rendreResultatPile(resultat) {
+    if (!resultat) return "Sélectionner deux couples différents pour construire la pile.";
 
-  const ctx = canvas.getContext('2d');
-  const W = canvas.width = canvas.offsetWidth;
-  const H = canvas.height = 300;
+    const { oxydant, reducteur, fem, n, kOx, kRed } = resultat;
 
-  const vMax = Ve * 1.8;
+    const prefixe = (k) => (k > 1 ? `${k} ` : "");
 
-  ctx.clearRect(0, 0, W, H);
-  ctx.beginPath();
+    const demiCathode = `${prefixe(kOx)}${ion(oxydant)} + ${n} e⁻ → ${prefixe(kOx)}${oxydant.symbole}`;
+    const demiAnode = `${prefixe(kRed)}${reducteur.symbole} → ${prefixe(kRed)}${ion(reducteur)} + ${n} e⁻`;
+    const bilan = `${prefixe(kOx)}${ion(oxydant)} + ${prefixe(kRed)}${reducteur.symbole} → ${prefixe(kOx)}${oxydant.symbole} + ${prefixe(kRed)}${ion(reducteur)}`;
+    const notation = `− ${reducteur.symbole} ∣ ${ion(reducteur)} ∥ ${ion(oxydant)} ∣ ${oxydant.symbole} +`;
 
-  for (let v = 0; v <= vMax; v += Ve / 30) {
-    const y = v <= Ve ? 0 : (v - Ve) / Ve;
-    const x = (v / vMax) * W;
-    const yy = H - y * H;
-
-    ctx.lineTo(x, yy);
-  }
-
-  ctx.strokeStyle = 'purple';
-  ctx.stroke();
+    return `
+        <p><strong>f.é.m. théorique :</strong> E = |${oxydant.e0.toFixed(2)} − (${reducteur.e0.toFixed(2)})| = <strong>${fem.toFixed(2)} V</strong></p>
+        <p><strong>Borne positive (cathode, réduction) :</strong> ${oxydant.symbole} / ${ion(oxydant)}</p>
+        <p><strong>Borne négative (anode, oxydation) :</strong> ${reducteur.symbole} / ${ion(reducteur)}</p>
+        <p><strong>Demi-équation à la cathode :</strong> ${demiCathode}</p>
+        <p><strong>Demi-équation à l'anode :</strong> ${demiAnode}</p>
+        <p><strong>Équation de fonctionnement :</strong> ${bilan}</p>
+        <p><strong>Notation conventionnelle :</strong> ${notation}</p>
+    `;
 }
 
-// ════════════════════════════════════════════════════════════
-// PILE DANIELL
-// ════════════════════════════════════════════════════════════
-let _interval = null;
+function initTabPileElectrochimique() {
+    const selectA = $("select-couple-a");
+    const selectB = $("select-couple-b");
+    const zone = $("resultat-pile");
+    if (!selectA || !selectB || !zone) return;
 
-function _initPileDaniell() {
-  const btn = document.getElementById('btn-start-pile');
-  if (!btn) return;
+    const options = '<option value="">-- Sélectionner --</option>' +
+        METAUX.map(m => `<option value="${m.id}">${ion(m)} / ${m.symbole} (E° = ${m.e0.toFixed(2)} V)</option>`).join("");
 
-  btn.addEventListener('click', () => {
-    if (_interval) clearInterval(_interval);
+    selectA.innerHTML = options;
+    selectB.innerHTML = options;
 
-    let t = 0;
-    const fem0 = 1.1;
+    const rafraichir = () => {
+        const resultat = calculerPile(selectA.value, selectB.value);
+        zone.innerHTML = rendreResultatPile(resultat);
+    };
 
-    _interval = setInterval(() => {
-      t += 1;
-      const fem = +(fem0 * Math.exp(-t / 3000)).toFixed(3);
-      _setText('fem-mesure', fem);
-      if (fem < 0.01) clearInterval(_interval);
-    }, 500);
-  });
+    selectA.addEventListener("change", rafraichir);
+    selectB.addEventListener("change", rafraichir);
 }
 
-// ════════════════════════════════════════════════════════════
-// NERNST
-// ════════════════════════════════════════════════════════════
-function _initPotentielRedox() {
-  const form = document.getElementById('form-nernst');
-  if (!form) return;
+/* ==========================================================
+   ONGLET "Classification"
+   ========================================================== */
 
-  form.addEventListener('input', () => {
-    const E0 = +document.getElementById('e0-nernst')?.value || 0;
-    const n = +document.getElementById('n-nernst')?.value || 1;
-    const ox = +document.getElementById('cox-nernst')?.value || 1;
-    const red = +document.getElementById('cred-nernst')?.value || 1;
+function initTabClassification() {
+    const tbody = $("tbody-classification");
+    if (!tbody) return;
 
-    const E = +(E0 + 0.059 / n * Math.log10(ox / red)).toFixed(4);
+    const tous = [...METAUX, COUPLE_H2].sort((a, b) => a.e0 - b.e0);
 
-    _setText('resultat-nernst', E);
-  });
+    tbody.innerHTML = tous.map(item => {
+        const nom = item.nom || `${ion(item)} / ${item.symbole}`;
+        return `<tr><td>${nom}</td><td>${item.e0.toFixed(2)}</td></tr>`;
+    }).join("");
 }
 
-// ════════════════════════════════════════════════════════════
-// UTIL
-// ════════════════════════════════════════════════════════════
-function _setText(id, v) {
-  const el = document.getElementById(id);
-  if (el) el.textContent = v;
+/* ==========================================================
+   BOUTON IMPRESSION COMPTE-RENDU
+   ========================================================== */
+
+function initBoutonImpressionCR() {
+    const btn = $("btn-imprimer");
+    if (!btn) return;
+    btn.addEventListener("click", lancerCompteRendu);
+}
+
+function lancerCompteRendu() {
+    const identite = {
+        nom: lireTexte("nom-eleve"),
+        prenom: lireTexte("prenom-eleve"),
+        classe: lireTexte("classe-eleve"),
+        date: $("date-eleve")?.value || ""
+    };
+
+    const sections = [
+        {
+            titre: "Réactif de sécurité consulté",
+            items: [
+                { label: "Réactif", valeur: reactifCourant?.nom || "—" }
+            ]
+        }
+    ];
+
+    document.querySelectorAll(".questions-tp > li").forEach((li, index) => {
+        const zone = li.querySelector("textarea");
+        if (!zone) return;
+
+        const titreQuestion = li.querySelector(".question-entete strong")
+            ?.textContent.replace(/\s+/g, " ").trim() || `Question ${index + 1}`;
+        const competence = li.querySelector(".cartouche")?.dataset.comp || "";
+
+        sections.push({
+            titre: titreQuestion,
+            competence,
+            notation: true,
+            texte: (zone.value || "").trim()
+        });
+    });
+
+    const resume = lireTexte("resume-tp");
+    if (resume) {
+        sections.push({
+            titre: "Résumé du TP",
+            texte: resume
+        });
+    }
+
+    const materiel = getMaterielSelectionne();
+    if (materiel.length) {
+        sections.push({
+            titre: "Matériel utilisé",
+            texte: materiel.join(" • ")
+        });
+    }
+
+    genererCompteRendu({
+        domaine: "Chimie",
+        tp: "TP04",
+        titre: "Oxydoréduction — Piles et potentiels électrochimiques",
+        sections,
+        identiteDefaut: identite,
+        signature: false,
+        noteFinale: true
+    });
+}
+
+/* ==========================================================
+   INITIALISATION AU CHARGEMENT
+   ========================================================== */
+if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", init);
+} else {
+    init();
 }
