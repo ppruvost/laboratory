@@ -121,7 +121,7 @@ const laboratoryEquipment = [
         categorie: ["Redox"],
         description: "Connexion de circuits",
         lieu: "Salles B29 B25 / Support de cordons",
-        image:"",
+        image:"assets/img/equipments/cordon.jpg",
         noticeUtilisation: "assets/notice/fils_connexion.pdf"
     },
     {
@@ -130,7 +130,7 @@ const laboratoryEquipment = [
         categorie: ["Redox"],
         description: "Connexion de circuits",
         lieu: "Salle B7 / étagère A1",
-        image:"",
+        image:"assets/img/equipments/pince-crocodile.jpg",
         noticeUtilisation: "assets/notice/pinces_crocodile.pdf"
     },
     {
