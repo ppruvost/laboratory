@@ -317,7 +317,7 @@ const laboratoryEquipment = [
      categorie: ["Dissolution", "pHmétrie"],
      description: "Agitation des solutions",
      lieu: "Salle B27 / étagère D4",
-     image:"",         
+     image:"assets/img/equipments/agitateur_magnetique.jpg",         
      noticeUtilisation: "assets/notice/agitateur_magnetique.pdf"
     },
     {
