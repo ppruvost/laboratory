@@ -442,7 +442,7 @@ const laboratoryEquipment = [
     categorie: ["Redox"],
     description: "Support de la demi-pile à hydrogène simplifiée",
     lieu: "Salle B27 / paillasse E2",
-    image: "",
+    image: "assets/img/equipments/potence.png",
     noticeUtilisation: ""
     },
     {
