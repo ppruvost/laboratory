@@ -13,7 +13,7 @@
 header {
   background: linear-gradient(135deg, #1B6CA8 0%, #0D4F8A 100%);
   color: #fff;
-  padding: 28px var(--gap-lg);
+  padding:10px 20px;
   text-align: center;
   box-shadow: 0 2px 8px rgba(0, 0, 0, .18);
   position: sticky;
@@ -23,19 +23,19 @@ header {
 
 header h1 {
   font-family: var(--font-titre);
-  font-size: clamp(1rem, 2.2vw, 1.35rem);
+  font-size:clamp(.95rem,1.8vw,1.2rem);
   font-weight: 700;
-  line-height: 1.4;
-  margin-bottom: 14px;
+  line-height:1.15;
+  margin-bottom: 10px;
 }
 
 /* ── Barre de progression ───────────────────────────────────── */
 .progress {
-  height: 10px;
+  height: 8px;
   background: rgba(255, 255, 255, .3);
   border-radius: 20px;
   overflow: hidden;
-  margin-top: 12px;
+  margin-top: 10px;
   max-width: 600px;
   margin-left: auto;
   margin-right: auto;
