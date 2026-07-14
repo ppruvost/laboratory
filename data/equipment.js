@@ -28,9 +28,10 @@ const laboratoryEquipment = [
     {
         domaine: "Électricité",
         nom: "Multimètre numérique",
+        categorie: ["Résistance", "Capacité", "Inductance", "Redox"],
         description: "Mesure de tension, courant, résistance",
         lieu: "Salle B27 / étagère A1",
-        image:"",
+        image:"assets/img/equipments/multimetre.jpg",
         noticeUtilisation: "assets/notice/multimetre.pdf"
     },
     {
@@ -48,7 +49,7 @@ const laboratoryEquipment = [
         categorie: "",
         description: "Mesure de puissance électrique",
         lieu: "Salle B27 / étagère A1",
-        image:"",
+        image:"assets/img/equipments/wattmetre.jpg",
         noticeUtilisation: "assets/notice/wattmetre.pdf"
     },
     {
@@ -110,18 +111,27 @@ const laboratoryEquipment = [
         nom: "Résistances (diverses valeurs)",
         categorie: "",
         description: "Composants pour circuits électriques",
-        lieu: "Salle B27 / A2",
+        lieu: "Salle B27 / étagère A2",
         image:"",
         noticeUtilisation: "assets/notice/resistances.pdf"
     },
     {
         domaine: "Électricité",
         nom: "Fils de connexion et câbles",
-        categorie: "",
+        categorie: ["Redox"],
         description: "Connexion de circuits",
-        lieu: "Salle B29 B25 / Support de cordons",
+        lieu: "Salles B29 B25 / Support de cordons",
         image:"",
         noticeUtilisation: "assets/notice/fils_connexion.pdf"
+    },
+    {
+        domaine: "Électricité",
+        nom: "Pinces crocodile",
+        categorie: ["Redox"],
+        description: "Connexion de circuits",
+        lieu: "Salle B7 / étagère A1",
+        image:"",
+        noticeUtilisation: "assets/notice/pinces_crocodile.pdf"
     },
     {
         domaine: "Électricité",
