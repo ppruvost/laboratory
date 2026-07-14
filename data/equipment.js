@@ -361,7 +361,7 @@ const laboratoryEquipment = [
     categorie: ["Redox"],
     description: "Électrodes des demi-piles, à décaper avant chaque usage",
     lieu: "Salle B27 / étagère D1",
-    image: "",
+    image: "assets/img/equipments/lame_metal.png",
     noticeUtilisation: ""
     },
     {
