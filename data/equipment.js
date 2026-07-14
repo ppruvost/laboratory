@@ -469,7 +469,7 @@ const laboratoryEquipment = [
     categorie: ["Redox"],
     description: "Décapage des lames métalliques avant utilisation comme électrodes",
     lieu: "Salle B27 / étagère D1",
-    image: "assets/img/equipments/toile-emri.png",
+    image: "assets/img/equipments/toile-emeri.png",
     noticeUtilisation: ""
     },
    
