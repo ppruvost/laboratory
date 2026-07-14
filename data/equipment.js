@@ -335,7 +335,7 @@ const laboratoryEquipment = [
     categorie: ["Dissolution", "pHmétrie"],
     description: "Capacité 610 g max - 0,5 g min — Précision ± 0,1 g",
     lieu: "Salle B27 / pallasse E2",
-    image:"",
+    image:"assets/img/equipments/balance_mettler.jpg",
     noticeUtilisation: "assets/notice/balance_mettler.pdf"
     },
     {
