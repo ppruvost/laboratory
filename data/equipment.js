@@ -611,7 +611,7 @@ const laboratoryEquipment = [
         categorie: ["Dilution", "Dissolution", "pHmétrie"],
         description: "Protection des mains",
         lieu: "Salle B27 - paillasse E1",
-        image:"",
+        image:"assets/img/equipments/gant.jpg",
         noticeUtilisation: "assets/notice/gants_protection.pdf"
     },    
     {
@@ -619,7 +619,7 @@ const laboratoryEquipment = [
         nom: "Armoire de sécurité pour produits chimiques",
         description: "Stockage sécurisé des réactifs",
         lieu: "Salle B27 - Etagères B1 / B2",
-        image:"",
+        image:"assets/img/equipments/armoir.jpg",
         noticeUtilisation: "assets/notice/armoire_securite.pdf"
     }
 ];
