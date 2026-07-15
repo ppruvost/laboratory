@@ -866,16 +866,25 @@
 <!-- NAVIGATION                                              -->
 <!-- ====================================================== -->
 
-  
-  _____________________
-<div class="nav-tp">
+  <div class="nav-tp">
 
-  <a href="../tp-chimie/modules/tp01-solutions.html" class="btn btn-secondaire">← TP01</a>
-  <a href="../index.html" class="btn btn-secondaire">🏠 Accueil</a>
-  <a href="../tp-chimie/modules/tp03-titrages.html" class="btn btn-primaire">TP03 →</a>
+  <button class="btn btn-secondaire"
+          onclick="loadTP('tp01-solutions')">
+      ← TP01
+  </button>
+
+  <button class="btn btn-secondaire"
+          onclick="location.href='../index.html'">
+      🏠 Accueil
+  </button>
+
+  <button class="btn btn-primaire"
+          onclick="loadTP('tp03-titrages')">
+      TP03 →
+  </button>
 
 </div>
-_______________________
+
 </main>
 
 <!-- ====================================================== -->
