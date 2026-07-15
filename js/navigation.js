@@ -466,3 +466,13 @@ window.addEventListener(
     }
 
 );
+
+/* ==========================================================
+   NAVIGATION DEPUIS LES MODULES
+   ========================================================== */
+
+window.loadTP = function(moduleName){
+
+    loadModule(moduleName);
+
+};
