@@ -558,3 +558,21 @@ if (document.readyState === "loading") {
 } else {
     init();
 }
+
+/* ==========================================================
+   QUESTIONS DU COMPTE-RENDU
+   Affichage des questions correspondant à l'onglet actif
+   ========================================================== */
+
+function afficherQuestionsTP(idOnglet) {
+
+    document
+        .querySelectorAll(".questions-bloc")
+        .forEach(bloc => {
+
+            bloc.hidden =
+                bloc.dataset.tp !== idOnglet;
+
+        });
+
+}
