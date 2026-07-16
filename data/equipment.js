@@ -370,7 +370,7 @@ const laboratoryEquipment = [
     categorie: ["Indicateur", "pHmétrie"],
     description: "Papier indicateur virant au rouge en présence d'une solution acide.",
     lieu: "Salle B27 / étagère D4",
-    image: "assets/img/equipments/papier_pH.jpg",
+    image: "assets/img/equipments/papier_tournesol_bleu.jpg",
     noticeUtilisation: "assets/notice/papier_tournesol_bleu.pdf"
     },
     {
@@ -379,7 +379,7 @@ const laboratoryEquipment = [
     categorie: ["Indicateur", "pHmétrie"],
     description: "Papier indicateur permettant de distinguer les solutions acides et basiques.",
     lieu: "Salle B27 / étagère D4",
-    image: "assets/img/equipments/papier_pH.jpg",
+    image: "assets/img/equipments/papier_tournesol_neutre.jpg",
     noticeUtilisation: "assets/notice/papier_tournesol_neutre.pdf"
     },
     {
@@ -388,7 +388,7 @@ const laboratoryEquipment = [
     categorie: ["Indicateur", "pHmétrie"],
     description: "Papier indicateur virant au bleu en présence d'une solution basique.",
     lieu: "Salle B27 / étagère D4",
-    image: "assets/img/equipments/papier_pH.jpg",
+    image: "assets/img/equipments/papier_tournesol_rouge.jpg",
     noticeUtilisation: "assets/notice/papier_tournesol_rouge.pdf"
     },
     {
