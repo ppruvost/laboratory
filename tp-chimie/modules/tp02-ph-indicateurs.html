@@ -73,6 +73,10 @@
       </li>
 
       <li>
+        Déterminer une quantité de matière présente en solution par une méthode de titrage basée sur le repérage d’une équivalence, à l’aide de relations fournies.
+      </li>
+
+      <li>
         Reconnaître et nommer le matériel et la verrerie de laboratoire employés lors des manipulations.
       </li>
 
@@ -347,15 +351,17 @@
 </div>
 
 <!-- ====================================================== -->
-<!-- TESTS QUALITATIFS — onglets Indicateur / Papier pH      -->
-<!-- (même logique que Dissolution / Dilution du TP01)       -->
+<!-- TESTS QUALITATIFS + TITRAGE — onglets Indicateur /      -->
+<!-- Papier pH / Titrage colorimétrique                      -->
+<!-- (même logique que Dissolution / Dilution du TP01, et    -->
+<!--  que les onglets de Manipulations du TP04)              -->
 <!-- ====================================================== -->
 
 <div class="section" data-type="preparation">
 
   <div class="section-titre">
     <div class="picto-section">🧫</div>
-    <h2>Tests qualitatifs — Indicateurs et papiers pH</h2>
+    <h2>Tests qualitatifs et titrage colorimétrique</h2>
     <span class="chevron">▼</span>
   </div>
 
@@ -366,6 +372,7 @@
       <div class="tabs-header">
         <button class="tab-btn actif" data-tab="indicateur">Indicateur</button>
         <button class="tab-btn" data-tab="papier-ph">Papier pH</button>
+        <button class="tab-btn" data-tab="titrage-colorimetrique">Titrage colorimétrique</button>
       </div>
 
       <!-- ============================ -->
@@ -433,6 +440,79 @@
           </ol>
 
         </div>
+
+      </div>
+
+      <!-- ============================ -->
+      <!-- TITRAGE COLORIMETRIQUE       -->
+      <!-- ============================ -->
+
+      <div class="tab-panel" id="titrage-colorimetrique">
+
+        <h3>Titrage colorimétrique — détermination d'une concentration</h3>
+
+        <p class="info">
+          Un titrage colorimétrique repère l'équivalence par le changement net de couleur
+          d'un indicateur choisi, sans tracer de courbe pH-métrique. Le volume versé à
+          l'équivalence, associé à la relation fournie ci-dessous, permet de déterminer
+          la quantité de matière — et donc la concentration — de l'espèce titrée.
+        </p>
+
+        <div class="calcul-guide">
+
+          <div class="form-group">
+            <label for="select-indicateur-titrage">Indicateur coloré utilisé</label>
+            <select id="select-indicateur-titrage">
+              <option value="">-- Sélectionner --</option>
+            </select>
+          </div>
+
+          <div class="info-reactif" id="fiche-indicateur-titrage">
+            <p>Sélectionner un indicateur adapté au virage attendu (pH ≈ 7 pour un titrage acide fort / base forte).</p>
+          </div>
+
+          <hr>
+
+          <div class="form-row">
+
+            <div class="form-group">
+              <label for="titrage-va">Volume de solution titrée Va (mL)</label>
+              <input type="number" id="titrage-va" step="0.1" min="0" placeholder="ex : 20">
+            </div>
+
+            <div class="form-group">
+              <label for="titrage-cb">Concentration de la solution titrante Cb (mol/L)</label>
+              <input type="number" id="titrage-cb" step="0.001" min="0" placeholder="ex : 0,1">
+            </div>
+
+            <div class="form-group">
+              <label for="titrage-veq">Volume versé à l'équivalence Veq (mL)</label>
+              <input type="number" id="titrage-veq" step="0.1" min="0" placeholder="volume relevé au virage">
+            </div>
+
+          </div>
+
+          <div class="formule-bloc">
+            À l'équivalence : n(acide initial) = n(base versée), soit <strong>Ca · Va = Cb · Veq</strong>
+          </div>
+
+          <div id="resultat-titrage-colorimetrique" class="resultat-calcul">
+            Renseigner Va, Cb et Veq pour calculer la concentration Ca de la solution titrée.
+          </div>
+
+        </div>
+
+        <h3>Protocole expérimental</h3>
+        <h4 style="margin-top:var(--gap-lg);">Titrage colorimétrique acide-base</h4>
+
+        <ol class="etapes">
+          <li>Prélever un volume précis Va de la solution à titrer à la pipette jaugée et le verser dans un erlenmeyer.</li>
+          <li>Ajouter quelques gouttes de l'indicateur coloré choisi.</li>
+          <li>Remplir la burette graduée avec la solution titrante de concentration Cb connue.</li>
+          <li>Verser le titrant goutte à goutte, en agitant, jusqu'au changement net et persistant de couleur (virage).</li>
+          <li>Relever le volume versé Veq à l'équivalence et calculer la concentration Ca à l'aide de la relation fournie.</li>
+          <li><span class="attention">⚠️ Verser le titrant lentement à l'approche du virage attendu pour ne pas dépasser l'équivalence.</span></li>
+        </ol>
 
       </div>
 
@@ -544,6 +624,7 @@
       <li>Utiliser le nombre minimal de gouttes d'indicateur permettant une observation fiable.</li>
       <li>Ne jamais rejeter les solutions acides ou basiques directement à l'évier : les collecter dans les bidons de déchets prévus, en vue d'une neutralisation avant élimination.</li>
       <li>Privilégier, quand c'est possible, les méthodes non destructives (papier pH, bandelettes) qui ne consomment pas de réactif liquide.</li>
+      <li>Lors d'un titrage, ne verser que le volume de solution titrante nécessaire pour atteindre l'équivalence, sans excès.</li>
     </ul>
 
     <h3 style="margin-top:var(--gap-md);">La mesure du pH au service des enjeux actuels</h3>
@@ -559,6 +640,7 @@
       <li><strong>Potabilisation de l'eau :</strong> l'ajustement du pH est une étape clé pour éliminer certains polluants et limiter la corrosion des canalisations.</li>
       <li><strong>Acidification des océans :</strong> l'absorption du CO₂ atmosphérique par les océans fait lentement baisser leur pH, menaçant les organismes à coquille ou squelette calcaire (coraux, mollusques).</li>
       <li><strong>Agriculture raisonnée :</strong> mesurer le pH des sols permet d'ajuster les apports (amendements calcaires, engrais) au plus juste, limitant le gaspillage et le lessivage vers les nappes phréatiques.</li>
+      <li><strong>Titrage et contrôle qualité :</strong> le dosage par titrage colorimétrique permet de vérifier la concentration d'un rejet ou d'une eau, sans matériel lourd, sur le terrain.</li>
     </ul>
 
   </div>
@@ -613,119 +695,221 @@
 
     <h3 style="margin-top:var(--gap-md);">Questions</h3>
 
-    <ol class="questions-tp">
+    <p class="info">
+      Les questions correspondent à l'onglet actif dans « Tests qualitatifs et titrage
+      colorimétrique » ci-dessus : sélectionner l'onglet concerné avant de répondre.
+    </p>
 
-      <li>
-        <div class="question-entete">
-          <strong>Rappeler les définitions d'un acide et d'une base selon Brønsted.</strong>
-          <span class="cartouche" data-comp="APP">APP</span>
-        </div>
-        <div class="zone-eleve">
-          <textarea id="question1" rows="3" placeholder="Votre réponse..."></textarea>
-        </div>
-      </li>
+    <!-- ===================================================== -->
+    <!-- INDICATEUR -->
+    <!-- ===================================================== -->
 
-      <li>
-        <div class="question-entete">
-          <strong>Parmi les solutions testées, identifier celles qui sont acides, basiques ou neutres.</strong>
-          <span class="cartouche" data-comp="APP">APP</span>
-        </div>
-        <div class="zone-eleve">
-          <textarea id="question2" rows="3" placeholder="Votre réponse..."></textarea>
-        </div>
-      </li>
+    <div class="questions-bloc" data-tp="indicateur">
 
-      <li>
-        <div class="question-entete">
-          <strong>Calculer [H₃O⁺] dans HCl à 0,1 mol/L et en déduire la valeur théorique du pH.</strong>
-          <span class="cartouche" data-comp="REA">REA</span>
-        </div>
-        <div class="zone-eleve">
-          <textarea id="question3" rows="4" placeholder="Calcul et réponse..."></textarea>
-        </div>
-      </li>
+      <h4>Indicateurs colorés</h4>
 
-      <li>
-        <div class="question-entete">
-          <strong>Expliquer pourquoi le pH de CH₃COOH (acide faible) est plus élevé que celui de HCl (acide fort) à même concentration.</strong>
-          <span class="cartouche" data-comp="REA">REA</span>
-        </div>
-        <div class="zone-eleve">
-          <textarea id="question4" rows="4" placeholder="Votre réponse..."></textarea>
-        </div>
-      </li>
+      <ol class="questions-tp">
 
-      <li>
-        <div class="question-entete">
-          <strong>Pour chaque indicateur testé, indiquer sa plage de virage et la couleur observée sur les solutions étudiées.</strong>
-          <span class="cartouche" data-comp="REA">REA</span>
-        </div>
-        <div class="zone-eleve">
-          <textarea id="question5" rows="4" placeholder="Votre réponse..."></textarea>
-        </div>
-      </li>
+        <li>
+          <div class="question-entete">
+            <strong>Rappeler les définitions d'un acide et d'une base selon Brønsted.</strong>
+            <span class="cartouche" data-comp="APP">APP</span>
+          </div>
+          <div class="zone-eleve">
+            <textarea id="ind-q1" rows="3" placeholder="Votre réponse..."></textarea>
+          </div>
+        </li>
 
-      <li>
-        <div class="question-entete">
-          <strong>Expliquer pourquoi la phénolphtaléine est incolore en milieu acide et rose en milieu basique.</strong>
-          <span class="cartouche" data-comp="ANA">ANA</span>
-        </div>
-        <div class="zone-eleve">
-          <textarea id="question6" rows="4" placeholder="Votre analyse..."></textarea>
-        </div>
-      </li>
+        <li>
+          <div class="question-entete">
+            <strong>Pour chaque indicateur testé, indiquer sa plage de virage et la couleur observée sur les solutions étudiées.</strong>
+            <span class="cartouche" data-comp="REA">REA</span>
+          </div>
+          <div class="zone-eleve">
+            <textarea id="ind-q2" rows="4" placeholder="Votre réponse..."></textarea>
+          </div>
+        </li>
 
-      <li>
-        <div class="question-entete">
-          <strong>Comparer les valeurs de pH obtenues au pH-mètre, au papier pH et par les indicateurs colorés.</strong>
-          <span class="cartouche" data-comp="ANA">ANA</span>
-        </div>
-        <div class="zone-eleve">
-          <textarea id="question7" rows="4" placeholder="Votre analyse..."></textarea>
-        </div>
-      </li>
+        <li>
+          <div class="question-entete">
+            <strong>Expliquer pourquoi la phénolphtaléine est incolore en milieu acide et rose fuchsia en milieu basique.</strong>
+            <span class="cartouche" data-comp="ANA">ANA</span>
+          </div>
+          <div class="zone-eleve">
+            <textarea id="ind-q3" rows="4" placeholder="Votre analyse..."></textarea>
+          </div>
+        </li>
 
-      <li>
-        <div class="question-entete">
-          <strong>Identifier les principales sources d'erreur lors de l'étalonnage et de la mesure du pH-mètre.</strong>
-          <span class="cartouche" data-comp="ANA">ANA</span>
-        </div>
-        <div class="zone-eleve">
-          <textarea id="question8" rows="4" placeholder="Votre analyse..."></textarea>
-        </div>
-      </li>
+        <li>
+          <div class="question-entete">
+            <strong>Le changement de couleur observé pour chaque indicateur est-il cohérent avec la nature acide, basique ou neutre de la solution testée ? Justifier.</strong>
+            <span class="cartouche" data-comp="VAL">VAL</span>
+          </div>
+          <div class="zone-eleve">
+            <textarea id="ind-q4" rows="4" placeholder="Justification..."></textarea>
+          </div>
+        </li>
 
-      <li>
-        <div class="question-entete">
-          <strong>Le pH mesuré est-il cohérent avec la nature (forte/faible) de l'espèce testée ? Justifier.</strong>
-          <span class="cartouche" data-comp="VAL">VAL</span>
-        </div>
-        <div class="zone-eleve">
-          <textarea id="question9" rows="4" placeholder="Justification..."></textarea>
-        </div>
-      </li>
+        <li>
+          <div class="question-entete">
+            <strong>Pourquoi se limiter à quelques gouttes d'indicateur suffit-il pour un test fiable, et en quoi cette pratique limite-t-elle l'impact environnemental du TP ?</strong>
+            <span class="cartouche" data-comp="COM">COM</span>
+          </div>
+          <div class="zone-eleve">
+            <textarea id="ind-q5" rows="4" placeholder="Votre réponse..."></textarea>
+          </div>
+        </li>
 
-      <li>
-        <div class="question-entete">
-          <strong>Rédiger une conclusion indiquant quelle méthode de mesure du pH est la plus précise et la plus adaptée sur le terrain.</strong>
-          <span class="cartouche" data-comp="COM">COM</span>
-        </div>
-        <div class="zone-eleve">
-          <textarea id="question10" rows="5" placeholder="Votre conclusion..."></textarea>
-        </div>
-      </li>
+      </ol>
 
-      <li>
-        <div class="question-entete">
-          <strong>Citer une pratique de laboratoire respectueuse de l'environnement mise en œuvre dans ce TP, et un enjeu environnemental actuel où la mesure du pH joue un rôle important.</strong>
-          <span class="cartouche" data-comp="ANA">ANA</span>
-        </div>
-        <div class="zone-eleve">
-          <textarea id="question11" rows="4" placeholder="Votre réponse..."></textarea>
-        </div>
-      </li>
+    </div>
 
-    </ol>
+    <!-- ===================================================== -->
+    <!-- PAPIER pH -->
+    <!-- ===================================================== -->
+
+    <div class="questions-bloc" data-tp="papier-ph" hidden>
+
+      <h4>Papier pH et mesure pH-métrique</h4>
+
+      <ol class="questions-tp">
+
+        <li>
+          <div class="question-entete">
+            <strong>Décrire le principe de fonctionnement du papier pH et de la mesure au pH-mètre.</strong>
+            <span class="cartouche" data-comp="APP">APP</span>
+          </div>
+          <div class="zone-eleve">
+            <textarea id="pap-q1" rows="3" placeholder="Votre réponse..."></textarea>
+          </div>
+        </li>
+
+        <li>
+          <div class="question-entete">
+            <strong>Comparer les valeurs de pH obtenues au pH-mètre, au papier pH et par les indicateurs colorés sur une même solution.</strong>
+            <span class="cartouche" data-comp="ANA">ANA</span>
+          </div>
+          <div class="zone-eleve">
+            <textarea id="pap-q2" rows="4" placeholder="Votre analyse..."></textarea>
+          </div>
+        </li>
+
+        <li>
+          <div class="question-entete">
+            <strong>Identifier les principales sources d'erreur lors de l'étalonnage et de la mesure au pH-mètre.</strong>
+            <span class="cartouche" data-comp="ANA">ANA</span>
+          </div>
+          <div class="zone-eleve">
+            <textarea id="pap-q3" rows="4" placeholder="Votre analyse..."></textarea>
+          </div>
+        </li>
+
+        <li>
+          <div class="question-entete">
+            <strong>Rédiger une conclusion indiquant quelle méthode de mesure du pH est la plus précise et la plus adaptée sur le terrain.</strong>
+            <span class="cartouche" data-comp="COM">COM</span>
+          </div>
+          <div class="zone-eleve">
+            <textarea id="pap-q4" rows="5" placeholder="Votre conclusion..."></textarea>
+          </div>
+        </li>
+
+        <li>
+          <div class="question-entete">
+            <strong>En quoi privilégier une méthode non destructive comme le papier pH, plutôt qu'un réactif liquide consommé à chaque test, limite-t-elle la production de déchets lors d'un suivi régulier de la qualité d'un cours d'eau ?</strong>
+            <span class="cartouche" data-comp="ANA">ANA</span>
+          </div>
+          <div class="zone-eleve">
+            <textarea id="pap-q5" rows="4" placeholder="Votre réponse..."></textarea>
+          </div>
+        </li>
+
+      </ol>
+
+    </div>
+
+    <!-- ===================================================== -->
+    <!-- TITRAGE COLORIMETRIQUE -->
+    <!-- ===================================================== -->
+
+    <div class="questions-bloc" data-tp="titrage-colorimetrique" hidden>
+
+      <h4>Titrage colorimétrique</h4>
+
+      <ol class="questions-tp">
+
+        <li>
+          <div class="question-entete">
+            <strong>Calculer [H₃O⁺] dans une solution de HCl à 0,1 mol/L et en déduire la valeur théorique de son pH.</strong>
+            <span class="cartouche" data-comp="REA">REA</span>
+          </div>
+          <div class="zone-eleve">
+            <textarea id="titr-q1" rows="4" placeholder="Calcul et réponse..."></textarea>
+          </div>
+        </li>
+
+        <li>
+          <div class="question-entete">
+            <strong>Écrire l'équation de la réaction support du titrage acide fort / base forte réalisé.</strong>
+            <span class="cartouche" data-comp="REA">REA</span>
+          </div>
+          <div class="zone-eleve">
+            <textarea id="titr-q2" rows="3" placeholder="Votre réponse..."></textarea>
+          </div>
+        </li>
+
+        <li>
+          <div class="question-entete">
+            <strong>À l'aide de la relation fournie à l'équivalence (Ca · Va = Cb · Veq), calculer la concentration Ca de la solution titrée à partir du volume Veq relevé au virage de l'indicateur.</strong>
+            <span class="cartouche" data-comp="REA">REA</span>
+          </div>
+          <div class="zone-eleve">
+            <textarea id="titr-q3" rows="4" placeholder="Calcul et réponse..."></textarea>
+          </div>
+        </li>
+
+        <li>
+          <div class="question-entete">
+            <strong>La concentration Ca obtenue est-elle cohérente avec celle attendue pour la solution testée ? Justifier.</strong>
+            <span class="cartouche" data-comp="VAL">VAL</span>
+          </div>
+          <div class="zone-eleve">
+            <textarea id="titr-q4" rows="4" placeholder="Justification..."></textarea>
+          </div>
+        </li>
+
+        <li>
+          <div class="question-entete">
+            <strong>Citer un exemple où le titrage (dosage) permet de contrôler la qualité d'une eau ou de vérifier la concentration d'un rejet, et expliquer pourquoi limiter le volume de solution titrante utilisé est une bonne pratique environnementale.</strong>
+            <span class="cartouche" data-comp="ANA">ANA</span>
+          </div>
+          <div class="zone-eleve">
+            <textarea id="titr-q5" rows="4" placeholder="Votre réponse..."></textarea>
+          </div>
+        </li>
+
+      </ol>
+
+    </div>
+
+    <!-- =============================================== -->
+    <!-- IMPRESSION COMPTE RENDU                         -->
+    <!-- =============================================== -->
+
+    <h3 style="margin-top:var(--gap-lg);">Impression du compte-rendu</h3>
+
+    <div class="toolbar">
+      <button id="btn-imprimer" class="btn btn-primaire">🖨 Imprimer le compte-rendu</button>
+    </div>
+
+    <div class="info" style="margin-top:var(--gap-md);">
+      L'impression récupère automatiquement :
+      <ul>
+        <li>les résultats du tableau de mesures ;</li>
+        <li>les réponses aux 5 questions de l'onglet actuellement sélectionné ;</li>
+        <li>l'auto-évaluation des compétences.</li>
+      </ul>
+    </div>
 
   </div>
 
@@ -787,7 +971,7 @@
           <tr data-comp="REA">
             <td>Réaliser</td>
             <td>REA</td>
-            <td>Effectuer correctement l'étalonnage et les mesures de pH.</td>
+            <td>Effectuer correctement l'étalonnage, les mesures de pH et un titrage colorimétrique.</td>
             <td><input type="radio" name="REA" value="0"></td>
             <td><input type="radio" name="REA" value="1"></td>
             <td><input type="radio" name="REA" value="2"></td>
@@ -820,42 +1004,6 @@
     <div class="radar-actions" style="margin-top:var(--gap-lg);">
       <button id="btn-radar" class="btn btn-primaire">📊 Générer mon radar de compétences</button>
       <div id="radar-resultat" style="margin-top:var(--gap-md);"></div>
-    </div>
-
-  </div>
-
-</div>
-
-<!-- =============================================== -->
-<!-- IMPRESSION COMPTE RENDU                         -->
-<!-- =============================================== -->
-
-<div class="section" data-type="impression_tp">
-
-  <div class="section-titre">
-    <div class="picto-section">📒</div>
-    <h2>Impression du compte-rendu</h2>
-    <span class="chevron">▼</span>
-  </div>
-
-  <div class="section-corps">
-
-    <p class="info">
-      À la fin du TP, imprimer votre TP en PDF.
-      Envoyer à l'enseignant votre compte rendu en pièce jointe par la messagerie de l'ENT.
-    </p>
-
-    <div class="toolbar">
-      <button id="btn-imprimer" class="btn btn-primaire">🖨 Imprimer le compte-rendu</button>
-    </div>
-
-    <div class="info" style="margin-top:var(--gap-md);">
-      L'impression récupère automatiquement :
-      <ul>
-        <li>les résultats du tableau de mesures ;</li>
-        <li>les réponses aux questions ;</li>
-        <li>l'auto-évaluation des compétences.</li>
-      </ul>
     </div>
 
   </div>
