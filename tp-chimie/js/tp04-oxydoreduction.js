@@ -139,6 +139,7 @@ export function init() {
     initTabClassification();
     initTabCorrosionPassivation();
     initTabAnodeSacrificielle();
+    initQuestionsParOnglet();
     initBoutonImpressionCR();
     initRadarCompetences();
 }
@@ -481,6 +482,43 @@ function initTabAnodeSacrificielle() {
 }
 
 /* ==========================================================
+   QUESTIONS DU COMPTE-RENDU
+   Un bloc de 5 questions par onglet de manipulation ; seul le
+   bloc correspondant à l'onglet actif est visible et imprimé.
+   ========================================================== */
+
+function afficherQuestionsTP(idOnglet) {
+
+    document
+        .querySelectorAll(".questions-bloc")
+        .forEach(bloc => {
+
+            bloc.hidden =
+                bloc.dataset.tp !== idOnglet;
+
+        });
+
+}
+
+function initQuestionsParOnglet() {
+
+    const boutons =
+        document.querySelectorAll(".tabs-container .tab-btn");
+
+    if (!boutons.length) return;
+
+    boutons.forEach(btn => {
+        btn.addEventListener("click", () => afficherQuestionsTP(btn.dataset.tab));
+    });
+
+    const actif =
+        document.querySelector(".tabs-container .tab-btn.actif") || boutons[0];
+
+    afficherQuestionsTP(actif.dataset.tab);
+
+}
+
+/* ==========================================================
    BOUTON IMPRESSION COMPTE-RENDU
    ========================================================== */
 
@@ -507,7 +545,15 @@ function lancerCompteRendu() {
         }
     ];
 
-    document.querySelectorAll(".questions-tp > li").forEach((li, index) => {
+    // Seules les questions du bloc actuellement visible (onglet de
+    // manipulation actif) sont incluses dans le compte-rendu.
+    const blocActif = document.querySelector(".questions-bloc:not([hidden])");
+
+    const liste = blocActif
+        ? blocActif.querySelectorAll(".questions-tp > li")
+        : document.querySelectorAll(".questions-tp > li");
+
+    liste.forEach((li, index) => {
         const zone = li.querySelector("textarea");
         if (!zone) return;
 
@@ -557,22 +603,4 @@ if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", init);
 } else {
     init();
-}
-
-/* ==========================================================
-   QUESTIONS DU COMPTE-RENDU
-   Affichage des questions correspondant à l'onglet actif
-   ========================================================== */
-
-function afficherQuestionsTP(idOnglet) {
-
-    document
-        .querySelectorAll(".questions-bloc")
-        .forEach(bloc => {
-
-            bloc.hidden =
-                bloc.dataset.tp !== idOnglet;
-
-        });
-
 }
