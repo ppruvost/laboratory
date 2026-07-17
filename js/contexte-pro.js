@@ -48,6 +48,21 @@ function rendreContexte(data) {
 }
 
 /**
+ * Répercute la problématique choisie dans tous les rappels affichés au fil
+ * du TP (dernière question de chaque bloc « questions-tp »), sans que
+ * l'élève ait à retourner consulter le Contexte professionnel.
+ * Cible tout élément portant la classe .problematique-rappel.
+ */
+function rendreRappelsProblematique(data) {
+    const texte = data
+        ? data.problematique
+        : "Sélectionner votre filière professionnelle dans la section « Contexte professionnel » ci-dessus pour afficher ici la problématique.";
+    document.querySelectorAll(".problematique-rappel").forEach(el => {
+        el.textContent = texte;
+    });
+}
+
+/**
  * Initialise le sélecteur de filière professionnelle.
  * @param {Object} params
  * @param {Object} params.filieres  - Catalogue FILIERES_PRO (data/filieres.js)
@@ -88,10 +103,13 @@ export function initContextePro({
     });
 
     select.addEventListener("change", () => {
-        resultat.innerHTML = rendreContexte(contextes[select.value]);
+        const data = contextes[select.value];
+        resultat.innerHTML = rendreContexte(data);
+        rendreRappelsProblematique(data);
     });
 
     resultat.innerHTML = rendreContexte(null);
+    rendreRappelsProblematique(null);
 }
 
 /**
