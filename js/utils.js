@@ -2,14 +2,6 @@
  * utils.js
  * Bibliothèque commune des TP de Chimie
  * ------------------------------------------------------------
- * Bloc 1/4
- * - Helpers DOM
- * - Fonctions numériques
- * - Gestion des messages
- * - Images
- * - Catégories
- * - Constantes GHS / EPI
- */
 
 /* ============================================================
    HELPERS DOM
@@ -43,11 +35,8 @@ export function clamp(v, min, max) {
    ============================================================ */
 
 export function message(id, texte, classe = "info") {
-
     const zone = $(id);
-
     if (!zone) return;
-
     zone.innerHTML = `
         <div class="${classe}">
             ${texte}
@@ -56,8 +45,7 @@ export function message(id, texte, classe = "info") {
 }
 
 /* ============================================================
-   RESOLUTION DES CHEMINS D'IMAGES
-   Compatible GitHub Pages + développement local
+   RESOLUTION DES CHEMINS D'IMAGES   
    ============================================================ */
 
 const BASE =
@@ -71,7 +59,6 @@ export function imgSrc(
 ) {
 
     if (!chemin) return "";
-
     // URL complète
     if (
         chemin.startsWith("http://") ||
@@ -79,12 +66,10 @@ export function imgSrc(
     ) {
         return chemin;
     }
-
     // Déjà préfixé par la base
     if (chemin.startsWith(BASE)) {
         return chemin;
     }
-
     // Chemin absolu du projet
     if (
         chemin.startsWith("assets/") ||
@@ -101,12 +86,9 @@ export function imgSrc(
 
     // Ajoute le dossier par défaut si le nom de fichier est seul
     if (dossierParDefaut) {
-
         dossierParDefaut = dossierParDefaut.replace(/^\/+|\/+$/g, "");
-
         chemin = `${dossierParDefaut}/${chemin}`;
     }
-
     return BASE + chemin.replace(/^\/+/, "");
 }
 
@@ -115,13 +97,10 @@ export function imgSrc(
    ============================================================ */
 
 export function appartientCategorie(element, categorie) {
-
     if (!element?.categorie)
         return false;
-
     if (Array.isArray(element.categorie))
         return element.categorie.includes(categorie);
-
     return element.categorie === categorie;
 }
 
@@ -130,52 +109,42 @@ export function appartientCategorie(element, categorie) {
    ============================================================ */
 
 export const GHS_PICTO = {
-
     GHS01: {
         img: "assets/picto/SGH01_BombeExplosant.jpg",
         label: "Explosif"
     },
-
     GHS02: {
         img: "assets/picto/SGH02_Flamme.jpg",
         label: "Inflammable"
     },
-
     GHS03: {
         img: "assets/picto/SGH03_FlammeSurCercle.jpg",
         label: "Comburant"
     },
-
     GHS04: {
         img: "assets/picto/SGH04_BouteilleGaz.jpg",
         label: "Gaz sous pression"
     },
-
     GHS05: {
         img: "assets/picto/SGH05_Corrosion.jpg",
         label: "Corrosif"
     },
-
     GHS06: {
         img: "assets/picto/SGH06_TeteDeMort.jpg",
         label: "Toxique"
     },
-
     GHS07: {
         img: "assets/picto/SGH07_PointExclamation.jpg",
         label: "Irritant / nocif"
     },
-
     GHS08: {
         img: "assets/picto/SGH08_DangerSante.jpg",
         label: "Danger santé"
     },
-
     GHS09: {
         img: "assets/picto/SGH09_Environnement.jpg",
         label: "Environnement"
     }
-
 };
 
 /* ============================================================
@@ -183,51 +152,41 @@ export const GHS_PICTO = {
    ============================================================ */
 
 export const EPI_CONFIG = {
-
     LUNETTES: {
         img: "assets/picto/OBLIGATION-lunettes.jpg",
         label: "Lunettes"
     },
-
     GANTS: {
         img: "assets/picto/OBLIGATION-gants.jpg",
         label: "Gants"
     },
-
     BLOUSE: {
         img: "assets/picto/OBLIGATION-blouse.jpg",
         label: "Blouse"
     },
-
     HOTTE: {
         img: "assets/picto/OBLIGATION-hotte.jpeg",
         label: "Hotte"
     },
-
     VISIERE: {
         img: "assets/picto/OBLIGATION-visiere.jpg",
         label: "Visière"
     },
-
     CHAUSSURES: {
         img: "assets/picto/OBLIGATION-chaussures.jpg",
         label: "Chaussures de sécurité"
     },
-
     RESPIRATOIRE: {
         img: "assets/picto/OBLIGATION-protection-voies-espiratoires.jpg",
         label: "Protection respiratoire"
     }
-
 };
 
 /* ============================================================
-   MASSES MOLAIRES
-   (conservées telles quelles)
+   MASSES MOLAIRES   
    ============================================================ */
 
 export const MASSES_MOLAIRES = {
-
     'NaOH':40.00,
     'HCl':36.46,
     'H2SO4':98.08,
@@ -265,34 +224,19 @@ export const MASSES_MOLAIRES = {
     'C8H8O':120.15
 
 };
-/**
- * utils.js
- * Bloc 2/4
- *
- * - Cartes produits
- * - Bloc sécurité
- * - Rendu pictogrammes
- * - Gestion des produits chimiques
- */
 
 /* ============================================================
    CARTE PRODUIT
    ============================================================ */
 
 export function renderCarteProduit(produit, options = {}) {
-
     const ghsListe =
         (produit.pictogrammes || produit.dangers || [])
         .filter(code => /^GHS/i.test(code));
-
-
     const pictos = ghsListe
         .map(code => {
-
             const info = GHS_PICTO[code];
-
             if (!info) {
-
                 return `
                 <span class="ghs-inconnu"
                       title="${code}">
@@ -308,10 +252,8 @@ export function renderCarteProduit(produit, options = {}) {
                 class="ghs-badge"
                 onerror="this.style.display='none'"
             >`;
-
         })
         .join("");
-
 
     const dangersH =
         (produit.dangers || [])
@@ -324,32 +266,23 @@ export function renderCarteProduit(produit, options = {}) {
             `
         )
         .join("");
-
-
     return `
 
     <article class="produit-carte">
-
         <div class="produit-entete">
-
             <span class="produit-cas">
                 ${produit.cas || ""}
             </span>
-
         </div>
 
 
         <div class="produit-corps">
-
             <h4>
                 ${produit.nom || ""}
             </h4>
-
-
             <div class="produit-formule">
                 ${produit.formule || ""}
             </div>
-
 
             ${
                 produit.localisation
@@ -363,7 +296,6 @@ export function renderCarteProduit(produit, options = {}) {
                 ""
             }
 
-
             ${
                 options.showGHS && pictos
                 ?
@@ -376,7 +308,6 @@ export function renderCarteProduit(produit, options = {}) {
                 ""
             }
 
-
             ${
                 options.showH && dangersH
                 ?
@@ -388,26 +319,16 @@ export function renderCarteProduit(produit, options = {}) {
                 :
                 ""
             }
-
-
         </div>
-
     </article>
-
     `;
-
 }
-
-
 
 /* ============================================================
    BLOC SECURITE GLOBAL
    ============================================================ */
 
-
 export function renderBlocSecurite(produits = []) {
-
-
     const cartes = produits
         .map(produit =>
             renderCarteProduit(
@@ -419,62 +340,41 @@ export function renderBlocSecurite(produits = []) {
             )
         )
         .join("");
-
-
-
     return `
 
     <section class="alerte-securite">
-
-
         <h3>
             ⚠️ Sécurité chimique
         </h3>
-
-
         <p>
             Lire les fiches de données de sécurité avant toute
             manipulation.
         </p>
-
 
         <p>
             Porter obligatoirement les équipements de protection
             adaptés.
         </p>
 
-
         <p>
             En cas de projection :
             rincer abondamment à l'eau et prévenir le responsable.
         </p>
-
-
     </section>
-
 
     <section class="liste-produits-securite">
-
         ${cartes}
-
     </section>
-
     `;
-
 }
-
-
 
 /* ============================================================
    RENDU D'UN PRODUIT UNIQUE
    ============================================================ */
 
-
 export function renderProduitSecurite(produit) {
-
     if (!produit)
         return "";
-
     return renderCarteProduit(
         produit,
         {
@@ -482,21 +382,15 @@ export function renderProduitSecurite(produit) {
             showH:true
         }
     );
-
 }
-
-
 
 /* ============================================================
    RECHERCHE PRODUIT
    ============================================================ */
 
-
 export function trouverProduit(liste, cle) {
-
     if (!Array.isArray(liste))
         return null;
-
 
     return liste.find(
         produit =>
@@ -505,15 +399,11 @@ export function trouverProduit(liste, cle) {
             produit.id === cle
     )
     || null;
-
 }
-
-
 
 /* ============================================================
    CONSTRUCTION LISTE SELECT PRODUITS
    ============================================================ */
-
 
 export function remplirSelectProduits(
     select,
@@ -521,10 +411,8 @@ export function remplirSelectProduits(
     options={}
 ) {
 
-
     if (!select)
         return;
-
 
     const {
 
@@ -534,8 +422,6 @@ export function remplirSelectProduits(
 
     } = options;
 
-
-
     select.innerHTML =
         `
         <option value="">
@@ -543,17 +429,12 @@ export function remplirSelectProduits(
         </option>
         `;
 
-
-
     produits
-
     .filter(p =>
         !categorie
         ||
         appartientCategorie(p,categorie)
     )
-
-
     .sort(
         (a,b)=>
             a.nom.localeCompare(
@@ -561,37 +442,25 @@ export function remplirSelectProduits(
                 "fr"
             )
     )
-
-
     .forEach(p=>{
 
 
         const option =
             document.createElement("option");
 
-
         option.value =
             p.cas;
-
 
         option.textContent =
             p.nom;
 
-
         select.appendChild(option);
-
-
     });
-
-
 }
-
-
 
 /* ============================================================
    FILTRAGE DYNAMIQUE PAR CHECKBOX
    ============================================================ */
-
 
 export function appliquerFiltresCategorie(
     select,
@@ -599,10 +468,8 @@ export function appliquerFiltresCategorie(
     classeCheckbox="filtre-cat"
 ) {
 
-
     if (!select)
         return;
-
 
     const categories =
         [
@@ -612,12 +479,8 @@ export function appliquerFiltresCategorie(
         ]
         .map(cb=>cb.value);
 
-
-
     const ancienneValeur =
         select.value;
-
-
 
     select.innerHTML =
         `
@@ -625,16 +488,10 @@ export function appliquerFiltresCategorie(
         -- Sélectionner --
         </option>
         `;
-
-
-
     if(categories.length===0)
         return;
 
-
-
     produits
-
     .filter(
         produit =>
             categories.some(
@@ -646,7 +503,6 @@ export function appliquerFiltresCategorie(
             )
     )
 
-
     .sort(
         (a,b)=>
         a.nom.localeCompare(
@@ -655,105 +511,54 @@ export function appliquerFiltresCategorie(
         )
     )
 
-
     .forEach(
         produit=>{
-
-
             const option =
                 document.createElement("option");
-
-
             option.value =
                 produit.cas;
-
-
             option.textContent =
                 produit.nom;
-
-
-
             if(option.value===ancienneValeur)
                 option.selected=true;
-
-
-
             select.appendChild(option);
-
         }
     );
-
-
 }
-/**
- * utils.js
- * Bloc 3/4
- *
- * - Accordéons
- * - Onglets
- * - Modes opératoires
- * - Impression
- * - Evènements communs
- */
 
 /* ============================================================
    ACCORDEONS
    ============================================================ */
 
-
 export function initSections() {
-
-
     document
     .querySelectorAll(".section-titre")
     .forEach(titre=>{
-
-
         const section =
             titre.closest(".section");
-
-
         if(!section)
             return;
-
-
         const corps =
             section.querySelector(".section-corps");
-
-
         const chevron =
             titre.querySelector(".chevron");
-
-
-
         if(!corps)
             return;
-
-
-
         // état initial
-
         corps.style.display =
             section.classList.contains("fermee")
             ?
             "none"
             :
             "block";
-
-
-
         if(chevron){
-
             chevron.textContent =
                 section.classList.contains("fermee")
                 ?
                 "▶"
                 :
                 "▼";
-
         }
-
-
 
         titre.addEventListener(
             "click",
@@ -1105,15 +910,6 @@ export function initInterfaceTP(){
 
 
 }
-/**
- * utils.js
- * Bloc 4/4
- *
- * - Calculs chimiques génériques
- * - Liaison automatique inputs/calculs
- * - Export final
- */
-
 
 /* ============================================================
    CONCENTRATION MOLAIRE
