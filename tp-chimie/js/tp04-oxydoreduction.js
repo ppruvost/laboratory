@@ -8,6 +8,7 @@ import dangerDB from "../../data/dangerDB.js";
 import pictogrammes from "../../data/pictogrammes.js";
 import glassware from "../../data/glassware.js";
 import laboratoryEquipment from "../../data/equipment.js";
+import FILIERES_PRO from "../../data/filieres.js";
 
 import {
     initSections,
@@ -34,6 +35,30 @@ import {
 import {
     genererCompteRendu
 } from "../../js/compte-rendu.js";
+
+import {
+    initContextePro,
+    getFiliereSelectionnee
+} from "../../js/contexte-pro.js";
+
+/* ==========================================================
+   CONTEXTE PROFESSIONNEL — TP04 (Oxydoréduction)
+   Propre à ce TP : niveau Tle uniquement (cf. cadre bleu).
+   ========================================================== */
+const CONTEXTES_PRO_TP04 = {
+    "tle-tci": {
+        contexte: "L'assemblage de pièces métalliques de nature différente (acier, aluminium, cuivre) expose la structure à un risque de corrosion galvanique : les deux métaux forment une pile électrochimique en présence d'humidité, et le métal le moins noble se dégrade préférentiellement.",
+        problematique: "Comment prévoir, à partir des potentiels standard de réduction, quel métal d'un assemblage risque de se corroder préférentiellement et comment limiter ce phénomène ?"
+    },
+    "tle-trpm": {
+        contexte: "Pour protéger un outillage métallique exposé à la corrosion, certains ateliers utilisent une anode sacrificielle : un métal moins noble se sacrifie électrochimiquement pour préserver la pièce à protéger. Le choix du métal sacrificiel repose sur la comparaison des potentiels standard de réduction.",
+        problematique: "Comment choisir, à partir des potentiels standard de réduction, un métal adapté pour réaliser une protection par anode sacrificielle d'un outillage industriel ?"
+    },
+    "tle-mcc": {
+        contexte: "Le blanchiment d'un tissu par l'eau de Javel repose sur une réaction d'oxydoréduction : l'agent oxydant dégrade les pigments colorés. Un dosage mal maîtrisé peut aussi oxyder et fragiliser les fibres textiles elles-mêmes.",
+        problematique: "Comment expliquer, à l'aide des potentiels standard de réduction, le pouvoir oxydant de l'eau de Javel et le risque de dégradation des fibres textiles en cas de surdosage ?"
+    }
+};
 
 /* ==========================================================
    DONNEES LOCALES — potentiels normaux d'oxydoréduction
@@ -125,6 +150,10 @@ export function init() {
 
     initSections();
     initTabs();
+    initContextePro({
+        filieres: FILIERES_PRO,
+        contextes: CONTEXTES_PRO_TP04
+    });
     initReactifSelect();
     initMateriel({
         verreId: "materiel-verrerie",
@@ -536,6 +565,8 @@ function lancerCompteRendu() {
         date: $("date-eleve")?.value || ""
     };
 
+    const filiereChoisie = getFiliereSelectionnee();
+
     const sections = [
         {
             titre: "Réactif de sécurité consulté",
@@ -544,6 +575,15 @@ function lancerCompteRendu() {
             ]
         }
     ];
+
+    if (filiereChoisie) {
+        sections.unshift({
+            titre: "Contexte professionnel",
+            items: [
+                { label: "Filière", valeur: `${filiereChoisie.niveau} — ${filiereChoisie.filiere}` }
+            ]
+        });
+    }
 
     // Seules les questions du bloc actuellement visible (onglet de
     // manipulation actif) sont incluses dans le compte-rendu.
