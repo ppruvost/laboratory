@@ -8,6 +8,7 @@ import dangerDB from "../../data/dangerDB.js";
 import pictogrammes from "../../data/pictogrammes.js";
 import glassware from "../../data/glassware.js";
 import laboratoryEquipment from "../../data/equipment.js";
+import FILIERES_PRO from "../../data/filieres.js";
 
 import {
     initSections,
@@ -35,6 +36,38 @@ import {
     genererCompteRendu
 } from "../../js/compte-rendu.js";
 
+import {
+    initContextePro,
+    getFiliereSelectionnee
+} from "../../js/contexte-pro.js";
+
+/* ==========================================================
+   CONTEXTE PROFESSIONNEL — TP01 (Dissolution / Dilution)
+   Propre à ce TP : niveaux 2nde et 1ère uniquement (cf. cadre bleu).
+   ========================================================== */
+const CONTEXTES_PRO_TP01 = {
+    "2nde-remi": {
+        contexte: "Avant l'assemblage de tôles par soudage, les ateliers de réalisation d'ensembles mécaniques utilisent des bains de dégraissage et de décapage pour préparer les surfaces métalliques. Ces bains sont livrés sous forme de concentrés qu'il faut diluer avec précision selon les préconisations du fabricant pour garantir leur efficacité sans gaspillage de produit.",
+        problematique: "Comment préparer, à partir d'un concentré de dégraissant industriel, un bain de traitement de surface à la concentration exacte préconisée par le fabricant ?"
+    },
+    "2nde-mcc": {
+        contexte: "Dans un atelier de confection, la teinture d'un tissu nécessite de préparer un bain à partir d'une solution mère de colorant et de sels auxiliaires. La qualité de la teinte (uniformité, tenue) dépend directement du respect de la concentration prescrite par la fiche technique du fournisseur.",
+        problematique: "Comment déterminer la masse de colorant à peser et le volume d'eau à utiliser pour obtenir un bain de teinture à la concentration voulue ?"
+    },
+    "1ere-tci": {
+        contexte: "En chaudronnerie industrielle, certaines pièces métalliques subissent un traitement de conversion chimique (phosphatation, passivation) avant peinture, afin d'améliorer l'adhérence du revêtement et la résistance à la corrosion. Ces bains doivent être préparés à une concentration précise en quantité de matière.",
+        problematique: "Comment préparer, par dissolution ou dilution, un bain de traitement de surface dont la concentration en quantité de matière est imposée par le référentiel qualité de l'entreprise ?"
+    },
+    "1ere-trpm": {
+        contexte: "Sur un centre d'usinage, le liquide de coupe utilisé pour refroidir et lubrifier l'outil est un concentré dilué dans l'eau. Une concentration trop faible favorise la corrosion des outillages et de la pièce ; une concentration trop forte gaspille le produit et peut irriter la peau de l'opérateur.",
+        problematique: "Comment vérifier et ajuster, par dilution, la concentration du liquide de coupe utilisé sur le centre d'usinage afin de respecter la plage préconisée par le fabricant ?"
+    },
+    "1ere-mcc": {
+        contexte: "Lors du traitement d'un tissu technique (apprêt, imperméabilisation), l'atelier prépare un bain à partir d'un concentré dont la fiche technique donne la concentration en quantité de matière à respecter pour garantir la tenue du traitement dans le temps.",
+        problematique: "Comment calculer le volume de concentré à prélever et le compléter avec de l'eau pour obtenir un bain d'apprêt à la concentration en quantité de matière prescrite ?"
+    }
+};
+
 /* ==========================================================
    VARIABLES
    ========================================================== */
@@ -52,6 +85,10 @@ export function init() {
 
     initSections();
     initTabs();
+    initContextePro({
+        filieres: FILIERES_PRO,
+        contextes: CONTEXTES_PRO_TP01
+    });
     initReactifSelect();
     initCalculsDissolution();
     initCalculsDilution();
@@ -341,8 +378,20 @@ function lancerCompteRendu() {
     const masseTheo = $("pe-masse-theo")?.value || "—";
     const masseExp = $("masse-exp-pesee")?.value || "—";
     const ecartRelatif = $("table-ecart")?.textContent?.trim() || "—";
+    const filiereChoisie = getFiliereSelectionnee();
 
-    const sections = [
+    const sections = [];
+
+    if (filiereChoisie) {
+        sections.push({
+            titre: "Contexte professionnel",
+            items: [
+                { label: "Filière", valeur: `${filiereChoisie.niveau} — ${filiereChoisie.filiere}` }
+            ]
+        });
+    }
+
+    sections.push(
         {
             titre: "Paramètres de la dissolution",
             groupe: "dissolution",
@@ -366,7 +415,7 @@ function lancerCompteRendu() {
                 { label: "Volume à prélever V₁", valeur: `${$("res-hcl")?.textContent?.replace("Volume à prélever : ", "") || "—"}` }
             ]
         }
-    ];
+    );
 
     document.querySelectorAll(".questions-tp > li").forEach((li, index) => {
         const zone = li.querySelector("textarea.cr-reponse, textarea[id^='question']")
