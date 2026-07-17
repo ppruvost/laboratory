@@ -397,7 +397,7 @@ const laboratoryEquipment = [
     categorie: ["Indicateur", "pHmétrie"],
     description: "Papier imprégné de phénolphtaléine, incolore en milieu acide et rose en milieu basique.",
     lieu: "Salle B27 / étagère D4",
-    image: "assets/img/equipments/papier_pH.jpg",
+    image: "assets/img/equipments/papier_phenolphtaleine.jpeg",
     noticeUtilisation: "assets/notice/papier_phenolphtaleine.pdf"
     },
     {
