@@ -8,6 +8,7 @@ import dangerDB from "../../data/dangerDB.js";
 import pictogrammes from "../../data/pictogrammes.js";
 import glassware from "../../data/glassware.js";
 import laboratoryEquipment from "../../data/equipment.js";
+import FILIERES_PRO from "../../data/filieres.js";
 
 import {
     initSections,
@@ -34,6 +35,38 @@ import {
 import {
     genererCompteRendu
 } from "../../js/compte-rendu.js";
+
+import {
+    initContextePro,
+    getFiliereSelectionnee
+} from "../../js/contexte-pro.js";
+
+/* ==========================================================
+   CONTEXTE PROFESSIONNEL — TP02 (pH et indicateurs colorés)
+   Propre à ce TP : niveaux 2nde et 1ère uniquement (cf. cadre bleu).
+   ========================================================== */
+const CONTEXTES_PRO_TP02 = {
+    "2nde-remi": {
+        contexte: "L'efficacité d'un bain de décapage acide ou d'un bain de dégraissage alcalin dépend fortement de son pH. Un contrôle régulier permet de savoir quand le bain doit être renouvelé ou rééquilibré, avant qu'il ne perde son efficacité sur les pièces métalliques.",
+        problematique: "Comment vérifier, à l'aide d'un indicateur coloré ou d'un papier pH, si un bain de traitement de surface est encore dans sa plage de pH d'utilisation efficace ?"
+    },
+    "2nde-mcc": {
+        contexte: "La fixation d'un colorant sur une fibre textile dépend étroitement du pH du bain de teinture : certains colorants nécessitent un milieu acide, d'autres un milieu basique. Un mauvais réglage du pH conduit à une teinte irrégulière ou peu tenace.",
+        problematique: "Comment contrôler le pH d'un bain de teinture et l'ajuster pour qu'il corresponde à la plage optimale de fixation du colorant utilisé ?"
+    },
+    "1ere-tci": {
+        contexte: "Un bain de phosphatation utilisé avant peinture doit être maintenu dans une plage de pH précise : un pH trop élevé ralentit la réaction de conversion, un pH trop faible attaque excessivement le métal. Le suivi du pH fait partie du contrôle qualité de l'atelier.",
+        problematique: "Comment suivre l'évolution du pH d'un bain de phosphatation au cours de son utilisation et anticiper le moment de son renouvellement ?"
+    },
+    "1ere-trpm": {
+        contexte: "Un liquide de coupe utilisé en usinage voit son pH évoluer avec le temps : une dérive vers l'acidité favorise la prolifération bactérienne et la corrosion des pièces et de la machine. Le suivi du pH permet d'anticiper la vidange ou le rééquilibrage du bain.",
+        problematique: "Comment mesurer et interpréter l'évolution du pH d'un liquide de coupe pour décider du moment opportun de son remplacement ?"
+    },
+    "1ere-mcc": {
+        contexte: "Le blanchiment ou l'apprêt d'un tissu se réalise dans un bain dont le pH conditionne la vitesse et la qualité du traitement. Les indicateurs colorés permettent un contrôle rapide en atelier, sans attendre les résultats d'une analyse en laboratoire externe.",
+        problematique: "Comment choisir l'indicateur coloré le plus adapté pour contrôler rapidement le pH d'un bain de traitement textile en atelier ?"
+    }
+};
 
 /* ==========================================================
    DONNÉES LOCALES AU TP02 (chimie du pH, pas de la sécurité)
@@ -113,6 +146,10 @@ export function init() {
 
     initSections();
     initTabs();
+    initContextePro({
+        filieres: FILIERES_PRO,
+        contextes: CONTEXTES_PRO_TP02
+    });
     initReactifSelect();
     initMateriel({
         verreId: "materiel-verrerie",
@@ -309,6 +346,8 @@ function lancerCompteRendu() {
         date: $("date-eleve")?.value || ""
     };
 
+    const filiereChoisie = getFiliereSelectionnee();
+
     const sections = [
         {
             titre: "Réactif de sécurité consulté",
@@ -317,6 +356,15 @@ function lancerCompteRendu() {
             ]
         }
     ];
+
+    if (filiereChoisie) {
+        sections.unshift({
+            titre: "Contexte professionnel",
+            items: [
+                { label: "Filière", valeur: `${filiereChoisie.niveau} — ${filiereChoisie.filiere}` }
+            ]
+        });
+    }
 
     document.querySelectorAll(".questions-tp > li").forEach((li, index) => {
         const zone = li.querySelector("textarea");
