@@ -370,7 +370,7 @@ const laboratoryEquipment = [
     categorie: ["Indicateur", "pHmétrie"],
     description: "Papier détecteur des ions sulfure et du sulfure d'hydrogène (H₂S) par noircissement.",
     lieu: "Salle B27 / étagère D4",
-    image: "assets/img/equipments/",
+    image: "assets/img/equipments/papier_acetate_plomb.jpg",
     noticeUtilisation: "assets/notice/papier_acetate_plomb.pdf"
     },
     {
