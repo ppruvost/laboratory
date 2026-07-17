@@ -366,6 +366,33 @@ const laboratoryEquipment = [
     },
     {
     domaine: "Chimie",
+    nom: "Papier à l'acétate de plomb",
+    categorie: ["Indicateur", "pHmétrie"],
+    description: "Papier détecteur des ions sulfure et du sulfure d'hydrogène (H₂S) par noircissement.",
+    lieu: "Salle B27 / étagère D4",
+    image: "assets/img/equipments/",
+    noticeUtilisation: "assets/notice/papier_acetate_plomb.pdf"
+    },
+    {
+    domaine: "Chimie",
+    nom: "Papier phénolphtaléine",
+    categorie: ["Indicateur", "pHmétrie"],
+    description: "Papier imprégné de phénolphtaléine, incolore en milieu acide et rose en milieu basique.",
+    lieu: "Salle B27 / étagère D4",
+    image: "assets/img/equipments/papier_phenolphtaleine.jpeg",
+    noticeUtilisation: "assets/notice/papier_phenolphtaleine.pdf"
+    },
+    {
+    domaine: "Chimie",
+    nom: "Papier pH universel",
+    categorie: ["Indicateur", "pHmétrie"],
+    description: "Bandelette indicatrice permettant de mesurer le pH d'une solution par comparaison avec une échelle colorée.",
+    lieu: "Salle B27 / étagère D4",
+    image: "assets/img/equipments/papier_ph_universel.jpg",
+    noticeUtilisation: "assets/notice/papier_ph_universel.pdf"
+    },
+    {
+    domaine: "Chimie",
     nom: "Papier tournesol bleu",
     categorie: ["Indicateur", "pHmétrie"],
     description: "Papier indicateur virant au rouge en présence d'une solution acide.",
@@ -390,33 +417,6 @@ const laboratoryEquipment = [
     lieu: "Salle B27 / étagère D4",
     image: "assets/img/equipments/papier_tournesol_rouge.jpg",
     noticeUtilisation: "assets/notice/papier_tournesol_rouge.pdf"
-    },
-    {
-    domaine: "Chimie",
-    nom: "Papier phénolphtaléine",
-    categorie: ["Indicateur", "pHmétrie"],
-    description: "Papier imprégné de phénolphtaléine, incolore en milieu acide et rose en milieu basique.",
-    lieu: "Salle B27 / étagère D4",
-    image: "assets/img/equipments/papier_phenolphtaleine.jpeg",
-    noticeUtilisation: "assets/notice/papier_phenolphtaleine.pdf"
-    },
-    {
-    domaine: "Chimie",
-    nom: "Papier à l'acétate de plomb",
-    categorie: ["Indicateur", "pHmétrie"],
-    description: "Papier détecteur des ions sulfure et du sulfure d'hydrogène (H₂S) par noircissement.",
-    lieu: "Salle B27 / étagère D4",
-    image: "assets/img/equipments/papier_pH.jpg",
-    noticeUtilisation: "assets/notice/papier_acetate_plomb.pdf"
-    },
-    {
-    domaine: "Chimie",
-    nom: "Papier pH universel",
-    categorie: ["Indicateur", "pHmétrie"],
-    description: "Bandelette indicatrice permettant de mesurer le pH d'une solution par comparaison avec une échelle colorée.",
-    lieu: "Salle B27 / étagère D4",
-    image: "assets/img/equipments/papier_ph_universel.jpg",
-    noticeUtilisation: "assets/notice/papier_ph_universel.pdf"
     },    
     {
     domaine: "Chimie",
