@@ -42,42 +42,63 @@ import {
 } from "../../js/contexte-pro.js";
 
 /* ==========================================================
-   CONTEXTE PROFESSIONNEL — TP01 (Dissolution / Dilution)
+   CONTEXTE PROFESSIONNEL — TP01 (Dissolution / Dilution /
+   Identification d'ions)
    Propre à ce TP : niveaux 2nde et 1ère uniquement (cf. cadre bleu).
+   Une problématique par activité (onglet de manipulation) : le
+   rappel affiché en fin de chaque bloc de questions est sélectionné
+   automatiquement selon l'attribut data-activite du rappel
+   (cf. js/contexte-pro.js).
    ========================================================== */
 const CONTEXTES_PRO_TP01 = {
     "2nde-remi": {
-        contexte: "Avant l'assemblage de tôles par soudage, les ateliers de réalisation d'ensembles mécaniques utilisent des bains de dégraissage et de décapage pour préparer les surfaces métalliques. Ces bains sont livrés sous forme de concentrés qu'il faut diluer avec précision selon les préconisations du fabricant pour garantir leur efficacité sans gaspillage de produit.",
-        problematique: "Comment préparer, à partir d'un concentré de dégraissant industriel, un bain de traitement de surface à la concentration exacte préconisée par le fabricant ?"
+        contexte: "Avant l'assemblage de tôles par soudage, les ateliers de réalisation d'ensembles mécaniques utilisent des bains de dégraissage et de décapage pour préparer les surfaces métalliques. Ces bains sont livrés sous forme de concentrés qu'il faut diluer avec précision selon les préconisations du fabricant pour garantir leur efficacité sans gaspillage de produit. Après traitement, l'eau de rinçage doit elle aussi être contrôlée avant d'être évacuée, afin de vérifier qu'elle ne contient plus d'ions métalliques issus du bain.",
+        problematiques: {
+            "dissolution-dilution": "Comment préparer, à partir d'un concentré de dégraissant industriel, un bain de traitement de surface à la concentration exacte préconisée par le fabricant ?",
+            "identification-ions": "Comment vérifier, par des tests de précipitation, qu'une eau de rinçage ne contient plus d'ions métalliques (fer, cuivre) issus du bain de traitement de surface avant son évacuation ?"
+        }
     },
     "2nde-mcc": {
-        contexte: "Dans un atelier de confection, la teinture d'un tissu nécessite de préparer un bain à partir d'une solution mère de colorant et de sels auxiliaires. La qualité de la teinte (uniformité, tenue) dépend directement du respect de la concentration prescrite par la fiche technique du fournisseur.",
-        problematique: "Comment déterminer la masse de colorant à peser et le volume d'eau à utiliser pour obtenir un bain de teinture à la concentration voulue ?"
+        contexte: "Dans un atelier de confection, la teinture d'un tissu nécessite de préparer un bain à partir d'une solution mère de colorant et de sels auxiliaires. La qualité de la teinte (uniformité, tenue) dépend directement du respect de la concentration prescrite par la fiche technique du fournisseur. Une fois la teinture terminée, le bain usé doit être contrôlé avant son traitement, notamment pour vérifier la présence d'ions métalliques utilisés comme fixateurs de colorant.",
+        problematiques: {
+            "dissolution-dilution": "Comment déterminer la masse de colorant à peser et le volume d'eau à utiliser pour obtenir un bain de teinture à la concentration voulue ?",
+            "identification-ions": "Comment identifier, par des tests de précipitation, la présence d'ions métalliques dans un bain de teinture usagé avant son évacuation ?"
+        }
     },
     "1ere-tci": {
-        contexte: "En chaudronnerie industrielle, certaines pièces métalliques subissent un traitement de conversion chimique (phosphatation, passivation) avant peinture, afin d'améliorer l'adhérence du revêtement et la résistance à la corrosion. Ces bains doivent être préparés à une concentration précise en quantité de matière.",
-        problematique: "Comment préparer, par dissolution ou dilution, un bain de traitement de surface dont la concentration en quantité de matière est imposée par le référentiel qualité de l'entreprise ?"
+        contexte: "En chaudronnerie industrielle, certaines pièces métalliques subissent un traitement de conversion chimique (phosphatation, passivation) avant peinture, afin d'améliorer l'adhérence du revêtement et la résistance à la corrosion. Ces bains doivent être préparés à une concentration précise en quantité de matière, et l'eau de rinçage qui suit le traitement doit être contrôlée avant rejet dans le réseau d'assainissement.",
+        problematiques: {
+            "dissolution-dilution": "Comment préparer, par dissolution ou dilution, un bain de traitement de surface dont la concentration en quantité de matière est imposée par le référentiel qualité de l'entreprise ?",
+            "identification-ions": "Comment vérifier, par des tests de précipitation, la présence d'ions métalliques (fer, zinc) dans l'eau de rinçage d'un bain de phosphatation avant son rejet ?"
+        }
     },
     "1ere-trpm": {
-        contexte: "Sur un centre d'usinage, le liquide de coupe utilisé pour refroidir et lubrifier l'outil est un concentré dilué dans l'eau. Une concentration trop faible favorise la corrosion des outillages et de la pièce ; une concentration trop forte gaspille le produit et peut irriter la peau de l'opérateur.",
-        problematique: "Comment vérifier et ajuster, par dilution, la concentration du liquide de coupe utilisé sur le centre d'usinage afin de respecter la plage préconisée par le fabricant ?"
+        contexte: "Sur un centre d'usinage, le liquide de coupe utilisé pour refroidir et lubrifier l'outil est un concentré dilué dans l'eau. Une concentration trop faible favorise la corrosion des outillages et de la pièce ; une concentration trop forte gaspille le produit et peut irriter la peau de l'opérateur. La qualité de l'eau utilisée pour préparer le liquide de coupe (présence d'ions indésirables) influence elle aussi sa stabilité et sa durée de vie.",
+        problematiques: {
+            "dissolution-dilution": "Comment vérifier et ajuster, par dilution, la concentration du liquide de coupe utilisé sur le centre d'usinage afin de respecter la plage préconisée par le fabricant ?",
+            "identification-ions": "Comment identifier, par des tests de précipitation, les ions présents dans l'eau utilisée pour préparer le liquide de coupe, afin de vérifier sa compatibilité avec le concentré ?"
+        }
     },
     "1ere-mcc": {
-        contexte: "Lors du traitement d'un tissu technique (apprêt, imperméabilisation), l'atelier prépare un bain à partir d'un concentré dont la fiche technique donne la concentration en quantité de matière à respecter pour garantir la tenue du traitement dans le temps.",
-        problematique: "Comment calculer le volume de concentré à prélever et le compléter avec de l'eau pour obtenir un bain d'apprêt à la concentration en quantité de matière prescrite ?"
+        contexte: "Lors du traitement d'un tissu technique (apprêt, imperméabilisation), l'atelier prépare un bain à partir d'un concentré dont la fiche technique donne la concentration en quantité de matière à respecter pour garantir la tenue du traitement dans le temps. L'eau de rinçage issue de cette étape doit ensuite être contrôlée avant son évacuation.",
+        problematiques: {
+            "dissolution-dilution": "Comment calculer le volume de concentré à prélever et le compléter avec de l'eau pour obtenir un bain d'apprêt à la concentration en quantité de matière prescrite ?",
+            "identification-ions": "Comment vérifier, par des tests de précipitation, qu'une eau de rinçage textile ne contient plus les ions métalliques utilisés lors du traitement avant son évacuation ?"
+        }
     }
 };
 
 /* ==========================================================
    DONNEES LOCALES — identification d'ions par précipitation
-   (activité « Un stage au N.C.I.S » — tests préliminaires puis
-   analyse d'échantillons inconnus)
+   (tests préliminaires puis analyse d'échantillons inconnus,
+   dans un contexte de contrôle d'eaux de rinçage industrielles)
    ========================================================== */
 
 const REACTIFS_IONS = [
     { id: "ag", nom: "nitrate d'argent", formule: "Ag⁺ + NO₃⁻" },
     { id: "ba", nom: "chlorure de baryum", formule: "Ba²⁺ + 2 Cl⁻" },
-    { id: "oh", nom: "soude (hydroxyde de sodium)", formule: "Na⁺ + HO⁻" }
+    { id: "oh", nom: "soude (hydroxyde de sodium)", formule: "Na⁺ + HO⁻" },
+    { id: "ox", nom: "oxalate d'ammonium", formule: "2 NH₄⁺ + C₂O₄²⁻" }
 ];
 
 const IONS = [
@@ -85,7 +106,8 @@ const IONS = [
     { id: "so4", nom: "ion sulfate",      symbole: "SO₄²⁻", reactif: "ba", couleur: "blanc",  formule: "BaSO₄" },
     { id: "cu2", nom: "ion cuivre (II)",  symbole: "Cu²⁺", reactif: "oh", couleur: "bleu",   formule: "Cu(OH)₂" },
     { id: "fe2", nom: "ion fer (II)",     symbole: "Fe²⁺", reactif: "oh", couleur: "vert",   formule: "Fe(OH)₂" },
-    { id: "fe3", nom: "ion fer (III)",    symbole: "Fe³⁺", reactif: "oh", couleur: "orange", formule: "Fe(OH)₃" }
+    { id: "fe3", nom: "ion fer (III)",    symbole: "Fe³⁺", reactif: "oh", couleur: "orange", formule: "Fe(OH)₃" },
+    { id: "ca2", nom: "ion calcium (II)", symbole: "Ca²⁺", reactif: "ox", couleur: "blanc",  formule: "CaC₂O₄" }
 ];
 
 const ECHANTILLONS_IONS = [
@@ -94,8 +116,10 @@ const ECHANTILLONS_IONS = [
     { id: "s3", nom: "S₃ — chlorure de sodium",            ions: ["cl"] },
     { id: "s4", nom: "S₄ — sulfate de zinc",                ions: ["so4"] },
     { id: "s5", nom: "S₅ — sulfate de cuivre",              ions: ["cu2", "so4"] },
-    { id: "mer",      nom: "Échantillon A — eau de mer (prélèvement)",                         ions: ["cl"] },
-    { id: "poumons",  nom: "Échantillon B — eau prélevée dans les poumons de la victime",       ions: ["so4", "fe2"] }
+    { id: "s6", nom: "S₆ — chlorure de calcium",            ions: ["ca2", "cl"] },
+    { id: "eau-a",  nom: "Échantillon A — eau de rinçage en sortie de bain de traitement", ions: ["cl"] },
+    { id: "eau-b",  nom: "Échantillon B — eau prélevée en sortie d'un autre poste de traitement", ions: ["so4", "fe2"] },
+    { id: "eau-c",  nom: "Échantillon C — eau utilisée pour préparer le liquide de coupe", ions: ["ca2", "cl"] }
 ];
 
 /* ==========================================================
@@ -387,7 +411,7 @@ function calculerEcart() {
 }
 
 /* ==========================================================
-   ONGLET "Identification d'ions" (enquête N.C.I.S)
+   ONGLET "Identification d'ions" (contrôle qualité d'une eau)
    ========================================================== */
 
 function initTableauRecapIons() {
