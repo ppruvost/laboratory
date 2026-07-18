@@ -314,7 +314,7 @@ const laboratoryEquipment = [
     {
      domaine: "Chimie",
      nom: "Agitateurs magnétiques",
-     categorie: ["Dissolution", "pHmétrie"],
+     categorie: ["Dissolution", "pHmétrie", "Organique"],
      description: "Agitation des solutions",
      lieu: "Salle B27 / étagère D4",
      image:"assets/img/equipments/agitateur_magnetique.png",         
@@ -350,8 +350,8 @@ const laboratoryEquipment = [
     {
     domaine: "Chimie",
     nom: "Chauffe-ballon",
-    categorie: ["Dissolution", "pHmétrie"],
-    description: "Chauffage de solutions",
+    categorie: ["Dissolution", "pHmétrie", "Organique"],
+    description: "Chauffage de solutions, montage à reflux",
     lieu: "Salle B27 / étagère C1",
     image:"assets/img/equipments/chauffe_ballon.jpg",         
     noticeUtilisation: "assets/notice/chauffe_ballon.pdf"
@@ -457,7 +457,7 @@ const laboratoryEquipment = [
     {
     domaine: "Chimie",
     nom: "Sorbonne d'aspiration",
-    categorie: ["Dissolution", "pHmétrie"],
+    categorie: ["Dissolution", "pHmétrie", "Organique"],
     description: "Élimination sécurisée des vapeurs toxiques ou corrosives",
     lieu: "Salle B29",
     image: "",
@@ -478,7 +478,7 @@ const laboratoryEquipment = [
     {
         domaine: "Thermique",
         nom: "Thermomètre numérique",
-        categorie: ["Température", "pHmétrie"],
+        categorie: ["Température", "pHmétrie", "Organique"],
         description: "Mesure de température",
         lieu: "",
         image:"",        
@@ -591,7 +591,7 @@ const laboratoryEquipment = [
         domaine: "Sécurité",
         nom: "Blouse de laboratoire",
         description: "Protection des vêtements",
-        categorie: ["Dilution", "Dissolution", "pHmétrie"],
+        categorie: ["Dilution", "Dissolution", "pHmétrie", "Organique"],
         lieu: "Salle B27 - Paillasse E2",
         image:"assets/img/equipments/blouse.jpg",
         noticeUtilisation: "assets/notice/blouse_laboratoire.pdf"
@@ -599,7 +599,7 @@ const laboratoryEquipment = [
     {
         domaine: "Sécurité",
         nom: "Lunettes de protection",
-        categorie: ["Dilution", "Dissolution", "pHmétrie"],
+        categorie: ["Dilution", "Dissolution", "pHmétrie", "Organique"],
         description: "Protection des yeux",
         lieu: "Salle B27 - Etagère D2",
         image:"assets/img/equipments/lunette.jpg",
@@ -608,7 +608,7 @@ const laboratoryEquipment = [
     {
         domaine: "Sécurité",
         nom: "Gants de protection",
-        categorie: ["Dilution", "Dissolution", "pHmétrie"],
+        categorie: ["Dilution", "Dissolution", "pHmétrie", "Organique"],
         description: "Protection des mains",
         lieu: "Salle B27 - paillasse E1",
         image:"assets/img/equipments/gant.jpg",
