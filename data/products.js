@@ -976,7 +976,7 @@
 },
     {
      cas: "13746-66-2",
-     nom: "Potassium III hexacyanoferrate (potassium ferricyanure)",
+     nom: "potassium III hexacyanoferrate (potassium ferricyanure)",
      formule: "K₃[Fe(CN)₆]",
      categorie: "Sel",
      localisation: "Salle B27 / étagère D2",
