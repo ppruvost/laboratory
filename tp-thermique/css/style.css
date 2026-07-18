@@ -1,0 +1,381 @@
+/* ── Tokens globaux + reset ─────────────────────────────────── */
+@import url("../../css/global.css");
+
+/* ── Composants TP génériques ───────────────────────────────── */
+@import url("../../css/tp.css");
+
+
+/* ════════════════════════════════════════════════════════════════
+   OVERRIDES & EXTENSIONS PROPRES AU DOMAINE CHIMIE
+   ════════════════════════════════════════════════════════════════ */
+
+/* ── Header domaine ─────────────────────────────────────────── */
+header {
+  background: linear-gradient(135deg, #1B6CA8 0%, #0D4F8A 100%);
+  color: #fff;
+  padding:10px 20px;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, .18);
+  position: sticky;
+  top: 0;
+  z-index: 200;
+}
+
+header h1 {
+  font-family: var(--font-titre);
+  font-size:clamp(.95rem,1.8vw,1.2rem);
+  font-weight: 700;
+  line-height:1.15;
+  margin-bottom: 10px;
+}
+
+/* ── Barre de progression ───────────────────────────────────── */
+.progress {
+  height: 8px;
+  background: rgba(255, 255, 255, .3);
+  border-radius: 20px;
+  overflow: hidden;
+  margin-top: 10px;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#bar {
+  height: 100%;
+  width: 20%;
+  background: #fff;
+  border-radius: 20px;
+  transition: width .5s ease;
+}
+
+/* ── Navigation ─────────────────────────────────────────────── */
+nav {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  padding: 18px var(--gap-md);
+  flex-wrap: wrap;
+  background: #fff;
+  border-bottom: 2px solid var(--gris-clair);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+nav button {
+  background: #ffffff;
+  color: #1B6CA8;
+  border: 2px solid #1B6CA8;
+  padding: 10px 18px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-family: var(--font-titre);
+  font-weight: 600;
+  font-size: .85rem;
+  transition: all .2s;
+}
+
+nav button:hover {
+  border-color: #1B6CA8;
+  color: #1B6CA8;
+  background: #ffffff;
+}
+nav button.active {
+  background: #1B6CA8;
+  color: #ffffff;
+  border-color: #1B6CA8;
+}
+/* ── Zone de contenu principale ─────────────────────────────── */
+main#content {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: var(--gap-md);
+}
+
+/* ── Carte générique ─────────────────────────────────────────── */
+.card {
+  background: #fff;
+  padding: var(--gap-md);
+  margin-bottom: var(--gap-md);
+  border-radius: var(--r-lg);
+  box-shadow: var(--ombre-carte);
+  border: 1px solid var(--gris-clair);
+  animation: fadeIn .25s ease;
+}
+
+.card h2,
+.card h3 {
+  font-family: var(--font-titre);
+  color: var(--gris-ardoise);
+  margin-bottom: var(--gap-sm);
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* ── Formulaires ─────────────────────────────────────────────── */
+input,
+select,
+textarea {
+  padding: 9px 12px;
+  border: 1.5px solid var(--gris-clair);
+  border-radius: var(--r-sm);
+  font-family: var(--font-corps);
+  font-size: .95rem;
+  width: 100%;
+  transition: border-color .2s;
+  background: #fff;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  border-color: #1B6CA8;
+  box-shadow: 0 0 0 3px rgba(27, 108, 168, .20);
+}
+input[type="number"],
+input[type="text"],
+select {
+  max-width: 340px;
+}
+
+/* ── Boutons d'action ────────────────────────────────────────── */
+button {
+  background: #1B6CA8;
+  color: #ffffff;
+  border: none;
+  padding: 10px 18px;
+  border-radius: var(--r-sm);
+  cursor: pointer;
+  font-family: var(--font-titre);
+  font-weight: 600;
+  font-size: .9rem;
+  transition: all .2s;
+}
+
+button:hover {
+  opacity: .9;
+  transform: translateY(-1px);
+}
+
+button:disabled {
+  opacity: .45;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* ── Contrôles / groupes ─────────────────────────────────────── */
+.controls,
+.buttons,
+.presets {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  align-items: center;
+  margin: var(--gap-sm) 0;
+}
+
+
+
+/* ==========================================================
+   ÉQUIPEMENTS DE PROTECTION (EPI)
+   ========================================================== */
+
+/* ==========================================================
+   EPI
+   ========================================================== */
+
+.epi-bloc{
+    margin-top:20px;
+}
+
+.epi-container{
+    display:flex;
+    flex-wrap:wrap;
+    gap:24px;
+    justify-content:flex-start;
+    align-items:flex-start;
+    margin-top:12px;
+}
+
+.epi-item{
+    width:120px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    text-align:center;
+}
+
+.epi-item img{
+    width:100px;
+    height:100px;
+    object-fit:contain;
+    object-position:center;
+    display:block;
+}
+
+.epi-item span{
+    margin-top:10px;
+    font-size:.90rem;
+    font-weight:600;
+    line-height:1.2;
+}
+
+/* sécurité : toutes les images EPI utilisent une taille fixe */
+
+#securite-bloc .epi-item img{
+    max-width:140px;
+    max-height:140px;
+}
+
+/* ── Tableaux ────────────────────────────────────────────────── */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: var(--gap-sm) 0;
+  background: #fff;
+  font-size: .9rem;
+}
+
+th, td {
+  border: 1px solid var(--gris-clair);
+  padding: 9px 12px;
+  text-align: left;
+  vertical-align: middle;
+}
+
+th {
+  background: var(--blanc-paillasse);
+  font-family: var(--font-titre);
+  font-weight: 600;
+  font-size: .82rem;
+  text-transform: uppercase;
+  letter-spacing: .04em;
+  color: var(--gris-moyen);
+}
+
+td.saisie {
+  background: #FFF9C4;
+  border: 1px dashed #F0C040;
+  font-family: var(--font-code);
+}
+
+/* ── Résultats ───────────────────────────────────────────────── */
+.resultat {
+  background: #ffffff;
+  border: 1px solid #AED6F1;
+  border-left: 4px solid #1B6CA8;
+  border-radius: var(--r-md);
+  padding: var(--gap-md);
+  margin-top: var(--gap-sm);
+}
+
+.resultat h3 {
+  font-family: var(--font-titre);
+  font-size: .85rem;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  color: #1B6CA8;
+  margin-bottom: .5rem;
+}
+
+.resultat .valeur {
+  font-family: var(--font-code);
+  font-size: 2rem;
+  font-weight: 700;
+  color: #0D4F8A;
+}
+
+.erreur {
+  background: #fef2f2;
+  border-left: 4px solid var(--clp-rouge);
+  border-radius: 0 var(--r-md) var(--r-md) 0;
+  padding: var(--gap-sm) var(--gap-md);
+  color: var(--clp-rouge);
+  font-weight: 600;
+  margin-top: var(--gap-sm);
+}
+
+.info {
+  background: #eff6ff;
+  border-left: 4px solid var(--bleu-cuivre);
+  border-radius: 0 var(--r-md) var(--r-md) 0;
+  padding: var(--gap-sm) var(--gap-md);
+  color: var(--bleu-cuivre);
+  margin-top: var(--gap-sm);
+}
+
+.input-unite{
+    display:flex;
+    align-items:center;
+    gap:.5rem;
+}
+
+.input-unite input{
+    flex:1;
+}
+
+/* ── Pictos CLP ──────────────────────────────────────────────── */
+
+.pictos-clp{
+    display:flex;
+    flex-wrap:wrap;
+    gap:20px;
+    margin:15px 0;
+}
+
+.picto-clp{
+    width:100px;
+    height:100px;
+    object-fit:contain;
+    object-position:center;
+    display:block;
+
+    border:1px solid #d8d8d8;
+    border-radius:8px;
+    background:#fff;
+    padding:4px;
+}
+/* ── Cartes matériel ─────────────────────────────────────────── */
+.carte-materiel {
+  background: var(--blanc-paillasse);
+  border: 1px solid var(--gris-clair);
+  border-radius: var(--r-md);
+  padding: var(--gap-sm);
+  font-size: .88rem;
+  line-height: 1.5;
+}
+
+.carte-materiel strong {
+  display: block;
+  font-family: var(--font-titre);
+  color: var(--gris-ardoise);
+  margin-bottom: .2rem;
+}
+
+/* ── Canvas ──────────────────────────────────────────────────── */
+canvas {
+  width: 100%;
+  max-width: 100%;
+  display: block;
+  background: #fff;
+  border: 1px solid var(--gris-clair);
+  border-radius: var(--r-md);
+  margin-bottom: var(--gap-sm);
+}
+
+/* ── Scrollbar ───────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-thumb { background: #1B6CA8; border-radius: 10px; }
+
+/* ── Responsive ──────────────────────────────────────────────── */
+@media (max-width: 700px) {
+  nav { flex-direction: column; gap: 6px; }
+  nav button { width: 100%; }
+  main#content { padding: var(--gap-sm); }
+  .controls, .buttons, .presets { flex-direction: column; align-items: stretch; }
+  header { padding: var(--gap-md); }
+}
