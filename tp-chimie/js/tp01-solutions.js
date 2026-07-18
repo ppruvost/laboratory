@@ -69,6 +69,36 @@ const CONTEXTES_PRO_TP01 = {
 };
 
 /* ==========================================================
+   DONNEES LOCALES — identification d'ions par précipitation
+   (activité « Un stage au N.C.I.S » — tests préliminaires puis
+   analyse d'échantillons inconnus)
+   ========================================================== */
+
+const REACTIFS_IONS = [
+    { id: "ag", nom: "nitrate d'argent", formule: "Ag⁺ + NO₃⁻" },
+    { id: "ba", nom: "chlorure de baryum", formule: "Ba²⁺ + 2 Cl⁻" },
+    { id: "oh", nom: "soude (hydroxyde de sodium)", formule: "Na⁺ + HO⁻" }
+];
+
+const IONS = [
+    { id: "cl",  nom: "ion chlorure",     symbole: "Cl⁻",  reactif: "ag", couleur: "blanc",  formule: "AgCl" },
+    { id: "so4", nom: "ion sulfate",      symbole: "SO₄²⁻", reactif: "ba", couleur: "blanc",  formule: "BaSO₄" },
+    { id: "cu2", nom: "ion cuivre (II)",  symbole: "Cu²⁺", reactif: "oh", couleur: "bleu",   formule: "Cu(OH)₂" },
+    { id: "fe2", nom: "ion fer (II)",     symbole: "Fe²⁺", reactif: "oh", couleur: "vert",   formule: "Fe(OH)₂" },
+    { id: "fe3", nom: "ion fer (III)",    symbole: "Fe³⁺", reactif: "oh", couleur: "orange", formule: "Fe(OH)₃" }
+];
+
+const ECHANTILLONS_IONS = [
+    { id: "s1", nom: "S₁ — sulfate de fer (II)",           ions: ["fe2", "so4"] },
+    { id: "s2", nom: "S₂ — chlorure de fer (III)",         ions: ["fe3", "cl"] },
+    { id: "s3", nom: "S₃ — chlorure de sodium",            ions: ["cl"] },
+    { id: "s4", nom: "S₄ — sulfate de zinc",                ions: ["so4"] },
+    { id: "s5", nom: "S₅ — sulfate de cuivre",              ions: ["cu2", "so4"] },
+    { id: "mer",      nom: "Échantillon A — eau de mer (prélèvement)",                         ions: ["cl"] },
+    { id: "poumons",  nom: "Échantillon B — eau prélevée dans les poumons de la victime",       ions: ["so4", "fe2"] }
+];
+
+/* ==========================================================
    VARIABLES
    ========================================================== */
 let reactifCourant = null;
@@ -92,6 +122,7 @@ export function init() {
     initReactifSelect();
     initCalculsDissolution();
     initCalculsDilution();
+    initTabIdentificationIons();
     initMateriel({
         verreId: "materiel-verrerie",
         equipementId: "materiel-equipements",
@@ -99,6 +130,7 @@ export function init() {
         equipment: laboratoryEquipment,
         categorie: "Dissolution"
     });
+    initQuestionsParOnglet();
     initBoutonImpressionCR();
     initRadarCompetences();
     initBalanceErreurs();
@@ -355,6 +387,100 @@ function calculerEcart() {
 }
 
 /* ==========================================================
+   ONGLET "Identification d'ions" (enquête N.C.I.S)
+   ========================================================== */
+
+function initTableauRecapIons() {
+    const tbody = $("tbody-recap-ions");
+    if (!tbody) return;
+
+    tbody.innerHTML = IONS.map(ion => {
+        const reactif = REACTIFS_IONS.find(r => r.id === ion.reactif);
+        return `<tr><td>${ion.nom} (${ion.symbole})</td><td>${reactif.nom}</td><td>${ion.couleur}</td></tr>`;
+    }).join("");
+}
+
+function calculerTestIon(idEchantillon, idReactif) {
+    const echantillon = ECHANTILLONS_IONS.find(e => e.id === idEchantillon);
+    const reactif = REACTIFS_IONS.find(r => r.id === idReactif);
+    if (!echantillon || !reactif) return null;
+
+    const ionRevele = echantillon.ions
+        .map(id => IONS.find(i => i.id === id))
+        .find(ion => ion.reactif === idReactif);
+
+    return { echantillon, reactif, ionRevele };
+}
+
+function rendreTestIon(resultat) {
+    if (!resultat) return "Sélectionner un échantillon et un réactif pour prédire le résultat du test.";
+
+    const { echantillon, reactif, ionRevele } = resultat;
+
+    if (ionRevele) {
+        return `
+            <p><strong>${echantillon.nom}</strong> + réactif <strong>${reactif.nom}</strong> (${reactif.formule})</p>
+            <p>Il se forme un précipité <strong>${ionRevele.couleur}</strong> de ${ionRevele.formule}.</p>
+            <p>Ce précipité met en évidence la présence de l'ion <strong>${ionRevele.nom} (${ionRevele.symbole})</strong> dans l'échantillon.</p>
+        `;
+    }
+
+    return `
+        <p><strong>${echantillon.nom}</strong> + réactif <strong>${reactif.nom}</strong> (${reactif.formule})</p>
+        <p>Aucun précipité ne se forme.</p>
+        <p>L'échantillon ne contient donc pas l'ion normalement révélé par ce réactif.</p>
+    `;
+}
+
+function initTabIdentificationIons() {
+    initTableauRecapIons();
+
+    const selectEchantillon = $("select-echantillon-ions");
+    const selectReactif = $("select-reactif-ions");
+    const zone = $("resultat-test-ion");
+    if (!selectEchantillon || !selectReactif || !zone) return;
+
+    selectEchantillon.innerHTML = '<option value="">-- Sélectionner --</option>' +
+        ECHANTILLONS_IONS.map(e => `<option value="${e.id}">${e.nom}</option>`).join("");
+    selectReactif.innerHTML = '<option value="">-- Sélectionner --</option>' +
+        REACTIFS_IONS.map(r => `<option value="${r.id}">${r.nom} (${r.formule})</option>`).join("");
+
+    const rafraichir = () => {
+        const resultat = calculerTestIon(selectEchantillon.value, selectReactif.value);
+        zone.innerHTML = rendreTestIon(resultat);
+    };
+
+    selectEchantillon.addEventListener("change", rafraichir);
+    selectReactif.addEventListener("change", rafraichir);
+}
+
+/* ==========================================================
+   QUESTIONS DU COMPTE-RENDU
+   Un bloc de 5 questions pour l'activité dissolution/dilution,
+   un second bloc pour l'onglet identification d'ions ; seul le
+   bloc correspondant à l'onglet actif est visible et imprimé.
+   ========================================================== */
+
+function afficherQuestionsTP(idOnglet) {
+    document.querySelectorAll(".questions-bloc").forEach(bloc => {
+        const onglets = (bloc.dataset.tp || "").split(",").map(s => s.trim());
+        bloc.hidden = !onglets.includes(idOnglet);
+    });
+}
+
+function initQuestionsParOnglet() {
+    const boutons = document.querySelectorAll(".tabs-container .tab-btn");
+    if (!boutons.length) return;
+
+    boutons.forEach(btn => {
+        btn.addEventListener("click", () => afficherQuestionsTP(btn.dataset.tab));
+    });
+
+    const actif = document.querySelector(".tabs-container .tab-btn.actif") || boutons[0];
+    afficherQuestionsTP(actif.dataset.tab);
+}
+
+/* ==========================================================
    BOUTON IMPRESSION COMPTE-RENDU
    ========================================================== */
 function initBoutonImpressionCR() {
@@ -414,10 +540,27 @@ function lancerCompteRendu() {
                 { label: "Volume final V₂", valeur: `${$("v2-hcl")?.value || "—"} mL` },
                 { label: "Volume à prélever V₁", valeur: `${$("res-hcl")?.textContent?.replace("Volume à prélever : ", "") || "—"}` }
             ]
+        },
+        {
+            titre: "Test d'identification d'ion",
+            groupe: "identification-ions",
+            items: [
+                { label: "Échantillon testé", valeur: $("select-echantillon-ions")?.selectedOptions?.[0]?.textContent || "—" },
+                { label: "Réactif ajouté", valeur: $("select-reactif-ions")?.selectedOptions?.[0]?.textContent || "—" }
+            ]
         }
     );
 
-    document.querySelectorAll(".questions-tp > li").forEach((li, index) => {
+    // Seules les questions du bloc actuellement visible (onglet de
+    // manipulation actif) sont incluses dans le compte-rendu.
+    const blocActif = document.querySelector(".questions-bloc:not([hidden])");
+    const ongletsBlocActif = (blocActif?.dataset.tp || "").split(",").map(s => s.trim());
+
+    const liste = blocActif
+        ? blocActif.querySelectorAll(".questions-tp > li")
+        : document.querySelectorAll(".questions-tp > li");
+
+    liste.forEach((li, index) => {
         const zone = li.querySelector("textarea.cr-reponse, textarea[id^='question']")
                      || li.querySelector("textarea");
         if (!zone) return;
@@ -425,7 +568,9 @@ function lancerCompteRendu() {
         const titreQuestion = li.querySelector(".question-entete strong")
             ?.textContent.replace(/\s+/g, " ").trim() || `Question ${index + 1}`;
         const competence = li.querySelector(".cartouche")?.dataset.comp || "";
-        const groupe = /dilution/i.test(titreQuestion) ? "dilution" : "dissolution";
+        const groupe = ongletsBlocActif.includes("identification-ions")
+            ? "identification-ions"
+            : (/dilution/i.test(titreQuestion) ? "dilution" : "dissolution");
 
         sections.push({
             titre: titreQuestion,
@@ -451,7 +596,8 @@ function lancerCompteRendu() {
         sections,
         groupes: [
             { id: "dissolution", label: "Partie Dissolution", defaut: true },
-            { id: "dilution",    label: "Partie Dilution",    defaut: true }
+            { id: "dilution",    label: "Partie Dilution",    defaut: true },
+            { id: "identification-ions", label: "Partie Identification d'ions", defaut: true }
         ],
         identiteDefaut: identite,
         signature: false,
