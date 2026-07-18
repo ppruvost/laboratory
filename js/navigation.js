@@ -7,6 +7,7 @@
    tp-optique
    tp-electricite
    tp-mecanique
+   tp-thermique
    ========================================================== */
 
 const content =
@@ -29,7 +30,8 @@ function getCurrentDomain(){
         "tp-acoustique",
         "tp-optique",
         "tp-electricite",
-        "tp-mecanique"
+        "tp-mecanique",
+        "tp-thermique"
 
     ];
 
