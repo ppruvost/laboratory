@@ -100,6 +100,10 @@
         Identifier des situations où la maîtrise des dissolutions et des dilutions répond à un enjeu environnemental actuel (traitement des effluents, dosage raisonné des produits phytosanitaires).
       </li>
 
+      <li>
+        Identifier un ion en solution par une réaction de précipitation caractéristique, et exploiter le résultat pour interpréter une situation concrète.
+      </li>
+
     </ul>
 
   </div>
@@ -299,7 +303,7 @@
 
     <div class="picto-section">⚗️</div>
 
-    <h2>Préparation des solutions</h2>
+    <h2>Manipulations</h2>
 
     <span class="chevron">▼</span>
 
@@ -320,6 +324,10 @@
 
         <button class="tab-btn" data-tab="dilution">
           Dilution
+        </button>
+
+        <button class="tab-btn" data-tab="identification-ions">
+          Identification d'ions
         </button>
 
       </div>
@@ -506,6 +514,102 @@
                  class="mode-image">
 
         </div>
+
+      </div>
+
+
+      <!-- ============================ -->
+      <!-- IDENTIFICATION D'IONS         -->
+      <!-- ============================ -->
+
+      <div class="tab-panel" id="identification-ions">
+
+        <h3>Identification d'ions par précipitation — Un stage au N.C.I.S…</h3>
+
+        <p class="info">
+          Le corps d'un sergent de la Navy a été retrouvé dans la mer. Lors de
+          l'autopsie, le Docteur Mallard confirme une mort par noyade, mais doute
+          que la victime se soit noyée en mer : il prélève l'eau contenue dans ses
+          poumons afin de l'analyser. L'objectif est de réaliser les tests
+          permettant de savoir si l'eau des poumons de la victime est bien de l'eau
+          de mer, à l'aide de réactions de précipitation.
+        </p>
+
+        <div class="calcul-guide">
+
+          <h4>1. Tests préliminaires : tableau de reconnaissance des ions</h4>
+
+          <div class="table-responsive">
+            <table class="tableau-resultats" id="table-recap-ions">
+              <thead>
+                <tr>
+                  <th>Ion recherché</th>
+                  <th>Réactif utilisé</th>
+                  <th>Couleur du précipité</th>
+                </tr>
+              </thead>
+              <tbody id="tbody-recap-ions">
+              </tbody>
+            </table>
+          </div>
+
+          <h4 style="margin-top:var(--gap-lg);">2. Analyse d'un échantillon</h4>
+
+          <div class="form-row">
+
+            <div class="form-group">
+              <label for="select-echantillon-ions">Échantillon testé</label>
+              <select id="select-echantillon-ions">
+                <option value="">-- Sélectionner --</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="select-reactif-ions">Réactif ajouté</label>
+              <select id="select-reactif-ions">
+                <option value="">-- Sélectionner --</option>
+              </select>
+            </div>
+
+          </div>
+
+          <div id="resultat-test-ion" class="resultat-calcul">
+            Sélectionner un échantillon et un réactif pour prédire le résultat du test.
+          </div>
+
+          <p class="success">
+            🌱 Les précipités formés (notamment ceux contenant du baryum ou de
+            l'argent) ne se rejettent jamais à l'évier : ils se collectent dans le
+            bidon de déchets adapté.
+          </p>
+
+        </div>
+
+        <div id="modeIdentificationIons" class="mode-op">
+
+            <img src="./assets/images/c1-identification_ions.png"
+                 alt="Mode opératoire identification d'ions par précipitation"
+                 class="mode-image">
+
+          </div>
+
+        <h4 style="margin-top:var(--gap-lg);">Protocole — tests préliminaires (EXP1 à EXP5)</h4>
+
+        <ol class="etapes">
+          <li>Répartir dans des tubes à essai quelques mL des solutions S₁ à S₅ (une solution par tube).</li>
+          <li>Ajouter dans chaque tube quelques gouttes du réactif à tester (nitrate d'argent, chlorure de baryum ou soude), selon l'ion recherché.</li>
+          <li>Observer la formation éventuelle d'un précipité et noter sa couleur.</li>
+          <li>Compléter le tableau de reconnaissance des ions ci-dessus à partir des observations.</li>
+        </ol>
+
+        <h4 style="margin-top:var(--gap-lg);">Protocole — analyse des échantillons inconnus (EXP6 et EXP7)</h4>
+
+        <ol class="etapes">
+          <li>Répartir l'échantillon à analyser (eau de mer, puis eau des poumons) dans 3 tubes à essai distincts.</li>
+          <li>Ajouter dans le tube 1 une solution de nitrate d'argent, dans le tube 2 une solution de chlorure de baryum, dans le tube 3 une solution de soude.</li>
+          <li>Observer la formation ou l'absence de précipité dans chaque tube, et en déduire les ions présents dans l'échantillon à l'aide du tableau de reconnaissance.</li>
+          <li>Comparer les ions identifiés dans l'eau de mer et dans l'eau des poumons pour conclure sur l'origine de la noyade.</li>
+        </ol>
 
       </div>
 
@@ -903,6 +1007,8 @@
     </h3>
 
 
+    <div class="questions-bloc" data-tp="dissolution,dilution">
+
     <ol class="questions-tp">
 
 
@@ -981,6 +1087,91 @@
 
 
     </ol>
+
+    </div>
+
+    <!-- ===================================================== -->
+    <!-- IDENTIFICATION D'IONS (ENQUETE) -->
+    <!-- ===================================================== -->
+
+    <div class="questions-bloc" data-tp="identification-ions" hidden>
+
+    <ol class="questions-tp">
+
+      <li>
+        <div class="question-entete">
+          <strong>
+            Pour chacun des trois réactifs (nitrate d'argent, chlorure de
+            baryum, soude), préciser quel(s) ion(s) il permet de mettre en
+            évidence et la couleur du précipité obtenu.
+          </strong>
+          <span class="cartouche" data-comp="APP">APP</span>
+        </div>
+        <div class="zone-eleve">
+          <textarea id="ion-q1" rows="5" placeholder="Votre réponse..."></textarea>
+        </div>
+      </li>
+
+      <li>
+        <div class="question-entete">
+          <strong>
+            À l'aide de l'onglet « Identification d'ions », déterminer les
+            ions présents dans l'eau de mer, puis dans l'eau prélevée dans
+            les poumons de la victime, en indiquant pour chaque test la
+            formation ou l'absence de précipité.
+          </strong>
+          <span class="cartouche" data-comp="REA">REA</span>
+        </div>
+        <div class="zone-eleve">
+          <textarea id="ion-q2" rows="6" placeholder="Vos résultats..."></textarea>
+        </div>
+      </li>
+
+      <li>
+        <div class="question-entete">
+          <strong>
+            Comparer les ions identifiés dans l'eau de mer et dans l'eau
+            des poumons, et en déduire si la victime s'est noyée en mer.
+            Justifier la conclusion du rapport d'enquête.
+          </strong>
+          <span class="cartouche" data-comp="ANA">ANA</span>
+        </div>
+        <div class="zone-eleve">
+          <textarea id="ion-q3" rows="6" placeholder="Votre analyse..."></textarea>
+        </div>
+      </li>
+
+      <li>
+        <div class="question-entete">
+          <strong>
+            En lien avec votre filière professionnelle (voir Contexte
+            professionnel ci-dessus), citer une situation où l'identification
+            d'ions par précipitation est utilisée (contrôle d'une eau, d'un
+            effluent industriel...), et expliquer pourquoi les précipités
+            formés doivent être collectés comme déchets et non rejetés à
+            l'évier.
+          </strong>
+          <span class="cartouche" data-comp="COM">COM</span>
+        </div>
+        <div class="zone-eleve">
+          <textarea id="ion-q4" rows="5" placeholder="Votre réponse..."></textarea>
+        </div>
+      </li>
+
+      <li class="question-problematique">
+        <div class="question-entete">
+          <strong>Répondre à la problématique posée en début de TP :</strong>
+          <span class="cartouche" data-comp="VAL">VAL</span>
+        </div>
+        <p class="problematique-rappel"></p>
+        <div class="zone-eleve">
+          <textarea id="ion-q5" rows="5" placeholder="Répondre à la problématique en vous appuyant sur vos résultats expérimentaux..."></textarea>
+        </div>
+      </li>
+
+    </ol>
+
+    </div>
 
   </div>
 
