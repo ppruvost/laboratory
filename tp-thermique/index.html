@@ -2,252 +2,47 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Domaine Thermique - En construction</title>
-
-<style>
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-}
-
-body{
-    font-family:Arial,Helvetica,sans-serif;
-    background:linear-gradient(180deg,#07142b,#0d2248,#08101f);
-    color:white;
-    overflow:hidden;
-    height:100vh;
-}
-
-.container{
-    position:absolute;
-    top:50%;
-    left:50%;
-    transform:translate(-50%,-50%);
-    text-align:center;
-    z-index:10;
-}
-
-h1{
-    font-size:3em;
-    margin-bottom:20px;
-}
-
-h2{
-    color:#7ed6ff;
-    margin-bottom:15px;
-}
-
-p{
-    font-size:1.2em;
-    color:#ddd;
-}
-
-.loader{
-    margin:35px auto;
-    width:260px;
-    height:260px;
-    position:relative;
-}
-
-.nucleus{
-    width:30px;
-    height:30px;
-    background:#ffd54f;
-    border-radius:50%;
-    position:absolute;
-    top:50%;
-    left:50%;
-    transform:translate(-50%,-50%);
-    box-shadow:0 0 25px #ffd54f;
-}
-
-.orbit{
-    position:absolute;
-    top:50%;
-    left:50%;
-    border:2px solid rgba(255,255,255,0.2);
-    border-radius:50%;
-    transform-style:preserve-3d;
-}
-
-.orbit1{
-    width:180px;
-    height:180px;
-    margin-left:-90px;
-    margin-top:-90px;
-    animation:spin 4s linear infinite;
-}
-
-.orbit2{
-    width:140px;
-    height:140px;
-    margin-left:-70px;
-    margin-top:-70px;
-    transform:rotateX(70deg);
-    animation:spin2 3s linear infinite reverse;
-}
-
-.orbit3{
-    width:220px;
-    height:220px;
-    margin-left:-110px;
-    margin-top:-110px;
-    transform:rotateY(70deg);
-    animation:spin3 5s linear infinite;
-}
-
-.electron{
-    width:12px;
-    height:12px;
-    background:#00e5ff;
-    border-radius:50%;
-    position:absolute;
-    top:-6px;
-    left:50%;
-    margin-left:-6px;
-    box-shadow:0 0 15px #00e5ff;
-}
-
-@keyframes spin{
-    from{transform:rotate(0deg);}
-    to{transform:rotate(360deg);}
-}
-
-@keyframes spin2{
-    from{transform:rotateX(70deg) rotate(360deg);}
-    to{transform:rotateX(70deg) rotate(0deg);}
-}
-
-@keyframes spin3{
-    from{transform:rotateY(70deg) rotate(0deg);}
-    to{transform:rotateY(70deg) rotate(360deg);}
-}
-
-.star{
-    position:absolute;
-    background:white;
-    border-radius:50%;
-    animation:twinkle 3s infinite;
-}
-
-@keyframes twinkle{
-    0%,100%{
-        opacity:.2;
-        transform:scale(0.8);
-    }
-    50%{
-        opacity:1;
-        transform:scale(1.4);
-    }
-}
-
-.progress{
-    margin:30px auto;
-    width:280px;
-    height:14px;
-    background:#1b3159;
-    border-radius:30px;
-    overflow:hidden;
-}
-
-.bar{
-    width:40%;
-    height:100%;
-    background:linear-gradient(90deg,#00d4ff,#3aff84);
-    animation:loading 2s ease-in-out infinite alternate;
-}
-
-@keyframes loading{
-    from{
-        width:25%;
-    }
-    to{
-        width:85%;
-    }
-}
-
-.footer{
-    position:absolute;
-    bottom:20px;
-    width:100%;
-    text-align:center;
-    color:#9db6d8;
-    font-size:14px;
-}
-</style>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>TP Thermique</title>
+<link rel="stylesheet" href="css/style.css">
 </head>
-
 <body>
-
-<div id="stars"></div>
-
-<div class="container">
-
-    <div class="loader">
-
-        <div class="orbit orbit1">
-            <div class="electron"></div>
-        </div>
-
-        <div class="orbit orbit2">
-            <div class="electron"></div>
-        </div>
-
-        <div class="orbit orbit3">
-            <div class="electron"></div>
-        </div>
-
-        <div class="nucleus"></div>
-
-    </div>
-
-    <h1>⚛ Domaine Thermique</h1>
-
-    <h2>🚧 Site en cours de construction 🚧</h2>
-
-    <p>
-        Nos expériences sont en cours...
-        <br><br>
-        Les électrons tournent déjà, le reste arrive très bientôt !
-    </p>
-
-    <div class="progress">
-        <div class="bar"></div>
-    </div>
-
+<header>
+<h1>
+    <span>TP Thermique :</span>
+    <span>Comment caractériser les échanges d'énergie sous forme thermique ?</span>
+    <span>Comment utiliser et contrôler les transferts thermiques ?</span>
+</h1>
+<div class="progress">
+    <div id="bar"></div>
 </div>
+</header>
+<nav>
+<button data-module="tp01-capteurs-temperature">
+T1. Capteurs de température
+</button>
 
-<div class="footer">
-© 2026 — SciLab — Merci de votre patience.
+<button data-module="tp02-equilibre-thermique">
+T2. Équilibre thermique
+</button>
+
+<button data-module="tp03-changement-etat">
+T3. Changement d'état
+</button>
+
+<button data-module="tp04-combustion">
+T4. Combustion
+</button>
+
+<button data-module="tp05-transferts-thermiques">
+T5. Transferts thermiques
+</button>
+</nav>
+<main id="content">
+<div class="card">
+Chargement...
 </div>
-
-<script>
-
-const stars=document.getElementById("stars");
-
-for(let i=0;i<180;i++){
-
-    const s=document.createElement("div");
-
-    s.className="star";
-
-    const size=Math.random()*3+1;
-
-    s.style.width=size+"px";
-    s.style.height=size+"px";
-
-    s.style.left=Math.random()*100+"vw";
-    s.style.top=Math.random()*100+"vh";
-
-    s.style.animationDelay=(Math.random()*3)+"s";
-
-    stars.appendChild(s);
-
-}
-
-</script>
-
+</main>
+<script type="module" src="../js/navigation.js"></script>
 </body>
 </html>
