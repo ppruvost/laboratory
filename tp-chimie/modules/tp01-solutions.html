@@ -451,6 +451,169 @@
 
         </div>
 
+        <!-- ====================================================== -->
+<!-- ANALYSE DES ERREURS DE PESÉE                            -->
+<!-- ====================================================== -->
+
+<div class="section" data-type="erreurs-pesee">
+
+  <div class="section-titre">
+    <div class="picto-section">⚖️</div>
+    <h2>Analyse des erreurs de pesée</h2>
+    <span class="chevron">▼</span>
+  </div>
+
+
+  <div class="section-corps">
+
+
+    <div class="info">
+
+      Toute mesure expérimentale possède une incertitude.
+      Comparer la masse mesurée à la masse théorique permet
+      d'évaluer la qualité de la préparation.
+
+    </div>
+
+
+    <div class="form-group">
+
+      <label for="pe-masse-theo">
+        Masse théorique attendue (g)
+      </label>
+
+      <input id="pe-masse-theo"
+             type="number"
+             step="0.001"
+             min="0"
+             placeholder="Ex : 2.940">
+
+    </div>
+
+
+    <div class="balances-grid">
+
+
+      <!-- Balance 0,1 g -->
+
+      <div class="balance-card">
+
+        <div class="balance-card-header">
+
+          <div class="balance-icon">⚖️</div>
+
+          <div>
+            <div class="balance-card-title">Balance précision</div>
+            <div class="balance-resolution">Résolution : 0,1 g</div>
+          </div>
+
+          <span class="balance-incert-badge">± 0,05 g</span>
+
+        </div>
+
+
+        <div class="balance-card-body">
+
+          <label for="pe-lue-01">Masse mesurée (g)</label>
+
+          <input id="pe-lue-01" type="number" step="0.1" min="0">
+
+          <div id="res-01" class="balance-results">
+            Saisir les valeurs.
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- Balance 1 g -->
+
+      <div class="balance-card">
+
+        <div class="balance-card-header">
+
+          <div class="balance-icon">⚖️</div>
+
+          <div>
+            <div class="balance-card-title">Balance courante</div>
+            <div class="balance-resolution">Résolution : 1 g</div>
+          </div>
+
+          <span class="balance-incert-badge">± 0,5 g</span>
+
+        </div>
+
+
+        <div class="balance-card-body">
+
+          <label for="pe-lue-1g">Masse mesurée (g)</label>
+
+          <input id="pe-lue-1g" type="number" step="1" min="0">
+
+          <div id="res-1g" class="balance-results">
+            Saisir les valeurs.
+          </div>
+
+        </div>
+
+      </div>
+
+
+    </div>
+
+
+      <div id="synthese-balances" class="balance-synthese hidden">
+
+            <h3>Comparaison des instruments</h3>
+
+              <table class="tableau-resultats">
+
+                <thead>
+                  <tr>
+                    <th>Critère</th>
+                    <th>Balance 0,1 g</th>
+                    <th>Balance 1 g</th>
+                  </tr>
+                </thead>
+
+                <tbody>
+
+                  <tr>
+                    <td>Masse lue</td>
+                    <td id="syn-lue-01"></td>
+                    <td id="syn-lue-1g"></td>
+                  </tr>
+
+                  <tr>
+                    <td>Erreur absolue</td>
+                    <td id="syn-abs-01"></td>
+                    <td id="syn-abs-1g"></td>
+                  </tr>
+
+                  <tr>
+                    <td>Erreur relative</td>
+                    <td id="syn-rel-01"></td>
+                    <td id="syn-rel-1g"></td>
+                  </tr>
+
+                  <tr>
+                    <td>Qualité</td>
+                    <td id="syn-qual-01"></td>
+                    <td id="syn-qual-1g"></td>
+                  </tr>
+
+                </tbody>
+
+              </table>
+
+            </div>
+
+
+          </div>
+
+        </div>
+
       </div>
 
 
@@ -662,168 +825,7 @@
 </div>
 
 
-<!-- ====================================================== -->
-<!-- ANALYSE DES ERREURS DE PESÉE                            -->
-<!-- ====================================================== -->
 
-<div class="section" data-type="erreurs-pesee">
-
-  <div class="section-titre">
-    <div class="picto-section">⚖️</div>
-    <h2>Analyse des erreurs de pesée</h2>
-    <span class="chevron">▼</span>
-  </div>
-
-
-  <div class="section-corps">
-
-
-    <div class="info">
-
-      Toute mesure expérimentale possède une incertitude.
-      Comparer la masse mesurée à la masse théorique permet
-      d'évaluer la qualité de la préparation.
-
-    </div>
-
-
-    <div class="form-group">
-
-      <label for="pe-masse-theo">
-        Masse théorique attendue (g)
-      </label>
-
-      <input id="pe-masse-theo"
-             type="number"
-             step="0.001"
-             min="0"
-             placeholder="Ex : 2.940">
-
-    </div>
-
-
-    <div class="balances-grid">
-
-
-      <!-- Balance 0,1 g -->
-
-      <div class="balance-card">
-
-        <div class="balance-card-header">
-
-          <div class="balance-icon">⚖️</div>
-
-          <div>
-            <div class="balance-card-title">Balance précision</div>
-            <div class="balance-resolution">Résolution : 0,1 g</div>
-          </div>
-
-          <span class="balance-incert-badge">± 0,05 g</span>
-
-        </div>
-
-
-        <div class="balance-card-body">
-
-          <label for="pe-lue-01">Masse mesurée (g)</label>
-
-          <input id="pe-lue-01" type="number" step="0.1" min="0">
-
-          <div id="res-01" class="balance-results">
-            Saisir les valeurs.
-          </div>
-
-        </div>
-
-      </div>
-
-
-      <!-- Balance 1 g -->
-
-      <div class="balance-card">
-
-        <div class="balance-card-header">
-
-          <div class="balance-icon">⚖️</div>
-
-          <div>
-            <div class="balance-card-title">Balance courante</div>
-            <div class="balance-resolution">Résolution : 1 g</div>
-          </div>
-
-          <span class="balance-incert-badge">± 0,5 g</span>
-
-        </div>
-
-
-        <div class="balance-card-body">
-
-          <label for="pe-lue-1g">Masse mesurée (g)</label>
-
-          <input id="pe-lue-1g" type="number" step="1" min="0">
-
-          <div id="res-1g" class="balance-results">
-            Saisir les valeurs.
-          </div>
-
-        </div>
-
-      </div>
-
-
-    </div>
-
-
-    <div id="synthese-balances" class="balance-synthese hidden">
-
-      <h3>Comparaison des instruments</h3>
-
-      <table class="tableau-resultats">
-
-        <thead>
-          <tr>
-            <th>Critère</th>
-            <th>Balance 0,1 g</th>
-            <th>Balance 1 g</th>
-          </tr>
-        </thead>
-
-        <tbody>
-
-          <tr>
-            <td>Masse lue</td>
-            <td id="syn-lue-01"></td>
-            <td id="syn-lue-1g"></td>
-          </tr>
-
-          <tr>
-            <td>Erreur absolue</td>
-            <td id="syn-abs-01"></td>
-            <td id="syn-abs-1g"></td>
-          </tr>
-
-          <tr>
-            <td>Erreur relative</td>
-            <td id="syn-rel-01"></td>
-            <td id="syn-rel-1g"></td>
-          </tr>
-
-          <tr>
-            <td>Qualité</td>
-            <td id="syn-qual-01"></td>
-            <td id="syn-qual-1g"></td>
-          </tr>
-
-        </tbody>
-
-      </table>
-
-    </div>
-
-
-  </div>
-
-</div>
 
 
 <!-- ====================================================== -->
