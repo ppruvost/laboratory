@@ -1,78 +1,1204 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>TP 05 — Chimie organique</title>
-<link rel="stylesheet" href="../css/global.css">
-<link rel="stylesheet" href="../css/tp.css">
-</head>
-<body>
-
-<h1>TP 05 — Chimie organique</h1>
-
-<div id="securite-bloc"></div>
+<!--
+  Fragment SPA chargé dynamiquement par navigation.js.
+  Tous les chemins sont relatifs à la racine du site.
+  Aucun <script> dans ce fragment.
+-->
 
 <section>
-<h2>Fonctions organiques</h2>
-<div id="cartes-fonctions"></div>
+
+<!-- ====================================================== -->
+<!-- EN-TÊTE                                                -->
+<!-- ====================================================== -->
+
+<header class="tp-header">
+
+  <div class="tp-header-logo">
+    <div class="logo">
+      <span class="sci">Sci</span><span class="Lab">Lab</span>
+    </div>
+  </div>
+
+  <div class="tp-header-centre">
+
+    <h1>Chimie organique — Estérification, hydrolyse et groupes caractéristiques</h1>
+
+    <div class="tp-meta">
+
+      <div class="tp-row">
+        <span class="tag">Tle</span>
+        <span class="tag">Chimie</span>
+        <span class="tag">Chimie organique</span>
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="tp-header-numero">
+    <span class="tp-numero-txt">TP05</span>
+  </div>
+
+</header>
+
+<div class="progress">
+  <div id="bar"></div>
+</div>
+
+<main id="content">
+
+<!-- ====================================================== -->
+<!-- CAPACITES                                               -->
+<!-- ====================================================== -->
+
+<div class="section" data-type="objectif">
+
+  <div class="section-titre">
+    <div class="picto-section">🎯</div>
+    <h2>Capacités évaluées</h2>
+    <span class="chevron">▼</span>
+  </div>
+
+  <div class="section-corps">
+
+    <ul>
+
+      <li>
+        Identifier le groupe caractéristique et la famille d'une molécule organique (alcool, aldéhyde, cétone, acide carboxylique, ester).
+      </li>
+
+      <li>
+        Écrire l'équation de la réaction d'estérification entre un acide carboxylique et un alcool, et nommer l'ester formé.
+      </li>
+
+      <li>
+        Reconnaître le caractère lent, limité et athermique de l'estérification, et le rôle d'un catalyseur et du chauffage à reflux.
+      </li>
+
+      <li>
+        Écrire l'équation de la réaction d'hydrolyse basique (saponification) d'un ester et en identifier les produits.
+      </li>
+
+      <li>
+        Prévoir le produit obtenu par oxydation ménagée d'un alcool primaire ou secondaire, selon la classe de l'alcool et la quantité d'oxydant utilisée.
+      </li>
+
+      <li>
+        Mettre en œuvre un test caractéristique (réactif de Fehling) pour distinguer un aldéhyde d'une cétone.
+      </li>
+
+      <li>
+        Reconnaître et nommer le matériel et la verrerie de laboratoire employés lors des manipulations, y compris le montage à reflux.
+      </li>
+
+      <li>
+        Identifier un pictogramme sur l'étiquette d'un produit chimique de laboratoire ou d'usage domestique.
+      </li>
+
+      <li>
+        Utiliser de façon raisonnée les équipements de protection individuelle adaptés à la situation expérimentale en chimie organique (hotte, gants, lunettes).
+      </li>
+
+      <li>
+        Adopter une démarche respectueuse de l'environnement : limiter les volumes de solvants et de réactifs organiques utilisés, et les collecter dans les bidons de déchets appropriés.
+      </li>
+
+      <li>
+        Identifier des situations où la chimie organique répond à un enjeu environnemental actuel (esters biodégradables, solvants d'origine biosourcée).
+      </li>
+
+    </ul>
+
+  </div>
+
+</div>
+
+<!-- ====================================================== -->
+<!-- CONTEXTE PROFESSIONNEL                                  -->
+<!-- ====================================================== -->
+
+<div class="section" data-type="contexte-pro">
+
+  <div class="section-titre">
+    <div class="picto-section">🏭</div>
+    <h2>Contexte professionnel</h2>
+    <span class="chevron">▼</span>
+  </div>
+
+  <div class="section-corps">
+
+    <div class="filiere-select-bloc">
+      <label for="select-filiere-pro">Votre filière professionnelle :</label>
+      <select id="select-filiere-pro">
+        <option value="">-- Sélectionner une filière --</option>
+      </select>
+    </div>
+
+    <div id="contexte-pro-resultat" class="contexte-pro-resultat">
+      <p>Sélectionner votre filière professionnelle pour afficher le contexte et la problématique associée.</p>
+    </div>
+
+  </div>
+
+</div>
+
+<!-- ====================================================== -->
+<!-- SECURITE - PRODUITS UTILISES                           -->
+<!-- ====================================================== -->
+
+<div class="section" data-type="securite">
+
+  <div class="section-titre">
+    <div class="picto-section">⚠️</div>
+    <h2>Sécurité - Produits utilisés</h2>
+    <span class="chevron">▼</span>
+  </div>
+
+  <div class="section-corps">
+
+    <div class="filtre-reactifs">
+
+      <span class="filtre-titre">
+        <strong>Afficher :</strong>
+      </span>
+
+      <label>
+        <input type="checkbox" class="filtre-cat" value="Liquide" checked>
+        Liquides
+      </label>
+
+      <label>
+        <input type="checkbox" class="filtre-cat" value="Sel" checked>
+        Sels
+      </label>
+
+      <label>
+        <input type="checkbox" class="filtre-cat" value="Solide" checked>
+        Solides
+      </label>
+
+      <label>
+        <input type="checkbox" class="filtre-cat" value="Indicateur" checked>
+        Indicateurs
+      </label>
+
+      <label>
+        <input type="checkbox" class="filtre-cat" value="Colorant" checked>
+        Colorants
+      </label>
+
+      <label>
+        <input type="checkbox" class="filtre-cat" value="Métal" checked>
+        Métaux
+      </label>
+
+      <label>
+        <input type="checkbox" class="filtre-cat" value="Solvant" checked>
+        Solvants
+      </label>
+
+      <label>
+        <input type="checkbox" class="filtre-cat" value="Halogène" checked>
+        Halogènes
+      </label>
+
+    </div>
+
+    <div class="form-group">
+
+      <label for="reactif">
+        Choisir un réactif :
+      </label>
+
+      <select id="reactif">
+        <option value="">-- Sélectionner --</option>
+      </select>
+
+    </div>
+
+    <div id="securite-bloc">
+      <div class="info">
+        Sélectionner un réactif.
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<!-- ====================================================== -->
+<!-- MATERIEL                                                -->
+<!-- ====================================================== -->
+
+<div class="section" data-type="materiel">
+
+  <div class="section-titre">
+    <div class="picto-section">🧪</div>
+    <h2>Matériel nécessaire</h2>
+    <span class="chevron">▼</span>
+  </div>
+
+  <div class="section-corps">
+
+    <h3>Verrerie</h3>
+
+    <div id="materiel-verrerie" class="grille-materiel">
+    </div>
+
+    <hr>
+
+    <h3>Équipements</h3>
+
+    <div id="materiel-equipements" class="grille-materiel">
+    </div>
+
+  </div>
+
+</div>
+
+<!-- ====================================================== -->
+<!-- MANIPULATIONS — un onglet par expérience               -->
+<!-- ====================================================== -->
+
+<div class="section" data-type="preparation">
+
+  <div class="section-titre">
+    <div class="picto-section">⚗️</div>
+    <h2>Manipulations</h2>
+    <span class="chevron">▼</span>
+  </div>
+
+  <div class="section-corps">
+
+    <div class="tabs-container">
+
+      <div class="tabs-header">
+        <button class="tab-btn actif" data-tab="esterification">Synthèse d'un ester</button>
+        <button class="tab-btn" data-tab="hydrolyse-basique">Hydrolyse basique</button>
+        <button class="tab-btn" data-tab="oxydation-alcool">Oxydation d'un alcool</button>
+        <button class="tab-btn" data-tab="test-fehling">Test de Fehling</button>
+        <button class="tab-btn" data-tab="groupes-caracteristiques">Groupes caractéristiques</button>
+      </div>
+
+      <!-- ============================ -->
+      <!-- SYNTHESE D'UN ESTER          -->
+      <!-- ============================ -->
+
+      <div class="tab-panel actif" id="esterification">
+
+        <h3>Synthèse d'un ester par estérification directe</h3>
+
+        <p class="info">
+          Un acide carboxylique et un alcool, chauffés à reflux en présence d'un
+          catalyseur acide, réagissent lentement pour former un ester et de l'eau.
+          La réaction est limitée : elle n'est jamais totale, quel que soit le temps
+          de chauffage.
+        </p>
+
+        <div class="calcul-guide">
+
+          <div class="form-row">
+
+            <div class="form-group">
+              <label for="select-acide-esterification">Acide carboxylique</label>
+              <select id="select-acide-esterification">
+                <option value="">-- Sélectionner --</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="select-alcool-esterification">Alcool</label>
+              <select id="select-alcool-esterification">
+                <option value="">-- Sélectionner --</option>
+              </select>
+            </div>
+
+          </div>
+
+          <div id="resultat-esterification" class="resultat-calcul">
+            Sélectionner un acide et un alcool pour prédire l'ester formé.
+          </div>
+
+        </div>
+
+        <div id="mode_esterification" class="mode-op">
+
+            <img src="./assets/images/c5-esterification.png"
+                 alt="Mode opératoire estérification"
+                 class="mode-image">
+
+          </div>
+
+        <h3>Protocole expérimental</h3>
+          <h4 style="margin-top:var(--gap-lg);">Synthèse d'un ester par chauffage à reflux</h4>
+
+          <ol class="etapes">
+            <li>Introduire dans un ballon l'acide carboxylique et l'alcool choisis, en quantités équimolaires.</li>
+            <li>Ajouter avec précaution quelques gouttes d'acide sulfurique concentré (catalyseur), sous la hotte.</li>
+            <li>Ajouter quelques grains de pierre ponce pour réguler l'ébullition, puis monter le réfrigérant à boules sur le ballon.</li>
+            <li>Chauffer à reflux (température modérée) pendant une vingtaine de minutes à l'aide du chauffe-ballon.</li>
+            <li>Laisser refroidir, verser le mélange dans un bécher d'eau glacée, puis identifier l'ester formé par son odeur caractéristique.</li>
+            <li><span class="attention">⚠️ Travailler sous la hotte : l'acide sulfurique concentré est corrosif et certains alcools sont inflammables.</span></li>
+          </ol>
+
+      </div>
+
+      <!-- ============================ -->
+      <!-- HYDROLYSE BASIQUE            -->
+      <!-- ============================ -->
+
+      <div class="tab-panel" id="hydrolyse-basique">
+
+        <h3>Hydrolyse basique d'un ester (saponification)</h3>
+
+        <p class="info">
+          À l'inverse de l'estérification, l'action d'une solution concentrée
+          d'hydroxyde de sodium sur un ester est une réaction totale et exothermique :
+          elle régénère l'alcool et forme le carboxylate de sodium correspondant.
+        </p>
+
+        <div class="calcul-guide">
+
+          <div class="form-row">
+
+            <div class="form-group">
+              <label for="select-acide-hydrolyse">Acide carboxylique (constituant l'ester)</label>
+              <select id="select-acide-hydrolyse">
+                <option value="">-- Sélectionner --</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="select-alcool-hydrolyse">Alcool (constituant l'ester)</label>
+              <select id="select-alcool-hydrolyse">
+                <option value="">-- Sélectionner --</option>
+              </select>
+            </div>
+
+          </div>
+
+          <div id="resultat-hydrolyse" class="resultat-calcul">
+            Sélectionner un acide et un alcool pour reconstituer l'ester puis prédire les produits de son hydrolyse basique.
+          </div>
+
+        </div>
+
+        <div id="mode_hydrolyse" class="mode-op">
+
+            <img src="./assets/images/c5-hydrolyse_basique.png"
+                 alt="Mode opératoire hydrolyse basique"
+                 class="mode-image">
+
+          </div>
+
+        <h3>Protocole expérimental</h3>
+          <h4 style="margin-top:var(--gap-lg);">Hydrolyse basique d'un ester</h4>
+
+          <ol class="etapes">
+            <li>Introduire dans un ballon l'ester synthétisé précédemment (ou fourni) et une solution concentrée d'hydroxyde de sodium.</li>
+            <li>Monter le réfrigérant à boules et chauffer à reflux quelques minutes.</li>
+            <li>Observer la disparition progressive de l'odeur caractéristique de l'ester.</li>
+            <li>Laisser refroidir : l'alcool régénéré peut être séparé par décantation ou distillation selon sa solubilité.</li>
+          </ol>
+
+      </div>
+
+      <!-- ============================ -->
+      <!-- OXYDATION D'UN ALCOOL        -->
+      <!-- ============================ -->
+
+      <div class="tab-panel" id="oxydation-alcool">
+
+        <h3>Oxydation ménagée d'un alcool</h3>
+
+        <p class="info">
+          Le produit obtenu par oxydation ménagée d'un alcool dépend de sa classe
+          (primaire, secondaire ou tertiaire) et, pour un alcool primaire, de la
+          quantité d'oxydant utilisée.
+        </p>
+
+        <div class="calcul-guide">
+
+          <div class="form-row">
+
+            <div class="form-group">
+              <label for="select-alcool-oxydation">Alcool à oxyder</label>
+              <select id="select-alcool-oxydation">
+                <option value="">-- Sélectionner --</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="select-quantite-oxydant">Quantité d'oxydant (permanganate de potassium)</label>
+              <select id="select-quantite-oxydant">
+                <option value="defaut">Oxydant en défaut (distillation immédiate)</option>
+                <option value="exces">Oxydant en excès (chauffage à reflux prolongé)</option>
+              </select>
+            </div>
+
+          </div>
+
+          <div id="resultat-oxydation" class="resultat-calcul">
+            Sélectionner un alcool pour prédire le produit de son oxydation ménagée.
+          </div>
+
+        </div>
+
+        <div id="mode_oxydation" class="mode-op">
+
+            <img src="./assets/images/c5-oxydation_alcool.png"
+                 alt="Mode opératoire oxydation d'un alcool"
+                 class="mode-image">
+
+          </div>
+
+        <h3>Protocole expérimental</h3>
+          <h4 style="margin-top:var(--gap-lg);">Oxydation ménagée d'un alcool par le permanganate de potassium</h4>
+
+          <ol class="etapes">
+            <li>Introduire l'alcool à étudier dans un ballon, ajouter quelques gouttes d'acide sulfurique dilué.</li>
+            <li>Ajouter progressivement la solution de permanganate de potassium acidifiée.</li>
+            <li>Pour une oxydation limitée (alcool primaire), distiller immédiatement le produit formé au fur et à mesure.</li>
+            <li>Pour une oxydation complète, chauffer à reflux prolongé avec un excès d'oxydant.</li>
+            <li>Observer la décoloration progressive de la solution de permanganate, initialement violette.</li>
+          </ol>
+
+      </div>
+
+      <!-- ============================ -->
+      <!-- TEST DE FEHLING              -->
+      <!-- ============================ -->
+
+      <div class="tab-panel" id="test-fehling">
+
+        <h3>Test caractéristique au réactif de Fehling</h3>
+
+        <p class="info">
+          La liqueur de Fehling, bleue, permet de distinguer un aldéhyde d'une
+          cétone : seul l'aldéhyde la réduit à chaud, avec formation d'un
+          précipité rouge brique d'oxyde de cuivre (I).
+        </p>
+
+        <div class="calcul-guide">
+
+          <div class="form-group">
+            <label for="select-compose-fehling">Composé à tester</label>
+            <select id="select-compose-fehling">
+              <option value="">-- Sélectionner --</option>
+            </select>
+          </div>
+
+          <div id="resultat-fehling" class="resultat-calcul">
+            Sélectionner un composé à tester au réactif de Fehling.
+          </div>
+
+        </div>
+
+        <div id="mode_fehling" class="mode-op">
+
+            <img src="./assets/images/c5-test_fehling.png"
+                 alt="Mode opératoire test de Fehling"
+                 class="mode-image">
+
+          </div>
+
+        <h3>Protocole expérimental</h3>
+          <h4 style="margin-top:var(--gap-lg);">Test au réactif de Fehling</h4>
+
+          <ol class="etapes">
+            <li>Verser dans un tube à essai le composé à tester, puis ajouter un volume équivalent de réactif de Fehling A + B (bleu).</li>
+            <li>Placer le tube au bain-marie bouillant pendant quelques minutes.</li>
+            <li>Observer l'apparition éventuelle d'un précipité rouge brique (oxyde de cuivre (I)) au fond du tube.</li>
+            <li>Comparer avec un tube témoin ne contenant que le réactif de Fehling.</li>
+          </ol>
+
+      </div>
+
+      <!-- ============================ -->
+      <!-- GROUPES CARACTERISTIQUES     -->
+      <!-- ============================ -->
+
+      <div class="tab-panel" id="groupes-caracteristiques">
+
+        <h3>Groupes caractéristiques et familles organiques</h3>
+
+        <p class="info">
+          Le groupe caractéristique d'une molécule organique détermine sa famille
+          chimique et ses propriétés réactionnelles.
+        </p>
+
+        <div class="table-responsive">
+          <table class="tableau-resultats" id="table-groupes-caracteristiques">
+            <thead>
+              <tr>
+                <th>Famille</th>
+                <th>Groupe caractéristique</th>
+                <th>Exemple</th>
+              </tr>
+            </thead>
+            <tbody id="tbody-groupes-caracteristiques">
+            </tbody>
+          </table>
+        </div>
+
+        <h3>Protocole expérimental</h3>
+          <h4 style="margin-top:var(--gap-lg);">Identification d'un groupe caractéristique inconnu</h4>
+
+          <ol class="etapes">
+            <li>Observer l'écriture topologique ou la formule semi-développée de la molécule à identifier.</li>
+            <li>Repérer le groupe caractéristique présent et le comparer au tableau de repère ci-dessus.</li>
+            <li>En déduire la famille chimique de la molécule et, le cas échéant, la réaction chimique susceptible de l'identifier expérimentalement (test de Fehling, oxydation, estérification...).</li>
+          </ol>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+<!-- ====================================================== -->
+<!-- TABLEAU DE RESULTATS                                    -->
+<!-- ====================================================== -->
+
+<div class="section" data-type="resultats">
+
+  <div class="section-titre">
+    <div class="picto-section">📊</div>
+    <h2>Tableau de résultats</h2>
+    <span class="chevron">▼</span>
+  </div>
+
+  <div class="section-corps">
+
+    <div class="table-responsive">
+
+      <table class="tableau-resultats">
+
+        <thead>
+          <tr>
+            <th>Expérience</th>
+            <th>Observation</th>
+            <th>Interprétation</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr><td>Synthèse de l'ester</td><td class="saisie" contenteditable="true"></td><td class="saisie" contenteditable="true"></td></tr>
+          <tr><td>Hydrolyse basique</td><td class="saisie" contenteditable="true"></td><td class="saisie" contenteditable="true"></td></tr>
+          <tr><td>Oxydation de l'alcool</td><td class="saisie" contenteditable="true"></td><td class="saisie" contenteditable="true"></td></tr>
+          <tr><td>Test de Fehling</td><td class="saisie" contenteditable="true"></td><td class="saisie" contenteditable="true"></td></tr>
+        </tbody>
+
+      </table>
+
+    </div>
+
+    <p class="info" style="margin-top:var(--gap-md);">
+      Le nom et la formule de l'ester attendu peuvent être obtenus avec l'onglet
+      « Synthèse d'un ester » de la section Manipulations, en sélectionnant l'acide
+      et l'alcool correspondants.
+    </p>
+
+  </div>
+
+</div>
+
+<!-- ====================================================== -->
+<!-- FIN DU COEUR SPECIFIQUE TP                              -->
+<!-- ====================================================== -->
+
+<!-- ====================================================== -->
+<!-- CHIMIE ET ENVIRONNEMENT                                -->
+<!-- ====================================================== -->
+
+<div class="section" data-type="environnement">
+
+  <div class="section-titre">
+    <div class="picto-section">🌱</div>
+    <h2>Chimie et environnement</h2>
+    <span class="chevron">▼</span>
+  </div>
+
+  <div class="section-corps">
+
+    <h3>Bonnes pratiques au laboratoire</h3>
+
+    <ul style="padding-left:1.5rem;line-height:2">
+      <li>Travailler avec des quantités réduites de réactifs (échelle semi-microscopique) : les rendements en chimie organique sont souvent faibles, inutile de préparer de grands volumes.</li>
+      <li>Ne jamais rejeter un solvant ou un composé organique à l'évier : les collecter dans le bidon de déchets organiques prévu, en séparant si besoin les phases aqueuse et organique.</li>
+      <li>Travailler sous la hotte pour toute manipulation impliquant des vapeurs de solvants ou d'alcools inflammables.</li>
+      <li>Réutiliser la verrerie de distillation et de reflux d'une séance à l'autre après nettoyage plutôt que d'en changer.</li>
+      <li>Limiter le volume de réactif de Fehling préparé au strict nécessaire pour les tubes à tester.</li>
+    </ul>
+
+    <h3 style="margin-top:var(--gap-md);">La chimie organique au service des enjeux actuels</h3>
+
+    <p>
+      La synthèse et la transformation de molécules organiques comme les esters
+      sont au cœur de plusieurs réponses apportées par l'industrie aux enjeux
+      environnementaux actuels.
+    </p>
+
+    <ul style="padding-left:1.5rem;line-height:2">
+      <li><strong>Lubrifiants biodégradables :</strong> certains esters de synthèse remplacent des huiles minérales d'origine pétrolière dans les lubrifiants industriels, avec une biodégradabilité nettement supérieure.</li>
+      <li><strong>Biocarburants :</strong> les esters méthyliques d'acides gras (biodiesel), obtenus par estérification d'huiles végétales, constituent une alternative partielle aux carburants fossiles.</li>
+      <li><strong>Arômes et parfums biosourcés :</strong> de nombreux esters naturels (arômes de fruits) peuvent être synthétisés ou extraits de sources végétales, limitant le recours à des molécules de synthèse pétrochimiques.</li>
+      <li><strong>Traitement des solvants usagés :</strong> la récupération et le recyclage des solvants organiques utilisés en laboratoire ou en industrie limitent leur rejet dans l'environnement et leur impact sur la qualité de l'air et de l'eau.</li>
+    </ul>
+
+  </div>
+
+</div>
+
+
+<!-- ===================================================== -->
+<!-- SYNTHESE D'UN ESTER -->
+<!-- ===================================================== -->
+
+<div class="questions-bloc" data-tp="esterification">
+
+<h4>Synthèse d'un ester</h4>
+
+<ol class="questions-tp">
+
+<li>
+<div class="question-entete">
+<strong>Écrire l'équation générale de la réaction d'estérification, puis l'équation correspondant à l'acide et à l'alcool choisis dans l'onglet « Synthèse d'un ester ». Nommer l'ester formé.</strong>
+<span class="cartouche" data-comp="APP">APP</span>
+</div>
+<div class="zone-eleve">
+<textarea id="ester-q1" rows="5"></textarea>
+</div>
+</li>
+
+<li>
+<div class="question-entete">
+<strong>Décrire le rôle du catalyseur (acide sulfurique concentré), du chauffage à reflux et de la pierre ponce dans le protocole suivi.</strong>
+<span class="cartouche" data-comp="REA">REA</span>
+</div>
+<div class="zone-eleve">
+<textarea id="ester-q2" rows="4"></textarea>
+</div>
+</li>
+
+<li>
+<div class="question-entete">
+<strong>Expliquer pourquoi la réaction d'estérification est qualifiée de lente et de limitée, et justifier l'identification de l'ester obtenu à partir de son odeur caractéristique.</strong>
+<span class="cartouche" data-comp="ANA">ANA</span>
+</div>
+<div class="zone-eleve">
+<textarea id="ester-q3" rows="5"></textarea>
+</div>
+</li>
+
+<li>
+<div class="question-entete">
+<strong>En lien avec votre filière professionnelle (voir Contexte professionnel ci-dessus), citer un exemple d'utilisation industrielle des esters et expliquer en quoi travailler à petite échelle et récupérer les produits organiques limite l'impact environnemental de leur synthèse.</strong>
+<span class="cartouche" data-comp="COM">COM</span>
+</div>
+<div class="zone-eleve">
+<textarea id="ester-q4" rows="5"></textarea>
+</div>
+</li>
+
+<li class="question-problematique">
+<div class="question-entete">
+<strong>Répondre à la problématique posée en début de TP :</strong>
+<span class="cartouche" data-comp="VAL">VAL</span>
+</div>
+<p class="problematique-rappel"></p>
+<div class="zone-eleve">
+<textarea id="ester-q5" rows="5" placeholder="Répondre à la problématique en vous appuyant sur vos résultats expérimentaux..."></textarea>
+</div>
+</li>
+
+</ol>
+
+</div>
+
+<!-- ===================================================== -->
+<!-- HYDROLYSE BASIQUE -->
+<!-- ===================================================== -->
+
+<div class="questions-bloc" data-tp="hydrolyse-basique" hidden>
+
+<h4>Hydrolyse basique</h4>
+
+<ol class="questions-tp">
+
+<li>
+<div class="question-entete">
+<strong>Écrire l'équation de la réaction d'hydrolyse basique de l'ester étudié et nommer les produits obtenus.</strong>
+<span class="cartouche" data-comp="APP">APP</span>
+</div>
+<div class="zone-eleve">
+<textarea id="hydro-q1" rows="5"></textarea>
+</div>
+</li>
+
+<li>
+<div class="question-entete">
+<strong>Décrire les observations expérimentales (évolution de l'odeur, chauffage du mélange) au cours de l'hydrolyse basique.</strong>
+<span class="cartouche" data-comp="REA">REA</span>
+</div>
+<div class="zone-eleve">
+<textarea id="hydro-q2" rows="4"></textarea>
+</div>
+</li>
+
+<li>
+<div class="question-entete">
+<strong>Comparer les caractères total/limité et exothermique/athermique de l'hydrolyse basique et de l'estérification. Expliquer pourquoi ces deux réactions ne sont pas de simples réactions inverses l'une de l'autre en pratique.</strong>
+<span class="cartouche" data-comp="ANA">ANA</span>
+</div>
+<div class="zone-eleve">
+<textarea id="hydro-q3" rows="5"></textarea>
+</div>
+</li>
+
+<li>
+<div class="question-entete">
+<strong>En lien avec votre filière professionnelle (voir Contexte professionnel ci-dessus), expliquer pourquoi la saponification (hydrolyse basique d'un corps gras) est utilisée pour fabriquer des savons, et en quoi ce procédé peut être plus respectueux de l'environnement que certains procédés de synthèse chimique.</strong>
+<span class="cartouche" data-comp="COM">COM</span>
+</div>
+<div class="zone-eleve">
+<textarea id="hydro-q4" rows="5"></textarea>
+</div>
+</li>
+
+<li class="question-problematique">
+<div class="question-entete">
+<strong>Répondre à la problématique posée en début de TP :</strong>
+<span class="cartouche" data-comp="VAL">VAL</span>
+</div>
+<p class="problematique-rappel"></p>
+<div class="zone-eleve">
+<textarea id="hydro-q5" rows="5" placeholder="Répondre à la problématique en vous appuyant sur vos résultats expérimentaux..."></textarea>
+</div>
+</li>
+
+</ol>
+
+</div>
+
+<!-- ===================================================== -->
+<!-- OXYDATION D'UN ALCOOL -->
+<!-- ===================================================== -->
+
+<div class="questions-bloc" data-tp="oxydation-alcool" hidden>
+
+<h4>Oxydation d'un alcool</h4>
+
+<ol class="questions-tp">
+
+<li>
+<div class="question-entete">
+<strong>Identifier la classe (primaire, secondaire ou tertiaire) de l'alcool étudié et justifier votre réponse à partir de sa formule.</strong>
+<span class="cartouche" data-comp="APP">APP</span>
+</div>
+<div class="zone-eleve">
+<textarea id="oxy-q1" rows="4"></textarea>
+</div>
+</li>
+
+<li>
+<div class="question-entete">
+<strong>Décrire les observations expérimentales (couleur de la solution de permanganate) au cours de l'oxydation, avec un oxydant en défaut puis en excès.</strong>
+<span class="cartouche" data-comp="REA">REA</span>
+</div>
+<div class="zone-eleve">
+<textarea id="oxy-q2" rows="4"></textarea>
+</div>
+</li>
+
+<li>
+<div class="question-entete">
+<strong>Nommer et écrire la formule du ou des produits obtenus par oxydation ménagée de l'alcool étudié, et expliquer pourquoi un alcool tertiaire ne peut pas être oxydé de la même manière.</strong>
+<span class="cartouche" data-comp="ANA">ANA</span>
+</div>
+<div class="zone-eleve">
+<textarea id="oxy-q3" rows="5"></textarea>
+</div>
+</li>
+
+<li>
+<div class="question-entete">
+<strong>En lien avec votre filière professionnelle (voir Contexte professionnel ci-dessus), citer une situation professionnelle où l'oxydation ou la présence d'alcools et de solvants organiques présente un risque, et expliquer pourquoi limiter les quantités d'oxydant utilisées est une bonne pratique environnementale.</strong>
+<span class="cartouche" data-comp="COM">COM</span>
+</div>
+<div class="zone-eleve">
+<textarea id="oxy-q4" rows="5"></textarea>
+</div>
+</li>
+
+<li class="question-problematique">
+<div class="question-entete">
+<strong>Répondre à la problématique posée en début de TP :</strong>
+<span class="cartouche" data-comp="VAL">VAL</span>
+</div>
+<p class="problematique-rappel"></p>
+<div class="zone-eleve">
+<textarea id="oxy-q5" rows="5" placeholder="Répondre à la problématique en vous appuyant sur vos résultats expérimentaux..."></textarea>
+</div>
+</li>
+
+</ol>
+
+</div>
+
+<!-- ===================================================== -->
+<!-- TEST DE FEHLING -->
+<!-- ===================================================== -->
+
+<div class="questions-bloc" data-tp="test-fehling" hidden>
+
+<h4>Test de Fehling</h4>
+
+<ol class="questions-tp">
+
+<li>
+<div class="question-entete">
+<strong>Décrire le principe du test au réactif de Fehling et le résultat attendu pour un aldéhyde et pour une cétone.</strong>
+<span class="cartouche" data-comp="APP">APP</span>
+</div>
+<div class="zone-eleve">
+<textarea id="feh-q1" rows="4"></textarea>
+</div>
+</li>
+
+<li>
+<div class="question-entete">
+<strong>Décrire les observations réalisées pour le composé testé (couleur, présence ou absence de précipité).</strong>
+<span class="cartouche" data-comp="REA">REA</span>
+</div>
+<div class="zone-eleve">
+<textarea id="feh-q2" rows="4"></textarea>
+</div>
+</li>
+
+<li>
+<div class="question-entete">
+<strong>Le résultat obtenu est-il cohérent avec la famille chimique du composé testé ? Justifier, et expliquer pourquoi ce test permet de distinguer un aldéhyde d'une cétone.</strong>
+<span class="cartouche" data-comp="ANA">ANA</span>
+</div>
+<div class="zone-eleve">
+<textarea id="feh-q3" rows="5"></textarea>
+</div>
+</li>
+
+<li>
+<div class="question-entete">
+<strong>En lien avec votre filière professionnelle (voir Contexte professionnel ci-dessus), expliquer pourquoi limiter le volume de réactif de Fehling préparé au strict nécessaire pour les tests est une bonne pratique environnementale.</strong>
+<span class="cartouche" data-comp="COM">COM</span>
+</div>
+<div class="zone-eleve">
+<textarea id="feh-q4" rows="4"></textarea>
+</div>
+</li>
+
+<li class="question-problematique">
+<div class="question-entete">
+<strong>Répondre à la problématique posée en début de TP :</strong>
+<span class="cartouche" data-comp="VAL">VAL</span>
+</div>
+<p class="problematique-rappel"></p>
+<div class="zone-eleve">
+<textarea id="feh-q5" rows="5" placeholder="Répondre à la problématique en vous appuyant sur vos résultats expérimentaux..."></textarea>
+</div>
+</li>
+
+</ol>
+
+</div>
+
+<!-- ===================================================== -->
+<!-- GROUPES CARACTERISTIQUES -->
+<!-- ===================================================== -->
+
+<div class="questions-bloc" data-tp="groupes-caracteristiques" hidden>
+
+<h4>Groupes caractéristiques</h4>
+
+<ol class="questions-tp">
+
+<li>
+<div class="question-entete">
+<strong>Définir ce qu'est un groupe caractéristique et citer les cinq familles organiques étudiées dans ce TP ainsi que leur groupe caractéristique associé.</strong>
+<span class="cartouche" data-comp="APP">APP</span>
+</div>
+<div class="zone-eleve">
+<textarea id="grp-q1" rows="5"></textarea>
+</div>
+</li>
+
+<li>
+<div class="question-entete">
+<strong>À partir du tableau de repère, identifier la famille chimique de deux ou trois molécules organiques proposées par votre professeur (formule ou nom fourni).</strong>
+<span class="cartouche" data-comp="REA">REA</span>
+</div>
+<div class="zone-eleve">
+<textarea id="grp-q2" rows="5"></textarea>
+</div>
+</li>
+
+<li>
+<div class="question-entete">
+<strong>Expliquer comment relier les différentes familles organiques étudiées entre elles à l'aide des réactions vues dans ce TP (estérification, hydrolyse basique, oxydation des alcools).</strong>
+<span class="cartouche" data-comp="ANA">ANA</span>
+</div>
+<div class="zone-eleve">
+<textarea id="grp-q3" rows="5"></textarea>
+</div>
+</li>
+
+<li>
+<div class="question-entete">
+<strong>En lien avec votre filière professionnelle (voir Contexte professionnel ci-dessus), citer une famille organique rencontrée dans votre futur métier (solvant, lubrifiant, colorant...) et expliquer l'intérêt environnemental de connaître sa famille chimique pour l'utiliser ou la traiter correctement.</strong>
+<span class="cartouche" data-comp="COM">COM</span>
+</div>
+<div class="zone-eleve">
+<textarea id="grp-q4" rows="5"></textarea>
+</div>
+</li>
+
+<li class="question-problematique">
+<div class="question-entete">
+<strong>Répondre à la problématique posée en début de TP :</strong>
+<span class="cartouche" data-comp="VAL">VAL</span>
+</div>
+<p class="problematique-rappel"></p>
+<div class="zone-eleve">
+<textarea id="grp-q5" rows="5" placeholder="Répondre à la problématique en vous appuyant sur vos résultats expérimentaux..."></textarea>
+</div>
+</li>
+
+</ol>
+
+</div>
+
+<!-- ====================================================== -->
+<!-- TRACE ECRITE - COMPTE RENDU                            -->
+<!-- ====================================================== -->
+
+<div class="section" data-type="bilan">
+
+  <div class="section-titre">
+    <div class="picto-section">📝</div>
+    <h2>Trace écrite - Compte rendu</h2>
+    <span class="chevron">▼</span>
+  </div>
+
+  <div class="section-corps">
+
+    <h3>Identification</h3>
+
+    <div class="form-row">
+
+      <div class="form-group">
+        <label for="nom-eleve">Nom</label>
+        <input id="nom-eleve" type="text" placeholder="Nom">
+      </div>
+
+      <div class="form-group">
+        <label for="prenom-eleve">Prénom</label>
+        <input id="prenom-eleve" type="text" placeholder="Prénom">
+      </div>
+
+      <div class="form-group">
+        <label for="classe-eleve">Classe</label>
+        <input id="classe-eleve" type="text" placeholder="Classe">
+      </div>
+
+      <div class="form-group">
+        <label for="date-eleve">Date</label>
+        <input id="date-eleve" type="date">
+      </div>
+
+    </div>
+
+    <h3 style="margin-top:var(--gap-md);">Résumé du TP</h3>
+
+    <div class="zone-eleve">
+      <textarea id="resume-tp" rows="6" placeholder="Résumer le déroulement des manipulations, les observations et les résultats obtenus..."></textarea>
+    </div>
+
+    <h3 style="margin-top:var(--gap-md);">Questions</h3>
+
+    <p class="info">
+      Les questions correspondent à l'onglet actif dans « Manipulations » ci-dessus :
+      sélectionner l'onglet concerné avant de répondre.
+    </p>
+
+  </div>
+
+</div>
+
+<!-- =============================================== -->
+    <!-- IMPRESSION COMPTE RENDU                         -->
+    <!-- =============================================== -->
+
+  <div class="section" data-type="impression_tp">
+
+  <div class="section-titre">
+    <div class="picto-section">📒</div>
+    <h2>Impression du compte-rendu</h2>
+    <span class="chevron">▼</span>
+  </div>
+
+
+  <div class="section-corps">
+
+    <p class="info">
+      À la fin du TP, Imprimer votre TP en PDF.
+       Envoyer à l'enseignant votre Compte rendu en pièce jointe par la messagerie de l'ENT.
+    </p>    
+
+    <div class="toolbar">
+
+      <button id="btn-imprimer" class="btn btn-primaire">
+        🖨 Imprimer le compte-rendu
+      </button>
+
+    </div>
+
+    <div class="info" style="margin-top:var(--gap-md);">
+
+      L'impression récupère automatiquement :
+
+      <ul>
+        <li>l'acide et l'alcool sélectionnés, et l'ester correspondant ;</li>
+        <li>les résultats du tableau ;</li>
+        <li>les réponses aux questions, ainsi que le rappel de la problématique ;</li>
+        <li>l'auto-évaluation des compétences.</li>
+      </ul>
+
+    </div>
+
+
+  </div>
+
+</div>   
+
+<!-- ====================================================== -->
+<!-- AUTO-ÉVALUATION  (trame commune)                        -->
+<!-- ====================================================== -->
+
+<div class="section" data-type="auto-evaluation">
+
+  <div class="section-titre">
+    <div class="picto-section">📡</div>
+    <h2>Auto-évaluation des compétences</h2>
+    <span class="chevron">▼</span>
+  </div>
+
+  <div class="section-corps">
+
+    <p class="info">
+      À la fin du TP, évaluez votre niveau de maîtrise pour chaque compétence.
+    </p>
+
+    <div class="table-responsive">
+
+      <table class="tableau-resultats autoeval-table">
+
+        <thead>
+          <tr>
+            <th>Domaine</th>
+            <th>Sigle</th>
+            <th>Je suis capable de...</th>
+            <th>0</th>
+            <th>1</th>
+            <th>2</th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          <tr data-comp="APP">
+            <td>S'approprier</td>
+            <td>APP</td>
+            <td>Identifier un groupe caractéristique et la famille organique associée.</td>
+            <td><input type="radio" name="APP" value="0"></td>
+            <td><input type="radio" name="APP" value="1"></td>
+            <td><input type="radio" name="APP" value="2"></td>
+          </tr>
+
+          <tr data-comp="ANA">
+            <td>Analyser / Raisonner</td>
+            <td>ANA</td>
+            <td>Prévoir le produit d'une estérification, d'une hydrolyse ou d'une oxydation ménagée.</td>
+            <td><input type="radio" name="ANA" value="0"></td>
+            <td><input type="radio" name="ANA" value="1"></td>
+            <td><input type="radio" name="ANA" value="2"></td>
+          </tr>
+
+          <tr data-comp="REA">
+            <td>Réaliser</td>
+            <td>REA</td>
+            <td>Réaliser un montage à reflux et mettre en œuvre un test caractéristique.</td>
+            <td><input type="radio" name="REA" value="0"></td>
+            <td><input type="radio" name="REA" value="1"></td>
+            <td><input type="radio" name="REA" value="2"></td>
+          </tr>
+
+          <tr data-comp="VAL">
+            <td>Valider</td>
+            <td>VAL</td>
+            <td>Vérifier la cohérence des observations avec la famille chimique attendue.</td>
+            <td><input type="radio" name="VAL" value="0"></td>
+            <td><input type="radio" name="VAL" value="1"></td>
+            <td><input type="radio" name="VAL" value="2"></td>
+          </tr>
+
+          <tr data-comp="COM">
+            <td>Communiquer</td>
+            <td>COM</td>
+            <td>Présenter les résultats avec un vocabulaire scientifique adapté.</td>
+            <td><input type="radio" name="COM" value="0"></td>
+            <td><input type="radio" name="COM" value="1"></td>
+            <td><input type="radio" name="COM" value="2"></td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+    <div class="radar-actions" style="margin-top:var(--gap-lg);">
+      <button id="btn-radar" class="btn btn-primaire">📊 Générer mon radar de compétences</button>
+      <div id="radar-resultat" style="margin-top:var(--gap-md);"></div>
+    </div>
+
+  </div>
+
+</div>
+
+<!-- ====================================================== -->
+<!-- NAVIGATION                                              -->
+<!-- ====================================================== -->
+
+<div class="nav-tp">
+
+  <button class="btn btn-secondaire"
+          onclick="loadTP('tp04-oxydoreduction')">
+      ← TP04
+  </button>
+
+  <button class="btn btn-secondaire"
+          onclick="location.href='../index.html'">
+      🏠 Accueil
+  </button>
+
+</div>
+
+</main>
+
+<!-- ====================================================== -->
+<!-- CONTENEUR IMPRESSION COMPTE RENDU                       -->
+<!-- ====================================================== -->
+
+<div id="cr-print-container" style="display:none;"></div>
+
 </section>
-
-<section>
-<h2>Test de Fehling interactif</h2>
-<select id="sel-fehling"></select>
-<button id="btn-fehling">🧪 Ajouter le réactif de Fehling</button>
-<div id="tube-fehling" style="height:120px;background:#1B6CA8;border-radius:10px;margin:1rem 0"></div>
-<div id="res-fehling"></div>
-</section>
-
-<section>
-<h2>Calculateur d'estérification</h2>
-<form id="form-ester-calc">
-<p><label>Volume acide <input id="v-acide" type="number" value="10"></label></p>
-<p><label>Densité acide <input id="d-acide" type="number" step="0.01" value="1.05"></label></p>
-<p><label>Masse molaire acide <input id="m-acide" type="number" step="0.01" value="60.05"></label></p>
-
-<p><label>Volume alcool <input id="v-alcool" type="number" value="10"></label></p>
-<p><label>Densité alcool <input id="d-alcool" type="number" step="0.01" value="0.81"></label></p>
-<p><label>Masse molaire alcool <input id="m-alcool" type="number" step="0.01" value="88.15"></label></p>
-
-<p><label>Masse molaire ester <input id="m-ester" type="number" step="0.01" value="130.19"></label></p>
-</form>
-
-<div id="res-calc-ester"></div>
-</section>
-
-<section>
-<h2>Calcul du rendement</h2>
-<p><label>Masse théorique <input id="m-ester-theo" type="number" step="0.001"></label></p>
-<p><label>Masse expérimentale <input id="m-ester-exp" type="number" step="0.001"></label></p>
-<div id="res-rendement"></div>
-</section>
-
-<section>
-<h2>Chromatographie CCM</h2>
-<canvas id="canvas-ccm" style="width:100%;max-width:700px;border:1px solid #ccc"></canvas>
-<p><button id="btn-eluer">▶ Lancer l'élution</button></p>
-</section>
-
-<section>
-<h2>Quiz des fonctions organiques</h2>
-<button id="btn-quiz-fonctions">Nouvelle question</button>
-<button id="btn-quiz-fonctions-reset">Réinitialiser</button>
-<p>Score : <span id="qf-score">0</span> / <span id="qf-total">0</span></p>
-<div id="quiz-fonctions-zone"></div>
-</section>
-
-<section>
-<h2>Esters et odeurs</h2>
-<div id="galerie-esters"></div>
-</section>
-
-<script type="module">
-import { init } from '../js/tp05-chimie-organique.js';
-document.addEventListener('DOMContentLoaded', init);
-</script>
-
-</body>
-</html>
