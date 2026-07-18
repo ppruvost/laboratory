@@ -34,16 +34,37 @@ function detecterNiveauxPresents() {
     return niveaux;
 }
 
+// Libellés d'activité utilisés uniquement pour l'affichage du bloc
+// "Contexte professionnel" lorsqu'un TP fournit plusieurs problématiques
+// (une par onglet de manipulation) via `data.problematiques`.
+const LIBELLES_ACTIVITE = {
+    "dissolution-dilution": "Dissolution / Dilution",
+    "identification-ions": "Identification d'ions"
+};
+
 function rendreContexte(data) {
     if (!data) {
         return "<p>Sélectionner votre filière professionnelle pour afficher le contexte et la problématique associée.</p>";
     }
+
+    let blocProblematiques;
+
+    if (data.problematiques && typeof data.problematiques === "object") {
+        const entrees = Object.entries(data.problematiques);
+        const plusieurs = entrees.length > 1;
+        blocProblematiques = entrees.map(([activite, texte]) => `
+      <h3>Problématique${plusieurs ? ` — ${LIBELLES_ACTIVITE[activite] || activite}` : ""}</h3>
+      <p class="problematique-txt" data-activite="${activite}">${texte}</p>`).join("");
+    } else {
+        blocProblematiques = `
+      <h3>Problématique</h3>
+      <p class="problematique-txt">${data.problematique}</p>`;
+    }
+
     return `
     <div class="contexte-pro-bloc">
       <h3>Contexte professionnel</h3>
-      <p>${data.contexte}</p>
-      <h3>Problématique</h3>
-      <p class="problematique-txt">${data.problematique}</p>
+      <p>${data.contexte}</p>${blocProblematiques}
     </div>`;
 }
 
@@ -52,13 +73,34 @@ function rendreContexte(data) {
  * du TP (dernière question de chaque bloc « questions-tp »), sans que
  * l'élève ait à retourner consulter le Contexte professionnel.
  * Cible tout élément portant la classe .problematique-rappel.
+ *
+ * Si le TP fournit plusieurs problématiques (`data.problematiques`, une par
+ * activité), chaque rappel doit porter un attribut `data-activite` pour
+ * recevoir la problématique qui lui correspond (ex : le rappel du bloc de
+ * questions « identification-ions » porte `data-activite="identification-ions"`).
+ * Un rappel sans cet attribut reçoit la problématique unique `data.problematique`
+ * (comportement historique, inchangé pour les TP à une seule activité).
  */
 function rendreRappelsProblematique(data) {
-    const texte = data
-        ? data.problematique
-        : "Sélectionner votre filière professionnelle dans la section « Contexte professionnel » ci-dessus pour afficher ici la problématique.";
+    const placeholder = "Sélectionner votre filière professionnelle dans la section « Contexte professionnel » ci-dessus pour afficher ici la problématique.";
+
     document.querySelectorAll(".problematique-rappel").forEach(el => {
-        el.textContent = texte;
+        if (!data) {
+            el.textContent = placeholder;
+            return;
+        }
+
+        const activite = el.dataset.activite;
+
+        if (activite && data.problematiques && data.problematiques[activite]) {
+            el.textContent = data.problematiques[activite];
+        } else if (typeof data.problematique === "string") {
+            el.textContent = data.problematique;
+        } else if (data.problematiques) {
+            el.textContent = Object.values(data.problematiques)[0];
+        } else {
+            el.textContent = placeholder;
+        }
     });
 }
 
