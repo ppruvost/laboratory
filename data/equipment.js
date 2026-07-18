@@ -367,7 +367,7 @@ const laboratoryEquipment = [
     {
     domaine: "Chimie",
     nom: "Papier à l'acétate de plomb",
-    categorie: ["Indicateur", "pHmétrie"],
+    categorie: ["Indicateur"],
     description: "Papier détecteur des ions sulfure et du sulfure d'hydrogène (H₂S) par noircissement.",
     lieu: "Salle B27 / étagère D4",
     image: "assets/img/equipments/papier_acetate_plomb.jpg",
