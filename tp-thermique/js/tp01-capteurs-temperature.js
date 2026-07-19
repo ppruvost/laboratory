@@ -11,10 +11,11 @@
  *    d'entrée DOIT donc s'appeler init(), pas initTP01()
  */
 
-import { $, arrondir, initCommun } from '../../js/utils.js';
+import { $, arrondir, initSections, initTabs, initModesOperatoires } from '../../js/utils.js';
 import { initContextePro } from '../../js/contexte-pro.js';
 import FILIERES_PRO from '../../data/filieres.js';
 import { initRadarCompetences } from '../../js/radar.js';
+import { initImpressionCompteRendu } from './compte-rendu-thermique.js';
 
 // Contexte professionnel par filière (clé "niveau-idFiliere")
 const CONTEXTES_PRO = {
@@ -40,18 +41,28 @@ export function init() {
   initPt100();
   initThermocouple();
   initIRCristaux();
+  initTableauEcarts();
 
   initContextePro({
     filieres: FILIERES_PRO,
     contextes: CONTEXTES_PRO,
   });
 
-  // Onglets, accordéons de section et bouton d'impression (#btn-imprimer)
-  // : sans cet appel, ces éléments restent inertes malgré leur CSS.
-  initCommun();
+  // Onglets et accordéons de section : sans cet appel, ces éléments
+  // restent inertes malgré leur CSS.
+  initSections();
+  initTabs();
+  initModesOperatoires();
 
   // Génération du radar au clic sur #btn-radar
   initRadarCompetences();
+
+  // Vrai système d'impression (modales identité + génération PDF),
+  // au lieu d'un simple window.print() de la page vivante.
+  initImpressionCompteRendu({
+    titre: 'Mesurer et caractériser une température',
+    tp: 'TP01',
+  });
 }
 
 // =================================================================
@@ -271,4 +282,41 @@ function initIRCristaux() {
 
   inputIR.addEventListener('input', calculer);
   inputContact.addEventListener('input', calculer);
+}
+
+// =================================================================
+// Tableau de résultats — calcul automatique de l'écart
+// (référence vs mesurée) pour les 4 capteurs comparés
+// =================================================================
+const CAPTEURS_TABLEAU = ['thermistance', 'pt100', 'thermocouple', 'infrarouge'];
+
+function initTableauEcarts() {
+
+  CAPTEURS_TABLEAU.forEach(capteur => {
+
+    const inputRef = $(`ref-${capteur}`);
+    const inputMesuree = $(`mesuree-${capteur}`);
+    const outputEcart = $(`ecart-${capteur}`);
+
+    if (!inputRef || !inputMesuree || !outputEcart) return;
+
+    function calculer() {
+
+      const ref = parseFloat(inputRef.value);
+      const mesuree = parseFloat(inputMesuree.value);
+
+      if (Number.isNaN(ref) || Number.isNaN(mesuree)) {
+        outputEcart.textContent = '—';
+        return;
+      }
+
+      const ecart = mesuree - ref;
+      const signe = ecart >= 0 ? '+' : '';
+
+      outputEcart.textContent = `${signe}${arrondir(ecart, 2)} °C`;
+    }
+
+    inputRef.addEventListener('input', calculer);
+    inputMesuree.addEventListener('input', calculer);
+  });
 }
