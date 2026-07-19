@@ -4,6 +4,10 @@
 /* ── Composants TP génériques ───────────────────────────────── */
 @import url("../../css/tp.css");
 
+/* ── Impression de la page TP (masque nav/boutons pendant
+   l'impression du compte-rendu, cf. js/compte-rendu.js) ──────── */
+@import url("../../css/print.css");
+
 
 /* ════════════════════════════════════════════════════════════════
    OVERRIDES & EXTENSIONS PROPRES AU DOMAINE THERMIQUE
@@ -438,6 +442,19 @@ td.saisie {
   background: rgba(193, 68, 14, .12);
   color: #C1440E;
   border-color: #C1440E;
+}
+
+/* ── Boutons radio de l'auto-évaluation ── bleus par défaut du
+   navigateur (accent-color hérité), à aligner sur le domaine. */
+.autoeval-table input[type="radio"] {
+  accent-color: #C1440E;
+}
+
+/* ── Rappel de problématique (bloc italique en fin de TP) ──
+   tp.css le colore en bleu par défaut (.problematique-rappel). */
+.problematique-rappel {
+  background: #FFF4ED;
+  border-left-color: #C1440E;
 }
 
 /* ── Pictos CLP ──────────────────────────────────────────────── */
