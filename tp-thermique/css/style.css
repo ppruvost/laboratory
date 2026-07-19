@@ -480,6 +480,13 @@ canvas {
   margin-bottom: var(--gap-sm);
 }
 
+/* ── Couleur cartouche ───────────────────────────────────────────────── */
+.cartouche {
+  background: rgba(193, 68, 14, .12);
+  color: #C1440E;
+  border-color: #C1440E;
+}
+
 /* ── Scrollbar ───────────────────────────────────────────────── */
 ::-webkit-scrollbar { width: 8px; }
 ::-webkit-scrollbar-thumb { background: #C1440E; border-radius: 10px; }
