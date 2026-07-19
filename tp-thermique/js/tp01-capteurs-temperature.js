@@ -7,19 +7,16 @@
  *
  * Convention SciLab :
  *  - le fragment HTML est la référence fixe, ce fichier s'adapte à lui
- *  - aucune donnée en dur qui devrait vivre dans /data/ (aucune ici)
- *  - le radar de compétences (#btn-radar) et l'impression (#btn-imprimer)
- *    sont gérés par les modules mutualisés radar.js / compte-rendu.js,
- *    on ne les ré-implémente pas ici
+ *  - navigation.js exécute module.init() après l'import : le point
+ *    d'entrée DOIT donc s'appeler init(), pas initTP01()
  */
 
-import { formatNombre } from '../../js/utils.js';
+import { $, arrondir } from '../../js/utils.js';
 
 // ---------------------------------------------------------------
-// Point d'entrée, appelé par navigation.js après le chargement du
-// fragment (cf. le pattern initTP03() déjà en place côté chimie)
+// Point d'entrée, appelé automatiquement par navigation.js
 // ---------------------------------------------------------------
-export function initTP01() {
+export function init() {
   initEchelles();
   initThermistance();
   initPt100();
@@ -33,8 +30,8 @@ export function initTP01() {
 // =================================================================
 function initEchelles() {
 
-  const inputC = document.getElementById('temp-celsius');
-  const inputK = document.getElementById('temp-kelvin');
+  const inputC = $('temp-celsius');
+  const inputK = $('temp-kelvin');
 
   if (!inputC || !inputK) return;
 
@@ -50,14 +47,10 @@ function initEchelles() {
 
     if (Number.isNaN(c)) {
       inputK.value = '';
+      inputC.classList.remove('champ-erreur');
     } else {
-      inputK.value = formatNombre(c + ZERO_ABSOLU, 2);
-
-      if (c < -ZERO_ABSOLU) {
-        inputC.classList.add('champ-erreur');
-      } else {
-        inputC.classList.remove('champ-erreur');
-      }
+      inputK.value = arrondir(c + ZERO_ABSOLU, 2);
+      inputC.classList.toggle('champ-erreur', c < -ZERO_ABSOLU);
     }
 
     source = null;
@@ -71,14 +64,10 @@ function initEchelles() {
 
     if (Number.isNaN(k)) {
       inputC.value = '';
+      inputK.classList.remove('champ-erreur');
     } else {
-      inputC.value = formatNombre(k - ZERO_ABSOLU, 2);
-
-      if (k < 0) {
-        inputK.classList.add('champ-erreur');
-      } else {
-        inputK.classList.remove('champ-erreur');
-      }
+      inputC.value = arrondir(k - ZERO_ABSOLU, 2);
+      inputK.classList.toggle('champ-erreur', k < 0);
     }
 
     source = null;
@@ -93,10 +82,10 @@ function initEchelles() {
 // =================================================================
 function initThermistance() {
 
-  const btnAjouter = document.getElementById('thermistance-ajouter');
-  const inputTemp = document.getElementById('thermistance-temp');
-  const inputRes = document.getElementById('thermistance-resistance');
-  const tbody = document.getElementById('tbody-thermistance');
+  const btnAjouter = $('thermistance-ajouter');
+  const inputTemp = $('thermistance-temp');
+  const inputRes = $('thermistance-resistance');
+  const tbody = $('tbody-thermistance');
 
   if (!btnAjouter || !tbody) return;
 
@@ -130,8 +119,8 @@ function redessinerTableauThermistance(tbody, points) {
 
     tr.innerHTML = `
       <td>${i + 1}</td>
-      <td>${formatNombre(pt.t, 1)} °C</td>
-      <td>${formatNombre(pt.r, 0)} Ω</td>
+      <td>${arrondir(pt.t, 1)} °C</td>
+      <td>${arrondir(pt.r, 0)} Ω</td>
     `;
 
     tbody.appendChild(tr);
@@ -144,10 +133,10 @@ function redessinerTableauThermistance(tbody, points) {
 // =================================================================
 function initPt100() {
 
-  const inputR0 = document.getElementById('pt100-r0');
-  const inputAlpha = document.getElementById('pt100-alpha');
-  const inputRMesuree = document.getElementById('pt100-r-mesuree');
-  const outputTemp = document.getElementById('pt100-temp-calculee');
+  const inputR0 = $('pt100-r0');
+  const inputAlpha = $('pt100-alpha');
+  const inputRMesuree = $('pt100-r-mesuree');
+  const outputTemp = $('pt100-temp-calculee');
 
   if (!inputR0 || !inputAlpha || !inputRMesuree || !outputTemp) return;
 
@@ -169,7 +158,7 @@ function initPt100() {
     // R = R0(1 + αT)  =>  T = (R/R0 - 1) / α
     const temperature = (rMesuree / r0 - 1) / alpha;
 
-    outputTemp.textContent = `${formatNombre(temperature, 1)} °C`;
+    outputTemp.textContent = `${arrondir(temperature, 1)} °C`;
   }
 
   [inputR0, inputAlpha, inputRMesuree].forEach(el =>
@@ -192,9 +181,9 @@ const COEFFICIENTS_THERMOCOUPLE = {
 
 function initThermocouple() {
 
-  const selectType = document.getElementById('tc-type');
-  const inputTension = document.getElementById('tc-tension');
-  const outputTemp = document.getElementById('tc-temp-calculee');
+  const selectType = $('tc-type');
+  const inputTension = $('tc-tension');
+  const outputTemp = $('tc-temp-calculee');
 
   if (!selectType || !inputTension || !outputTemp) return;
 
@@ -212,7 +201,7 @@ function initThermocouple() {
     const TEMP_REFERENCE = 20;
     const temperature = TEMP_REFERENCE + tension / coeff;
 
-    outputTemp.textContent = `${formatNombre(temperature, 1)} °C`;
+    outputTemp.textContent = `${arrondir(temperature, 1)} °C`;
   }
 
   selectType.addEventListener('change', calculer);
@@ -228,9 +217,9 @@ function initThermocouple() {
 // =================================================================
 function initIRCristaux() {
 
-  const inputIR = document.getElementById('ir-mesure');
-  const inputContact = document.getElementById('contact-mesure');
-  const outputEcart = document.getElementById('ecart-ir-contact');
+  const inputIR = $('ir-mesure');
+  const inputContact = $('contact-mesure');
+  const outputEcart = $('ecart-ir-contact');
 
   if (!inputIR || !inputContact || !outputEcart) return;
 
@@ -247,7 +236,7 @@ function initIRCristaux() {
     const ecart = tIR - tContact;
     const signe = ecart >= 0 ? '+' : '';
 
-    outputEcart.textContent = `${signe}${formatNombre(ecart, 1)} °C`;
+    outputEcart.textContent = `${signe}${arrondir(ecart, 1)} °C`;
   }
 
   inputIR.addEventListener('input', calculer);
