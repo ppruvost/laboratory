@@ -9,7 +9,7 @@
  * d'entrée doit s'appeler init().
  */
 
-import { $, arrondir, initCommun } from '../../js/utils.js';
+import { $, arrondir, initSections, initTabs, initModesOperatoires } from '../../js/utils.js';
 
 // Constantes physiques utilisées dans ce TP (eau)
 const C_GLACE = 2100;      // J.kg-1.°C-1 (glace)
@@ -20,6 +20,7 @@ const L_VAPORISATION = 2260000; // J/kg
 import { initContextePro } from '../../js/contexte-pro.js';
 import FILIERES_PRO from '../../data/filieres.js';
 import { initRadarCompetences } from '../../js/radar.js';
+import { initImpressionCompteRendu } from './compte-rendu-thermique.js';
 
 const CONTEXTES_PRO = {
 
@@ -45,8 +46,15 @@ export function init() {
     contextes: CONTEXTES_PRO,
   });
 
-  initCommun();
+  initSections();
+  initTabs();
+  initModesOperatoires();
   initRadarCompetences();
+
+  initImpressionCompteRendu({
+    titre: "Changement d'état d'un corps pur",
+    tp: 'TP03',
+  });
 }
 
 // =================================================================
