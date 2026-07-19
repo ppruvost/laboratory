@@ -9,7 +9,7 @@
  * d'entrée doit s'appeler init().
  */
 
-import { $, arrondir } from '../../js/utils.js';
+import { $, arrondir, initCommun } from '../../js/utils.js';
 
 // Constantes physiques utilisées dans ce TP (eau)
 const C_GLACE = 2100;      // J.kg-1.°C-1 (glace)
@@ -19,6 +19,7 @@ const L_VAPORISATION = 2260000; // J/kg
 
 import { initContextePro } from '../../js/contexte-pro.js';
 import FILIERES_PRO from '../../data/filieres.js';
+import { initRadarCompetences } from '../../js/radar.js';
 
 const CONTEXTES_PRO = {
 
@@ -43,6 +44,9 @@ export function init() {
     filieres: FILIERES_PRO,
     contextes: CONTEXTES_PRO,
   });
+
+  initCommun();
+  initRadarCompetences();
 }
 
 // =================================================================
