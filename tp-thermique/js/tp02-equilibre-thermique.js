@@ -9,10 +9,11 @@
  * d'entrée doit s'appeler init().
  */
 
-import { $, arrondir, initCommun } from '../../js/utils.js';
+import { $, arrondir, initSections, initTabs, initModesOperatoires } from '../../js/utils.js';
 import { initContextePro } from '../../js/contexte-pro.js';
 import FILIERES_PRO from '../../data/filieres.js';
 import { initRadarCompetences } from '../../js/radar.js';
+import { initImpressionCompteRendu } from './compte-rendu-thermique.js';
 
 const CONTEXTES_PRO = {
 
@@ -38,8 +39,15 @@ export function init() {
     contextes: CONTEXTES_PRO,
   });
 
-  initCommun();
+  initSections();
+  initTabs();
+  initModesOperatoires();
   initRadarCompetences();
+
+  initImpressionCompteRendu({
+    titre: 'Équilibre thermique et énergie échangée',
+    tp: 'TP02',
+  });
 }
 
 // =================================================================
@@ -56,6 +64,8 @@ function initMelange() {
   const inputTfExp = $('melange-tf-exp');
   const outputEcart = $('melange-ecart');
   const tableTfTheo = $('table-tf-theo');
+  const tableTfExp = $('table-tf-exp');
+  const tableTfEcart = $('table-tf-ecart');
 
   if (!inputM1 || !inputT1 || !inputM2 || !inputT2 || !outputTfTheo) return;
 
@@ -72,6 +82,8 @@ function initMelange() {
       outputTfTheo.textContent = '—';
       if (tableTfTheo) tableTfTheo.textContent = '—';
       dernierTfTheo = null;
+      calculerEcart();
+      calculerEcartTableau();
       return;
     }
 
@@ -81,6 +93,7 @@ function initMelange() {
     if (tableTfTheo) tableTfTheo.textContent = `${arrondir(dernierTfTheo, 1)} °C`;
 
     calculerEcart();
+    calculerEcartTableau();
   }
 
   function calculerEcart() {
@@ -100,11 +113,31 @@ function initMelange() {
     outputEcart.textContent = `${signe}${arrondir(ecart, 1)} °C`;
   }
 
+  // Ligne "Température finale du mélange" du Tableau de résultats :
+  // champ expérimental indépendant de celui de l'onglet Manipulations.
+  function calculerEcartTableau() {
+
+    if (!tableTfEcart || !tableTfExp) return;
+
+    const exp = parseFloat(tableTfExp.value);
+
+    if (dernierTfTheo === null || Number.isNaN(exp)) {
+      tableTfEcart.textContent = '—';
+      return;
+    }
+
+    const ecart = exp - dernierTfTheo;
+    const signe = ecart >= 0 ? '+' : '';
+
+    tableTfEcart.textContent = `${signe}${arrondir(ecart, 1)} °C`;
+  }
+
   [inputM1, inputT1, inputM2, inputT2].forEach(el =>
     el.addEventListener('input', calculerTheo)
   );
 
   if (inputTfExp) inputTfExp.addEventListener('input', calculerEcart);
+  if (tableTfExp) tableTfExp.addEventListener('input', calculerEcartTableau);
 
   calculerTheo();
 }
