@@ -17,10 +17,32 @@ const C_EAU = 4185;        // J.kg-1.°C-1 (eau liquide)
 const L_FUSION = 334000;   // J/kg
 const L_VAPORISATION = 2260000; // J/kg
 
+import { initContextePro } from '../../js/contexte-pro.js';
+import FILIERES_PRO from '../../data/filieres.js';
+
+const CONTEXTES_PRO = {
+
+  '2nde-remi': {
+    contexte: "Un brasage ou une soudure à l'étain nécessite de faire fondre un alliage d'apport : sa température doit rester constante pendant toute la fusion pour garantir un assemblage homogène, sans surchauffer inutilement les pièces à assembler.",
+    problematique: "Quelle énergie faut-il apporter pour faire fondre l'alliage de brasure nécessaire à un assemblage, et pourquoi sa température reste-t-elle constante pendant cette fusion ?",
+  },
+
+  '2nde-mcc': {
+    contexte: "L'entoilage thermocollant utilisé pour renforcer un tissu contient une colle qui doit atteindre sa température de fusion, et y rester le temps nécessaire, pour adhérer correctement sans endommager la matière.",
+    problematique: "Pourquoi la colle thermofusible d'un entoilage doit-elle atteindre une température précise et y rester constante pour bien adhérer au tissu ?",
+  },
+
+};
+
 export function init() {
   initPalier();
   initEnergieLatente();
   initBilanComplet();
+
+  initContextePro({
+    filieres: FILIERES_PRO,
+    contextes: CONTEXTES_PRO,
+  });
 }
 
 // =================================================================
