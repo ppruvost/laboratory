@@ -9,10 +9,11 @@
  * d'entrée doit s'appeler init().
  */
 
-import { $, arrondir, initCommun } from '../../js/utils.js';
+import { $, arrondir, initSections, initTabs, initModesOperatoires } from '../../js/utils.js';
 import { initContextePro } from '../../js/contexte-pro.js';
 import FILIERES_PRO from '../../data/filieres.js';
 import { initRadarCompetences } from '../../js/radar.js';
+import { initImpressionCompteRendu } from './compte-rendu-thermique.js';
 
 const CONTEXTES_PRO = {
 
@@ -84,8 +85,15 @@ export function init() {
     contextes: CONTEXTES_PRO,
   });
 
-  initCommun();
+  initSections();
+  initTabs();
+  initModesOperatoires();
   initRadarCompetences();
+
+  initImpressionCompteRendu({
+    titre: 'Transferts thermiques et rayonnement',
+    tp: 'TP05',
+  });
 }
 
 // =================================================================
