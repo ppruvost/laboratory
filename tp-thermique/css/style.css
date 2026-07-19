@@ -430,6 +430,16 @@ td.saisie {
   stroke: #C1440E;
 }
 
+/* ── Cartouches de compétence (APP/REA/ANA/VAL/COM à côté de chaque
+   question) ── tp.css les colore en bleu par défaut (.cartouche),
+   quel que soit le domaine : sans cet override, elles restaient
+   bleues même dans les TP thermique. */
+.cartouche {
+  background: rgba(193, 68, 14, .12);
+  color: #C1440E;
+  border-color: #C1440E;
+}
+
 /* ── Pictos CLP ──────────────────────────────────────────────── */
 
 .pictos-clp{
@@ -478,13 +488,6 @@ canvas {
   border: 1px solid var(--gris-clair);
   border-radius: var(--r-md);
   margin-bottom: var(--gap-sm);
-}
-
-/* ── Couleur cartouche ───────────────────────────────────────────────── */
-.cartouche {
-  background: rgba(193, 68, 14, .12);
-  color: #C1440E;
-  border-color: #C1440E;
 }
 
 /* ── Scrollbar ───────────────────────────────────────────────── */
