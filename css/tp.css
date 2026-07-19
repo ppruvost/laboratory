@@ -1417,3 +1417,9 @@ textarea { font-family: var(--font-corps); resize: vertical; min-height: 80px; }
   padding:var(--gap-sm) var(--gap-md);
   margin:var(--gap-sm) 0;
 }
+
+/* ── RADAR DE COMPÉTENCES (js/radar.js) ─────────────────────── */
+.radar-graduation { fill: none; stroke: var(--gris-clair); stroke-width: 1; }
+.radar-axe-ligne   { stroke: var(--gris-clair); stroke-width: 1; }
+.radar-axe-texte   { font-size: 12px; font-weight: 700; fill: var(--gris-moyen); }
+.radar-polygone    { fill: var(--bleu-cuivre); fill-opacity: .35; stroke: var(--bleu-cuivre); stroke-width: 2; }
