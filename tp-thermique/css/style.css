@@ -52,6 +52,20 @@ header h1 {
   transition: width .5s ease;
 }
 
+/* tp.css définit ".progress #bar" (spécificité plus élevée que "#bar"
+   seul) pour le dégradé bleu-vert par défaut : sans ce correctif, la
+   barre de progression restait bleue même dans le domaine thermique. */
+.progress #bar {
+  background: #fff;
+}
+
+/* Barre de progression interne à chaque TP (juste après .tp-header,
+   sur fond blanc) : dégradé recoloré pour rester dans les tons du
+   domaine plutôt que le bleu-vert par défaut de tp.css. */
+.tp-header + .progress #bar {
+  background: linear-gradient(90deg, #C1440E, #E8956B);
+}
+
 /* ── Navigation ─────────────────────────────────────────────── */
 nav {
   display: flex;
@@ -144,6 +158,50 @@ input[type="number"],
 input[type="text"],
 select {
   max-width: 340px;
+}
+
+/* ── Cadre d'en-tête de TP — .tp-header (ex. le bandeau "TP01") ──
+   tp.css applique par défaut un dégradé bleu (var(--bleu-cuivre) →
+   var(--bleu-fonce)) : on le recolore ici pour rester cohérent avec
+   l'identité du domaine thermique. */
+.tp-header {
+  background: linear-gradient(135deg, #C1440E 0%, #7A2E0E 100%);
+}
+
+/* ── Numéros de questions (compte-rendu) ─────────────────────────
+   tp.css colore par défaut le médaillon numéroté de chaque question
+   en bleu (var(--bleu-cuivre)) via .questions-tp .question-entete::before */
+.questions-tp .question-entete::before {
+  background: #C1440E;
+}
+
+/* ── Étapes numérotées de protocole (même logique visuelle que les
+   numéros de questions ci-dessus, à recolorer pour rester cohérent) ── */
+.etapes li::before {
+  background: #C1440E;
+}
+
+/* ── Onglets internes actifs (ex. "Échelles Celsius/Kelvin") ─────── */
+.tab-btn.actif {
+  color: #C1440E;
+  border-bottom-color: #C1440E;
+}
+.tab-btn:hover:not(.actif) {
+  color: #7A2E0E;
+}
+
+/* ── Boutons primaires (+ Ajouter, Imprimer, Générer le radar...) ──
+   .btn-primaire a la même spécificité que la règle "button" ci-dessus
+   mais elle est définie dans tp.css avec sa propre couleur bleue :
+   sans cet override explicite, tous les boutons .btn-primaire du
+   domaine thermique restaient bleus malgré la recoloration de <button>. */
+.btn-primaire {
+  background: #C1440E;
+  color: #fff;
+}
+.btn-primaire:hover {
+  background: #7A2E0E;
+  color: #fff;
 }
 
 /* Champ signalé en erreur (ex. TP01 : conversion sous le zéro
