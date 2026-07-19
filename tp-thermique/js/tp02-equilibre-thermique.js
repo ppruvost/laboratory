@@ -10,11 +10,32 @@
  */
 
 import { $, arrondir } from '../../js/utils.js';
+import { initContextePro } from '../../js/contexte-pro.js';
+import FILIERES_PRO from '../../data/filieres.js';
+
+const CONTEXTES_PRO = {
+
+  '2nde-remi': {
+    contexte: "Un traitement thermique de trempe ou de revenu impose de porter un bain (huile ou eau) à une température précise, puis de contrôler l'énergie nécessaire pour l'y maintenir malgré l'introduction de pièces plus froides que le bain.",
+    problematique: "Quelle énergie faut-il apporter à un bain de trempe pour compenser le refroidissement causé par l'introduction d'une pièce, et quelle température finale peut-on en attendre ?",
+  },
+
+  '2nde-mcc': {
+    contexte: "En teinture textile, l'ajout d'eau froide dans un bain de teinture chaud fait évoluer l'ensemble vers une température d'équilibre qu'il faut savoir anticiper pour ne pas compromettre la fixation des couleurs.",
+    problematique: "Comment prévoir la température finale d'un bain de teinture après ajout d'eau froide, et quelle énergie faut-il fournir pour le ramener à la bonne température ?",
+  },
+
+};
 
 export function init() {
   initMelange();
   initEnergie();
   initSuiviTemporel();
+
+  initContextePro({
+    filieres: FILIERES_PRO,
+    contextes: CONTEXTES_PRO,
+  });
 }
 
 // =================================================================
