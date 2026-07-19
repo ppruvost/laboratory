@@ -10,6 +10,42 @@
  */
 
 import { $, arrondir } from '../../js/utils.js';
+import { initContextePro } from '../../js/contexte-pro.js';
+import FILIERES_PRO from '../../data/filieres.js';
+
+const CONTEXTES_PRO = {
+
+  '1ere-tci': {
+    contexte: "Lors d'une soudure, la chaleur se propage par conduction dans la pièce métallique, ce qui peut la déformer si l'on ne maîtrise pas l'apport thermique. Une caméra thermique permet de visualiser cette propagation et de repérer les zones les plus chaudes.",
+    problematique: "Comment expliquer, à l'aide des trois modes de transfert thermique, la propagation de la chaleur dans une pièce soudée, et quel est l'intérêt d'un contrôle par caméra thermique ?",
+  },
+
+  '1ere-trpm': {
+    contexte: "L'usinage d'une pièce échauffe fortement l'outil de coupe par frottement. Cette chaleur se propage par conduction dans l'outil et la pièce, tandis qu'un fluide de coupe assure un refroidissement par convection pour préserver la précision de l'usinage.",
+    problematique: "Comment les trois modes de transfert thermique interviennent-ils dans l'échauffement et le refroidissement d'un outil de coupe lors de l'usinage ?",
+  },
+
+  '1ere-mcc': {
+    contexte: "Un vêtement de protection thermique (contre le froid ou la chaleur) doit limiter les transferts thermiques entre le corps et l'extérieur. Le choix des matières et de leur agencement en couches joue directement sur la conduction et le rayonnement.",
+    problematique: "Comment le choix des matériaux et leur agencement en couches permettent-ils de limiter les transferts thermiques dans un vêtement de protection ?",
+  },
+
+  'tle-tci': {
+    contexte: "La couleur d'une pièce métallique chauffée à la forge ou en cours de soudage renseigne sur sa température, par le rayonnement thermique qu'elle émet. Réduire les pertes thermiques radiatives d'un atelier de chaudronnerie limite aussi sa consommation d'énergie et ses émissions de gaz à effet de serre.",
+    problematique: "Comment le rayonnement thermique émis par une pièce métallique renseigne-t-il sur sa température, et en quoi limiter les pertes thermiques d'un atelier contribue-t-il à réduire son empreinte carbone ?",
+  },
+
+  'tle-trpm': {
+    contexte: "Un atelier de production mécanique consomme une énergie importante pour chauffer, usiner ou traiter thermiquement les pièces. Une partie de cette énergie est perdue par rayonnement et conduction vers l'extérieur, ce qui accroît indirectement les émissions de gaz à effet de serre liées à la production d'électricité ou de gaz.",
+    problematique: "En quoi la maîtrise des pertes thermiques d'un atelier de production contribue-t-elle à limiter son empreinte carbone ?",
+  },
+
+  'tle-mcc': {
+    contexte: "La couleur et la matière d'un vêtement d'extérieur influencent l'absorption du rayonnement solaire, donc le confort thermique de la personne qui le porte. Ce même principe d'absorption du rayonnement infrarouge est à l'œuvre, à plus grande échelle, dans l'effet de serre atmosphérique.",
+    problematique: "Comment le choix de la couleur et de la matière d'un vêtement influence-t-il l'absorption du rayonnement solaire, et quel est le lien avec le principe de l'effet de serre atmosphérique ?",
+  },
+
+};
 
 const NOMS_MODES = {
   conduction: 'conduction',
@@ -41,6 +77,11 @@ export function init() {
   initConduction();
   initRayonnement();
   initEffetDeSerre();
+
+  initContextePro({
+    filieres: FILIERES_PRO,
+    contextes: CONTEXTES_PRO,
+  });
 }
 
 // =================================================================
