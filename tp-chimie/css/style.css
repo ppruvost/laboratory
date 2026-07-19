@@ -49,6 +49,22 @@ header h1 {
   transition: width .5s ease;
 }
 
+/* tp.css définit ".progress #bar" (spécificité plus élevée que "#bar"
+   seul) pour le dégradé bleu-vert par défaut : sans ce correctif, la
+   barre de progression du bandeau de site restait bleu-vert au lieu
+   du blanc attendu, malgré l'override "#bar" ci-dessus. */
+.progress #bar {
+  background: #fff;
+}
+
+/* Barre de progression interne à chaque TP (juste après .tp-header,
+   sur fond blanc) : dégradé recoloré en bleu chimie plutôt que le
+   bleu-vert par défaut de tp.css, pour rester explicitement cohérent
+   avec l'identité du domaine. */
+.tp-header + .progress #bar {
+  background: linear-gradient(90deg, #1B6CA8, #6FA8D8);
+}
+
 /* ── Navigation ─────────────────────────────────────────────── */
 nav {
   display: flex;
