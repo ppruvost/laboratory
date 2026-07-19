@@ -1,427 +1,103 @@
 /**
- * radar.js
- * Radar des compétences élève
+ * js/radar.js
+ * Module partagé : génère un radar SVG à 5 axes (APP, ANA, REA, VAL,
+ * COM) à partir des boutons radio de la table d'auto-évaluation
+ * (name="APP"|"ANA"|"REA"|"VAL"|"COM", valeurs 0/1/2), au clic sur
+ * #btn-radar. Utilisable par n'importe quel TP, de n'importe quel
+ * domaine (chimie, thermique, optique, mécanique, électricité,
+ * acoustique...).
  *
- * Compétences :
- * APP
- * ANA
- * REA
- * VAL
- * COM
- *
- * Gestion :
- * - récupération auto-évaluation
- * - affichage canvas
- * - mise à jour dynamique
+ * Le SVG généré ne code AUCUNE couleur en dur : il s'appuie sur les
+ * classes .radar-graduation / .radar-axe-ligne / .radar-axe-texte /
+ * .radar-polygone, définies une fois avec une couleur par défaut dans
+ * tp.css (cf. bloc CSS à ajouter, section "RADAR DE COMPÉTENCES"), et
+ * recolorées si besoin dans le style.css de chaque domaine — sur le
+ * même principe que .tp-header ou .btn-primaire.
  */
 
+const COMPETENCES = ['APP', 'ANA', 'REA', 'VAL', 'COM'];
 
-/* ==========================================================
-   CONSTANTES
-   ========================================================== */
+/**
+ * Initialise le bouton de génération du radar.
+ * @param {Object} params
+ * @param {string} [params.boutonId]
+ * @param {string} [params.resultatId]
+ */
+export function initRadarCompetences({
+  boutonId = 'btn-radar',
+  resultatId = 'radar-resultat',
+} = {}) {
 
-const COMPETENCES = [
-    "APP",
-    "ANA",
-    "REA",
-    "VAL",
-    "COM"
-];
+  const bouton = document.getElementById(boutonId);
+  const zone = document.getElementById(resultatId);
 
+  if (!bouton || !zone) return;
 
-/* ==========================================================
-   RECUPERATION SCORES
-   ========================================================== */
+  bouton.addEventListener('click', () => {
 
-export function getAutoEvalScores() {
-
-
-    return COMPETENCES.map(comp => {
-
-
-        const radio =
-            document.querySelector(
-                `input[name="${comp}"]:checked`
-            );
-
-
-        return radio
-            ? Number(radio.value)
-            : 0;
-
-
+    const valeurs = COMPETENCES.map(comp => {
+      const coche = document.querySelector(`input[name="${comp}"]:checked`);
+      return coche ? parseInt(coche.value, 10) : null;
     });
 
-}
-
-
-
-/* ==========================================================
-   INITIALISATION RADAR
-   ========================================================== */
-
-export function initRadarCompetences() {
-
-
-    const bouton =
-        document.getElementById(
-            "btn-radar"
-        );
-
-
-    if (bouton) {
-
-        bouton.addEventListener(
-            "click",
-            afficherRadarCompetences
-        );
-
+    if (valeurs.some(v => v === null)) {
+      zone.innerHTML = '<div class="warning">Merci de renseigner votre niveau pour chacune des 5 compétences avant de générer le radar.</div>';
+      return;
     }
 
-
-
-    document
-    .querySelectorAll(
-        '[data-type="auto-evaluation"] input[type="radio"]'
-    )
-    .forEach(radio => {
-
-
-        radio.addEventListener(
-            "change",
-            afficherRadarCompetences
-        );
-
-
-    });
-
+    zone.innerHTML = construireRadarSVG(valeurs) + construireResume(valeurs);
+  });
 }
 
+function construireResume(valeurs) {
 
+  const total = valeurs.reduce((s, v) => s + v, 0);
+  const max = COMPETENCES.length * 2;
+  const detail = COMPETENCES.map((comp, i) => `${comp}&nbsp;: ${valeurs[i]}/2`).join(' — ');
 
-/* ==========================================================
-   AFFICHAGE
-   ========================================================== */
+  return `
+    <p class="radar-resume" style="margin-top:.6rem;text-align:center;">
+      <strong>Score global : ${total}/${max}</strong><br>
+      <span style="font-size:.85rem;color:var(--gris-moyen,#666);">${detail}</span>
+    </p>
+  `;
+}
 
-export function afficherRadarCompetences() {
+function construireRadarSVG(valeurs) {
 
+  const centre = 110;
+  const rayonMax = 85;
+  const n = COMPETENCES.length;
 
-    const zone =
-        document.getElementById(
-            "radar-resultat"
-        );
+  const point = (i, valeur) => {
+    const angle = (-Math.PI / 2) + (i * 2 * Math.PI / n);
+    const r = (valeur / 2) * rayonMax;
+    return [centre + r * Math.cos(angle), centre + r * Math.sin(angle)];
+  };
 
+  const polygonValeurs = valeurs
+    .map((v, i) => point(i, v).join(','))
+    .join(' ');
 
-    if (!zone)
-        return;
-
-
-
-    zone.innerHTML = `
-
-        <canvas
-            id="canvasRadarCompetences"
-            width="420"
-            height="420">
-        </canvas>
-
+  const axes = COMPETENCES.map((comp, i) => {
+    const [x, y] = point(i, 2);
+    const [lx, ly] = point(i, 2.3);
+    return `
+      <line class="radar-axe-ligne" x1="${centre}" y1="${centre}" x2="${x}" y2="${y}" />
+      <text class="radar-axe-texte" x="${lx}" y="${ly}" text-anchor="middle" dominant-baseline="middle">${comp}</text>
     `;
-
-
-
-    const canvas =
-        document.getElementById(
-            "canvasRadarCompetences"
-        );
-
-
-    if (!canvas)
-        return;
-
-
-
-    const ctx =
-        canvas.getContext(
-            "2d"
-        );
-
-
-
-    dessinerRadar(
-        ctx,
-        getAutoEvalScores()
-    );
-
-
-}
-
-
-
-/* ==========================================================
-   DESSIN RADAR
-   ========================================================== */
-
-export function dessinerRadar(
-    ctx,
-    valeurs
-) {
-
-
-    const largeur =
-        ctx.canvas.width;
-
-
-    const hauteur =
-        ctx.canvas.height;
-
-
-
-    const cx =
-        largeur / 2;
-
-
-    const cy =
-        hauteur / 2;
-
-
-
-    const rayon =
-        140;
-
-
-
-    ctx.clearRect(
-        0,
-        0,
-        largeur,
-        hauteur
-    );
-
-
-
-    /* ───── GRILLE ───── */
-
-
-    for (
-        let niveau = 1;
-        niveau <= 2;
-        niveau++
-    ) {
-
-
-        ctx.beginPath();
-
-
-        COMPETENCES.forEach(
-            (_,i)=>{
-
-
-                const angle =
-                    -Math.PI / 2
-                    +
-                    i *
-                    2 *
-                    Math.PI /
-                    COMPETENCES.length;
-
-
-
-                const r =
-                    rayon *
-                    (niveau / 2);
-
-
-
-                const x =
-                    cx +
-                    Math.cos(angle)
-                    *
-                    r;
-
-
-
-                const y =
-                    cy +
-                    Math.sin(angle)
-                    *
-                    r;
-
-
-
-                if (i===0)
-                    ctx.moveTo(x,y);
-                else
-                    ctx.lineTo(x,y);
-
-
-            }
-        );
-
-
-
-        ctx.closePath();
-
-        ctx.stroke();
-
-    }
-
-
-
-    /* ───── AXES ───── */
-
-
-    COMPETENCES.forEach(
-        (comp,i)=>{
-
-
-            const angle =
-                -Math.PI / 2
-                +
-                i *
-                2 *
-                Math.PI /
-                COMPETENCES.length;
-
-
-
-            const x =
-                cx +
-                Math.cos(angle)
-                *
-                rayon;
-
-
-
-            const y =
-                cy +
-                Math.sin(angle)
-                *
-                rayon;
-
-
-
-            ctx.beginPath();
-
-            ctx.moveTo(
-                cx,
-                cy
-            );
-
-
-            ctx.lineTo(
-                x,
-                y
-            );
-
-
-            ctx.stroke();
-
-
-
-            ctx.font =
-                "15px Arial";
-
-
-            ctx.fillText(
-                comp,
-                cx +
-                Math.cos(angle)
-                *
-                (rayon+25)
-                -
-                12,
-
-                cy +
-                Math.sin(angle)
-                *
-                (rayon+25)
-                +
-                5
-            );
-
-
-        }
-    );
-
-
-
-    /* ───── COURBE ───── */
-
-
-    ctx.beginPath();
-
-
-
-    valeurs.forEach(
-        (valeur,i)=>{
-
-
-            const angle =
-                -Math.PI / 2
-                +
-                i *
-                2 *
-                Math.PI /
-                COMPETENCES.length;
-
-
-
-            const r =
-                rayon *
-                (valeur / 2);
-
-
-
-            const x =
-                cx +
-                Math.cos(angle)
-                *
-                r;
-
-
-
-            const y =
-                cy +
-                Math.sin(angle)
-                *
-                r;
-
-
-
-            if(i===0)
-                ctx.moveTo(
-                    x,
-                    y
-                );
-            else
-                ctx.lineTo(
-                    x,
-                    y
-                );
-
-
-        }
-    );
-
-
-
-    ctx.closePath();
-
-
-
-    ctx.fillStyle =
-        "rgba(27,108,168,0.35)";
-
-
-    ctx.fill();
-
-
-
-    ctx.lineWidth =
-        3;
-
-
-    ctx.stroke();
-
-
+  }).join('');
+
+  const graduations = [1, 2].map(niveau => {
+    const pts = COMPETENCES.map((_, i) => point(i, niveau).join(',')).join(' ');
+    return `<polygon class="radar-graduation" points="${pts}" />`;
+  }).join('');
+
+  return `
+    <svg class="radar-svg" viewBox="0 0 220 220" width="220" height="220" style="display:block;margin:0 auto;">
+      ${graduations}
+      ${axes}
+      <polygon class="radar-polygone" points="${polygonValeurs}" />
+    </svg>
+  `;
 }
