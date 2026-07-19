@@ -419,6 +419,17 @@ td.saisie {
 .quiz-feedback.quiz-correct { color: var(--etat-succes-fg, #1e7e34); }
 .quiz-feedback.quiz-incorrect { color: var(--clp-rouge); }
 
+/* ── Radar de compétences (js/radar.js, module partagé) ──────────
+   Le SVG généré n'a aucune couleur en dur : il utilise ces classes,
+   qui reçoivent ici la couleur du domaine thermique. Le rendu par
+   défaut (bleu) vit dans tp.css ; cet override est la seule chose à
+   dupliquer/adapter dans le style.css de chaque nouveau domaine. */
+.radar-polygone {
+  fill: #C1440E;
+  fill-opacity: .35;
+  stroke: #C1440E;
+}
+
 /* ── Pictos CLP ──────────────────────────────────────────────── */
 
 .pictos-clp{
