@@ -1,41 +1,219 @@
+<!--
+  Fragment SPA chargé dynamiquement par navigation.js.
+  Tous les chemins sont relatifs à la racine du site.
+  Aucun <script> dans ce fragment.
+-->
+
 <section>
 
+<!-- ====================================================== -->
+<!-- EN-TÊTE                                                 -->
+<!-- ====================================================== -->
+
 <header class="tp-header">
+
   <div class="tp-header-logo">
-    <div class="logo"><span class="sci">Sci</span><span class="Lab">Lab</span></div>
+    <div class="logo">
+      <span class="sci">Sci</span><span class="Lab">Lab</span>
+    </div>
   </div>
+
   <div class="tp-header-centre">
+
     <h1>Mesurer et caractériser une température</h1>
+
     <div class="tp-meta">
+
       <div class="tp-row">
         <span class="tag">2nde</span>
         <span class="tag">Thermique</span>
         <span class="tag">Capteurs de température</span>
       </div>
+
     </div>
+
   </div>
-  <div class="tp-header-numero"><span class="tp-numero-txt">TP01</span></div>
+
+  <div class="tp-header-numero">
+    <span class="tp-numero-txt">TP01</span>
+  </div>
+
 </header>
 
-<div class="progress"><div id="bar"></div></div>
+<div class="progress">
+  <div id="bar"></div>
+</div>
 
 <main id="content">
 
-  <!-- Capacités évaluées -->
-  <div class="section" data-type="objectif"> ... </div>
+<!-- ====================================================== -->
+<!-- CAPACITES                                               -->
+<!-- ====================================================== -->
 
-  <!-- Contexte professionnel (sélecteur de filière, comme tp-chimie) -->
-  <div class="section" data-type="contexte-pro"> ... </div>
+<div class="section" data-type="objectif">
 
-  <!-- Sécurité (si manipulation d'un bain thermostaté, plaque chauffante...) -->
-  <div class="section" data-type="securite"> ... </div>
+  <div class="section-titre">
+    <div class="picto-section">🎯</div>
+    <h2>Capacités évaluées</h2>
+    <span class="chevron">▼</span>
+  </div>
 
-  <!-- Matériel : thermomètres, capteurs, multimètre, oscilloscope si Pt100... -->
-  <div class="section" data-type="materiel"> ... </div>
+  <div class="section-corps">
 
-  <!-- Manipulations, en onglets -->
-  <div class="section" data-type="preparation">
+    <ul>
+
+      <li>
+        Mesurer des températures avec différents types de capteurs.
+      </li>
+
+      <li>
+        Choisir et utiliser un capteur de température adapté à une
+        application donnée.
+      </li>
+
+      <li>
+        Connaître les échelles de température Celsius et Kelvin et
+        savoir passer de l'une à l'autre.
+      </li>
+
+      <li>
+        Connaître différents types de thermomètres et leur principe
+        de fonctionnement : thermomètre à résistance (thermistance),
+        sonde à résistance de platine (Pt100), thermocouple,
+        thermomètre à infrarouge, thermomètre à cristaux liquides.
+      </li>
+
+      <li>
+        Situer ces capteurs dans un contexte historique et industriel
+        (histoire des thermomètres et des unités de mesure de
+        température).
+      </li>
+
+    </ul>
+
+  </div>
+
+</div>
+
+<!-- ====================================================== -->
+<!-- CONTEXTE PROFESSIONNEL                                  -->
+<!-- ====================================================== -->
+
+<div class="section" data-type="contexte-pro">
+
+  <div class="section-titre">
+    <div class="picto-section">🏭</div>
+    <h2>Contexte professionnel</h2>
+    <span class="chevron">▼</span>
+  </div>
+
+  <div class="section-corps">
+
+    <div class="filiere-select-bloc">
+      <label for="select-filiere-pro">Votre filière professionnelle :</label>
+      <select id="select-filiere-pro">
+        <option value="">-- Sélectionner une filière --</option>
+      </select>
+    </div>
+
+    <div id="contexte-pro-resultat" class="contexte-pro-resultat">
+      <p>Sélectionner votre filière professionnelle pour afficher le contexte et la problématique associée.</p>
+    </div>
+
+  </div>
+
+</div>
+
+<!-- ====================================================== -->
+<!-- SECURITE                                                -->
+<!-- ====================================================== -->
+
+<div class="section" data-type="securite">
+
+  <div class="section-titre">
+    <div class="picto-section">⚠️</div>
+    <h2>Sécurité</h2>
+    <span class="chevron">▼</span>
+  </div>
+
+  <div class="section-corps">
+
+    <div class="info">
+      Ce TP ne met pas en œuvre de produit chimique. Les risques sont
+      liés à la manipulation de sources de chaleur et de matériel
+      électrique de mesure.
+    </div>
+
+    <ul style="padding-left:1.5rem;line-height:2">
+      <li><strong>Brûlure :</strong> le bain thermostaté, la plaque chauffante et l'eau chaude utilisés pour étalonner les capteurs peuvent provoquer des brûlures ; laisser refroidir le matériel avant de le ranger.</li>
+      <li><strong>Verrerie chaude :</strong> une verrerie chaude a le même aspect qu'une verrerie froide ; ne jamais saisir un bécher ou un tube sans vérifier sa température au préalable.</li>
+      <li><strong>Risque électrique :</strong> les sondes Pt100, thermocouples et multimètres restent sous tension pendant la mesure ; ne pas manipuler avec les mains mouillées.</li>
+      <li><strong>Thermomètre à infrarouge :</strong> ne jamais viser les yeux d'une personne avec le faisceau de visée laser.</li>
+    </ul>
+
+    <div class="epi-bloc">
+      <p><strong>Équipements de protection recommandés :</strong> lunettes de protection lors de la manipulation de liquides chauds, gants thermiques pour le bain thermostaté.</p>
+    </div>
+
+  </div>
+
+</div>
+
+<!-- ====================================================== -->
+<!-- MATERIEL                                                -->
+<!-- ====================================================== -->
+
+<div class="section" data-type="materiel">
+
+  <div class="section-titre">
+    <div class="picto-section">🧪</div>
+    <h2>Matériel nécessaire</h2>
+    <span class="chevron">▼</span>
+  </div>
+
+  <div class="section-corps">
+
+    <h3>Instruments de mesure</h3>
+
+    <ul style="padding-left:1.5rem;line-height:2">
+      <li>Thermomètre à liquide (référence)</li>
+      <li>Thermistance + multimètre (mesure de résistance)</li>
+      <li>Sonde Pt100 + multimètre ou centrale d'acquisition</li>
+      <li>Thermocouple type K + millivoltmètre</li>
+      <li>Thermomètre à infrarouge (visée laser)</li>
+      <li>Bandelette à cristaux liquides</li>
+    </ul>
+
+    <hr>
+
+    <h3>Équipements</h3>
+
+    <ul style="padding-left:1.5rem;line-height:2">
+      <li>Bain thermostaté ou plaque chauffante</li>
+      <li>Bécher, glace pilée, eau déminéralisée</li>
+      <li>Support et pince pour capteurs</li>
+    </ul>
+
+  </div>
+
+</div>
+
+<!-- ====================================================== -->
+<!-- MANIPULATIONS                                           -->
+<!-- ====================================================== -->
+
+<div class="section" data-type="preparation">
+
+  <div class="section-titre">
+    <div class="picto-section">⚗️</div>
+    <h2>Manipulations</h2>
+    <span class="chevron">▼</span>
+  </div>
+
+  <div class="section-corps">
+
     <div class="tabs-container">
+
       <div class="tabs-header">
         <button class="tab-btn actif" data-tab="echelles">Échelles Celsius/Kelvin</button>
         <button class="tab-btn" data-tab="thermistance">Thermistance</button>
@@ -43,35 +221,665 @@
         <button class="tab-btn" data-tab="thermocouple">Thermocouple</button>
         <button class="tab-btn" data-tab="ir-cristaux">IR / cristaux liquides</button>
       </div>
-      <div class="tab-panel actif" id="echelles"> ... </div>
-      <div class="tab-panel" id="thermistance"> ... </div>
-      <div class="tab-panel" id="pt100"> ... </div>
-      <div class="tab-panel" id="thermocouple"> ... </div>
-      <div class="tab-panel" id="ir-cristaux"> ... </div>
+
+      <!-- ============================ -->
+      <!-- ECHELLES                     -->
+      <!-- ============================ -->
+
+      <div class="tab-panel actif" id="echelles">
+
+        <h3>Conversion Celsius / Kelvin</h3>
+
+        <div class="info">
+          Le zéro absolu (0 K) correspond à -273,15 °C. La relation entre
+          les deux échelles est : T(K) = T(°C) + 273,15.
+        </div>
+
+        <div class="formule">
+          T(K) = T(°C) + 273,15
+        </div>
+
+        <div class="form-row">
+
+          <div class="form-group">
+            <label for="temp-celsius">Température (°C)</label>
+            <input id="temp-celsius" type="number" step="0.1" placeholder="Ex : 20">
+          </div>
+
+          <div class="form-group">
+            <label for="temp-kelvin">Température (K)</label>
+            <input id="temp-kelvin" type="number" step="0.1" placeholder="Ex : 293.15">
+          </div>
+
+        </div>
+
+        <p class="info">
+          Saisir une valeur dans l'un ou l'autre champ : la conversion se
+          fait automatiquement dans les deux sens.
+        </p>
+
+        <h4 style="margin-top:var(--gap-lg);">Protocole</h4>
+
+        <ol class="etapes">
+          <li>Relever la température ambiante de la salle avec le thermomètre à liquide, en °C.</li>
+          <li>Convertir cette valeur en Kelvin à l'aide du champ ci-dessus, sans calculatrice.</li>
+          <li>Vérifier le calcul « à la main » et comparer au résultat affiché.</li>
+          <li>Recommencer avec la température de l'eau glacée puis de l'eau du bain thermostaté.</li>
+        </ol>
+
+      </div>
+
+      <!-- ============================ -->
+      <!-- THERMISTANCE                 -->
+      <!-- ============================ -->
+
+      <div class="tab-panel" id="thermistance">
+
+        <h3>Thermistance</h3>
+
+        <div class="info">
+          Une thermistance est un capteur dont la résistance électrique
+          varie fortement avec la température, selon une loi non
+          linéaire. On se contente ici d'un relevé expérimental
+          température / résistance, sans imposer de formule.
+        </div>
+
+        <div class="form-row">
+
+          <div class="form-group">
+            <label for="thermistance-temp">Température mesurée (°C)</label>
+            <input id="thermistance-temp" type="number" step="0.1">
+          </div>
+
+          <div class="form-group">
+            <label for="thermistance-resistance">Résistance mesurée (Ω)</label>
+            <input id="thermistance-resistance" type="number" step="1">
+          </div>
+
+          <div class="form-group">
+            <label>&nbsp;</label>
+            <button id="thermistance-ajouter" type="button" class="btn btn-primaire">
+              + Ajouter le point
+            </button>
+          </div>
+
+        </div>
+
+        <div class="table-responsive">
+          <table class="tableau-resultats">
+            <thead>
+              <tr>
+                <th>N°</th>
+                <th>Température (°C)</th>
+                <th>Résistance (Ω)</th>
+              </tr>
+            </thead>
+            <tbody id="tbody-thermistance">
+            </tbody>
+          </table>
+        </div>
+
+        <h4 style="margin-top:var(--gap-lg);">Protocole</h4>
+
+        <ol class="etapes">
+          <li>Plonger la thermistance et le thermomètre de référence dans un bain d'eau glacée.</li>
+          <li>Relever la température de référence et la résistance de la thermistance, saisir le point.</li>
+          <li>Chauffer progressivement le bain par paliers d'environ 10 °C et répéter la mesure à chaque palier jusqu'à l'eau chaude.</li>
+          <li>Observer sur le tableau obtenu le sens de variation de la résistance avec la température.</li>
+        </ol>
+
+      </div>
+
+      <!-- ============================ -->
+      <!-- PT100                        -->
+      <!-- ============================ -->
+
+      <div class="tab-panel" id="pt100">
+
+        <h3>Sonde à résistance de platine (Pt100)</h3>
+
+        <div class="info">
+          Contrairement à la thermistance, la Pt100 suit une loi
+          linéaire sur la plage de température usuelle en laboratoire :
+          R(T) = R₀ × (1 + α × T).
+        </div>
+
+        <div class="formule">
+          R(T) = R₀ × (1 + α × T)
+        </div>
+
+        <div class="form-row">
+
+          <div class="form-group">
+            <label for="pt100-r0">Résistance à 0 °C : R₀ (Ω)</label>
+            <input id="pt100-r0" type="number" step="0.1" value="100">
+          </div>
+
+          <div class="form-group">
+            <label for="pt100-alpha">Coefficient α (°C⁻¹)</label>
+            <input id="pt100-alpha" type="number" step="0.00001" value="0.00385">
+          </div>
+
+          <div class="form-group">
+            <label for="pt100-r-mesuree">Résistance mesurée (Ω)</label>
+            <input id="pt100-r-mesuree" type="number" step="0.1">
+          </div>
+
+          <div class="form-group">
+            <label for="pt100-temp-calculee">Température calculée</label>
+            <div class="input-unite">
+              <output id="pt100-temp-calculee">—</output>
+            </div>
+          </div>
+
+        </div>
+
+        <h4 style="margin-top:var(--gap-lg);">Protocole</h4>
+
+        <ol class="etapes">
+          <li>Relever la résistance de la sonde Pt100 à température ambiante avec le multimètre.</li>
+          <li>Saisir R₀ et α (valeurs constructeur, déjà pré-remplies) puis la résistance mesurée.</li>
+          <li>Comparer la température calculée à celle donnée par le thermomètre de référence.</li>
+          <li>Recommencer la mesure après avoir plongé la sonde dans le bain thermostaté à une autre température.</li>
+        </ol>
+
+      </div>
+
+      <!-- ============================ -->
+      <!-- THERMOCOUPLE                 -->
+      <!-- ============================ -->
+
+      <div class="tab-panel" id="thermocouple">
+
+        <h3>Thermocouple</h3>
+
+        <div class="info">
+          Un thermocouple produit une tension proportionnelle à l'écart
+          de température entre sa soudure de mesure et sa soudure de
+          référence (prise ici à 20 °C, température ambiante de la
+          salle). Le coefficient dépend du type de thermocouple.
+        </div>
+
+        <div class="form-row">
+
+          <div class="form-group">
+            <label for="tc-type">Type de thermocouple</label>
+            <select id="tc-type">
+              <option value="K">Type K (chromel-alumel)</option>
+              <option value="J">Type J (fer-constantan)</option>
+              <option value="T">Type T (cuivre-constantan)</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="tc-tension">Tension mesurée (mV)</label>
+            <input id="tc-tension" type="number" step="0.01">
+          </div>
+
+          <div class="form-group">
+            <label for="tc-temp-calculee">Température calculée</label>
+            <div class="input-unite">
+              <output id="tc-temp-calculee">—</output>
+            </div>
+          </div>
+
+        </div>
+
+        <h4 style="margin-top:var(--gap-lg);">Protocole</h4>
+
+        <ol class="etapes">
+          <li>Sélectionner le type de thermocouple utilisé en salle.</li>
+          <li>Plonger la soudure de mesure dans le milieu à tester (eau glacée, eau chaude...).</li>
+          <li>Relever la tension affichée par le millivoltmètre et la saisir ci-dessus.</li>
+          <li>Comparer la température calculée à la température de référence mesurée au thermomètre à liquide.</li>
+        </ol>
+
+      </div>
+
+      <!-- ============================ -->
+      <!-- IR / CRISTAUX LIQUIDES       -->
+      <!-- ============================ -->
+
+      <div class="tab-panel" id="ir-cristaux">
+
+        <h3>Thermomètre à infrarouge et cristaux liquides</h3>
+
+        <div class="info">
+          Le thermomètre infrarouge mesure une température sans contact,
+          à partir du rayonnement émis par la surface visée. La
+          bandelette à cristaux liquides donne une estimation visuelle
+          rapide, moins précise, en contact avec la surface.
+        </div>
+
+        <div class="form-row">
+
+          <div class="form-group">
+            <label for="ir-mesure">Température mesurée à l'IR (°C)</label>
+            <input id="ir-mesure" type="number" step="0.1">
+          </div>
+
+          <div class="form-group">
+            <label for="contact-mesure">Température de référence par contact (°C)</label>
+            <input id="contact-mesure" type="number" step="0.1">
+          </div>
+
+          <div class="form-group">
+            <label for="ecart-ir-contact">Écart IR - contact</label>
+            <div class="input-unite">
+              <output id="ecart-ir-contact">—</output>
+            </div>
+          </div>
+
+        </div>
+
+        <h4 style="margin-top:var(--gap-lg);">Protocole</h4>
+
+        <ol class="etapes">
+          <li>Viser la surface d'un même objet (bécher, plaque...) avec le thermomètre infrarouge et relever la valeur affichée.</li>
+          <li>Mesurer la température de la même surface avec un capteur de contact (thermomètre à liquide ou thermistance).</li>
+          <li>Appliquer, si disponible, une bandelette à cristaux liquides sur la surface et noter l'intervalle de température qu'elle indique.</li>
+          <li>Comparer les trois résultats et discuter des sources d'écart (émissivité de la surface, temps de réponse, contact thermique...).</li>
+        </ol>
+
+      </div>
+
     </div>
+
   </div>
 
-  <!-- Tableau de résultats -->
-  <div class="section" data-type="resultats"> ... </div>
+</div>
 
-  <!-- Thermique et environnement (transversal, équivalent "Chimie et environnement") -->
-  <div class="section" data-type="environnement"> ... </div>
+<!-- ====================================================== -->
+<!-- TABLEAU DES RÉSULTATS                                   -->
+<!-- ====================================================== -->
 
-  <!-- Trace écrite / compte rendu -->
-  <div class="section" data-type="bilan"> ... </div>
+<div class="section" data-type="resultats">
 
-  <!-- Auto-évaluation des compétences -->
-  <div class="section" data-type="auto-evaluation"> ... </div>
-
-  <!-- Impression -->
-  <div class="section" data-type="impression_tp"> ... </div>
-
-  <div class="nav-tp">
-    <button class="btn btn-secondaire" onclick="location.href='../index.html'">🏠 Accueil</button>
-    <button class="btn btn-primaire" onclick="loadTP('tp02-equilibre-thermique')">TP02 →</button>
+  <div class="section-titre">
+    <div class="picto-section">📊</div>
+    <h2>Tableau de résultats</h2>
+    <span class="chevron">▼</span>
   </div>
+
+  <div class="section-corps">
+
+    <div class="table-responsive">
+
+      <table class="tableau-resultats">
+
+        <thead>
+          <tr>
+            <th>Capteur</th>
+            <th>Température de référence</th>
+            <th>Température mesurée</th>
+            <th>Écart</th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          <tr>
+            <td>Thermistance</td>
+            <td><input type="number" step="0.1" placeholder="°C"></td>
+            <td><input type="number" step="0.1" placeholder="°C"></td>
+            <td>—</td>
+          </tr>
+
+          <tr>
+            <td>Sonde Pt100</td>
+            <td><input type="number" step="0.1" placeholder="°C"></td>
+            <td><input type="number" step="0.1" placeholder="°C"></td>
+            <td>—</td>
+          </tr>
+
+          <tr>
+            <td>Thermocouple</td>
+            <td><input type="number" step="0.1" placeholder="°C"></td>
+            <td><input type="number" step="0.1" placeholder="°C"></td>
+            <td>—</td>
+          </tr>
+
+          <tr>
+            <td>Infrarouge</td>
+            <td><input type="number" step="0.1" placeholder="°C"></td>
+            <td><input type="number" step="0.1" placeholder="°C"></td>
+            <td>—</td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+  </div>
+
+</div>
+
+<!-- ====================================================== -->
+<!-- THERMIQUE ET ENVIRONNEMENT                              -->
+<!-- ====================================================== -->
+
+<div class="section" data-type="environnement">
+
+  <div class="section-titre">
+    <div class="picto-section">🌱</div>
+    <h2>Thermique et environnement</h2>
+    <span class="chevron">▼</span>
+  </div>
+
+  <div class="section-corps">
+
+    <h3>Bonnes pratiques au laboratoire</h3>
+
+    <ul style="padding-left:1.5rem;line-height:2">
+      <li>Ne chauffer le bain thermostaté qu'à la température strictement nécessaire, et couper le chauffage dès la fin des mesures.</li>
+      <li>Éteindre les multimètres et centrales d'acquisition entre deux manipulations pour économiser leurs piles.</li>
+      <li>Réutiliser l'eau du bain thermostaté d'un groupe à l'autre plutôt que de la renouveler systématiquement.</li>
+    </ul>
+
+    <h3 style="margin-top:var(--gap-md);">Le choix du capteur, un enjeu industriel</h3>
+
+    <p>
+      Choisir un capteur de température adapté (plage de mesure, précision,
+      coût, robustesse, temps de réponse) permet d'éviter le surdimensionnement
+      d'une instrumentation et donc un gaspillage de ressources et d'énergie
+      dans les procédés industriels : régulation de four, suivi de chaîne du
+      froid, contrôle de procédés de fabrication.
+    </p>
+
+  </div>
+
+</div>
+
+<!-- ====================================================== -->
+<!-- TRACE ECRITE - COMPTE RENDU                            -->
+<!-- ====================================================== -->
+
+<div class="section" data-type="bilan">
+
+  <div class="section-titre">
+    <div class="picto-section">📝</div>
+    <h2>Trace écrite - Compte rendu</h2>
+    <span class="chevron">▼</span>
+  </div>
+
+  <div class="section-corps">
+
+    <h3>Identification</h3>
+
+    <div class="form-row">
+
+      <div class="form-group">
+        <label for="nom-eleve">Nom</label>
+        <input id="nom-eleve" type="text" placeholder="Nom">
+      </div>
+
+      <div class="form-group">
+        <label for="prenom-eleve">Prénom</label>
+        <input id="prenom-eleve" type="text" placeholder="Prénom">
+      </div>
+
+      <div class="form-group">
+        <label for="classe-eleve">Classe</label>
+        <input id="classe-eleve" type="text" placeholder="Classe">
+      </div>
+
+      <div class="form-group">
+        <label for="date-eleve">Date</label>
+        <input id="date-eleve" type="date">
+      </div>
+
+    </div>
+
+    <h3 style="margin-top:var(--gap-md);">Résumé du TP</h3>
+
+    <div class="zone-eleve">
+      <textarea id="resume-tp" rows="6" placeholder="Résumer les capteurs testés, les protocoles suivis et les résultats obtenus..."></textarea>
+    </div>
+
+    <h3 style="margin-top:var(--gap-md);">Questions</h3>
+
+    <div class="questions-bloc" data-tp="capteurs-temperature">
+
+    <ol class="questions-tp">
+
+      <li>
+        <div class="question-entete">
+          <strong>
+            Expliquer la relation entre les échelles Celsius et Kelvin,
+            et préciser à quoi correspond physiquement 0 K.
+          </strong>
+          <span class="cartouche" data-comp="APP">APP</span>
+        </div>
+        <div class="zone-eleve">
+          <textarea id="question1" rows="4" placeholder="Votre réponse..."></textarea>
+        </div>
+      </li>
+
+      <li>
+        <div class="question-entete">
+          <strong>
+            Pour chacun des capteurs testés (thermistance, Pt100,
+            thermocouple, infrarouge), indiquer le principe physique
+            exploité et la grandeur électrique mesurée.
+          </strong>
+          <span class="cartouche" data-comp="REA">REA</span>
+        </div>
+        <div class="zone-eleve">
+          <textarea id="question2" rows="6" placeholder="Votre réponse..."></textarea>
+        </div>
+      </li>
+
+      <li>
+        <div class="question-entete">
+          <strong>
+            Comparer, à partir du tableau de résultats, les écarts
+            obtenus pour chaque capteur par rapport à la température de
+            référence et identifier le capteur le plus précis dans ce TP.
+          </strong>
+          <span class="cartouche" data-comp="ANA">ANA</span>
+        </div>
+        <div class="zone-eleve">
+          <textarea id="question3" rows="5" placeholder="Votre analyse..."></textarea>
+        </div>
+      </li>
+
+      <li>
+        <div class="question-entete">
+          <strong>
+            En lien avec le contexte professionnel de votre filière
+            (section « Contexte professionnel » ci-dessus), proposer le
+            capteur de température le plus adapté à une situation de
+            votre futur métier, et justifier ce choix.
+          </strong>
+          <span class="cartouche" data-comp="COM">COM</span>
+        </div>
+        <div class="zone-eleve">
+          <textarea id="question4" rows="5" placeholder="Votre réponse..."></textarea>
+        </div>
+      </li>
+
+      <li class="question-problematique">
+        <div class="question-entete">
+          <strong>Répondre à la problématique posée en début de TP :</strong>
+          <span class="cartouche" data-comp="VAL">VAL</span>
+        </div>
+        <p class="problematique-rappel" data-activite="capteurs-temperature"></p>
+        <div class="zone-eleve">
+          <textarea id="question5" rows="5" placeholder="Répondre à la problématique en vous appuyant sur vos résultats expérimentaux..."></textarea>
+        </div>
+      </li>
+
+    </ol>
+
+    </div>
+
+  </div>
+
+</div>
+
+<!-- ====================================================== -->
+<!-- AUTO-ÉVALUATION                                         -->
+<!-- ====================================================== -->
+
+<div class="section" data-type="auto-evaluation">
+
+  <div class="section-titre">
+    <div class="picto-section">📡</div>
+    <h2>Auto-évaluation des compétences</h2>
+    <span class="chevron">▼</span>
+  </div>
+
+  <div class="section-corps">
+
+    <p class="info">
+      À la fin du TP, évaluez votre niveau de maîtrise pour chaque
+      compétence.
+    </p>
+
+    <div class="table-responsive">
+
+      <table class="tableau-resultats autoeval-table">
+
+        <thead>
+          <tr>
+            <th>Domaine</th>
+            <th>Sigle</th>
+            <th>Je suis capable de...</th>
+            <th>0</th>
+            <th>1</th>
+            <th>2</th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          <tr data-comp="APP">
+            <td>S'approprier</td>
+            <td>APP</td>
+            <td>Identifier les échelles et les principes de mesure.</td>
+            <td><input type="radio" name="APP" value="0"></td>
+            <td><input type="radio" name="APP" value="1"></td>
+            <td><input type="radio" name="APP" value="2"></td>
+          </tr>
+
+          <tr data-comp="ANA">
+            <td>Analyser / Raisonner</td>
+            <td>ANA</td>
+            <td>Choisir un capteur adapté à une situation donnée.</td>
+            <td><input type="radio" name="ANA" value="0"></td>
+            <td><input type="radio" name="ANA" value="1"></td>
+            <td><input type="radio" name="ANA" value="2"></td>
+          </tr>
+
+          <tr data-comp="REA">
+            <td>Réaliser</td>
+            <td>REA</td>
+            <td>Effectuer correctement les mesures et les calculs.</td>
+            <td><input type="radio" name="REA" value="0"></td>
+            <td><input type="radio" name="REA" value="1"></td>
+            <td><input type="radio" name="REA" value="2"></td>
+          </tr>
+
+          <tr data-comp="VAL">
+            <td>Valider</td>
+            <td>VAL</td>
+            <td>Vérifier la cohérence des résultats obtenus.</td>
+            <td><input type="radio" name="VAL" value="0"></td>
+            <td><input type="radio" name="VAL" value="1"></td>
+            <td><input type="radio" name="VAL" value="2"></td>
+          </tr>
+
+          <tr data-comp="COM">
+            <td>Communiquer</td>
+            <td>COM</td>
+            <td>Présenter les résultats avec un vocabulaire scientifique.</td>
+            <td><input type="radio" name="COM" value="0"></td>
+            <td><input type="radio" name="COM" value="1"></td>
+            <td><input type="radio" name="COM" value="2"></td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+    <div class="radar-actions" style="margin-top:var(--gap-lg);">
+
+      <button id="btn-radar" class="btn btn-primaire">
+        📊 Générer mon radar de compétences
+      </button>
+
+      <div id="radar-resultat" style="margin-top:var(--gap-md);"></div>
+
+    </div>
+
+  </div>
+
+</div>
+
+<!-- ====================================================== -->
+<!-- IMPRESSION COMPTE RENDU                                 -->
+<!-- ====================================================== -->
+
+<div class="section" data-type="impression_tp">
+
+  <div class="section-titre">
+    <div class="picto-section">📒</div>
+    <h2>Impression du compte-rendu</h2>
+    <span class="chevron">▼</span>
+  </div>
+
+  <div class="section-corps">
+
+    <p class="info">
+      À la fin du TP, Imprimer votre TP en PDF.
+      Envoyer à l'enseignant votre Compte rendu en pièce jointe par la messagerie de l'ENT.
+    </p>
+
+    <div class="toolbar">
+      <button id="btn-imprimer" class="btn btn-primaire">
+        🖨 Imprimer le compte-rendu
+      </button>
+    </div>
+
+    <div class="info" style="margin-top:var(--gap-md);">
+      L'impression récupère automatiquement :
+      <ul>
+        <li>les mesures effectuées sur chaque capteur ;</li>
+        <li>les résultats du tableau ;</li>
+        <li>les réponses aux questions ;</li>
+        <li>l'auto-évaluation des compétences.</li>
+      </ul>
+    </div>
+
+  </div>
+
+</div>
+
+<!-- ====================================================== -->
+<!-- NAVIGATION                                              -->
+<!-- ====================================================== -->
+
+<div class="nav-tp">
+
+  <button class="btn btn-secondaire" onclick="location.href='../index.html'">
+    🏠 Accueil
+  </button>
+
+  <button class="btn btn-primaire" onclick="loadTP('tp02-equilibre-thermique')">
+    TP02 →
+  </button>
+
+</div>
 
 </main>
+
+<!-- ====================================================== -->
+<!-- CONTENEUR IMPRESSION COMPTE RENDU                       -->
+<!-- ====================================================== -->
 
 <div id="cr-print-container" style="display:none;"></div>
 
