@@ -1,0 +1,736 @@
+<!--
+  Fragment SPA chargé dynamiquement par navigation.js.
+  Tous les chemins sont relatifs à la racine du site.
+  Aucun <script> dans ce fragment.
+-->
+
+<section>
+
+<!-- ====================================================== -->
+<!-- EN-TÊTE                                                 -->
+<!-- ====================================================== -->
+
+<header class="tp-header">
+
+  <div class="tp-header-logo">
+    <div class="logo">
+      <span class="sci">Sci</span><span class="Lab">Lab</span>
+    </div>
+  </div>
+
+  <div class="tp-header-centre">
+
+    <h1>Combustion et effet de serre</h1>
+
+    <div class="tp-meta">
+      <div class="tp-row">
+        <span class="tag">1ère</span>
+        <span class="tag">Thermique</span>
+        <span class="tag">Combustion - </span><span class="tag">CO₂</span>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="tp-header-numero">
+    <span class="tp-numero-txt">TP04</span>
+  </div>
+
+</header>
+
+<div class="progress">
+  <div id="bar"></div>
+</div>
+
+<main id="content">
+
+<!-- ====================================================== -->
+<!-- CAPACITES                                               -->
+<!-- ====================================================== -->
+
+<div class="section" data-type="objectif">
+
+  <div class="section-titre">
+    <div class="picto-section">🎯</div>
+    <h2>Capacités évaluées</h2>
+    <span class="chevron">▼</span>
+  </div>
+
+  <div class="section-corps">
+
+    <ul>
+      <li>Réaliser expérimentalement une réaction de combustion de charbon ou d'un hydrocarbure et identifier les produits de la combustion.</li>
+      <li>Écrire et ajuster l'équation de la réaction modélisant la combustion d'un hydrocarbure.</li>
+      <li>Calculer l'énergie libérée sous forme d'énergie thermique par la combustion d'une masse donnée d'hydrocarbure à partir de données fournies.</li>
+      <li>Déterminer la masse de dioxyde de carbone (CO₂) dégagée par la combustion complète d'une masse donnée d'un hydrocarbure.</li>
+      <li>Connaître la dangerosité des composés produits lors d'une combustion incomplète.</li>
+      <li>Savoir que le CO₂ est un des principaux gaz à effet de serre et que les moteurs thermiques convertissent l'énergie libérée par la combustion en énergie mécanique.</li>
+    </ul>
+
+  </div>
+
+</div>
+
+<!-- ====================================================== -->
+<!-- CONTEXTE PROFESSIONNEL                                  -->
+<!-- ====================================================== -->
+
+<div class="section" data-type="contexte-pro">
+
+  <div class="section-titre">
+    <div class="picto-section">🏭</div>
+    <h2>Contexte professionnel</h2>
+    <span class="chevron">▼</span>
+  </div>
+
+  <div class="section-corps">
+
+    <div class="filiere-select-bloc">
+      <label for="select-filiere-pro">Votre filière professionnelle :</label>
+      <select id="select-filiere-pro">
+        <option value="">-- Sélectionner une filière --</option>
+      </select>
+    </div>
+
+    <div id="contexte-pro-resultat" class="contexte-pro-resultat">
+      <p>Sélectionner votre filière professionnelle pour afficher le contexte et la problématique associée.</p>
+    </div>
+
+  </div>
+
+</div>
+
+<!-- ====================================================== -->
+<!-- SECURITE                                                -->
+<!-- ====================================================== -->
+
+<div class="section" data-type="securite">
+
+  <div class="section-titre">
+    <div class="picto-section">⚠️</div>
+    <h2>Sécurité</h2>
+    <span class="chevron">▼</span>
+  </div>
+
+  <div class="section-corps">
+
+    <div class="info">
+      Ce TP met en œuvre une flamme et dégage des gaz de combustion :
+      travailler impérativement sous hotte ou dans une pièce ventilée.
+    </div>
+
+    <ul style="padding-left:1.5rem;line-height:2">
+      <li><strong>Flamme nue :</strong> attacher les cheveux longs, ne rien laisser d'inflammable à proximité du bec bunsen ou de la bougie utilisée.</li>
+      <li><strong>Monoxyde de carbone (CO) :</strong> une combustion incomplète (flamme jaune, manque de dioxygène) dégage du CO, gaz toxique, incolore et inodore ; ne jamais faire fonctionner une combustion en espace confiné et non ventilé.</li>
+      <li><strong>Verrerie chaude :</strong> laisser refroidir avant de manipuler le matériel ayant servi à recueillir les produits de combustion.</li>
+      <li><strong>Eau de chaux :</strong> irritante pour la peau et les yeux ; porter des lunettes de protection.</li>
+    </ul>
+
+  </div>
+
+</div>
+
+<!-- ====================================================== -->
+<!-- MATERIEL                                                -->
+<!-- ====================================================== -->
+
+<div class="section" data-type="materiel">
+
+  <div class="section-titre">
+    <div class="picto-section">🧪</div>
+    <h2>Matériel nécessaire</h2>
+    <span class="chevron">▼</span>
+  </div>
+
+  <div class="section-corps">
+
+    <h3>Instruments et réactifs</h3>
+
+    <ul style="padding-left:1.5rem;line-height:2">
+      <li>Bec bunsen (ou bougie), briquet</li>
+      <li>Bécher retourné ou entonnoir pour recueillir les gaz de combustion</li>
+      <li>Eau de chaux (test du CO₂), papier cobalt ou sulfate de cuivre anhydre (test de l'eau)</li>
+      <li>Balance</li>
+    </ul>
+
+    <hr>
+
+    <h3>Équipements</h3>
+
+    <ul style="padding-left:1.5rem;line-height:2">
+      <li>Hotte aspirante ou pièce ventilée</li>
+      <li>Support, pince</li>
+    </ul>
+
+  </div>
+
+</div>
+
+<!-- ====================================================== -->
+<!-- MANIPULATIONS                                           -->
+<!-- ====================================================== -->
+
+<div class="section" data-type="preparation">
+
+  <div class="section-titre">
+    <div class="picto-section">⚗️</div>
+    <h2>Manipulations</h2>
+    <span class="chevron">▼</span>
+  </div>
+
+  <div class="section-corps">
+
+    <div class="tabs-container">
+
+      <div class="tabs-header">
+        <button class="tab-btn actif" data-tab="equation">Équation de combustion</button>
+        <button class="tab-btn" data-tab="energie-combustion">Énergie libérée</button>
+        <button class="tab-btn" data-tab="masse-co2">Masse de CO₂ dégagée</button>
+      </div>
+
+      <!-- ============================ -->
+      <!-- EQUATION                     -->
+      <!-- ============================ -->
+
+      <div class="tab-panel actif" id="equation">
+
+        <h3>Équation de combustion complète</h3>
+
+        <div class="info">
+          La combustion complète d'un hydrocarbure CₓHᵧ dans le
+          dioxygène produit uniquement du dioxyde de carbone et de
+          l'eau : CₓHᵧ + (x + y/4) O₂ → x CO₂ + (y/2) H₂O.
+        </div>
+
+        <div class="form-group">
+          <label for="comb-hydrocarbure">Hydrocarbure</label>
+          <select id="comb-hydrocarbure">
+            <option value="CH4">Méthane — CH₄</option>
+            <option value="C3H8">Propane — C₃H₈</option>
+            <option value="C4H10">Butane — C₄H₁₀</option>
+            <option value="C8H18">Octane (essence) — C₈H₁₈</option>
+          </select>
+        </div>
+
+        <div id="comb-equation" class="resultat-calcul">
+        </div>
+
+        <div class="info" style="margin-top:var(--gap-md);">
+          <strong>Combustion incomplète :</strong> en cas de manque de
+          dioxygène, la combustion produit aussi du monoxyde de carbone
+          (CO), gaz toxique, et/ou des suies (carbone non brûlé), au lieu
+          d'une combustion propre en CO₂ et H₂O.
+        </div>
+
+        <h4 style="margin-top:var(--gap-lg);">Protocole</h4>
+
+        <ol class="etapes">
+          <li>Allumer le bec bunsen et régler la flamme pour obtenir une combustion complète (flamme bleue) puis incomplète (flamme jaune, en réduisant l'arrivée d'air).</li>
+          <li>Recueillir les gaz de combustion en plaçant un bécher retourné au-dessus de la flamme.</li>
+          <li>Tester la présence de CO₂ avec de l'eau de chaux (trouble blanchâtre) et la présence d'eau avec du sulfate de cuivre anhydre (blanc → bleu) ou du papier cobalt (bleu → rose).</li>
+          <li>Observer et noter les différences visuelles entre la flamme bleue et la flamme jaune (dépôt de suie).</li>
+        </ol>
+
+      </div>
+
+      <!-- ============================ -->
+      <!-- ENERGIE COMBUSTION           -->
+      <!-- ============================ -->
+
+      <div class="tab-panel" id="energie-combustion">
+
+        <h3>Énergie libérée par la combustion</h3>
+
+        <div class="info">
+          Le pouvoir calorifique inférieur (PCI) d'un combustible
+          indique l'énergie libérée par la combustion complète d'un
+          kilogramme de ce combustible. L'énergie totale libérée est
+          Q = m × PCI.
+        </div>
+
+        <div class="formule">
+          Q = m × PCI
+        </div>
+
+        <div class="form-row">
+
+          <div class="form-group">
+            <label for="energie-hydrocarbure">Hydrocarbure</label>
+            <select id="energie-hydrocarbure">
+              <option value="CH4">Méthane — CH₄</option>
+              <option value="C3H8">Propane — C₃H₈</option>
+              <option value="C4H10">Butane — C₄H₁₀</option>
+              <option value="C8H18">Octane (essence) — C₈H₁₈</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="energie-pci">PCI (MJ/kg)</label>
+            <input id="energie-pci" type="number" step="0.1" readonly>
+          </div>
+
+          <div class="form-group">
+            <label for="energie-masse-hc">Masse brûlée m (g)</label>
+            <input id="energie-masse-hc" type="number" step="1" value="100">
+          </div>
+
+          <div class="form-group">
+            <label for="energie-q-liberee">Énergie libérée Q</label>
+            <div class="input-unite">
+              <output id="energie-q-liberee">—</output>
+            </div>
+          </div>
+
+        </div>
+
+        <h4 style="margin-top:var(--gap-lg);">Protocole</h4>
+
+        <ol class="etapes">
+          <li>Sélectionner l'hydrocarbure étudié et relever son PCI donné dans le tableau de données.</li>
+          <li>Saisir une masse de combustible brûlée pour calculer l'énergie thermique libérée.</li>
+          <li>Comparer l'énergie libérée par des masses identiques d'hydrocarbures différents.</li>
+        </ol>
+
+      </div>
+
+      <!-- ============================ -->
+      <!-- MASSE CO2                    -->
+      <!-- ============================ -->
+
+      <div class="tab-panel" id="masse-co2">
+
+        <h3>Masse de CO₂ dégagée</h3>
+
+        <div class="info">
+          À partir de l'équation de combustion équilibrée et des masses
+          molaires, on peut calculer la masse de CO₂ produite par la
+          combustion complète d'une masse donnée d'hydrocarbure.
+        </div>
+
+        <div class="form-row">
+
+          <div class="form-group">
+            <label for="co2-hydrocarbure">Hydrocarbure</label>
+            <select id="co2-hydrocarbure">
+              <option value="CH4">Méthane — CH₄</option>
+              <option value="C3H8">Propane — C₃H₈</option>
+              <option value="C4H10">Butane — C₄H₁₀</option>
+              <option value="C8H18">Octane (essence) — C₈H₁₈</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="co2-masse-hc">Masse brûlée m (g)</label>
+            <input id="co2-masse-hc" type="number" step="1" value="100">
+          </div>
+
+        </div>
+
+        <div id="co2-detail" class="resultat-calcul">
+        </div>
+
+        <h4 style="margin-top:var(--gap-lg);">Protocole</h4>
+
+        <ol class="etapes">
+          <li>Reprendre l'équation équilibrée de l'onglet « Équation de combustion » pour l'hydrocarbure étudié.</li>
+          <li>Saisir la masse d'hydrocarbure brûlée pour obtenir la masse de CO₂ dégagée, avec le détail du calcul stœchiométrique.</li>
+          <li>Comparer la masse de CO₂ obtenue à la masse d'hydrocarbure brûlée initialement.</li>
+        </ol>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+<!-- ====================================================== -->
+<!-- TABLEAU DES RÉSULTATS                                   -->
+<!-- ====================================================== -->
+
+<div class="section" data-type="resultats">
+
+  <div class="section-titre">
+    <div class="picto-section">📊</div>
+    <h2>Tableau de résultats</h2>
+    <span class="chevron">▼</span>
+  </div>
+
+  <div class="section-corps">
+
+    <div class="table-responsive">
+
+      <table class="tableau-resultats">
+
+        <thead>
+          <tr>
+            <th>Test réalisé</th>
+            <th>Observation attendue</th>
+            <th>Observation expérimentale</th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          <tr>
+            <td>Eau de chaux (présence de CO₂)</td>
+            <td>Trouble blanchâtre</td>
+            <td><input type="text" placeholder="Votre observation"></td>
+          </tr>
+
+          <tr>
+            <td>Sulfate de cuivre anhydre (présence d'eau)</td>
+            <td>Coloration blanc → bleu</td>
+            <td><input type="text" placeholder="Votre observation"></td>
+          </tr>
+
+          <tr>
+            <td>Aspect de la flamme (combustion complète)</td>
+            <td>Flamme bleue, sans suie</td>
+            <td><input type="text" placeholder="Votre observation"></td>
+          </tr>
+
+          <tr>
+            <td>Aspect de la flamme (combustion incomplète)</td>
+            <td>Flamme jaune, dépôt de suie</td>
+            <td><input type="text" placeholder="Votre observation"></td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+  </div>
+
+</div>
+
+<!-- ====================================================== -->
+<!-- THERMIQUE ET ENVIRONNEMENT                              -->
+<!-- ====================================================== -->
+
+<div class="section" data-type="environnement">
+
+  <div class="section-titre">
+    <div class="picto-section">🌱</div>
+    <h2>Thermique et environnement</h2>
+    <span class="chevron">▼</span>
+  </div>
+
+  <div class="section-corps">
+
+    <h3>Bonnes pratiques au laboratoire</h3>
+
+    <ul style="padding-left:1.5rem;line-height:2">
+      <li>Ne pas laisser une flamme allumée inutilement entre deux observations.</li>
+      <li>Travailler impérativement sous hotte pour évacuer les gaz de combustion.</li>
+    </ul>
+
+    <h3 style="margin-top:var(--gap-md);">Combustion, énergie et climat</h3>
+
+    <p>
+      L'énergie utilisée aujourd'hui à l'échelle mondiale reste très
+      majoritairement obtenue par combustion d'hydrocarbures et de
+      charbon (chauffage, transport, production d'électricité). Le CO₂
+      ainsi libéré est l'un des principaux gaz à effet de serre : son
+      accumulation dans l'atmosphère accentue le réchauffement
+      climatique, ce qui justifie la recherche de combustibles moins
+      carbonés et l'amélioration du rendement des moteurs thermiques.
+    </p>
+
+  </div>
+
+</div>
+
+<!-- ====================================================== -->
+<!-- TRACE ECRITE - COMPTE RENDU                            -->
+<!-- ====================================================== -->
+
+<div class="section" data-type="bilan">
+
+  <div class="section-titre">
+    <div class="picto-section">📝</div>
+    <h2>Trace écrite - Compte rendu</h2>
+    <span class="chevron">▼</span>
+  </div>
+
+  <div class="section-corps">
+
+    <h3>Identification</h3>
+
+    <div class="form-row">
+
+      <div class="form-group">
+        <label for="nom-eleve">Nom</label>
+        <input id="nom-eleve" type="text" placeholder="Nom">
+      </div>
+
+      <div class="form-group">
+        <label for="prenom-eleve">Prénom</label>
+        <input id="prenom-eleve" type="text" placeholder="Prénom">
+      </div>
+
+      <div class="form-group">
+        <label for="classe-eleve">Classe</label>
+        <input id="classe-eleve" type="text" placeholder="Classe">
+      </div>
+
+      <div class="form-group">
+        <label for="date-eleve">Date</label>
+        <input id="date-eleve" type="date">
+      </div>
+
+    </div>
+
+    <h3 style="margin-top:var(--gap-md);">Résumé du TP</h3>
+
+    <div class="zone-eleve">
+      <textarea id="resume-tp" rows="6" placeholder="Résumer les observations de la combustion, les tests réalisés et les calculs effectués..."></textarea>
+    </div>
+
+    <h3 style="margin-top:var(--gap-md);">Questions</h3>
+
+    <div class="questions-bloc" data-tp="combustion">
+
+    <ol class="questions-tp">
+
+      <li>
+        <div class="question-entete">
+          <strong>
+            Écrire et ajuster l'équation de la réaction de combustion
+            complète de l'hydrocarbure étudié.
+          </strong>
+          <span class="cartouche" data-comp="APP">APP</span>
+        </div>
+        <div class="zone-eleve">
+          <textarea id="question1" rows="4" placeholder="Votre réponse..."></textarea>
+        </div>
+      </li>
+
+      <li>
+        <div class="question-entete">
+          <strong>
+            Calculer l'énergie libérée par la combustion de la masse
+            d'hydrocarbure étudiée, puis la masse de CO₂ dégagée.
+            Détailler les calculs.
+          </strong>
+          <span class="cartouche" data-comp="REA">REA</span>
+        </div>
+        <div class="zone-eleve">
+          <textarea id="question2" rows="5" placeholder="Calculs et réponse..."></textarea>
+        </div>
+      </li>
+
+      <li>
+        <div class="question-entete">
+          <strong>
+            Comparer les observations obtenues avec une flamme bleue et
+            une flamme jaune, et expliquer pourquoi une combustion
+            incomplète est dangereuse.
+          </strong>
+          <span class="cartouche" data-comp="ANA">ANA</span>
+        </div>
+        <div class="zone-eleve">
+          <textarea id="question3" rows="5" placeholder="Votre analyse..."></textarea>
+        </div>
+      </li>
+
+      <li>
+        <div class="question-entete">
+          <strong>
+            En lien avec le contexte professionnel de votre filière
+            (section « Contexte professionnel » ci-dessus), expliquer
+            en quoi la maîtrise de la combustion constitue un enjeu à
+            la fois énergétique et environnemental dans votre futur
+            métier.
+          </strong>
+          <span class="cartouche" data-comp="COM">COM</span>
+        </div>
+        <div class="zone-eleve">
+          <textarea id="question4" rows="5" placeholder="Votre réponse..."></textarea>
+        </div>
+      </li>
+
+      <li class="question-problematique">
+        <div class="question-entete">
+          <strong>Répondre à la problématique posée en début de TP :</strong>
+          <span class="cartouche" data-comp="VAL">VAL</span>
+        </div>
+        <p class="problematique-rappel" data-activite="combustion"></p>
+        <div class="zone-eleve">
+          <textarea id="question5" rows="5" placeholder="Répondre à la problématique en vous appuyant sur vos résultats expérimentaux..."></textarea>
+        </div>
+      </li>
+
+    </ol>
+
+    </div>
+
+  </div>
+
+</div>
+
+<!-- ====================================================== -->
+<!-- AUTO-ÉVALUATION                                         -->
+<!-- ====================================================== -->
+
+<div class="section" data-type="auto-evaluation">
+
+  <div class="section-titre">
+    <div class="picto-section">📡</div>
+    <h2>Auto-évaluation des compétences</h2>
+    <span class="chevron">▼</span>
+  </div>
+
+  <div class="section-corps">
+
+    <p class="info">
+      À la fin du TP, évaluez votre niveau de maîtrise pour chaque
+      compétence.
+    </p>
+
+    <div class="table-responsive">
+
+      <table class="tableau-resultats autoeval-table">
+
+        <thead>
+          <tr>
+            <th>Domaine</th>
+            <th>Sigle</th>
+            <th>Je suis capable de...</th>
+            <th>0</th>
+            <th>1</th>
+            <th>2</th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          <tr data-comp="APP">
+            <td>S'approprier</td>
+            <td>APP</td>
+            <td>Identifier les produits d'une combustion.</td>
+            <td><input type="radio" name="APP" value="0"></td>
+            <td><input type="radio" name="APP" value="1"></td>
+            <td><input type="radio" name="APP" value="2"></td>
+          </tr>
+
+          <tr data-comp="ANA">
+            <td>Analyser / Raisonner</td>
+            <td>ANA</td>
+            <td>Comparer combustion complète et incomplète.</td>
+            <td><input type="radio" name="ANA" value="0"></td>
+            <td><input type="radio" name="ANA" value="1"></td>
+            <td><input type="radio" name="ANA" value="2"></td>
+          </tr>
+
+          <tr data-comp="REA">
+            <td>Réaliser</td>
+            <td>REA</td>
+            <td>Équilibrer une équation et calculer une énergie ou une masse de CO₂.</td>
+            <td><input type="radio" name="REA" value="0"></td>
+            <td><input type="radio" name="REA" value="1"></td>
+            <td><input type="radio" name="REA" value="2"></td>
+          </tr>
+
+          <tr data-comp="VAL">
+            <td>Valider</td>
+            <td>VAL</td>
+            <td>Vérifier la cohérence des résultats obtenus.</td>
+            <td><input type="radio" name="VAL" value="0"></td>
+            <td><input type="radio" name="VAL" value="1"></td>
+            <td><input type="radio" name="VAL" value="2"></td>
+          </tr>
+
+          <tr data-comp="COM">
+            <td>Communiquer</td>
+            <td>COM</td>
+            <td>Présenter les résultats avec un vocabulaire scientifique.</td>
+            <td><input type="radio" name="COM" value="0"></td>
+            <td><input type="radio" name="COM" value="1"></td>
+            <td><input type="radio" name="COM" value="2"></td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+    <div class="radar-actions" style="margin-top:var(--gap-lg);">
+      <button id="btn-radar" class="btn btn-primaire">
+        📊 Générer mon radar de compétences
+      </button>
+      <div id="radar-resultat" style="margin-top:var(--gap-md);"></div>
+    </div>
+
+  </div>
+
+</div>
+
+<!-- ====================================================== -->
+<!-- IMPRESSION COMPTE RENDU                                 -->
+<!-- ====================================================== -->
+
+<div class="section" data-type="impression_tp">
+
+  <div class="section-titre">
+    <div class="picto-section">📒</div>
+    <h2>Impression du compte-rendu</h2>
+    <span class="chevron">▼</span>
+  </div>
+
+  <div class="section-corps">
+
+    <p class="info">
+      À la fin du TP, Imprimer votre TP en PDF.
+      Envoyer à l'enseignant votre Compte rendu en pièce jointe par la messagerie de l'ENT.
+    </p>
+
+    <div class="toolbar">
+      <button id="btn-imprimer" class="btn btn-primaire">
+        🖨 Imprimer le compte-rendu
+      </button>
+    </div>
+
+    <div class="info" style="margin-top:var(--gap-md);">
+      L'impression récupère automatiquement :
+      <ul>
+        <li>l'équation de combustion et les paramètres saisis ;</li>
+        <li>les résultats du tableau ;</li>
+        <li>les réponses aux questions ;</li>
+        <li>l'auto-évaluation des compétences.</li>
+      </ul>
+    </div>
+
+  </div>
+
+</div>
+
+<!-- ====================================================== -->
+<!-- NAVIGATION                                              -->
+<!-- ====================================================== -->
+
+<div class="nav-tp">
+
+  <button class="btn btn-secondaire" onclick="loadTP('tp03-changement-etat')">
+    ← TP03
+  </button>
+
+  <button class="btn btn-primaire" onclick="loadTP('tp05-transferts-thermiques')">
+    TP05 →
+  </button>
+
+</div>
+
+</main>
+
+<!-- ====================================================== -->
+<!-- CONTENEUR IMPRESSION COMPTE RENDU                       -->
+<!-- ====================================================== -->
+
+<div id="cr-print-container" style="display:none;"></div>
+
+</section>
