@@ -7,6 +7,33 @@
     box-sizing: border-box;
 }
 
+/* =========================
+   CHARTE GRAPHIQUE — UNE COULEUR PAR DOMAINE DE TP
+   Source unique de vérité pour toutes les teintes de domaine,
+   réutilisée ci-dessous par .tp-card et par le bandeau du viewer.
+   Chaque tp-<domaine>/css/style.css doit utiliser exactement ces
+   mêmes teintes pour rester cohérent avec cette page d'accueil.
+========================= */
+:root {
+    --domaine-electricite-1: #F59E0B;
+    --domaine-electricite-2: #B45309;
+
+    --domaine-mecanique-1: #4B5563;
+    --domaine-mecanique-2: #1F2937;
+
+    --domaine-chimie-1: #1B6CA8;
+    --domaine-chimie-2: #0D4F8A;
+
+    --domaine-acoustique-1: #0891B2;
+    --domaine-acoustique-2: #0E7490;
+
+    --domaine-thermique-1: #C1440E;
+    --domaine-thermique-2: #7A2E0E;
+
+    --domaine-optique-1: #8B5CF6;
+    --domaine-optique-2: #6D28D9;
+}
+
 body {
     font-family: Arial, sans-serif;
     background: #f4f4f4;
@@ -295,30 +322,33 @@ th {
     box-shadow: 0 12px 22px rgba(0,0,0,0.25);
 }
 
-/* Couleurs */
+/* Couleurs — une teinte par domaine, cf. bloc :root ci-dessus.
+   TP Chimie reste bleu (identité déjà établie dans
+   tp-chimie/css/style.css) ; TP Acoustique passe au cyan pour éviter
+   le doublon avec le bleu désormais réservé à la chimie. */
 
 .electricite {
-    background: linear-gradient(135deg, #f59e0b, #fbbf24);
+    background: linear-gradient(135deg, var(--domaine-electricite-1), var(--domaine-electricite-2));
 }
 
 .mecanique {
-    background: linear-gradient(135deg, #4b5563, #6b7280);
+    background: linear-gradient(135deg, var(--domaine-mecanique-1), var(--domaine-mecanique-2));
 }
 
 .chimie {
-    background: linear-gradient(135deg, #10b981, #34d399);
+    background: linear-gradient(135deg, var(--domaine-chimie-1), var(--domaine-chimie-2));
 }
 
 .acoustique {
-    background: linear-gradient(135deg, #2563eb, #60a5fa);
+    background: linear-gradient(135deg, var(--domaine-acoustique-1), var(--domaine-acoustique-2));
 }
 
 .thermique {
-    background: linear-gradient(135deg, #ef4444, #f87171);
+    background: linear-gradient(135deg, var(--domaine-thermique-1), var(--domaine-thermique-2));
 }
 
 .optique {
-    background: linear-gradient(135deg, #8b5cf6, #a78bfa);
+    background: linear-gradient(135deg, var(--domaine-optique-1), var(--domaine-optique-2));
 }
 
 /* =========================
@@ -383,7 +413,21 @@ th {
     border-bottom: 1px solid rgba(255,255,255,0.1);
 
     flex-shrink: 0;
+
+    transition: background .25s;
 }
+
+/* Bandeau du viewer teinté selon le domaine ouvert, si le JS
+   (js/app.js) pose un attribut data-domaine="..." sur #tpViewer au
+   moment de l'ouverture (ex. lors du clic sur la carte "TP Chimie",
+   ajouter tpViewer.dataset.domaine = "chimie"). Sans cet attribut,
+   le bandeau garde sa couleur neutre par défaut ci-dessus. */
+.tp-viewer[data-domaine="electricite"] .viewer-topbar { background: linear-gradient(135deg, var(--domaine-electricite-2), var(--domaine-electricite-1)); }
+.tp-viewer[data-domaine="mecanique"]   .viewer-topbar { background: linear-gradient(135deg, var(--domaine-mecanique-2), var(--domaine-mecanique-1)); }
+.tp-viewer[data-domaine="chimie"]      .viewer-topbar { background: linear-gradient(135deg, var(--domaine-chimie-2), var(--domaine-chimie-1)); }
+.tp-viewer[data-domaine="acoustique"]  .viewer-topbar { background: linear-gradient(135deg, var(--domaine-acoustique-2), var(--domaine-acoustique-1)); }
+.tp-viewer[data-domaine="thermique"]   .viewer-topbar { background: linear-gradient(135deg, var(--domaine-thermique-2), var(--domaine-thermique-1)); }
+.tp-viewer[data-domaine="optique"]     .viewer-topbar { background: linear-gradient(135deg, var(--domaine-optique-2), var(--domaine-optique-1)); }
 
 .viewer-topbar h2 {
     color: white;
