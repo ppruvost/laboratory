@@ -12,6 +12,23 @@
  */
 
 import { $, arrondir } from '../../js/utils.js';
+import { initContextePro } from '../../js/contexte-pro.js';
+import FILIERES_PRO from '../../data/filieres.js';
+
+// Contexte professionnel par filière (clé "niveau-idFiliere")
+const CONTEXTES_PRO = {
+
+  '2nde-remi': {
+    contexte: "En Réalisation d'Ensembles Mécaniques et Industriels, vous devez régulièrement contrôler la température d'une pièce avant assemblage (dilatation, retrait), surveiller le refroidissement d'un bain de trempe ou vérifier qu'un moteur ne surchauffe pas, à l'aide de capteurs adaptés à chaque situation (contact, sans contact, plage de température).",
+    problematique: "Quel capteur de température choisir, en fonction de la situation, pour contrôler une pièce mécanique avec la précision et la sécurité requises ?",
+  },
+
+  '2nde-mcc': {
+    contexte: "En Métiers de la couture et de la confection, la température des fers à repasser et des presses à thermocollage doit être précisément contrôlée : trop faible, la colle thermofusible n'adhère pas ; trop élevée, elle brûle ou déforme le tissu.",
+    problematique: "Comment choisir et utiliser un capteur de température adapté au réglage d'une presse à thermocollage, sans détériorer le tissu ?",
+  },
+
+};
 
 // ---------------------------------------------------------------
 // Point d'entrée, appelé automatiquement par navigation.js
@@ -22,6 +39,11 @@ export function init() {
   initPt100();
   initThermocouple();
   initIRCristaux();
+
+  initContextePro({
+    filieres: FILIERES_PRO,
+    contextes: CONTEXTES_PRO,
+  });
 }
 
 // =================================================================
