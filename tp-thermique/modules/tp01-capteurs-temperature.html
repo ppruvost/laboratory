@@ -173,26 +173,30 @@
 
   <div class="section-corps">
 
-    <h3>Instruments de mesure</h3>
+    <div id="materiel-equipements">
 
-    <ul style="padding-left:1.5rem;line-height:2">
-      <li>Thermomètre à liquide (référence)</li>
-      <li>Thermistance + multimètre (mesure de résistance)</li>
-      <li>Sonde Pt100 + multimètre ou centrale d'acquisition</li>
-      <li>Thermocouple type K + millivoltmètre</li>
-      <li>Thermomètre à infrarouge (visée laser)</li>
-      <li>Bandelette à cristaux liquides</li>
-    </ul>
+      <h3>Instruments de mesure</h3>
 
-    <hr>
+      <div class="grille-materiel">
+        <label class="item-materiel"><input type="checkbox" class="materiel-check-input" checked> Thermomètre à liquide (référence)</label>
+        <label class="item-materiel"><input type="checkbox" class="materiel-check-input" checked> Thermistance + multimètre (mesure de résistance)</label>
+        <label class="item-materiel"><input type="checkbox" class="materiel-check-input" checked> Sonde Pt100 + multimètre ou centrale d'acquisition</label>
+        <label class="item-materiel"><input type="checkbox" class="materiel-check-input" checked> Thermocouple type K + millivoltmètre</label>
+        <label class="item-materiel"><input type="checkbox" class="materiel-check-input" checked> Thermomètre à infrarouge (visée laser)</label>
+        <label class="item-materiel"><input type="checkbox" class="materiel-check-input" checked> Bandelette à cristaux liquides</label>
+      </div>
 
-    <h3>Équipements</h3>
+      <hr>
 
-    <ul style="padding-left:1.5rem;line-height:2">
-      <li>Bain thermostaté ou plaque chauffante</li>
-      <li>Bécher, glace pilée, eau déminéralisée</li>
-      <li>Support et pince pour capteurs</li>
-    </ul>
+      <h3>Équipements</h3>
+
+      <div class="grille-materiel">
+        <label class="item-materiel"><input type="checkbox" class="materiel-check-input" checked> Bain thermostaté ou plaque chauffante</label>
+        <label class="item-materiel"><input type="checkbox" class="materiel-check-input" checked> Bécher, glace pilée, eau déminéralisée</label>
+        <label class="item-materiel"><input type="checkbox" class="materiel-check-input" checked> Support et pince pour capteurs</label>
+      </div>
+
+    </div>
 
   </div>
 
@@ -520,30 +524,30 @@
 
           <tr>
             <td>Thermistance</td>
-            <td><input type="number" step="0.1" placeholder="°C"></td>
-            <td><input type="number" step="0.1" placeholder="°C"></td>
-            <td>—</td>
+            <td><input id="ref-thermistance" type="number" step="0.1" placeholder="°C"></td>
+            <td><input id="mesuree-thermistance" type="number" step="0.1" placeholder="°C"></td>
+            <td id="ecart-thermistance">—</td>
           </tr>
 
           <tr>
             <td>Sonde Pt100</td>
-            <td><input type="number" step="0.1" placeholder="°C"></td>
-            <td><input type="number" step="0.1" placeholder="°C"></td>
-            <td>—</td>
+            <td><input id="ref-pt100" type="number" step="0.1" placeholder="°C"></td>
+            <td><input id="mesuree-pt100" type="number" step="0.1" placeholder="°C"></td>
+            <td id="ecart-pt100">—</td>
           </tr>
 
           <tr>
             <td>Thermocouple</td>
-            <td><input type="number" step="0.1" placeholder="°C"></td>
-            <td><input type="number" step="0.1" placeholder="°C"></td>
-            <td>—</td>
+            <td><input id="ref-thermocouple" type="number" step="0.1" placeholder="°C"></td>
+            <td><input id="mesuree-thermocouple" type="number" step="0.1" placeholder="°C"></td>
+            <td id="ecart-thermocouple">—</td>
           </tr>
 
           <tr>
             <td>Infrarouge</td>
-            <td><input type="number" step="0.1" placeholder="°C"></td>
-            <td><input type="number" step="0.1" placeholder="°C"></td>
-            <td>—</td>
+            <td><input id="ref-infrarouge" type="number" step="0.1" placeholder="°C"></td>
+            <td><input id="mesuree-infrarouge" type="number" step="0.1" placeholder="°C"></td>
+            <td id="ecart-infrarouge">—</td>
           </tr>
 
         </tbody>
