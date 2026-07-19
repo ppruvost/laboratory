@@ -10,6 +10,27 @@
  */
 
 import { $, arrondir } from '../../js/utils.js';
+import { initContextePro } from '../../js/contexte-pro.js';
+import FILIERES_PRO from '../../data/filieres.js';
+
+const CONTEXTES_PRO = {
+
+  '1ere-tci': {
+    contexte: "En chaudronnerie industrielle, l'oxycoupage et le soudo-brasage reposent sur la combustion contrôlée d'un gaz (acétylène, propane) dans le dioxygène. Une combustion incomplète, en espace mal ventilé, dégage du monoxyde de carbone, dangereux pour l'opérateur.",
+    problematique: "Comment la maîtrise de la combustion du gaz de coupe garantit-elle à la fois une découpe efficace et la sécurité de l'atelier de chaudronnerie ?",
+  },
+
+  '1ere-trpm': {
+    contexte: "Le traitement thermique des pièces mécaniques (trempe, revenu) est souvent réalisé dans un four chauffé par la combustion d'un gaz. L'efficacité de cette combustion conditionne à la fois le coût énergétique du traitement et la quantité de CO₂ rejetée.",
+    problematique: "Quelle énergie et quelle masse de CO₂ sont associées à la combustion du gaz alimentant le four de traitement thermique, et comment limiter cet impact ?",
+  },
+
+  '1ere-mcc': {
+    contexte: "Les presses à repasser industrielles et les centrales vapeur d'un atelier de confection sont souvent alimentées par une chaudière au gaz. La combustion de ce gaz représente une part importante de la consommation énergétique et des émissions de CO₂ de l'atelier.",
+    problematique: "Quelle énergie et quelle masse de CO₂ sont associées à la production de vapeur nécessaire au repassage industriel, et comment limiter cet impact environnemental ?",
+  },
+
+};
 
 // Données des hydrocarbures étudiés : x et y de CxHy, nom affiché,
 // PCI approximatif (MJ/kg)
@@ -28,6 +49,11 @@ export function init() {
   initEquation();
   initEnergie();
   initMasseCO2();
+
+  initContextePro({
+    filieres: FILIERES_PRO,
+    contextes: CONTEXTES_PRO,
+  });
 }
 
 // =================================================================
