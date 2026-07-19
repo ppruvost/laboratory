@@ -11,9 +11,10 @@
  *    d'entrée DOIT donc s'appeler init(), pas initTP01()
  */
 
-import { $, arrondir } from '../../js/utils.js';
+import { $, arrondir, initCommun } from '../../js/utils.js';
 import { initContextePro } from '../../js/contexte-pro.js';
 import FILIERES_PRO from '../../data/filieres.js';
+import { initRadarCompetences } from '../../js/radar.js';
 
 // Contexte professionnel par filière (clé "niveau-idFiliere")
 const CONTEXTES_PRO = {
@@ -44,6 +45,13 @@ export function init() {
     filieres: FILIERES_PRO,
     contextes: CONTEXTES_PRO,
   });
+
+  // Onglets, accordéons de section et bouton d'impression (#btn-imprimer)
+  // : sans cet appel, ces éléments restent inertes malgré leur CSS.
+  initCommun();
+
+  // Génération du radar au clic sur #btn-radar
+  initRadarCompetences();
 }
 
 // =================================================================
