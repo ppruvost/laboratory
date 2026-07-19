@@ -1,0 +1,881 @@
+<!--
+  Fragment SPA chargé dynamiquement par navigation.js.
+  Tous les chemins sont relatifs à la racine du site.
+  Aucun <script> dans ce fragment.
+-->
+
+<section>
+
+<!-- ====================================================== -->
+<!-- EN-TÊTE                                                 -->
+<!-- ====================================================== -->
+
+<header class="tp-header">
+
+  <div class="tp-header-logo">
+    <div class="logo">
+      <span class="sci">Sci</span><span class="Lab">Lab</span>
+    </div>
+  </div>
+
+  <div class="tp-header-centre">
+
+    <h1>Transferts thermiques et rayonnement</h1>
+
+    <div class="tp-meta">
+
+      <div class="tp-row">
+        <span class="tag">1ère</span>
+        <span class="tag">Thermique</span>
+        <span class="tag">Conduction - </span><span class="tag">Convection - </span><span class="tag">Rayonnement</span>
+      </div>
+
+      <div class="tp-row">
+        <span class="tag">Tle</span>
+        <span class="tag">Thermique</span>
+        <span class="tag">Rayonnement - </span><span class="tag">Effet de serre</span>
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="tp-header-numero">
+    <span class="tp-numero-txt">TP05</span>
+  </div>
+
+</header>
+
+<div class="progress">
+  <div id="bar"></div>
+</div>
+
+<main id="content">
+
+<!-- ====================================================== -->
+<!-- CAPACITES                                               -->
+<!-- ====================================================== -->
+
+<div class="section" data-type="objectif">
+
+  <div class="section-titre">
+    <div class="picto-section">🎯</div>
+    <h2>Capacités évaluées</h2>
+    <span class="chevron">▼</span>
+  </div>
+
+  <div class="section-corps">
+
+    <ul>
+      <li>Mettre en évidence expérimentalement les trois modes de transfert thermique.</li>
+      <li>Décrire qualitativement les trois modes de transfert thermique en citant des exemples.</li>
+      <li>Comparer expérimentalement de façon qualitative les propriétés de plusieurs matériaux vis-à-vis de la conduction thermique.</li>
+      <li>Savoir qu'un transfert thermique se fait spontanément du corps le plus chaud vers le corps le plus froid.</li>
+      <li>Montrer expérimentalement qu'un objet peut se réchauffer sous l'effet d'un rayonnement.</li>
+      <li>Illustrer expérimentalement l'absorption du rayonnement infrarouge par différents matériaux.</li>
+      <li>Expliquer le principe de l'effet de serre atmosphérique et connaître les principaux gaz à effet de serre.</li>
+    </ul>
+
+  </div>
+
+</div>
+
+<!-- ====================================================== -->
+<!-- CONTEXTE PROFESSIONNEL                                  -->
+<!-- ====================================================== -->
+
+<div class="section" data-type="contexte-pro">
+
+  <div class="section-titre">
+    <div class="picto-section">🏭</div>
+    <h2>Contexte professionnel</h2>
+    <span class="chevron">▼</span>
+  </div>
+
+  <div class="section-corps">
+
+    <div class="filiere-select-bloc">
+      <label for="select-filiere-pro">Votre filière professionnelle :</label>
+      <select id="select-filiere-pro">
+        <option value="">-- Sélectionner une filière --</option>
+      </select>
+    </div>
+
+    <div id="contexte-pro-resultat" class="contexte-pro-resultat">
+      <p>Sélectionner votre filière professionnelle pour afficher le contexte et la problématique associée.</p>
+    </div>
+
+  </div>
+
+</div>
+
+<!-- ====================================================== -->
+<!-- SECURITE                                                -->
+<!-- ====================================================== -->
+
+<div class="section" data-type="securite">
+
+  <div class="section-titre">
+    <div class="picto-section">⚠️</div>
+    <h2>Sécurité</h2>
+    <span class="chevron">▼</span>
+  </div>
+
+  <div class="section-corps">
+
+    <div class="info">
+      Ce TP ne met pas en œuvre de produit chimique. Les risques sont
+      liés aux sources de chaleur et à la lampe utilisée pour le
+      rayonnement.
+    </div>
+
+    <ul style="padding-left:1.5rem;line-height:2">
+      <li><strong>Brûlure :</strong> les tiges métalliques et l'eau chaude utilisées pour la conduction peuvent être brûlantes ; manipuler avec une pince.</li>
+      <li><strong>Lampe de rayonnement :</strong> ne pas regarder directement une lampe halogène ou infrarouge de forte puissance ; la laisser refroidir avant de la ranger.</li>
+      <li><strong>Caméra thermique :</strong> matériel fragile, à manipuler avec précaution.</li>
+    </ul>
+
+  </div>
+
+</div>
+
+<!-- ====================================================== -->
+<!-- MATERIEL                                                -->
+<!-- ====================================================== -->
+
+<div class="section" data-type="materiel">
+
+  <div class="section-titre">
+    <div class="picto-section">🧪</div>
+    <h2>Matériel nécessaire</h2>
+    <span class="chevron">▼</span>
+  </div>
+
+  <div class="section-corps">
+
+    <h3>Instruments de mesure</h3>
+
+    <ul style="padding-left:1.5rem;line-height:2">
+      <li>Thermomètre ou sonde de température + chronomètre</li>
+      <li>Caméra thermique (si disponible)</li>
+    </ul>
+
+    <hr>
+
+    <h3>Équipements</h3>
+
+    <ul style="padding-left:1.5rem;line-height:2">
+      <li>Tiges de matériaux différents (métal, bois, plastique) recouvertes de cire ou de billes fixées à la paraffine</li>
+      <li>Bec bunsen ou source de chaleur</li>
+      <li>Lampe (halogène ou infrarouge) sur support</li>
+      <li>Deux surfaces identiques, l'une noire et l'une blanche (ou claire)</li>
+    </ul>
+
+  </div>
+
+</div>
+
+<!-- ====================================================== -->
+<!-- MANIPULATIONS                                           -->
+<!-- ====================================================== -->
+
+<div class="section" data-type="preparation">
+
+  <div class="section-titre">
+    <div class="picto-section">⚗️</div>
+    <h2>Manipulations</h2>
+    <span class="chevron">▼</span>
+  </div>
+
+  <div class="section-corps">
+
+    <div class="tabs-container">
+
+      <div class="tabs-header">
+        <button class="tab-btn actif" data-tab="trois-modes">Les trois modes de transfert</button>
+        <button class="tab-btn" data-tab="conduction">Conduction thermique</button>
+        <button class="tab-btn" data-tab="rayonnement">Rayonnement thermique</button>
+        <button class="tab-btn" data-tab="effet-de-serre">Effet de serre atmosphérique</button>
+      </div>
+
+      <!-- ============================ -->
+      <!-- TROIS MODES (QUIZ)           -->
+      <!-- ============================ -->
+
+      <div class="tab-panel actif" id="trois-modes">
+
+        <h3>Identifier le mode de transfert thermique</h3>
+
+        <div class="info">
+          Un transfert thermique se fait toujours spontanément du corps
+          le plus chaud vers le corps le plus froid, selon trois modes
+          possibles : la <strong>conduction</strong> (de proche en
+          proche, dans la matière, sans déplacement de matière), la
+          <strong>convection</strong> (par déplacement d'un fluide) et
+          le <strong>rayonnement</strong> (sans contact ni matière
+          interposée, y compris dans le vide).
+        </div>
+
+        <div id="quiz-modes">
+
+          <div class="form-group quiz-situation" data-reponse="conduction">
+            <label>
+              1. La poignée d'une casserole métallique devient brûlante
+              alors qu'elle n'est pas directement sur le feu.
+            </label>
+            <select class="quiz-select" data-situation="1">
+              <option value="">-- Choisir un mode --</option>
+              <option value="conduction">Conduction</option>
+              <option value="convection">Convection</option>
+              <option value="rayonnement">Rayonnement</option>
+            </select>
+            <span class="quiz-feedback"></span>
+          </div>
+
+          <div class="form-group quiz-situation" data-reponse="convection">
+            <label>
+              2. L'air chauffé par un radiateur monte au plafond puis
+              redescend en refroidissant, créant un mouvement dans la
+              pièce.
+            </label>
+            <select class="quiz-select" data-situation="2">
+              <option value="">-- Choisir un mode --</option>
+              <option value="conduction">Conduction</option>
+              <option value="convection">Convection</option>
+              <option value="rayonnement">Rayonnement</option>
+            </select>
+            <span class="quiz-feedback"></span>
+          </div>
+
+          <div class="form-group quiz-situation" data-reponse="rayonnement">
+            <label>
+              3. On ressent la chaleur du Soleil alors qu'il n'y a
+              pratiquement pas de matière entre la Terre et le Soleil.
+            </label>
+            <select class="quiz-select" data-situation="3">
+              <option value="">-- Choisir un mode --</option>
+              <option value="conduction">Conduction</option>
+              <option value="convection">Convection</option>
+              <option value="rayonnement">Rayonnement</option>
+            </select>
+            <span class="quiz-feedback"></span>
+          </div>
+
+          <div class="form-group quiz-situation" data-reponse="conduction">
+            <label>
+              4. Une tige métallique chauffée à une extrémité devient
+              progressivement chaude sur toute sa longueur.
+            </label>
+            <select class="quiz-select" data-situation="4">
+              <option value="">-- Choisir un mode --</option>
+              <option value="conduction">Conduction</option>
+              <option value="convection">Convection</option>
+              <option value="rayonnement">Rayonnement</option>
+            </select>
+            <span class="quiz-feedback"></span>
+          </div>
+
+        </div>
+
+        <h4 style="margin-top:var(--gap-lg);">Protocole</h4>
+
+        <ol class="etapes">
+          <li>Pour chaque situation, réfléchir au mécanisme physique en jeu avant de sélectionner une réponse.</li>
+          <li>Confronter vos réponses aux observations réalisées dans les onglets « Conduction » et « Rayonnement » de ce TP.</li>
+        </ol>
+
+      </div>
+
+      <!-- ============================ -->
+      <!-- CONDUCTION                   -->
+      <!-- ============================ -->
+
+      <div class="tab-panel" id="conduction">
+
+        <h3>Comparaison de matériaux vis-à-vis de la conduction</h3>
+
+        <div class="info">
+          En fixant une bille avec de la paraffine à l'extrémité de
+          tiges de matériaux différents et en chauffant l'autre
+          extrémité, le temps nécessaire à la chute de chaque bille
+          (paraffine fondue) permet de classer les matériaux du meilleur
+          conducteur thermique au meilleur isolant.
+        </div>
+
+        <div class="table-responsive">
+          <table class="tableau-resultats">
+            <thead>
+              <tr>
+                <th>Matériau</th>
+                <th>Temps avant chute de la bille (s)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Métal</td>
+                <td><input id="cond-temps-metal" type="number" step="1"></td>
+              </tr>
+              <tr>
+                <td>Bois</td>
+                <td><input id="cond-temps-bois" type="number" step="1"></td>
+              </tr>
+              <tr>
+                <td>Plastique</td>
+                <td><input id="cond-temps-plastique" type="number" step="1"></td>
+              </tr>
+              <tr>
+                <td>Verre</td>
+                <td><input id="cond-temps-verre" type="number" step="1"></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <button id="cond-classer" type="button" class="btn btn-primaire">
+          📶 Classer les matériaux
+        </button>
+
+        <div id="cond-classement" class="resultat-calcul" style="margin-top:var(--gap-md);">
+          Saisir les temps mesurés puis cliquer sur « Classer les
+          matériaux » : le matériau où la bille tombe le plus vite est
+          le meilleur conducteur thermique.
+        </div>
+
+        <h4 style="margin-top:var(--gap-lg);">Protocole</h4>
+
+        <ol class="etapes">
+          <li>Fixer une bille identique à l'extrémité de chaque tige avec un peu de paraffine.</li>
+          <li>Chauffer simultanément l'autre extrémité de chaque tige (montage en étoile autour d'une même source de chaleur si possible).</li>
+          <li>Déclencher un chronomètre et relever le temps de chute de chaque bille.</li>
+          <li>Saisir les temps obtenus et observer le classement automatique.</li>
+        </ol>
+
+      </div>
+
+      <!-- ============================ -->
+      <!-- RAYONNEMENT                  -->
+      <!-- ============================ -->
+
+      <div class="tab-panel" id="rayonnement">
+
+        <h3>Échauffement sous rayonnement et absorption IR</h3>
+
+        <div class="info">
+          Un objet placé face à une lampe se réchauffe même sans contact
+          ni air en mouvement : c'est l'effet du rayonnement thermique
+          émis par la lampe. Une surface sombre absorbe davantage ce
+          rayonnement qu'une surface claire, et s'échauffe donc plus vite.
+        </div>
+
+        <h4>Suivi temporel de l'échauffement</h4>
+
+        <div class="form-row">
+
+          <div class="form-group">
+            <label for="ray-temps">Temps (s)</label>
+            <input id="ray-temps" type="number" step="1">
+          </div>
+
+          <div class="form-group">
+            <label for="ray-temp">Température (°C)</label>
+            <input id="ray-temp" type="number" step="0.1">
+          </div>
+
+          <div class="form-group">
+            <label>&nbsp;</label>
+            <button id="ray-ajouter" type="button" class="btn btn-primaire">
+              + Ajouter le point
+            </button>
+          </div>
+
+        </div>
+
+        <div class="table-responsive">
+          <table class="tableau-resultats">
+            <thead>
+              <tr>
+                <th>N°</th>
+                <th>Temps (s)</th>
+                <th>Température (°C)</th>
+              </tr>
+            </thead>
+            <tbody id="tbody-rayonnement">
+            </tbody>
+          </table>
+        </div>
+
+        <div id="ray-modelisation" class="resultat-calcul">
+          Ajouter au moins deux points pour estimer la vitesse
+          d'échauffement (coefficient directeur a de la fonction affine
+          θ(t) = a×t + b).
+        </div>
+
+        <h4 style="margin-top:var(--gap-lg);">Absorption du rayonnement infrarouge</h4>
+
+        <div class="form-row">
+
+          <div class="form-group">
+            <label for="ray-temp-noir">Température finale, surface noire (°C)</label>
+            <input id="ray-temp-noir" type="number" step="0.1">
+          </div>
+
+          <div class="form-group">
+            <label for="ray-temp-blanc">Température finale, surface blanche (°C)</label>
+            <input id="ray-temp-blanc" type="number" step="0.1">
+          </div>
+
+          <div class="form-group">
+            <label for="ray-ecart-couleur">Écart noir - blanc</label>
+            <div class="input-unite">
+              <output id="ray-ecart-couleur">—</output>
+            </div>
+          </div>
+
+        </div>
+
+        <h4 style="margin-top:var(--gap-lg);">Protocole</h4>
+
+        <ol class="etapes">
+          <li>Placer un thermomètre ou une sonde au contact d'une surface, face à la lampe éteinte, et relever la température initiale.</li>
+          <li>Allumer la lampe, déclencher le chronomètre et relever la température toutes les 30 secondes en ajoutant chaque point au tableau.</li>
+          <li>Recommencer l'expérience en plaçant côte à côte une surface noire et une surface blanche identiques, exposées le même temps au rayonnement, et relever leurs températures finales.</li>
+          <li>Si une caméra thermique est disponible, comparer l'image thermique des deux surfaces et décrire ce qui est observé.</li>
+        </ol>
+
+      </div>
+
+      <!-- ============================ -->
+      <!-- EFFET DE SERRE               -->
+      <!-- ============================ -->
+
+      <div class="tab-panel" id="effet-de-serre">
+
+        <h3>Effet de serre atmosphérique</h3>
+
+        <div class="info">
+          Tous les objets émettent un rayonnement thermique dont les
+          caractéristiques dépendent de leur température : à température
+          usuelle, ce rayonnement appartient au domaine infrarouge (IR),
+          invisible à l'œil nu. Les gaz à effet de serre (GES) présents
+          dans l'atmosphère absorbent le rayonnement infrarouge émis par
+          la Terre, mais laissent passer le rayonnement visible provenant
+          du Soleil : cela augmente l'énergie reçue par la surface de la
+          Terre et tend à faire augmenter sa température.
+        </div>
+
+        <div class="form-group">
+          <label for="ges-select">Principaux gaz à effet de serre</label>
+          <select id="ges-select">
+            <option value="">-- Sélectionner un gaz --</option>
+            <option value="h2o">Vapeur d'eau (H₂O)</option>
+            <option value="co2">Dioxyde de carbone (CO₂)</option>
+            <option value="ch4">Méthane (CH₄)</option>
+            <option value="n2o">Protoxyde d'azote (N₂O)</option>
+          </select>
+        </div>
+
+        <div id="ges-info" class="resultat-calcul">
+          Sélectionner un gaz pour afficher son origine principale.
+        </div>
+
+        <p class="info" style="margin-top:var(--gap-md);">
+          L'effet de serre atmosphérique est un phénomène naturel
+          indispensable à la vie sur Terre. Il est cependant amplifié
+          par le rejet de GES, notamment de CO₂, lié à l'activité
+          humaine (combustion d'hydrocarbures et de charbon, cf. TP04),
+          ce qui accentue le réchauffement climatique.
+        </p>
+
+        <h4 style="margin-top:var(--gap-lg);">Protocole</h4>
+
+        <ol class="etapes">
+          <li>À partir d'une ressource documentaire fournie par l'enseignant, identifier le trajet du rayonnement solaire visible depuis le Soleil jusqu'à la surface de la Terre.</li>
+          <li>Identifier le trajet du rayonnement infrarouge émis par la Terre et son interaction avec les GES de l'atmosphère.</li>
+          <li>Pour chaque gaz de la liste ci-dessus, relever son origine principale (naturelle et/ou liée à l'activité humaine).</li>
+        </ol>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+<!-- ====================================================== -->
+<!-- TABLEAU DES RÉSULTATS                                   -->
+<!-- ====================================================== -->
+
+<div class="section" data-type="resultats">
+
+  <div class="section-titre">
+    <div class="picto-section">📊</div>
+    <h2>Tableau de résultats</h2>
+    <span class="chevron">▼</span>
+  </div>
+
+  <div class="section-corps">
+
+    <div class="table-responsive">
+
+      <table class="tableau-resultats">
+
+        <thead>
+          <tr>
+            <th>Grandeur</th>
+            <th>Résultat</th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          <tr>
+            <td>Meilleur conducteur thermique observé</td>
+            <td><input type="text" placeholder="Matériau"></td>
+          </tr>
+
+          <tr>
+            <td>Meilleur isolant thermique observé</td>
+            <td><input type="text" placeholder="Matériau"></td>
+          </tr>
+
+          <tr>
+            <td>Écart de température noir / blanc sous rayonnement</td>
+            <td><input type="text" placeholder="°C"></td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+  </div>
+
+</div>
+
+<!-- ====================================================== -->
+<!-- THERMIQUE ET ENVIRONNEMENT                              -->
+<!-- ====================================================== -->
+
+<div class="section" data-type="environnement">
+
+  <div class="section-titre">
+    <div class="picto-section">🌱</div>
+    <h2>Thermique et environnement</h2>
+    <span class="chevron">▼</span>
+  </div>
+
+  <div class="section-corps">
+
+    <h3>Bonnes pratiques au laboratoire</h3>
+
+    <ul style="padding-left:1.5rem;line-height:2">
+      <li>Éteindre la lampe de rayonnement dès la fin des relevés de température.</li>
+      <li>Ne chauffer les tiges de conduction que le temps nécessaire à l'observation.</li>
+    </ul>
+
+    <h3 style="margin-top:var(--gap-md);">Isolation et sobriété énergétique</h3>
+
+    <p>
+      Le choix des matériaux isolants (faible conduction) pour les
+      parois d'un bâtiment, ou au contraire de matériaux bons conducteurs
+      pour un radiateur ou un échangeur thermique, conditionne
+      directement la consommation d'énergie d'un logement ou d'un
+      procédé industriel. Comprendre les trois modes de transfert
+      thermique permet d'agir efficacement pour limiter les pertes de
+      chaleur inutiles et réduire l'empreinte énergétique des bâtiments.
+    </p>
+
+  </div>
+
+</div>
+
+<!-- ====================================================== -->
+<!-- TRACE ECRITE - COMPTE RENDU                            -->
+<!-- ====================================================== -->
+
+<div class="section" data-type="bilan">
+
+  <div class="section-titre">
+    <div class="picto-section">📝</div>
+    <h2>Trace écrite - Compte rendu</h2>
+    <span class="chevron">▼</span>
+  </div>
+
+  <div class="section-corps">
+
+    <h3>Identification</h3>
+
+    <div class="form-row">
+
+      <div class="form-group">
+        <label for="nom-eleve">Nom</label>
+        <input id="nom-eleve" type="text" placeholder="Nom">
+      </div>
+
+      <div class="form-group">
+        <label for="prenom-eleve">Prénom</label>
+        <input id="prenom-eleve" type="text" placeholder="Prénom">
+      </div>
+
+      <div class="form-group">
+        <label for="classe-eleve">Classe</label>
+        <input id="classe-eleve" type="text" placeholder="Classe">
+      </div>
+
+      <div class="form-group">
+        <label for="date-eleve">Date</label>
+        <input id="date-eleve" type="date">
+      </div>
+
+    </div>
+
+    <h3 style="margin-top:var(--gap-md);">Résumé du TP</h3>
+
+    <div class="zone-eleve">
+      <textarea id="resume-tp" rows="6" placeholder="Résumer les observations sur la conduction, le rayonnement et l'effet de serre..."></textarea>
+    </div>
+
+    <h3 style="margin-top:var(--gap-md);">Questions</h3>
+
+    <div class="questions-bloc" data-tp="transferts-thermiques">
+
+    <ol class="questions-tp">
+
+      <li>
+        <div class="question-entete">
+          <strong>
+            Décrire les trois modes de transfert thermique et donner,
+            pour chacun, un exemple issu de la vie courante ou de ce TP.
+          </strong>
+          <span class="cartouche" data-comp="APP">APP</span>
+        </div>
+        <div class="zone-eleve">
+          <textarea id="question1" rows="5" placeholder="Votre réponse..."></textarea>
+        </div>
+      </li>
+
+      <li>
+        <div class="question-entete">
+          <strong>
+            À partir du classement obtenu dans l'onglet « Conduction »,
+            identifier le meilleur conducteur et le meilleur isolant
+            thermique parmi les matériaux testés.
+          </strong>
+          <span class="cartouche" data-comp="REA">REA</span>
+        </div>
+        <div class="zone-eleve">
+          <textarea id="question2" rows="4" placeholder="Votre réponse..."></textarea>
+        </div>
+      </li>
+
+      <li>
+        <div class="question-entete">
+          <strong>
+            Comparer l'échauffement de la surface noire et de la surface
+            blanche sous rayonnement, et expliquer ce résultat en lien
+            avec l'absorption du rayonnement infrarouge.
+          </strong>
+          <span class="cartouche" data-comp="ANA">ANA</span>
+        </div>
+        <div class="zone-eleve">
+          <textarea id="question3" rows="5" placeholder="Votre analyse..."></textarea>
+        </div>
+      </li>
+
+      <li>
+        <div class="question-entete">
+          <strong>
+            Expliquer le principe de l'effet de serre atmosphérique et
+            son lien avec le réchauffement climatique, en citant les
+            principaux gaz à effet de serre.
+          </strong>
+          <span class="cartouche" data-comp="COM">COM</span>
+        </div>
+        <div class="zone-eleve">
+          <textarea id="question4" rows="5" placeholder="Votre réponse..."></textarea>
+        </div>
+      </li>
+
+      <li class="question-problematique">
+        <div class="question-entete">
+          <strong>Répondre à la problématique posée en début de TP :</strong>
+          <span class="cartouche" data-comp="VAL">VAL</span>
+        </div>
+        <p class="problematique-rappel" data-activite="transferts-thermiques"></p>
+        <div class="zone-eleve">
+          <textarea id="question5" rows="5" placeholder="Répondre à la problématique en vous appuyant sur vos résultats expérimentaux..."></textarea>
+        </div>
+      </li>
+
+    </ol>
+
+    </div>
+
+  </div>
+
+</div>
+
+<!-- ====================================================== -->
+<!-- AUTO-ÉVALUATION                                         -->
+<!-- ====================================================== -->
+
+<div class="section" data-type="auto-evaluation">
+
+  <div class="section-titre">
+    <div class="picto-section">📡</div>
+    <h2>Auto-évaluation des compétences</h2>
+    <span class="chevron">▼</span>
+  </div>
+
+  <div class="section-corps">
+
+    <p class="info">
+      À la fin du TP, évaluez votre niveau de maîtrise pour chaque
+      compétence.
+    </p>
+
+    <div class="table-responsive">
+
+      <table class="tableau-resultats autoeval-table">
+
+        <thead>
+          <tr>
+            <th>Domaine</th>
+            <th>Sigle</th>
+            <th>Je suis capable de...</th>
+            <th>0</th>
+            <th>1</th>
+            <th>2</th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          <tr data-comp="APP">
+            <td>S'approprier</td>
+            <td>APP</td>
+            <td>Identifier le mode de transfert thermique en jeu dans une situation.</td>
+            <td><input type="radio" name="APP" value="0"></td>
+            <td><input type="radio" name="APP" value="1"></td>
+            <td><input type="radio" name="APP" value="2"></td>
+          </tr>
+
+          <tr data-comp="ANA">
+            <td>Analyser / Raisonner</td>
+            <td>ANA</td>
+            <td>Interpréter un écart d'échauffement entre deux surfaces.</td>
+            <td><input type="radio" name="ANA" value="0"></td>
+            <td><input type="radio" name="ANA" value="1"></td>
+            <td><input type="radio" name="ANA" value="2"></td>
+          </tr>
+
+          <tr data-comp="REA">
+            <td>Réaliser</td>
+            <td>REA</td>
+            <td>Comparer expérimentalement des matériaux vis-à-vis de la conduction.</td>
+            <td><input type="radio" name="REA" value="0"></td>
+            <td><input type="radio" name="REA" value="1"></td>
+            <td><input type="radio" name="REA" value="2"></td>
+          </tr>
+
+          <tr data-comp="VAL">
+            <td>Valider</td>
+            <td>VAL</td>
+            <td>Vérifier la cohérence des résultats obtenus.</td>
+            <td><input type="radio" name="VAL" value="0"></td>
+            <td><input type="radio" name="VAL" value="1"></td>
+            <td><input type="radio" name="VAL" value="2"></td>
+          </tr>
+
+          <tr data-comp="COM">
+            <td>Communiquer</td>
+            <td>COM</td>
+            <td>Expliquer le principe de l'effet de serre avec un vocabulaire scientifique.</td>
+            <td><input type="radio" name="COM" value="0"></td>
+            <td><input type="radio" name="COM" value="1"></td>
+            <td><input type="radio" name="COM" value="2"></td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+    <div class="radar-actions" style="margin-top:var(--gap-lg);">
+      <button id="btn-radar" class="btn btn-primaire">
+        📊 Générer mon radar de compétences
+      </button>
+      <div id="radar-resultat" style="margin-top:var(--gap-md);"></div>
+    </div>
+
+  </div>
+
+</div>
+
+<!-- ====================================================== -->
+<!-- IMPRESSION COMPTE RENDU                                 -->
+<!-- ====================================================== -->
+
+<div class="section" data-type="impression_tp">
+
+  <div class="section-titre">
+    <div class="picto-section">📒</div>
+    <h2>Impression du compte-rendu</h2>
+    <span class="chevron">▼</span>
+  </div>
+
+  <div class="section-corps">
+
+    <p class="info">
+      À la fin du TP, Imprimer votre TP en PDF.
+      Envoyer à l'enseignant votre Compte rendu en pièce jointe par la messagerie de l'ENT.
+    </p>
+
+    <div class="toolbar">
+      <button id="btn-imprimer" class="btn btn-primaire">
+        🖨 Imprimer le compte-rendu
+      </button>
+    </div>
+
+    <div class="info" style="margin-top:var(--gap-md);">
+      L'impression récupère automatiquement :
+      <ul>
+        <li>les temps de conduction et le classement des matériaux ;</li>
+        <li>le suivi d'échauffement sous rayonnement ;</li>
+        <li>les résultats du tableau et les réponses aux questions ;</li>
+        <li>l'auto-évaluation des compétences.</li>
+      </ul>
+    </div>
+
+  </div>
+
+</div>
+
+<!-- ====================================================== -->
+<!-- NAVIGATION                                              -->
+<!-- ====================================================== -->
+
+<div class="nav-tp">
+
+  <button class="btn btn-secondaire" onclick="loadTP('tp04-combustion')">
+    ← TP04
+  </button>
+
+  <button class="btn btn-primaire" onclick="location.href='../index.html'">
+    🏠 Fin du module — Accueil
+  </button>
+
+</div>
+
+</main>
+
+<!-- ====================================================== -->
+<!-- CONTENEUR IMPRESSION COMPTE RENDU                       -->
+<!-- ====================================================== -->
+
+<div id="cr-print-container" style="display:none;"></div>
+
+</section>
