@@ -142,23 +142,27 @@
 
   <div class="section-corps">
 
-    <h3>Instruments de mesure</h3>
+    <div id="materiel-equipements">
 
-    <ul style="padding-left:1.5rem;line-height:2">
-      <li>Calorimètre (ou vase isolant improvisé) avec agitateur</li>
-      <li>Thermomètre ou sonde de température + chronomètre</li>
-      <li>Balance</li>
-    </ul>
+      <h3>Instruments de mesure</h3>
 
-    <hr>
+      <div class="grille-materiel">
+        <label class="item-materiel"><input type="checkbox" class="materiel-check-input" checked> Calorimètre (ou vase isolant improvisé) avec agitateur</label>
+        <label class="item-materiel"><input type="checkbox" class="materiel-check-input" checked> Thermomètre ou sonde de température + chronomètre</label>
+        <label class="item-materiel"><input type="checkbox" class="materiel-check-input" checked> Balance</label>
+      </div>
 
-    <h3>Équipements</h3>
+      <hr>
 
-    <ul style="padding-left:1.5rem;line-height:2">
-      <li>Béchers, eau déminéralisée à température ambiante et eau chaude</li>
-      <li>Plaque chauffante</li>
-      <li>Glace pilée</li>
-    </ul>
+      <h3>Équipements</h3>
+
+      <div class="grille-materiel">
+        <label class="item-materiel"><input type="checkbox" class="materiel-check-input" checked> Béchers, eau déminéralisée à température ambiante et eau chaude</label>
+        <label class="item-materiel"><input type="checkbox" class="materiel-check-input" checked> Plaque chauffante</label>
+        <label class="item-materiel"><input type="checkbox" class="materiel-check-input" checked> Glace pilée</label>
+      </div>
+
+    </div>
 
   </div>
 
@@ -420,8 +424,8 @@
           <tr>
             <td>Température finale du mélange</td>
             <td id="table-tf-theo">—</td>
-            <td><input type="number" step="0.1" placeholder="°C"></td>
-            <td>—</td>
+            <td><input id="table-tf-exp" type="number" step="0.1" placeholder="°C"></td>
+            <td id="table-tf-ecart">—</td>
           </tr>
 
           <tr>
