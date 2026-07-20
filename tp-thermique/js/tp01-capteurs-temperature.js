@@ -16,6 +16,7 @@ import { initContextePro } from '../../js/contexte-pro.js';
 import FILIERES_PRO from '../../data/filieres.js';
 import { initRadarCompetences } from '../../js/radar.js';
 import { initImpressionCompteRendu } from './compte-rendu-thermique.js';
+import { initMateriel } from './materiel-thermique.js';
 
 // Contexte professionnel par filière (clé "niveau-idFiliere")
 const CONTEXTES_PRO = {
@@ -42,6 +43,22 @@ export function init() {
   initThermocouple();
   initIRCristaux();
   initTableauEcarts();
+
+  initMateriel({
+    verrerie: ['Bécher', 'Pissette'],
+    equipements: [
+      'Thermomètre numérique',
+      'Thermistance',
+      'Sonde à résistance de platine (Pt100)',
+      'Thermocouple',
+      'Thermomètre à infrarouge',
+      'Bandelette à cristaux liquides',
+      'Multimètre',
+      'Millivoltmètre',
+      'Bain thermostaté',
+      'Support et pince pour capteurs',
+    ],
+  });
 
   initContextePro({
     filieres: FILIERES_PRO,
