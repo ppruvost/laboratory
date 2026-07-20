@@ -21,6 +21,7 @@ import { initContextePro } from '../../js/contexte-pro.js';
 import FILIERES_PRO from '../../data/filieres.js';
 import { initRadarCompetences } from '../../js/radar.js';
 import { initImpressionCompteRendu } from './compte-rendu-thermique.js';
+import { initMateriel } from './materiel-thermique.js';
 
 const CONTEXTES_PRO = {
 
@@ -40,6 +41,11 @@ export function init() {
   initPalier();
   initEnergieLatente();
   initBilanComplet();
+
+  initMateriel({
+    verrerie: ['Bécher'],
+    equipements: ['Thermomètre numérique', 'Chronomètre', 'Balance', 'Plaque chauffante', 'Agitateur'],
+  });
 
   initContextePro({
     filieres: FILIERES_PRO,
