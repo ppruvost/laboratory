@@ -14,6 +14,7 @@ import { initContextePro } from '../../js/contexte-pro.js';
 import FILIERES_PRO from '../../data/filieres.js';
 import { initRadarCompetences } from '../../js/radar.js';
 import { initImpressionCompteRendu } from './compte-rendu-thermique.js';
+import { initMateriel } from './materiel-thermique.js';
 
 const CONTEXTES_PRO = {
 
@@ -51,6 +52,11 @@ export function init() {
   initEquation();
   initEnergie();
   initMasseCO2();
+
+  initMateriel({
+    verrerie: ['Bécher', 'Entonnoir'],
+    equipements: ['Bec bunsen', 'Hotte aspirante', 'Balance'],
+  });
 
   initContextePro({
     filieres: FILIERES_PRO,
