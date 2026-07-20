@@ -14,6 +14,7 @@ import { initContextePro } from '../../js/contexte-pro.js';
 import FILIERES_PRO from '../../data/filieres.js';
 import { initRadarCompetences } from '../../js/radar.js';
 import { initImpressionCompteRendu } from './compte-rendu-thermique.js';
+import { initMateriel } from './materiel-thermique.js';
 
 const CONTEXTES_PRO = {
 
@@ -79,6 +80,18 @@ export function init() {
   initConduction();
   initRayonnement();
   initEffetDeSerre();
+
+  initMateriel({
+    equipements: [
+      'Thermomètre numérique',
+      'Chronomètre',
+      'Caméra thermique',
+      'Bec bunsen',
+      'Lampe halogène / infrarouge sur support',
+      'Matériaux isolants (laine de verre, polystyrène)',
+      'Tiges de conduction thermique (métal, bois, plastique, verre)',
+    ],
+  });
 
   initContextePro({
     filieres: FILIERES_PRO,
