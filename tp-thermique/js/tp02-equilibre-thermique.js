@@ -15,6 +15,7 @@ import FILIERES_PRO from '../../data/filieres.js';
 import { initRadarCompetences } from '../../js/radar.js';
 import { initImpressionCompteRendu } from './compte-rendu-thermique.js';
 import { initMateriel } from './materiel-thermique.js';
+import { dessinerGraphiqueLigne } from '../../js/graphique.js';
 
 const CONTEXTES_PRO = {
 
@@ -216,6 +217,12 @@ function initSuiviTemporel() {
 
     redessinerTableauSuivi(tbody, points);
     mettreAJourModelisation(zoneModelisation, points);
+
+    dessinerGraphiqueLigne(
+      'graphique-suivi-temporel',
+      points.map(p => ({ x: p.t, y: p.temp })),
+      { xLabel: 'Temps (s)', yLabel: 'Température (°C)' }
+    );
 
     inputTemps.value = '';
     inputTemp.value = '';
