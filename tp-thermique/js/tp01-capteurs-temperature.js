@@ -17,6 +17,7 @@ import FILIERES_PRO from '../../data/filieres.js';
 import { initRadarCompetences } from '../../js/radar.js';
 import { initImpressionCompteRendu } from './compte-rendu-thermique.js';
 import { initMateriel } from './materiel-thermique.js';
+import { dessinerGraphiqueLigne } from '../../js/graphique.js';
 
 // Contexte professionnel par filière (clé "niveau-idFiliere")
 const CONTEXTES_PRO = {
@@ -160,6 +161,12 @@ function initThermistance() {
     points.sort((a, b) => a.t - b.t);
 
     redessinerTableauThermistance(tbody, points);
+
+    dessinerGraphiqueLigne(
+      'graphique-thermistance',
+      points.map(p => ({ x: p.t, y: p.r })),
+      { xLabel: 'Température (°C)', yLabel: 'Résistance (Ω)' }
+    );
 
     inputTemp.value = '';
     inputRes.value = '';
