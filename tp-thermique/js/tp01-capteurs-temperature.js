@@ -55,7 +55,7 @@ export function init() {
       'Thermomètre à infrarouge',
       'Bandelette à cristaux liquides',
       'Multimètre',
-      'Millivoltmètre',
+      'Voltmètre',
       'Bain thermostaté',
       'Support et pince pour capteurs',
     ],
