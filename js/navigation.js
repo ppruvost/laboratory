@@ -40,6 +40,23 @@ function getCurrentDomain() {
 }
 
 /* ==========================================================
+   MODULE PAR DÉFAUT PAR DOMAINE
+   ========================================================== */
+
+function getDefaultModule(domaine) {
+    const defaultModules = {
+        "tp-chimie": "tp01-solutions",
+        "tp-thermique": "tp01-capteurs-temperature",       
+        "tp-acoustique": "tp01-introduction",
+        "tp-optique": "tp01-exercice",
+        "tp-electricite": "tp01-circuit",
+        "tp-mecanique": "tp01-mouvement"
+        
+    };
+    return defaultModules[domaine] || "tp01-solutions"; // Fallback
+}
+
+/* ==========================================================
    NAVIGATION
    ========================================================== */
 
@@ -218,14 +235,15 @@ window.addEventListener("DOMContentLoaded", () => {
     const saved = localStorage.getItem(`laboratory_${domaine}`);
     const hash = location.hash.replace("#", "");
 
-    // Priorité : hash > localStorage > valeur par défaut (tp01-solutions)
+    // Priorité : hash > localStorage > module par défaut
     if (hash) {
         loadModule(hash);
     } else if (saved) {
         loadModule(saved);
     } else {
-        // Charger tp01-solutions par défaut
-        loadModule("tp01-solutions");
+        // Charger le module par défaut du domaine
+        const defaultModule = getDefaultModule(domaine);
+        loadModule(defaultModule);
     }
 });
 
