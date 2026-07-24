@@ -448,10 +448,6 @@ td.saisie {
    un rendu homogène quelle que soit la taille d'origine du PNG.
    tp.css ne contraint que la largeur (max-width) ; object-fit:cover
    recadre proprement sans déformer l'image. */
-.mode-image {
-  height: 280px;
-  object-fit: cover;
-}
 
 /* ── Cartouches de compétence (APP/REA/ANA/VAL/COM à côté de chaque
    question) ── tp.css les colore en bleu par défaut (.cartouche),
