@@ -89,6 +89,13 @@
         température).
       </li>
 
+      <li>
+        <em>Domaine transversal — Mesures et incertitudes :</em>
+        exploiter une série de mesures indépendantes d'une même
+        grandeur (moyenne, écart-type) et exprimer un résultat avec un
+        nombre de chiffres significatifs adapté à son incertitude.
+      </li>
+
     </ul>
 
   </div>
@@ -148,7 +155,7 @@
       <li><strong>Brûlure :</strong> le bain thermostaté, la plaque chauffante et l'eau chaude utilisés pour étalonner les capteurs peuvent provoquer des brûlures ; laisser refroidir le matériel avant de le ranger.</li>
       <li><strong>Verrerie chaude :</strong> une verrerie chaude a le même aspect qu'une verrerie froide ; ne jamais saisir un bécher ou un tube sans vérifier sa température au préalable.</li>
       <li><strong>Risque électrique :</strong> les sondes Pt100, thermocouples et multimètres restent sous tension pendant la mesure ; ne pas manipuler avec les mains mouillées.</li>
-      <li><strong>Thermomètre à infrarouge :</strong> ne jamais viser les yeux d'une personne avec le faisceau de visée laser.</li>
+      <li><strong>Thermomètre à infrarouge :</strong> ne jamais viser les yeux d'une personne avec le faisceau de visée laser. Ce type de pointeur est généralement de classe 2 : faible puissance, mais l'exposition directe ou par réflexion reste à éviter.</li>
     </ul>
 
     <div class="epi-bloc">
@@ -210,6 +217,7 @@
         <button class="tab-btn" data-tab="pt100">Sonde Pt100</button>
         <button class="tab-btn" data-tab="thermocouple">Thermocouple</button>
         <button class="tab-btn" data-tab="ir-cristaux">IR / cristaux liquides</button>
+        <button class="tab-btn" data-tab="incertitudes">Incertitudes de mesure</button>
       </div>
 
       <!-- ============================ -->
@@ -493,6 +501,76 @@
 
         <div class="mode-op">
           <img src="./assets/images/t1-ir-cristaux.png" alt="Mode opératoire — thermomètre infrarouge et cristaux liquides" class="mode-image">
+        </div>
+
+      </div>
+
+      <!-- ============================ -->
+      <!-- INCERTITUDES DE MESURE       -->
+      <!-- ============================ -->
+
+      <div class="tab-panel" id="incertitudes">
+
+        <h3>Mesures et incertitudes</h3>
+
+        <div class="info">
+          Une mesure unique ne suffit pas à connaître la « vraie »
+          valeur d'une grandeur : chaque mesure présente une
+          incertitude, liée à l'instrument, à son utilisation et à des
+          facteurs non contrôlés. En répétant plusieurs fois une même
+          mesure dans les mêmes conditions, on peut estimer cette
+          incertitude à partir de la dispersion des résultats obtenus.
+        </div>
+
+        <div class="form-row">
+
+          <div class="form-group">
+            <label for="incert-mesure">Mesure de température (°C)</label>
+            <input id="incert-mesure" type="number" step="0.1">
+          </div>
+
+          <div class="form-group">
+            <label>&nbsp;</label>
+            <button id="incert-ajouter" type="button" class="btn btn-primaire">
+              + Ajouter la mesure
+            </button>
+          </div>
+
+        </div>
+
+        <div class="table-responsive">
+          <table class="tableau-resultats">
+            <thead>
+              <tr>
+                <th>N°</th>
+                <th>Mesure (°C)</th>
+              </tr>
+            </thead>
+            <tbody id="tbody-incertitudes">
+            </tbody>
+          </table>
+        </div>
+
+        <div id="histogramme-incertitudes" class="graphique-conteneur">
+          <p class="info">Ajouter au moins 2 mesures pour afficher l'histogramme.</p>
+        </div>
+
+        <div id="resultat-incertitudes" class="resultat-calcul">
+          Ajouter au moins deux mesures indépendantes pour calculer la
+          moyenne et l'écart-type.
+        </div>
+
+        <h4 style="margin-top:var(--gap-lg);">Protocole</h4>
+
+        <ol class="etapes">
+          <li>Choisir un capteur de température (par exemple la sonde Pt100) et une température stable à mesurer (bain thermostaté, pièce...).</li>
+          <li>Répéter la mesure au moins 8 à 10 fois, dans les mêmes conditions, en ajoutant chaque valeur à la série.</li>
+          <li>Observer la moyenne, l'écart-type et l'histogramme obtenus : plus les mesures sont dispersées, plus l'écart-type est grand.</li>
+          <li>Exprimer le résultat final avec un nombre de chiffres significatifs cohérent avec l'incertitude calculée.</li>
+        </ol>
+
+        <div class="mode-op">
+          <img src="./assets/images/t1-incertitudes.png" alt="Mode opératoire — série de mesures et incertitudes" class="mode-image">
         </div>
 
       </div>
