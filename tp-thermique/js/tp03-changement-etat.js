@@ -21,7 +21,9 @@ import { initContextePro } from '../../js/contexte-pro.js';
 import FILIERES_PRO from '../../data/filieres.js';
 import { initRadarCompetences } from '../../js/radar.js';
 import { initImpressionCompteRendu } from './compte-rendu-thermique.js';
-import { initMateriel } from './materiel-thermique.js';
+import { initMateriel } from '../../js/materiel.js';
+import glassware from '../../data/glassware.js';
+import laboratoryEquipment from '../../data/equipment.js';
 import { dessinerGraphiqueLigne } from '../../js/graphique.js';
 
 const CONTEXTES_PRO = {
@@ -44,8 +46,11 @@ export function init() {
   initBilanComplet();
 
   initMateriel({
-    verrerie: ['Bécher'],
-    equipements: ['Thermomètre numérique', 'Chronomètre', 'Balance', 'Plaque chauffante', 'Agitateur'],
+    verreId: 'materiel-verrerie',
+    equipementId: 'materiel-equipements',
+    glassware,
+    equipment: laboratoryEquipment,
+    categorie: 'ChangementEtat',
   });
 
   initContextePro({
