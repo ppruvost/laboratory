@@ -1229,6 +1229,8 @@ textarea { font-family: var(--font-corps); resize: vertical; min-height: 80px; }
   background: var(--blanc);
   border: 1px solid #D7D7D7;
   box-shadow: var(--ombre-carte);
+  height: 280px;
+  object-fit: contain;
 }
 .hidden { display: none; }
 
