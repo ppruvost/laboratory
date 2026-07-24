@@ -444,10 +444,21 @@ td.saisie {
   fill: #C1440E;
 }
 
-/* ── Images de protocole (.mode-image) ── hauteur standardisée pour
-   un rendu homogène quelle que soit la taille d'origine du PNG.
-   tp.css ne contraint que la largeur (max-width) ; object-fit:cover
-   recadre proprement sans déformer l'image. */
+/* ── Histogramme (js/incertitudes.js) ── couleur par défaut définie
+   dans tp.css (bleu) ; on la recolore ici pour le domaine thermique. */
+.histogramme-barre {
+  fill: #C1440E;
+  fill-opacity: .75;
+}
+
+/* ── Images de protocole (.mode-image) ── hauteur standardisée, sans
+   rognage : object-fit:contain conserve l'image entière (tp.css ne
+   contraint que la largeur). */
+.mode-image {
+  height: 280px;
+  object-fit: contain;
+  background: #FAFAFA;
+}
 
 /* ── Cartouches de compétence (APP/REA/ANA/VAL/COM à côté de chaque
    question) ── tp.css les colore en bleu par défaut (.cartouche),
