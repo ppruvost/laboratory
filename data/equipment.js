@@ -28,7 +28,7 @@ const laboratoryEquipment = [
     {
         domaine: "Électricité",
         nom: "Multimètre numérique",
-        categorie: ["Résistance", "Capacité", "Inductance", "Redox", "Température"],
+        categorie: ["Résistance", "Capacité", "Inductance", "Redox"],
         description: "Mesure de tension, courant, résistance",
         lieu: "Salle B27 / étagère A1",
         image:"assets/img/equipments/multimetre.jpg",
@@ -151,15 +151,6 @@ const laboratoryEquipment = [
         image:"",
         noticeUtilisation: "assets/notice/disjoncteur.pdf"
     },
-    {
-        domaine: "Électricité",
-        nom: "Voltmètre",
-        categorie: ["Température"],
-        description: "Mesure de la tension délivrée par un thermocouple",
-        lieu: "Salle B27 - ***",
-        image:"",
-        noticeUtilisation: ""
-    },
 
     // Optique
     {
@@ -257,7 +248,7 @@ const laboratoryEquipment = [
     {
         domaine: "Mécanique",
         nom: "Chronomètre numérique",
-        categorie: ["Température"],
+        categorie: "",
         description: "Mesure de temps et de vitesses",
         lieu: "",
         image:"",
@@ -323,7 +314,7 @@ const laboratoryEquipment = [
     {
      domaine: "Chimie",
      nom: "Agitateurs magnétiques",
-     categorie: ["Dissolution", "pHmétrie", "Organique", "Température"],
+     categorie: ["Dissolution", "pHmétrie", "Organique"],
      description: "Agitation des solutions",
      lieu: "Salle B27 / étagère D4",
      image:"assets/img/equipments/agitateur_magnetique.png",         
@@ -332,7 +323,7 @@ const laboratoryEquipment = [
     {
     domaine: "Chimie",
     nom: "Balance Jeulin 701 277",
-    categorie: ["Dissolution", "pHmétrie", "Température"],
+    categorie: ["Dissolution", "pHmétrie"],
     description: "Capacité 2 000 g max — Précision ± 1 g",
     lieu: "Salle B27 / étagère C2",
     image: "assets/img/equipments/balance_jeulin.jpg",
@@ -341,7 +332,7 @@ const laboratoryEquipment = [
     {
     domaine: "Chimie",
     nom: "Balance METTLER TOLEDO PB602",
-    categorie: ["Dissolution", "pHmétrie", "Température"],
+    categorie: ["Dissolution", "pHmétrie"],
     description: "Capacité 610 g max - 0,5 g min — Précision ± 0,1 g",
     lieu: "Salle B27 / pallasse E2",
     image:"assets/img/equipments/balance_mettler.jpg",
@@ -448,7 +439,7 @@ const laboratoryEquipment = [
      {
     domaine: "Chimie",
     nom: "Potence, noix et pince",
-    categorie: ["Redox", "Température"],
+    categorie: ["Redox"],
     description: "Support de la demi-pile à hydrogène simplifiée",
     lieu: "Salle B27 / paillasse E2",
     image: "assets/img/equipments/potence.png",
@@ -462,7 +453,16 @@ const laboratoryEquipment = [
     lieu: "Salle B27 / étagère D4",
     image:"assets/img/equipments/pro_pipette.jpg",        
     noticeUtilisation: "assets/notice/propipettes.pdf"
-    },    
+    }, 
+    {
+    domaine: "Chimie",
+    nom: "Sorbonne d'aspiration",
+    categorie: ["Dissolution", "pHmétrie", "Organique"],
+    description: "Élimination sécurisée des vapeurs toxiques ou corrosives",
+    lieu: "Salle B29",
+    image: "",
+    noticeUtilisation: ""
+    },
     {
     domaine: "Chimie",
     nom: "Toile émeri",
@@ -478,7 +478,7 @@ const laboratoryEquipment = [
     {
         domaine: "Thermique",
         nom: "Thermomètre numérique",
-        categorie: ["Température", "pHmétrie", "Organique"],
+        categorie: ["Température", "Capteurs", "Equilibre", "ChangementEtat", "Transferts"],
         description: "Mesure de température de référence, par contact",
         lieu: "Salle B27 - ***",
         image:"",        
@@ -487,7 +487,7 @@ const laboratoryEquipment = [
     {
         domaine: "Thermique",
         nom: "Thermistance",
-        categorie: ["Température"],
+        categorie: ["Température", "Capteurs"],
         description: "Capteur de température à résistance non linéaire, à associer à un multimètre",
         lieu: "Salle B27 - ***",
         image:"",
@@ -496,7 +496,7 @@ const laboratoryEquipment = [
     {
         domaine: "Thermique",
         nom: "Sonde à résistance de platine (Pt100)",
-        categorie: ["Température"],
+        categorie: ["Température", "Capteurs"],
         description: "Capteur de température à résistance linéaire (R₀ = 100 Ω, α = 0,00385 °C⁻¹)",
         lieu: "Salle B27 - ***",
         image:"",
@@ -505,7 +505,7 @@ const laboratoryEquipment = [
     {
         domaine: "Thermique",
         nom: "Thermocouple",
-        categorie: ["Température"],
+        categorie: ["Température", "Capteurs"],
         description: "Mesure de température en temps réel par tension thermoélectrique",
         lieu: "Salle B27 - ***",
         image:"",
@@ -514,7 +514,7 @@ const laboratoryEquipment = [
     {
         domaine: "Thermique",
         nom: "Thermomètre à infrarouge",
-        categorie: ["Température"],
+        categorie: ["Température", "Capteurs"],
         description: "Mesure de température sans contact, par rayonnement infrarouge (visée laser)",
         lieu: "Salle B27 - ***",
         image:"",
@@ -523,16 +523,34 @@ const laboratoryEquipment = [
     {
         domaine: "Thermique",
         nom: "Bandelette à cristaux liquides",
-        categorie: ["Température"],
+        categorie: ["Température", "Capteurs"],
         description: "Indicateur visuel de température par contact, changement de couleur selon la plage indiquée",
         lieu: "Salle B27 - ***",
         image:"",
         noticeUtilisation: ""
-    },    
+    },
+    {
+        domaine: "Thermique",
+        nom: "Multimètre",
+        categorie: ["Température", "Capteurs"],
+        description: "Mesure de résistance associée à la thermistance ou à la sonde Pt100",
+        lieu: "Salle B27 - ***",
+        image:"",
+        noticeUtilisation: "assets/notice/multimetre.pdf"
+    },
+    {
+        domaine: "Thermique",
+        nom: "Millivoltmètre",
+        categorie: ["Température", "Capteurs"],
+        description: "Mesure de la tension délivrée par un thermocouple",
+        lieu: "Salle B27 - ***",
+        image:"",
+        noticeUtilisation: ""
+    },
     {
         domaine: "Thermique",
         nom: "Calorimètre",
-        categorie: ["Température"],
+        categorie: ["Température", "Equilibre"],
         description: "Mesure des échanges thermiques (enceinte isolée + agitateur)",
         lieu: "Salle B27 - ***",
         image:"",
@@ -541,7 +559,7 @@ const laboratoryEquipment = [
     {
         domaine: "Thermique",
         nom: "Bain thermostaté",
-        categorie: ["Température"],
+        categorie: ["Température", "Capteurs"],
         description: "Chauffage régulé d'un liquide à une température de consigne",
         lieu: "Salle B27 - ***",
         image:"",
@@ -550,26 +568,52 @@ const laboratoryEquipment = [
     {
         domaine: "Thermique",
         nom: "Plaque chauffante",
-        categorie: ["Température"],
+        categorie: ["Température", "Equilibre", "ChangementEtat"],
         description: "Chauffage d'un liquide ou d'un solide",
         lieu: "Salle B27 - ***",
         image:"",
         noticeUtilisation: ""
-    },    
-    
+    },
+    {
+        domaine: "Thermique",
+        nom: "Support et pince pour capteurs",
+        categorie: ["Température", "Capteurs"],
+        description: "Maintien d'un capteur de température en position de mesure",
+        lieu: "Salle B27 - ***",
+        image:"",
+        noticeUtilisation: ""
+    },
+    {
+        domaine: "Thermique",
+        nom: "Agitateur",
+        categorie: ["Température", "Equilibre", "ChangementEtat"],
+        description: "Homogénéisation d'un mélange ou d'un bain (calorimètre, bain thermostaté)",
+        lieu: "Salle B27 - ***",
+        image:"",
+        noticeUtilisation: ""
+    },
     {
         domaine: "Thermique",
         nom: "Bec bunsen",
-        categorie: ["Température"],
+        categorie: ["Température", "Combustion", "Transferts"],
         description: "Source de chaleur par combustion, réglage flamme complète/incomplète",
         lieu: "Salle B27 - ***",
         image:"",
         noticeUtilisation: ""
-    },    
+    },
+    {
+        domaine: "Thermique",
+        nom: "Hotte aspirante",
+        categorie: ["Température", "Combustion"],
+        description: "Évacuation sécurisée des gaz de combustion",
+        lieu: "Salle B27 - ***",
+        image:"",
+        noticeUtilisation: ""
+    },
     {
         domaine: "Thermique",
         nom: "Lampe halogène / infrarouge sur support",
-        categorie: ["Température"],
+        categorie: ["Température", "Transferts"],
         description: "Source de rayonnement thermique pour l'étude de l'échauffement à distance",
         lieu: "Salle B27 - ***",
         image:"",
@@ -578,7 +622,7 @@ const laboratoryEquipment = [
     {
         domaine: "Thermique",
         nom: "Tiges de conduction thermique (métal, bois, plastique, verre)",
-        categorie: "Température",
+        categorie: ["Température", "Transferts"],
         description: "Comparaison qualitative de la conduction thermique de plusieurs matériaux",
         lieu: "Salle B27 - ***",
         image:"",
@@ -587,7 +631,7 @@ const laboratoryEquipment = [
     {
         domaine: "Thermique",
         nom: "Caméra thermique",
-        categorie: ["Température", "Optique"],
+        categorie: ["Température", "Optique", "Transferts"],
         description: "Visualisation des transferts thermiques",
         lieu: "Salle B27 - ***",
         image:"",
@@ -596,7 +640,7 @@ const laboratoryEquipment = [
     {
         domaine: "Thermique",
         nom: "Matériaux isolants (laine de verre, polystyrène)",
-        categorie: "Température",
+        categorie: ["Température", "Transferts"],
         description: "Étude de l'isolation thermique",
         lieu: "Salle B27 - ***",
         image:"",
@@ -605,13 +649,22 @@ const laboratoryEquipment = [
     {
         domaine: "Thermique",
         nom: "Chronomètre",
-        categorie: ["Température"],
+        categorie: ["Température", "Equilibre", "ChangementEtat", "Transferts"],
         description: "Mesure du temps lors des relevés de température (paliers, suivi temporel)",
         lieu: "Salle B27 - ***",
         image:"",
         noticeUtilisation: ""
     },
-    
+    {
+        domaine: "Thermique",
+        nom: "Balance",
+        categorie: ["Température", "Equilibre", "ChangementEtat", "Combustion"],
+        description: "Pesée des masses d'eau ou de glace utilisées lors des manipulations",
+        lieu: "Salle B27 - ***",
+        image:"",
+        noticeUtilisation: ""
+    },
+
     // Signaux
     {
         domaine: "Signaux",
@@ -712,15 +765,6 @@ const laboratoryEquipment = [
         lieu: "Salle B27 - Etagères B1 / B2",
         image:"assets/img/equipments/armoir.jpg",
         noticeUtilisation: "assets/notice/armoire_securite.pdf"
-    },
-    {
-    domaine: "Sécurité",
-    nom: "Sorbonne d'aspiration",
-    categorie: ["Dissolution", "pHmétrie", "Organique", "Température"],
-    description: "Élimination sécurisée des vapeurs toxiques ou corrosives",
-    lieu: "Salle B29",
-    image: "",
-    noticeUtilisation: ""
     }
 ];
 
