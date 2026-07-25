@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>TP Incertitudes - Électricité</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="data:,">
+</head>
+
+<body>
+
+  <h1> TP : Mesures et incertitudes (Électricité)</h1>
+
+  <section class="bloc">
+    <h2>📊 Saisie des mesures</h2>
+
+    <table id="table-mesures">
+      <thead>
+        <tr>
+          <th>Essai</th>
+          <th>Tension (V)</th>
+          <th>Intensité (A)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td><input type="number" class="U"></td>
+          <td><input type="number" class="I"></td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td><input type="number" class="U"></td>
+          <td><input type="number" class="I"></td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td><input type="number" class="U"></td>
+          <td><input type="number" class="I"></td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td><input type="number" class="U"></td>
+          <td><input type="number" class="I"></td>
+        </tr>
+        <tr>
+          <td>5</td>
+          <td><input type="number" class="U"></td>
+          <td><input type="number" class="I"></td>
+        </tr>          
+      </tbody>
+    </table>
+
+  <div style="margin-top:10px;">
+    <label for="puissanceLampe"><b>💡 Puissance nominale de la lampe (12V) :</b></label>
+    <select id="puissanceLampe">
+      <option value="5">5 W</option>
+      <option value="10">10 W</option>
+      <option value="21">21 W</option>
+      <option value="55">55 W</option>
+    </select>
+  </div>
+
+  <button onclick="analyser()">📈 Analyser les données</button>
+  </section>
+
+  <section class="bloc">
+    <h2>📌 Résultats</h2>
+    <div id="resultats"></div>
+  </section>
+
+  <section class="bloc">
+    <h2>🧠 Analyse des incertitudes</h2>
+    <div id="analyse"></div>
+  </section>
+
+  <section class="bloc">
+  <h2>📊 Histogramme des mesures</h2>
+  <canvas id="histogramme" width="400" height="150"></canvas>
+</section>
+
+  <section class="bloc">
+    <h2>📝 Rapport élève</h2>
+    <pre id="rapport"></pre>
+
+    <button onclick="imprimerPDF()">🖨️ Imprimer / Exporter PDF</button>
+  </section>
+  
+  <script src="modules/calculs.js"></script>
+  <script src="modules/analyse_erreurs.js"></script>
+  <script src="modules/histogramme.js"></script>
+  <script src="modules/rapport.js"></script>
+  <script src="app.js"></script>
+
+</body>
+</html>
