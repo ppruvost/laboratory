@@ -1,0 +1,19 @@
+{
+  "types_erreurs": [
+    "erreur de lecture",
+    "mauvais contact électrique",
+    "résolution appareil",
+    "fluctuation du courant",
+    "échauffement du circuit"
+  ],
+  "instruments": {
+    "multimetre_V": {
+      "resolution": 0.01,
+      "precision": 0.5
+    },
+    "multimetre_A": {
+      "resolution": 0.001,
+      "precision": 1.0
+    }
+  }
+}
