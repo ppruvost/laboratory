@@ -1,102 +1,91 @@
-window.analyser = function() {
+/**
+ * uncertainty/app.js
+ * Page autonome « Mesures et incertitudes », généralisée à toute
+ * grandeur et tout domaine — remplace l'ancienne version spécifique
+ * à l'électricité (modules/calculs.js, analyse_erreurs.js,
+ * histogramme.js, rapport.js) par les modules partagés SciLab.
+ *
+ * ⚠️ Suppose que uncertainty/ est un sous-dossier du même site que
+ * tp-chimie/, tp-thermique/, css/, js/, data/ (chemins relatifs
+ * "../css/...", "../js/..."). Si ce projet est en réalité hébergé
+ * comme un dépôt séparé (cf. le lien vers ppruvost.github.io/Uncertainty/
+ * dans index.html à la racine), ces chemins devront être adaptés en
+ * conséquence.
+ */
 
-  const lignes = document.querySelectorAll("#table-mesures tbody tr");
+import { initSections } from '../js/utils.js';
+import { initSerieMesures, initIncertitudeInstrumentale } from '../js/incertitudes.js';
+import { genererCompteRendu } from '../js/compte-rendu.js';
 
-  let U = [];
-  let I = [];
+initSections();
 
-  lignes.forEach(ligne => {
-    const u = parseFloat(ligne.querySelector(".U").value);
-    const i = parseFloat(ligne.querySelector(".I").value);
+function grandeur() {
+  return document.getElementById('nom-grandeur')?.value.trim() || 'Grandeur mesurée';
+}
 
-    if (!isNaN(u)) U.push(u);
-    if (!isNaN(i)) I.push(i);
+function unite() {
+  return document.getElementById('unite-grandeur')?.value.trim() || '';
+}
+
+initSerieMesures({
+  boutonId: 'mesure-ajouter',
+  inputId: 'mesure-valeur',
+  tbodyId: 'tbody-mesures',
+  resultatId: 'resultat-mesures',
+  analyseId: 'analyse-mesures',
+  histogrammeId: 'histogramme-mesures',
+  unite: unite(),
+});
+
+initIncertitudeInstrumentale({
+  inputValeurId: 'instr-valeur',
+  inputPrecisionId: 'instr-precision',
+  resultatId: 'resultat-instrumentale',
+  unite: unite(),
+});
+
+// ── Compte rendu ────────────────────────────────────────────────
+document.getElementById('btn-imprimer')?.addEventListener('click', () => {
+
+  const lignesMesures = [...document.querySelectorAll('#tbody-mesures tr')]
+    .map((tr, i) => ({
+      label: `Essai ${i + 1}`,
+      valeur: tr.children[1]?.textContent || '',
+    }));
+
+  const resume = document.getElementById('resume-tp')?.value || '';
+
+  const sections = [];
+
+  if (lignesMesures.length) {
+    sections.push({
+      titre: `Série de mesures — ${grandeur()}`,
+      items: lignesMesures,
+    });
+  }
+
+  const valeurInstr = document.getElementById('instr-valeur')?.value;
+  const precisionInstr = document.getElementById('instr-precision')?.value;
+
+  if (valeurInstr && precisionInstr) {
+    sections.push({
+      titre: 'Incertitude instrumentale',
+      items: [
+        { label: 'Valeur mesurée', valeur: `${valeurInstr} ${unite()}` },
+        { label: 'Précision constructeur', valeur: `± ${precisionInstr} ${unite()}` },
+      ],
+    });
+  }
+
+  if (resume) {
+    sections.push({ titre: 'Résumé', texte: resume });
+  }
+
+  genererCompteRendu({
+    titre: `Mesures et incertitudes — ${grandeur()}`,
+    domaine: 'Transversal',
+    tp: 'Incertitudes',
+    sections,
+    noteFinale: false,
   });
-
-  if (U.length === 0 || I.length === 0) {
-    alert("⚠️ Entre des valeurs !");
-    return;
-  }
-
-  const statsU = calculStats(U);
-  const statsI = calculStats(I);
-
-  // =========================
-  // PUISSANCE
-  // =========================
-  const P = statsU.moyenne * statsI.moyenne;
-
-  // propagation incertitude
-  const uP = P * (
-    (statsU.incertitudeA / statsU.moyenne) +
-    (statsI.incertitudeA / statsI.moyenne)
-  );
-
-  // =========================
-  // LAMPE
-  // =========================
-  const Pnom = parseFloat(document.getElementById("puissanceLampe").value);
-
-  const erreurAbs = Math.abs(P - Pnom);
-  const erreurRel = erreurAbs / Pnom;
-
-  // =========================
-  // HISTOGRAMME
-  // =========================
-  construireHistogramme(U, "histogramme");
-
-  // =========================
-  // INTERPRÉTATION
-  // =========================
-  const interpretation = analyserDispersion(statsU);
-
-  // conformité (niveau Bac)
-  let conformite = "";
-  if (erreurRel < 0.1) {
-    conformite = "✅ Lampe conforme";
-  } else {
-    conformite = "❌ Lampe non conforme";
-  }
-
-  // =========================
-  // AFFICHAGE RÉSULTATS
-  // =========================
-  document.getElementById("resultats").innerHTML = `
-    <p><b>Tension :</b> ${formaterResultat(statsU.moyenne, statsU.incertitudeA)} V</p>
-    <p><b>Intensité :</b> ${formaterResultat(statsI.moyenne, statsI.incertitudeA)} A</p>
-    <p><b>Puissance :</b> ${formaterResultat(P, uP)} W</p>
-    <hr>
-    <p><b>Erreur absolue :</b> ${erreurAbs.toFixed(2)} W</p>
-    <p><b>Erreur relative :</b> ${(erreurRel*100).toFixed(1)} %</p>
-    <p><b>Conclusion :</b> ${conformite}</p>
-  `;
-
-  document.getElementById("analyse").innerHTML = `
-    ${interpretation}
-    <h3>⚡ Analyse puissance</h3>
-    <ul>
-      <li>La puissance dépend de U et I</li>
-      <li>L’incertitude sur P dépend des deux mesures</li>
-      <li>Plus U et I sont dispersées → plus P est incertaine</li>
-      <li>Erreur relative = critère de conformité</li>
-    </ul>
-  `;
-
-  document.getElementById("rapport").textContent =
-    genererRapport(statsU, statsI, P, uP, erreurAbs, erreurRel, Pnom, conformite);
-}
-
-// ==========================
-// Fonction impression PDF
-// ==========================
-window.imprimerPDF = function() {
-
-  const boutons = document.querySelectorAll("button");
-
-  boutons.forEach(btn => btn.style.display = "none");
-
-  window.print();
-
-  boutons.forEach(btn => btn.style.display = "inline-block");
-
-}
+});
