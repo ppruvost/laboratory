@@ -18,6 +18,7 @@ import { initMateriel } from '../../js/materiel.js';
 import glassware from '../../data/glassware.js';
 import laboratoryEquipment from '../../data/equipment.js';
 import { dessinerGraphiqueLigne } from '../../js/graphique.js';
+import { initOngletsParFiliere } from '../../js/onglets-filiere.js';
 
 const CONTEXTES_PRO = {
 
@@ -95,6 +96,22 @@ export function init() {
   initContextePro({
     filieres: FILIERES_PRO,
     contextes: CONTEXTES_PRO,
+  });
+
+  // Onglets visibles selon la filière ET le niveau choisis :
+  // - TCI / TRPM : "3 modes" en 1ère, "rayonnement + effet de serre" en Tle
+  // - MCC : rien en 1ère (hors programme), tout en Tle
+  initOngletsParFiliere({
+    mapping: {
+      '1ere-tci':  ['trois-modes', 'conduction'],
+      '1ere-trpm': ['trois-modes', 'conduction'],
+      '1ere-mcc':  [],
+      'tle-tci':   ['rayonnement', 'effet-de-serre'],
+      'tle-trpm':  ['rayonnement', 'effet-de-serre'],
+      'tle-mcc':   ['trois-modes', 'conduction', 'rayonnement', 'effet-de-serre'],
+    },
+    messageId: 'tp05-message-filiere',
+    messageTexte: "Ce TP n'est pas au programme de votre filière en 1ère : les transferts thermiques y sont abordés en classe de Terminale.",
   });
 
   initSections();
