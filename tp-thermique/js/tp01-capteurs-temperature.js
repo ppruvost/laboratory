@@ -20,7 +20,6 @@ import { initMateriel } from '../../js/materiel.js';
 import glassware from '../../data/glassware.js';
 import laboratoryEquipment from '../../data/equipment.js';
 import { dessinerGraphiqueLigne } from '../../js/graphique.js';
-import { initSerieMesures } from '../../js/incertitudes.js';
 
 // Contexte professionnel par filière (clé "niveau-idFiliere")
 const CONTEXTES_PRO = {
@@ -47,15 +46,6 @@ export function init() {
   initThermocouple();
   initIRCristaux();
   initTableauEcarts();
-
-  initSerieMesures({
-    boutonId: 'incert-ajouter',
-    inputId: 'incert-mesure',
-    tbodyId: 'tbody-incertitudes',
-    resultatId: 'resultat-incertitudes',
-    histogrammeId: 'histogramme-incertitudes',
-    unite: '°C',
-  });
 
   initMateriel({
     verreId: 'materiel-verrerie',
