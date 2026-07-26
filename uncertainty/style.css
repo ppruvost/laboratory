@@ -1,56 +1,27 @@
-body {
-  font-family: Arial;
-  background: #f5f5f5;
-  padding: 20px;
+/* ── Tokens globaux, composants TP, impression ────────────────── */
+@import url("../css/global.css");
+@import url("../css/tp.css");
+@import url("../css/print.css");
+
+/* ── Overrides communs à tous les domaines (header, cartes,
+   tableaux, boutons, radar, graphique, histogramme...) ──────────
+   Cet outil est transversal (pas lié à un domaine) : il réutilise
+   la même mécanique de couleur que tp-chimie/tp-thermique, avec une
+   teinte neutre plutôt que la couleur d'un domaine précis. ──────── */
+@import url("../css/domaine.css");
+
+/* ════════════════════════════════════════════════════════════════
+   IDENTITÉ — outil transversal (ardoise neutre, distincte des 6
+   couleurs de domaine : bleu chimie, rouge thermique, ambre
+   électricité, gris mécanique, cyan acoustique, violet optique).
+   ════════════════════════════════════════════════════════════════ */
+:root {
+  --domaine-accent:       #334155;
+  --domaine-accent-fonce: #1E293B;
+  --domaine-accent-rgb:   51, 65, 85;
 }
 
-h1 {
-  text-align: center;
-}
-
-.bloc {
-  background: white;
-  padding: 15px;
-  margin: 15px 0;
-  border-radius: 10px;
-  box-shadow: 0 0 5px #ccc;
-}
-
-table {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-th, td {
-  border: 1px solid #ddd;
-  padding: 8px;
-  text-align: center;
-}
-
-button {
-  margin-top: 10px;
-  padding: 10px;
-  cursor: pointer;
-}
-
-@media print {
-
-  button {
-    display: none;
-  }
-
-  body {
-    background: white;
-    color: black;
-  }
-
-  .bloc {
-    page-break-inside: avoid;
-    margin-bottom: 20px;
-  }
-
-  canvas {
-    max-width: 100%;
-  }
-
-}
+/* domaine.css couvre déjà nav/boutons/tableaux/etc. ; cette page
+   n'a pas de <nav> de TP (outil autonome, une seule page) donc ces
+   règles n'ont simplement aucun effet ici — pas besoin de les
+   dupliquer ni de les exclure. */
