@@ -25,6 +25,7 @@ import { initMateriel } from '../../js/materiel.js';
 import glassware from '../../data/glassware.js';
 import laboratoryEquipment from '../../data/equipment.js';
 import { dessinerGraphiqueLigne } from '../../js/graphique.js';
+import { initSerieMesures } from '../../js/incertitudes.js';
 
 const CONTEXTES_PRO = {
 
@@ -44,6 +45,20 @@ export function init() {
   initPalier();
   initEnergieLatente();
   initBilanComplet();
+
+  initSerieMesures({
+    boutonId: 'palier-mesure-ajouter',
+    inputId: 'palier-mesure-groupe',
+    tbodyId: 'tbody-palier-mesures',
+    resultatId: 'resultat-palier-mesures',
+    analyseId: 'analyse-palier-mesures',
+    histogrammeId: 'histogramme-palier',
+    unite: '°C',
+    sourcesErreur: [
+      "Retard à l'équilibre thermique entre le thermomètre et le bain",
+      'Agitation insuffisante ou irrégulière du mélange eau-glace',
+    ],
+  });
 
   initMateriel({
     verreId: 'materiel-verrerie',
