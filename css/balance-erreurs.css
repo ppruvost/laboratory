@@ -130,11 +130,11 @@
 .balance-metric-unit { font-size: .9rem; color: var(--gris-moyen); font-weight: 400; }
 .balance-metric-sub { font-size: .72rem; color: var(--gris-moyen); font-family: var(--font-code); }
 
-/* Badges qualitatifs — tokens d'état unifiés (cf. tp.css .ecart) */
+/* Badges qualitatifs — les tokens .qualite-excellent/.qualite-correct/
+   .qualite-erreur eux-mêmes vivent dans tp.css (section 8, "Écarts
+   qualité") et sont déjà chargés avant ce fichier : on ne les
+   redéfinit pas ici pour éviter la duplication. */
 .balance-qualite-badge { font-size: .75rem; font-weight: 600; padding: .2rem .5rem; border-radius: var(--r-sm); margin-top: .2rem; display: inline-block; }
-.qualite-excellent { color: var(--etat-succes-fg);    background: var(--etat-succes-bg); }
-.qualite-correct   { color: var(--etat-attention-fg); background: var(--etat-attention-bg); }
-.qualite-erreur    { color: var(--etat-erreur-fg);    background: var(--etat-erreur-bg); }
 
 .balance-depassement { font-size: .73rem; color: #B45309; background: var(--etat-attention-bg); padding: .2rem .5rem; border-radius: var(--r-sm); margin-top: .2rem; }
 .balance-ok          { font-size: .73rem; color: var(--etat-succes-fg); background: var(--etat-succes-bg); padding: .2rem .5rem; border-radius: var(--r-sm); margin-top: .2rem; }
