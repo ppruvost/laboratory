@@ -1,56 +1,152 @@
 /**
  * js/incertitudes.js
- * Module partagé : outil « Mesures et incertitudes », domaine
- * transversal du référentiel Bac Pro (commun à tous les groupements
- * de spécialités, à intégrer au traitement des autres parties du
- * programme plutôt qu'enseigné à part).
+ * Module partagé — domaine transversal « Mesures et incertitudes »
+ * (commun à tous les groupements de spécialités, cf. référentiel :
+ * à intégrer aux TP existants plutôt qu'enseigné à part).
  *
- * Fournit :
- *  - calculerMoyenne / calculerEcartType : traitement d'une série de
- *    mesures indépendantes.
- *  - arrondirResultat : exprime un résultat avec un nombre de
- *    chiffres significatifs cohérent avec son incertitude.
- *  - initSerieMesures : composant complet (saisie, tableau,
- *    histogramme, résultat) branchable sur n'importe quel TP/domaine.
+ * Adapté du projet uncertainty/ (calculs.js, analyse_erreurs.js,
+ * histogramme.js, rapport.js), généralisé à n'importe quelle
+ * grandeur physique (et plus seulement U/I en électricité), et
+ * restylé avec les classes déjà définies dans tp.css
+ * (.tableau-resultats, .resultat-calcul, .info, .qualite-excellent /
+ * .qualite-correct / .qualite-erreur) plutôt que la mise en page
+ * "bloc" / canvas d'origine.
+ *
+ * Pensé pour s'intégrer dans un onglet de manipulation existant
+ * (là où une grandeur peut être mesurée plusieurs fois dans les
+ * mêmes conditions), et non comme un onglet séparé.
  */
 
-export function calculerMoyenne(valeurs) {
-  if (!valeurs || !valeurs.length) return null;
-  return valeurs.reduce((s, v) => s + v, 0) / valeurs.length;
-}
+/* ============================================================
+   STATISTIQUES SUR UNE SÉRIE DE MESURES INDÉPENDANTES
+   ============================================================ */
 
-// Écart-type expérimental (estimateur non biaisé, division par n-1)
-export function calculerEcartType(valeurs) {
-  if (!valeurs || valeurs.length < 2) return null;
-  const m = calculerMoyenne(valeurs);
-  const sommeCarres = valeurs.reduce((s, v) => s + (v - m) ** 2, 0);
-  return Math.sqrt(sommeCarres / (valeurs.length - 1));
+export function calculerStatistiques(valeurs) {
+  if (!valeurs || !valeurs.length) return null;
+
+  const n = valeurs.length;
+  const moyenne = valeurs.reduce((a, b) => a + b, 0) / n;
+  const variance = valeurs.reduce((s, v) => s + (v - moyenne) ** 2, 0) / n;
+  const ecartType = Math.sqrt(variance);
+  // Incertitude-type de la moyenne (type A)
+  const incertitudeA = n > 1 ? ecartType / Math.sqrt(n) : null;
+
+  return { n, moyenne, variance, ecartType, incertitudeA };
 }
 
 /**
- * Exprime un résultat (valeur ± incertitude) avec un nombre de
- * chiffres significatifs cohérent : l'incertitude est arrondie à 1
- * chiffre significatif, et la valeur arrondie à la même décimale.
+ * Résultat exprimé avec un nombre de chiffres significatifs
+ * cohérent : l'incertitude est arrondie à 1 chiffre significatif
+ * (règle Bac Pro), la valeur alignée sur la même décimale.
  */
-export function arrondirResultat(valeur, incertitude) {
-  if (incertitude === null || Number.isNaN(incertitude) || incertitude === 0) {
-    return { valeurTexte: String(valeur), incertitudeTexte: '—', decimales: 2 };
+export function formaterResultat(valeur, incertitude) {
+  if (!incertitude || Number.isNaN(incertitude) || incertitude === 0) {
+    return `${valeur}`;
   }
-
-  const exposant = Math.floor(Math.log10(Math.abs(incertitude)));
-  const facteur = Math.pow(10, exposant);
-  const incertitudeArrondie = Math.round(incertitude / facteur) * facteur;
-  const decimales = Math.max(0, -exposant);
-
-  return {
-    valeurTexte: valeur.toFixed(decimales),
-    incertitudeTexte: incertitudeArrondie.toFixed(decimales),
-    decimales,
-  };
+  const incArrondie = parseFloat(incertitude.toPrecision(1));
+  const decimales = (incArrondie.toString().split('.')[1] || '').length;
+  const valArrondie = valeur.toFixed(decimales);
+  return `${valArrondie} ± ${incArrondie}`;
 }
 
-function dessinerHistogramme(conteneurId, valeurs, options = {}) {
+/**
+ * Qualité qualitative de la série, à partir de la dispersion
+ * RELATIVE (écart-type / moyenne), pour rester pertinent quelle que
+ * soit la grandeur et son ordre de grandeur (contrairement à un
+ * seuil absolu fixe, valable seulement pour une grandeur donnée).
+ */
+export function evaluerQualite(stats) {
+  if (!stats || !stats.moyenne) return { classe: '', texte: '—' };
 
+  const dispersionRelative = Math.abs(stats.ecartType / stats.moyenne) * 100;
+
+  if (dispersionRelative < 2) {
+    return { classe: 'qualite-excellent', texte: 'Très bonne qualité de mesure' };
+  }
+  if (dispersionRelative < 8) {
+    return { classe: 'qualite-correct', texte: 'Qualité moyenne' };
+  }
+  return { classe: 'qualite-erreur', texte: 'Mesures dispersées — envisager de refaire la série' };
+}
+
+export function genererAnalyseDispersion(stats, unite = '') {
+  if (!stats) return '';
+  const qualite = evaluerQualite(stats);
+
+  return `
+    <ul>
+      <li>Moyenne = ${stats.moyenne.toFixed(3)} ${unite} — meilleur estimateur de la grandeur mesurée.</li>
+      <li>Écart-type = ${stats.ecartType.toFixed(3)} ${unite} — estimateur de la dispersion des mesures, donc de l'incertitude expérimentale.</li>
+      <li>Qualité de la série : <span class="badge ${qualite.classe}">${qualite.texte}</span></li>
+    </ul>
+  `;
+}
+
+/**
+ * Liste de sources d'erreur possibles : un socle commun à toute
+ * mesure, complété par des sources propres à la manipulation en
+ * cours (fournies par l'appelant, spécifiques au domaine/TP).
+ */
+export function genererSourcesErreur(sourcesSupplementaires = []) {
+  const sourcesBase = [
+    "Résolution et précision de l'instrument de mesure",
+    'Conditions de manipulation (lecture, contact, réglage)',
+    'Variabilité de facteurs non contrôlés (environnement, stabilité du montage)',
+  ];
+  const toutes = [...sourcesBase, ...sourcesSupplementaires];
+  return `<ul>${toutes.map(s => `<li>${s}</li>`).join('')}</ul>`;
+}
+
+/* ============================================================
+   INCERTITUDE INSTRUMENTALE (TYPE B)
+   « Déterminer l'incertitude associée à une mesure simple réalisée
+   avec un instrument de mesure à partir des indications figurant
+   dans sa notice d'utilisation. » (capacité 1ère/Tle)
+   ============================================================ */
+
+export function incertitudeInstrumentale(precisionConstructeur) {
+  if (precisionConstructeur === null || Number.isNaN(precisionConstructeur)) return null;
+  return Math.abs(precisionConstructeur);
+}
+
+export function initIncertitudeInstrumentale({
+  inputValeurId,
+  inputPrecisionId,
+  resultatId,
+  unite = '',
+}) {
+  const inputValeur = document.getElementById(inputValeurId);
+  const inputPrecision = document.getElementById(inputPrecisionId);
+  const resultat = document.getElementById(resultatId);
+
+  if (!inputValeur || !inputPrecision || !resultat) return;
+
+  function calculer() {
+    const valeur = parseFloat(inputValeur.value);
+    const precision = parseFloat(inputPrecision.value);
+
+    if (Number.isNaN(valeur) || Number.isNaN(precision)) {
+      resultat.textContent = 'Saisir la valeur mesurée et la précision donnée par la notice de l\'instrument.';
+      return;
+    }
+
+    const u = incertitudeInstrumentale(precision);
+    resultat.innerHTML = `
+      Incertitude instrumentale : ${u} ${unite} (donnée constructeur)<br>
+      <strong>Résultat exprimé : (${formaterResultat(valeur, u)}) ${unite}</strong>
+    `;
+  }
+
+  inputValeur.addEventListener('input', calculer);
+  inputPrecision.addEventListener('input', calculer);
+}
+
+/* ============================================================
+   HISTOGRAMME (SVG, cohérent avec radar.js / graphique.js —
+   couleur par défaut définie dans tp.css, recolorée par domaine)
+   ============================================================ */
+
+function dessinerHistogramme(conteneurId, valeurs, options = {}) {
   const conteneur = document.getElementById(conteneurId);
   if (!conteneur) return;
 
@@ -68,7 +164,6 @@ function dessinerHistogramme(conteneurId, valeurs, options = {}) {
 
   const classes = Array.from({ length: nClasses }, (_, i) => ({
     debut: min + i * largeurClasse,
-    fin: min + (i + 1) * largeurClasse,
     effectif: 0,
   }));
 
@@ -107,40 +202,42 @@ function dessinerHistogramme(conteneurId, valeurs, options = {}) {
   `;
 }
 
+/* ============================================================
+   COMPOSANT COMPLET — À BRANCHER DANS UN ONGLET EXISTANT
+   ============================================================ */
+
 /**
- * Composant complet : saisie d'une série de mesures indépendantes
- * d'une même grandeur, calcul de la moyenne et de l'écart-type,
- * histogramme, et résultat exprimé avec un nombre de chiffres
- * significatifs cohérent.
- *
  * @param {Object} params
- * @param {string} params.boutonId       - Bouton "+ Ajouter la mesure"
- * @param {string} params.inputId        - Champ de saisie de la mesure
- * @param {string} params.tbodyId        - Corps du tableau des mesures
- * @param {string} [params.resultatId]   - Zone d'affichage moyenne/écart-type/résultat
- * @param {string} [params.histogrammeId]- Conteneur de l'histogramme
- * @param {string} [params.unite]        - Unité affichée (ex. "°C")
+ * @param {string} params.boutonId        - Bouton "+ Ajouter la mesure"
+ * @param {string} params.inputId         - Champ de saisie de la mesure
+ * @param {string} params.tbodyId         - Corps du tableau des mesures
+ * @param {string} [params.resultatId]    - Résultat exprimé (valeur ± incertitude)
+ * @param {string} [params.analyseId]     - Analyse de dispersion + qualité
+ * @param {string} [params.histogrammeId] - Conteneur de l'histogramme
+ * @param {string} [params.unite]
+ * @param {string[]} [params.sourcesErreur] - Sources d'erreur propres à la manipulation
  */
 export function initSerieMesures({
   boutonId,
   inputId,
   tbodyId,
   resultatId,
+  analyseId,
   histogrammeId,
   unite = '',
+  sourcesErreur = [],
 }) {
-
   const bouton = document.getElementById(boutonId);
   const input = document.getElementById(inputId);
   const tbody = document.getElementById(tbodyId);
   const resultat = resultatId ? document.getElementById(resultatId) : null;
+  const analyse = analyseId ? document.getElementById(analyseId) : null;
 
   if (!bouton || !input || !tbody) return;
 
   const valeurs = [];
 
   bouton.addEventListener('click', () => {
-
     const v = parseFloat(input.value);
     if (Number.isNaN(v)) return;
 
@@ -152,29 +249,24 @@ export function initSerieMesures({
   });
 
   function redessiner() {
-
     tbody.innerHTML = valeurs
       .map((v, i) => `<tr><td>${i + 1}</td><td>${v} ${unite}</td></tr>`)
       .join('');
 
-    if (histogrammeId) {
-      dessinerHistogramme(histogrammeId, valeurs, { unite });
+    if (histogrammeId) dessinerHistogramme(histogrammeId, valeurs, { unite });
+
+    const stats = valeurs.length >= 2 ? calculerStatistiques(valeurs) : null;
+
+    if (resultat) {
+      resultat.innerHTML = stats
+        ? `<strong>Résultat exprimé : (${formaterResultat(stats.moyenne, stats.incertitudeA)}) ${unite}</strong>`
+        : 'Ajouter au moins deux mesures indépendantes pour calculer la moyenne et l\'écart-type.';
     }
 
-    if (!resultat) return;
-
-    if (valeurs.length < 2) {
-      resultat.textContent = 'Ajouter au moins deux mesures indépendantes pour calculer la moyenne et l\'écart-type.';
-      return;
+    if (analyse) {
+      analyse.innerHTML = stats
+        ? genererAnalyseDispersion(stats, unite) + genererSourcesErreur(sourcesErreur)
+        : '';
     }
-
-    const moyenne = calculerMoyenne(valeurs);
-    const ecartType = calculerEcartType(valeurs);
-    const { valeurTexte, incertitudeTexte } = arrondirResultat(moyenne, ecartType);
-
-    resultat.innerHTML = `
-      Moyenne : ${moyenne.toFixed(3)} ${unite} — Écart-type : ${ecartType.toFixed(3)} ${unite}<br>
-      <strong>Résultat exprimé : (${valeurTexte} ± ${incertitudeTexte}) ${unite}</strong>
-    `;
   }
 }
