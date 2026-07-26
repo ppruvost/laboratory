@@ -1,96 +1,213 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <title>TP Incertitudes - Électricité</title>
-  <link rel="stylesheet" href="style.css">
-  <link rel="icon" href="data:,">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mesures et incertitudes — SciLab</title>
+<link rel="stylesheet" href="style.css">
+<link rel="icon" href="data:,">
 </head>
-
 <body>
 
-  <h1> TP : Mesures et incertitudes (Électricité)</h1>
+<header>
+  <h1>📏 Mesures et incertitudes</h1>
+</header>
 
-  <section class="bloc">
-    <h2>📊 Saisie des mesures</h2>
+<main id="content" class="page-wrapper">
 
-    <table id="table-mesures">
-      <thead>
-        <tr>
-          <th>Essai</th>
-          <th>Tension (V)</th>
-          <th>Intensité (A)</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>1</td>
-          <td><input type="number" class="U"></td>
-          <td><input type="number" class="I"></td>
-        </tr>
-        <tr>
-          <td>2</td>
-          <td><input type="number" class="U"></td>
-          <td><input type="number" class="I"></td>
-        </tr>
-        <tr>
-          <td>3</td>
-          <td><input type="number" class="U"></td>
-          <td><input type="number" class="I"></td>
-        </tr>
-        <tr>
-          <td>4</td>
-          <td><input type="number" class="U"></td>
-          <td><input type="number" class="I"></td>
-        </tr>
-        <tr>
-          <td>5</td>
-          <td><input type="number" class="U"></td>
-          <td><input type="number" class="I"></td>
-        </tr>          
-      </tbody>
-    </table>
+  <!-- ====================================================== -->
+  <!-- À PROPOS                                                 -->
+  <!-- ====================================================== -->
 
-  <div style="margin-top:10px;">
-    <label for="puissanceLampe"><b>💡 Puissance nominale de la lampe (12V) :</b></label>
-    <select id="puissanceLampe">
-      <option value="5">5 W</option>
-      <option value="10">10 W</option>
-      <option value="21">21 W</option>
-      <option value="55">55 W</option>
-    </select>
+  <div class="section" data-type="objectif">
+
+    <div class="section-titre">
+      <div class="picto-section">🎯</div>
+      <h2>À propos de cet outil</h2>
+      <span class="chevron">▼</span>
+    </div>
+
+    <div class="section-corps">
+
+      <div class="info">
+        Domaine transversal du référentiel Bac Pro, commun à tous les
+        groupements de spécialités (pas de séance qui lui est
+        exclusivement consacrée : il s'intègre au traitement des
+        autres parties du programme). Cet outil traite une série de
+        mesures indépendantes d'une grandeur physique — moyenne,
+        écart-type, histogramme — ou l'incertitude d'une mesure simple
+        à partir de la notice d'un instrument. Utilisable pour
+        n'importe quelle grandeur mesurée en TP, quel que soit le
+        domaine (température, tension, intensité, longueur, temps,
+        masse...).
+      </div>
+
+      <div class="form-row">
+
+        <div class="form-group">
+          <label for="nom-grandeur">Grandeur mesurée</label>
+          <input id="nom-grandeur" type="text" placeholder="ex. Tension, Température, Longueur...">
+        </div>
+
+        <div class="form-group">
+          <label for="unite-grandeur">Unité</label>
+          <input id="unite-grandeur" type="text" placeholder="ex. V, °C, cm...">
+        </div>
+
+      </div>
+
+      <p class="info">
+        Renseigner la grandeur et l'unité avant de commencer la série
+        de mesures ci-dessous.
+      </p>
+
+    </div>
+
   </div>
 
-  <button onclick="analyser()">📈 Analyser les données</button>
-  </section>
+  <!-- ====================================================== -->
+  <!-- SÉRIE DE MESURES                                         -->
+  <!-- ====================================================== -->
 
-  <section class="bloc">
-    <h2>📌 Résultats</h2>
-    <div id="resultats"></div>
-  </section>
+  <div class="section" data-type="resultats">
 
-  <section class="bloc">
-    <h2>🧠 Analyse des incertitudes</h2>
-    <div id="analyse"></div>
-  </section>
+    <div class="section-titre">
+      <div class="picto-section">📊</div>
+      <h2>Série de mesures indépendantes</h2>
+      <span class="chevron">▼</span>
+    </div>
 
-  <section class="bloc">
-  <h2>📊 Histogramme des mesures</h2>
-  <canvas id="histogramme" width="400" height="150"></canvas>
-</section>
+    <div class="section-corps">
 
-  <section class="bloc">
-    <h2>📝 Rapport élève</h2>
-    <pre id="rapport"></pre>
+      <div class="info">
+        Répéter la même mesure plusieurs fois, dans les mêmes
+        conditions. La moyenne est le meilleur estimateur de la
+        grandeur ; l'écart-type est un estimateur de la dispersion,
+        donc de l'incertitude expérimentale.
+      </div>
 
-    <button onclick="imprimerPDF()">🖨️ Imprimer / Exporter PDF</button>
-  </section>
-  
-  <script src="modules/calculs.js"></script>
-  <script src="modules/analyse_erreurs.js"></script>
-  <script src="modules/histogramme.js"></script>
-  <script src="modules/rapport.js"></script>
-  <script src="app.js"></script>
+      <div class="form-row">
 
+        <div class="form-group">
+          <label for="mesure-valeur">Valeur mesurée</label>
+          <input id="mesure-valeur" type="number" step="any">
+        </div>
+
+        <div class="form-group">
+          <label>&nbsp;</label>
+          <button id="mesure-ajouter" type="button" class="btn btn-primaire">
+            + Ajouter la mesure
+          </button>
+        </div>
+
+      </div>
+
+      <div class="table-responsive">
+        <table class="tableau-resultats">
+          <thead>
+            <tr>
+              <th>Essai</th>
+              <th>Valeur mesurée</th>
+            </tr>
+          </thead>
+          <tbody id="tbody-mesures">
+          </tbody>
+        </table>
+      </div>
+
+      <div id="histogramme-mesures" class="graphique-conteneur">
+        <p class="info">Ajouter au moins 2 mesures pour afficher l'histogramme.</p>
+      </div>
+
+      <div id="resultat-mesures" class="resultat-calcul">
+        Ajouter au moins deux mesures indépendantes pour calculer la
+        moyenne et l'écart-type.
+      </div>
+
+      <div id="analyse-mesures"></div>
+
+    </div>
+
+  </div>
+
+  <!-- ====================================================== -->
+  <!-- INCERTITUDE INSTRUMENTALE                                -->
+  <!-- ====================================================== -->
+
+  <div class="section" data-type="protocole">
+
+    <div class="section-titre">
+      <div class="picto-section">🔧</div>
+      <h2>Incertitude instrumentale (notice constructeur)</h2>
+      <span class="chevron">▼</span>
+    </div>
+
+    <div class="section-corps">
+
+      <div class="info">
+        Capacité 1ère/Tle : déterminer l'incertitude associée à une
+        mesure simple réalisée avec un instrument, à partir des
+        indications figurant dans sa notice d'utilisation — sans
+        nécessiter de répéter la mesure.
+      </div>
+
+      <div class="form-row">
+
+        <div class="form-group">
+          <label for="instr-valeur">Valeur mesurée</label>
+          <input id="instr-valeur" type="number" step="any">
+        </div>
+
+        <div class="form-group">
+          <label for="instr-precision">Précision donnée par la notice (±)</label>
+          <input id="instr-precision" type="number" step="any">
+        </div>
+
+      </div>
+
+      <div id="resultat-instrumentale" class="resultat-calcul">
+        Saisir la valeur mesurée et la précision donnée par la notice
+        de l'instrument.
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- ====================================================== -->
+  <!-- COMPTE RENDU                                             -->
+  <!-- ====================================================== -->
+
+  <div class="section" data-type="bilan">
+
+    <div class="section-titre">
+      <div class="picto-section">📝</div>
+      <h2>Compte rendu</h2>
+      <span class="chevron">▼</span>
+    </div>
+
+    <div class="section-corps">
+
+      <h3>Résumé</h3>
+
+      <div class="zone-eleve">
+        <textarea id="resume-tp" rows="5" placeholder="Résumer votre démarche et interpréter vos résultats (qualité de la série, source d'erreur principale...)."></textarea>
+      </div>
+
+      <div class="toolbar">
+        <button id="btn-imprimer" class="btn btn-primaire">
+          🖨 Imprimer le compte-rendu
+        </button>
+      </div>
+
+    </div>
+
+  </div>
+
+</main>
+
+<div id="cr-print-container" style="display:none;"></div>
+
+<script type="module" src="app.js"></script>
 </body>
 </html>
