@@ -45,7 +45,7 @@ export function init() {
   initMateriel({
     equipementId: 'materiel-equipements',
     equipment: laboratoryEquipment,
-    categorie: 'Electricite',
+    categorie: 'Puissance',
   });
 
   initContextePro({
