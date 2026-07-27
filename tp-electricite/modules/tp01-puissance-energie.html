@@ -1,0 +1,597 @@
+<!--
+  Fragment SPA chargé dynamiquement par navigation.js.
+  Tous les chemins sont relatifs à la racine du site.
+  Aucun <script> dans ce fragment.
+-->
+
+<section>
+
+<header class="tp-header">
+
+  <div class="tp-header-logo">
+    <div class="logo">
+      <span class="sci">Sci</span><span class="Lab">Lab</span>
+    </div>
+  </div>
+
+  <div class="tp-header-centre">
+
+    <h1>Puissance et énergie électrique</h1>
+
+    <div class="tp-meta">
+
+      <div class="tp-row">
+        <span class="tag">1ère</span>
+        <span class="tag">Électricité</span>
+        <span class="tag">Puissance - </span><span class="tag">Énergie - </span><span class="tag">Régime continu</span>
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="tp-header-numero">
+    <span class="tp-numero-txt">TP01</span>
+  </div>
+
+</header>
+
+<div class="progress">
+  <div id="bar"></div>
+</div>
+
+<main id="content">
+
+<div class="section" data-type="objectif">
+
+  <div class="section-titre">
+    <div class="picto-section">🎯</div>
+    <h2>Capacités évaluées</h2>
+    <span class="chevron">▼</span>
+  </div>
+
+  <div class="section-corps">
+
+    <ul>
+      <li>Distinguer énergie et puissance électrique.</li>
+      <li>Mesurer la puissance électrique reçue et l'énergie électrique reçue pendant une durée donnée par un appareil utilisé en régime continu.</li>
+      <li>Calculer la puissance électrique reçue et l'énergie électrique reçue pendant une durée donnée.</li>
+      <li>Établir expérimentalement la relation entre la puissance électrique reçue, la tension et l'intensité en régime continu.</li>
+      <li>Connaître la relation E = P × t entre l'énergie électrique reçue, la puissance et la durée.</li>
+      <li>Connaître la relation P = U × I entre la puissance électrique, la tension et l'intensité en régime continu.</li>
+      <li>Savoir que le joule est l'unité d'énergie du système international et connaître d'autres unités, dont le kilowattheure (kWh).</li>
+      <li><em>Domaine transversal — Sécurité :</em> justifier la présence des dispositifs de protection des matériels et des personnes (fusible, disjoncteur, mise à la terre).</li>
+    </ul>
+
+  </div>
+
+</div>
+
+<div class="section" data-type="contexte-pro">
+
+  <div class="section-titre">
+    <div class="picto-section">🏭</div>
+    <h2>Contexte professionnel</h2>
+    <span class="chevron">▼</span>
+  </div>
+
+  <div class="section-corps">
+
+    <div class="filiere-select-bloc">
+      <label for="select-filiere-pro">Votre filière professionnelle :</label>
+      <select id="select-filiere-pro">
+        <option value="">-- Sélectionner une filière --</option>
+      </select>
+    </div>
+
+    <div id="contexte-pro-resultat" class="contexte-pro-resultat">
+      <p>Sélectionner votre filière professionnelle pour afficher le contexte et la problématique associée.</p>
+    </div>
+
+  </div>
+
+</div>
+
+<div class="section" data-type="securite">
+
+  <div class="section-titre">
+    <div class="picto-section">⚠️</div>
+    <h2>Sécurité</h2>
+    <span class="chevron">▼</span>
+  </div>
+
+  <div class="section-corps">
+
+    <div class="info">
+      Ce TP met en œuvre une alimentation électrique de laboratoire.
+      Toute manipulation d'un circuit électrique impose le respect de
+      règles simples pour éviter tout risque de choc électrique ou de
+      court-circuit.
+    </div>
+
+    <ul style="padding-left:1.5rem;line-height:2">
+      <li><strong>Avant de modifier un montage :</strong> couper l'alimentation, réaliser les branchements, puis remettre sous tension.</li>
+      <li><strong>Multimètre :</strong> vérifier le calibre et le mode (V, A) avant chaque mesure ; un ampèremètre se branche toujours en série.</li>
+      <li><strong>Dispositifs de protection :</strong> un fusible ou un disjoncteur coupe automatiquement l'alimentation en cas de surintensité, protégeant matériel et personnes.</li>
+    </ul>
+
+  </div>
+
+</div>
+
+<div class="section" data-type="materiel">
+
+  <div class="section-titre">
+    <div class="picto-section">🧪</div>
+    <h2>Matériel nécessaire</h2>
+    <span class="chevron">▼</span>
+  </div>
+
+  <div class="section-corps">
+
+    <h3>Équipements</h3>
+    <div id="materiel-equipements" class="grille-materiel">
+    </div>
+
+  </div>
+
+</div>
+
+<div class="section" data-type="preparation">
+
+  <div class="section-titre">
+    <div class="picto-section">⚗️</div>
+    <h2>Manipulations</h2>
+    <span class="chevron">▼</span>
+  </div>
+
+  <div class="section-corps">
+
+    <div id="tp01-message-filiere" class="info" style="display:none;"></div>
+
+    <div class="tabs-container">
+
+      <div class="tabs-header">
+        <button class="tab-btn actif" data-tab="mesure-puissance">Mesure de la puissance</button>
+        <button class="tab-btn" data-tab="energie-consommee">Énergie consommée</button>
+      </div>
+
+      <!-- ============================ -->
+      <!-- MESURE DE PUISSANCE          -->
+      <!-- ============================ -->
+
+      <div class="tab-panel actif" id="mesure-puissance">
+
+        <h3>Établir la relation P = U × I</h3>
+
+        <div class="info">
+          En régime continu, la puissance électrique reçue par un
+          dipôle est le produit de la tension à ses bornes par
+          l'intensité du courant qui le traverse.
+        </div>
+
+        <div class="form-row">
+
+          <div class="form-group">
+            <label for="pui-tension">Tension mesurée U (V)</label>
+            <input id="pui-tension" type="number" step="0.1">
+          </div>
+
+          <div class="form-group">
+            <label for="pui-intensite">Intensité mesurée I (A)</label>
+            <input id="pui-intensite" type="number" step="0.01">
+          </div>
+
+          <div class="form-group">
+            <label>&nbsp;</label>
+            <button id="pui-ajouter" type="button" class="btn btn-primaire">
+              + Ajouter la mesure
+            </button>
+          </div>
+
+        </div>
+
+        <div class="table-responsive">
+          <table class="tableau-resultats">
+            <thead>
+              <tr>
+                <th>N°</th>
+                <th>U (V)</th>
+                <th>I (A)</th>
+                <th>P = U×I (W)</th>
+              </tr>
+            </thead>
+            <tbody id="tbody-puissance">
+            </tbody>
+          </table>
+        </div>
+
+        <h4 style="margin-top:var(--gap-lg);">Protocole</h4>
+
+        <ol class="etapes">
+          <li>Réaliser le montage permettant de mesurer simultanément la tension aux bornes du dipôle et l'intensité qui le traverse (voltmètre en dérivation, ampèremètre en série).</li>
+          <li>Faire varier la tension d'alimentation et relever, pour chaque réglage, les valeurs de U et de I.</li>
+          <li>Saisir chaque couple de mesures et observer la puissance calculée automatiquement.</li>
+        </ol>
+
+        <div class="mode-op">
+          <img src="./assets/images/e1-mesure-puissance.png" alt="Mode opératoire — mesure de la puissance électrique" class="mode-image">
+        </div>
+
+      </div>
+
+      <!-- ============================ -->
+      <!-- ÉNERGIE CONSOMMÉE             -->
+      <!-- ============================ -->
+
+      <div class="tab-panel" id="energie-consommee">
+
+        <h3>Calculer l'énergie électrique reçue</h3>
+
+        <div class="info">
+          L'énergie électrique reçue par un appareil dépend de la
+          puissance qu'il consomme et de la durée d'utilisation :
+          E = P × t.
+        </div>
+
+        <div class="form-row">
+
+          <div class="form-group">
+            <label for="ener-puissance">Puissance de l'appareil (W)</label>
+            <input id="ener-puissance" type="number" step="1">
+          </div>
+
+          <div class="form-group">
+            <label for="ener-duree">Durée d'utilisation (h)</label>
+            <input id="ener-duree" type="number" step="0.1">
+          </div>
+
+        </div>
+
+        <div id="ener-resultat" class="resultat-calcul">
+          Saisir la puissance et la durée pour calculer l'énergie
+          consommée.
+        </div>
+
+        <h4 style="margin-top:var(--gap-lg);">Protocole</h4>
+
+        <ol class="etapes">
+          <li>Relever la puissance nominale indiquée sur la plaque signalétique d'un appareil électrique de la vie courante ou de l'atelier professionnel.</li>
+          <li>Estimer sa durée d'utilisation quotidienne.</li>
+          <li>Saisir ces deux valeurs pour obtenir l'énergie consommée, exprimée en joules et en kilowattheures.</li>
+        </ol>
+
+        <div class="mode-op">
+          <img src="./assets/images/e1-energie.png" alt="Mode opératoire — calcul de l'énergie électrique consommée" class="mode-image">
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+<div class="section" data-type="resultats">
+
+  <div class="section-titre">
+    <div class="picto-section">📊</div>
+    <h2>Tableau de résultats</h2>
+    <span class="chevron">▼</span>
+  </div>
+
+  <div class="section-corps">
+
+    <div class="table-responsive">
+
+      <table class="tableau-resultats">
+
+        <thead>
+          <tr>
+            <th>Grandeur</th>
+            <th>Résultat</th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          <tr>
+            <td>Puissance mesurée retenue</td>
+            <td><input type="text" placeholder="W"></td>
+          </tr>
+
+          <tr>
+            <td>Énergie consommée calculée</td>
+            <td><input type="text" placeholder="kWh"></td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+  </div>
+
+</div>
+
+<div class="section" data-type="environnement">
+
+  <div class="section-titre">
+    <div class="picto-section">🌱</div>
+    <h2>Électricité et sobriété énergétique</h2>
+    <span class="chevron">▼</span>
+  </div>
+
+  <div class="section-corps">
+
+    <h3>Bonnes pratiques au laboratoire</h3>
+
+    <ul style="padding-left:1.5rem;line-height:2">
+      <li>Couper l'alimentation dès la fin des relevés de mesure.</li>
+      <li>Ne pas laisser un appareil sous tension inutilement.</li>
+    </ul>
+
+    <h3 style="margin-top:var(--gap-md);">Consommation et usages éco-responsables</h3>
+
+    <p>
+      Connaître la puissance et l'énergie consommées par un appareil
+      permet d'identifier les usages les plus énergivores et d'agir
+      pour réduire la facture énergétique, que ce soit à l'échelle
+      d'un logement ou d'un atelier professionnel.
+    </p>
+
+  </div>
+
+</div>
+
+<div class="section" data-type="bilan">
+
+  <div class="section-titre">
+    <div class="picto-section">📝</div>
+    <h2>Trace écrite - Compte rendu</h2>
+    <span class="chevron">▼</span>
+  </div>
+
+  <div class="section-corps">
+
+    <h3>Identification</h3>
+
+    <div class="form-row">
+
+      <div class="form-group">
+        <label for="nom-eleve">Nom</label>
+        <input id="nom-eleve" type="text" placeholder="Nom">
+      </div>
+
+      <div class="form-group">
+        <label for="prenom-eleve">Prénom</label>
+        <input id="prenom-eleve" type="text" placeholder="Prénom">
+      </div>
+
+      <div class="form-group">
+        <label for="classe-eleve">Classe</label>
+        <input id="classe-eleve" type="text" placeholder="Classe">
+      </div>
+
+      <div class="form-group">
+        <label for="date-eleve">Date</label>
+        <input id="date-eleve" type="date">
+      </div>
+
+    </div>
+
+    <h3 style="margin-top:var(--gap-md);">Résumé du TP</h3>
+
+    <div class="zone-eleve">
+      <textarea id="resume-tp" rows="6" placeholder="Résumer les mesures de puissance et le calcul d'énergie réalisés..."></textarea>
+    </div>
+
+    <h3 style="margin-top:var(--gap-md);">Questions</h3>
+
+    <div class="questions-bloc" data-tp="puissance-energie">
+
+    <ol class="questions-tp">
+
+      <li>
+        <div class="question-entete">
+          <strong>
+            Distinguer les notions de puissance et d'énergie électrique et préciser leurs unités respectives.
+          </strong>
+          <span class="cartouche" data-comp="APP">APP</span>
+        </div>
+        <div class="zone-eleve">
+          <textarea id="question1" rows="4" placeholder="Votre réponse..."></textarea>
+        </div>
+      </li>
+
+      <li>
+        <div class="question-entete">
+          <strong>
+            À partir du tableau de mesures, vérifier la relation P = U × I.
+          </strong>
+          <span class="cartouche" data-comp="REA">REA</span>
+        </div>
+        <div class="zone-eleve">
+          <textarea id="question2" rows="4" placeholder="Votre réponse..."></textarea>
+        </div>
+      </li>
+
+      <li>
+        <div class="question-entete">
+          <strong>
+            Calculer l'énergie consommée en kWh par l'appareil étudié et comparer ce résultat à une valeur de référence connue.
+          </strong>
+          <span class="cartouche" data-comp="ANA">ANA</span>
+        </div>
+        <div class="zone-eleve">
+          <textarea id="question3" rows="5" placeholder="Votre analyse..."></textarea>
+        </div>
+      </li>
+
+      <li class="question-problematique">
+        <div class="question-entete">
+          <strong>Répondre à la problématique posée en début de TP :</strong>
+          <span class="cartouche" data-comp="VAL">VAL</span>
+        </div>
+        <p class="problematique-rappel" data-activite="puissance-energie"></p>
+        <div class="zone-eleve">
+          <textarea id="question4" rows="5" placeholder="Répondre à la problématique en vous appuyant sur vos résultats expérimentaux..."></textarea>
+        </div>
+      </li>
+
+    </ol>
+
+    </div>
+
+  </div>
+
+</div>
+
+<div class="section" data-type="auto-evaluation">
+
+  <div class="section-titre">
+    <div class="picto-section">📡</div>
+    <h2>Auto-évaluation des compétences</h2>
+    <span class="chevron">▼</span>
+  </div>
+
+  <div class="section-corps">
+
+    <p class="info">
+      À la fin du TP, évaluez votre niveau de maîtrise pour chaque
+      compétence.
+    </p>
+
+    <div class="table-responsive">
+
+      <table class="tableau-resultats autoeval-table">
+
+        <thead>
+          <tr>
+            <th>Domaine</th>
+            <th>Sigle</th>
+            <th>Je suis capable de...</th>
+            <th>0</th>
+            <th>1</th>
+            <th>2</th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          <tr data-comp="APP">
+            <td>S'approprier</td>
+            <td>APP</td>
+            <td>Distinguer puissance et énergie électrique.</td>
+            <td><input type="radio" name="APP" value="0"></td>
+            <td><input type="radio" name="APP" value="1"></td>
+            <td><input type="radio" name="APP" value="2"></td>
+          </tr>
+
+          <tr data-comp="REA">
+            <td>Réaliser</td>
+            <td>REA</td>
+            <td>Mesurer une tension et une intensité en régime continu.</td>
+            <td><input type="radio" name="REA" value="0"></td>
+            <td><input type="radio" name="REA" value="1"></td>
+            <td><input type="radio" name="REA" value="2"></td>
+          </tr>
+
+          <tr data-comp="ANA">
+            <td>Analyser / Raisonner</td>
+            <td>ANA</td>
+            <td>Calculer une puissance et une énergie électrique.</td>
+            <td><input type="radio" name="ANA" value="0"></td>
+            <td><input type="radio" name="ANA" value="1"></td>
+            <td><input type="radio" name="ANA" value="2"></td>
+          </tr>
+
+          <tr data-comp="VAL">
+            <td>Valider</td>
+            <td>VAL</td>
+            <td>Vérifier la cohérence d'un résultat avec l'ordre de grandeur attendu.</td>
+            <td><input type="radio" name="VAL" value="0"></td>
+            <td><input type="radio" name="VAL" value="1"></td>
+            <td><input type="radio" name="VAL" value="2"></td>
+          </tr>
+
+          <tr data-comp="COM">
+            <td>Communiquer</td>
+            <td>COM</td>
+            <td>Exprimer un résultat avec un nombre adapté de chiffres significatifs et l'unité correcte.</td>
+            <td><input type="radio" name="COM" value="0"></td>
+            <td><input type="radio" name="COM" value="1"></td>
+            <td><input type="radio" name="COM" value="2"></td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+    <div class="radar-actions" style="margin-top:var(--gap-lg);">
+      <button id="btn-radar" class="btn btn-primaire">
+        📊 Générer mon radar de compétences
+      </button>
+      <div id="radar-resultat" style="margin-top:var(--gap-md);"></div>
+    </div>
+
+  </div>
+
+</div>
+
+<div class="section" data-type="impression_tp">
+
+  <div class="section-titre">
+    <div class="picto-section">📒</div>
+    <h2>Impression du compte-rendu</h2>
+    <span class="chevron">▼</span>
+  </div>
+
+  <div class="section-corps">
+
+    <p class="info">
+      À la fin du TP, Imprimer votre TP en PDF.
+      Envoyer à l'enseignant votre Compte rendu en pièce jointe par la messagerie de l'ENT.
+    </p>
+
+    <div class="toolbar">
+      <button id="btn-imprimer" class="btn btn-primaire">
+        🖨 Imprimer le compte-rendu
+      </button>
+    </div>
+
+    <div class="info" style="margin-top:var(--gap-md);">
+      L'impression récupère automatiquement :
+      <ul>
+        <li>les mesures de tension, d'intensité et de puissance ;</li>
+        <li>le calcul d'énergie consommée ;</li>
+        <li>les résultats du tableau et les réponses aux questions ;</li>
+        <li>l'auto-évaluation des compétences.</li>
+      </ul>
+    </div>
+
+  </div>
+
+</div>
+
+<div class="nav-tp">
+
+  <button class="btn btn-secondaire" onclick="location.href='../index.html'">
+    🏠 Accueil
+  </button>
+
+  <button class="btn btn-primaire" onclick="loadTP('tp02-transport-energie')">
+    TP02 →
+  </button>
+
+</div>
+
+</main>
+
+<div id="cr-print-container" style="display:none;"></div>
+
+</section>
