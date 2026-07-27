@@ -1,0 +1,643 @@
+<!--
+  Fragment SPA chargé dynamiquement par navigation.js.
+  Tous les chemins sont relatifs à la racine du site.
+  Aucun <script> dans ce fragment.
+-->
+
+<section>
+
+<header class="tp-header">
+
+  <div class="tp-header-logo">
+    <div class="logo">
+      <span class="sci">Sci</span><span class="Lab">Lab</span>
+    </div>
+  </div>
+
+  <div class="tp-header-centre">
+
+    <h1>Transport de l'énergie électrique</h1>
+
+    <div class="tp-meta">
+
+      <div class="tp-row">
+        <span class="tag">1ère</span>
+        <span class="tag">Électricité</span>
+        <span class="tag">Effet Joule - </span><span class="tag">Transformateur</span>
+      </div>
+
+      <div class="tp-row">
+        <span class="tag">Tle</span>
+        <span class="tag">Électricité</span>
+        <span class="tag">Effet Joule - </span><span class="tag">Transformateur</span>
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="tp-header-numero">
+    <span class="tp-numero-txt">TP02</span>
+  </div>
+
+</header>
+
+<div class="progress">
+  <div id="bar"></div>
+</div>
+
+<main id="content">
+
+<div class="section" data-type="objectif">
+
+  <div class="section-titre">
+    <div class="picto-section">🎯</div>
+    <h2>Capacités évaluées</h2>
+    <span class="chevron">▼</span>
+  </div>
+
+  <div class="section-corps">
+
+    <ul>
+      <li>Représenter le schéma simplifié d'un réseau de distribution d'énergie électrique à l'échelle d'un pays et d'une installation domestique.</li>
+      <li>Justifier l'intérêt du transport d'énergie électrique à grande distance sous haute tension.</li>
+      <li>Mettre en évidence expérimentalement le rôle d'abaisseur ou d'élévateur de tension d'un transformateur.</li>
+      <li>Connaître la relation reliant puissance électrique dissipée par effet Joule, résistance et valeur efficace de l'intensité.</li>
+      <li>Savoir que l'effet Joule est responsable des pertes en ligne dans le transport et la distribution de l'électricité.</li>
+      <li>Connaître le rôle des transformateurs dans les réseaux de distribution d'énergie électrique.</li>
+    </ul>
+
+  </div>
+
+</div>
+
+<div class="section" data-type="contexte-pro">
+
+  <div class="section-titre">
+    <div class="picto-section">🏭</div>
+    <h2>Contexte professionnel</h2>
+    <span class="chevron">▼</span>
+  </div>
+
+  <div class="section-corps">
+
+    <div class="filiere-select-bloc">
+      <label for="select-filiere-pro">Votre filière professionnelle :</label>
+      <select id="select-filiere-pro">
+        <option value="">-- Sélectionner une filière --</option>
+      </select>
+    </div>
+
+    <div id="contexte-pro-resultat" class="contexte-pro-resultat">
+      <p>Sélectionner votre filière professionnelle pour afficher le contexte et la problématique associée.</p>
+    </div>
+
+  </div>
+
+</div>
+
+<div class="section" data-type="securite">
+
+  <div class="section-titre">
+    <div class="picto-section">⚠️</div>
+    <h2>Sécurité</h2>
+    <span class="chevron">▼</span>
+  </div>
+
+  <div class="section-corps">
+
+    <div class="info">
+      Ce TP utilise un transformateur d'atelier basse tension. Les
+      tensions manipulées restent faibles, mais les règles générales
+      de sécurité électrique s'appliquent.
+    </div>
+
+    <ul style="padding-left:1.5rem;line-height:2">
+      <li><strong>Transformateur :</strong> ne jamais toucher les enroulements sous tension ; couper l'alimentation avant toute modification du montage.</li>
+      <li><strong>Échauffement :</strong> un enroulement parcouru par un courant important peut chauffer ; le laisser refroidir avant manipulation prolongée.</li>
+      <li><strong>Protection :</strong> vérifier la présence d'un fusible ou d'un disjoncteur en amont du montage.</li>
+    </ul>
+
+  </div>
+
+</div>
+
+<div class="section" data-type="materiel">
+
+  <div class="section-titre">
+    <div class="picto-section">🧪</div>
+    <h2>Matériel nécessaire</h2>
+    <span class="chevron">▼</span>
+  </div>
+
+  <div class="section-corps">
+
+    <h3>Équipements</h3>
+    <div id="materiel-equipements" class="grille-materiel">
+    </div>
+
+  </div>
+
+</div>
+
+<div class="section" data-type="preparation">
+
+  <div class="section-titre">
+    <div class="picto-section">⚗️</div>
+    <h2>Manipulations</h2>
+    <span class="chevron">▼</span>
+  </div>
+
+  <div class="section-corps">
+
+    <div id="tp02-message-filiere" class="info" style="display:none;"></div>
+
+    <div class="tabs-container">
+
+      <div class="tabs-header">
+        <button class="tab-btn actif" data-tab="reseau-distribution">Réseau de distribution</button>
+        <button class="tab-btn" data-tab="effet-joule">Effet Joule et pertes en ligne</button>
+        <button class="tab-btn" data-tab="transformateur">Transformateur</button>
+      </div>
+
+      <!-- ============================ -->
+      <!-- RÉSEAU DE DISTRIBUTION       -->
+      <!-- ============================ -->
+
+      <div class="tab-panel actif" id="reseau-distribution">
+
+        <h3>Du site de production à l'installation domestique</h3>
+
+        <div class="info">
+          L'énergie électrique produite dans une centrale est élevée en
+          très haute tension pour être transportée sur de longues
+          distances, puis progressivement abaissée par des
+          transformateurs successifs jusqu'à la tension d'utilisation
+          domestique ou industrielle (230 V / 400 V).
+        </div>
+
+        <div class="form-group">
+          <label for="reseau-select">Étape du réseau de distribution</label>
+          <select id="reseau-select">
+            <option value="">-- Sélectionner une étape --</option>
+            <option value="centrale">Centrale de production</option>
+            <option value="tht">Réseau très haute tension (transport)</option>
+            <option value="ht">Réseau haute tension (répartition régionale)</option>
+            <option value="bt">Réseau basse tension (distribution finale)</option>
+          </select>
+        </div>
+
+        <div id="reseau-info" class="resultat-calcul">
+          Sélectionner une étape pour afficher l'ordre de grandeur de tension associé.
+        </div>
+
+        <h4 style="margin-top:var(--gap-lg);">Protocole</h4>
+
+        <ol class="etapes">
+          <li>À partir d'une ressource documentaire fournie par l'enseignant, identifier les différentes étapes du réseau électrique entre une centrale et une habitation.</li>
+          <li>Pour chaque étape, relever l'ordre de grandeur de la tension utilisée.</li>
+          <li>Représenter le schéma simplifié du réseau en indiquant l'évolution de la tension.</li>
+        </ol>
+
+        <div class="mode-op">
+          <img src="./assets/images/e2-reseau.png" alt="Mode opératoire — réseau de distribution de l'énergie électrique" class="mode-image">
+        </div>
+
+      </div>
+
+      <!-- ============================ -->
+      <!-- EFFET JOULE                  -->
+      <!-- ============================ -->
+
+      <div class="tab-panel" id="effet-joule">
+
+        <h3>Pertes en ligne par effet Joule</h3>
+
+        <div class="info">
+          Une ligne électrique possède une résistance R non nulle. La
+          puissance dissipée par effet Joule dans cette résistance vaut
+          P&#8321; = R × I², où I est la valeur efficace de l'intensité
+          qui parcourt la ligne.
+        </div>
+
+        <div class="form-row">
+
+          <div class="form-group">
+            <label for="joule-resistance">Résistance de la ligne R (Ω)</label>
+            <input id="joule-resistance" type="number" step="0.01">
+          </div>
+
+          <div class="form-group">
+            <label for="joule-intensite-bt">Intensité en basse tension (A)</label>
+            <input id="joule-intensite-bt" type="number" step="0.1">
+          </div>
+
+          <div class="form-group">
+            <label for="joule-intensite-ht">Intensité équivalente en haute tension (A)</label>
+            <input id="joule-intensite-ht" type="number" step="0.1">
+          </div>
+
+        </div>
+
+        <div id="joule-resultat" class="resultat-calcul">
+          Saisir la résistance de ligne et les deux intensités pour
+          comparer les pertes par effet Joule en basse et en haute
+          tension, à puissance transportée égale.
+        </div>
+
+        <h4 style="margin-top:var(--gap-lg);">Protocole</h4>
+
+        <ol class="etapes">
+          <li>Mesurer ou relever la résistance d'une ligne de laboratoire modélisant une ligne de transport.</li>
+          <li>Pour une même puissance transportée, calculer l'intensité nécessaire en basse tension, puis en haute tension.</li>
+          <li>Comparer les puissances dissipées par effet Joule dans les deux cas.</li>
+        </ol>
+
+        <div class="mode-op">
+          <img src="./assets/images/e2-effet-joule.png" alt="Mode opératoire — pertes en ligne par effet Joule" class="mode-image">
+        </div>
+
+      </div>
+
+      <!-- ============================ -->
+      <!-- TRANSFORMATEUR               -->
+      <!-- ============================ -->
+
+      <div class="tab-panel" id="transformateur">
+
+        <h3>Rôle élévateur ou abaisseur du transformateur</h3>
+
+        <div class="info">
+          Un transformateur permet d'élever ou d'abaisser une tension
+          alternative. Le rapport entre la tension au secondaire et la
+          tension au primaire est lié au rapport du nombre de spires
+          des deux enroulements.
+        </div>
+
+        <div class="form-row">
+
+          <div class="form-group">
+            <label for="transfo-u1">Tension au primaire U₁ (V)</label>
+            <input id="transfo-u1" type="number" step="0.1">
+          </div>
+
+          <div class="form-group">
+            <label for="transfo-u2">Tension au secondaire U₂ (V)</label>
+            <input id="transfo-u2" type="number" step="0.1">
+          </div>
+
+        </div>
+
+        <div id="transfo-resultat" class="resultat-calcul">
+          Saisir les deux tensions mesurées pour déterminer si le
+          transformateur est élévateur ou abaisseur.
+        </div>
+
+        <h4 style="margin-top:var(--gap-lg);">Protocole</h4>
+
+        <ol class="etapes">
+          <li>Alimenter l'enroulement primaire du transformateur avec une tension alternative basse tension.</li>
+          <li>Mesurer la tension efficace au primaire, puis au secondaire, à l'aide d'un voltmètre en position alternatif.</li>
+          <li>Saisir les deux valeurs mesurées et observer la conclusion affichée.</li>
+        </ol>
+
+        <div class="mode-op">
+          <img src="./assets/images/e2-transformateur.png" alt="Mode opératoire — rôle du transformateur" class="mode-image">
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+<div class="section" data-type="resultats">
+
+  <div class="section-titre">
+    <div class="picto-section">📊</div>
+    <h2>Tableau de résultats</h2>
+    <span class="chevron">▼</span>
+  </div>
+
+  <div class="section-corps">
+
+    <div class="table-responsive">
+
+      <table class="tableau-resultats">
+
+        <thead>
+          <tr>
+            <th>Grandeur</th>
+            <th>Résultat</th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          <tr>
+            <td>Rapport de transformation U₂ / U₁</td>
+            <td><input type="text" placeholder="sans unité"></td>
+          </tr>
+
+          <tr>
+            <td>Puissance perdue par effet Joule en basse tension</td>
+            <td><input type="text" placeholder="W"></td>
+          </tr>
+
+          <tr>
+            <td>Puissance perdue par effet Joule en haute tension</td>
+            <td><input type="text" placeholder="W"></td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+  </div>
+
+</div>
+
+<div class="section" data-type="environnement">
+
+  <div class="section-titre">
+    <div class="picto-section">🌱</div>
+    <h2>Électricité et sobriété énergétique</h2>
+    <span class="chevron">▼</span>
+  </div>
+
+  <div class="section-corps">
+
+    <h3>Bonnes pratiques au laboratoire</h3>
+
+    <ul style="padding-left:1.5rem;line-height:2">
+      <li>Couper l'alimentation du transformateur dès la fin des mesures.</li>
+      <li>Limiter la durée de fonctionnement en court-circuit lors des mesures d'intensité.</li>
+    </ul>
+
+    <h3 style="margin-top:var(--gap-md);">Limiter les pertes énergétiques</h3>
+
+    <p>
+      Le transport de l'énergie électrique sous haute tension permet de
+      limiter très fortement les pertes par effet Joule dans les lignes,
+      donc de réduire les émissions de gaz à effet de serre associées à
+      la production d'électricité nécessaire pour compenser ces pertes.
+    </p>
+
+  </div>
+
+</div>
+
+<div class="section" data-type="bilan">
+
+  <div class="section-titre">
+    <div class="picto-section">📝</div>
+    <h2>Trace écrite - Compte rendu</h2>
+    <span class="chevron">▼</span>
+  </div>
+
+  <div class="section-corps">
+
+    <h3>Identification</h3>
+
+    <div class="form-row">
+
+      <div class="form-group">
+        <label for="nom-eleve">Nom</label>
+        <input id="nom-eleve" type="text" placeholder="Nom">
+      </div>
+
+      <div class="form-group">
+        <label for="prenom-eleve">Prénom</label>
+        <input id="prenom-eleve" type="text" placeholder="Prénom">
+      </div>
+
+      <div class="form-group">
+        <label for="classe-eleve">Classe</label>
+        <input id="classe-eleve" type="text" placeholder="Classe">
+      </div>
+
+      <div class="form-group">
+        <label for="date-eleve">Date</label>
+        <input id="date-eleve" type="date">
+      </div>
+
+    </div>
+
+    <h3 style="margin-top:var(--gap-md);">Résumé du TP</h3>
+
+    <div class="zone-eleve">
+      <textarea id="resume-tp" rows="6" placeholder="Résumer les observations sur le réseau de distribution, l'effet Joule et le rôle du transformateur..."></textarea>
+    </div>
+
+    <h3 style="margin-top:var(--gap-md);">Questions</h3>
+
+    <div class="questions-bloc" data-tp="transport-energie">
+
+    <ol class="questions-tp">
+
+      <li>
+        <div class="question-entete">
+          <strong>
+            Représenter le schéma simplifié du réseau de distribution d'énergie électrique, de la centrale à l'installation domestique.
+          </strong>
+          <span class="cartouche" data-comp="APP">APP</span>
+        </div>
+        <div class="zone-eleve">
+          <textarea id="question1" rows="5" placeholder="Votre réponse..."></textarea>
+        </div>
+      </li>
+
+      <li>
+        <div class="question-entete">
+          <strong>
+            Justifier l'intérêt du transport de l'énergie électrique sous haute tension à partir des résultats obtenus sur l'effet Joule.
+          </strong>
+          <span class="cartouche" data-comp="ANA">ANA</span>
+        </div>
+        <div class="zone-eleve">
+          <textarea id="question2" rows="5" placeholder="Votre analyse..."></textarea>
+        </div>
+      </li>
+
+      <li>
+        <div class="question-entete">
+          <strong>
+            À partir des mesures réalisées, préciser si le transformateur étudié est élévateur ou abaisseur de tension.
+          </strong>
+          <span class="cartouche" data-comp="REA">REA</span>
+        </div>
+        <div class="zone-eleve">
+          <textarea id="question3" rows="4" placeholder="Votre réponse..."></textarea>
+        </div>
+      </li>
+
+      <li class="question-problematique">
+        <div class="question-entete">
+          <strong>Répondre à la problématique posée en début de TP :</strong>
+          <span class="cartouche" data-comp="VAL">VAL</span>
+        </div>
+        <p class="problematique-rappel" data-activite="transport-energie"></p>
+        <div class="zone-eleve">
+          <textarea id="question4" rows="5" placeholder="Répondre à la problématique en vous appuyant sur vos résultats expérimentaux..."></textarea>
+        </div>
+      </li>
+
+    </ol>
+
+    </div>
+
+  </div>
+
+</div>
+
+<div class="section" data-type="auto-evaluation">
+
+  <div class="section-titre">
+    <div class="picto-section">📡</div>
+    <h2>Auto-évaluation des compétences</h2>
+    <span class="chevron">▼</span>
+  </div>
+
+  <div class="section-corps">
+
+    <p class="info">
+      À la fin du TP, évaluez votre niveau de maîtrise pour chaque
+      compétence.
+    </p>
+
+    <div class="table-responsive">
+
+      <table class="tableau-resultats autoeval-table">
+
+        <thead>
+          <tr>
+            <th>Domaine</th>
+            <th>Sigle</th>
+            <th>Je suis capable de...</th>
+            <th>0</th>
+            <th>1</th>
+            <th>2</th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          <tr data-comp="APP">
+            <td>S'approprier</td>
+            <td>APP</td>
+            <td>Décrire les grandes étapes du réseau de distribution électrique.</td>
+            <td><input type="radio" name="APP" value="0"></td>
+            <td><input type="radio" name="APP" value="1"></td>
+            <td><input type="radio" name="APP" value="2"></td>
+          </tr>
+
+          <tr data-comp="REA">
+            <td>Réaliser</td>
+            <td>REA</td>
+            <td>Mesurer les tensions au primaire et au secondaire d'un transformateur.</td>
+            <td><input type="radio" name="REA" value="0"></td>
+            <td><input type="radio" name="REA" value="1"></td>
+            <td><input type="radio" name="REA" value="2"></td>
+          </tr>
+
+          <tr data-comp="ANA">
+            <td>Analyser / Raisonner</td>
+            <td>ANA</td>
+            <td>Justifier l'intérêt du transport sous haute tension à partir des pertes par effet Joule.</td>
+            <td><input type="radio" name="ANA" value="0"></td>
+            <td><input type="radio" name="ANA" value="1"></td>
+            <td><input type="radio" name="ANA" value="2"></td>
+          </tr>
+
+          <tr data-comp="VAL">
+            <td>Valider</td>
+            <td>VAL</td>
+            <td>Vérifier la cohérence du rapport de transformation mesuré.</td>
+            <td><input type="radio" name="VAL" value="0"></td>
+            <td><input type="radio" name="VAL" value="1"></td>
+            <td><input type="radio" name="VAL" value="2"></td>
+          </tr>
+
+          <tr data-comp="COM">
+            <td>Communiquer</td>
+            <td>COM</td>
+            <td>Représenter et légender le schéma d'un réseau de distribution électrique.</td>
+            <td><input type="radio" name="COM" value="0"></td>
+            <td><input type="radio" name="COM" value="1"></td>
+            <td><input type="radio" name="COM" value="2"></td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+    <div class="radar-actions" style="margin-top:var(--gap-lg);">
+      <button id="btn-radar" class="btn btn-primaire">
+        📊 Générer mon radar de compétences
+      </button>
+      <div id="radar-resultat" style="margin-top:var(--gap-md);"></div>
+    </div>
+
+  </div>
+
+</div>
+
+<div class="section" data-type="impression_tp">
+
+  <div class="section-titre">
+    <div class="picto-section">📒</div>
+    <h2>Impression du compte-rendu</h2>
+    <span class="chevron">▼</span>
+  </div>
+
+  <div class="section-corps">
+
+    <p class="info">
+      À la fin du TP, Imprimer votre TP en PDF.
+      Envoyer à l'enseignant votre Compte rendu en pièce jointe par la messagerie de l'ENT.
+    </p>
+
+    <div class="toolbar">
+      <button id="btn-imprimer" class="btn btn-primaire">
+        🖨 Imprimer le compte-rendu
+      </button>
+    </div>
+
+    <div class="info" style="margin-top:var(--gap-md);">
+      L'impression récupère automatiquement :
+      <ul>
+        <li>l'étape du réseau sélectionnée ;</li>
+        <li>le comparatif des pertes par effet Joule ;</li>
+        <li>les mesures de tension du transformateur ;</li>
+        <li>les résultats du tableau et les réponses aux questions ;</li>
+        <li>l'auto-évaluation des compétences.</li>
+      </ul>
+    </div>
+
+  </div>
+
+</div>
+
+<div class="nav-tp">
+
+  <button class="btn btn-secondaire" onclick="loadTP('tp01-puissance-energie')">
+    ← TP01
+  </button>
+
+  <button class="btn btn-primaire" onclick="loadTP('tp03-puissance-active')">
+    TP03 →
+  </button>
+
+</div>
+
+</main>
+
+<div id="cr-print-container" style="display:none;"></div>
+
+</section>
