@@ -46,10 +46,10 @@ function getCurrentDomain() {
 function getDefaultModule(domaine) {
     const defaultModules = {
         "tp-chimie": "tp01-solutions",
-        "tp-thermique": "tp01-capteurs-temperature",       
+        "tp-thermique": "tp01-capteurs-temperature",
+        "tp-electricite": "tp01-puissance-energie",
         "tp-acoustique": "tp01-introduction",
-        "tp-optique": "tp01-exercice",
-        "tp-electricite": "tp01-circuit",
+        "tp-optique": "tp01-exercice",        
         "tp-mecanique": "tp01-mouvement"
         
     };
