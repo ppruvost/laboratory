@@ -15,12 +15,32 @@
    est importé plus haut dans ce fichier.
    ════════════════════════════════════════════════════════════════ */
 :root {
-  --domaine-accent:       #E8A400;
-  --domaine-accent-fonce: #8C6400;
-  --domaine-accent-rgb:   232, 164, 0;
+  --domaine-accent:       #E87A0E;
+  --domaine-accent-fonce: #A8500A;
+  --domaine-accent-rgb:   232, 122, 14;
 }
 
 /* Tout le reste (header, nav, cartes, formulaires, tableaux, EPI,
    matériel, radar, graphique, histogramme, cartouches, quiz,
    problématique, champ-erreur...) vient désormais de tp.css et
    css/domaine.css — plus aucune duplication propre à ce domaine. */
+
+/* ── Résultats de calcul guidé (.resultat-calcul) ──────────────────
+   tp.css colore ce bloc en vert-acide fixe (section 14, calcul-guide),
+   sans override par domaine dans domaine.css : recoloré ici dans la
+   teinte du domaine Électricité pour rester cohérent avec le reste
+   de la charte (bandeau, onglets, boutons, cartouches...). */
+.resultat-calcul {
+  color: var(--domaine-accent-fonce);
+}
+
+/* ── Numéros de question (.questions-tp .question-entete::before) ──
+   tp.css colore ce médaillon en bleu-cuivre fixe (section 17),
+   sans override par domaine dans domaine.css : recoloré ici dans la
+   teinte du domaine Électricité. Même chose pour les étapes de
+   protocole numérotées (.etapes li::before), soumises au même
+   codage en dur. */
+.questions-tp .question-entete::before,
+.etapes li::before {
+  background: var(--domaine-accent);
+}
