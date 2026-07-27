@@ -5,6 +5,7 @@ const laboratoryEquipment = [
         nom: "Générateur de tension continue (0-30V)",
         description: "Alimentation stabilisée pour circuits électriques",
         lieu: "Salle B27 / étagère A1",
+        categorie: ["Puissance"],
         image:"",
         noticeUtilisation: "assets/notice/alimentation_continue.pdf"
     },
@@ -13,6 +14,7 @@ const laboratoryEquipment = [
         nom: "Générateur de tension alternative (0-12V, 50Hz)",
         description: "Alimentation pour circuits alternatifs",
         lieu: "Salle B27 / étagère A1",
+        categorie: ["Transport", "PuissanceActive", "Conversion"],
         image:"",
         noticeUtilisation: "assets/notice/alimentation_alternative.pdf"
     },
@@ -28,7 +30,7 @@ const laboratoryEquipment = [
     {
         domaine: "Électricité",
         nom: "Multimètre numérique",
-        categorie: ["Résistance", "Capacité", "Inductance", "Redox"],
+        categorie: ["Résistance", "Capacité", "Inductance", "Redox", "Puissance", "Transport", "PuissanceActive", "Conversion", "Stockage"],
         description: "Mesure de tension, courant, résistance",
         lieu: "Salle B27 / étagère A1",
         image:"assets/img/equipments/multimetre.jpg",
@@ -37,16 +39,16 @@ const laboratoryEquipment = [
     {
         domaine: "Électricité",
         nom: "Oscilloscope numérique",
-        categorie: "",
+        categorie: ["PuissanceActive", "Conversion"],
         description: "Visualisation de signaux électriques",
-        lieu: "Salle B27 / étagère A1",
+        lieu: "Salle B27 - ***",
         image:"",
         noticeUtilisation: "assets/notice/oscilloscope.pdf"
     },
     {
         domaine: "Électricité",
         nom: "Wattmètre",
-        categorie: "",
+        categorie: ["Puissance", "PuissanceActive"],
         description: "Mesure de puissance électrique",
         lieu: "Salle B27 / étagère A1",
         image:"assets/img/equipments/wattmetre.jpg",
@@ -55,16 +57,16 @@ const laboratoryEquipment = [
     {
         domaine: "Électricité",
         nom: "Transformateur (abaisseur/élévateur)",
-        categorie: "",
+        categorie: ["Transport", "Conversion"],
         description: "Transformation de tension",
-        lieu: "Salle B27 / étagère A1",
+        lieu: "Salle B27 - ***",
         image:"",
         noticeUtilisation: "assets/notice/transformateur.pdf"
     },
     {
         domaine: "Électricité",
         nom: "Diode et pont de diodes",
-        categorie: "",
+        categorie: ["Conversion"],
         description: "Redressement de courant",
         lieu: "Salle B27 / étagère A2",
         image:"",
@@ -73,7 +75,7 @@ const laboratoryEquipment = [
     {
         domaine: "Électricité",
         nom: "Condensateurs (diverses capacités)",
-        categorie: "",
+        categorie: ["Conversion"],
         description: "Filtrage et stockage d'énergie",
         lieu: "Salle B27 / étagère A2",
         image:"",
@@ -82,7 +84,7 @@ const laboratoryEquipment = [
     {
         domaine: "Électricité",
         nom: "Moteur électrique (CC et CA)",
-        categorie: "",
+        categorie: ["Conversion"],
         description: "Conversion énergie électrique/mécanique",
         lieu: "Salle B23 / étagère B1",
         image:"",
@@ -91,16 +93,16 @@ const laboratoryEquipment = [
     {
         domaine: "Électricité",
         nom: "Capteurs (température, lumière, pression)",
-        categorie: "",
+        categorie: [],
         description: "Acquisition de données expérimentales",
-        lieu: "",
+        lieu: "Salle B27 - ***",
         image:"",
         noticeUtilisation: "assets/notice/capteurs.pdf"
     },
     {
         domaine: "Électricité",
         nom: "Carte d'acquisition (ExAO)",
-        categorie: "",
+        categorie: ["PuissanceActive"],
         description: "Interface pour expériences assistées par ordinateur",
         lieu: "Salle B25 / étagère A1",
         image:"",
@@ -109,7 +111,7 @@ const laboratoryEquipment = [
     {
         domaine: "Électricité",
         nom: "Résistances (diverses valeurs)",
-        categorie: "",
+        categorie: ["Puissance", "Transport"],
         description: "Composants pour circuits électriques",
         lieu: "Salle B27 / étagère A2",
         image:"",
@@ -118,7 +120,7 @@ const laboratoryEquipment = [
     {
         domaine: "Électricité",
         nom: "Fils de connexion et câbles",
-        categorie: ["Redox"],
+        categorie: ["Redox", "Puissance", "Transport", "PuissanceActive", "Conversion", "Stockage"],
         description: "Connexion de circuits",
         lieu: "Salles B29 B25 / Support de cordons",
         image:"assets/img/equipments/cordon.jpg",
@@ -127,7 +129,7 @@ const laboratoryEquipment = [
     {
         domaine: "Électricité",
         nom: "Pinces crocodile",
-        categorie: ["Redox"],
+        categorie: ["Redox", "Puissance", "Transport", "PuissanceActive", "Conversion", "Stockage"],
         description: "Connexion de circuits",
         lieu: "Salle B7 / étagère A1",
         image:"assets/img/equipments/pince-crocodile.jpg",
@@ -136,7 +138,7 @@ const laboratoryEquipment = [
     {
         domaine: "Électricité",
         nom: "Interrupteurs et boutons poussoirs",
-        categorie: "",
+        categorie: ["Puissance", "Transport"],
         description: "Contrôle de circuits",
         lieu: "Salle B27 / étagère A2",
         image:"",
@@ -145,11 +147,20 @@ const laboratoryEquipment = [
     {
         domaine: "Électricité",
         nom: "Disjoncteur différentiel",
-        categorie: "",
+        categorie: ["Transport"],
         description: "Protection des circuits",
-        lieu: "",
+        lieu: "Salle B27 - ***",
         image:"",
         noticeUtilisation: "assets/notice/disjoncteur.pdf"
+    },
+    {
+        domaine: "Électricité",
+        nom: "Accumulateur rechargeable (NiMH/Li-ion) avec kit de charge/décharge",
+        categorie: ["Stockage", "Redox"],
+        description: "Charge et décharge contrôlées pour l'étude du stockage électrochimique de l'énergie",
+        lieu: "Salle B27 - ***",
+        image:"",
+        noticeUtilisation: "assets/notice/accumulateur.pdf"
     },
 
     // Optique
@@ -167,7 +178,7 @@ const laboratoryEquipment = [
         nom: "Banc d'optique",
         categorie: "",
         description: "Support pour expériences optiques",
-        lieu: "",
+        lieu: "Salle B27 - ***",
         image:"",
         noticeUtilisation: "assets/notice/banc_optique.pdf"
     },
@@ -194,7 +205,7 @@ const laboratoryEquipment = [
         nom: "Écran blanc",
         categorie: "",
         description: "Visualisation des images",
-        lieu: "",
+        lieu: "Salle B27 - ***",
         image:"",
         noticeUtilisation: "assets/notice/ecran_blanc.pdf"
     },
@@ -212,7 +223,7 @@ const laboratoryEquipment = [
         nom: "Fibre optique",
         categorie: "",
         description: "Transmission de la lumière",
-        lieu: "",
+        lieu: "Salle B27 - ***",
         image:"",
         noticeUtilisation: "assets/notice/fibre_optique.pdf"
     },
@@ -221,7 +232,7 @@ const laboratoryEquipment = [
         nom: "Luxmètre",
         categorie: "",
         description: "Mesure de l'éclairement lumineux",
-        lieu: "",
+        lieu: "Salle B27 - ***",
         image:"",
         noticeUtilisation: "assets/notice/luxmetre.pdf"
     },
@@ -230,7 +241,7 @@ const laboratoryEquipment = [
         nom: "Spectroscope",
         categorie: "",
         description: "Analyse spectrale de la lumière",
-        lieu: "",
+        lieu: "Salle B27 - ***",
         image:"",
         noticeUtilisation: "assets/notice/spectroscope.pdf"
     },
@@ -239,7 +250,7 @@ const laboratoryEquipment = [
         nom: "Filtres colorés",
         categorie: "",
         description: "Sélection de longueurs d'onde",
-        lieu: "",
+        lieu: "Salle B27 - ***",
         image:"",
         noticeUtilisation: "assets/notice/filtres_colorés.pdf"
     },
@@ -250,7 +261,7 @@ const laboratoryEquipment = [
         nom: "Chronomètre numérique",
         categorie: "",
         description: "Mesure de temps et de vitesses",
-        lieu: "",
+        lieu: "Salle B27 - ***",
         image:"",
         noticeUtilisation: "assets/notice/chronometre.pdf"
     },
@@ -259,7 +270,7 @@ const laboratoryEquipment = [
         nom: "Dynamomètre",
         categorie: "",
         description: "Mesure de forces",
-        lieu: "",
+        lieu: "Salle B27 - ***",
         image:"",
         noticeUtilisation: "assets/notice/dynamometre.pdf"
     },
@@ -268,7 +279,7 @@ const laboratoryEquipment = [
         nom: "Poulies et masses marquées",
         categorie: "",
         description: "Étude des forces et mouvements",
-        lieu: "",
+        lieu: "Salle B27 - ***",
         image:"",
         noticeUtilisation: "assets/notice/poulies_masses.pdf"
     },
@@ -277,7 +288,7 @@ const laboratoryEquipment = [
         nom: "Plan incliné",
         categorie: "",
         description: "Étude des forces et de l'équilibre",
-        lieu: "",
+        lieu: "Salle B27 - ***",
         image:"",
         noticeUtilisation: "assets/notice/plan_incline.pdf"
     },
@@ -286,7 +297,7 @@ const laboratoryEquipment = [
         nom: "Vérin hydraulique",
         categorie: "",
         description: "Étude de la pression et de la force pressante",
-        lieu: "",
+        lieu: "Salle B27 - ***",
         image:"",
         noticeUtilisation: "assets/notice/verin_hydraulique.pdf"
     },
@@ -295,7 +306,7 @@ const laboratoryEquipment = [
         nom: "Manomètre",
         categorie: "",
         description: "Mesure de pression",
-        lieu: "",
+        lieu: "Salle B27 - ***",
         image:"",
         noticeUtilisation: "assets/notice/manometre.pdf"
     },
@@ -304,7 +315,7 @@ const laboratoryEquipment = [
         nom: "Capteur de pression",
         categorie: "",
         description: "Mesure de pression dans les fluides",
-        lieu: "",
+        lieu: "Salle B27 - ***",
         image:"",
         noticeUtilisation: "assets/notice/capteur_pression.pdf"
     },
@@ -358,7 +369,7 @@ const laboratoryEquipment = [
     },
     {domaine: "Chimie",
     nom: "Lames métalliques (Zn, Cu, Fe, Pb, Al)",
-    categorie: ["Redox"],
+    categorie: ["Redox", "Stockage"],
     description: "Électrodes des demi-piles, à décaper avant chaque usage",
     lieu: "Salle B27 / étagère D1",
     image: "assets/img/equipments/lame_metal.png",
@@ -439,7 +450,7 @@ const laboratoryEquipment = [
      {
     domaine: "Chimie",
     nom: "Potence, noix et pince",
-    categorie: ["Redox"],
+    categorie: ["Redox", "Stockage"],
     description: "Support de la demi-pile à hydrogène simplifiée",
     lieu: "Salle B27 / paillasse E2",
     image: "assets/img/equipments/potence.png",
@@ -466,7 +477,7 @@ const laboratoryEquipment = [
     {
     domaine: "Chimie",
     nom: "Toile émeri",
-    categorie: ["Redox"],
+    categorie: ["Redox", "Stockage"],
     description: "Décapage des lames métalliques avant utilisation comme électrodes",
     lieu: "Salle B27 / étagère D1",
     image: "assets/img/equipments/toile-emeri.png",
@@ -671,7 +682,7 @@ const laboratoryEquipment = [
         nom: "Générateur de fonctions",
         categorie: ["Température", "Acoustique"],
         description: "Production de signaux sonores et électriques",
-        lieu: "",
+        lieu: "Salle B27 - ***",
         image:"",
         noticeUtilisation: "assets/notice/generateur_fonctions.pdf"
     },
@@ -680,7 +691,7 @@ const laboratoryEquipment = [
         nom: "Microphone avec prise Jack 3,5mm",
         categorie: "Acoustique",
         description: "Émission et réception de signaux sonores",
-        lieu: "",
+        lieu: "Salle B27 - ***",
         image:"",
         noticeUtilisation: "assets/notice/micro_35.pdf"
     },
@@ -689,7 +700,7 @@ const laboratoryEquipment = [
         nom: "Microphone avec prise Jack 6,5mm",
         categorie: "Acoustique",
         description: "Émission et réception de signaux sonores",
-        lieu: "",
+        lieu: "Salle B27 - ***",
         image:"",
         noticeUtilisation: "assets/notice/micro_65.pdf"
     },
@@ -698,7 +709,7 @@ const laboratoryEquipment = [
         nom: "Microphone avec prise USB",
         categorie: "Acoustique",
         description: "Émission et réception de signaux sonores",
-        lieu: "",
+        lieu: "Salle B27 - ***",
         image:"",
         noticeUtilisation: "assets/notice/micro_usb.pdf"
     },
@@ -707,7 +718,7 @@ const laboratoryEquipment = [
         nom: "haut-parleur",
         categorie: "Acoustique",
         description: "Émission et réception de signaux sonores",
-        lieu: "",
+        lieu: "Salle B27 - ***",
         image:"",
         noticeUtilisation: "assets/notice/micro_hautparleur.pdf"
     },
@@ -716,7 +727,7 @@ const laboratoryEquipment = [
         nom: "Oscilloscope (pour signaux sonores)",
         description: "Visualisation des signaux sonores",
         categorie: ["Circuit", "Acoustique"],
-        lieu: "",
+        lieu: "Salle B27 - ***",
         image:"",
         noticeUtilisation: "assets/notice/oscilloscope_son.pdf"
     },
@@ -725,7 +736,7 @@ const laboratoryEquipment = [
         nom: "Sonomètre",
         categorie: "Acoustique",
         description: "Mesure du niveau sonore",
-        lieu: "",
+        lieu: "Salle B27 - ***",
         image:"",
         noticeUtilisation: "assets/notice/sonometre.pdf"
     },    
