@@ -1,0 +1,623 @@
+<!--
+  Fragment SPA chargé dynamiquement par navigation.js.
+  Tous les chemins sont relatifs à la racine du site.
+  Aucun <script> dans ce fragment.
+-->
+
+<section>
+
+<header class="tp-header">
+
+  <div class="tp-header-logo">
+    <div class="logo">
+      <span class="sci">Sci</span><span class="Lab">Lab</span>
+    </div>
+  </div>
+
+  <div class="tp-header-centre">
+
+    <h1>Équilibre en rotation et force d'Archimède</h1>
+
+    <div class="tp-meta">
+
+      <div class="tp-row">
+        <span class="tag">1ère</span>
+        <span class="tag">Tle</span>
+        <span class="tag">Mécanique</span>
+        <span class="tag">Moment - </span><span class="tag">Archimède</span>
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="tp-header-numero">
+    <span class="tp-numero-txt">TP04</span>
+  </div>
+
+</header>
+
+<div class="progress">
+  <div id="bar"></div>
+</div>
+
+<main id="content">
+
+<div class="section" data-type="objectif">
+
+  <div class="section-titre">
+    <div class="picto-section">🎯</div>
+    <h2>Capacités évaluées</h2>
+    <span class="chevron">▼</span>
+  </div>
+
+  <div class="section-corps">
+
+    <ul>
+      <li>Étudier expérimentalement l'effet d'une force sur la rotation d'un objet autour d'un axe fixe.</li>
+      <li>Calculer et utiliser la relation du moment d'une force par rapport à un axe.</li>
+      <li>Étudier expérimentalement les conditions d'équilibre d'un solide en rotation soumis à trois forces maximum.</li>
+      <li>Savoir que, pour un solide mobile autour d'un axe fixe, la somme des moments des forces appliquées est nulle à l'équilibre.</li>
+      <li>Déterminer expérimentalement la valeur de la force d'Archimède.</li>
+      <li>Déterminer expérimentalement les paramètres influant sur la force d'Archimède (masse volumique du fluide, volume immergé).</li>
+      <li>Savoir qu'un corps solide peut flotter à la surface d'un liquide quand sa masse volumique est inférieure à celle du liquide.</li>
+    </ul>
+
+  </div>
+
+</div>
+
+<div class="section" data-type="contexte-pro">
+
+  <div class="section-titre">
+    <div class="picto-section">🏭</div>
+    <h2>Contexte professionnel</h2>
+    <span class="chevron">▼</span>
+  </div>
+
+  <div class="section-corps">
+
+    <div class="filiere-select-bloc">
+      <label for="select-filiere-pro">Votre filière professionnelle :</label>
+      <select id="select-filiere-pro">
+        <option value="">-- Sélectionner une filière --</option>
+      </select>
+    </div>
+
+    <div id="contexte-pro-resultat" class="contexte-pro-resultat">
+      <p>Sélectionner votre filière professionnelle pour afficher le contexte et la problématique associée.</p>
+    </div>
+
+  </div>
+
+</div>
+
+<div class="section" data-type="securite">
+
+  <div class="section-titre">
+    <div class="picto-section">⚠️</div>
+    <h2>Sécurité</h2>
+    <span class="chevron">▼</span>
+  </div>
+
+  <div class="section-corps">
+
+    <div class="info">
+      Ce TP met en œuvre un solide en rotation autour d'un axe et
+      l'immersion d'objets dans un liquide.
+    </div>
+
+    <ul style="padding-left:1.5rem;line-height:2">
+      <li><strong>Solide en rotation :</strong> ne jamais approcher les mains d'un système en cours de bascule ou de rotation.</li>
+      <li><strong>Immersion :</strong> essuyer immédiatement tout objet ou plan de travail éclaboussé pour éviter les glissades.</li>
+      <li><strong>Dynamomètre en milieu liquide :</strong> le protéger d'une immersion complète non prévue par le protocole.</li>
+    </ul>
+
+  </div>
+
+</div>
+
+<div class="section" data-type="materiel">
+
+  <div class="section-titre">
+    <div class="picto-section">🧪</div>
+    <h2>Matériel nécessaire</h2>
+    <span class="chevron">▼</span>
+  </div>
+
+  <div class="section-corps">
+
+    <h3>Verrerie</h3>
+    <div id="materiel-verrerie" class="grille-materiel">
+    </div>
+
+    <hr>
+
+    <h3>Équipements</h3>
+    <div id="materiel-equipements" class="grille-materiel">
+    </div>
+
+  </div>
+
+</div>
+
+<div class="section" data-type="preparation">
+
+  <div class="section-titre">
+    <div class="picto-section">⚗️</div>
+    <h2>Manipulations</h2>
+    <span class="chevron">▼</span>
+  </div>
+
+  <div class="section-corps">
+
+    <div id="tp04m-message-filiere" class="info" style="display:none;"></div>
+
+    <div class="tabs-container">
+
+      <div class="tabs-header">
+        <button class="tab-btn actif" data-tab="equilibre-rotation">Équilibre en rotation (moments)</button>
+        <button class="tab-btn" data-tab="archimede">Force d'Archimède</button>
+      </div>
+
+      <!-- ============================ -->
+      <!-- ÉQUILIBRE EN ROTATION         -->
+      <!-- ============================ -->
+
+      <div class="tab-panel actif" id="equilibre-rotation">
+
+        <h3>Moment d'une force et équilibre en rotation</h3>
+
+        <div class="info">
+          Le moment d'une force par rapport à un axe est le produit de
+          la valeur de la force par son bras de levier : M = F × d. Un
+          solide mobile autour d'un axe fixe est en équilibre lorsque
+          la somme des moments des forces appliquées est nulle.
+        </div>
+
+        <div class="form-row">
+
+          <div class="form-group">
+            <label for="mom-f1">Force F₁ (N)</label>
+            <input id="mom-f1" type="number" step="0.1">
+          </div>
+
+          <div class="form-group">
+            <label for="mom-d1">Bras de levier d₁ (m)</label>
+            <input id="mom-d1" type="number" step="0.01">
+          </div>
+
+          <div class="form-group">
+            <label for="mom-f2">Force F₂ (N)</label>
+            <input id="mom-f2" type="number" step="0.1">
+          </div>
+
+          <div class="form-group">
+            <label for="mom-d2">Bras de levier d₂ (m)</label>
+            <input id="mom-d2" type="number" step="0.01">
+          </div>
+
+        </div>
+
+        <div id="mom-resultat" class="resultat-calcul">
+          Saisir les deux forces et leurs bras de levier respectifs
+          pour comparer leurs moments et vérifier la condition
+          d'équilibre.
+        </div>
+
+        <h4 style="margin-top:var(--gap-lg);">Protocole</h4>
+
+        <ol class="etapes">
+          <li>Fixer un levier mobile autour d'un axe et y suspendre deux masses marquées de part et d'autre de l'axe.</li>
+          <li>Mesurer la valeur de chaque force et la distance de son point d'application à l'axe (bras de levier).</li>
+          <li>Ajuster les positions jusqu'à obtenir l'équilibre, puis saisir les valeurs mesurées.</li>
+        </ol>
+
+        <div class="mode-op">
+          <img src="./assets/images/m4-equilibre-rotation.png" alt="Mode opératoire — équilibre en rotation autour d'un axe fixe" class="mode-image">
+        </div>
+
+      </div>
+
+      <!-- ============================ -->
+      <!-- FORCE D'ARCHIMÈDE             -->
+      <!-- ============================ -->
+
+      <div class="tab-panel" id="archimede">
+
+        <h3>Déterminer la force d'Archimède</h3>
+
+        <div class="info">
+          Un corps immergé dans un fluide subit une force verticale
+          dirigée vers le haut, la force d'Archimède, dont la valeur
+          dépend de la masse volumique du fluide et du volume immergé :
+          Fₐ = ρ × V × g.
+        </div>
+
+        <div class="form-row">
+
+          <div class="form-group">
+            <label for="arc-poids-air">Poids mesuré dans l'air (N)</label>
+            <input id="arc-poids-air" type="number" step="0.01">
+          </div>
+
+          <div class="form-group">
+            <label for="arc-poids-liquide">Poids apparent mesuré immergé (N)</label>
+            <input id="arc-poids-liquide" type="number" step="0.01">
+          </div>
+
+        </div>
+
+        <div id="arc-resultat-mesure" class="resultat-calcul">
+          Saisir le poids mesuré dans l'air puis immergé pour en
+          déduire la valeur expérimentale de la force d'Archimède.
+        </div>
+
+        <h4 style="margin-top:var(--gap-lg);">Calcul théorique</h4>
+
+        <div class="form-row">
+
+          <div class="form-group">
+            <label for="arc-volume">Volume immergé V (cm³)</label>
+            <input id="arc-volume" type="number" step="0.1">
+          </div>
+
+          <div class="form-group">
+            <label for="arc-masse-volumique">Masse volumique du fluide ρ (kg/m³)</label>
+            <input id="arc-masse-volumique" type="number" step="1" value="1000">
+          </div>
+
+        </div>
+
+        <div id="arc-resultat-calcul" class="resultat-calcul">
+          Saisir le volume immergé et la masse volumique du fluide pour
+          calculer la force d'Archimède théorique.
+        </div>
+
+        <h4 style="margin-top:var(--gap-lg);">Protocole</h4>
+
+        <ol class="etapes">
+          <li>Mesurer au dynamomètre le poids du solide dans l'air, puis entièrement immergé dans le liquide.</li>
+          <li>En déduire la force d'Archimède comme la différence entre ces deux poids.</li>
+          <li>Mesurer ou calculer le volume immergé du solide et comparer avec la valeur théorique de la force d'Archimède.</li>
+        </ol>
+
+        <div class="mode-op">
+          <img src="./assets/images/m4-archimede.png" alt="Mode opératoire — détermination de la force d'Archimède" class="mode-image">
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+<div class="section" data-type="resultats">
+
+  <div class="section-titre">
+    <div class="picto-section">📊</div>
+    <h2>Tableau de résultats</h2>
+    <span class="chevron">▼</span>
+  </div>
+
+  <div class="section-corps">
+
+    <div class="table-responsive">
+
+      <table class="tableau-resultats">
+
+        <thead>
+          <tr>
+            <th>Grandeur</th>
+            <th>Résultat</th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          <tr>
+            <td>Moment M₁ calculé</td>
+            <td><input type="text" placeholder="N·m"></td>
+          </tr>
+
+          <tr>
+            <td>Moment M₂ calculé</td>
+            <td><input type="text" placeholder="N·m"></td>
+          </tr>
+
+          <tr>
+            <td>Force d'Archimède mesurée</td>
+            <td><input type="text" placeholder="N"></td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+  </div>
+
+</div>
+
+<div class="section" data-type="environnement">
+
+  <div class="section-titre">
+    <div class="picto-section">🌱</div>
+    <h2>Mécanique et prévention</h2>
+    <span class="chevron">▼</span>
+  </div>
+
+  <div class="section-corps">
+
+    <h3>Bonnes pratiques au laboratoire</h3>
+
+    <ul style="padding-left:1.5rem;line-height:2">
+      <li>Essuyer et sécher le matériel après toute manipulation en milieu liquide.</li>
+      <li>Ranger le levier et les masses marquées en position stable.</li>
+    </ul>
+
+    <h3 style="margin-top:var(--gap-md);">Équilibre et flottabilité</h3>
+
+    <p>
+      Maîtriser l'équilibre en rotation d'un système et la force
+      d'Archimède permet de dimensionner correctement un levier, un
+      basculeur, ou de prévoir la flottabilité d'une structure
+      immergée.
+    </p>
+
+  </div>
+
+</div>
+
+<div class="section" data-type="bilan">
+
+  <div class="section-titre">
+    <div class="picto-section">📝</div>
+    <h2>Trace écrite - Compte rendu</h2>
+    <span class="chevron">▼</span>
+  </div>
+
+  <div class="section-corps">
+
+    <h3>Identification</h3>
+
+    <div class="form-row">
+
+      <div class="form-group">
+        <label for="nom-eleve">Nom</label>
+        <input id="nom-eleve" type="text" placeholder="Nom">
+      </div>
+
+      <div class="form-group">
+        <label for="prenom-eleve">Prénom</label>
+        <input id="prenom-eleve" type="text" placeholder="Prénom">
+      </div>
+
+      <div class="form-group">
+        <label for="classe-eleve">Classe</label>
+        <input id="classe-eleve" type="text" placeholder="Classe">
+      </div>
+
+      <div class="form-group">
+        <label for="date-eleve">Date</label>
+        <input id="date-eleve" type="date">
+      </div>
+
+    </div>
+
+    <h3 style="margin-top:var(--gap-md);">Résumé du TP</h3>
+
+    <div class="zone-eleve">
+      <textarea id="resume-tp" rows="6" placeholder="Résumer l'étude de l'équilibre en rotation et de la force d'Archimède..."></textarea>
+    </div>
+
+    <h3 style="margin-top:var(--gap-md);">Questions</h3>
+
+    <div class="questions-bloc" data-tp="equilibre-rotation-archimede">
+
+    <ol class="questions-tp">
+
+      <li>
+        <div class="question-entete">
+          <strong>
+            Calculer les moments des forces F₁ et F₂ et vérifier si le système étudié est à l'équilibre.
+          </strong>
+          <span class="cartouche" data-comp="REA">REA</span>
+        </div>
+        <div class="zone-eleve">
+          <textarea id="question1" rows="5" placeholder="Votre réponse..."></textarea>
+        </div>
+      </li>
+
+      <li>
+        <div class="question-entete">
+          <strong>
+            Comparer la force d'Archimède obtenue par la mesure des poids et celle obtenue par le calcul théorique.
+          </strong>
+          <span class="cartouche" data-comp="ANA">ANA</span>
+        </div>
+        <div class="zone-eleve">
+          <textarea id="question2" rows="5" placeholder="Votre analyse..."></textarea>
+        </div>
+      </li>
+
+      <li>
+        <div class="question-entete">
+          <strong>
+            Expliquer pourquoi un corps solide peut flotter à la surface d'un liquide, en lien avec sa masse volumique.
+          </strong>
+          <span class="cartouche" data-comp="COM">COM</span>
+        </div>
+        <div class="zone-eleve">
+          <textarea id="question3" rows="4" placeholder="Votre réponse..."></textarea>
+        </div>
+      </li>
+
+      <li class="question-problematique">
+        <div class="question-entete">
+          <strong>Répondre à la problématique posée en début de TP :</strong>
+          <span class="cartouche" data-comp="VAL">VAL</span>
+        </div>
+        <p class="problematique-rappel" data-activite="equilibre-rotation-archimede"></p>
+        <div class="zone-eleve">
+          <textarea id="question4" rows="5" placeholder="Répondre à la problématique en vous appuyant sur vos résultats expérimentaux..."></textarea>
+        </div>
+      </li>
+
+    </ol>
+
+    </div>
+
+  </div>
+
+</div>
+
+<div class="section" data-type="auto-evaluation">
+
+  <div class="section-titre">
+    <div class="picto-section">📡</div>
+    <h2>Auto-évaluation des compétences</h2>
+    <span class="chevron">▼</span>
+  </div>
+
+  <div class="section-corps">
+
+    <p class="info">
+      À la fin du TP, évaluez votre niveau de maîtrise pour chaque
+      compétence.
+    </p>
+
+    <div class="table-responsive">
+
+      <table class="tableau-resultats autoeval-table">
+
+        <thead>
+          <tr>
+            <th>Domaine</th>
+            <th>Sigle</th>
+            <th>Je suis capable de...</th>
+            <th>0</th>
+            <th>1</th>
+            <th>2</th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          <tr data-comp="APP">
+            <td>S'approprier</td>
+            <td>APP</td>
+            <td>Identifier le bras de levier d'une force par rapport à un axe.</td>
+            <td><input type="radio" name="APP" value="0"></td>
+            <td><input type="radio" name="APP" value="1"></td>
+            <td><input type="radio" name="APP" value="2"></td>
+          </tr>
+
+          <tr data-comp="REA">
+            <td>Réaliser</td>
+            <td>REA</td>
+            <td>Mesurer un poids dans l'air puis immergé.</td>
+            <td><input type="radio" name="REA" value="0"></td>
+            <td><input type="radio" name="REA" value="1"></td>
+            <td><input type="radio" name="REA" value="2"></td>
+          </tr>
+
+          <tr data-comp="ANA">
+            <td>Analyser / Raisonner</td>
+            <td>ANA</td>
+            <td>Comparer une valeur mesurée et une valeur théorique de la force d'Archimède.</td>
+            <td><input type="radio" name="ANA" value="0"></td>
+            <td><input type="radio" name="ANA" value="1"></td>
+            <td><input type="radio" name="ANA" value="2"></td>
+          </tr>
+
+          <tr data-comp="VAL">
+            <td>Valider</td>
+            <td>VAL</td>
+            <td>Vérifier la condition d'équilibre d'un solide en rotation.</td>
+            <td><input type="radio" name="VAL" value="0"></td>
+            <td><input type="radio" name="VAL" value="1"></td>
+            <td><input type="radio" name="VAL" value="2"></td>
+          </tr>
+
+          <tr data-comp="COM">
+            <td>Communiquer</td>
+            <td>COM</td>
+            <td>Expliquer la flottabilité d'un corps avec un vocabulaire scientifique adapté.</td>
+            <td><input type="radio" name="COM" value="0"></td>
+            <td><input type="radio" name="COM" value="1"></td>
+            <td><input type="radio" name="COM" value="2"></td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+    <div class="radar-actions" style="margin-top:var(--gap-lg);">
+      <button id="btn-radar" class="btn btn-primaire">
+        📊 Générer mon radar de compétences
+      </button>
+      <div id="radar-resultat" style="margin-top:var(--gap-md);"></div>
+    </div>
+
+  </div>
+
+</div>
+
+<div class="section" data-type="impression_tp">
+
+  <div class="section-titre">
+    <div class="picto-section">📒</div>
+    <h2>Impression du compte-rendu</h2>
+    <span class="chevron">▼</span>
+  </div>
+
+  <div class="section-corps">
+
+    <p class="info">
+      À la fin du TP, Imprimer votre TP en PDF.
+      Envoyer à l'enseignant votre Compte rendu en pièce jointe par la messagerie de l'ENT.
+    </p>
+
+    <div class="toolbar">
+      <button id="btn-imprimer" class="btn btn-primaire">
+        🖨 Imprimer le compte-rendu
+      </button>
+    </div>
+
+    <div class="info" style="margin-top:var(--gap-md);">
+      L'impression récupère automatiquement :
+      <ul>
+        <li>les moments calculés et la condition d'équilibre ;</li>
+        <li>la force d'Archimède mesurée et calculée ;</li>
+        <li>les résultats du tableau et les réponses aux questions ;</li>
+        <li>l'auto-évaluation des compétences.</li>
+      </ul>
+    </div>
+
+  </div>
+
+</div>
+
+<div class="nav-tp">
+
+  <button class="btn btn-secondaire" onclick="loadTP('tp03-cinematique-pression')">
+    ← TP03
+  </button>
+
+  <button class="btn btn-primaire" onclick="loadTP('tp05-pression-debit-resonance')">
+    TP05 →
+  </button>
+
+</div>
+
+</main>
+
+<div id="cr-print-container" style="display:none;"></div>
+
+</section>
