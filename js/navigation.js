@@ -50,7 +50,7 @@ function getDefaultModule(domaine) {
         "tp-electricite": "tp01-puissance-energie",
         "tp-acoustique": "tp01-introduction",
         "tp-optique": "tp01-exercice",        
-        "tp-mecanique": "tp01-mouvement"
+        "tp-mecanique": "tp01-decrire-mouvement"
         
     };
     return defaultModules[domaine] || "tp01-solutions"; // Fallback
