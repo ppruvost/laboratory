@@ -1,0 +1,44 @@
+/* ── Tokens globaux, composants TP, impression ────────────────── */
+@import url("../../css/global.css");
+@import url("../../css/tp.css");
+@import url("../../css/print.css");
+
+/* ── Overrides communs à tous les domaines (header, nav, cartes,
+   tableaux, EPI, radar, graphique...) — paramétrés par les variables
+   de couleur ci-dessous ── */
+@import url("../../css/domaine.css");
+
+/* ════════════════════════════════════════════════════════════════
+   IDENTITÉ DU DOMAINE MÉCANIQUE
+   L'ordre d'écriture n'a pas d'importance pour la résolution des
+   var() : ces valeurs s'appliquent à css/domaine.css même si celui-ci
+   est importé plus haut dans ce fichier.
+   ════════════════════════════════════════════════════════════════ */
+:root {
+  --domaine-accent:       #46607A;
+  --domaine-accent-fonce: #28394A;
+  --domaine-accent-rgb:   70, 96, 122;
+}
+
+/* Tout le reste (header, nav, cartes, formulaires, tableaux, EPI,
+   matériel, radar, graphique, histogramme, cartouches, quiz,
+   problématique, champ-erreur...) vient désormais de tp.css et
+   css/domaine.css — plus aucune duplication propre à ce domaine. */
+
+/* ── Résultats de calcul guidé (.resultat-calcul) ──────────────────
+   tp.css colore ce bloc en vert-acide fixe (section 14, calcul-guide),
+   sans override par domaine dans domaine.css : recoloré ici dans la
+   teinte du domaine Mécanique pour rester cohérent avec le reste de
+   la charte (bandeau, onglets, boutons, cartouches...). */
+.resultat-calcul {
+  color: var(--domaine-accent-fonce);
+}
+
+/* ── Numéros de question et d'étape (médaillons numérotés) ─────────
+   tp.css colore ces médaillons en bleu-cuivre fixe (sections 17),
+   sans override par domaine dans domaine.css : recolorés ici dans la
+   teinte du domaine Mécanique. */
+.questions-tp .question-entete::before,
+.etapes li::before {
+  background: var(--domaine-accent);
+}
