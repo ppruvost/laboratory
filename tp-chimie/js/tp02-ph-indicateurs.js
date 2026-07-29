@@ -41,9 +41,20 @@ import {
     getFiliereSelectionnee
 } from "../../js/contexte-pro.js";
 
+import {
+    dessinerGraphiqueLigne
+} from "../../js/graphique.js";
+
+import {
+    initOngletsParFiliere
+} from "../../js/onglets-filiere.js";
+
 /* ==========================================================
    CONTEXTE PROFESSIONNEL — TP02 (pH et indicateurs colorés)
-   Propre à ce TP : niveaux 2nde et 1ère uniquement (cf. cadre bleu).
+   Niveaux 2nde, 1ère (toutes filières) et Tle (MCC uniquement,
+   cf. cadre bleu et référentiel : « Caractériser une solution
+   acido-basique » n'est au programme qu'en Métiers de la couture
+   et de la confection).
    ========================================================== */
 const CONTEXTES_PRO_TP02 = {
     "2nde-remi": {
@@ -65,6 +76,18 @@ const CONTEXTES_PRO_TP02 = {
     "1ere-mcc": {
         contexte: "Le blanchiment ou l'apprêt d'un tissu se réalise dans un bain dont le pH conditionne la vitesse et la qualité du traitement. Les indicateurs colorés permettent un contrôle rapide en atelier, sans attendre les résultats d'une analyse en laboratoire externe.",
         problematique: "Comment choisir l'indicateur coloré le plus adapté pour contrôler rapidement le pH d'un bain de traitement textile en atelier ?"
+    },
+    "tle-mcc": {
+        contexte: "Le laboratoire qualité d'un atelier textile ne se contente pas de mesurer le pH : il doit parfois recalculer la concentration en ions H₃O⁺ d'un bain à partir d'une mesure de pH (ou l'inverse), pour la comparer précisément aux préconisations d'une fiche technique exprimées en concentration.",
+        problematique: "Comment exploiter la relation pH = -log[H₃O⁺] pour calculer la concentration en ions H₃O⁺ d'un bain de traitement textile à partir de la seule mesure de son pH ?"
+    },
+    "tle-tci": {
+        contexte: "En Terminale, votre filière approfondit l'oxydoréduction (piles, corrosion, anode sacrificielle) plutôt que la relation pH / concentration en ions H₃O⁺.",
+        problematique: "Ce contenu n'est pas évalué pour votre filière à ce niveau — voir le TP « Oxydoréduction »."
+    },
+    "tle-trpm": {
+        contexte: "En Terminale, votre filière approfondit l'oxydoréduction (piles, corrosion, anode sacrificielle) plutôt que la relation pH / concentration en ions H₃O⁺.",
+        problematique: "Ce contenu n'est pas évalué pour votre filière à ce niveau — voir le TP « Oxydoréduction »."
     }
 };
 
@@ -161,6 +184,22 @@ export function init() {
     initSimulateurPH();
     initTabIndicateur();
     initTabPapierPH();
+    initTabAcidoBasique();
+    initQuestionsParOnglet();
+
+    // Onglet « Solution acido-basique » réservé à la filière MCC en Tle
+    // (cf. référentiel : TCI/TRPM n'ont pas cette capacité, ils
+    // approfondissent l'oxydoréduction à la place).
+    initOngletsParFiliere({
+        mapping: {
+            "tle-mcc": ["indicateur", "papier-ph", "titrage-colorimetrique", "acido-basique"],
+            "tle-tci": [],
+            "tle-trpm": []
+        },
+        messageId: "tp02-message-filiere",
+        messageTexte: "En Terminale, votre filière approfondit l'oxydoréduction plutôt que la relation pH / concentration en ions H₃O⁺ — voir le TP « Oxydoréduction »."
+    });
+
     initBoutonImpressionCR();
     initRadarCompetences();
 }
@@ -330,6 +369,128 @@ function initTabPapierPH() {
 }
 
 /* ==========================================================
+   ONGLET "Solution acido-basique" (Tle — MCC)
+   pH = -log[H3O+]  <=>  [H3O+] = 10^-pH
+   ========================================================== */
+
+function initTabAcidoBasique() {
+
+    // Calculateur 1 : concentration -> pH
+    const inputConcentration = $("ab-concentration");
+    const outputPh = $("ab-ph-calcule");
+
+    if (inputConcentration && outputPh) {
+        inputConcentration.addEventListener("input", () => {
+            const c = parseFloat(inputConcentration.value);
+            if (Number.isNaN(c) || c <= 0) {
+                outputPh.textContent = "—";
+                return;
+            }
+            const ph = -Math.log10(c);
+            outputPh.textContent = ph.toFixed(2);
+        });
+    }
+
+    // Calculateur 2 : pH -> concentration
+    const inputPh = $("ab-ph");
+    const outputConcentration = $("ab-concentration-calculee");
+
+    if (inputPh && outputConcentration) {
+        inputPh.addEventListener("input", () => {
+            const ph = parseFloat(inputPh.value);
+            if (Number.isNaN(ph)) {
+                outputConcentration.textContent = "—";
+                return;
+            }
+            const c = Math.pow(10, -ph);
+            outputConcentration.textContent = `${c.toExponential(2)} mol/L`;
+        });
+    }
+
+    // Série de vérification (concentration connue, pH mesuré)
+    const btnAjouter = $("ab-serie-ajouter");
+    const inputSerieC = $("ab-serie-concentration");
+    const inputSeriePh = $("ab-serie-ph-mesure");
+    const tbody = $("tbody-acido-basique");
+    const graphiqueId = "graphique-acido-basique";
+
+    if (!btnAjouter || !inputSerieC || !inputSeriePh || !tbody) return;
+
+    const points = [];
+
+    btnAjouter.addEventListener("click", () => {
+
+        const c = parseFloat(inputSerieC.value);
+        const phMesure = parseFloat(inputSeriePh.value);
+
+        if (Number.isNaN(c) || c <= 0 || Number.isNaN(phMesure)) return;
+
+        const phTheo = -Math.log10(c);
+        const ecart = phMesure - phTheo;
+
+        points.push({ c, phTheo, phMesure, ecart });
+
+        redessinerTableauAcidoBasique();
+        dessinerGraphiqueLigne(
+            graphiqueId,
+            points.map(p => ({ x: -Math.log10(p.c), y: p.phMesure })),
+            { xLabel: "-log[H₃O⁺] théorique", yLabel: "pH mesuré" }
+        );
+
+        inputSerieC.value = "";
+        inputSeriePh.value = "";
+        inputSerieC.focus();
+    });
+
+    function redessinerTableauAcidoBasique() {
+        tbody.innerHTML = points.map((p, i) => {
+            const signe = p.ecart >= 0 ? "+" : "";
+            return `<tr>
+                <td>${i + 1}</td>
+                <td>${p.c.toExponential(2)}</td>
+                <td>${p.phTheo.toFixed(2)}</td>
+                <td>${p.phMesure.toFixed(2)}</td>
+                <td>${signe}${p.ecart.toFixed(2)}</td>
+            </tr>`;
+        }).join("");
+    }
+}
+
+/* ==========================================================
+   QUESTIONS DU COMPTE-RENDU
+   Un bloc de 5 questions par onglet de manipulation (y compris
+   « acido-basique ») ; seul le bloc correspondant à l'onglet actif
+   est visible et imprimé. Manquait dans ce fichier jusqu'ici : les
+   attributs "hidden" posés en dur ne changeaient jamais, quel que
+   soit l'onglet cliqué.
+   ========================================================== */
+
+function afficherQuestionsTP(idOnglet) {
+    document.querySelectorAll(".questions-bloc").forEach(bloc => {
+        bloc.hidden = bloc.dataset.tp !== idOnglet;
+    });
+
+    document.querySelectorAll(".problematique-rappel").forEach(p => {
+        if (p.dataset.activite === idOnglet) {
+            // laissé au module contexte-pro.js pour le contenu réel ;
+            // ici on s'assure seulement que le bon rappel est actif.
+        }
+    });
+}
+
+function initQuestionsParOnglet() {
+    const boutons = document.querySelectorAll(".tabs-container .tab-btn");
+    if (!boutons.length) return;
+
+    boutons.forEach(btn => {
+        btn.addEventListener("click", () => afficherQuestionsTP(btn.dataset.tab));
+    });
+
+    const actif = document.querySelector(".tabs-container .tab-btn.actif") || boutons[0];
+    afficherQuestionsTP(actif.dataset.tab);
+}
+
+/* ==========================================================
    BOUTON IMPRESSION COMPTE-RENDU
    ========================================================== */
 function initBoutonImpressionCR() {
@@ -366,7 +527,13 @@ function lancerCompteRendu() {
         });
     }
 
-    document.querySelectorAll(".questions-tp > li").forEach((li, index) => {
+    const blocActif = document.querySelector(".questions-bloc:not([hidden])");
+
+    const liste = blocActif
+        ? blocActif.querySelectorAll(".questions-tp > li")
+        : document.querySelectorAll(".questions-tp > li");
+
+    liste.forEach((li, index) => {
         const zone = li.querySelector("textarea");
         if (!zone) return;
 
@@ -387,6 +554,14 @@ function lancerCompteRendu() {
         sections.push({
             titre: "Résumé du TP",
             texte: resume
+        });
+    }
+
+    const materiel = getMaterielSelectionne();
+    if (materiel.length) {
+        sections.push({
+            titre: "Matériel utilisé",
+            texte: materiel.join(" • ")
         });
     }
 
