@@ -87,7 +87,16 @@ from "../../js/contexte-pro.js";
 
 /* ==========================================================
    CONTEXTE PROFESSIONNEL — TP03 (Titrages acido-basiques)
-   Propre à ce TP : niveaux 2nde, 1ère et Tle (cf. cadre bleu).
+   Propre à ce TP : niveaux 2nde et 1ère uniquement (cf. cadre bleu).
+   ------------------------------------------------------------
+   CORRECTIF (cf. référentiel Bac Pro Thermique/Chimie fourni) :
+   les entrées "tle-tci", "tle-trpm" et "tle-mcc" ont été retirées.
+   En Terminale, TCI/TRPM n'ont que l'oxydoréduction (TP04) et MCC a
+   l'acido-basique (pH = -log[H3O+], TP02) PUIS l'oxydoréduction
+   (TP04) : aucune filière n'a de capacité "titrage" au programme de
+   Tle. Les garder ici aurait proposé un contexte professionnel Tle
+   sur un TP qui n'est, pour ce niveau, au programme d'aucune
+   filière — incohérent avec le cadre "2nde / 1ère" de l'en-tête.
    ========================================================== */
 const CONTEXTES_PRO_TP03 = {
     "2nde-remi": {
@@ -109,18 +118,6 @@ const CONTEXTES_PRO_TP03 = {
     "1ere-mcc": {
         contexte: "Un atelier textile doit s'assurer que la concentration en agent acide d'un bain de finition respecte un cahier des charges précis. Le titrage pH-métrique offre une méthode fiable et traçable pour ce contrôle qualité, plus précise qu'un simple indicateur coloré.",
         problematique: "Comment mettre en œuvre un titrage pH-métrique pour vérifier la conformité de la concentration d'un bain de finition textile au cahier des charges ?"
-    },
-    "tle-tci": {
-        contexte: "Dans les procédés de traitement de surface avancés (bains phosphatants à base d'acide phosphorique), le suivi analytique repose sur des titrages pH-métriques capables de distinguer plusieurs équivalences successives, correspondant aux différentes acidités de l'acide polyprotique utilisé.",
-        problematique: "Comment exploiter une courbe de titrage présentant plusieurs sauts de pH pour caractériser un bain de traitement à base d'acide polyprotique ?"
-    },
-    "tle-trpm": {
-        contexte: "Le service méthodes d'un atelier de production d'outillages s'appuie sur des titrages pH-métriques rigoureux pour valider, avant mise en production, la concentration exacte des bains de traitement utilisés sur les outillages de précision.",
-        problematique: "Comment exploiter une courbe de titrage pH-métrique pour valider la concentration d'un bain de traitement avant sa mise en production ?"
-    },
-    "tle-mcc": {
-        contexte: "Un laboratoire qualité d'une entreprise textile valide la conformité des bains de traitement en réalisant des titrages pH-métriques précis, dont l'exploitation graphique permet de remonter à la concentration exacte, indispensable pour garantir la reproductibilité industrielle des teintes.",
-        problematique: "Comment exploiter une courbe de titrage pH-métrique pour valider, avec l'incertitude associée, la concentration d'un bain de teinture destiné à la production industrielle ?"
     }
 };
 
