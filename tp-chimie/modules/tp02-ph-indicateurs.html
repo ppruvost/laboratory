@@ -36,6 +36,12 @@
         <span class="tag">Indicateurs colorés</span>
       </div>
 
+      <div class="tp-row">
+        <span class="tag">Tle</span>
+        <span class="tag">Chimie</span>
+        <span class="tag">Solution acido-basique</span>
+      </div>
+
     </div>
 
   </div>
@@ -74,6 +80,18 @@
 
       <li>
         Déterminer une quantité de matière présente en solution par une méthode de titrage basée sur le repérage d’une équivalence, à l’aide de relations fournies.
+      </li>
+
+      <li>
+        Vérifier que la relation entre le pH et la concentration en ions H₃O⁺ suit un modèle logarithmique. (Tle — MCC)
+      </li>
+
+      <li>
+        Calculer la valeur du pH connaissant la concentration en ions H₃O⁺ d’une solution aqueuse. (Tle — MCC)
+      </li>
+
+      <li>
+        Calculer la concentration en ions H₃O⁺ connaissant la valeur du pH d’une solution aqueuse. (Tle — MCC)
       </li>
 
       <li>
@@ -341,9 +359,8 @@
 
 <!-- ====================================================== -->
 <!-- TESTS QUALITATIFS + TITRAGE — onglets Indicateur /      -->
-<!-- Papier pH / Titrage colorimétrique                      -->
-<!-- (même logique que Dissolution / Dilution du TP01, et    -->
-<!--  que les onglets de Manipulations du TP04)              -->
+<!-- Papier pH / Titrage colorimétrique / Solution           -->
+<!-- acido-basique (Tle — MCC)                                -->
 <!-- ====================================================== -->
 
 <div class="section" data-type="preparation">
@@ -356,12 +373,15 @@
 
   <div class="section-corps">
 
+    <div id="tp02-message-filiere" class="info" style="display:none;"></div>
+
     <div class="tabs-container">
 
       <div class="tabs-header">
         <button class="tab-btn actif" data-tab="indicateur">Indicateur</button>
         <button class="tab-btn" data-tab="papier-ph">Papier pH</button>
         <button class="tab-btn" data-tab="titrage-colorimetrique">Titrage colorimétrique</button>
+        <button class="tab-btn" data-tab="acido-basique">Solution acido-basique</button>
       </div>
 
       <!-- ============================ -->
@@ -516,45 +536,133 @@
 
       </div>
 
-    </div>
+      <!-- ============================ -->
+      <!-- SOLUTION ACIDO-BASIQUE       -->
+      <!-- (Tle — Métiers de la couture -->
+      <!-- et de la confection)         -->
+      <!-- ============================ -->
 
-  </div>
+      <div class="tab-panel" id="acido-basique">
 
-</div>
+        <h3>Relation entre pH et concentration en ions H₃O⁺</h3>
 
-<!-- ====================================================== -->
-<!-- PROTOCOLE EXPERIMENTAL — mesure pH-métrique             -->
-<!-- ====================================================== -->
+        <div class="info">
+          Le pH d'une solution aqueuse suit un modèle logarithmique :
+          pH = -log[H₃O⁺], où [H₃O⁺] est la concentration en ions
+          oxonium, exprimée en mol·L⁻¹. Plus la concentration en H₃O⁺ est
+          forte, plus la solution est acide, et plus la valeur du pH est
+          faible. Le pH de l'eau pure est voisin de 7 dans les conditions
+          usuelles.
+        </div>
 
-<div class="section" data-type="protocole">
+        <div class="formule">
+          pH = -log[H₃O⁺]&nbsp;&nbsp;⇔&nbsp;&nbsp;[H₃O⁺] = 10⁻ᵖᴴ
+        </div>
 
-  <div class="section-titre">
-    <div class="picto-section">📋</div>
-    <h2>Protocole expérimental — Mesure pH-métrique</h2>
-    <span class="chevron">▼</span>
-  </div>
+        <div class="tabs-container" style="margin-top:var(--gap-md);">
 
-  <div class="section-corps">
+          <div class="tabs-header">
+            <button class="tab-btn actif" data-tab="ph-vers-concentration">Calculer le pH</button>
+            <button class="tab-btn" data-tab="concentration-vers-ph">Calculer [H₃O⁺]</button>
+          </div>
 
-    <ol class="etapes">      
-      <li>Pour chaque solution : verser environ 20 mL dans un bécher propre.</li>
-      <li>Plonger l'électrode dans la solution, attendre la stabilisation (~30 s) et lire le pH.</li>
-      <li>Rincer l'électrode à l'eau distillée, sécher délicatement avec du papier doux avant la solution suivante.</li>
-      <li>Consigner les valeurs dans le tableau de résultats.</li>
-      <li>Comparer les résultats pH-mètre / indicateur / papier pH — quelle méthode est la plus précise ? La plus pratique sur le terrain ?</li>      
-    </ol>
+          <div class="tab-panel actif" id="ph-vers-concentration">
 
-    <div id="modePHmetreTests" class="mode-op">
-
-            <img src="./assets/images/c2-pHmetre_tests.png"
-                 alt="Mode opératoire tests pHmètre"
-                 class="mode-image">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="ab-concentration">Concentration [H₃O⁺] (mol/L)</label>
+                <input id="ab-concentration" type="number" step="any" placeholder="ex. 1e-3">
+              </div>
+              <div class="form-group">
+                <label for="ab-ph-calcule">pH calculé</label>
+                <div class="input-unite">
+                  <output id="ab-ph-calcule">—</output>
+                </div>
+              </div>
+            </div>
 
           </div>
 
-    <p class="success">
-          🌱 Ne pas jeter les solutions à l'évier : les rassembler dans le bidon de récupération acido-basique prévu à cet effet, pour neutralisation avant élimination.
-          </p>
+          <div class="tab-panel" id="concentration-vers-ph">
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="ab-ph">pH de la solution</label>
+                <input id="ab-ph" type="number" step="0.01" placeholder="ex. 3">
+              </div>
+              <div class="form-group">
+                <label for="ab-concentration-calculee">Concentration [H₃O⁺] calculée</label>
+                <div class="input-unite">
+                  <output id="ab-concentration-calculee">—</output>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+        <h4 style="margin-top:var(--gap-lg);">Vérification expérimentale</h4>
+
+        <div class="info">
+          Mesurer le pH de plusieurs solutions de concentration connue en
+          H₃O⁺ (ex. solutions d'acide chlorhydrique de concentrations
+          décroissantes) et comparer au pH calculé par le modèle.
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="ab-serie-concentration">Concentration [H₃O⁺] (mol/L)</label>
+            <input id="ab-serie-concentration" type="number" step="any">
+          </div>
+          <div class="form-group">
+            <label for="ab-serie-ph-mesure">pH mesuré au pH-mètre</label>
+            <input id="ab-serie-ph-mesure" type="number" step="0.01">
+          </div>
+          <div class="form-group">
+            <label>&nbsp;</label>
+            <button id="ab-serie-ajouter" type="button" class="btn btn-primaire">
+              + Ajouter le point
+            </button>
+          </div>
+        </div>
+
+        <div class="table-responsive">
+          <table class="tableau-resultats">
+            <thead>
+              <tr>
+                <th>N°</th>
+                <th>[H₃O⁺] (mol/L)</th>
+                <th>pH théorique</th>
+                <th>pH mesuré</th>
+                <th>Écart</th>
+              </tr>
+            </thead>
+            <tbody id="tbody-acido-basique">
+            </tbody>
+          </table>
+        </div>
+
+        <div id="graphique-acido-basique" class="graphique-conteneur">
+          <p class="info">Ajouter au moins 2 points pour afficher le graphique.</p>
+        </div>
+
+        <h4 style="margin-top:var(--gap-lg);">Protocole</h4>
+
+        <ol class="etapes">
+          <li>Préparer (ou récupérer) plusieurs solutions d'acide chlorhydrique de concentrations décroissantes en H₃O⁺, connues avec précision.</li>
+          <li>Calculer le pH théorique attendu pour chaque solution à l'aide du calculateur ci-dessus.</li>
+          <li>Mesurer le pH réel de chaque solution au pH-mètre, préalablement étalonné, et ajouter chaque point à la série.</li>
+          <li>Comparer le pH théorique et le pH mesuré, et vérifier que la relation logarithmique est bien respectée.</li>
+        </ol>
+
+        <div class="mode-op">
+          <img src="./assets/images/c2-acido-basique.png" alt="Mode opératoire — relation pH et concentration en H3O+" class="mode-image">
+        </div>
+
+      </div>
+
+    </div>
 
   </div>
 
@@ -712,7 +820,7 @@
             <strong>Répondre à la problématique posée en début de TP :</strong>
             <span class="cartouche" data-comp="VAL">VAL</span>
           </div>
-          <p class="problematique-rappel"></p>
+          <p class="problematique-rappel" data-activite="indicateur"></p>
           <div class="zone-eleve">
             <textarea id="ind-q5" rows="5" placeholder="Répondre à la problématique en vous appuyant sur vos résultats expérimentaux..."></textarea>
           </div>
@@ -777,7 +885,7 @@
             <strong>Répondre à la problématique posée en début de TP :</strong>
             <span class="cartouche" data-comp="VAL">VAL</span>
           </div>
-          <p class="problematique-rappel"></p>
+          <p class="problematique-rappel" data-activite="papier-ph"></p>
           <div class="zone-eleve">
             <textarea id="pap-q5" rows="5" placeholder="Répondre à la problématique en vous appuyant sur vos résultats expérimentaux..."></textarea>
           </div>
@@ -842,7 +950,7 @@
             <strong>Répondre à la problématique posée en début de TP :</strong>
             <span class="cartouche" data-comp="VAL">VAL</span>
           </div>
-          <p class="problematique-rappel"></p>
+          <p class="problematique-rappel" data-activite="titrage-colorimetrique"></p>
           <div class="zone-eleve">
             <textarea id="titr-q5" rows="5" placeholder="Répondre à la problématique en vous appuyant sur vos résultats expérimentaux..."></textarea>
           </div>
@@ -850,7 +958,72 @@
 
       </ol>
 
-    </div
+    </div>
+
+    <!-- ===================================================== -->
+    <!-- SOLUTION ACIDO-BASIQUE (Tle — MCC) -->
+    <!-- ===================================================== -->
+
+    <div class="questions-bloc" data-tp="acido-basique" hidden>
+
+      <h4>Solution acido-basique</h4>
+
+      <ol class="questions-tp">
+
+        <li>
+          <div class="question-entete">
+            <strong>Écrire la relation entre le pH et la concentration en ions H₃O⁺ d'une solution aqueuse, et expliquer ce que signifie « modèle logarithmique ».</strong>
+            <span class="cartouche" data-comp="APP">APP</span>
+          </div>
+          <div class="zone-eleve">
+            <textarea id="ab-q1" rows="4" placeholder="Votre réponse..."></textarea>
+          </div>
+        </li>
+
+        <li>
+          <div class="question-entete">
+            <strong>À partir des concentrations en H₃O⁺ utilisées lors de la série de mesures, calculer le pH théorique attendu pour chaque solution.</strong>
+            <span class="cartouche" data-comp="REA">REA</span>
+          </div>
+          <div class="zone-eleve">
+            <textarea id="ab-q2" rows="5" placeholder="Calculs et réponse..."></textarea>
+          </div>
+        </li>
+
+        <li>
+          <div class="question-entete">
+            <strong>Comparer, pour chaque solution, le pH théorique et le pH mesuré au pH-mètre, et vérifier que la relation logarithmique est respectée aux incertitudes de mesure près.</strong>
+            <span class="cartouche" data-comp="ANA">ANA</span>
+          </div>
+          <div class="zone-eleve">
+            <textarea id="ab-q3" rows="5" placeholder="Votre analyse..."></textarea>
+          </div>
+        </li>
+
+        <li>
+          <div class="question-entete">
+            <strong>En lien avec votre filière professionnelle (voir Contexte professionnel ci-dessus), expliquer pourquoi contrôler précisément le pH d'un bain de traitement textile, en le reliant à sa concentration en H₃O⁺, est utile en atelier.</strong>
+            <span class="cartouche" data-comp="COM">COM</span>
+          </div>
+          <div class="zone-eleve">
+            <textarea id="ab-q4" rows="5" placeholder="Votre réponse..."></textarea>
+          </div>
+        </li>
+
+        <li class="question-problematique">
+          <div class="question-entete">
+            <strong>Répondre à la problématique posée en début de TP :</strong>
+            <span class="cartouche" data-comp="VAL">VAL</span>
+          </div>
+          <p class="problematique-rappel" data-activite="acido-basique"></p>
+          <div class="zone-eleve">
+            <textarea id="ab-q5" rows="5" placeholder="Répondre à la problématique en vous appuyant sur vos résultats expérimentaux..."></textarea>
+          </div>
+        </li>
+
+      </ol>
+
+    </div>
 
 <!-- ====================================================== -->
 <!-- AUTO-ÉVALUATION  (trame commune)                       -->
@@ -1048,13 +1221,15 @@
 
   </div>
 
-</div>   
+</div>
+
+
 
 <!-- ====================================================== -->
 <!-- NAVIGATION                                              -->
 <!-- ====================================================== -->
 
-  <div class="nav-tp">
+<div class="nav-tp">
 
   <button class="btn btn-secondaire"
           onclick="loadTP('tp01-solutions')">
@@ -1072,13 +1247,15 @@
   </button>
 
 </div>
-
+  
 </main>
+
 
 <!-- ====================================================== -->
 <!-- CONTENEUR IMPRESSION COMPTE RENDU                       -->
 <!-- ====================================================== -->
 
 <div id="cr-print-container" style="display:none;"></div>
+
 
 </section>
