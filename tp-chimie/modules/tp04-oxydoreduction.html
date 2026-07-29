@@ -7,7 +7,7 @@
 <section>
 
 <!-- ====================================================== -->
-<!-- EN-TÊTE                                                -->
+<!-- EN-TÊTE                                                 -->
 <!-- ====================================================== -->
 
 <header class="tp-header">
@@ -20,7 +20,7 @@
 
   <div class="tp-header-centre">
 
-    <h1>Oxydoréduction — Piles et potentiels électrochimiques</h1>
+    <h1>Oxydoréduction — corrosion et protection des métaux</h1>
 
     <div class="tp-meta">
 
@@ -63,19 +63,19 @@
     <ul>
 
       <li>
-        Classer expérimentalement des couples oxydant/réducteur.
+        Prévoir le caractère spontané ou non d'une réaction d'oxydoréduction à partir d'une classification qualitative des couples oxydant/réducteur.
       </li>
 
       <li>
-        Écrire l'équation de réaction modélisant une transformation d'oxydoréduction à partir de deux demi-équations de réaction.
+        Réaliser expérimentalement une pile et mesurer la tension à ses bornes.
       </li>
 
       <li>
-        Identifier l'oxydant et le réducteur dans une transformation d'oxydoréduction d'équation de réaction donnée.
+        Écrire les équations des réactions aux électrodes d'une pile et l'équation bilan de la réaction.
       </li>
 
       <li>
-        Prévoir à partir d'une classification électrochimique qualitative, le sens d'évolution spontané d'une transformation d'oxydoréduction.
+        Identifier les facteurs qui favorisent la corrosion d'un métal et connaître les principes de protection contre la corrosion (revêtement, anode sacrificielle).
       </li>
 
       <li>
@@ -83,31 +83,17 @@
       </li>
 
       <li>
-        Réaliser expérimentalement et interpréter une transformation d'oxydoréduction en lien avec la corrosion d'un métal.
-      </li>
-
-      <li>
-        Illustrer au moyen d'une expérience la passivation d'un métal.
-      </li>
-
-      <li>
-        Mettre en évidence expérimentalement la protection d'un métal par la méthode d'anode sacrificielle.
-      </li>
-
-      <li>
-        Identifier un pictogramme sur l'étiquette d'un produit chimique de laboratoire ou d'usage domestique.
-      </li>
-
-      <li>
         Utiliser de façon raisonnée les équipements de protection individuelle adaptés à la situation expérimentale en chimie.
       </li>
 
       <li>
-        Adopter une démarche respectueuse de l'environnement : traiter correctement les solutions de métaux lourds utilisées et limiter les volumes prélevés.
-      </li>
-
-      <li>
-        Identifier des situations où l'oxydoréduction répond à un enjeu environnemental actuel (recyclage des piles, protection contre la corrosion).
+        <em>Notions complémentaires — préparation à la poursuite d'études (TCI / TRPM) :</em>
+        réaliser expérimentalement une pile et mesurer la tension aux bornes de cette pile ;
+        étudier expérimentalement la charge et la décharge d'un accumulateur ;
+        savoir qu'une pile effectue une transformation d'énergie chimique en énergie électrique
+        et qu'un accumulateur en charge effectue une transformation d'énergie électrique en
+        énergie chimique stockable ; savoir que les réactions chimiques mises en jeu aux
+        électrodes sont des réactions d'oxydation et de réduction.
       </li>
 
     </ul>
@@ -146,7 +132,7 @@
 </div>
 
 <!-- ====================================================== -->
-<!-- SECURITE - PRODUITS UTILISES                           -->
+<!-- SECURITE - PRODUITS UTILISES                            -->
 <!-- ====================================================== -->
 
 <div class="section" data-type="securite">
@@ -161,68 +147,25 @@
 
     <div class="filtre-reactifs">
 
-      <span class="filtre-titre">
-        <strong>Afficher :</strong>
-      </span>
+      <span class="filtre-titre"><strong>Afficher :</strong></span>
 
-      <label>
-        <input type="checkbox" class="filtre-cat" value="Liquide" checked>
-        Liquides
-      </label>
-
-      <label>
-        <input type="checkbox" class="filtre-cat" value="Sel" checked>
-        Sels
-      </label>
-
-      <label>
-        <input type="checkbox" class="filtre-cat" value="Solide" checked>
-        Solides
-      </label>
-
-      <label>
-        <input type="checkbox" class="filtre-cat" value="Indicateur" checked>
-        Indicateurs
-      </label>
-
-      <label>
-        <input type="checkbox" class="filtre-cat" value="Colorant" checked>
-        Colorants
-      </label>
-
-      <label>
-        <input type="checkbox" class="filtre-cat" value="Métal" checked>
-        Métaux
-      </label>
-
-      <label>
-        <input type="checkbox" class="filtre-cat" value="Solvant" checked>
-        Solvants
-      </label>
-
-      <label>
-        <input type="checkbox" class="filtre-cat" value="Halogène" checked>
-        Halogènes
-      </label>
+      <label><input type="checkbox" class="filtre-cat" value="Liquide" checked> Liquides</label>
+      <label><input type="checkbox" class="filtre-cat" value="Sel" checked> Sels</label>
+      <label><input type="checkbox" class="filtre-cat" value="Solide" checked> Solides</label>
+      <label><input type="checkbox" class="filtre-cat" value="Métal" checked> Métaux</label>
+      <label><input type="checkbox" class="filtre-cat" value="Solvant" checked> Solvants</label>
 
     </div>
 
     <div class="form-group">
-
-      <label for="reactif">
-        Choisir un réactif :
-      </label>
-
+      <label for="reactif">Choisir un réactif :</label>
       <select id="reactif">
         <option value="">-- Sélectionner --</option>
       </select>
-
     </div>
 
     <div id="securite-bloc">
-      <div class="info">
-        Sélectionner un réactif.
-      </div>
+      <div class="info">Sélectionner un réactif.</div>
     </div>
 
   </div>
@@ -244,23 +187,19 @@
   <div class="section-corps">
 
     <h3>Verrerie</h3>
-
-    <div id="materiel-verrerie" class="grille-materiel">
-    </div>
+    <div id="materiel-verrerie" class="grille-materiel"></div>
 
     <hr>
 
     <h3>Équipements</h3>
+    <div id="materiel-equipements" class="grille-materiel"></div>
 
-    <div id="materiel-equipements" class="grille-materiel">
-    </div>
-    
   </div>
 
 </div>
 
 <!-- ====================================================== -->
-<!-- MANIPULATIONS — un onglet par expérience               -->
+<!-- MANIPULATIONS                                           -->
 <!-- ====================================================== -->
 
 <div class="section" data-type="preparation">
@@ -273,119 +212,97 @@
 
   <div class="section-corps">
 
+    <div id="tp04-message-filiere" class="info" style="display:none;"></div>
+
     <div class="tabs-container">
 
       <div class="tabs-header">
-        <button class="tab-btn actif" data-tab="reaction-acide">Réaction avec un acide</button>
+        <button class="tab-btn actif" data-tab="reaction-acide">Réaction métal / acide</button>
         <button class="tab-btn" data-tab="classification-qualitative">Classification qualitative</button>
         <button class="tab-btn" data-tab="pile-electrochimique">Pile électrochimique</button>
-        <button class="tab-btn" data-tab="classification">Classification quantitative</button>
+        <button class="tab-btn" data-tab="classification">Classification des couples</button>
         <button class="tab-btn" data-tab="corrosion-passivation">Corrosion et passivation</button>
         <button class="tab-btn" data-tab="anode-sacrificielle">Anode sacrificielle</button>
+        <button class="tab-btn" data-tab="accumulateur">Accumulateur</button>
       </div>
 
       <!-- ============================ -->
-      <!-- REACTION AVEC UN ACIDE       -->
+      <!-- REACTION METAL / ACIDE       -->
       <!-- ============================ -->
 
       <div class="tab-panel actif" id="reaction-acide">
 
-        <h3>Action des ions hydronium sur un métal</h3>
+        <h3>Réaction d'un métal avec une solution acide</h3>
+
+        <div class="info">
+          Certains métaux réagissent avec les ions H₃O⁺ d'une solution acide en libérant
+          du dihydrogène gazeux, tandis que d'autres restent inertes. Cette réactivité
+          différente permet d'amorcer une classification qualitative des couples oxydant/réducteur.
+        </div>
 
         <div class="calcul-guide">
 
           <div class="form-group">
-            <label for="select-metal-acide">Choisir un métal</label>
+            <label for="select-metal-acide">Métal testé</label>
             <select id="select-metal-acide">
               <option value="">-- Sélectionner --</option>
             </select>
           </div>
 
-          <div id="resultat-acide" class="resultat-calcul">
-            Sélectionner un métal pour prédire la réaction avec une solution acide.
+          <div class="info-reactif" id="fiche-metal-acide">
+            <p>Sélectionner un métal pour afficher sa fiche.</p>
           </div>
 
         </div>
 
-        <div id="mode_acide_metal" class="mode-op">
+        <h4 style="margin-top:var(--gap-lg);">Protocole</h4>
 
-            <img src="./assets/images/c4-acide_sur_metal.png"
-                 alt="Mode opératoire acide sur métal"
-                 class="mode-image">
-
-          </div>        
-        
-        <h3>Protocole expérimental</h3>          
-          <h4 style="margin-top:var(--gap-lg);">Action d'une solution acide sur un métal</h4>
-
-          <ol class="etapes">
-            <li>Disposer un peu de chaque métal (grenaille ou lame) dans des tubes à essai distincts.</li>
-            <li>Ajouter quelques centimètres cubes de solution d'acide chlorhydrique dans chaque tube.</li>
-            <li>Observer l'éventuel dégagement gazeux et la variation de température.</li>
-            <li>Approcher une flamme de l'ouverture du tube pour mettre en évidence le dihydrogène formé.</li>
-            <li><span class="attention">⚠️ Ne jamais approcher de flamme d'un tube contenant encore de l'acide en excès non identifié.</span></li>
-          </ol>        
+        <ol class="etapes">
+          <li>Décaper la surface du métal à tester à la toile émeri, juste avant l'essai.</li>
+          <li>Introduire un petit morceau de métal dans un tube à essai contenant environ 2 mL de solution acide diluée.</li>
+          <li>Observer l'éventuel dégagement gazeux (effervescence) et le tester à la flamme (test caractéristique du dihydrogène).</li>
+          <li>Répéter pour chaque métal disponible et noter le résultat dans le tableau de résultats.</li>
+        </ol>
 
       </div>
 
       <!-- ============================ -->
       <!-- CLASSIFICATION QUALITATIVE   -->
-      <!-- (déplacement métal / ion)    -->
       <!-- ============================ -->
 
       <div class="tab-panel" id="classification-qualitative">
 
-        <h3>Déplacement d'un métal par un autre (classification expérimentale)</h3>
+        <h3>Classification qualitative des couples oxydant/réducteur</h3>
 
-        <p class="info">
-          Plonger un métal dans une solution contenant les ions d'un autre métal permet
-          de comparer expérimentalement le pouvoir réducteur des deux métaux, sans
-          calcul de potentiel.
-        </p>
-
-        <div class="calcul-guide">
-
-          <div class="form-row">
-
-            <div class="form-group">
-              <label for="select-metal-solide">Métal solide plongé dans la solution</label>
-              <select id="select-metal-solide">
-                <option value="">-- Sélectionner --</option>
-              </select>
-            </div>
-
-            <div class="form-group">
-              <label for="select-ion-solution">Ion métallique en solution</label>
-              <select id="select-ion-solution">
-                <option value="">-- Sélectionner --</option>
-              </select>
-            </div>
-
-          </div>
-
-          <div id="resultat-deplacement" class="resultat-calcul">
-            Sélectionner un métal solide et une solution ionique pour prédire la réaction de déplacement.
-          </div>
-
+        <div class="info">
+          En mettant en présence un métal et une solution ionique d'un autre métal, on peut
+          observer un dépôt métallique (réaction spontanée) ou une absence de réaction, et en
+          déduire un classement relatif du pouvoir réducteur des métaux étudiés.
         </div>
 
-        <div id="mode_deplacement" class="mode-op">
+        <div class="table-responsive">
+          <table class="tableau-resultats">
+            <thead>
+              <tr>
+                <th>Métal testé</th>
+                <th>Solution ionique</th>
+                <th>Observation</th>
+                <th>Réaction spontanée ?</th>
+              </tr>
+            </thead>
+            <tbody id="tbody-classification-qualitative">
+            </tbody>
+          </table>
+        </div>
 
-            <img src="./assets/images/c4-deplacement_metal.png"
-                 alt="Mode opératoire déplacement d'un métal"
-                 class="mode-image">
+        <h4 style="margin-top:var(--gap-lg);">Protocole</h4>
 
-          </div>
-
-        <h3>Protocole expérimental</h3>          
-          <h4 style="margin-top:var(--gap-lg);">Classification expérimentale par déplacement</h4>
-
-          <ol class="etapes">
-            <li>Dans plusieurs tubes à essai, verser quelques centimètres cubes de solutions d'ions métalliques différentes (Cu²⁺, Ag⁺, Zn²⁺, Fe²⁺...).</li>
-            <li>Plonger dans chaque tube un morceau (lame ou grenaille) préalablement décapé d'un autre métal.</li>
-            <li>Observer l'apparition éventuelle d'un dépôt métallique sur le solide et/ou une décoloration de la solution.</li>
-            <li>Répéter l'expérience avec plusieurs couples métal solide / ion en solution pour établir un classement expérimental des couples.</li>
-          </ol>        
+        <ol class="etapes">
+          <li>Décaper chaque lame métallique à la toile émeri avant utilisation.</li>
+          <li>Plonger une lame de métal dans une solution contenant les ions d'un autre métal.</li>
+          <li>Observer l'apparition (ou non) d'un dépôt métallique à la surface de la lame.</li>
+          <li>Répéter pour différentes combinaisons métal/solution et en déduire un ordre de réactivité relative.</li>
+        </ol>
 
       </div>
 
@@ -395,22 +312,28 @@
 
       <div class="tab-panel" id="pile-electrochimique">
 
-        <h3>Construire une pile à partir de deux couples</h3>
+        <h3>Réalisation d'une pile électrochimique</h3>
+
+        <div class="info">
+          Une pile associe deux demi-piles (couples oxydant/réducteur) reliées par un pont
+          salin. La différence de pouvoir réducteur des deux couples génère spontanément un
+          courant électrique : c'est une transformation d'énergie chimique en énergie électrique.
+        </div>
 
         <div class="calcul-guide">
 
           <div class="form-row">
 
             <div class="form-group">
-              <label for="select-couple-a">Couple de la demi-pile A</label>
-              <select id="select-couple-a">
+              <label for="select-couple-1">Couple de la demi-pile 1</label>
+              <select id="select-couple-1">
                 <option value="">-- Sélectionner --</option>
               </select>
             </div>
 
             <div class="form-group">
-              <label for="select-couple-b">Couple de la demi-pile B</label>
-              <select id="select-couple-b">
+              <label for="select-couple-2">Couple de la demi-pile 2</label>
+              <select id="select-couple-2">
                 <option value="">-- Sélectionner --</option>
               </select>
             </div>
@@ -418,54 +341,52 @@
           </div>
 
           <div id="resultat-pile" class="resultat-calcul">
-            Sélectionner deux couples différents pour construire la pile.
+            Sélectionner deux couples différents pour afficher la polarité prévisible de la pile.
           </div>
 
         </div>
 
-        <div id="mode_fem" class="mode-op">
+        <h4 style="margin-top:var(--gap-lg);">Mesure</h4>
 
-            <img src="./assets/images/c4-cellule_galvanique.png"
-                 alt="Mode opératoire f.e.m."
-                 class="mode-image">
-
+        <div class="form-row">
+          <div class="form-group">
+            <label for="tension-pile-mesuree">Tension mesurée aux bornes de la pile (V)</label>
+            <input id="tension-pile-mesuree" type="number" step="0.01">
           </div>
-        
-        <h3>Protocole expérimental</h3>
-          <div class="picto-section">📋</div>
-          <h4>Réalisation d'une pile</h4>
+        </div>
 
-          <ol class="etapes">
-            <li>Décaper les lames métalliques à la toile émeri, puis les rincer à l'eau distillée.</li>
-            <li>Préparer dans deux béchers les solutions correspondant aux deux couples choisis (0,1 mol/L).</li>
-            <li>Plonger chaque lame métallique dans le bécher contenant les ions de son propre couple.</li>
-            <li>Réaliser un pont salin (bande de papier filtre imbibée de solution de nitrate de potassium) reliant les deux béchers.</li>
-            <li>Relier les deux lames à un voltmètre électronique (borne V et borne COM) à l'aide de fils de connexion et de pinces crocodile.</li>
-            <li>Lire et noter la tension affichée : c'est la force électromotrice (f.é.m.) de la pile.</li>
-            <li>Repérer la borne positive et la borne négative à partir du signe de la tension mesurée.</li>
-          </ol>        
+        <h4 style="margin-top:var(--gap-lg);">Protocole</h4>
+
+        <ol class="etapes">
+          <li>Décaper les deux lames métalliques à la toile émeri.</li>
+          <li>Préparer les deux demi-piles (lame métallique plongée dans une solution contenant ses propres ions).</li>
+          <li>Relier les deux demi-piles par un pont salin, puis les électrodes à un voltmètre.</li>
+          <li>Relever la tension mesurée et en déduire la polarité de la pile (électrode positive / négative).</li>
+        </ol>
 
       </div>
 
       <!-- ============================ -->
-      <!-- CLASSIFICATION QUANTITATIVE  -->
+      <!-- CLASSIFICATION DES COUPLES   -->
       <!-- ============================ -->
 
       <div class="tab-panel" id="classification">
 
-        <h3>Classification quantitative des couples oxydant-réducteur</h3>
+        <h3>Classification quantitative des couples</h3>
 
-        <p class="info">
-          Plus le potentiel normal E° est élevé, plus l'oxydant du couple est fort.
-          Plus E° est bas, plus le réducteur du couple est fort.
-        </p>
+        <div class="info">
+          À partir de l'ensemble des observations qualitatives (réaction métal/acide,
+          dépôts métalliques, polarité des piles), on peut établir un classement complet
+          des couples oxydant/réducteur étudiés, du plus fort réducteur au plus fort oxydant.
+        </div>
 
         <div class="table-responsive">
-          <table class="tableau-resultats" id="table-classification">
+          <table class="tableau-resultats">
             <thead>
               <tr>
-                <th>Couple (Ox / Red)</th>
-                <th>E° (V)</th>
+                <th>Rang</th>
+                <th>Couple Ox/Red</th>
+                <th>Pouvoir réducteur</th>
               </tr>
             </thead>
             <tbody id="tbody-classification">
@@ -473,29 +394,14 @@
           </table>
         </div>
 
-        <div id="mode_regle_gamma" class="mode-op">
+        <h4 style="margin-top:var(--gap-lg);">Protocole</h4>
 
-            <img src="./assets/images/c4-regle_gamma.png"
-                 alt="Mode opératoire règle du gamma"
-                 class="mode-image">
+        <ol class="etapes">
+          <li>Rassembler l'ensemble des résultats obtenus dans les onglets précédents.</li>
+          <li>Classer les couples étudiés par pouvoir réducteur décroissant.</li>
+          <li>Vérifier la cohérence du classement avec les polarités de piles mesurées.</li>
+        </ol>
 
-          </div>
-
-        <h3>Protocole expérimental</h3>
-          <div class="picto-section">📋</div>
-          <h4>Classification quantitative des couples oxydant-réducteur</h4>
-
-            <ol class="etapes">
-              <li>Observer le tableau des potentiels standards d'oxydoréduction E° des différents couples oxydant/réducteur.</li>
-              <li>Classer les couples par ordre croissant de potentiel standard E° (du plus négatif vers le plus positif).</li>
-              <li>Tracer mentalement ou à l'aide de la règle du gamma les couples dans leur position respective.</li>
-              <li>Identifier l'oxydant le plus fort : il appartient au couple possédant le potentiel standard E° le plus élevé.</li>
-              <li>Identifier le réducteur le plus fort : il appartient au couple possédant le potentiel standard E° le plus faible.</li>
-              <li>Pour deux couples donnés, appliquer la règle du gamma afin de déterminer le sens spontané de la réaction d'oxydoréduction.</li>
-              <li>Écrire les deux demi-équations électroniques correspondant aux couples étudiés.</li>
-              <li>Additionner les demi-équations afin d'obtenir l'équation-bilan de la réaction d'oxydoréduction.</li>
-              <li>Vérifier que les électrons se compensent et conclure sur le caractère spontané de la transformation.</li>
-            </ol>
       </div>
 
       <!-- ============================ -->
@@ -506,46 +412,37 @@
 
         <h3>Corrosion et passivation des métaux</h3>
 
-        <p class="info">
-          Certains métaux se corrodent activement à l'air humide (formation d'un
-          oxyde poreux, non protecteur), tandis que d'autres se recouvrent d'une
-          fine couche d'oxyde adhérente qui stoppe toute corrosion ultérieure :
-          c'est la <strong>passivation</strong>.
-        </p>
-
-        <div class="calcul-guide">
-
-          <div class="form-group">
-            <label for="select-metal-corrosion">Choisir un métal à observer</label>
-            <select id="select-metal-corrosion">
-              <option value="">-- Sélectionner --</option>
-            </select>
-          </div>
-
-          <div id="resultat-corrosion" class="resultat-calcul">
-            Sélectionner un métal pour connaître son comportement face à la corrosion.
-          </div>
-
+        <div class="info">
+          La corrosion d'un métal est une réaction d'oxydoréduction spontanée entre le métal
+          et son environnement (dioxygène, humidité, ions). Certains métaux se recouvrent
+          d'une fine couche d'oxyde protectrice (passivation) qui ralentit fortement la
+          corrosion ultérieure.
         </div>
 
-        <div id="mode_corrosion" class="mode-op">
+        <div class="table-responsive">
+          <table class="tableau-resultats">
+            <thead>
+              <tr>
+                <th>Métal</th>
+                <th>Milieu d'exposition</th>
+                <th>Observation après exposition</th>
+                <th>Passivant ?</th>
+              </tr>
+            </thead>
+            <tbody id="tbody-corrosion">
+            </tbody>
+          </table>
+        </div>
 
-            <img src="./assets/images/c4-corrosion_passivation.png"
-                 alt="Mode opératoire corrosion et passivation"
-                 class="mode-image">
+        <h4 style="margin-top:var(--gap-lg);">Protocole</h4>
 
-          </div>
+        <ol class="etapes">
+          <li>Préparer plusieurs échantillons de métaux différents, décapés à l'identique.</li>
+          <li>Exposer chaque échantillon à un milieu favorisant la corrosion (eau salée, air humide...).</li>
+          <li>Observer après quelques jours l'état de surface de chaque échantillon.</li>
+          <li>Identifier les métaux qui se sont recouverts d'une couche protectrice (passivation) et ceux qui continuent de se corroder.</li>
+        </ol>
 
-        <h3>Protocole expérimental</h3>         
-          <h4 style="margin-top:var(--gap-lg);">Corrosion et passivation</h4>
-
-            <ol class="etapes">
-              <li>Décaper une lame de fer et une lame d'aluminium à la toile émeri.</li>
-              <li>Déposer une goutte d'eau salée sur chaque lame et laisser reposer à l'air libre plusieurs jours (ou observer des échantillons déjà exposés fournis en classe).</li>
-              <li>Comparer l'aspect des deux surfaces : présence de rouille sur le fer, absence de dégradation visible sur l'aluminium.</li>
-              <li>Gratter légèrement la surface de l'aluminium pour mettre en évidence la fine couche d'oxyde protectrice sous-jacente.</li>
-            </ol>
-        
       </div>
 
       <!-- ============================ -->
@@ -554,66 +451,120 @@
 
       <div class="tab-panel" id="anode-sacrificielle">
 
-        <h3>Protection d'un métal par anode sacrificielle</h3>
+        <h3>Protection par anode sacrificielle</h3>
 
-        <p class="info">
-          En reliant électriquement le métal à protéger à un métal plus réducteur
-          (anode sacrificielle), c'est ce dernier qui s'oxyde préférentiellement :
-          le métal principal reste intact tant que l'anode n'est pas entièrement
-          consommée.
-        </p>
+        <div class="info">
+          Relier électriquement un métal à protéger à un métal plus réducteur (anode
+          sacrificielle) permet de dévier la corrosion vers ce dernier : c'est l'anode
+          sacrificielle qui s'oxyde et se consomme, protégeant ainsi la structure principale.
+        </div>
 
         <div class="calcul-guide">
 
-          <div class="form-row">
-
-            <div class="form-group">
-              <label for="select-metal-protege">Métal à protéger</label>
-              <select id="select-metal-protege">
-                <option value="">-- Sélectionner --</option>
-              </select>
-            </div>
-
-            <div class="form-group">
-              <label for="select-metal-sacrificiel">Métal candidat comme anode sacrificielle</label>
-              <select id="select-metal-sacrificiel">
-                <option value="">-- Sélectionner --</option>
-              </select>
-            </div>
-
+          <div class="form-group">
+            <label for="select-anode">Métal utilisé comme anode sacrificielle</label>
+            <select id="select-anode">
+              <option value="">-- Sélectionner --</option>
+            </select>
           </div>
 
-          <div id="resultat-anode" class="resultat-calcul">
-            Sélectionner les deux métaux pour évaluer la protection.
+          <div class="info-reactif" id="fiche-anode">
+            <p>Sélectionner un métal pour vérifier s'il est adapté comme anode sacrificielle du métal à protéger.</p>
           </div>
 
         </div>
 
-        <div id="mode_anode" class="mode-op">
+        <h4 style="margin-top:var(--gap-lg);">Protocole</h4>
 
-            <img src="./assets/images/c4-anode_sacrificielle.png"
-                 alt="Mode opératoire anode sacrificielle"
-                 class="mode-image">
+        <ol class="etapes">
+          <li>Relier électriquement le métal à protéger et l'anode sacrificielle envisagée, tous deux plongés dans une solution électrolytique.</li>
+          <li>Observer, après un temps d'exposition, quel métal des deux présente des traces de corrosion.</li>
+          <li>Vérifier que c'est bien l'anode sacrificielle (le métal le plus réducteur du couple) qui s'est corrodée en priorité.</li>
+        </ol>
 
+      </div>
+
+      <!-- ============================ -->
+      <!-- ACCUMULATEUR (TCI / TRPM)    -->
+      <!-- ============================ -->
+
+      <div class="tab-panel" id="accumulateur">
+
+        <h3>Accumulateur — charge et décharge</h3>
+
+        <div class="info">
+          <em>Notions complémentaires — préparation à la poursuite d'études (TCI / TRPM).</em>
+          Une pile transforme de l'énergie chimique en énergie électrique de façon spontanée
+          et irréversible. Un accumulateur (batterie rechargeable) fonctionne dans les deux
+          sens : en <strong>décharge</strong>, il se comporte comme une pile (réaction
+          spontanée, transformation chimique → électrique) ; en <strong>charge</strong>, un
+          générateur externe impose le sens inverse de la réaction (transformation électrique
+          → chimique), qui restocke l'énergie sous forme chimique.
+        </div>
+
+        <div class="formule">
+          Décharge (spontanée) : oxydant + réducteur → produits + énergie électrique<br>
+          Charge (imposée) : produits + énergie électrique → oxydant + réducteur
+        </div>
+
+        <div class="calcul-guide">
+
+          <div class="form-group">
+            <label for="select-accumulateur">Type d'accumulateur</label>
+            <select id="select-accumulateur">
+              <option value="">-- Sélectionner --</option>
+              <option value="plomb">Accumulateur au plomb (batterie automobile)</option>
+              <option value="nicd">Accumulateur Nickel-Cadmium (Ni-Cd)</option>
+              <option value="liion">Accumulateur Lithium-ion (Li-ion)</option>
+            </select>
           </div>
 
-        <h3>Protocole expérimental</h3>         
-          <h4 style="margin-top:var(--gap-lg);">Protection par anode sacrificielle</h4>
+          <div class="info-reactif" id="fiche-accumulateur">
+            <p>Sélectionner un type d'accumulateur pour afficher ses réactions aux électrodes.</p>
+          </div>
 
-            <ol class="etapes">
-              <li>Décaper deux lames de fer identiques.</li>
-              <li>Relier électriquement l'une des lames de fer à une lame de zinc à l'aide d'un fil de connexion et d'une pince crocodile ; laisser l'autre lame de fer isolée (témoin).</li>
-              <li>Plonger les deux montages dans un même bécher contenant de l'eau salée.</li>
-              <li>Observer après quelques jours : la lame de fer témoin rouille, la lame reliée au zinc reste protégée tandis que le zinc se corrode à sa place.</li>
-            </ol>
-        
+        </div>
+
+        <h4 style="margin-top:var(--gap-lg);">Mesures</h4>
+
+        <div class="form-row">
+
+          <div class="form-group">
+            <label for="accu-tension-charge">Tension mesurée en charge (V)</label>
+            <input id="accu-tension-charge" type="number" step="0.01">
+          </div>
+
+          <div class="form-group">
+            <label for="accu-tension-decharge">Tension mesurée en décharge (V)</label>
+            <input id="accu-tension-decharge" type="number" step="0.01">
+          </div>
+
+        </div>
+
+        <div id="resultat-accumulateur" class="resultat-calcul">
+          Saisir les deux tensions mesurées pour comparer charge et décharge.
+        </div>
+
+        <h4 style="margin-top:var(--gap-lg);">Protocole</h4>
+
+        <ol class="etapes">
+          <li>Mesurer la tension aux bornes de l'accumulateur au repos (à vide), puis en décharge sur une résistance de charge.</li>
+          <li>Relier l'accumulateur à un générateur de charge réglé en dessous de sa tension limite, et mesurer la tension à ses bornes pendant la charge.</li>
+          <li>Identifier, pour le type d'accumulateur choisi, les réactions d'oxydation et de réduction qui ont lieu à chaque électrode en décharge, puis en charge.</li>
+          <li>Comparer la tension mesurée en charge et en décharge, et expliquer pourquoi elles diffèrent.</li>
+          <li><span class="attention">⚠️ Ne jamais court-circuiter un accumulateur, ni dépasser sa tension de charge maximale indiquée par le constructeur.</span></li>
+        </ol>
+
+        <div class="mode-op">
+          <img src="./assets/images/c4-accumulateur.png" alt="Mode opératoire — charge et décharge d'un accumulateur" class="mode-image">
+        </div>
 
       </div>
 
     </div>
 
   </div>
-        
+
 </div>
 
 <!-- ====================================================== -->
@@ -631,62 +582,23 @@
   <div class="section-corps">
 
     <div class="table-responsive">
-
       <table class="tableau-resultats">
-
         <thead>
           <tr>
-            <th>Pile formée</th>
-            <th>Électrode +</th>
-            <th>Électrode −</th>
-            <th>f.é.m. mesurée (V)</th>
-            <th>f.é.m. théorique (V)</th>
-            <th>Écart</th>
+            <th>Métal</th>
+            <th>Réaction avec acide</th>
+            <th>Classement (réducteur)</th>
+            <th>Corrosion observée</th>
           </tr>
         </thead>
-
         <tbody>
-          <tr><td>Cuivre — Zinc</td><td class="saisie" contenteditable="true"></td><td class="saisie" contenteditable="true"></td><td class="saisie" contenteditable="true"></td><td class="saisie" contenteditable="true"></td><td class="saisie" contenteditable="true"></td></tr>
-          <tr><td>Cuivre — Fer</td><td class="saisie" contenteditable="true"></td><td class="saisie" contenteditable="true"></td><td class="saisie" contenteditable="true"></td><td class="saisie" contenteditable="true"></td><td class="saisie" contenteditable="true"></td></tr>
-          <tr><td>Cuivre — Plomb</td><td class="saisie" contenteditable="true"></td><td class="saisie" contenteditable="true"></td><td class="saisie" contenteditable="true"></td><td class="saisie" contenteditable="true"></td><td class="saisie" contenteditable="true"></td></tr>
-          <tr><td>Fer — Zinc</td><td class="saisie" contenteditable="true"></td><td class="saisie" contenteditable="true"></td><td class="saisie" contenteditable="true"></td><td class="saisie" contenteditable="true"></td><td class="saisie" contenteditable="true"></td></tr>
-          <tr><td>Zinc — Plomb</td><td class="saisie" contenteditable="true"></td><td class="saisie" contenteditable="true"></td><td class="saisie" contenteditable="true"></td><td class="saisie" contenteditable="true"></td><td class="saisie" contenteditable="true"></td></tr>
-          <tr><td>Fer — Plomb</td><td class="saisie" contenteditable="true"></td><td class="saisie" contenteditable="true"></td><td class="saisie" contenteditable="true"></td><td class="saisie" contenteditable="true"></td><td class="saisie" contenteditable="true"></td></tr>
+          <tr><td>Fer (Fe)</td><td><input type="text" placeholder="Oui / Non"></td><td><input type="text" placeholder="Rang"></td><td><input type="text" placeholder="Observation"></td></tr>
+          <tr><td>Zinc (Zn)</td><td><input type="text" placeholder="Oui / Non"></td><td><input type="text" placeholder="Rang"></td><td><input type="text" placeholder="Observation"></td></tr>
+          <tr><td>Cuivre (Cu)</td><td><input type="text" placeholder="Oui / Non"></td><td><input type="text" placeholder="Rang"></td><td><input type="text" placeholder="Observation"></td></tr>
+          <tr><td>Aluminium (Al)</td><td><input type="text" placeholder="Oui / Non"></td><td><input type="text" placeholder="Rang"></td><td><input type="text" placeholder="Observation"></td></tr>
+          <tr><td>Plomb (Pb)</td><td><input type="text" placeholder="Oui / Non"></td><td><input type="text" placeholder="Rang"></td><td><input type="text" placeholder="Observation"></td></tr>
         </tbody>
-
       </table>
-
-    </div>
-
-    <p class="info" style="margin-top:var(--gap-md);">
-      La f.é.m. théorique de chaque pile peut être obtenue avec l'onglet
-      « Pile électrochimique » de la section Manipulations, en sélectionnant les deux
-      couples correspondants.
-    </p>
-
-    <h4 style="margin-top:var(--gap-lg);">Observations qualitatives</h4>
-
-    <div class="table-responsive">
-
-      <table class="tableau-resultats">
-
-        <thead>
-          <tr>
-            <th>Expérience</th>
-            <th>Observation</th>
-            <th>Interprétation</th>
-          </tr>
-        </thead>
-
-        <tbody>
-          <tr><td>Déplacement métal / ion</td><td class="saisie" contenteditable="true"></td><td class="saisie" contenteditable="true"></td></tr>
-          <tr><td>Corrosion du fer</td><td class="saisie" contenteditable="true"></td><td class="saisie" contenteditable="true"></td></tr>
-          <tr><td>Passivation de l'aluminium</td><td class="saisie" contenteditable="true"></td><td class="saisie" contenteditable="true"></td></tr>
-          <tr><td>Fer protégé par anode de zinc</td><td class="saisie" contenteditable="true"></td><td class="saisie" contenteditable="true"></td></tr>
-        </tbody>
-
-      </table>
-
     </div>
 
   </div>
@@ -694,11 +606,7 @@
 </div>
 
 <!-- ====================================================== -->
-<!-- FIN DU COEUR SPECIFIQUE TP                              -->
-<!-- ====================================================== -->
-
-<!-- ====================================================== -->
-<!-- CHIMIE ET ENVIRONNEMENT                                -->
+<!-- CHIMIE ET ENVIRONNEMENT                                 -->
 <!-- ====================================================== -->
 
 <div class="section" data-type="environnement">
@@ -714,94 +622,86 @@
     <h3>Bonnes pratiques au laboratoire</h3>
 
     <ul style="padding-left:1.5rem;line-height:2">
-      <li>Les solutions de sulfate de cuivre (II), de zinc (II) et de plomb (II) contiennent des métaux toxiques pour les milieux aquatiques : ne jamais les rejeter à l'évier, toujours les collecter dans le bidon de déchets métalliques prévu.</li>
-      <li>Ne préparer que le volume de solution nécessaire à chaque demi-pile (quelques dizaines de mL suffisent par groupe).</li>
-      <li>Bien rincer et conserver les lames métalliques décapées d'une séance à l'autre plutôt que d'en racheter.</li>
-      <li>Changer le pont salin (papier filtre) entre chaque mesure sans en préparer plus que nécessaire.</li>
-      <li>L'eau salée utilisée pour les expériences de corrosion et d'anode sacrificielle peut être évacuée à l'évier après avoir récupéré les lames métalliques, qui sont rincées, séchées et réutilisées d'une séance à l'autre.</li>
+      <li>Récupérer les solutions contenant des ions métalliques dans les bidons de déchets prévus, jamais à l'évier.</li>
+      <li>Ne décaper que la surface nécessaire de chaque lame métallique, sans excès.</li>
+      <li>Réutiliser les lames métalliques d'une séance à l'autre après décapage plutôt que d'en consommer de nouvelles.</li>
     </ul>
 
-    <h3 style="margin-top:var(--gap-md);">L'oxydoréduction au service des enjeux actuels</h3>
+    <h3 style="margin-top:var(--gap-md);">Corrosion, piles et enjeux actuels</h3>
 
     <p>
-      Le principe même de la pile étudiée ici — deux couples oxydant-réducteur reliés
-      par un circuit — est directement mobilisé dans plusieurs réponses aux défis
-      environnementaux actuels.
+      La lutte contre la corrosion (anode sacrificielle, revêtements) prolonge la durée de
+      vie des structures métalliques et limite le gaspillage de ressources. Les piles et
+      accumulateurs, au cœur de la transition vers l'électrification des usages (véhicules,
+      outillage portatif), posent aussi la question du recyclage des métaux qu'ils contiennent.
     </p>
-
-    <ul style="padding-left:1.5rem;line-height:2">
-      <li><strong>Recyclage des piles et batteries :</strong> les piles et accumulateurs du quotidien reposent sur ce même principe ; leur recyclage évite la dispersion de métaux lourds (plomb, cadmium, mercure) dans l'environnement.</li>
-      <li><strong>Protection contre la corrosion :</strong> le classement des couples oxydant-réducteur permet de protéger une structure métallique (coque de bateau, pipeline) grâce à une anode sacrificielle en zinc ou en magnésium, plus réducteur que le métal à protéger.</li>
-      <li><strong>Récupération des métaux :</strong> des réactions d'oxydoréduction contrôlées (électrolyse, cémentation) permettent de recycler des métaux à partir de déchets industriels ou de minerais pauvres.</li>
-      <li><strong>Traitement de l'eau :</strong> certaines réactions redox (au chlore, à l'ozone ou au permanganate) sont utilisées pour désinfecter l'eau potable ou traiter les eaux usées.</li>
-    </ul>
 
   </div>
 
 </div>
 
-
 <!-- ===================================================== -->
-<!-- REACTION AVEC UN ACIDE -->
+<!-- REACTION METAL / ACIDE -->
 <!-- ===================================================== -->
 
 <div class="questions-bloc" data-tp="reaction-acide">
 
-<h4>Réaction avec un acide</h4>
+  <h4>Réaction métal / acide</h4>
 
-<ol class="questions-tp">
+  <ol class="questions-tp">
 
-<li>
-<div class="question-entete">
-<strong>Pourquoi certains métaux réagissent-ils avec une solution d'acide chlorhydrique alors que d'autres ne réagissent pas ?</strong>
-<span class="cartouche" data-comp="APP">APP</span>
-</div>
-<div class="zone-eleve">
-<textarea id="acide-q1" rows="3"></textarea>
-</div>
-</li>
+    <li>
+      <div class="question-entete">
+        <strong>Écrire l'équation de la réaction entre un métal réactif et les ions H₃O⁺, en identifiant l'oxydant et le réducteur.</strong>
+        <span class="cartouche" data-comp="APP">APP</span>
+      </div>
+      <div class="zone-eleve">
+        <textarea id="ra-q1" rows="4" placeholder="Votre réponse..."></textarea>
+      </div>
+    </li>
 
-<li>
-<div class="question-entete">
-<strong>Écrire l'équation de réaction entre le zinc et les ions hydronium.</strong>
-<span class="cartouche" data-comp="REA">REA</span>
-</div>
-<div class="zone-eleve">
-<textarea id="acide-q2" rows="4"></textarea>
-</div>
-</li>
+    <li>
+      <div class="question-entete">
+        <strong>Pour chaque métal testé, indiquer s'il a réagi avec la solution acide et justifier par l'observation faite.</strong>
+        <span class="cartouche" data-comp="REA">REA</span>
+      </div>
+      <div class="zone-eleve">
+        <textarea id="ra-q2" rows="4" placeholder="Votre réponse..."></textarea>
+      </div>
+    </li>
 
-<li>
-<div class="question-entete">
-<strong>Quel gaz est produit ? Comment le mettre en évidence ?</strong>
-<span class="cartouche" data-comp="ANA">ANA</span>
-</div>
-<div class="zone-eleve">
-<textarea id="acide-q3" rows="3"></textarea>
-</div>
-</li>
+    <li>
+      <div class="question-entete">
+        <strong>Établir un premier classement des métaux testés selon leur réactivité vis-à-vis de l'acide.</strong>
+        <span class="cartouche" data-comp="ANA">ANA</span>
+      </div>
+      <div class="zone-eleve">
+        <textarea id="ra-q3" rows="4" placeholder="Votre analyse..."></textarea>
+      </div>
+    </li>
 
-<li>
-<div class="question-entete">
-<strong>Classer les métaux testés du plus réducteur au moins réducteur.</strong>
-<span class="cartouche" data-comp="VAL">VAL</span>
-</div>
-<div class="zone-eleve">
-<textarea id="acide-q4" rows="4"></textarea>
-</div>
-</li>
+    <li>
+      <div class="question-entete">
+        <strong>En lien avec votre filière professionnelle, expliquer pourquoi cette réactivité doit être prise en compte lors du choix d'un métal pour une pièce en contact avec un milieu acide.</strong>
+        <span class="cartouche" data-comp="COM">COM</span>
+      </div>
+      <div class="zone-eleve">
+        <textarea id="ra-q4" rows="4" placeholder="Votre réponse..."></textarea>
+      </div>
+    </li>
 
-<li>
-<div class="question-entete">
-<strong>Pourquoi les solutions contenant des ions métalliques ne doivent-elles jamais être rejetées à l'évier ?</strong>
-<span class="cartouche" data-comp="COM">COM</span>
-</div>
-<div class="zone-eleve">
-<textarea id="acide-q5" rows="3"></textarea>
-</div>
-</li>
+    <li class="question-problematique">
+      <div class="question-entete">
+        <strong>Répondre à la problématique posée en début de TP :</strong>
+        <span class="cartouche" data-comp="VAL">VAL</span>
+      </div>
+      <p class="problematique-rappel" data-activite="reaction-acide"></p>
+      <div class="zone-eleve">
+        <textarea id="ra-q5" rows="5" placeholder="Répondre à la problématique en vous appuyant sur vos résultats expérimentaux..."></textarea>
+      </div>
+    </li>
 
-</ol>
+  </ol>
 
 </div>
 
@@ -811,253 +711,257 @@
 
 <div class="questions-bloc" data-tp="classification-qualitative" hidden>
 
-<h4>Classification qualitative</h4>
+  <h4>Classification qualitative</h4>
 
-<ol class="questions-tp">
+  <ol class="questions-tp">
 
-<li>
-<div class="question-entete">
-<strong>Quel est le principe d'une réaction de déplacement entre deux couples oxydant-réducteur ?</strong>
-<span class="cartouche" data-comp="APP">APP</span>
-</div>
-<div class="zone-eleve">
-<textarea id="cq-q1" rows="3"></textarea>
-</div>
-</li>
+    <li>
+      <div class="question-entete">
+        <strong>Décrire le principe permettant de comparer le pouvoir réducteur de deux métaux à partir d'un test de dépôt métallique.</strong>
+        <span class="cartouche" data-comp="APP">APP</span>
+      </div>
+      <div class="zone-eleve">
+        <textarea id="cq-q1" rows="4" placeholder="Votre réponse..."></textarea>
+      </div>
+    </li>
 
-<li>
-<div class="question-entete">
-<strong>Décrire les observations montrant qu'une réaction a eu lieu.</strong>
-<span class="cartouche" data-comp="REA">REA</span>
-</div>
-<div class="zone-eleve">
-<textarea id="cq-q2" rows="3"></textarea>
-</div>
-</li>
+    <li>
+      <div class="question-entete">
+        <strong>Pour chaque test réalisé, écrire l'équation de la réaction observée (ou justifier l'absence de réaction).</strong>
+        <span class="cartouche" data-comp="REA">REA</span>
+      </div>
+      <div class="zone-eleve">
+        <textarea id="cq-q2" rows="5" placeholder="Votre réponse..."></textarea>
+      </div>
+    </li>
 
-<li>
-<div class="question-entete">
-<strong>Identifier l'oxydant et le réducteur de l'expérience.</strong>
-<span class="cartouche" data-comp="ANA">ANA</span>
-</div>
-<div class="zone-eleve">
-<textarea id="cq-q3" rows="3"></textarea>
-</div>
-</li>
+    <li>
+      <div class="question-entete">
+        <strong>En déduire un classement relatif du pouvoir réducteur des métaux testés.</strong>
+        <span class="cartouche" data-comp="ANA">ANA</span>
+      </div>
+      <div class="zone-eleve">
+        <textarea id="cq-q3" rows="4" placeholder="Votre analyse..."></textarea>
+      </div>
+    </li>
 
-<li>
-<div class="question-entete">
-<strong>Établir le classement expérimental des métaux étudiés.</strong>
-<span class="cartouche" data-comp="VAL">VAL</span>
-</div>
-<div class="zone-eleve">
-<textarea id="cq-q4" rows="4"></textarea>
-</div>
-</li>
+    <li>
+      <div class="question-entete">
+        <strong>En lien avec votre filière professionnelle, citer une situation où connaître le pouvoir réducteur relatif de deux métaux en contact est utile.</strong>
+        <span class="cartouche" data-comp="COM">COM</span>
+      </div>
+      <div class="zone-eleve">
+        <textarea id="cq-q4" rows="4" placeholder="Votre réponse..."></textarea>
+      </div>
+    </li>
 
-<li>
-<div class="question-entete">
-<strong>Pourquoi est-il préférable de réutiliser les solutions métalliques plutôt que d'en préparer de nouvelles ?</strong>
-<span class="cartouche" data-comp="COM">COM</span>
-</div>
-<div class="zone-eleve">
-<textarea id="cq-q5" rows="3"></textarea>
-</div>
-</li>
+    <li class="question-problematique">
+      <div class="question-entete">
+        <strong>Répondre à la problématique posée en début de TP :</strong>
+        <span class="cartouche" data-comp="VAL">VAL</span>
+      </div>
+      <p class="problematique-rappel" data-activite="classification-qualitative"></p>
+      <div class="zone-eleve">
+        <textarea id="cq-q5" rows="5" placeholder="Répondre à la problématique en vous appuyant sur vos résultats expérimentaux..."></textarea>
+      </div>
+    </li>
 
-</ol>
+  </ol>
 
 </div>
 
 <!-- ===================================================== -->
-<!-- PILE -->
+<!-- PILE ELECTROCHIMIQUE -->
 <!-- ===================================================== -->
 
 <div class="questions-bloc" data-tp="pile-electrochimique" hidden>
 
-<h4>Pile électrochimique</h4>
+  <h4>Pile électrochimique</h4>
 
-<ol class="questions-tp">
+  <ol class="questions-tp">
 
-<li>
-<div class="question-entete">
-<strong>Identifier l'anode et la cathode.</strong>
-<span class="cartouche" data-comp="APP">APP</span>
-</div>
-<div class="zone-eleve">
-<textarea id="pile-q1" rows="3"></textarea>
-</div>
-</li>
+    <li>
+      <div class="question-entete">
+        <strong>Écrire les équations des réactions aux deux électrodes de la pile réalisée, puis l'équation bilan.</strong>
+        <span class="cartouche" data-comp="REA">REA</span>
+      </div>
+      <div class="zone-eleve">
+        <textarea id="pe-q1" rows="5" placeholder="Votre réponse..."></textarea>
+      </div>
+    </li>
 
-<li>
-<div class="question-entete">
-<strong>Écrire les deux demi-équations électroniques.</strong>
-<span class="cartouche" data-comp="REA">REA</span>
-</div>
-<div class="zone-eleve">
-<textarea id="pile-q2" rows="4"></textarea>
-</div>
-</li>
+    <li>
+      <div class="question-entete">
+        <strong>Indiquer la polarité de la pile obtenue (électrode positive / négative) et la relier au classement des couples établi précédemment.</strong>
+        <span class="cartouche" data-comp="ANA">ANA</span>
+      </div>
+      <div class="zone-eleve">
+        <textarea id="pe-q2" rows="4" placeholder="Votre analyse..."></textarea>
+      </div>
+    </li>
 
-<li>
-<div class="question-entete">
-<strong>Écrire l'équation-bilan de la pile.</strong>
-<span class="cartouche" data-comp="REA">REA</span>
-</div>
-<div class="zone-eleve">
-<textarea id="pile-q3" rows="4"></textarea>
-</div>
-</li>
+    <li>
+      <div class="question-entete">
+        <strong>Expliquer le rôle du pont salin dans le fonctionnement de la pile.</strong>
+        <span class="cartouche" data-comp="APP">APP</span>
+      </div>
+      <div class="zone-eleve">
+        <textarea id="pe-q3" rows="4" placeholder="Votre réponse..."></textarea>
+      </div>
+    </li>
 
-<li>
-<div class="question-entete">
-<strong>Comparer la f.é.m. mesurée à la valeur théorique.</strong>
-<span class="cartouche" data-comp="VAL">VAL</span>
-</div>
-<div class="zone-eleve">
-<textarea id="pile-q4" rows="4"></textarea>
-</div>
-</li>
+    <li>
+      <div class="question-entete">
+        <strong>En lien avec votre filière professionnelle, citer un exemple concret où la maîtrise du fonctionnement d'une pile ou d'un couple oxydant/réducteur est utile.</strong>
+        <span class="cartouche" data-comp="COM">COM</span>
+      </div>
+      <div class="zone-eleve">
+        <textarea id="pe-q4" rows="4" placeholder="Votre réponse..."></textarea>
+      </div>
+    </li>
 
-<li>
-<div class="question-entete">
-<strong>Pourquoi le recyclage des piles est-il indispensable ?</strong>
-<span class="cartouche" data-comp="COM">COM</span>
-</div>
-<div class="zone-eleve">
-<textarea id="pile-q5" rows="3"></textarea>
-</div>
-</li>
+    <li class="question-problematique">
+      <div class="question-entete">
+        <strong>Répondre à la problématique posée en début de TP :</strong>
+        <span class="cartouche" data-comp="VAL">VAL</span>
+      </div>
+      <p class="problematique-rappel" data-activite="pile-electrochimique"></p>
+      <div class="zone-eleve">
+        <textarea id="pe-q5" rows="5" placeholder="Répondre à la problématique en vous appuyant sur vos résultats expérimentaux..."></textarea>
+      </div>
+    </li>
 
-</ol>
+  </ol>
 
 </div>
 
 <!-- ===================================================== -->
-<!-- CLASSIFICATION QUANTITATIVE -->
+<!-- CLASSIFICATION DES COUPLES -->
 <!-- ===================================================== -->
 
 <div class="questions-bloc" data-tp="classification" hidden>
 
-<h4>Classification quantitative</h4>
+  <h4>Classification des couples</h4>
 
-<ol class="questions-tp">
+  <ol class="questions-tp">
 
-<li>
-<div class="question-entete">
-<strong>Que représente le potentiel normal E° ?</strong>
-<span class="cartouche" data-comp="APP">APP</span>
-</div>
-<div class="zone-eleve">
-<textarea id="qt-q1" rows="3"></textarea>
-</div>
-</li>
+    <li>
+      <div class="question-entete">
+        <strong>Présenter le classement final des couples oxydant/réducteur étudiés, du plus fort réducteur au plus fort oxydant.</strong>
+        <span class="cartouche" data-comp="REA">REA</span>
+      </div>
+      <div class="zone-eleve">
+        <textarea id="cl-q1" rows="4" placeholder="Votre réponse..."></textarea>
+      </div>
+    </li>
 
-<li>
-<div class="question-entete">
-<strong>Identifier l'oxydant le plus fort et le réducteur le plus fort.</strong>
-<span class="cartouche" data-comp="ANA">ANA</span>
-</div>
-<div class="zone-eleve">
-<textarea id="qt-q2" rows="3"></textarea>
-</div>
-</li>
+    <li>
+      <div class="question-entete">
+        <strong>Vérifier la cohérence de ce classement avec les résultats obtenus dans les onglets précédents (réaction à l'acide, dépôts, polarité de la pile).</strong>
+        <span class="cartouche" data-comp="VAL">VAL</span>
+      </div>
+      <div class="zone-eleve">
+        <textarea id="cl-q2" rows="5" placeholder="Votre vérification..."></textarea>
+      </div>
+    </li>
 
-<li>
-<div class="question-entete">
-<strong>Appliquer la règle du gamma pour prévoir le sens d'une réaction.</strong>
-<span class="cartouche" data-comp="REA">REA</span>
-</div>
-<div class="zone-eleve">
-<textarea id="qt-q3" rows="4"></textarea>
-</div>
-</li>
+    <li>
+      <div class="question-entete">
+        <strong>À l'aide de ce classement, prévoir si une réaction donnée entre deux nouveaux couples serait spontanée.</strong>
+        <span class="cartouche" data-comp="ANA">ANA</span>
+      </div>
+      <div class="zone-eleve">
+        <textarea id="cl-q3" rows="4" placeholder="Votre analyse..."></textarea>
+      </div>
+    </li>
 
-<li>
-<div class="question-entete">
-<strong>Justifier le caractère spontané d'une réaction.</strong>
-<span class="cartouche" data-comp="VAL">VAL</span>
-</div>
-<div class="zone-eleve">
-<textarea id="qt-q4" rows="4"></textarea>
-</div>
-</li>
+    <li>
+      <div class="question-entete">
+        <strong>En lien avec votre filière professionnelle, expliquer l'intérêt pratique de disposer d'un tel classement pour choisir des métaux compatibles entre eux.</strong>
+        <span class="cartouche" data-comp="COM">COM</span>
+      </div>
+      <div class="zone-eleve">
+        <textarea id="cl-q4" rows="4" placeholder="Votre réponse..."></textarea>
+      </div>
+    </li>
 
-<li>
-<div class="question-entete">
-<strong>Citer une application environnementale des réactions d'oxydoréduction.</strong>
-<span class="cartouche" data-comp="COM">COM</span>
-</div>
-<div class="zone-eleve">
-<textarea id="qt-q5" rows="3"></textarea>
-</div>
-</li>
+    <li class="question-problematique">
+      <div class="question-entete">
+        <strong>Répondre à la problématique posée en début de TP :</strong>
+        <span class="cartouche" data-comp="VAL">VAL</span>
+      </div>
+      <p class="problematique-rappel" data-activite="classification"></p>
+      <div class="zone-eleve">
+        <textarea id="cl-q5" rows="5" placeholder="Répondre à la problématique en vous appuyant sur vos résultats expérimentaux..."></textarea>
+      </div>
+    </li>
 
-</ol>
+  </ol>
 
 </div>
 
 <!-- ===================================================== -->
-<!-- CORROSION -->
+<!-- CORROSION ET PASSIVATION -->
 <!-- ===================================================== -->
 
 <div class="questions-bloc" data-tp="corrosion-passivation" hidden>
 
-<h4>Corrosion et passivation</h4>
+  <h4>Corrosion et passivation</h4>
 
-<ol class="questions-tp">
+  <ol class="questions-tp">
 
-<li>
-<div class="question-entete">
-<strong>Définir la corrosion.</strong>
-<span class="cartouche" data-comp="APP">APP</span>
-</div>
-<div class="zone-eleve">
-<textarea id="cor-q1" rows="3"></textarea>
-</div>
-</li>
+    <li>
+      <div class="question-entete">
+        <strong>Définir la corrosion d'un métal en termes d'oxydoréduction et citer les facteurs qui la favorisent.</strong>
+        <span class="cartouche" data-comp="APP">APP</span>
+      </div>
+      <div class="zone-eleve">
+        <textarea id="cp-q1" rows="4" placeholder="Votre réponse..."></textarea>
+      </div>
+    </li>
 
-<li>
-<div class="question-entete">
-<strong>Décrire les observations sur le fer et l'aluminium.</strong>
-<span class="cartouche" data-comp="REA">REA</span>
-</div>
-<div class="zone-eleve">
-<textarea id="cor-q2" rows="3"></textarea>
-</div>
-</li>
+    <li>
+      <div class="question-entete">
+        <strong>Pour chaque métal testé, décrire l'état de surface observé après exposition et indiquer s'il s'est passivé.</strong>
+        <span class="cartouche" data-comp="REA">REA</span>
+      </div>
+      <div class="zone-eleve">
+        <textarea id="cp-q2" rows="5" placeholder="Votre réponse..."></textarea>
+      </div>
+    </li>
 
-<li>
-<div class="question-entete">
-<strong>Expliquer le phénomène de passivation.</strong>
-<span class="cartouche" data-comp="ANA">ANA</span>
-</div>
-<div class="zone-eleve">
-<textarea id="cor-q3" rows="4"></textarea>
-</div>
-</li>
+    <li>
+      <div class="question-entete">
+        <strong>Expliquer pourquoi un métal passivé se corrode plus lentement qu'un métal non protégé.</strong>
+        <span class="cartouche" data-comp="ANA">ANA</span>
+      </div>
+      <div class="zone-eleve">
+        <textarea id="cp-q3" rows="4" placeholder="Votre analyse..."></textarea>
+      </div>
+    </li>
 
-<li>
-<div class="question-entete">
-<strong>Pourquoi l'aluminium résiste-t-il mieux à la corrosion que le fer ?</strong>
-<span class="cartouche" data-comp="VAL">VAL</span>
-</div>
-<div class="zone-eleve">
-<textarea id="cor-q4" rows="4"></textarea>
-</div>
-</li>
+    <li>
+      <div class="question-entete">
+        <strong>En lien avec votre filière professionnelle, citer une pièce ou une structure où la corrosion est un enjeu majeur et une solution de protection adaptée.</strong>
+        <span class="cartouche" data-comp="COM">COM</span>
+      </div>
+      <div class="zone-eleve">
+        <textarea id="cp-q4" rows="4" placeholder="Votre réponse..."></textarea>
+      </div>
+    </li>
 
-<li>
-<div class="question-entete">
-<strong>Quel est l'intérêt environnemental de protéger les métaux contre la corrosion ?</strong>
-<span class="cartouche" data-comp="COM">COM</span>
-</div>
-<div class="zone-eleve">
-<textarea id="cor-q5" rows="3"></textarea>
-</div>
-</li>
+    <li class="question-problematique">
+      <div class="question-entete">
+        <strong>Répondre à la problématique posée en début de TP :</strong>
+        <span class="cartouche" data-comp="VAL">VAL</span>
+      </div>
+      <p class="problematique-rappel" data-activite="corrosion-passivation"></p>
+      <div class="zone-eleve">
+        <textarea id="cp-q5" rows="5" placeholder="Répondre à la problématique en vous appuyant sur vos résultats expérimentaux..."></textarea>
+      </div>
+    </li>
 
-</ol>
+  </ol>
 
 </div>
 
@@ -1067,66 +971,172 @@
 
 <div class="questions-bloc" data-tp="anode-sacrificielle" hidden>
 
-<h4>Anode sacrificielle</h4>
+  <h4>Anode sacrificielle</h4>
 
-<ol class="questions-tp">
+  <ol class="questions-tp">
 
-<li>
-<div class="question-entete">
-<strong>Quel est le rôle d'une anode sacrificielle ?</strong>
-<span class="cartouche" data-comp="APP">APP</span>
-</div>
-<div class="zone-eleve">
-<textarea id="anode-q1" rows="3"></textarea>
-</div>
-</li>
+    <li>
+      <div class="question-entete">
+        <strong>Expliquer le principe de la protection par anode sacrificielle et la condition sur le pouvoir réducteur du métal utilisé comme anode.</strong>
+        <span class="cartouche" data-comp="APP">APP</span>
+      </div>
+      <div class="zone-eleve">
+        <textarea id="as-q1" rows="4" placeholder="Votre réponse..."></textarea>
+      </div>
+    </li>
 
-<li>
-<div class="question-entete">
-<strong>Décrire les observations réalisées.</strong>
-<span class="cartouche" data-comp="REA">REA</span>
-</div>
-<div class="zone-eleve">
-<textarea id="anode-q2" rows="3"></textarea>
-</div>
-</li>
+    <li>
+      <div class="question-entete">
+        <strong>Écrire l'équation de la réaction d'oxydation qui a lieu au niveau de l'anode sacrificielle testée.</strong>
+        <span class="cartouche" data-comp="REA">REA</span>
+      </div>
+      <div class="zone-eleve">
+        <textarea id="as-q2" rows="4" placeholder="Votre réponse..."></textarea>
+      </div>
+    </li>
 
-<li>
-<div class="question-entete">
-<strong>Expliquer pourquoi le zinc protège le fer.</strong>
-<span class="cartouche" data-comp="ANA">ANA</span>
-</div>
-<div class="zone-eleve">
-<textarea id="anode-q3" rows="4"></textarea>
-</div>
-</li>
+    <li>
+      <div class="question-entete">
+        <strong>À partir de l'observation faite, vérifier que le métal choisi comme anode sacrificielle est bien plus réducteur que le métal à protéger.</strong>
+        <span class="cartouche" data-comp="VAL">VAL</span>
+      </div>
+      <div class="zone-eleve">
+        <textarea id="as-q3" rows="4" placeholder="Votre vérification..."></textarea>
+      </div>
+    </li>
 
-<li>
-<div class="question-entete">
-<strong>Le cuivre pourrait-il remplacer le zinc ? Justifier.</strong>
-<span class="cartouche" data-comp="VAL">VAL</span>
-</div>
-<div class="zone-eleve">
-<textarea id="anode-q4" rows="4"></textarea>
-</div>
-</li>
+    <li>
+      <div class="question-entete">
+        <strong>En lien avec votre filière professionnelle, citer une application industrielle de la protection par anode sacrificielle.</strong>
+        <span class="cartouche" data-comp="COM">COM</span>
+      </div>
+      <div class="zone-eleve">
+        <textarea id="as-q4" rows="4" placeholder="Votre réponse..."></textarea>
+      </div>
+    </li>
 
-<li>
-<div class="question-entete">
-<strong>Citer deux ouvrages industriels utilisant une anode sacrificielle et expliquer leur intérêt environnemental.</strong>
-<span class="cartouche" data-comp="COM">COM</span>
-</div>
-<div class="zone-eleve">
-<textarea id="anode-q5" rows="4"></textarea>
-</div>
-</li>
+    <li class="question-problematique">
+      <div class="question-entete">
+        <strong>Répondre à la problématique posée en début de TP :</strong>
+        <span class="cartouche" data-comp="VAL">VAL</span>
+      </div>
+      <p class="problematique-rappel" data-activite="anode-sacrificielle"></p>
+      <div class="zone-eleve">
+        <textarea id="as-q5" rows="5" placeholder="Répondre à la problématique en vous appuyant sur vos résultats expérimentaux..."></textarea>
+      </div>
+    </li>
 
-</ol>
+  </ol>
+
+</div>
+
+<!-- ===================================================== -->
+<!-- ACCUMULATEUR (TCI / TRPM) -->
+<!-- ===================================================== -->
+
+<div class="questions-bloc" data-tp="accumulateur" hidden>
+
+  <h4>Accumulateur — charge et décharge</h4>
+
+  <ol class="questions-tp">
+
+    <li>
+      <div class="question-entete">
+        <strong>Expliquer la différence entre une pile et un accumulateur en termes de transformation d'énergie.</strong>
+        <span class="cartouche" data-comp="APP">APP</span>
+      </div>
+      <div class="zone-eleve">
+        <textarea id="accu-q1" rows="4" placeholder="Votre réponse..."></textarea>
+      </div>
+    </li>
+
+    <li>
+      <div class="question-entete">
+        <strong>Pour l'accumulateur étudié, écrire les réactions aux électrodes en décharge, puis en charge, et identifier laquelle est une oxydation et laquelle est une réduction dans chaque cas.</strong>
+        <span class="cartouche" data-comp="REA">REA</span>
+      </div>
+      <div class="zone-eleve">
+        <textarea id="accu-q2" rows="5" placeholder="Votre réponse..."></textarea>
+      </div>
+    </li>
+
+    <li>
+      <div class="question-entete">
+        <strong>Comparer les tensions mesurées en charge et en décharge, et expliquer cet écart.</strong>
+        <span class="cartouche" data-comp="ANA">ANA</span>
+      </div>
+      <div class="zone-eleve">
+        <textarea id="accu-q3" rows="4" placeholder="Votre analyse..."></textarea>
+      </div>
+    </li>
+
+    <li>
+      <div class="question-entete">
+        <strong>En lien avec votre filière professionnelle, citer un équipement ou un véhicule utilisant ce type d'accumulateur et expliquer un enjeu de sécurité ou de maintenance associé.</strong>
+        <span class="cartouche" data-comp="COM">COM</span>
+      </div>
+      <div class="zone-eleve">
+        <textarea id="accu-q4" rows="4" placeholder="Votre réponse..."></textarea>
+      </div>
+    </li>
+
+    <li class="question-problematique">
+      <div class="question-entete">
+        <strong>Répondre à la problématique posée en début de TP :</strong>
+        <span class="cartouche" data-comp="VAL">VAL</span>
+      </div>
+      <p class="problematique-rappel" data-activite="accumulateur"></p>
+      <div class="zone-eleve">
+        <textarea id="accu-q5" rows="5" placeholder="Répondre à la problématique en vous appuyant sur vos résultats expérimentaux..."></textarea>
+      </div>
+    </li>
+
+  </ol>
 
 </div>
 
 <!-- ====================================================== -->
-<!-- TRACE ECRITE - COMPTE RENDU                            -->
+<!-- AUTO-ÉVALUATION                                         -->
+<!-- ====================================================== -->
+
+<div class="section" data-type="auto-evaluation">
+
+  <div class="section-titre">
+    <div class="picto-section">📡</div>
+    <h2>Auto-évaluation des compétences</h2>
+    <span class="chevron">▼</span>
+  </div>
+
+  <div class="section-corps">
+
+    <p class="info">À la fin du TP, évaluez votre niveau de maîtrise pour chaque compétence.</p>
+
+    <div class="table-responsive">
+      <table class="tableau-resultats autoeval-table">
+        <thead>
+          <tr><th>Domaine</th><th>Sigle</th><th>Je suis capable de...</th><th>0</th><th>1</th><th>2</th></tr>
+        </thead>
+        <tbody>
+          <tr data-comp="APP"><td>S'approprier</td><td>APP</td><td>Identifier les couples oxydant/réducteur en jeu.</td><td><input type="radio" name="APP" value="0"></td><td><input type="radio" name="APP" value="1"></td><td><input type="radio" name="APP" value="2"></td></tr>
+          <tr data-comp="ANA"><td>Analyser / Raisonner</td><td>ANA</td><td>Prévoir le caractère spontané d'une réaction redox.</td><td><input type="radio" name="ANA" value="0"></td><td><input type="radio" name="ANA" value="1"></td><td><input type="radio" name="ANA" value="2"></td></tr>
+          <tr data-comp="REA"><td>Réaliser</td><td>REA</td><td>Réaliser une pile, une classification, un test de corrosion.</td><td><input type="radio" name="REA" value="0"></td><td><input type="radio" name="REA" value="1"></td><td><input type="radio" name="REA" value="2"></td></tr>
+          <tr data-comp="VAL"><td>Valider</td><td>VAL</td><td>Vérifier la cohérence des résultats obtenus.</td><td><input type="radio" name="VAL" value="0"></td><td><input type="radio" name="VAL" value="1"></td><td><input type="radio" name="VAL" value="2"></td></tr>
+          <tr data-comp="COM"><td>Communiquer</td><td>COM</td><td>Présenter les résultats avec un vocabulaire scientifique.</td><td><input type="radio" name="COM" value="0"></td><td><input type="radio" name="COM" value="1"></td><td><input type="radio" name="COM" value="2"></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="radar-actions" style="margin-top:var(--gap-lg);">
+      <button id="btn-radar" class="btn btn-primaire">📊 Générer mon radar de compétences</button>
+      <div id="radar-resultat" style="margin-top:var(--gap-md);"></div>
+    </div>
+
+  </div>
+
+</div>
+
+<!-- ====================================================== -->
+<!-- TRACE ECRITE - COMPTE RENDU                             -->
 <!-- ====================================================== -->
 
 <div class="section" data-type="bilan">
@@ -1142,27 +1152,10 @@
     <h3>Identification</h3>
 
     <div class="form-row">
-
-      <div class="form-group">
-        <label for="nom-eleve">Nom</label>
-        <input id="nom-eleve" type="text" placeholder="Nom">
-      </div>
-
-      <div class="form-group">
-        <label for="prenom-eleve">Prénom</label>
-        <input id="prenom-eleve" type="text" placeholder="Prénom">
-      </div>
-
-      <div class="form-group">
-        <label for="classe-eleve">Classe</label>
-        <input id="classe-eleve" type="text" placeholder="Classe">
-      </div>
-
-      <div class="form-group">
-        <label for="date-eleve">Date</label>
-        <input id="date-eleve" type="date">
-      </div>
-
+      <div class="form-group"><label for="nom-eleve">Nom</label><input id="nom-eleve" type="text" placeholder="Nom"></div>
+      <div class="form-group"><label for="prenom-eleve">Prénom</label><input id="prenom-eleve" type="text" placeholder="Prénom"></div>
+      <div class="form-group"><label for="classe-eleve">Classe</label><input id="classe-eleve" type="text" placeholder="Classe"></div>
+      <div class="form-group"><label for="date-eleve">Date</label><input id="date-eleve" type="date"></div>
     </div>
 
     <h3 style="margin-top:var(--gap-md);">Résumé du TP</h3>
@@ -1182,11 +1175,11 @@
 
 </div>
 
-<!-- =============================================== -->
-    <!-- IMPRESSION COMPTE RENDU                         -->
-    <!-- =============================================== -->
+<!-- ====================================================== -->
+<!-- IMPRESSION COMPTE RENDU                                 -->
+<!-- ====================================================== -->
 
-  <div class="section" data-type="impression_tp">
+<div class="section" data-type="impression_tp">
 
   <div class="section-titre">
     <div class="picto-section">📒</div>
@@ -1194,129 +1187,25 @@
     <span class="chevron">▼</span>
   </div>
 
-
   <div class="section-corps">
 
     <p class="info">
       À la fin du TP, Imprimer votre TP en PDF.
-       Envoyer à l'enseignant votre Compte rendu en pièce jointe par la messagerie de l'ENT.
-    </p>    
+      Envoyer à l'enseignant votre Compte rendu en pièce jointe par la messagerie de l'ENT.
+    </p>
 
     <div class="toolbar">
-
-      <button id="btn-imprimer" class="btn btn-primaire">
-        🖨 Imprimer le compte-rendu
-      </button>
-
+      <button id="btn-imprimer" class="btn btn-primaire">🖨 Imprimer le compte-rendu</button>
     </div>
 
     <div class="info" style="margin-top:var(--gap-md);">
-
       L'impression récupère automatiquement :
-
       <ul>
-        <li>les paramètres de la dissolution et de la dilution ;</li>
+        <li>les paramètres saisis dans les manipulations ;</li>
         <li>les résultats du tableau ;</li>
         <li>les réponses aux questions ;</li>
         <li>l'auto-évaluation des compétences.</li>
       </ul>
-
-    </div>
-
-
-  </div>
-
-</div>   
-
-<!-- ====================================================== -->
-<!-- AUTO-ÉVALUATION  (trame commune)                        -->
-<!-- ====================================================== -->
-
-<div class="section" data-type="auto-evaluation">
-
-  <div class="section-titre">
-    <div class="picto-section">📡</div>
-    <h2>Auto-évaluation des compétences</h2>
-    <span class="chevron">▼</span>
-  </div>
-
-  <div class="section-corps">
-
-    <p class="info">
-      À la fin du TP, évaluez votre niveau de maîtrise pour chaque compétence.
-    </p>
-
-    <div class="table-responsive">
-
-      <table class="tableau-resultats autoeval-table">
-
-        <thead>
-          <tr>
-            <th>Domaine</th>
-            <th>Sigle</th>
-            <th>Je suis capable de...</th>
-            <th>0</th>
-            <th>1</th>
-            <th>2</th>
-          </tr>
-        </thead>
-
-        <tbody>
-
-          <tr data-comp="APP">
-            <td>S'approprier</td>
-            <td>APP</td>
-            <td>Identifier oxydant, réducteur et couples mis en jeu.</td>
-            <td><input type="radio" name="APP" value="0"></td>
-            <td><input type="radio" name="APP" value="1"></td>
-            <td><input type="radio" name="APP" value="2"></td>
-          </tr>
-
-          <tr data-comp="ANA">
-            <td>Analyser / Raisonner</td>
-            <td>ANA</td>
-            <td>Prévoir le sens spontané d'une réaction d'oxydoréduction.</td>
-            <td><input type="radio" name="ANA" value="0"></td>
-            <td><input type="radio" name="ANA" value="1"></td>
-            <td><input type="radio" name="ANA" value="2"></td>
-          </tr>
-
-          <tr data-comp="REA">
-            <td>Réaliser</td>
-            <td>REA</td>
-            <td>Réaliser une pile et mesurer sa f.é.m.</td>
-            <td><input type="radio" name="REA" value="0"></td>
-            <td><input type="radio" name="REA" value="1"></td>
-            <td><input type="radio" name="REA" value="2"></td>
-          </tr>
-
-          <tr data-comp="VAL">
-            <td>Valider</td>
-            <td>VAL</td>
-            <td>Vérifier la cohérence des résultats obtenus.</td>
-            <td><input type="radio" name="VAL" value="0"></td>
-            <td><input type="radio" name="VAL" value="1"></td>
-            <td><input type="radio" name="VAL" value="2"></td>
-          </tr>
-
-          <tr data-comp="COM">
-            <td>Communiquer</td>
-            <td>COM</td>
-            <td>Présenter les résultats avec un vocabulaire scientifique.</td>
-            <td><input type="radio" name="COM" value="0"></td>
-            <td><input type="radio" name="COM" value="1"></td>
-            <td><input type="radio" name="COM" value="2"></td>
-          </tr>
-
-        </tbody>
-
-      </table>
-
-    </div>
-
-    <div class="radar-actions" style="margin-top:var(--gap-lg);">
-      <button id="btn-radar" class="btn btn-primaire">📊 Générer mon radar de compétences</button>
-      <div id="radar-resultat" style="margin-top:var(--gap-md);"></div>
     </div>
 
   </div>
@@ -1328,29 +1217,12 @@
 <!-- ====================================================== -->
 
 <div class="nav-tp">
-
-  <button class="btn btn-secondaire"
-          onclick="loadTP('tp03-titrages')">
-      ← TP03
-  </button>
-
-  <button class="btn btn-secondaire"
-          onclick="location.href='../index.html'">
-      🏠 Accueil
-  </button>
-
-  <button class="btn btn-primaire"
-          onclick="loadTP('tp05-chimie-organique')">
-      TP05 →
-  </button>
-
+  <button class="btn btn-secondaire" onclick="loadTP('tp03-titrages')">← TP03</button>
+  <button class="btn btn-secondaire" onclick="location.href='../index.html'">🏠 Accueil</button>
+  <button class="btn btn-primaire" onclick="loadTP('tp05-chimie-organique')">TP05 →</button>
 </div>
 
 </main>
-
-<!-- ====================================================== -->
-<!-- CONTENEUR IMPRESSION COMPTE RENDU                       -->
-<!-- ====================================================== -->
 
 <div id="cr-print-container" style="display:none;"></div>
 
