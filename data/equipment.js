@@ -319,6 +319,15 @@ const laboratoryEquipment = [
         image:"",
         noticeUtilisation: "assets/notice/capteur_pression.pdf"
     },
+    {
+        domaine: "Mécanique",
+        nom: "Mètre ruban / règle graduée",
+        categorie: ["Acoustique"],
+        description: "Mesure des distances entre source et récepteur (atténuation avec la distance, méthode du retard)",
+        lieu: "Salle B27 - ***",
+        image:"",
+        noticeUtilisation: ""
+    },
 
     // Chimie
 
@@ -689,7 +698,7 @@ const laboratoryEquipment = [
     {
         domaine: "Signaux",
         nom: "Microphone avec prise Jack 3,5mm",
-        categorie: "Acoustique",
+        categorie: ["Acoustique"],
         description: "Émission et réception de signaux sonores",
         lieu: "Salle B27 - ***",
         image:"",
@@ -698,7 +707,7 @@ const laboratoryEquipment = [
     {
         domaine: "Signaux",
         nom: "Microphone avec prise Jack 6,5mm",
-        categorie: "Acoustique",
+        categorie: ["Acoustique"],
         description: "Émission et réception de signaux sonores",
         lieu: "Salle B27 - ***",
         image:"",
@@ -707,7 +716,7 @@ const laboratoryEquipment = [
     {
         domaine: "Signaux",
         nom: "Microphone avec prise USB",
-        categorie: "Acoustique",
+        categorie: ["Acoustique"],
         description: "Émission et réception de signaux sonores",
         lieu: "Salle B27 - ***",
         image:"",
@@ -716,7 +725,7 @@ const laboratoryEquipment = [
         {
         domaine: "Signaux",
         nom: "haut-parleur",
-        categorie: "Acoustique",
+        categorie: ["Acoustique"],
         description: "Émission et réception de signaux sonores",
         lieu: "Salle B27 - ***",
         image:"",
@@ -734,12 +743,57 @@ const laboratoryEquipment = [
     {
         domaine: "Signaux",
         nom: "Sonomètre",
-        categorie: "Acoustique",
+        categorie: ["Acoustique"],
         description: "Mesure du niveau sonore",
         lieu: "Salle B27 - ***",
         image:"",
         noticeUtilisation: "assets/notice/sonometre.pdf"
-    },    
+    },
+    {
+        domaine: "Signaux",
+        nom: "Capteurs et émetteurs piézoélectriques (kit)",
+        categorie: ["Acoustique"],
+        description: "Transducteurs piézoélectriques permettant d'émettre et de recevoir un signal sonore (chaîne de transmission)",
+        lieu: "Salle B27 - ***",
+        image:"",
+        noticeUtilisation: "assets/notice/piezo_emetteur_recepteur.pdf"
+    },
+    {
+        domaine: "Signaux",
+        nom: "Matériaux isolants phoniques (mousse acoustique, laine de verre, bois, plexiglas)",
+        categorie: ["Acoustique"],
+        description: "Plaques de différents matériaux et épaisseurs, pour comparer expérimentalement l'atténuation phonique",
+        lieu: "Salle B27 - ***",
+        image:"",
+        noticeUtilisation: "assets/notice/materiaux_isolants_phoniques.pdf"
+    },
+    {
+        domaine: "Signaux",
+        nom: "Caisson d'isolation phonique",
+        categorie: ["Acoustique"],
+        description: "Boîte ou support permettant d'interposer un matériau isolant entre la source sonore et le sonomètre",
+        lieu: "Salle B27 - ***",
+        image:"",
+        noticeUtilisation: ""
+    },
+    {
+        domaine: "Signaux",
+        nom: "Cloche à vide et pompe à vide",
+        categorie: ["Acoustique"],
+        description: "Mise en évidence de la nécessité d'un milieu matériel pour la propagation du son (réveil ou buzzer sous cloche)",
+        lieu: "Salle B27 - ***",
+        image:"",
+        noticeUtilisation: "assets/notice/cloche_a_vide.pdf"
+    },
+    {
+        domaine: "Signaux",
+        nom: "Cuve à eau étanche",
+        categorie: ["Acoustique"],
+        description: "Étude de la propagation du son dans l'eau, avec émetteur et récepteur immergeables",
+        lieu: "Salle B27 - ***",
+        image:"",
+        noticeUtilisation: ""
+    },
 
     // Sécurité
     {
@@ -768,7 +822,16 @@ const laboratoryEquipment = [
         lieu: "Salle B27 - paillasse E1",
         image:"assets/img/equipments/gant.jpg",
         noticeUtilisation: "assets/notice/gants_protection.pdf"
-    },    
+    },
+    {
+        domaine: "Sécurité",
+        nom: "Casque / bouchons anti-bruit",
+        categorie: ["Acoustique"],
+        description: "Protection auditive lors des mesures à niveau sonore élevé",
+        lieu: "Salle B27 - Etagère D2",
+        image:"",
+        noticeUtilisation: "assets/notice/casque_antibruit.pdf"
+    },
     {
         domaine: "Sécurité",
         nom: "Armoire de sécurité pour produits chimiques",
