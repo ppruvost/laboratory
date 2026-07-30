@@ -1,0 +1,703 @@
+<!--
+  Fragment SPA chargé dynamiquement par navigation.js.
+  Tous les chemins sont relatifs à la racine du site.
+  Aucun <script> dans ce fragment.
+-->
+
+<section>
+
+<!-- ====================================================== -->
+<!-- EN-TÊTE                                                 -->
+<!-- ====================================================== -->
+
+<header class="tp-header">
+
+  <div class="tp-header-logo">
+    <div class="logo">
+      <span class="sci">Sci</span><span class="Lab">Lab</span>
+    </div>
+  </div>
+
+  <div class="tp-header-centre">
+
+    <h1>Pression et niveau acoustiques</h1>
+
+    <div class="tp-meta">
+
+      <div class="tp-row">
+        <span class="tag">1ère / Tle</span>
+        <span class="tag">Acoustique</span>
+        <span class="tag">Pression acoustique, dB, atténuation</span>
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="tp-header-numero">
+    <span class="tp-numero-txt">TP05</span>
+  </div>
+
+</header>
+
+<div class="progress">
+  <div id="bar"></div>
+</div>
+
+<main id="content">
+
+<!-- ====================================================== -->
+<!-- CAPACITES                                               -->
+<!-- ====================================================== -->
+
+<div class="section" data-type="objectif">
+
+  <div class="section-titre">
+    <div class="picto-section">🎯</div>
+    <h2>Capacités évaluées</h2>
+    <span class="chevron">▼</span>
+  </div>
+
+  <div class="section-corps">
+
+    <ul>
+
+      <li>Mesurer une pression acoustique et le niveau d'intensité acoustique associé, à l'aide d'un sonomètre ou d'un capteur.</li>
+
+      <li>Calculer le niveau d'intensité acoustique (en dB) à partir de la pression acoustique ou de l'intensité acoustique en utilisant une relation donnée.</li>
+
+      <li>Étudier expérimentalement l'atténuation de l'intensité acoustique d'une onde sonore en fonction de la distance de propagation.</li>
+
+      <li>Savoir qu'un signal sonore transporte de l'énergie, et qu'une onde sonore s'atténue en se propageant, même dans un milieu qui n'absorbe pas les ondes sonores.</li>
+
+    </ul>
+
+  </div>
+
+</div>
+
+<!-- ====================================================== -->
+<!-- CONTEXTE PROFESSIONNEL                                  -->
+<!-- ====================================================== -->
+
+<div class="section" data-type="contexte-pro">
+
+  <div class="section-titre">
+    <div class="picto-section">🏭</div>
+    <h2>Contexte professionnel</h2>
+    <span class="chevron">▼</span>
+  </div>
+
+  <div class="section-corps">
+
+    <div class="filiere-select-bloc">
+      <label for="select-filiere-pro">Votre filière professionnelle :</label>
+      <select id="select-filiere-pro">
+        <option value="">-- Sélectionner une filière --</option>
+      </select>
+    </div>
+
+    <div id="contexte-pro-resultat" class="contexte-pro-resultat">
+      <p>Sélectionner votre filière professionnelle pour afficher le contexte et la problématique associée.</p>
+    </div>
+
+  </div>
+
+</div>
+
+<!-- ====================================================== -->
+<!-- SECURITE                                                -->
+<!-- ====================================================== -->
+
+<div class="section" data-type="securite">
+
+  <div class="section-titre">
+    <div class="picto-section">⚠️</div>
+    <h2>Sécurité</h2>
+    <span class="chevron">▼</span>
+  </div>
+
+  <div class="section-corps">
+
+    <div class="info">
+      Ce TP ne met pas en œuvre de produit chimique. Le risque
+      principal reste le risque auditif, en particulier lors des
+      mesures rapprochées du haut-parleur.
+    </div>
+
+    <ul style="padding-left:1.5rem;line-height:2">
+      <li><strong>Réglage progressif :</strong> démarrer le GBF au volume minimal.</li>
+      <li><strong>Distance de sécurité :</strong> ne jamais placer son oreille à proximité immédiate du haut-parleur lors des mesures à faible distance.</li>
+      <li><strong>Casque anti-bruit :</strong> port recommandé lors des séries de mesures rapprochées.</li>
+    </ul>
+
+  </div>
+
+</div>
+
+<!-- ====================================================== -->
+<!-- MATERIEL                                                -->
+<!-- ====================================================== -->
+
+<div class="section" data-type="materiel">
+
+  <div class="section-titre">
+    <div class="picto-section">🧪</div>
+    <h2>Matériel nécessaire</h2>
+    <span class="chevron">▼</span>
+  </div>
+
+  <div class="section-corps">
+
+    <h3>Équipements</h3>
+    <div id="materiel-equipements" class="grille-materiel">
+    </div>
+
+  </div>
+
+</div>
+
+<!-- ====================================================== -->
+<!-- MANIPULATIONS                                           -->
+<!-- ====================================================== -->
+
+<div class="section" data-type="preparation">
+
+  <div class="section-titre">
+    <div class="picto-section">⚗️</div>
+    <h2>Manipulations</h2>
+    <span class="chevron">▼</span>
+  </div>
+
+  <div class="section-corps">
+
+    <div class="tabs-container">
+
+      <div class="tabs-header">
+        <button class="tab-btn actif" data-tab="niveau-depuis-pression">Niveau depuis pression/intensité</button>
+        <button class="tab-btn" data-tab="attenuation-distance">Atténuation avec la distance</button>
+      </div>
+
+      <!-- ============================ -->
+      <!-- NIVEAU DEPUIS PRESSION/INT   -->
+      <!-- ============================ -->
+
+      <div class="tab-panel actif" id="niveau-depuis-pression">
+
+        <h3>Calculer un niveau d'intensité acoustique</h3>
+
+        <div class="info">
+          Le niveau d'intensité acoustique peut se calculer à partir de
+          la pression acoustique p (en Pa, référence p₀ = 2×10⁻⁵ Pa) ou
+          de l'intensité acoustique I (en W/m², référence I₀ = 10⁻¹²
+          W/m²).
+        </div>
+
+        <div class="formule">
+          L = 20 × log₁₀(p / p₀) &nbsp;&nbsp;ou&nbsp;&nbsp; L = 10 × log₁₀(I / I₀)
+        </div>
+
+        <h4>À partir d'une pression acoustique</h4>
+
+        <div class="form-row">
+
+          <div class="form-group">
+            <label for="pression-mesuree">Pression acoustique p (Pa)</label>
+            <input id="pression-mesuree" type="number" step="0.0001">
+          </div>
+
+          <div class="form-group">
+            <label for="niveau-depuis-pression-out">Niveau calculé</label>
+            <div class="input-unite">
+              <output id="niveau-depuis-pression-out">—</output>
+            </div>
+          </div>
+
+        </div>
+
+        <h4 style="margin-top:var(--gap-md);">À partir d'une intensité acoustique</h4>
+
+        <div class="form-row">
+
+          <div class="form-group">
+            <label for="intensite-mesuree">Intensité acoustique I (W/m²)</label>
+            <input id="intensite-mesuree" type="number" step="0.000000000001">
+          </div>
+
+          <div class="form-group">
+            <label for="niveau-depuis-intensite-out">Niveau calculé</label>
+            <div class="input-unite">
+              <output id="niveau-depuis-intensite-out">—</output>
+            </div>
+          </div>
+
+        </div>
+
+        <h4 style="margin-top:var(--gap-lg);">Protocole</h4>
+
+        <ol class="etapes">
+          <li>Relever, à l'aide du capteur de pression acoustique ou du sonomètre, la pression (ou l'intensité) acoustique à un point donné.</li>
+          <li>Saisir la valeur mesurée dans le champ correspondant : le niveau en dB est calculé automatiquement.</li>
+          <li>Comparer le résultat obtenu à une mesure directe au sonomètre au même point.</li>
+        </ol>
+
+        <div class="mode-op">
+          <img src="./assets/images/a5-niveau-depuis-pression.png" alt="Mode opératoire — calcul du niveau à partir de la pression ou de l'intensité" class="mode-image">
+        </div>
+
+      </div>
+
+      <!-- ============================ -->
+      <!-- ATTENUATION AVEC DISTANCE    -->
+      <!-- ============================ -->
+
+      <div class="tab-panel" id="attenuation-distance">
+
+        <h3>Atténuation du niveau sonore avec la distance</h3>
+
+        <div class="info">
+          Une onde sonore émise par une source ponctuelle s'atténue en
+          s'éloignant de la source, même dans un milieu qui n'absorbe
+          pas le son : l'énergie se répartit sur une surface de plus en
+          plus grande.
+        </div>
+
+        <div class="form-row">
+
+          <div class="form-group">
+            <label for="attenuation-source">Réglage de la source (constant)</label>
+            <input id="attenuation-source" type="text" placeholder="Ex : GBF 1 kHz, volume 3">
+          </div>
+
+        </div>
+
+        <div class="table-responsive">
+          <table class="tableau-resultats">
+            <thead>
+              <tr>
+                <th>N°</th>
+                <th>Distance (m)</th>
+                <th>Niveau mesuré (dB)</th>
+              </tr>
+            </thead>
+            <tbody id="tbody-attenuation-distance">
+            </tbody>
+          </table>
+        </div>
+
+        <div class="form-row">
+
+          <div class="form-group">
+            <label for="attenuation-distance-valeur">Distance (m)</label>
+            <input id="attenuation-distance-valeur" type="number" step="0.1">
+          </div>
+
+          <div class="form-group">
+            <label for="attenuation-niveau-valeur">Niveau mesuré (dB)</label>
+            <input id="attenuation-niveau-valeur" type="number" step="1">
+          </div>
+
+          <div class="form-group">
+            <label>&nbsp;</label>
+            <button id="attenuation-ajouter" type="button" class="btn btn-primaire">
+              + Ajouter le point
+            </button>
+          </div>
+
+        </div>
+
+        <div id="graphique-attenuation-distance" class="graphique-conteneur">
+          <p class="info">Ajouter au moins 2 points pour afficher le graphique.</p>
+        </div>
+
+        <h4 style="margin-top:var(--gap-lg);">Protocole</h4>
+
+        <ol class="etapes">
+          <li>Régler la source sonore (GBF + haut-parleur) une fois pour toutes, sans y retoucher pendant la série de mesures.</li>
+          <li>Mesurer le niveau sonore au sonomètre pour plusieurs distances croissantes à la source (par exemple 0,5 m ; 1 m ; 2 m ; 4 m).</li>
+          <li>Observer sur le graphique obtenu comment le niveau sonore diminue lorsque la distance augmente.</li>
+        </ol>
+
+        <div class="mode-op">
+          <img src="./assets/images/a5-attenuation-distance.png" alt="Mode opératoire — atténuation avec la distance" class="mode-image">
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+<!-- ====================================================== -->
+<!-- TABLEAU DES RÉSULTATS                                   -->
+<!-- ====================================================== -->
+
+<div class="section" data-type="resultats">
+
+  <div class="section-titre">
+    <div class="picto-section">📊</div>
+    <h2>Tableau de résultats</h2>
+    <span class="chevron">▼</span>
+  </div>
+
+  <div class="section-corps">
+
+    <div class="table-responsive">
+
+      <table class="tableau-resultats">
+
+        <thead>
+          <tr>
+            <th>Mesure</th>
+            <th>Valeur attendue</th>
+            <th>Valeur mesurée</th>
+            <th>Écart</th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          <tr>
+            <td>Niveau sonore à distance de référence (dB)</td>
+            <td><input id="ref-niveau-reference" type="number" step="1" placeholder="attendue"></td>
+            <td><input id="mesuree-niveau-reference" type="number" step="1" placeholder="mesurée"></td>
+            <td id="ecart-niveau-reference">—</td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+  </div>
+
+</div>
+
+<!-- ====================================================== -->
+<!-- ACOUSTIQUE ET ENVIRONNEMENT                             -->
+<!-- ====================================================== -->
+
+<div class="section" data-type="environnement">
+
+  <div class="section-titre">
+    <div class="picto-section">🌱</div>
+    <h2>Acoustique et environnement</h2>
+    <span class="chevron">▼</span>
+  </div>
+
+  <div class="section-corps">
+
+    <h3>Bonnes pratiques au laboratoire</h3>
+
+    <ul style="padding-left:1.5rem;line-height:2">
+      <li>Ne pas laisser le GBF ou le haut-parleur allumés en dehors des phases de mesure.</li>
+      <li>Régler le volume au strict nécessaire pour la mesure demandée.</li>
+    </ul>
+
+    <h3 style="margin-top:var(--gap-md);">Un enjeu de prévention au poste de travail</h3>
+
+    <p>
+      Comprendre l'atténuation du niveau sonore avec la distance permet
+      d'organiser un poste de travail (éloignement d'une source
+      bruyante, écrans acoustiques) afin de limiter l'exposition
+      sonore des opérateurs sans recourir systématiquement à des
+      protections individuelles.
+    </p>
+
+  </div>
+
+</div>
+
+<!-- ====================================================== -->
+<!-- TRACE ECRITE - COMPTE RENDU                            -->
+<!-- ====================================================== -->
+
+<div class="section" data-type="bilan">
+
+  <div class="section-titre">
+    <div class="picto-section">📝</div>
+    <h2>Trace écrite - Compte rendu</h2>
+    <span class="chevron">▼</span>
+  </div>
+
+  <div class="section-corps">
+
+    <h3>Identification</h3>
+
+    <div class="form-row">
+
+      <div class="form-group">
+        <label for="nom-eleve">Nom</label>
+        <input id="nom-eleve" type="text" placeholder="Nom">
+      </div>
+
+      <div class="form-group">
+        <label for="prenom-eleve">Prénom</label>
+        <input id="prenom-eleve" type="text" placeholder="Prénom">
+      </div>
+
+      <div class="form-group">
+        <label for="classe-eleve">Classe</label>
+        <input id="classe-eleve" type="text" placeholder="Classe">
+      </div>
+
+      <div class="form-group">
+        <label for="date-eleve">Date</label>
+        <input id="date-eleve" type="date">
+      </div>
+
+    </div>
+
+    <h3 style="margin-top:var(--gap-md);">Résumé du TP</h3>
+
+    <div class="zone-eleve">
+      <textarea id="resume-tp" rows="6" placeholder="Résumer les calculs et mesures réalisés sur le niveau et la pression acoustiques..."></textarea>
+    </div>
+
+    <h3 style="margin-top:var(--gap-md);">Questions</h3>
+
+    <div class="questions-bloc" data-tp="pression-acoustique">
+
+    <ol class="questions-tp">
+
+      <li>
+        <div class="question-entete">
+          <strong>
+            Expliquer la différence entre pression acoustique, intensité
+            acoustique et niveau d'intensité acoustique.
+          </strong>
+          <span class="cartouche" data-comp="APP">APP</span>
+        </div>
+        <div class="zone-eleve">
+          <textarea id="question1" rows="4" placeholder="Votre réponse..."></textarea>
+        </div>
+      </li>
+
+      <li>
+        <div class="question-entete">
+          <strong>
+            Décrire le protocole permettant d'étudier l'atténuation du
+            niveau sonore en fonction de la distance à la source.
+          </strong>
+          <span class="cartouche" data-comp="REA">REA</span>
+        </div>
+        <div class="zone-eleve">
+          <textarea id="question2" rows="4" placeholder="Votre réponse..."></textarea>
+        </div>
+      </li>
+
+      <li>
+        <div class="question-entete">
+          <strong>
+            À partir du graphique obtenu, analyser comment le niveau
+            sonore évolue lorsque la distance à la source double.
+          </strong>
+          <span class="cartouche" data-comp="ANA">ANA</span>
+        </div>
+        <div class="zone-eleve">
+          <textarea id="question3" rows="5" placeholder="Votre analyse..."></textarea>
+        </div>
+      </li>
+
+      <li>
+        <div class="question-entete">
+          <strong>
+            En lien avec le contexte professionnel de votre filière,
+            proposer une organisation de poste de travail limitant
+            l'exposition sonore grâce à la distance.
+          </strong>
+          <span class="cartouche" data-comp="COM">COM</span>
+        </div>
+        <div class="zone-eleve">
+          <textarea id="question4" rows="5" placeholder="Votre réponse..."></textarea>
+        </div>
+      </li>
+
+      <li class="question-problematique">
+        <div class="question-entete">
+          <strong>Répondre à la problématique posée en début de TP :</strong>
+          <span class="cartouche" data-comp="VAL">VAL</span>
+        </div>
+        <p class="problematique-rappel" data-activite="pression-acoustique"></p>
+        <div class="zone-eleve">
+          <textarea id="question5" rows="5" placeholder="Répondre à la problématique en vous appuyant sur vos résultats expérimentaux..."></textarea>
+        </div>
+      </li>
+
+    </ol>
+
+    </div>
+
+  </div>
+
+</div>
+
+<!-- ====================================================== -->
+<!-- AUTO-ÉVALUATION                                         -->
+<!-- ====================================================== -->
+
+<div class="section" data-type="auto-evaluation">
+
+  <div class="section-titre">
+    <div class="picto-section">📡</div>
+    <h2>Auto-évaluation des compétences</h2>
+    <span class="chevron">▼</span>
+  </div>
+
+  <div class="section-corps">
+
+    <p class="info">
+      À la fin du TP, évaluez votre niveau de maîtrise pour chaque
+      compétence.
+    </p>
+
+    <div class="table-responsive">
+
+      <table class="tableau-resultats autoeval-table">
+
+        <thead>
+          <tr>
+            <th>Domaine</th>
+            <th>Sigle</th>
+            <th>Je suis capable de...</th>
+            <th>0</th>
+            <th>1</th>
+            <th>2</th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          <tr data-comp="APP">
+            <td>S'approprier</td>
+            <td>APP</td>
+            <td>Distinguer pression, intensité et niveau acoustiques.</td>
+            <td><input type="radio" name="APP" value="0"></td>
+            <td><input type="radio" name="APP" value="1"></td>
+            <td><input type="radio" name="APP" value="2"></td>
+          </tr>
+
+          <tr data-comp="ANA">
+            <td>Analyser / Raisonner</td>
+            <td>ANA</td>
+            <td>Analyser l'atténuation du niveau sonore avec la distance.</td>
+            <td><input type="radio" name="ANA" value="0"></td>
+            <td><input type="radio" name="ANA" value="1"></td>
+            <td><input type="radio" name="ANA" value="2"></td>
+          </tr>
+
+          <tr data-comp="REA">
+            <td>Réaliser</td>
+            <td>REA</td>
+            <td>Mesurer un niveau sonore et calculer un niveau à partir d'une pression ou d'une intensité.</td>
+            <td><input type="radio" name="REA" value="0"></td>
+            <td><input type="radio" name="REA" value="1"></td>
+            <td><input type="radio" name="REA" value="2"></td>
+          </tr>
+
+          <tr data-comp="VAL">
+            <td>Valider</td>
+            <td>VAL</td>
+            <td>Vérifier la cohérence des résultats obtenus.</td>
+            <td><input type="radio" name="VAL" value="0"></td>
+            <td><input type="radio" name="VAL" value="1"></td>
+            <td><input type="radio" name="VAL" value="2"></td>
+          </tr>
+
+          <tr data-comp="COM">
+            <td>Communiquer</td>
+            <td>COM</td>
+            <td>Présenter les résultats avec un vocabulaire scientifique.</td>
+            <td><input type="radio" name="COM" value="0"></td>
+            <td><input type="radio" name="COM" value="1"></td>
+            <td><input type="radio" name="COM" value="2"></td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+    <div class="radar-actions" style="margin-top:var(--gap-lg);">
+
+      <button id="btn-radar" class="btn btn-primaire">
+        📊 Générer mon radar de compétences
+      </button>
+
+      <div id="radar-resultat" style="margin-top:var(--gap-md);"></div>
+
+    </div>
+
+  </div>
+
+</div>
+
+<!-- ====================================================== -->
+<!-- IMPRESSION COMPTE RENDU                                 -->
+<!-- ====================================================== -->
+
+<div class="section" data-type="impression_tp">
+
+  <div class="section-titre">
+    <div class="picto-section">📒</div>
+    <h2>Impression du compte-rendu</h2>
+    <span class="chevron">▼</span>
+  </div>
+
+  <div class="section-corps">
+
+    <p class="info">
+      À la fin du TP, imprimer votre compte-rendu en PDF.
+      L'envoyer à l'enseignant en pièce jointe par la messagerie de l'ENT.
+    </p>
+
+    <div class="toolbar">
+      <button id="btn-imprimer" class="btn btn-primaire">
+        🖨 Imprimer le compte-rendu
+      </button>
+    </div>
+
+    <div class="info" style="margin-top:var(--gap-md);">
+      L'impression récupère automatiquement :
+      <ul>
+        <li>les calculs de niveau à partir de la pression et de l'intensité acoustiques ;</li>
+        <li>les mesures d'atténuation avec la distance ;</li>
+        <li>les résultats du tableau ;</li>
+        <li>les réponses aux questions ;</li>
+        <li>l'auto-évaluation des compétences.</li>
+      </ul>
+    </div>
+
+  </div>
+
+</div>
+
+<!-- ====================================================== -->
+<!-- NAVIGATION                                              -->
+<!-- ====================================================== -->
+
+<div class="nav-tp">
+
+  <button class="btn btn-secondaire" onclick="loadTP('tp04-propagation-du-son')">
+    ← TP04
+  </button>
+
+  <button class="btn btn-primaire" onclick="location.href='../index.html'">
+    🏠 Accueil
+  </button>
+
+</div>
+
+</main>
+
+<!-- ====================================================== -->
+<!-- CONTENEUR IMPRESSION COMPTE RENDU                       -->
+<!-- ====================================================== -->
+
+<div id="cr-print-container" style="display:none;"></div>
+
+</section>
