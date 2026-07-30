@@ -48,7 +48,7 @@ function getDefaultModule(domaine) {
         "tp-chimie": "tp01-solutions",
         "tp-thermique": "tp01-capteurs-temperature",
         "tp-electricite": "tp01-puissance-energie",
-        "tp-acoustique": "tp01-introduction",
+        "tp-acoustique": "tp01-caracteriser-un-son",
         "tp-optique": "tp01-exercice",        
         "tp-mecanique": "tp01-decrire-mouvement"
         
