@@ -1,0 +1,97 @@
+/* ── Tokens globaux, composants TP, impression ────────────────── */
+@import url("../../css/global.css");
+@import url("../../css/tp.css");
+@import url("../../css/print.css");
+
+/* ── Overrides communs à tous les domaines (header, nav, cartes,
+   tableaux, EPI, radar, graphique...) — paramétrés par les variables
+   de couleur ci-dessous ── */
+@import url("../../css/domaine.css");
+
+/* ════════════════════════════════════════════════════════════════
+   IDENTITÉ DU DOMAINE ACOUSTIQUE
+   L'ordre d'écriture n'a pas d'importance pour la résolution des
+   var() : ces valeurs s'appliquent à css/domaine.css même si celui-ci
+   est importé plus haut dans ce fichier.
+   ════════════════════════════════════════════════════════════════ */
+:root {
+  --domaine-accent:       #1B6CA8;
+  --domaine-accent-fonce: #114A75;
+  --domaine-accent-rgb:   27, 108, 168;
+}
+
+/* Tout le reste (header, nav, cartes, formulaires, tableaux, EPI,
+   matériel, radar, graphique, histogramme, cartouches, quiz,
+   problématique, champ-erreur...) vient de tp.css et css/domaine.css
+   — plus aucune duplication propre à ce domaine. */
+
+/* ════════════════════════════════════════════════════════════════
+   COMPLÉMENTS PROPRES À L'ACOUSTIQUE
+   Ces deux composants n'existent pas en thermique et ne sont donc
+   pas déjà couverts par css/domaine.css. Si d'autres domaines (ex.
+   tp-signaux) venaient à réutiliser une échelle graduée ou un
+   feedback de schéma, il serait préférable de les faire migrer dans
+   css/domaine.css plutôt que de les dupliquer ici.
+   ════════════════════════════════════════════════════════════════ */
+
+/* Échelle de niveau d'intensité acoustique (TP01) */
+.echelle-db-conteneur {
+  position: relative;
+  margin-top: var(--gap-md, 1rem);
+}
+
+.echelle-db-barre {
+  display: flex;
+  width: 100%;
+  height: 2.5rem;
+  border-radius: 6px;
+  overflow: hidden;
+  font-size: 0.7rem;
+  color: #fff;
+}
+
+.echelle-db-segment {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0 0.25rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Dégradé du silence (vert) au danger immédiat (rouge), un segment
+   par repère défini dans ECHELLE_DB (tp01-caracteriser-un-son.js) */
+.echelle-db-segment:nth-child(1) { background: #2e7d32; }
+.echelle-db-segment:nth-child(2) { background: #66bb6a; }
+.echelle-db-segment:nth-child(3) { background: #9ccc65; }
+.echelle-db-segment:nth-child(4) { background: #e0a800; }
+.echelle-db-segment:nth-child(5) { background: #e8730f; }
+.echelle-db-segment:nth-child(6) { background: #c0392b; }
+.echelle-db-segment:nth-child(7) { background: #7a1f14; }
+
+.echelle-db-curseur {
+  position: absolute;
+  top: -0.4rem;
+  width: 0;
+  height: 0;
+  border-left: 0.5rem solid transparent;
+  border-right: 0.5rem solid transparent;
+  border-top: 0.6rem solid #222;
+  transform: translateX(-50%);
+  transition: left 0.15s ease-out;
+}
+
+/* Feedback du schéma de la chaîne de transmission (TP03) */
+#chaine-resultat.succes {
+  border-left: 4px solid #2e7d32;
+  background: #eaf6ea;
+  color: #1b4d1e;
+}
+
+#chaine-resultat.erreur {
+  border-left: 4px solid #c0392b;
+  background: #fbeceb;
+  color: #5c1912;
+}
