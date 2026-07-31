@@ -167,7 +167,7 @@ const laboratoryEquipment = [
     {
         domaine: "Optique",
         nom: "Lentilles convergentes et divergentes",
-        categorie: "",
+        categorie: ["Optique"],
         description: "Étude des systèmes optiques",
         lieu: "Salle B23 / étagère A1",
         image:"",
@@ -176,7 +176,7 @@ const laboratoryEquipment = [
     {
         domaine: "Optique",
         nom: "Banc d'optique",
-        categorie: "",
+        categorie: ["Optique"],
         description: "Support pour expériences optiques",
         lieu: "Salle B27 - ***",
         image:"",
@@ -185,7 +185,7 @@ const laboratoryEquipment = [
     {
         domaine: "Optique",
         nom: "Source lumineuse blanche",
-        categorie: "",
+        categorie: ["Optique"],
         description: "Éclairage pour expériences optiques",
         lieu: "Salle B23 / étagère A2",
         image:"",
@@ -194,8 +194,8 @@ const laboratoryEquipment = [
     {
         domaine: "Optique",
         nom: "Laser (classe II)",
-        categorie: ["Signaux"],
-        description: "Source de lumière cohérente, utilisée pour tester la réflexion totale dans une fibre optique",
+        categorie: ["Signaux", "Optique"],
+        description: "Source de lumière cohérente, utilisée pour tester la réflexion totale dans une fibre optique ou un bloc réfringent",
         lieu: "Salle B23 / étagère A2",
         image:"",
         noticeUtilisation: "assets/notice/laser.pdf"
@@ -203,7 +203,7 @@ const laboratoryEquipment = [
     {
         domaine: "Optique",
         nom: "Écran blanc",
-        categorie: "",
+        categorie: ["Optique"],
         description: "Visualisation des images",
         lieu: "Salle B27 - ***",
         image:"",
@@ -212,7 +212,7 @@ const laboratoryEquipment = [
     {
         domaine: "Optique",
         nom: "Prismes",
-        categorie: "",
+        categorie: ["Optique"],
         description: "Décomposition de la lumière",
         lieu: "Salle B23 / étagère A2",
         image:"",
@@ -230,7 +230,7 @@ const laboratoryEquipment = [
     {
         domaine: "Optique",
         nom: "Luxmètre",
-        categorie: "",
+        categorie: ["Optique"],
         description: "Mesure de l'éclairement lumineux",
         lieu: "Salle B27 - ***",
         image:"",
@@ -239,7 +239,7 @@ const laboratoryEquipment = [
     {
         domaine: "Optique",
         nom: "Spectroscope",
-        categorie: "",
+        categorie: ["Optique"],
         description: "Analyse spectrale de la lumière",
         lieu: "Salle B27 - ***",
         image:"",
@@ -248,11 +248,56 @@ const laboratoryEquipment = [
     {
         domaine: "Optique",
         nom: "Filtres colorés",
-        categorie: "",
+        categorie: ["Optique"],
         description: "Sélection de longueurs d'onde",
         lieu: "Salle B27 - ***",
         image:"",
         noticeUtilisation: "assets/notice/filtres_colorés.pdf"
+    },
+    {
+        domaine: "Optique",
+        nom: "Bloc hémicylindrique (plexiglas)",
+        categorie: ["Optique"],
+        description: "Bloc réfringent semi-circulaire permettant de mesurer les angles d'incidence et de réfraction sans déviation parasite à la sortie",
+        lieu: "Salle B27 - ***",
+        image:"",
+        noticeUtilisation: "assets/notice/bloc_hemicylindrique.pdf"
+    },
+    {
+        domaine: "Optique",
+        nom: "Disque optique gradué et rapporteur",
+        categorie: ["Optique"],
+        description: "Support gradué en degrés pour mesurer les angles d'incidence, de réflexion et de réfraction",
+        lieu: "Salle B27 - ***",
+        image:"",
+        noticeUtilisation: ""
+    },
+    {
+        domaine: "Optique",
+        nom: "Kit photocomposants (photorésistance, photodiode, phototransistor, photopile)",
+        categorie: ["Optique"],
+        description: "Composants à associer à un générateur et un multimètre pour tracer leur caractéristique en fonction de l'éclairement ou de la longueur d'onde",
+        lieu: "Salle B27 - ***",
+        image:"",
+        noticeUtilisation: "assets/notice/photocomposants.pdf"
+    },
+    {
+        domaine: "Optique",
+        nom: "Lampes colorées monochromatiques (rouge, vert, bleu)",
+        categorie: ["Optique"],
+        description: "Sources lumineuses pour la synthèse additive des couleurs",
+        lieu: "Salle B23 / étagère A2",
+        image:"",
+        noticeUtilisation: ""
+    },
+    {
+        domaine: "Optique",
+        nom: "Modèle optique simplifié de l'œil",
+        categorie: ["Optique"],
+        description: "Maquette (lentille + écran mobile) illustrant la formation d'une image sur la rétine",
+        lieu: "Salle B27 - ***",
+        image:"",
+        noticeUtilisation: ""
     },
 
     // Mécanique
@@ -903,6 +948,15 @@ const laboratoryEquipment = [
         lieu: "Salle B27 - Etagère D2",
         image:"",
         noticeUtilisation: "assets/notice/casque_antibruit.pdf"
+    },
+    {
+        domaine: "Sécurité",
+        nom: "Lunettes de protection laser",
+        categorie: ["Optique", "Signaux"],
+        description: "Protection oculaire adaptée à la longueur d'onde du laser utilisé",
+        lieu: "Salle B27 - Etagère D2",
+        image:"",
+        noticeUtilisation: "assets/notice/lunettes_laser.pdf"
     },
     {
         domaine: "Sécurité",
