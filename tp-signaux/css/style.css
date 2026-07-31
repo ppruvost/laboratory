@@ -20,6 +20,10 @@
   --domaine-accent-rgb:   16, 185, 129;
 }
 
+.titre-tp {
+    color: #ffffff !important;
+}
+
 /* Tout le reste (header, nav, cartes, formulaires, tableaux, EPI,
    matériel, radar, graphique, histogramme, cartouches, quiz,
    problématique, champ-erreur...) vient de tp.css et css/domaine.css
