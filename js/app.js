@@ -213,10 +213,11 @@ closeViewer?.addEventListener("click", () => {
 
 document.getElementById("openChimie")    ?.addEventListener("click", () => openTP("tp-chimie/index.html"));
 document.getElementById("openAcoustique") ?.addEventListener("click", () => openTP("tp-acoustique/index.html"));
-document.getElementById("openOptique")    ?.addEventListener("click", () => openTP("tp-lumiere/index.html"));
+document.getElementById("openOptique")    ?.addEventListener("click", () => openTP("tp-optique/index.html"));
 document.getElementById("openElectricite")?.addEventListener("click", () => openTP("tp-electricite/index.html"));
 document.getElementById("openMecanique")  ?.addEventListener("click", () => openTP("tp-mecanique/index.html"));
 document.getElementById("openThermique")  ?.addEventListener("click", () => openTP("tp-thermique/index.html"));
+document.getElementById("openSignaux")  ?.addEventListener("click", () => openTP("tp-signaux/index.html"));
 
 // =====================================================
 // PROGRESS BAR
