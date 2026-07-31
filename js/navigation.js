@@ -51,7 +51,7 @@ function getDefaultModule(domaine) {
         "tp-thermique": "tp01-capteurs-temperature",
         "tp-electricite": "tp01-puissance-energie",
         "tp-acoustique": "tp01-caracteriser-un-son",
-        "tp-optique": "tp01-exercice",        
+        "tp-optique": "tp01-sources-lumineuses",        
         "tp-mecanique": "tp01-decrire-mouvement",
       "tp-signaux": "tp01-onde-electromagnetique"
         
