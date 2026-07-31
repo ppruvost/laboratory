@@ -18,6 +18,7 @@ import { initRadarCompetences } from '../../js/radar.js';
 import { initImpressionCompteRendu } from './compte-rendu-acoustique.js';
 import { initMateriel } from '../../js/materiel.js';
 import laboratoryEquipment from '../../data/equipment.js';
+import { initExaoAcquisition } from './exao01.js';
 
 // Contexte professionnel par filière (clé "niveau-idFiliere")
 const CONTEXTES_PRO = {
@@ -48,6 +49,7 @@ export function init() {
   initVitessePropagation();
   initLongueurOnde();
   initTableauEcarts();
+  initExaoAcquisition();
 
   initMateriel({
     equipementId: 'materiel-equipements',
