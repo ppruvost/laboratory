@@ -70,6 +70,8 @@
 
       <li>Savoir que la vitesse du son dépend du milieu de propagation, et connaître les ordres de grandeur dans l'air et dans l'eau.</li>
 
+      <li>Utiliser un système d'acquisition ExAO (capteurs, corrélation croisée) pour déterminer automatiquement un retard τ et en déduire une vitesse de propagation.</li>
+
     </ul>
 
   </div>
@@ -177,6 +179,7 @@
         <button class="tab-btn actif" data-tab="milieu-materiel">Nécessité d'un milieu matériel</button>
         <button class="tab-btn" data-tab="vitesse-propagation">Vitesse de propagation</button>
         <button class="tab-btn" data-tab="longueur-onde">Longueur d'onde et fréquence</button>
+        <button class="tab-btn" data-tab="acquisition-exao">Acquisition ExAO (temps réel)</button>
       </div>
 
       <!-- ============================ -->
@@ -351,6 +354,304 @@
 
         <div class="mode-op">
           <img src="./assets/images/a4-longueur-onde.png" alt="Mode opératoire — relation longueur d'onde/vitesse/fréquence" class="mode-image">
+        </div>
+
+      </div>
+
+      <!-- ============================ -->
+      <!-- ACQUISITION EXAO (TEMPS REEL) -->
+      <!-- ============================ -->
+
+      <div class="tab-panel" id="acquisition-exao">
+
+        <h3>Acquisition ExAO — mesure automatique de la vitesse du son</h3>
+
+        <div class="info">
+          Deux capteurs sonores connectés à l'ordinateur — micro
+          interne (CH1, référence) et micro externe USB (CH2, décalé
+          de la distance d) — capturent simultanément le même signal
+          acoustique. Le retard τ entre les deux voies est calculé par
+          corrélation croisée ; la vitesse s'en déduit : v = d / τ.
+        </div>
+
+        <div class="exao-status-bar" id="exaoStatusBar">
+          <span class="exao-status-dot" id="exaoStatusDot"></span>
+          <span id="exaoStatusText">Modules non connectés — cliquez sur « Détecter les périphériques »</span>
+        </div>
+
+        <h4 style="margin-top:var(--gap-lg);">1. Connexion des capteurs</h4>
+
+        <p>
+          Le micro interne de l'ordinateur (1ᵉʳ capteur sonore) est
+          déclaré sur l'entrée <strong>EA1</strong> et le micro externe
+          USB (2ᵉ capteur sonore) sur l'entrée <strong>EA2</strong>.
+        </p>
+
+        <div class="exao-connect-grid">
+
+          <div class="exao-connect-schema">
+            <svg viewBox="0 0 480 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Schéma de connexion des deux capteurs sonores">
+
+              <rect x="160" y="50" width="160" height="100" rx="8" fill="#f4f8fb" stroke="var(--domaine-accent)" stroke-width="1.5"/>
+              <text x="240" y="80" text-anchor="middle" font-size="12" font-weight="700" fill="var(--domaine-accent-fonce)">SciLab Computer-V01</text>
+              <text x="240" y="96" text-anchor="middle" font-size="9" fill="#5a6b78">Labo Pro</text>
+
+              <rect x="170" y="110" width="40" height="24" rx="3" fill="#fff" stroke="var(--domaine-accent)" stroke-width="1"/>
+              <text x="190" y="125" text-anchor="middle" font-size="9" fill="var(--domaine-accent-fonce)">EA1</text>
+              <rect x="270" y="110" width="40" height="24" rx="3" fill="#fff" stroke="#e0a800" stroke-width="1"/>
+              <text x="290" y="125" text-anchor="middle" font-size="9" fill="#a97400">EA2</text>
+
+              <rect x="220" y="148" width="40" height="14" rx="2" fill="#eee" stroke="#999" stroke-width="1"/>
+              <text x="240" y="158" text-anchor="middle" font-size="8" fill="#666">Capture</text>
+
+              <ellipse cx="60" cy="90" rx="32" ry="22" fill="#f4f8fb" stroke="var(--domaine-accent)" stroke-width="1.5"/>
+              <text x="60" y="87" text-anchor="middle" font-size="9" font-weight="700" fill="var(--domaine-accent-fonce)">Capteur</text>
+              <text x="60" y="99" text-anchor="middle" font-size="8" fill="#5a6b78">Micro 1</text>
+
+              <ellipse cx="420" cy="90" rx="32" ry="22" fill="#fdf6e3" stroke="#e0a800" stroke-width="1.5"/>
+              <text x="420" y="87" text-anchor="middle" font-size="9" font-weight="700" fill="#a97400">Capteur</text>
+              <text x="420" y="99" text-anchor="middle" font-size="8" fill="#8a6a10">Micro 2</text>
+
+              <line x1="92" y1="90" x2="170" y2="122" stroke="var(--domaine-accent)" stroke-width="1.5" stroke-dasharray="4 3"/>
+              <line x1="388" y1="90" x2="310" y2="122" stroke="#e0a800" stroke-width="1.5" stroke-dasharray="4 3"/>
+
+              <line x1="240" y1="162" x2="240" y2="185" stroke="#999" stroke-width="2"/>
+              <rect x="215" y="185" width="50" height="12" rx="2" fill="#eee" stroke="#999" stroke-width="1"/>
+              <text x="240" y="194" text-anchor="middle" font-size="7" fill="#666">ANALYSE</text>
+
+              <line x1="60" y1="170" x2="420" y2="170" stroke="#bbb" stroke-width="1" stroke-dasharray="3 3"/>
+              <line x1="60" y1="164" x2="60" y2="176" stroke="#999" stroke-width="1"/>
+              <line x1="420" y1="164" x2="420" y2="176" stroke="#999" stroke-width="1"/>
+              <text x="240" y="184" text-anchor="middle" font-size="9" fill="#666">d (m) — à mesurer à la règle</text>
+
+              <circle cx="128" cy="104" r="9" fill="#f4f8fb" stroke="var(--domaine-accent)" stroke-width="1"/>
+              <text x="128" y="108" text-anchor="middle" font-size="9" fill="var(--domaine-accent-fonce)">1</text>
+              <circle cx="352" cy="104" r="9" fill="#fdf6e3" stroke="#e0a800" stroke-width="1"/>
+              <text x="352" y="108" text-anchor="middle" font-size="9" fill="#a97400">2</text>
+              <circle cx="240" cy="170" r="9" fill="#eee" stroke="#999" stroke-width="1"/>
+              <text x="240" y="174" text-anchor="middle" font-size="9" fill="#666">3</text>
+            </svg>
+          </div>
+
+          <div>
+            <ol class="etapes">
+              <li><strong>Capteur 1 (micro référence)</strong> → entrée EA1 interne à l'ordinateur. Placez-le près de la source sonore, position fixe.</li>
+              <li><strong>Capteur 2 (micro mobile)</strong> → entrée EA2 externe (prise USB). Positionnez-le à la distance d mesurée à la règle.</li>
+              <li><strong>Programme d'acquisition SciLab Computer-V01</strong> → aucune installation requise ; les micros sont reconnus par le navigateur (API Web Audio).</li>
+            </ol>
+
+            <div class="info">
+              <strong>Note navigateur :</strong> l'accès aux périphériques audio nécessite HTTPS ou localhost. Utiliser Chrome ou Edge pour une compatibilité optimale. Le micro USB apparaît dans la liste ; le sélectionner dans le menu ci-dessous.
+            </div>
+          </div>
+
+        </div>
+
+        <h4 style="margin-top:var(--gap-lg);">2. Paramètres d'acquisition</h4>
+
+        <div class="form-row">
+
+          <div class="form-group">
+            <label for="deviceCH1">CH1 — Capteur 1 (référence)</label>
+            <select id="deviceCH1">
+              <option value="">— sélectionner un périphérique —</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="deviceCH2">CH2 — Capteur 2 (décalé de d)</label>
+            <select id="deviceCH2">
+              <option value="">— sélectionner un périphérique —</option>
+            </select>
+          </div>
+
+        </div>
+
+        <div class="form-row">
+
+          <button class="btn btn-secondaire" id="btnEnum" type="button">🔍 Détecter les périphériques</button>
+          <button class="btn btn-primaire" id="btnConnect" type="button">⚡ Connecter</button>
+
+        </div>
+
+        <div class="form-row" style="margin-top:var(--gap-md);">
+
+          <div class="form-group">
+            <label for="inputD">Distance d entre les capteurs (m)</label>
+            <input id="inputD" type="number" value="0.30" min="0.05" max="2.00" step="0.01" placeholder="0.30">
+          </div>
+
+          <div class="form-group">
+            <label for="inputFs">Fréquence d'échantillonnage</label>
+            <select id="inputFs">
+              <option value="44100">44 100 Hz (standard)</option>
+              <option value="48000" selected>48 000 Hz (recommandé)</option>
+              <option value="96000">96 000 Hz (haute qualité)</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="inputGain">Gain des capteurs</label>
+            <div class="exao-gain-row">
+              <input id="inputGain" type="range" min="1" max="10" step="0.5" value="3">
+              <span id="gainLabel">× 3</span>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="inputWindow">Fenêtre d'analyse</label>
+            <select id="inputWindow">
+              <option value="1024">1 024 échantillons (~21 ms @ 48 kHz)</option>
+              <option value="2048" selected>2 048 échantillons (~43 ms)</option>
+              <option value="4096">4 096 échantillons (~85 ms)</option>
+            </select>
+          </div>
+
+        </div>
+
+        <div class="form-row">
+
+          <button class="btn btn-primaire" id="btnStart" type="button" disabled>▶ Démarrer l'acquisition</button>
+          <button class="btn btn-secondaire" id="btnStop" type="button" disabled>■ Arrêter</button>
+          <button class="btn btn-secondaire" id="btnSnap" type="button" disabled>📸 Prendre un instantané</button>
+
+        </div>
+
+        <h4 style="margin-top:var(--gap-lg);">3. Oscilloscope temps réel et corrélation croisée</h4>
+
+        <div class="info">
+          La corrélation croisée entre CH1 et CH2 révèle le décalage
+          temporel τ par la position de son maximum. Plus le pic est
+          net, plus la mesure est fiable.
+        </div>
+
+        <div class="exao-scope-corr-grid">
+
+          <div class="exao-scope-bezel">
+            <div class="exao-scope-header">
+              <span>OSCILLOSCOPE TEMPS RÉEL</span>
+              <span class="exao-scope-badge" id="acqBadge">ARRÊT</span>
+            </div>
+            <div class="exao-scope-screen">
+              <canvas id="scopeCanvas" width="800" height="300"></canvas>
+            </div>
+            <div class="exao-scope-label-row">
+              <span><span class="exao-dot exao-dot-p"></span>CH1 — Capteur 1 (référence)</span>
+              <span><span class="exao-dot exao-dot-a"></span>CH2 — Capteur 2 (décalé de d)</span>
+            </div>
+            <div class="exao-scope-readouts">
+              <div class="exao-readout-box" id="rdTau">τ = —</div>
+              <div class="exao-readout-box" id="rdV">v = —</div>
+              <div class="exao-readout-box" id="rdLambda">λ = —</div>
+            </div>
+          </div>
+
+          <div class="exao-corr-wrap">
+            <div class="exao-scope-bezel">
+              <div class="exao-scope-screen">
+                <canvas id="corrCanvas" width="600" height="200"></canvas>
+              </div>
+              <div class="exao-corr-labels">
+                <span>Corrélation croisée R(τ)</span>
+                <span id="corrPeakInfo">Pic : —</span>
+              </div>
+            </div>
+            <div class="exao-corr-stats">
+              <div class="exao-stat-row"><span>Décalage τ mesuré</span><span id="statTau">—</span></div>
+              <div class="exao-stat-row"><span>Vitesse calculée v = d/τ</span><span id="statV">—</span></div>
+              <div class="exao-stat-row"><span>Confiance du pic</span><span id="statConf">—</span></div>
+              <div class="exao-stat-row"><span>Fréquence dominante</span><span id="statFreq">—</span></div>
+              <div class="exao-stat-row"><span>Longueur d'onde λ</span><span id="statLambda">—</span></div>
+            </div>
+          </div>
+
+        </div>
+
+        <h4 style="margin-top:var(--gap-lg);">4. Tableau de mesures</h4>
+
+        <p class="info">
+          Chaque instantané ajoute automatiquement une ligne. Il est
+          aussi possible de saisir manuellement la distance d et le
+          retard τ.
+        </p>
+
+        <div class="toolbar">
+          <button class="btn btn-primaire" id="btnAdd" type="button">+ Ajouter une ligne</button>
+          <button class="btn btn-secondaire" id="btnDemo" type="button">Charger un exemple</button>
+          <button class="btn btn-secondaire" id="btnClear" type="button">Vider le tableau</button>
+        </div>
+
+        <div class="table-responsive">
+          <table class="tableau-resultats" id="dataTable">
+            <caption>Acquisitions — mesure de la vitesse du son</caption>
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Source</th>
+                <th>d (m)</th>
+                <th>τ (ms)</th>
+                <th>v = d/τ (m·s⁻¹)</th>
+                <th>Qualité</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="dataBody"></tbody>
+          </table>
+        </div>
+
+        <div class="toolbar">
+          <button class="btn btn-primaire" id="btnCalc" type="button">Calculer les résultats</button>
+        </div>
+
+        <div class="field-error" id="fieldError" role="alert" aria-live="assertive"></div>
+
+        <div class="exao-results-panel" id="resultsPanel">
+
+          <h4>Résultats statistiques</h4>
+
+          <div class="exao-results-grid">
+            <div class="exao-result-card">
+              <div class="exao-result-label">Vitesse moyenne</div>
+              <div class="exao-result-value" id="rMean">—</div>
+            </div>
+            <div class="exao-result-card">
+              <div class="exao-result-label">Écart-type σ</div>
+              <div class="exao-result-value" id="rStd">—</div>
+            </div>
+            <div class="exao-result-card exao-result-card-alerte">
+              <div class="exao-result-label">Incertitude u(v)</div>
+              <div class="exao-result-value" id="rUnc">—</div>
+            </div>
+            <div class="exao-result-card">
+              <div class="exao-result-label">Résultat final</div>
+              <div class="exao-result-value" id="rFinal">—</div>
+            </div>
+          </div>
+
+          <div class="exao-compare-bar">
+            <div>Écart relatif par rapport à 340 m·s⁻¹ : <span id="rEcart">—</span></div>
+            <div class="exao-track"><div class="exao-fill" id="rFill" style="width:0%"></div></div>
+          </div>
+
+          <p id="rInterp"></p>
+
+        </div>
+
+        <h4 style="margin-top:var(--gap-lg);">Notes techniques</h4>
+
+        <div class="exao-tip-grid">
+          <div class="exao-tip-card">
+            <p class="exao-tip-head">Fréquence d'échantillonnage</p>
+            <p>48 000 Hz donne une résolution temporelle de ~20 µs, soit une précision de ±7 m·s⁻¹ à 30 cm. Pour améliorer, augmenter d plutôt que Fs.</p>
+          </div>
+          <div class="exao-tip-card">
+            <p class="exao-tip-head">Corrélation croisée</p>
+            <p>L'algorithme calcule la corrélation normalisée sur la fenêtre sélectionnée. Un pic supérieur à 0,7 indique une mesure fiable. Utiliser un signal périodique (sifflement, claquement régulier).</p>
+          </div>
+          <div class="exao-tip-card">
+            <p class="exao-tip-head">Bruit et interférences</p>
+            <p>Éloigner les capteurs des sources de bruit parasite. Orienter les microphones face à la source sonore sur l'axe de propagation.</p>
+          </div>
         </div>
 
       </div>
