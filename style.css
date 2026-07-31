@@ -32,6 +32,9 @@
 
     --domaine-optique-1: #8B5CF6;
     --domaine-optique-2: #6D28D9;
+
+    --domaine-signaux-1: #6366F1;
+    --domaine-signaux-2: #4F46E5;
 }
 
 body {
@@ -351,6 +354,10 @@ th {
     background: linear-gradient(135deg, var(--domaine-optique-1), var(--domaine-optique-2));
 }
 
+.signaux {
+    background: linear-gradient(135deg, var(--domaine-signaux-1), var(--domaine-signaux-2));
+}
+
 /* =========================
    RESPONSIVE DOMAINES TP
 ========================= */
@@ -428,6 +435,7 @@ th {
 .tp-viewer[data-domaine="acoustique"]  .viewer-topbar { background: linear-gradient(135deg, var(--domaine-acoustique-2), var(--domaine-acoustique-1)); }
 .tp-viewer[data-domaine="thermique"]   .viewer-topbar { background: linear-gradient(135deg, var(--domaine-thermique-2), var(--domaine-thermique-1)); }
 .tp-viewer[data-domaine="optique"]     .viewer-topbar { background: linear-gradient(135deg, var(--domaine-optique-2), var(--domaine-optique-1)); }
+.tp-viewer[data-domaine="signaux"] .viewer-topbar { background: linear-gradient(135deg, var(--domaine-signaux-2), var(--domaine-signaux-1)); }
 
 .viewer-topbar h2 {
     color: white;
