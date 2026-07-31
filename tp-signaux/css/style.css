@@ -1,0 +1,92 @@
+/* ── Tokens globaux, composants TP, impression ────────────────── */
+@import url("../../css/global.css");
+@import url("../../css/tp.css");
+@import url("../../css/print.css");
+
+/* ── Overrides communs à tous les domaines (header, nav, cartes,
+   tableaux, EPI, radar, graphique...) — paramétrés par les variables
+   de couleur ci-dessous ── */
+@import url("../../css/domaine.css");
+
+/* ════════════════════════════════════════════════════════════════
+   IDENTITÉ DU DOMAINE SIGNAUX
+   L'ordre d'écriture n'a pas d'importance pour la résolution des
+   var() : ces valeurs s'appliquent à css/domaine.css même si celui-ci
+   est importé plus haut dans ce fichier.
+   ════════════════════════════════════════════════════════════════ */
+:root {
+  --domaine-accent:       #6A3DBD;
+  --domaine-accent-fonce: #402479;
+  --domaine-accent-rgb:   106, 61, 189;
+}
+
+/* Tout le reste (header, nav, cartes, formulaires, tableaux, EPI,
+   matériel, radar, graphique, histogramme, cartouches, quiz,
+   problématique, champ-erreur...) vient de tp.css et css/domaine.css
+   — plus aucune duplication propre à ce domaine. */
+
+/* ════════════════════════════════════════════════════════════════
+   COMPLÉMENTS PROPRES AUX SIGNAUX
+   Composants n'existant ni en thermique ni en acoustique.
+   ════════════════════════════════════════════════════════════════ */
+
+/* Frise du spectre électromagnétique (TP01) */
+.spectre-em-conteneur {
+  position: relative;
+  margin-top: var(--gap-md, 1rem);
+}
+
+.spectre-em-barre {
+  display: flex;
+  width: 100%;
+  height: 2.5rem;
+  border-radius: 6px;
+  overflow: hidden;
+  font-size: 0.65rem;
+  color: #fff;
+}
+
+.spectre-em-segment {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0 0.2rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.spectre-em-segment[data-domaine="gamma"]      { background: #4a0e6b; }
+.spectre-em-segment[data-domaine="x"]          { background: #6a3dbd; }
+.spectre-em-segment[data-domaine="uv"]         { background: #8e5fd6; }
+.spectre-em-segment[data-domaine="visible"]    { background: linear-gradient(90deg,#7b2ff7,#e91e63,#ff9800,#ffeb3b,#4caf50,#2196f3); }
+.spectre-em-segment[data-domaine="ir"]         { background: #b0473b; }
+.spectre-em-segment[data-domaine="micro-ondes"]{ background: #d98c3a; }
+.spectre-em-segment[data-domaine="hertziennes"]{ background: #4a7fb0; }
+
+.spectre-em-curseur {
+  position: absolute;
+  top: -0.4rem;
+  width: 0;
+  height: 0;
+  border-left: 0.5rem solid transparent;
+  border-right: 0.5rem solid transparent;
+  border-top: 0.6rem solid #222;
+  transform: translateX(-50%);
+  transition: left 0.15s ease-out;
+}
+
+/* Feedback des exercices de schéma / vérification (chaîne de
+   transmission générale, réflexion totale en fibre optique) */
+.feedback-verification.succes {
+  border-left: 4px solid #2e7d32;
+  background: #eaf6ea;
+  color: #1b4d1e;
+}
+
+.feedback-verification.erreur {
+  border-left: 4px solid #c0392b;
+  background: #fbeceb;
+  color: #5c1912;
+}
