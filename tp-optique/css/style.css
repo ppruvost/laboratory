@@ -1,1 +1,69 @@
+/* ── Tokens globaux, composants TP, impression ────────────────── */
+@import url("../../css/global.css");
+@import url("../../css/tp.css");
+@import url("../../css/print.css");
 
+/* ── Overrides communs à tous les domaines (header, nav, cartes,
+   tableaux, EPI, radar, graphique...) — paramétrés par les variables
+   de couleur ci-dessous ── */
+@import url("../../css/domaine.css");
+
+/* ════════════════════════════════════════════════════════════════
+   IDENTITÉ DU DOMAINE OPTIQUE
+   L'ordre d'écriture n'a pas d'importance pour la résolution des
+   var() : ces valeurs s'appliquent à css/domaine.css même si celui-ci
+   est importé plus haut dans ce fichier.
+   ════════════════════════════════════════════════════════════════ */
+:root {
+  --domaine-accent:       #C9962C;
+  --domaine-accent-fonce: #8A6510;
+  --domaine-accent-rgb:   201, 150, 44;
+}
+
+/* Tout le reste (header, nav, cartes, formulaires, tableaux, EPI,
+   matériel, radar, graphique, histogramme, cartouches, quiz,
+   problématique, champ-erreur...) vient de tp.css et css/domaine.css
+   — plus aucune duplication propre à ce domaine. */
+
+/* ════════════════════════════════════════════════════════════════
+   COMPLÉMENTS PROPRES À L'OPTIQUE
+   ════════════════════════════════════════════════════════════════ */
+
+/* Feedback générique succès/erreur (angle limite, réflexion totale,
+   synthèse des couleurs) — même convention que .feedback-verification
+   en tp-signaux, dupliquée ici tant que domaine.css ne la porte pas */
+.feedback-verification.succes {
+  border-left: 4px solid #2e7d32;
+  background: #eaf6ea;
+  color: #1b4d1e;
+}
+
+.feedback-verification.erreur {
+  border-left: 4px solid #c0392b;
+  background: #fbeceb;
+  color: #5c1912;
+}
+
+/* Disque gradué interactif (mesure d'angles, réflexion/réfraction) */
+.disque-angles-conteneur {
+  display: flex;
+  justify-content: center;
+  margin: var(--gap-md, 1rem) 0;
+}
+
+.disque-angles-conteneur svg {
+  max-width: 360px;
+  width: 100%;
+  height: auto;
+}
+
+/* Pastilles de couleur (synthèse additive/soustractive) */
+.pastille-couleur {
+  display: inline-block;
+  width: 1rem;
+  height: 1rem;
+  border-radius: 50%;
+  margin-right: 0.4rem;
+  vertical-align: middle;
+  border: 1px solid rgba(0,0,0,0.15);
+}
