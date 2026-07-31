@@ -90,3 +90,12 @@
   background: #fbeceb;
   color: #5c1912;
 }
+
+/* ── Numéros de question et d'étape (médaillons numérotés) ─────────
+   tp.css colore ces médaillons en bleu-cuivre fixe (sections 17),
+   sans override par domaine dans domaine.css : recolorés ici dans la
+   teinte du domaine Mécanique. */
+.questions-tp .question-entete::before,
+.etapes li::before {
+  background: var(--domaine-accent);
+}
