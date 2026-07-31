@@ -194,8 +194,8 @@ const laboratoryEquipment = [
     {
         domaine: "Optique",
         nom: "Laser (classe II)",
-        categorie: "",
-        description: "Source de lumière cohérente",
+        categorie: ["Signaux"],
+        description: "Source de lumière cohérente, utilisée pour tester la réflexion totale dans une fibre optique",
         lieu: "Salle B23 / étagère A2",
         image:"",
         noticeUtilisation: "assets/notice/laser.pdf"
@@ -221,8 +221,8 @@ const laboratoryEquipment = [
     {
         domaine: "Optique",
         nom: "Fibre optique",
-        categorie: "",
-        description: "Transmission de la lumière",
+        categorie: ["Signaux"],
+        description: "Transmission de la lumière par réflexion totale",
         lieu: "Salle B27 - ***",
         image:"",
         noticeUtilisation: "assets/notice/fibre_optique.pdf"
@@ -790,6 +790,78 @@ const laboratoryEquipment = [
         nom: "Cuve à eau étanche",
         categorie: ["Acoustique"],
         description: "Étude de la propagation du son dans l'eau, avec émetteur et récepteur immergeables",
+        lieu: "Salle B27 - ***",
+        image:"",
+        noticeUtilisation: ""
+    },
+    {
+        domaine: "Signaux",
+        nom: "Routeur wifi de test",
+        categorie: ["Signaux"],
+        description: "Émetteur d'ondes électromagnétiques (2,4 GHz / 5 GHz) pour l'étude du spectre et des systèmes de transmission",
+        lieu: "Salle B27 - ***",
+        image:"",
+        noticeUtilisation: ""
+    },
+    {
+        domaine: "Signaux",
+        nom: "Smartphone ou téléphone de test",
+        categorie: ["Signaux"],
+        description: "Support pour identifier les bandes de fréquences de téléphonie mobile et de wifi utilisées",
+        lieu: "Salle B27 - ***",
+        image:"",
+        noticeUtilisation: ""
+    },
+    {
+        domaine: "Signaux",
+        nom: "Télécommande infrarouge et récepteur associé",
+        categorie: ["Signaux"],
+        description: "Émetteur et détecteur d'ondes infrarouges, pour illustrer une transmission d'informations par propagation libre",
+        lieu: "Salle B27 - ***",
+        image:"",
+        noticeUtilisation: ""
+    },
+    {
+        domaine: "Signaux",
+        nom: "Badge et lecteur RFID",
+        categorie: ["Signaux"],
+        description: "Émetteur passif et lecteur à ondes électromagnétiques, exemple de transmission d'informations de la vie courante",
+        lieu: "Salle B27 - ***",
+        image:"",
+        noticeUtilisation: "assets/notice/rfid.pdf"
+    },
+    {
+        domaine: "Signaux",
+        nom: "Lampe UV (classe basse puissance)",
+        categorie: ["Signaux"],
+        description: "Source de rayonnement ultraviolet, pour situer un domaine spectral sur le spectre électromagnétique",
+        lieu: "Salle B27 - ***",
+        image:"",
+        noticeUtilisation: "assets/notice/lampe_uv.pdf"
+    },
+    {
+        domaine: "Signaux",
+        nom: "Documentation du spectre électromagnétique (données fournies)",
+        categorie: ["Signaux"],
+        description: "Tableau de longueurs d'onde de référence (rayons X médicaux, UV, IR, micro-ondes...) fourni aux élèves, sans source réelle correspondante en salle",
+        lieu: "Salle B27 - ***",
+        image:"",
+        noticeUtilisation: ""
+    },
+    {
+        domaine: "Signaux",
+        nom: "Photodétecteur / récepteur pour fibre optique",
+        categorie: ["Signaux"],
+        description: "Récepteur de lumière associé au laser et à la fibre optique, pour vérifier la transmission du signal en sortie",
+        lieu: "Salle B27 - ***",
+        image:"",
+        noticeUtilisation: ""
+    },
+    {
+        domaine: "Signaux",
+        nom: "Câble réseau (paire torsadée)",
+        categorie: ["Signaux"],
+        description: "Exemple de support de propagation guidée par voie électrique, à comparer à la fibre optique et au wifi",
         lieu: "Salle B27 - ***",
         image:"",
         noticeUtilisation: ""
