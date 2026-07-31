@@ -8,6 +8,7 @@
    tp-electricite
    tp-mecanique
    tp-thermique
+   tp-signaux
    ========================================================== */
 
 const content = document.getElementById("content");
