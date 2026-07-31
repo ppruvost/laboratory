@@ -15,9 +15,9 @@
    est importé plus haut dans ce fichier.
    ════════════════════════════════════════════════════════════════ */
 :root {
-  --domaine-accent:       #6A3DBD;
-  --domaine-accent-fonce: #402479;
-  --domaine-accent-rgb:   106, 61, 189;
+  --domaine-accent:       #10B981;
+  --domaine-accent-fonce: #059669;
+  --domaine-accent-rgb:   16, 185, 129;
 }
 
 /* Tout le reste (header, nav, cartes, formulaires, tableaux, EPI,
