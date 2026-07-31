@@ -27,7 +27,8 @@ function getCurrentDomain() {
         "tp-optique",
         "tp-electricite",
         "tp-mecanique",
-        "tp-thermique"
+        "tp-thermique",
+        "tp-signaux"
     ];
 
     for (const domaine of domaines) {
@@ -51,7 +52,8 @@ function getDefaultModule(domaine) {
         "tp-electricite": "tp01-puissance-energie",
         "tp-acoustique": "tp01-caracteriser-un-son",
         "tp-optique": "tp01-exercice",        
-        "tp-mecanique": "tp01-decrire-mouvement"
+        "tp-mecanique": "tp01-decrire-mouvement",
+      "tp-signaux": "tp01-onde-electromagnetique"
         
     };
     return defaultModules[domaine] || "tp01-solutions"; // Fallback
