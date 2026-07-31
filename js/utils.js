@@ -74,12 +74,12 @@ export function imgSrc(
     if (
         chemin.startsWith("assets/") ||
         chemin.startsWith("tp-chimie/") ||
-        chemin.startsWith("tp-lumiere/") ||
+        chemin.startsWith("tp-optique/") ||
         chemin.startsWith("tp-acoustique/") ||
         chemin.startsWith("tp-electricite/") ||
         chemin.startsWith("tp-mecanique/") ||
        chemin.startsWith("tp-thermique/") ||
-        chemin.startsWith("tp-optique/")
+        chemin.startsWith("tp-signaux/")
     ) {
         return BASE + chemin;
     }
