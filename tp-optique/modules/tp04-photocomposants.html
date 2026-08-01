@@ -1,0 +1,766 @@
+<!--
+  Fragment SPA chargé dynamiquement par navigation.js.
+  Tous les chemins sont relatifs à la racine du site.
+  Aucun <script> dans ce fragment.
+-->
+
+<section>
+
+<!-- ====================================================== -->
+<!-- EN-TÊTE                                                 -->
+<!-- ====================================================== -->
+
+<header class="tp-header">
+
+  <div class="tp-header-logo">
+    <div class="logo">
+      <span class="sci">Sci</span><span class="Lab">Lab</span>
+    </div>
+  </div>
+
+  <div class="tp-header-centre">
+
+    <h1>Photocomposants</h1>
+
+    <div class="tp-meta">
+
+      <div class="tp-row">
+        <span class="tag">2nde</span>
+        <span class="tag">Optique</span>
+        <span class="tag">Photodétecteurs, énergie du photon</span>
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="tp-header-numero">
+    <span class="tp-numero-txt">TP04</span>
+  </div>
+
+</header>
+
+<div class="progress">
+  <div id="bar"></div>
+</div>
+
+<main id="content">
+
+<!-- ====================================================== -->
+<!-- CAPACITES                                               -->
+<!-- ====================================================== -->
+
+<div class="section" data-type="objectif">
+
+  <div class="section-titre">
+    <div class="picto-section">🎯</div>
+    <h2>Capacités évaluées</h2>
+    <span class="chevron">▼</span>
+  </div>
+
+  <div class="section-corps">
+
+    <ul>
+
+      <li>Construire expérimentalement la caractéristique d'un photocomposant (photorésistance, photodiode, phototransistor, photopile) en fonction de l'éclairement et en fonction de la longueur d'onde.</li>
+
+      <li>Mettre en œuvre un photodétecteur.</li>
+
+      <li>Savoir que la lumière peut être modélisée par des photons caractérisés par leur énergie et leur longueur d'onde.</li>
+
+      <li>Connaître la vitesse de propagation de la lumière dans le vide et dans l'air.</li>
+
+      <li>Connaître la relation entre l'énergie d'un photon et la longueur d'onde.</li>
+
+      <li>Mesurer un éclairement avec un luxmètre.</li>
+
+      <li>Connaître les grandeurs caractéristiques d'un rayonnement lumineux (flux, intensité, éclairement, longueur d'onde).</li>
+
+      <li>Savoir que les variations de ces grandeurs influencent le signal électrique produit par un photocomposant.</li>
+
+    </ul>
+
+  </div>
+
+</div>
+
+<!-- ====================================================== -->
+<!-- CONTEXTE PROFESSIONNEL                                  -->
+<!-- ====================================================== -->
+
+<div class="section" data-type="contexte-pro">
+
+  <div class="section-titre">
+    <div class="picto-section">🏭</div>
+    <h2>Contexte professionnel</h2>
+    <span class="chevron">▼</span>
+  </div>
+
+  <div class="section-corps">
+
+    <div class="filiere-select-bloc">
+      <label for="select-filiere-pro">Votre filière professionnelle :</label>
+      <select id="select-filiere-pro">
+        <option value="">-- Sélectionner une filière --</option>
+      </select>
+    </div>
+
+    <div id="contexte-pro-resultat" class="contexte-pro-resultat">
+      <p>Sélectionner votre filière professionnelle pour afficher le contexte et la problématique associée.</p>
+    </div>
+
+  </div>
+
+</div>
+
+<!-- ====================================================== -->
+<!-- SECURITE                                                -->
+<!-- ====================================================== -->
+
+<div class="section" data-type="securite">
+
+  <div class="section-titre">
+    <div class="picto-section">⚠️</div>
+    <h2>Sécurité</h2>
+    <span class="chevron">▼</span>
+  </div>
+
+  <div class="section-corps">
+
+    <div class="info">
+      Ce TP ne met pas en œuvre de produit chimique. Le circuit de
+      mesure fonctionne en très basse tension continue, sans risque
+      électrique significatif.
+    </div>
+
+    <ul style="padding-left:1.5rem;line-height:2">
+      <li><strong>Source lumineuse :</strong> ne pas approcher les yeux de la source utilisée pour éclairer le photocomposant, en particulier si un filtre coloré ou une LED de forte intensité est utilisée.</li>
+    </ul>
+
+  </div>
+
+</div>
+
+<!-- ====================================================== -->
+<!-- MATERIEL                                                -->
+<!-- ====================================================== -->
+
+<div class="section" data-type="materiel">
+
+  <div class="section-titre">
+    <div class="picto-section">🧪</div>
+    <h2>Matériel nécessaire</h2>
+    <span class="chevron">▼</span>
+  </div>
+
+  <div class="section-corps">
+
+    <h3>Équipements</h3>
+    <div id="materiel-equipements" class="grille-materiel">
+    </div>
+
+  </div>
+
+</div>
+
+<!-- ====================================================== -->
+<!-- MANIPULATIONS                                           -->
+<!-- ====================================================== -->
+
+<div class="section" data-type="preparation">
+
+  <div class="section-titre">
+    <div class="picto-section">⚗️</div>
+    <h2>Manipulations</h2>
+    <span class="chevron">▼</span>
+  </div>
+
+  <div class="section-corps">
+
+    <div class="tabs-container">
+
+      <div class="tabs-header">
+        <button class="tab-btn actif" data-tab="caracteristique-eclairement">Caractéristique / éclairement</button>
+        <button class="tab-btn" data-tab="caracteristique-longueur-onde">Caractéristique / longueur d'onde</button>
+        <button class="tab-btn" data-tab="energie-photon">Énergie du photon</button>
+      </div>
+
+      <!-- ============================ -->
+      <!-- CARACTERISTIQUE / ECLAIREMENT -->
+      <!-- ============================ -->
+
+      <div class="tab-panel actif" id="caracteristique-eclairement">
+
+        <h3>Caractéristique en fonction de l'éclairement</h3>
+
+        <div class="info">
+          L'éclairement E (en lux) mesuré au luxmètre influence le
+          signal électrique produit par un photocomposant : résistance
+          d'une photorésistance, tension à vide d'une photopile,
+          courant d'une photodiode ou d'un phototransistor polarisés.
+        </div>
+
+        <div class="form-row">
+
+          <div class="form-group">
+            <label for="photo-type-1">Photocomposant étudié</label>
+            <select id="photo-type-1">
+              <option value="photoresistance">Photorésistance (Ω)</option>
+              <option value="photodiode">Photodiode (µA)</option>
+              <option value="phototransistor">Phototransistor (mA)</option>
+              <option value="photopile">Photopile (V)</option>
+            </select>
+          </div>
+
+        </div>
+
+        <div class="form-row">
+
+          <div class="form-group">
+            <label for="eclairement-lux">Éclairement mesuré (lux)</label>
+            <input id="eclairement-lux" type="number" step="1">
+          </div>
+
+          <div class="form-group">
+            <label for="eclairement-grandeur">Grandeur électrique mesurée</label>
+            <input id="eclairement-grandeur" type="number" step="0.01">
+          </div>
+
+          <div class="form-group">
+            <label>&nbsp;</label>
+            <button id="eclairement-ajouter" type="button" class="btn btn-primaire">
+              + Ajouter le point
+            </button>
+          </div>
+
+        </div>
+
+        <div class="table-responsive">
+          <table class="tableau-resultats">
+            <thead>
+              <tr>
+                <th>N°</th>
+                <th>Éclairement (lux)</th>
+                <th>Grandeur électrique</th>
+              </tr>
+            </thead>
+            <tbody id="tbody-caracteristique-eclairement"></tbody>
+          </table>
+        </div>
+
+        <div id="graphique-eclairement" class="graphique-conteneur">
+          <p class="info">Ajouter au moins 2 points pour afficher le graphique.</p>
+        </div>
+
+        <h4 style="margin-top:var(--gap-lg);">Protocole</h4>
+
+        <ol class="etapes">
+          <li>Choisir le photocomposant étudié et réaliser le montage adapté (générateur, résistance de protection si nécessaire, multimètre).</li>
+          <li>Faire varier l'éclairement reçu (distance à la source, filtre, cache) et mesurer à chaque fois l'éclairement au luxmètre et la grandeur électrique correspondante.</li>
+          <li>Relever au moins cinq points et observer l'allure de la caractéristique obtenue.</li>
+        </ol>
+
+        <div class="mode-op">
+          <img src="./assets/images/o4-caracteristique-eclairement.png" alt="Mode opératoire — caractéristique en fonction de l'éclairement" class="mode-image">
+        </div>
+
+      </div>
+
+      <!-- ================================== -->
+      <!-- CARACTERISTIQUE / LONGUEUR D'ONDE   -->
+      <!-- ================================== -->
+
+      <div class="tab-panel" id="caracteristique-longueur-onde">
+
+        <h3>Caractéristique en fonction de la longueur d'onde</h3>
+
+        <div class="info">
+          À éclairement constant, la réponse d'un photocomposant peut
+          varier selon la longueur d'onde de la lumière reçue (certains
+          composants sont plus sensibles au rouge, d'autres au bleu).
+        </div>
+
+        <div class="form-row">
+
+          <div class="form-group">
+            <label for="longueur-onde-source">Source / filtre utilisé</label>
+            <input id="longueur-onde-source" type="text" placeholder="Ex : filtre rouge, LED bleue...">
+          </div>
+
+          <div class="form-group">
+            <label for="longueur-onde-nm">Longueur d'onde approximative (nm)</label>
+            <input id="longueur-onde-nm" type="number" step="1">
+          </div>
+
+          <div class="form-group">
+            <label for="longueur-onde-grandeur">Grandeur électrique mesurée</label>
+            <input id="longueur-onde-grandeur" type="number" step="0.01">
+          </div>
+
+          <div class="form-group">
+            <label>&nbsp;</label>
+            <button id="longueur-onde-ajouter" type="button" class="btn btn-primaire">
+              + Ajouter le point
+            </button>
+          </div>
+
+        </div>
+
+        <div class="table-responsive">
+          <table class="tableau-resultats">
+            <thead>
+              <tr>
+                <th>Source / filtre</th>
+                <th>Longueur d'onde (nm)</th>
+                <th>Grandeur électrique</th>
+              </tr>
+            </thead>
+            <tbody id="tbody-caracteristique-longueur-onde"></tbody>
+          </table>
+        </div>
+
+        <div id="graphique-longueur-onde" class="graphique-conteneur">
+          <p class="info">Ajouter au moins 2 points pour afficher le graphique.</p>
+        </div>
+
+        <h4 style="margin-top:var(--gap-lg);">Protocole</h4>
+
+        <ol class="etapes">
+          <li>Conserver le même éclairement (même distance, même intensité de source) et changer uniquement la couleur de la lumière reçue par le photocomposant (filtres colorés ou LED de couleurs différentes).</li>
+          <li>Mesurer à chaque fois la grandeur électrique correspondante.</li>
+          <li>Identifier la ou les longueurs d'onde pour lesquelles la réponse du photocomposant est la plus importante.</li>
+        </ol>
+
+        <div class="mode-op">
+          <img src="./assets/images/o4-caracteristique-longueur-onde.png" alt="Mode opératoire — caractéristique en fonction de la longueur d'onde" class="mode-image">
+        </div>
+
+      </div>
+
+      <!-- ============================ -->
+      <!-- ENERGIE DU PHOTON            -->
+      <!-- ============================ -->
+
+      <div class="tab-panel" id="energie-photon">
+
+        <h3>Énergie d'un photon</h3>
+
+        <div class="info">
+          La lumière peut être modélisée par des photons, particules
+          d'énergie E caractérisées par leur longueur d'onde λ. Dans le
+          vide (ou dans l'air, en très bonne approximation), la
+          vitesse de la lumière vaut c = 3,00×10⁸ m/s.
+        </div>
+
+        <div class="formule">
+          E = h × c / λ, avec h = 6,63×10⁻³⁴ J·s
+        </div>
+
+        <div class="form-row">
+
+          <div class="form-group">
+            <label for="photon-longueur-onde">Longueur d'onde λ (nm)</label>
+            <input id="photon-longueur-onde" type="number" step="1" placeholder="Ex : 550">
+          </div>
+
+          <div class="form-group">
+            <label for="photon-energie-j">Énergie du photon (J)</label>
+            <div class="input-unite">
+              <output id="photon-energie-j">—</output>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="photon-energie-ev">Énergie du photon (eV)</label>
+            <div class="input-unite">
+              <output id="photon-energie-ev">—</output>
+            </div>
+          </div>
+
+        </div>
+
+        <h4 style="margin-top:var(--gap-lg);">Protocole</h4>
+
+        <ol class="etapes">
+          <li>Reprendre les longueurs d'onde utilisées dans l'onglet précédent et calculer l'énergie du photon associé à chacune.</li>
+          <li>Comparer l'énergie des photons du rouge et du bleu, puis relier ce résultat à la sensibilité observée des photocomposants.</li>
+        </ol>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+<!-- ====================================================== -->
+<!-- TABLEAU DES RÉSULTATS                                   -->
+<!-- ====================================================== -->
+
+<div class="section" data-type="resultats">
+
+  <div class="section-titre">
+    <div class="picto-section">📊</div>
+    <h2>Tableau de résultats</h2>
+    <span class="chevron">▼</span>
+  </div>
+
+  <div class="section-corps">
+
+    <div class="table-responsive">
+
+      <table class="tableau-resultats">
+
+        <thead>
+          <tr>
+            <th>Grandeur</th>
+            <th>Valeur attendue</th>
+            <th>Valeur mesurée / calculée</th>
+            <th>Écart</th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          <tr>
+            <td>Énergie du photon à λ de référence (J)</td>
+            <td><input id="ref-energie-photon" type="number" step="0.0000000000000000001" placeholder="attendue"></td>
+            <td><input id="mesuree-energie-photon" type="number" step="0.0000000000000000001" placeholder="calculée"></td>
+            <td id="ecart-energie-photon">—</td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+  </div>
+
+</div>
+
+<!-- ====================================================== -->
+<!-- OPTIQUE ET ENVIRONNEMENT                                -->
+<!-- ====================================================== -->
+
+<div class="section" data-type="environnement">
+
+  <div class="section-titre">
+    <div class="picto-section">🌱</div>
+    <h2>Optique et environnement</h2>
+    <span class="chevron">▼</span>
+  </div>
+
+  <div class="section-corps">
+
+    <h3>Bonnes pratiques au laboratoire</h3>
+
+    <ul style="padding-left:1.5rem;line-height:2">
+      <li>Éteindre la source lumineuse et débrancher le montage en dehors des phases de mesure.</li>
+    </ul>
+
+    <h3 style="margin-top:var(--gap-md);">Photocomposants et efficacité énergétique</h3>
+
+    <p>
+      Les photodétecteurs (cellules photovoltaïques, capteurs de
+      luminosité ambiante) permettent d'adapter automatiquement
+      l'éclairage ou la production d'énergie aux conditions réelles,
+      ce qui limite le gaspillage énergétique en milieu professionnel.
+    </p>
+
+  </div>
+
+</div>
+
+<!-- ====================================================== -->
+<!-- TRACE ECRITE - COMPTE RENDU                            -->
+<!-- ====================================================== -->
+
+<div class="section" data-type="bilan">
+
+  <div class="section-titre">
+    <div class="picto-section">📝</div>
+    <h2>Trace écrite - Compte rendu</h2>
+    <span class="chevron">▼</span>
+  </div>
+
+  <div class="section-corps">
+
+    <h3>Identification</h3>
+
+    <div class="form-row">
+
+      <div class="form-group">
+        <label for="nom-eleve">Nom</label>
+        <input id="nom-eleve" type="text" placeholder="Nom">
+      </div>
+
+      <div class="form-group">
+        <label for="prenom-eleve">Prénom</label>
+        <input id="prenom-eleve" type="text" placeholder="Prénom">
+      </div>
+
+      <div class="form-group">
+        <label for="classe-eleve">Classe</label>
+        <input id="classe-eleve" type="text" placeholder="Classe">
+      </div>
+
+      <div class="form-group">
+        <label for="date-eleve">Date</label>
+        <input id="date-eleve" type="date">
+      </div>
+
+    </div>
+
+    <h3 style="margin-top:var(--gap-md);">Résumé du TP</h3>
+
+    <div class="zone-eleve">
+      <textarea id="resume-tp" rows="6" placeholder="Résumer le photocomposant étudié et les caractéristiques obtenues..."></textarea>
+    </div>
+
+    <h3 style="margin-top:var(--gap-md);">Questions</h3>
+
+    <div class="questions-bloc" data-tp="photocomposants">
+
+    <ol class="questions-tp">
+
+      <li>
+        <div class="question-entete">
+          <strong>
+            Citer les quatre grandeurs caractéristiques d'un
+            rayonnement lumineux et préciser l'appareil permettant de
+            mesurer l'éclairement.
+          </strong>
+          <span class="cartouche" data-comp="APP">APP</span>
+        </div>
+        <div class="zone-eleve">
+          <textarea id="question1" rows="4" placeholder="Votre réponse..."></textarea>
+        </div>
+      </li>
+
+      <li>
+        <div class="question-entete">
+          <strong>
+            Décrire le montage utilisé pour construire la
+            caractéristique du photocomposant étudié.
+          </strong>
+          <span class="cartouche" data-comp="REA">REA</span>
+        </div>
+        <div class="zone-eleve">
+          <textarea id="question2" rows="4" placeholder="Votre réponse..."></textarea>
+        </div>
+      </li>
+
+      <li>
+        <div class="question-entete">
+          <strong>
+            Analyser l'allure des deux caractéristiques obtenues
+            (éclairement, longueur d'onde) et relier ce résultat à
+            l'énergie des photons calculée.
+          </strong>
+          <span class="cartouche" data-comp="ANA">ANA</span>
+        </div>
+        <div class="zone-eleve">
+          <textarea id="question3" rows="5" placeholder="Votre analyse..."></textarea>
+        </div>
+      </li>
+
+      <li>
+        <div class="question-entete">
+          <strong>
+            Donner un exemple d'application d'un photodétecteur dans la
+            vie courante ou dans votre futur métier.
+          </strong>
+          <span class="cartouche" data-comp="COM">COM</span>
+        </div>
+        <div class="zone-eleve">
+          <textarea id="question4" rows="5" placeholder="Votre réponse..."></textarea>
+        </div>
+      </li>
+
+      <li class="question-problematique">
+        <div class="question-entete">
+          <strong>Répondre à la problématique posée en début de TP :</strong>
+          <span class="cartouche" data-comp="VAL">VAL</span>
+        </div>
+        <p class="problematique-rappel" data-activite="photocomposants"></p>
+        <div class="zone-eleve">
+          <textarea id="question5" rows="5" placeholder="Répondre à la problématique en vous appuyant sur vos résultats expérimentaux..."></textarea>
+        </div>
+      </li>
+
+    </ol>
+
+    </div>
+
+  </div>
+
+</div>
+
+<!-- ====================================================== -->
+<!-- AUTO-ÉVALUATION                                         -->
+<!-- ====================================================== -->
+
+<div class="section" data-type="auto-evaluation">
+
+  <div class="section-titre">
+    <div class="picto-section">📡</div>
+    <h2>Auto-évaluation des compétences</h2>
+    <span class="chevron">▼</span>
+  </div>
+
+  <div class="section-corps">
+
+    <p class="info">
+      À la fin du TP, évaluez votre niveau de maîtrise pour chaque
+      compétence.
+    </p>
+
+    <div class="table-responsive">
+
+      <table class="tableau-resultats autoeval-table">
+
+        <thead>
+          <tr>
+            <th>Domaine</th>
+            <th>Sigle</th>
+            <th>Je suis capable de...</th>
+            <th>0</th>
+            <th>1</th>
+            <th>2</th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          <tr data-comp="APP">
+            <td>S'approprier</td>
+            <td>APP</td>
+            <td>Connaître la relation entre énergie du photon et longueur d'onde.</td>
+            <td><input type="radio" name="APP" value="0"></td>
+            <td><input type="radio" name="APP" value="1"></td>
+            <td><input type="radio" name="APP" value="2"></td>
+          </tr>
+
+          <tr data-comp="ANA">
+            <td>Analyser / Raisonner</td>
+            <td>ANA</td>
+            <td>Analyser l'allure d'une caractéristique de photocomposant.</td>
+            <td><input type="radio" name="ANA" value="0"></td>
+            <td><input type="radio" name="ANA" value="1"></td>
+            <td><input type="radio" name="ANA" value="2"></td>
+          </tr>
+
+          <tr data-comp="REA">
+            <td>Réaliser</td>
+            <td>REA</td>
+            <td>Mettre en œuvre un photodétecteur et mesurer un éclairement au luxmètre.</td>
+            <td><input type="radio" name="REA" value="0"></td>
+            <td><input type="radio" name="REA" value="1"></td>
+            <td><input type="radio" name="REA" value="2"></td>
+          </tr>
+
+          <tr data-comp="VAL">
+            <td>Valider</td>
+            <td>VAL</td>
+            <td>Vérifier la cohérence des résultats obtenus.</td>
+            <td><input type="radio" name="VAL" value="0"></td>
+            <td><input type="radio" name="VAL" value="1"></td>
+            <td><input type="radio" name="VAL" value="2"></td>
+          </tr>
+
+          <tr data-comp="COM">
+            <td>Communiquer</td>
+            <td>COM</td>
+            <td>Présenter les résultats avec un vocabulaire scientifique.</td>
+            <td><input type="radio" name="COM" value="0"></td>
+            <td><input type="radio" name="COM" value="1"></td>
+            <td><input type="radio" name="COM" value="2"></td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+    <div class="radar-actions" style="margin-top:var(--gap-lg);">
+
+      <button id="btn-radar" class="btn btn-primaire">
+        📊 Générer mon radar de compétences
+      </button>
+
+      <div id="radar-resultat" style="margin-top:var(--gap-md);"></div>
+
+    </div>
+
+  </div>
+
+</div>
+
+<!-- ====================================================== -->
+<!-- IMPRESSION COMPTE RENDU                                 -->
+<!-- ====================================================== -->
+
+<div class="section" data-type="impression_tp">
+
+  <div class="section-titre">
+    <div class="picto-section">📒</div>
+    <h2>Impression du compte-rendu</h2>
+    <span class="chevron">▼</span>
+  </div>
+
+  <div class="section-corps">
+
+    <p class="info">
+      À la fin du TP, imprimer votre compte-rendu en PDF.
+      L'envoyer à l'enseignant en pièce jointe par la messagerie de l'ENT.
+    </p>
+
+    <div class="toolbar">
+      <button id="btn-imprimer" class="btn btn-primaire">
+        🖨 Imprimer le compte-rendu
+      </button>
+    </div>
+
+    <div class="info" style="margin-top:var(--gap-md);">
+      L'impression récupère automatiquement :
+      <ul>
+        <li>les points des deux caractéristiques (éclairement, longueur d'onde) ;</li>
+        <li>le calcul d'énergie du photon ;</li>
+        <li>les résultats du tableau ;</li>
+        <li>les réponses aux questions ;</li>
+        <li>l'auto-évaluation des compétences.</li>
+      </ul>
+    </div>
+
+  </div>
+
+</div>
+
+<!-- ====================================================== -->
+<!-- NAVIGATION                                              -->
+<!-- ====================================================== -->
+
+<div class="nav-tp">
+
+  <button class="btn btn-secondaire" onclick="loadTP('tp03-perception-couleurs')">
+    ← TP03
+  </button>
+
+  <button class="btn btn-primaire" onclick="loadTP('tp05-sources-lumineuses')">
+    TP05 →
+  </button>
+
+</div>
+
+</main>
+
+<!-- ====================================================== -->
+<!-- CONTENEUR IMPRESSION COMPTE RENDU                       -->
+<!-- ====================================================== -->
+
+<div id="cr-print-container" style="display:none;"></div>
+
+</section>
