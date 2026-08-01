@@ -1,0 +1,770 @@
+<!--
+  Fragment SPA chargé dynamiquement par navigation.js.
+  Tous les chemins sont relatifs à la racine du site.
+  Aucun <script> dans ce fragment.
+-->
+
+<section>
+
+<!-- ====================================================== -->
+<!-- EN-TÊTE                                                 -->
+<!-- ====================================================== -->
+
+<header class="tp-header">
+
+  <div class="tp-header-logo">
+    <div class="logo">
+      <span class="sci">Sci</span><span class="Lab">Lab</span>
+    </div>
+  </div>
+
+  <div class="tp-header-centre">
+
+    <h1>Sources lumineuses</h1>
+
+    <div class="tp-meta">
+
+      <div class="tp-row">
+        <span class="tag">1ère</span>
+        <span class="tag">Optique</span>
+        <span class="tag">Spectres d'émission, efficacité énergétique</span>
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="tp-header-numero">
+    <span class="tp-numero-txt">TP05</span>
+  </div>
+
+</header>
+
+<div class="progress">
+  <div id="bar"></div>
+</div>
+
+<main id="content">
+
+<!-- ====================================================== -->
+<!-- CAPACITES                                               -->
+<!-- ====================================================== -->
+
+<div class="section" data-type="objectif">
+
+  <div class="section-titre">
+    <div class="picto-section">🎯</div>
+    <h2>Capacités évaluées</h2>
+    <span class="chevron">▼</span>
+  </div>
+
+  <div class="section-corps">
+
+    <ul>
+
+      <li>Exploiter le spectre d'émission fourni d'une lampe.</li>
+
+      <li>Comparer expérimentalement l'efficacité énergétique de deux sources lumineuses.</li>
+
+      <li>Mettre en évidence expérimentalement les propriétés du faisceau lumineux produit par un laser.</li>
+
+      <li>Savoir qu'une source lumineuse est caractérisée par son spectre d'émission.</li>
+
+      <li>Connaître les caractéristiques spectrales élémentaires des sources lumineuses suivantes : soleil, lampe à DEL, lampe à incandescence, laser.</li>
+
+      <li>Connaître la définition de l'efficacité énergétique d'une source lumineuse.</li>
+
+      <li>Connaître les propriétés particulières de la lumière émise par les lasers.</li>
+
+      <li>
+        <em>Développement durable :</em> interpréter les indicateurs
+        présents sur les emballages de lampes pour choisir la mieux
+        adaptée à un éclairage performant, résistant et durable.
+      </li>
+
+    </ul>
+
+  </div>
+
+</div>
+
+<!-- ====================================================== -->
+<!-- CONTEXTE PROFESSIONNEL                                  -->
+<!-- ====================================================== -->
+
+<div class="section" data-type="contexte-pro">
+
+  <div class="section-titre">
+    <div class="picto-section">🏭</div>
+    <h2>Contexte professionnel</h2>
+    <span class="chevron">▼</span>
+  </div>
+
+  <div class="section-corps">
+
+    <div class="filiere-select-bloc">
+      <label for="select-filiere-pro">Votre filière professionnelle :</label>
+      <select id="select-filiere-pro">
+        <option value="">-- Sélectionner une filière --</option>
+      </select>
+    </div>
+
+    <div id="contexte-pro-resultat" class="contexte-pro-resultat">
+      <p>Sélectionner votre filière professionnelle pour afficher le contexte et la problématique associée.</p>
+    </div>
+
+  </div>
+
+</div>
+
+<!-- ====================================================== -->
+<!-- SECURITE                                                -->
+<!-- ====================================================== -->
+
+<div class="section" data-type="securite">
+
+  <div class="section-titre">
+    <div class="picto-section">⚠️</div>
+    <h2>Sécurité</h2>
+    <span class="chevron">▼</span>
+  </div>
+
+  <div class="section-corps">
+
+    <div class="info">
+      Ce TP combine un risque électrique (lampes sous tension secteur
+      ou basse tension) et un risque oculaire lié au laser.
+    </div>
+
+    <ul style="padding-left:1.5rem;line-height:2">
+      <li><strong>Lampes sous tension :</strong> ne jamais toucher les parties métalliques d'une douille sous tension, laisser refroidir une lampe à incandescence avant de la manipuler.</li>
+      <li><strong>Source laser :</strong> ne jamais viser les yeux ni une surface réfléchissante avec le faisceau.</li>
+    </ul>
+
+  </div>
+
+</div>
+
+<!-- ====================================================== -->
+<!-- MATERIEL                                                -->
+<!-- ====================================================== -->
+
+<div class="section" data-type="materiel">
+
+  <div class="section-titre">
+    <div class="picto-section">🧪</div>
+    <h2>Matériel nécessaire</h2>
+    <span class="chevron">▼</span>
+  </div>
+
+  <div class="section-corps">
+
+    <h3>Équipements</h3>
+    <div id="materiel-equipements" class="grille-materiel">
+    </div>
+
+  </div>
+
+</div>
+
+<!-- ====================================================== -->
+<!-- MANIPULATIONS                                           -->
+<!-- ====================================================== -->
+
+<div class="section" data-type="preparation">
+
+  <div class="section-titre">
+    <div class="picto-section">⚗️</div>
+    <h2>Manipulations</h2>
+    <span class="chevron">▼</span>
+  </div>
+
+  <div class="section-corps">
+
+    <div class="tabs-container">
+
+      <div class="tabs-header">
+        <button class="tab-btn actif" data-tab="spectres-emission">Spectres d'émission</button>
+        <button class="tab-btn" data-tab="efficacite-energetique">Efficacité énergétique</button>
+        <button class="tab-btn" data-tab="proprietes-laser">Propriétés du laser</button>
+      </div>
+
+      <!-- ============================ -->
+      <!-- SPECTRES D'EMISSION          -->
+      <!-- ============================ -->
+
+      <div class="tab-panel actif" id="spectres-emission">
+
+        <h3>Associer une source à son spectre d'émission</h3>
+
+        <div class="info">
+          Chaque source lumineuse est caractérisée par son spectre
+          d'émission : continu et large (soleil, lampe à incandescence),
+          composé de quelques bandes (lampe à DEL), ou réduit à une
+          seule raie très fine (laser).
+        </div>
+
+        <div class="form-row">
+
+          <div class="form-group">
+            <label for="spectre-source">Source lumineuse</label>
+            <select id="spectre-source">
+              <option value="">-- Choisir --</option>
+              <option value="soleil">Soleil</option>
+              <option value="del">Lampe à DEL</option>
+              <option value="incandescence">Lampe à incandescence</option>
+              <option value="laser">Laser</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="spectre-type">Type de spectre observé</label>
+            <select id="spectre-type">
+              <option value="">-- Choisir --</option>
+              <option value="continu-large">Continu, sur tout le domaine visible</option>
+              <option value="continu-chaud">Continu, plus intense dans le rouge/IR</option>
+              <option value="bandes">Composé de quelques bandes colorées</option>
+              <option value="raie">Une seule raie très fine (monochromatique)</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>&nbsp;</label>
+            <button id="spectre-ajouter" type="button" class="btn btn-primaire">
+              + Associer
+            </button>
+          </div>
+
+        </div>
+
+        <div class="table-responsive">
+          <table class="tableau-resultats">
+            <thead>
+              <tr>
+                <th>Source</th>
+                <th>Type de spectre</th>
+              </tr>
+            </thead>
+            <tbody id="tbody-spectres-emission"></tbody>
+          </table>
+        </div>
+
+        <h4 style="margin-top:var(--gap-lg);">Protocole</h4>
+
+        <ol class="etapes">
+          <li>Observer au spectroscope le spectre d'émission de chaque source disponible (lampe à DEL, lampe à incandescence, laser) ainsi que le spectre solaire fourni.</li>
+          <li>Associer chaque source au type de spectre observé.</li>
+        </ol>
+
+        <div class="mode-op">
+          <img src="./assets/images/o5-spectres-emission.png" alt="Mode opératoire — spectres d'émission de différentes sources" class="mode-image">
+        </div>
+
+      </div>
+
+      <!-- ============================ -->
+      <!-- EFFICACITE ENERGETIQUE       -->
+      <!-- ============================ -->
+
+      <div class="tab-panel" id="efficacite-energetique">
+
+        <h3>Comparer l'efficacité énergétique de deux sources</h3>
+
+        <div class="info">
+          L'efficacité énergétique d'une source lumineuse est le
+          rapport entre le flux lumineux qu'elle émet (en lumens, lm)
+          et la puissance électrique qu'elle consomme (en watts, W).
+          Ces deux grandeurs sont généralement indiquées sur
+          l'emballage de la lampe.
+        </div>
+
+        <div class="formule">
+          Efficacité énergétique (lm/W) = Flux lumineux (lm) / Puissance électrique (W)
+        </div>
+
+        <div class="table-responsive">
+          <table class="tableau-resultats">
+            <thead>
+              <tr>
+                <th>Lampe</th>
+                <th>Puissance électrique (W)</th>
+                <th>Flux lumineux (lm)</th>
+                <th>Efficacité (lm/W)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Lampe A (LED)</td>
+                <td><input id="lampe-a-puissance" type="number" step="0.1" placeholder="Ex : 8"></td>
+                <td><input id="lampe-a-flux" type="number" step="1" placeholder="Ex : 800"></td>
+                <td id="lampe-a-efficacite">—</td>
+              </tr>
+              <tr>
+                <td>Lampe B (incandescence)</td>
+                <td><input id="lampe-b-puissance" type="number" step="0.1" placeholder="Ex : 60"></td>
+                <td><input id="lampe-b-flux" type="number" step="1" placeholder="Ex : 700"></td>
+                <td id="lampe-b-efficacite">—</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div id="efficacite-comparaison" class="info" style="margin-top:var(--gap-md);">
+          Compléter les puissances et flux lumineux des deux lampes pour afficher la comparaison.
+        </div>
+
+        <h4 style="margin-top:var(--gap-lg);">Choisir une lampe économe</h4>
+
+        <p>
+          À partir des indicateurs lus sur l'emballage (puissance,
+          flux lumineux, température de couleur, durée de vie),
+          justifier le choix de la lampe la mieux adaptée à un
+          éclairage performant, résistant et durable.
+        </p>
+
+        <div class="zone-eleve">
+          <textarea id="choix-lampe-justification" rows="4" placeholder="Votre justification..."></textarea>
+        </div>
+
+        <h4 style="margin-top:var(--gap-lg);">Protocole</h4>
+
+        <ol class="etapes">
+          <li>Relever, sur l'emballage de chaque lampe (ou à l'aide du wattmètre et du luxmètre), la puissance électrique et le flux lumineux.</li>
+          <li>Calculer l'efficacité énergétique de chaque lampe et comparer les deux résultats.</li>
+          <li>Relever également la température de couleur et la durée de vie indiquées sur l'emballage, puis justifier le choix de la lampe la plus adaptée.</li>
+        </ol>
+
+        <div class="mode-op">
+          <img src="./assets/images/o5-efficacite-energetique.png" alt="Mode opératoire — comparaison de l'efficacité énergétique de deux lampes" class="mode-image">
+        </div>
+
+      </div>
+
+      <!-- ============================ -->
+      <!-- PROPRIETES DU LASER          -->
+      <!-- ============================ -->
+
+      <div class="tab-panel" id="proprietes-laser">
+
+        <h3>Propriétés du faisceau laser</h3>
+
+        <div class="info">
+          Un faisceau laser présente trois propriétés particulières :
+          il est monochromatique (une seule longueur d'onde), très peu
+          divergent (le faisceau reste fin sur une grande distance) et
+          de forte puissance surfacique malgré une puissance totale
+          souvent faible.
+        </div>
+
+        <div class="form-row">
+
+          <div class="form-group">
+            <label for="laser-diametre-proche">Diamètre du faisceau à proximité (mm)</label>
+            <input id="laser-diametre-proche" type="number" step="0.1">
+          </div>
+
+          <div class="form-group">
+            <label for="laser-diametre-loin">Diamètre du faisceau à grande distance (mm)</label>
+            <input id="laser-diametre-loin" type="number" step="0.1">
+          </div>
+
+          <div class="form-group">
+            <label for="laser-conclusion-out">Conclusion sur la divergence</label>
+            <div class="input-unite">
+              <output id="laser-conclusion-out">—</output>
+            </div>
+          </div>
+
+        </div>
+
+        <h4 style="margin-top:var(--gap-lg);">Protocole</h4>
+
+        <ol class="etapes">
+          <li>Mesurer le diamètre du faisceau laser juste à la sortie de la source.</li>
+          <li>Mesurer à nouveau le diamètre du faisceau après l'avoir laissé se propager sur plusieurs mètres.</li>
+          <li>Comparer les deux diamètres pour conclure sur la divergence du faisceau.</li>
+          <li>Observer, au spectroscope, le caractère monochromatique du spectre du laser (voir onglet « Spectres d'émission »).</li>
+        </ol>
+
+        <div class="mode-op">
+          <img src="./assets/images/o5-proprietes-laser.png" alt="Mode opératoire — propriétés du faisceau laser" class="mode-image">
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+<!-- ====================================================== -->
+<!-- TABLEAU DES RÉSULTATS                                   -->
+<!-- ====================================================== -->
+
+<div class="section" data-type="resultats">
+
+  <div class="section-titre">
+    <div class="picto-section">📊</div>
+    <h2>Tableau de résultats</h2>
+    <span class="chevron">▼</span>
+  </div>
+
+  <div class="section-corps">
+
+    <div class="table-responsive">
+
+      <table class="tableau-resultats">
+
+        <thead>
+          <tr>
+            <th>Grandeur</th>
+            <th>Valeur attendue</th>
+            <th>Valeur mesurée</th>
+            <th>Écart</th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          <tr>
+            <td>Efficacité énergétique lampe LED (lm/W)</td>
+            <td><input id="ref-efficacite-led" type="number" step="1" placeholder="attendue"></td>
+            <td><input id="mesuree-efficacite-led" type="number" step="1" placeholder="mesurée"></td>
+            <td id="ecart-efficacite-led">—</td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+  </div>
+
+</div>
+
+<!-- ====================================================== -->
+<!-- OPTIQUE ET ENVIRONNEMENT                                -->
+<!-- ====================================================== -->
+
+<div class="section" data-type="environnement">
+
+  <div class="section-titre">
+    <div class="picto-section">🌱</div>
+    <h2>Optique et environnement</h2>
+    <span class="chevron">▼</span>
+  </div>
+
+  <div class="section-corps">
+
+    <h3>Bonnes pratiques au laboratoire</h3>
+
+    <ul style="padding-left:1.5rem;line-height:2">
+      <li>Éteindre les lampes en dehors des phases de mesure, laisser refroidir avant rangement.</li>
+    </ul>
+
+    <h3 style="margin-top:var(--gap-md);">Choisir un éclairage performant et durable</h3>
+
+    <p>
+      Une lampe à haute efficacité énergétique (LED) consomme
+      nettement moins d'électricité qu'une lampe à incandescence pour
+      un même flux lumineux, et sa durée de vie plus longue réduit
+      aussi la quantité de déchets liés au remplacement des ampoules.
+    </p>
+
+  </div>
+
+</div>
+
+<!-- ====================================================== -->
+<!-- TRACE ECRITE - COMPTE RENDU                            -->
+<!-- ====================================================== -->
+
+<div class="section" data-type="bilan">
+
+  <div class="section-titre">
+    <div class="picto-section">📝</div>
+    <h2>Trace écrite - Compte rendu</h2>
+    <span class="chevron">▼</span>
+  </div>
+
+  <div class="section-corps">
+
+    <h3>Identification</h3>
+
+    <div class="form-row">
+
+      <div class="form-group">
+        <label for="nom-eleve">Nom</label>
+        <input id="nom-eleve" type="text" placeholder="Nom">
+      </div>
+
+      <div class="form-group">
+        <label for="prenom-eleve">Prénom</label>
+        <input id="prenom-eleve" type="text" placeholder="Prénom">
+      </div>
+
+      <div class="form-group">
+        <label for="classe-eleve">Classe</label>
+        <input id="classe-eleve" type="text" placeholder="Classe">
+      </div>
+
+      <div class="form-group">
+        <label for="date-eleve">Date</label>
+        <input id="date-eleve" type="date">
+      </div>
+
+    </div>
+
+    <h3 style="margin-top:var(--gap-md);">Résumé du TP</h3>
+
+    <div class="zone-eleve">
+      <textarea id="resume-tp" rows="6" placeholder="Résumer les spectres observés et la comparaison d'efficacité énergétique..."></textarea>
+    </div>
+
+    <h3 style="margin-top:var(--gap-md);">Questions</h3>
+
+    <div class="questions-bloc" data-tp="sources-lumineuses">
+
+    <ol class="questions-tp">
+
+      <li>
+        <div class="question-entete">
+          <strong>
+            Définir l'efficacité énergétique d'une source lumineuse et
+            préciser son unité.
+          </strong>
+          <span class="cartouche" data-comp="APP">APP</span>
+        </div>
+        <div class="zone-eleve">
+          <textarea id="question1" rows="4" placeholder="Votre réponse..."></textarea>
+        </div>
+      </li>
+
+      <li>
+        <div class="question-entete">
+          <strong>
+            Décrire le protocole utilisé pour mettre en évidence la
+            faible divergence du faisceau laser.
+          </strong>
+          <span class="cartouche" data-comp="REA">REA</span>
+        </div>
+        <div class="zone-eleve">
+          <textarea id="question2" rows="4" placeholder="Votre réponse..."></textarea>
+        </div>
+      </li>
+
+      <li>
+        <div class="question-entete">
+          <strong>
+            Comparer l'efficacité énergétique des deux lampes étudiées
+            et expliquer l'écart observé.
+          </strong>
+          <span class="cartouche" data-comp="ANA">ANA</span>
+        </div>
+        <div class="zone-eleve">
+          <textarea id="question3" rows="5" placeholder="Votre analyse..."></textarea>
+        </div>
+      </li>
+
+      <li>
+        <div class="question-entete">
+          <strong>
+            À partir des indicateurs d'emballage, justifier le choix
+            d'une lampe pour un éclairage performant, résistant et
+            durable.
+          </strong>
+          <span class="cartouche" data-comp="COM">COM</span>
+        </div>
+        <div class="zone-eleve">
+          <textarea id="question4" rows="5" placeholder="Votre réponse..."></textarea>
+        </div>
+      </li>
+
+      <li class="question-problematique">
+        <div class="question-entete">
+          <strong>Répondre à la problématique posée en début de TP :</strong>
+          <span class="cartouche" data-comp="VAL">VAL</span>
+        </div>
+        <p class="problematique-rappel" data-activite="sources-lumineuses"></p>
+        <div class="zone-eleve">
+          <textarea id="question5" rows="5" placeholder="Répondre à la problématique en vous appuyant sur vos résultats expérimentaux..."></textarea>
+        </div>
+      </li>
+
+    </ol>
+
+    </div>
+
+  </div>
+
+</div>
+
+<!-- ====================================================== -->
+<!-- AUTO-ÉVALUATION                                         -->
+<!-- ====================================================== -->
+
+<div class="section" data-type="auto-evaluation">
+
+  <div class="section-titre">
+    <div class="picto-section">📡</div>
+    <h2>Auto-évaluation des compétences</h2>
+    <span class="chevron">▼</span>
+  </div>
+
+  <div class="section-corps">
+
+    <p class="info">
+      À la fin du TP, évaluez votre niveau de maîtrise pour chaque
+      compétence.
+    </p>
+
+    <div class="table-responsive">
+
+      <table class="tableau-resultats autoeval-table">
+
+        <thead>
+          <tr>
+            <th>Domaine</th>
+            <th>Sigle</th>
+            <th>Je suis capable de...</th>
+            <th>0</th>
+            <th>1</th>
+            <th>2</th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          <tr data-comp="APP">
+            <td>S'approprier</td>
+            <td>APP</td>
+            <td>Connaître les caractéristiques spectrales des sources usuelles.</td>
+            <td><input type="radio" name="APP" value="0"></td>
+            <td><input type="radio" name="APP" value="1"></td>
+            <td><input type="radio" name="APP" value="2"></td>
+          </tr>
+
+          <tr data-comp="ANA">
+            <td>Analyser / Raisonner</td>
+            <td>ANA</td>
+            <td>Comparer l'efficacité énergétique de deux sources lumineuses.</td>
+            <td><input type="radio" name="ANA" value="0"></td>
+            <td><input type="radio" name="ANA" value="1"></td>
+            <td><input type="radio" name="ANA" value="2"></td>
+          </tr>
+
+          <tr data-comp="REA">
+            <td>Réaliser</td>
+            <td>REA</td>
+            <td>Mettre en évidence les propriétés du faisceau laser.</td>
+            <td><input type="radio" name="REA" value="0"></td>
+            <td><input type="radio" name="REA" value="1"></td>
+            <td><input type="radio" name="REA" value="2"></td>
+          </tr>
+
+          <tr data-comp="VAL">
+            <td>Valider</td>
+            <td>VAL</td>
+            <td>Vérifier la cohérence des résultats obtenus.</td>
+            <td><input type="radio" name="VAL" value="0"></td>
+            <td><input type="radio" name="VAL" value="1"></td>
+            <td><input type="radio" name="VAL" value="2"></td>
+          </tr>
+
+          <tr data-comp="COM">
+            <td>Communiquer</td>
+            <td>COM</td>
+            <td>Justifier le choix d'une lampe à partir de ses indicateurs d'emballage.</td>
+            <td><input type="radio" name="COM" value="0"></td>
+            <td><input type="radio" name="COM" value="1"></td>
+            <td><input type="radio" name="COM" value="2"></td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+    <div class="radar-actions" style="margin-top:var(--gap-lg);">
+
+      <button id="btn-radar" class="btn btn-primaire">
+        📊 Générer mon radar de compétences
+      </button>
+
+      <div id="radar-resultat" style="margin-top:var(--gap-md);"></div>
+
+    </div>
+
+  </div>
+
+</div>
+
+<!-- ====================================================== -->
+<!-- IMPRESSION COMPTE RENDU                                 -->
+<!-- ====================================================== -->
+
+<div class="section" data-type="impression_tp">
+
+  <div class="section-titre">
+    <div class="picto-section">📒</div>
+    <h2>Impression du compte-rendu</h2>
+    <span class="chevron">▼</span>
+  </div>
+
+  <div class="section-corps">
+
+    <p class="info">
+      À la fin du TP, imprimer votre compte-rendu en PDF.
+      L'envoyer à l'enseignant en pièce jointe par la messagerie de l'ENT.
+    </p>
+
+    <div class="toolbar">
+      <button id="btn-imprimer" class="btn btn-primaire">
+        🖨 Imprimer le compte-rendu
+      </button>
+    </div>
+
+    <div class="info" style="margin-top:var(--gap-md);">
+      L'impression récupère automatiquement :
+      <ul>
+        <li>les associations source/spectre d'émission ;</li>
+        <li>la comparaison d'efficacité énergétique des deux lampes ;</li>
+        <li>les mesures de divergence du faisceau laser ;</li>
+        <li>les résultats du tableau ;</li>
+        <li>les réponses aux questions ;</li>
+        <li>l'auto-évaluation des compétences.</li>
+      </ul>
+    </div>
+
+  </div>
+
+</div>
+
+<!-- ====================================================== -->
+<!-- NAVIGATION                                              -->
+<!-- ====================================================== -->
+
+<div class="nav-tp">
+
+  <button class="btn btn-secondaire" onclick="loadTP('tp04-photocomposants')">
+    ← TP04
+  </button>
+
+  <button class="btn btn-primaire" onclick="loadTP('tp06-lentilles')">
+    TP06 →
+  </button>
+
+</div>
+
+</main>
+
+<!-- ====================================================== -->
+<!-- CONTENEUR IMPRESSION COMPTE RENDU                       -->
+<!-- ====================================================== -->
+
+<div id="cr-print-container" style="display:none;"></div>
+
+</section>
