@@ -5,7 +5,7 @@ const laboratoryEquipment = [
         nom: "Générateur de tension continue (0-30V)",
         description: "Alimentation stabilisée pour circuits électriques",
         lieu: "Salle B27 / étagère A1",
-        categorie: ["Puissance"],
+        categorie: ["Puissance", "Optique"],
         image:"",
         noticeUtilisation: "assets/notice/alimentation_continue.pdf"
     },
@@ -30,7 +30,7 @@ const laboratoryEquipment = [
     {
         domaine: "Électricité",
         nom: "Multimètre numérique",
-        categorie: ["Résistance", "Capacité", "Inductance", "Redox", "Puissance", "Transport", "PuissanceActive", "Conversion", "Stockage"],
+        categorie: ["Résistance", "Capacité", "Inductance", "Redox", "Puissance", "Transport", "PuissanceActive", "Conversion", "Stockage", "Optique"],
         description: "Mesure de tension, courant, résistance",
         lieu: "Salle B27 / étagère A1",
         image:"assets/img/equipments/multimetre.jpg",
@@ -48,7 +48,7 @@ const laboratoryEquipment = [
     {
         domaine: "Électricité",
         nom: "Wattmètre",
-        categorie: ["Puissance", "PuissanceActive"],
+        categorie: ["Puissance", "PuissanceActive", "Optique"],
         description: "Mesure de puissance électrique",
         lieu: "Salle B27 / étagère A1",
         image:"assets/img/equipments/wattmetre.jpg",
@@ -295,6 +295,33 @@ const laboratoryEquipment = [
         nom: "Modèle optique simplifié de l'œil",
         categorie: ["Optique"],
         description: "Maquette (lentille + écran mobile) illustrant la formation d'une image sur la rétine",
+        lieu: "Salle B27 - ***",
+        image:"",
+        noticeUtilisation: ""
+    },
+    {
+        domaine: "Optique",
+        nom: "Lampe LED (culot standard, avec emballage indicateur)",
+        categorie: ["Optique"],
+        description: "Source lumineuse à comparer avec la lampe à incandescence pour l'efficacité énergétique (lumens/W indiqués sur l'emballage)",
+        lieu: "Salle B27 - ***",
+        image:"",
+        noticeUtilisation: ""
+    },
+    {
+        domaine: "Optique",
+        nom: "Lampe à incandescence (culot standard)",
+        categorie: ["Optique"],
+        description: "Source lumineuse de référence à faible efficacité énergétique, pour comparaison avec une lampe LED",
+        lieu: "Salle B27 - ***",
+        image:"",
+        noticeUtilisation: ""
+    },
+    {
+        domaine: "Optique",
+        nom: "Douille et support de lampe",
+        categorie: ["Optique"],
+        description: "Support permettant d'alimenter et de comparer différentes sources lumineuses",
         lieu: "Salle B27 - ***",
         image:"",
         noticeUtilisation: ""
